@@ -1,0 +1,19 @@
+/* This is an automatically generated bindings file. Don't modify it! */
+#if !defined(BOOST_ATOMIC_MAP_START_NAMESPACE) || !defined(BOOST_ATOMIC_MAP_END_NAMESPACE)
+#error You need to define BOOST_ATOMIC_MAP_START_NAMESPACE and BOOST_ATOMIC_MAP_END_NAMESPACE to use this header file
+#endif
+#include <atomic>
+BOOST_ATOMIC_MAP_START_NAMESPACE
+using std::atomic_flag;
+using std::atomic_bool;
+using std::memory_order::memory_order_seq_cst;
+using std::memory_order::memory_order_release;
+using std::memory_order::memory_order_acquire;
+using std::memory_order::memory_order_consume;
+template<class> using std::atomic;
+using std::memory_order::memory_order_relaxed;
+using std::memory_order::memory_order_acq_rel;
+using std::memory_order;
+BOOST_ATOMIC_MAP_END_NAMESPACE
+#undef BOOST_ATOMIC_MAP_START_NAMESPACE
+#undef BOOST_ATOMIC_MAP_END_NAMESPACE
