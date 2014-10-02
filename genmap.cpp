@@ -22,7 +22,8 @@ typedef std::unique_ptr<void, index_ptr_deleter> index_ptr;
 struct tu_ptr_deleter { void operator()(CXTranslationUnit tu) { clang_disposeTranslationUnit(tu); } };
 typedef std::unique_ptr<struct CXTranslationUnitImpl, tu_ptr_deleter> tu_ptr;
 inline std::string to_string(CXString s) { const char *cs=clang_getCString(s); std::string ret(cs); clang_disposeString(s); return ret; }
-inline std::string to_string(CXType s) { return s.kind==1 ? "class" : to_string(clang_getTypeSpelling(s)); }
+inline std::string to_string(CXType s) { return /*s.kind==1 ? "class" :*/ to_string(clang_getTypeSpelling(s)); }
+inline std::string to_identifier(std::string i) { for(size_t n=0; n<i.size(); n++) if(i[n]=='-') i[n]='_'; return i; }
 
 typedef std::string path_t;
 
@@ -78,7 +79,8 @@ template<typename callable> inline UndoerImpl<callable> undoer(callable c)
 
 struct header_map
 {
-  std::unordered_multimap<std::string, std::vector<std::string>> types;
+  std::unordered_map<std::string, std::vector<std::string>> enums; // enum name: values
+  std::unordered_multimap<std::string, std::vector<std::string>> types; // type name: template parameters
 };
 
 struct map_tu_params
@@ -87,8 +89,9 @@ struct map_tu_params
   std::vector<std::regex> items;
   path_t path;
   bool addto;
-  map_tu_params(std::vector<std::regex> _items, path_t _path, bool _addto) : items(std::move(_items)), path(std::move(_path)), addto(_addto) { }
+  map_tu_params(std::vector<std::regex> _items, path_t _path, bool _addto) : items(std::move(_items)), path(std::move(_path)), addto(_addto), scratch(nullptr) { }
   std::vector<std::string> location;
+  void *scratch;
   std::string fullqual(std::string id) const
   {
     std::string ret;
@@ -107,12 +110,21 @@ struct map_tu_params
     for(auto &i : pathupper)
       i=std::toupper(i);
     s << "/* This is an automatically generated bindings file. Don't modify it! */" << std::endl;
-    s << "#if !defined(BOOST_" << pathupper << "_MAP_START_NAMESPACE) || !defined(BOOST_" << pathupper << "_MAP_END_NAMESPACE)" << std::endl;
-    s << "#error You need to define BOOST_" << pathupper << "_MAP_START_NAMESPACE and BOOST_" << pathupper << "_MAP_END_NAMESPACE to use this header file" << std::endl;
+    s << "#if !defined(BOOST_STL11_MAP_START_NAMESPACE) || !defined(BOOST_STL11_MAP_END_NAMESPACE)" << std::endl;
+    s << "#error You need to define BOOST_STL11_MAP_START_NAMESPACE and BOOST_STL11_MAP_END_NAMESPACE to use this header file" << std::endl;
     s << "#endif" << std::endl;
+    s << "#include \"boostmacros.hpp\"\n";
     s << "#include <" << path << ">" << std::endl;
-    s << "BOOST_" << pathupper << "_MAP_START_NAMESPACE" << std::endl;
-    
+    s << "BOOST_STL11_MAP_START_NAMESPACE" << std::endl;
+
+    // Enums before all else   
+    for(auto &i : out.enums)
+    {
+      s << "using " << i.first << ";\n";
+      for(auto &v : i.second)
+        s << "  using " << v << ";\n";
+    }
+    // Map out each type, template aliased where appropriate
     for(auto &i : out.types)
     {
       if(!i.second.empty())
@@ -123,12 +135,19 @@ struct map_tu_params
           s << (first ? (first=false, "") : ", ") << p;
         s << "> ";
       }
-      s << "using " << i.first << ";" << std::endl;
+      s << "using " << &i.first[i.first.rfind("::")+2] << " = " << i.first;
+      if(!i.second.empty())
+      {
+        s << "<";
+        bool first=true;
+        for(auto &p : i.second)
+          s << (first ? (first=false, "") : ", ") << &p[p.rfind(" ")+1];
+        s << ">";
+      }
+      s << ";\n";
     }
     
-    s << "BOOST_" << pathupper << "_MAP_END_NAMESPACE" << std::endl;
-    s << "#undef BOOST_" << pathupper << "_MAP_START_NAMESPACE" << std::endl;
-    s << "#undef BOOST_" << pathupper << "_MAP_END_NAMESPACE" << std::endl;
+    s << "BOOST_STL11_MAP_END_NAMESPACE" << std::endl;
   }
 };
 void map_tu(map_tu_params *p)
@@ -158,6 +177,7 @@ void map_tu(map_tu_params *p)
         {
           clang_visitChildren(cursor, [](CXCursor cursor, CXCursor parent, CXClientData client_data){
             map_tu_params *p=(map_tu_params *) client_data;
+            std::cout << "I see entity " << cursor.kind << " " << p->fullqual(to_string(clang_getCursorDisplayName(cursor))) << std::endl;
             switch(cursor.kind)
             {
               case CXCursor_UnexposedDecl:
@@ -166,7 +186,6 @@ void map_tu(map_tu_params *p)
               case CXCursor_ClassDecl:
               case CXCursor_EnumDecl:
               case CXCursor_ClassTemplate:
-                std::cout << "I see entity " << cursor.kind << " " << p->fullqual(to_string(clang_getCursorDisplayName(cursor))) << std::endl;
                 auto name(to_string(clang_getCursorSpelling(cursor)));
                 auto fullname(p->fullqual(name));
                 for(auto &i : p->items)
@@ -185,11 +204,16 @@ void map_tu(map_tu_params *p)
                           switch(cursor.kind)
                           {
                             case CXCursor_TemplateTypeParameter:
-                            case CXCursor_NonTypeTemplateParameter:
                             case CXCursor_TemplateTemplateParameter:
+                              name=((CXCursor_TemplateTemplateParameter==cursor.kind) ? "template class " : "class ")+to_identifier(name);
                               std::cout << "I see parameter " << cursor.kind << " of type " << clang_getCursorType(cursor).kind << std::endl;
                               params.push_back(name);
-                            break;
+                              break;
+                            case CXCursor_NonTypeTemplateParameter:
+                              std::cout << "I see parameter " << cursor.kind << " of type " << clang_getCursorType(cursor).kind << std::endl;
+                              name.append(" _"+std::to_string(params.size()));
+                              params.push_back(name);
+                              break;
                           }
                           return CXChildVisit_Continue;
                         }, &params);
@@ -212,16 +236,22 @@ void map_tu(map_tu_params *p)
                         break;
                       }
                       case CXCursor_EnumDecl:
-                        p->out.types.insert(std::make_pair(fullname, std::vector<std::string>()));
-                        p->location.push_back(name);
-                        auto unlocation=undoer([&]{ p->location.pop_back(); });
+                        std::cout << "I see enum " << cursor.kind << " of type " << clang_getCursorType(cursor).kind << " " << to_string(clang_getTypeSpelling(clang_getCursorType(cursor))) << std::endl;
+                        break;
+                        auto enumit=p->out.enums.insert(std::make_pair(fullname, std::vector<std::string>())).first;
+                        typedef decltype(enumit) enumit_t;
+                        p->scratch=&enumit;
+                        //p->location.push_back(name);
+                        //auto unlocation=undoer([&]{ p->location.pop_back(); });
                         clang_visitChildren(cursor, [](CXCursor cursor, CXCursor parent, CXClientData client_data){
+                          std::cout << "I see enum item " << cursor.kind << " of type " << to_string(clang_getCursorType(cursor)) << " parent " << to_string(clang_getTypeSpelling(clang_getCursorType(parent))) << std::endl;
                           map_tu_params *p=(map_tu_params *) client_data;
+                          enumit_t &enumit=*(enumit_t *) p->scratch;
                           auto name(p->fullqual(to_string(clang_getCursorSpelling(cursor))));
                           /*switch(cursor.kind)
                           {
                             case CXCursor_EnumDecl:*/
-                              p->out.types.insert(std::make_pair(name, std::vector<std::string>()));
+                              enumit->second.push_back(name);
                           /*  break;
                           }*/
                           return CXChildVisit_Continue;
