@@ -20,6 +20,7 @@ Created: Sept 2014
 #define __STDC_CONSTANT_MACROS 1
 #include "clang-c/Index.h"
 #include "clang/AST/Decl.h"
+#include "clang/AST/DeclTemplate.h"
 
 struct index_ptr_deleter { void operator()(CXIndex i){ clang_disposeIndex(i); } };
 typedef std::unique_ptr<void, index_ptr_deleter> index_ptr;
@@ -92,8 +93,7 @@ struct map_tu_params
   header_map out;
   std::vector<std::regex> items;
   path_t path;
-  bool addto;
-  map_tu_params(std::vector<std::regex> _items, path_t _path, bool _addto) : items(std::move(_items)), path(std::move(_path)), addto(_addto), scratch(nullptr) { }
+  map_tu_params(std::vector<std::regex> _items, path_t _path) : items(std::move(_items)), path(std::move(_path)), scratch(nullptr) { }
   std::vector<std::string> location;
   void *scratch;
   std::string fullqual(std::string id) const
@@ -107,6 +107,66 @@ struct map_tu_params
     if(!ret.empty()) ret.append("::");
     ret.append(id);
     return ret;
+  }
+  std::string leafname(std::string fullname)
+  {
+    std::smatch results;
+    for(auto &i : items)
+    {
+      if(std::regex_match(fullname, results, i))
+      {
+#if 0
+        std::cout << "Matched " << results.size() << " items:";
+        for(auto &m : results)
+          std::cout << " " << m;
+        std::cout << std::endl;
+#endif
+        return results[results.size()-1].str();
+      }
+    }
+    return fullname;
+  }
+  void filter(map_tu_params &o)
+  {
+    std::vector<std::string> enums, types;
+    for(auto &i : out.enums)
+    {
+      std::string l(leafname(i.first));
+      std::cout << "Checking " << l << std::endl;
+      bool found=false;
+      for(auto &m : o.out.enums)
+        if(l==o.leafname(m.first))
+        {
+          found=true;
+          break;
+        }
+      if(!found)
+      {
+        enums.push_back(i.first);
+        std::cout << "Removing " << i.first << " as not in all input headers.\n";
+      }
+    }
+    for(auto &i : enums)
+      out.enums.erase(i);
+    for(auto &i : out.types)
+    {
+      std::string l(leafname(i.first));
+      std::cout << "Checking " << l << std::endl;
+      bool found=false;
+      for(auto &m : o.out.types)
+        if(l==o.leafname(m.first))
+        {
+          found=true;
+          break;
+        }
+      if(!found)
+      {
+        types.push_back(i.first);
+        std::cout << "Removing " << i.first << " as not in all input headers.\n";
+      }
+    }
+    for(auto &i : types)
+      out.types.erase(i);      
   }
   void dump(std::ostream &s)
   {
@@ -139,13 +199,17 @@ struct map_tu_params
           s << (first ? (first=false, "") : ", ") << p;
         s << "> ";
       }
-      s << "using " << &i.first[i.first.rfind("::")+2] << " = " << i.first;
+      s << "using " << leafname(i.first) << " = " << i.first;
       if(!i.second.empty())
       {
         s << "<";
         bool first=true;
         for(auto &p : i.second)
+        {
           s << (first ? (first=false, "") : ", ") << &p[p.rfind(" ")+1];
+          if(p.find("...")!=std::string::npos)
+            s << "...";
+        }
         s << ">";
       }
       s << ";\n";
@@ -165,6 +229,7 @@ void map_tu(map_tu_params *p)
       temph << "#include <" << p->path << ">" << std::endl;
     }
     const char *args[]={ "-x", "c++", "-std=c++11" };
+    //const char *args[]={ "-x", "c++", "-std=c++11", "-nostdinc++", "-I/usr/include/c++/4.8", "-I/usr/include/x86_64-linux-gnu/c++/4.8" };
     tu=tu_ptr(clang_createTranslationUnitFromSourceFile(index.get(), "__temp.cpp", sizeof(args)/sizeof(args[0]), args, 0, nullptr));
   }
   clang_visitChildren(clang_getTranslationUnitCursor(tu.get()), [](CXCursor cursor, CXCursor parent, CXClientData client_data){
@@ -204,19 +269,30 @@ void map_tu(map_tu_params *p)
                       case CXCursor_ClassTemplate:
                         clang_visitChildren(cursor, [](CXCursor cursor, CXCursor parent, CXClientData client_data){
                           std::vector<std::string> &params=*(std::vector<std::string> *) client_data;
-                          auto name(to_string(clang_getCursorType(cursor)));
+                          CXType type=clang_getCursorType(cursor);
+                          auto name(to_string(type));
+                          CXCursor param_decl=clang_getTypeDeclaration(type);
                           switch(cursor.kind)
                           {
-                            case CXCursor_TemplateTypeParameter:
                             case CXCursor_TemplateTemplateParameter:
-                              name=((CXCursor_TemplateTemplateParameter==cursor.kind) ? "template class " : "class ")+to_identifier(name);
-                              std::cout << "I see parameter " << cursor.kind << " of type " << clang_getCursorType(cursor).kind << std::endl;
+                            case CXCursor_TemplateTypeParameter:
+                            {
+                              bool isPack=false;
+                              std::string prefix("class");
+                              if(isPack)
+                                prefix.append("...");
+                              name=prefix+" "+to_identifier(name);
+                              std::cout << "I see parameter " << cursor.kind << " of type " << type.kind << " param_decl.kind=" << param_decl.kind << std::endl;
                               params.push_back(name);
                               break;
+                            }
                             case CXCursor_NonTypeTemplateParameter:
-                              std::cout << "I see parameter " << cursor.kind << " of type " << clang_getCursorType(cursor).kind << std::endl;
+                              std::cout << "I see parameter " << cursor.kind << " of type " << type.kind << std::endl;
                               name.append(" _"+std::to_string(params.size()));
                               params.push_back(name);
+                              break;
+                            default:
+                              std::cout << "I see unknown parameter " << cursor.kind << " of type " << type.kind << std::endl;
                               break;
                           }
                           return CXChildVisit_Continue;
@@ -307,10 +383,9 @@ void map_tu(map_tu_params *p)
 
 int main(int argc, char *argv[])
 {
-  std::vector<std::regex> items;
-  path_t outpath, inpathdest;
-  std::vector<path_t> inpathsrc;
-  if(argc<4)
+  path_t outpath;
+  std::vector<std::pair<std::vector<std::regex>, path_t>> inpaths;
+  if(argc<4 || (argc&1)!=0)
   {
 #if 0
     outpath="atomic_map.hpp";
@@ -318,29 +393,42 @@ int main(int argc, char *argv[])
     inpathdest="atomic";
     //inpathsrc.push_back();
 #else
-    std::cerr << "Usage: " << argv[0] << " <output> <comma separated list of regexs e.g. std::[^_].*>, <dest header file (can be a system header)> [<src header file>]..." << std::endl;
+    std::cerr << "Usage: " << argv[0] << " <output> <comma separated list of regexs e.g. std::[^_].*>, <dest header file (can be a system header)> [<comma separated list of regexs> <src header file>]..." << std::endl;
     return 1;
 #endif
   }
   else
   {
     outpath=argv[1];
-    inpathdest=argv[3];
-    std::cout << "Mapping from header " << inpathdest << " these items:" << std::endl;
-    // TODO replace this with regex matching
-    for(const char *end=std::strchr(argv[2], 0), *comma=argv[2]-1, *nextcomma;
-        nextcomma=comma ? std::strchr(comma+1, ',') : nullptr, comma;
-        comma=nextcomma)
+    auto parse_regex=[](const char *argv){
+      // TODO replace this with regex matching
+      std::vector<std::regex> items;
+      for(const char *end=std::strchr(argv, 0), *comma=argv-1, *nextcomma;
+          nextcomma=comma ? std::strchr(comma+1, ',') : nullptr, comma;
+          comma=nextcomma)
+      {
+        const char *thisend=nextcomma ? nextcomma : end;
+        std::cout << "  " << std::string(comma+1, thisend-comma-1) << std::endl;
+        items.push_back(std::regex(comma+1, thisend-comma-1));
+      }
+      return items;
+    };
+    for(int n=2; n<argc; n+=2)
     {
-      const char *thisend=nextcomma ? nextcomma : end;
-      std::cout << "  " << std::string(comma+1, thisend-comma-1) << std::endl;
-      items.push_back(std::regex(comma+1, thisend-comma-1));
+      std::cout << "Mapping from header " << argv[n+1] << " these items:" << std::endl;
+      inpaths.push_back(std::make_pair(parse_regex(argv[n]), argv[n+1]));
     }
-    for(int n=4; n<argc; n++)
-      inpathsrc.push_back(argv[n]);
   }
-  map_tu_params tu_p(items, inpathdest, true);
+  // Add the contents of the first header
+  map_tu_params tu_p(inpaths[0].first, inpaths[0].second);
   map_tu(&tu_p);
+  // Subtract anything not in the contents of any further headers
+  for(size_t n=1; n<inpaths.size(); n++)
+  {
+    map_tu_params tu2_p(inpaths[n].first, inpaths[n].second);
+    map_tu(&tu2_p);
+    tu_p.filter(tu2_p);
+  }
   {
     std::ofstream o(outpath);
     tu_p.dump(o);

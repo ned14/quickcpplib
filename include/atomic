@@ -12,7 +12,6 @@ using std::memory_order;
   using std::memory_order_release;
   using std::memory_order_acq_rel;
   using std::memory_order_seq_cst;
-using atomic_bool = std::atomic_bool;
 using atomic_flag = std::atomic_flag;
 template<class _Tp> using atomic = std::atomic<_Tp>;
 BOOST_STL11_MAP_END_NAMESPACE
