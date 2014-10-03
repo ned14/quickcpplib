@@ -16,7 +16,11 @@ Created: Sept 2014
 #include <locale>
 #include <regex>
 
+#define __STDC_LIMIT_MACROS 1
+#define __STDC_CONSTANT_MACROS 1
 #include "clang-c/Index.h"
+#include "clang/AST/Decl.h"
+
 struct index_ptr_deleter { void operator()(CXIndex i){ clang_disposeIndex(i); } };
 typedef std::unique_ptr<void, index_ptr_deleter> index_ptr;
 struct tu_ptr_deleter { void operator()(CXTranslationUnit tu) { clang_disposeTranslationUnit(tu); } };
@@ -236,9 +240,39 @@ void map_tu(map_tu_params *p)
                         break;
                       }
                       case CXCursor_EnumDecl:
-                        std::cout << "I see enum " << cursor.kind << " of type " << clang_getCursorType(cursor).kind << " " << to_string(clang_getTypeSpelling(clang_getCursorType(cursor))) << std::endl;
-                        break;
+                        /* libclang won't tell us whether this is a scoped enum or not, so ...
+                         * A CXCursor contains a kind, an int xdata member, and a void *data[3]
+                         * data[3] = { const clang::Decl *Parent, const clang::Stmt *S, CXTranslationUnit TU };
+                         * 
+                         * This function is implemented like this:
+                         *  CXType clang_getEnumDeclIntegerType(CXCursor C) {
+                         *    using namespace cxcursor;
+                         *    CXTranslationUnit TU = cxcursor::getCursorTU(C);
+                         *    if (clang_isDeclaration(C.kind)) {
+                         *      const Decl *D = static_cast<const Decl *>(C.data[0]);
+                         *      if (const EnumDecl *TD = dyn_cast_or_null<EnumDecl>(D)) {
+                         *        QualType T = TD->getIntegerType();
+                         *        return MakeCXType(T, TU);
+                         *      }
+                         *      return MakeCXType(QualType(), TU);
+                         *    }
+                         *    return MakeCXType(QualType(), TU);
+                         *  }
+                         */
+                        bool isScoped=false;
+                        {
+                          using namespace clang;
+                          const Decl *D = static_cast<const Decl *>(cursor.data[0]);
+                          if(const EnumDecl *TD = dyn_cast_or_null<EnumDecl>(D))
+                          {
+                            isScoped=TD->isScoped();
+                          }
+                        }
+                        std::cout << "I see enum " << cursor.kind << " of type " << clang_getCursorType(cursor).kind << " isScoped=" << isScoped << std::endl;
                         auto enumit=p->out.enums.insert(std::make_pair(fullname, std::vector<std::string>())).first;
+                        // If scoped we don't need to duplicate binds into the surrounding namespace
+                        if(isScoped)
+                          break;
                         typedef decltype(enumit) enumit_t;
                         p->scratch=&enumit;
                         //p->location.push_back(name);
