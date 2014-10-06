@@ -8,14 +8,14 @@ a sequence of template alias, using, and typedefs in the local namespace.
 
 Usage looks like this:
 
-    ./genmap include/thread STL11_MAP_ "std::([^_].*)" thread
+    ./genmap include/thread STL11_MAP_ "std::([^_][^:]*)" thread
 
-This would grok through everything declared into namespace std by doing
-`#include <thread>` not prefixed with an underscore and generate a set of bindings into include/thread.
+This would grok through everything declared into namespace std by doing `#include <thread>` not prefixed with an
+underscore and not inside another namespace or scope and generate a set of bindings into include/thread.
 
 In case that outputs too much to be portable, you can reduce to a least common subset too:
 
-    ./genmap include/mutex STL11_MAP_ "std::([^_].*)" mutex "boost::([^_].*)" boost/thread.hpp
+    ./genmap include/mutex STL11_MAP_ "std::([^_][^:]*)" mutex "boost::([^_][^:]*)" boost/thread.hpp
 
 This takes all items common to both `#include <mutex>` and `#include <boost/thread.hpp>` and generates
 bindings just for those. If one regular expression isn't enough, you can separate multiple regexs with commas.

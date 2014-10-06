@@ -4,20 +4,6 @@
 #endif
 #include <regex>
 BOOST_STL11_MAP_BEGIN_NAMESPACE
-using std::regex_constants::error_type;
-  using std::regex_constants::_S_error_collate;
-  using std::regex_constants::_S_error_ctype;
-  using std::regex_constants::_S_error_escape;
-  using std::regex_constants::_S_error_backref;
-  using std::regex_constants::_S_error_brack;
-  using std::regex_constants::_S_error_paren;
-  using std::regex_constants::_S_error_brace;
-  using std::regex_constants::_S_error_badbrace;
-  using std::regex_constants::_S_error_range;
-  using std::regex_constants::_S_error_space;
-  using std::regex_constants::_S_error_badrepeat;
-  using std::regex_constants::_S_error_complexity;
-  using std::regex_constants::_S_error_stack;
 template<class _Bi_iter, class _Ch_type, class _Rx_traits> using regex_iterator = std::regex_iterator<_Bi_iter, _Ch_type, _Rx_traits>;
 template<class _Ch_type> using regex_traits = std::regex_traits<_Ch_type>;
 template<class _Bi_iter, class _Alloc> using match_results = std::match_results<_Bi_iter, _Alloc>;
