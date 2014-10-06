@@ -25,9 +25,13 @@ To then include those local namespace bindings into let's say namespace `boost::
     #define STL11_MAP_BEGIN_NAMESPACE namespace boost { namespace spinlock { inline namespace stl11 {
     #define STL11_MAP_END_NAMESPACE } } }
     #include "local-bind-cpp-library/include/stl11/atomic"
-    #include "local-bind-cpp-library/include/stl11/chrono"
     #include "local-bind-cpp-library/include/stl11/mutex"
     #include "local-bind-cpp-library/include/stl11/thread"
+    #undef STL11_MAP_BEGIN_NAMESPACE
+    #undef STL11_MAP_END_NAMESPACE
+    #define STL11_MAP_BEGIN_NAMESPACE namespace boost { namespace spinlock { inline namespace stl11 { namespace chrono {
+    #define STL11_MAP_END_NAMESPACE } } } }
+    #include "local-bind-cpp-library/include/stl11/chrono"
     #undef STL11_MAP_BEGIN_NAMESPACE
     #undef STL11_MAP_END_NAMESPACE
     

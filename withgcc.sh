@@ -2,7 +2,7 @@ rm -rf genmap
 clang++ -o genmap genmap.cpp -g -O3 -std=c++11 -I/usr/lib/llvm-3.4/include /usr/lib/llvm-3.4/lib/libclang.so
 ./genmap include/stl11/atomic BOOST_STL11_MAP_ "std::([^_].*)" atomic "boost::([^_].*)" boost/atomic.hpp
 ./genmap include/stl11/array BOOST_STL11_MAP_ "std::([^_].*)" array "boost::([^_].*)" boost/array.hpp
-./genmap include/stl11/chrono BOOST_STL11_MAP_ "std::([^_].*)" chrono "boost::([^_].*)" boost/chrono.hpp
+./genmap include/stl11/chrono BOOST_STL11_MAP_ "std::chrono::([^_].*)" chrono "boost::chrono::([^_].*)" boost/chrono.hpp
 ./genmap include/stl11/condition_variable BOOST_STL11_MAP_ "std::([^_].*)" condition_variable "boost::([^_].*)" boost/thread.hpp
 ./genmap include/stl11/filesystem BOOST_STL11_MAP_ "boost::filesystem::([^_].*)" boost/filesystem.hpp
 ./genmap include/stl11/functional BOOST_STL11_MAP_ "std::([^_].*)" functional "boost::([^_].*)" boost/bind.hpp
