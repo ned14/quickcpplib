@@ -1,10 +1,9 @@
 /* This is an automatically generated bindings file. Don't modify it! */
-#if !defined(BOOST_STL11_MAP_START_NAMESPACE) || !defined(BOOST_STL11_MAP_END_NAMESPACE)
-#error You need to define BOOST_STL11_MAP_START_NAMESPACE and BOOST_STL11_MAP_END_NAMESPACE to use this header file
+#if !defined(BOOST_STL11_MAP_BEGIN_NAMESPACE) || !defined(BOOST_STL11_MAP_END_NAMESPACE)
+#error You need to define BOOST_STL11_MAP_BEGIN_NAMESPACE and BOOST_STL11_MAP_END_NAMESPACE to use this header file
 #endif
-#include "boostmacros.hpp"
 #include <atomic>
-BOOST_STL11_MAP_START_NAMESPACE
+BOOST_STL11_MAP_BEGIN_NAMESPACE
 using std::memory_order;
   using std::memory_order_relaxed;
   using std::memory_order_consume;

@@ -1,0 +1,57 @@
+/* This is an automatically generated bindings file. Don't modify it! */
+#if !defined(BOOST_STL11_MAP_BEGIN_NAMESPACE) || !defined(BOOST_STL11_MAP_END_NAMESPACE)
+#error You need to define BOOST_STL11_MAP_BEGIN_NAMESPACE and BOOST_STL11_MAP_END_NAMESPACE to use this header file
+#endif
+#include <boost/filesystem.hpp>
+BOOST_STL11_MAP_BEGIN_NAMESPACE
+using boost::filesystem::symlink_option;
+using boost::filesystem::copy_option;
+using boost::filesystem::perms;
+  using boost::filesystem::no_perms;
+  using boost::filesystem::owner_read;
+  using boost::filesystem::owner_write;
+  using boost::filesystem::owner_exe;
+  using boost::filesystem::owner_all;
+  using boost::filesystem::group_read;
+  using boost::filesystem::group_write;
+  using boost::filesystem::group_exe;
+  using boost::filesystem::group_all;
+  using boost::filesystem::others_read;
+  using boost::filesystem::others_write;
+  using boost::filesystem::others_exe;
+  using boost::filesystem::others_all;
+  using boost::filesystem::all_all;
+  using boost::filesystem::set_uid_on_exe;
+  using boost::filesystem::set_gid_on_exe;
+  using boost::filesystem::sticky_bit;
+  using boost::filesystem::perms_mask;
+  using boost::filesystem::perms_not_known;
+  using boost::filesystem::add_perms;
+  using boost::filesystem::remove_perms;
+  using boost::filesystem::symlink_perms;
+using boost::filesystem::file_type;
+  using boost::filesystem::status_error;
+  using boost::filesystem::status_unknown;
+  using boost::filesystem::file_not_found;
+  using boost::filesystem::regular_file;
+  using boost::filesystem::directory_file;
+  using boost::filesystem::symlink_file;
+  using boost::filesystem::block_file;
+  using boost::filesystem::character_file;
+  using boost::filesystem::fifo_file;
+  using boost::filesystem::socket_file;
+  using boost::filesystem::reparse_file;
+  using boost::filesystem::type_unknown;
+  using boost::filesystem::_detail_directory_symlink;
+using filesystem_error = boost::filesystem::filesystem_error;
+using directory_entry = boost::filesystem::directory_entry;
+using iterator = boost::filesystem::iterator;
+using directory_iterator = boost::filesystem::directory_iterator;
+template<class T> using path_traits::is_pathable = boost::filesystem::path_traits::is_pathable<T>;
+using path = boost::filesystem::path;
+using file_status = boost::filesystem::file_status;
+using space_info = boost::filesystem::space_info;
+using detail::dir_itr_imp = boost::filesystem::detail::dir_itr_imp;
+using detail::recur_dir_itr_imp = boost::filesystem::detail::recur_dir_itr_imp;
+using recursive_directory_iterator = boost::filesystem::recursive_directory_iterator;
+BOOST_STL11_MAP_END_NAMESPACE

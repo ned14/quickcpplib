@@ -1,0 +1,34 @@
+/* This is an automatically generated bindings file. Don't modify it! */
+#if !defined(BOOST_STL11_MAP_BEGIN_NAMESPACE) || !defined(BOOST_STL11_MAP_END_NAMESPACE)
+#error You need to define BOOST_STL11_MAP_BEGIN_NAMESPACE and BOOST_STL11_MAP_END_NAMESPACE to use this header file
+#endif
+#include <random>
+BOOST_STL11_MAP_BEGIN_NAMESPACE
+template<class _RealType> using piecewise_constant_distribution = std::piecewise_constant_distribution<_RealType>;
+template<class _RealType> using extreme_value_distribution = std::extreme_value_distribution<_RealType>;
+template<class _RealType> using weibull_distribution = std::weibull_distribution<_RealType>;
+template<class _IntType> using poisson_distribution = std::poisson_distribution<_IntType>;
+template<class _IntType> using negative_binomial_distribution = std::negative_binomial_distribution<_IntType>;
+template<class _IntType> using geometric_distribution = std::geometric_distribution<_IntType>;
+template<class _RealType> using student_t_distribution = std::student_t_distribution<_RealType>;
+template<class _RealType> using fisher_f_distribution = std::fisher_f_distribution<_RealType>;
+template<class _RealType> using cauchy_distribution = std::cauchy_distribution<_RealType>;
+template<class _RealType> using chi_squared_distribution = std::chi_squared_distribution<_RealType>;
+template<class _RealType> using gamma_distribution = std::gamma_distribution<_RealType>;
+template<class _RealType> using normal_distribution = std::normal_distribution<_RealType>;
+template<class _RealType> using uniform_real_distribution = std::uniform_real_distribution<_RealType>;
+template<class _RandomNumberEngine, size_t _1> using shuffle_order_engine = std::shuffle_order_engine<_RandomNumberEngine, _1>;
+template<class _IntType> using binomial_distribution = std::binomial_distribution<_IntType>;
+template<class _RealType> using exponential_distribution = std::exponential_distribution<_RealType>;
+template<class _IntType> using discrete_distribution = std::discrete_distribution<_IntType>;
+template<class _IntType> using uniform_int_distribution = std::uniform_int_distribution<_IntType>;
+template<class _UIntType, size_t _1, size_t _2, size_t _3, size_t _4, _UIntType _5, size_t _6, _UIntType _7, size_t _8, _UIntType _9, size_t _10, _UIntType _11, size_t _12, _UIntType _13> using mersenne_twister_engine = std::mersenne_twister_engine<_UIntType, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13>;
+using seed_seq = std::seed_seq;
+using bernoulli_distribution = std::bernoulli_distribution;
+template<class _RealType> using lognormal_distribution = std::lognormal_distribution<_RealType>;
+template<class _RealType> using piecewise_linear_distribution = std::piecewise_linear_distribution<_RealType>;
+template<class _RandomNumberEngine, size_t _1, class _UIntType> using independent_bits_engine = std::independent_bits_engine<_RandomNumberEngine, _1, _UIntType>;
+template<class _RandomNumberEngine, size_t _1, size_t _2> using discard_block_engine = std::discard_block_engine<_RandomNumberEngine, _1, _2>;
+template<class _UIntType, _UIntType _1, _UIntType _2, _UIntType _3> using linear_congruential_engine = std::linear_congruential_engine<_UIntType, _1, _2, _3>;
+template<class _UIntType, size_t _1, size_t _2, size_t _3> using subtract_with_carry_engine = std::subtract_with_carry_engine<_UIntType, _1, _2, _3>;
+BOOST_STL11_MAP_END_NAMESPACE

@@ -1,10 +1,13 @@
 /* This is an automatically generated bindings file. Don't modify it! */
-#if !defined(BOOST_STL11_MAP_START_NAMESPACE) || !defined(BOOST_STL11_MAP_END_NAMESPACE)
-#error You need to define BOOST_STL11_MAP_START_NAMESPACE and BOOST_STL11_MAP_END_NAMESPACE to use this header file
+#if !defined(BOOST_STL11_MAP_BEGIN_NAMESPACE) || !defined(BOOST_STL11_MAP_END_NAMESPACE)
+#error You need to define BOOST_STL11_MAP_BEGIN_NAMESPACE and BOOST_STL11_MAP_END_NAMESPACE to use this header file
 #endif
-#include "boostmacros.hpp"
 #include <chrono>
-BOOST_STL11_MAP_START_NAMESPACE
+BOOST_STL11_MAP_BEGIN_NAMESPACE
+template<class _Rep> using chrono::duration_values = std::chrono::duration_values<_Rep>;
+template<class _Rep> using chrono::treat_as_floating_point = std::chrono::treat_as_floating_point<_Rep>;
+template<class _Clock, class _Dur> using chrono::time_point = std::chrono::time_point<_Clock, _Dur>;
+template<class _Rep, class _Period> using chrono::duration = std::chrono::duration<_Rep, _Period>;
 template<class _R1, class _R2> using ratio_greater_equal = std::ratio_greater_equal<_R1, _R2>;
 template<class _Tp> using remove_reference = std::remove_reference<_Tp>;
 template<class type_parameter_0_0> using remove_reference = std::remove_reference<type_parameter_0_0>;

@@ -1,0 +1,56 @@
+/* This is an automatically generated bindings file. Don't modify it! */
+#if !defined(BOOST_STL11_MAP_BEGIN_NAMESPACE) || !defined(BOOST_STL11_MAP_END_NAMESPACE)
+#error You need to define BOOST_STL11_MAP_BEGIN_NAMESPACE and BOOST_STL11_MAP_END_NAMESPACE to use this header file
+#endif
+#include <regex>
+BOOST_STL11_MAP_BEGIN_NAMESPACE
+using std::regex_constants::error_type;
+  using std::regex_constants::_S_error_collate;
+  using std::regex_constants::_S_error_ctype;
+  using std::regex_constants::_S_error_escape;
+  using std::regex_constants::_S_error_backref;
+  using std::regex_constants::_S_error_brack;
+  using std::regex_constants::_S_error_paren;
+  using std::regex_constants::_S_error_brace;
+  using std::regex_constants::_S_error_badbrace;
+  using std::regex_constants::_S_error_range;
+  using std::regex_constants::_S_error_space;
+  using std::regex_constants::_S_error_badrepeat;
+  using std::regex_constants::_S_error_complexity;
+  using std::regex_constants::_S_error_stack;
+template<class _Bi_iter, class _Ch_type, class _Rx_traits> using regex_iterator = std::regex_iterator<_Bi_iter, _Ch_type, _Rx_traits>;
+template<class _Ch_type> using regex_traits = std::regex_traits<_Ch_type>;
+template<class _Bi_iter, class _Alloc> using match_results = std::match_results<_Bi_iter, _Alloc>;
+template<class type_parameter_0_0, class type_parameter_0_1> using match_results = std::match_results<type_parameter_0_0, type_parameter_0_1>;
+template<class _Ch_type, class _Rx_traits> using basic_regex = std::basic_regex<_Ch_type, _Rx_traits>;
+template<class type_parameter_0_0, class type_parameter_0_1> using basic_regex = std::basic_regex<type_parameter_0_0, type_parameter_0_1>;
+using regex_error = std::regex_error;
+template<class _Bi_iter, class _Ch_type, class _Rx_traits> using regex_token_iterator = std::regex_token_iterator<_Bi_iter, _Ch_type, _Rx_traits>;
+template<class _Tp> using weak_ptr = std::weak_ptr<_Tp>;
+template<class _Tp> using shared_ptr = std::shared_ptr<_Tp>;
+using bad_weak_ptr = std::bad_weak_ptr;
+template<class _Tp> using reference_wrapper = std::reference_wrapper<_Tp>;
+template<bool _0, class _Tp> using enable_if = std::enable_if<_0, _Tp>;
+template<class type_parameter_0_0> using is_function = std::is_function<type_parameter_0_0>;
+template<class _Tp> using enable_shared_from_this = std::enable_shared_from_this<_Tp>;
+template<class _From, class _To> using is_convertible = std::is_convertible<_From, _To>;
+template<class type_parameter_0_0> using is_volatile = std::is_volatile<type_parameter_0_0>;
+template<class _Tp> using is_enum = std::is_enum<_Tp>;
+template<class _Tp> using is_member_function_pointer = std::is_member_function_pointer<_Tp>;
+template<class _Tp, _Tp _1> using integral_constant = std::integral_constant<_Tp, _1>;
+template<class _Tp> using is_pointer = std::is_pointer<_Tp>;
+template<class _Tp> using remove_cv = std::remove_cv<_Tp>;
+template<class type_parameter_0_0> using remove_cv = std::remove_cv<type_parameter_0_0>;
+template<class _Tp> using is_abstract = std::is_abstract<_Tp>;
+template<class type_parameter_0_0, class type_parameter_0_1> using is_same = std::is_same<type_parameter_0_0, type_parameter_0_1>;
+template<class type_parameter_0_0> using is_lvalue_reference = std::is_lvalue_reference<type_parameter_0_0>;
+template<class _Tp> using is_reference = std::is_reference<_Tp>;
+template<class _Tp> using remove_pointer = std::remove_pointer<_Tp>;
+template<class _Tp> using is_class = std::is_class<_Tp>;
+template<class _Tp> using is_integral = std::is_integral<_Tp>;
+template<class type_parameter_0_0> using is_rvalue_reference = std::is_rvalue_reference<type_parameter_0_0>;
+template<class _Tp> using is_member_pointer = std::is_member_pointer<_Tp>;
+template<class type_parameter_0_0> using is_member_pointer = std::is_member_pointer<type_parameter_0_0>;
+template<class _BiIter> using sub_match = std::sub_match<_BiIter>;
+template<class _Tp> using hash = std::hash<_Tp>;
+BOOST_STL11_MAP_END_NAMESPACE

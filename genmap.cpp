@@ -168,18 +168,18 @@ struct map_tu_params
     for(auto &i : types)
       out.types.erase(i);      
   }
-  void dump(std::ostream &s)
+  void dump(std::ostream &s, std::string macro_prefix)
   {
     std::string pathupper(path);
     for(auto &i : pathupper)
       i=std::toupper(i);
     s << "/* This is an automatically generated bindings file. Don't modify it! */" << std::endl;
-    s << "#if !defined(BOOST_STL11_MAP_START_NAMESPACE) || !defined(BOOST_STL11_MAP_END_NAMESPACE)" << std::endl;
-    s << "#error You need to define BOOST_STL11_MAP_START_NAMESPACE and BOOST_STL11_MAP_END_NAMESPACE to use this header file" << std::endl;
+    s << "#if !defined(" << macro_prefix << "BEGIN_NAMESPACE) || !defined(" << macro_prefix << "END_NAMESPACE)" << std::endl;
+    s << "#error You need to define " << macro_prefix << "BEGIN_NAMESPACE and " << macro_prefix << "END_NAMESPACE to use this header file" << std::endl;
     s << "#endif" << std::endl;
-    s << "#include \"boostmacros.hpp\"\n";
+//    s << "#include \"boostmacros.hpp\"\n";
     s << "#include <" << path << ">" << std::endl;
-    s << "BOOST_STL11_MAP_START_NAMESPACE" << std::endl;
+    s << macro_prefix << "BEGIN_NAMESPACE" << std::endl;
 
     // Enums before all else   
     for(auto &i : out.enums)
@@ -215,9 +215,165 @@ struct map_tu_params
       s << ";\n";
     }
     
-    s << "BOOST_STL11_MAP_END_NAMESPACE" << std::endl;
+    s << macro_prefix << "END_NAMESPACE" << std::endl;
   }
 };
+static void parse_namespace(CXCursor cursor, map_tu_params *p)
+{
+  //std::cout << "I see namespace " << p->fullqual(to_string(clang_getCursorDisplayName(cursor))) << std::endl;
+  auto name(to_string(clang_getCursorSpelling(cursor)));
+  p->location.push_back(name);
+  auto unlocation=undoer([p]{p->location.pop_back();});
+  for(auto &i : p->items)
+  {
+    clang_visitChildren(cursor, [](CXCursor cursor, CXCursor parent, CXClientData client_data){
+      map_tu_params *p=(map_tu_params *) client_data;
+      std::cout << "I see entity " << cursor.kind << " " << p->fullqual(to_string(clang_getCursorDisplayName(cursor))) << std::endl;
+      switch(cursor.kind)
+      {
+        case CXCursor_Namespace:
+          // Recurse
+          parse_namespace(cursor, p);
+          break;
+        case CXCursor_UnexposedDecl:
+        case CXCursor_StructDecl:
+        case CXCursor_UnionDecl:
+        case CXCursor_ClassDecl:
+        case CXCursor_EnumDecl:
+        case CXCursor_ClassTemplate:
+          auto name(to_string(clang_getCursorSpelling(cursor)));
+          auto fullname(p->fullqual(name));
+          for(auto &i : p->items)
+            if(std::regex_match(fullname, i))
+            {
+              // This matches
+              std::vector<std::string> params;
+              switch(cursor.kind)
+              {
+                case CXCursor_UnionDecl:
+                  break;
+                case CXCursor_ClassTemplate:
+                  clang_visitChildren(cursor, [](CXCursor cursor, CXCursor parent, CXClientData client_data){
+                    std::vector<std::string> &params=*(std::vector<std::string> *) client_data;
+                    CXType type=clang_getCursorType(cursor);
+                    auto name(to_string(type));
+                    CXCursor param_decl=clang_getTypeDeclaration(type);
+                    switch(cursor.kind)
+                    {
+                      case CXCursor_TemplateTemplateParameter:
+                      case CXCursor_TemplateTypeParameter:
+                      {
+                        /* libclang also seems incapable of telling us whether a type is a variadic
+                          * pack, so once again drop into the C++ API ...
+                          * type[2]= { QualType_as_opaque_ptr, TU };
+                          */
+                        bool isPack=false;
+                        {
+                          using namespace clang;
+                          QualType T = QualType::getFromOpaquePtr(type.data[0]);
+                          if (!T.isNull())
+                          {
+                            isPack=T->containsUnexpandedParameterPack();
+                          }
+                        }
+                        std::string prefix("class");
+                        if(isPack)
+                          prefix.append("...");
+                        name=prefix+" "+to_identifier(name);
+                        std::cout << "I see parameter " << cursor.kind << " of type " << type.kind << " param_decl.kind=" << param_decl.kind << std::endl;
+                        params.push_back(name);
+                        break;
+                      }
+                      case CXCursor_NonTypeTemplateParameter:
+                        std::cout << "I see parameter " << cursor.kind << " of type " << type.kind << std::endl;
+                        name.append(" _"+std::to_string(params.size()));
+                        params.push_back(name);
+                        break;
+                      default:
+                        std::cout << "I see unknown parameter " << cursor.kind << " of type " << type.kind << std::endl;
+                        break;
+                    }
+                    return CXChildVisit_Continue;
+                  }, &params);
+                  // fall through
+                case CXCursor_StructDecl:
+                case CXCursor_ClassDecl:
+                {
+                  auto it=p->out.types.equal_range(fullname);
+                  // If he's already in there as a template type, and I am not template, skip
+                  if(it.first!=p->out.types.end() && !it.first->second.empty() && params.empty())
+                    break;
+                  bool done=false;
+                  for(auto n=it.first; n!=it.second; ++n)
+                    if(n->second==params)
+                    {
+                      done=true;
+                      break;
+                    }
+                  if(!done) p->out.types.insert(std::make_pair(fullname, params));
+                  break;
+                }
+                case CXCursor_EnumDecl:
+                  /* libclang won't tell us whether this is a scoped enum or not, so ...
+                    * A CXCursor contains a kind, an int xdata member, and a void *data[3]
+                    * data[3] = { const clang::Decl *Parent, const clang::Stmt *S, CXTranslationUnit TU };
+                    * 
+                    * This function is implemented like this:
+                    *  CXType clang_getEnumDeclIntegerType(CXCursor C) {
+                    *    using namespace cxcursor;
+                    *    CXTranslationUnit TU = cxcursor::getCursorTU(C);
+                    *    if (clang_isDeclaration(C.kind)) {
+                    *      const Decl *D = static_cast<const Decl *>(C.data[0]);
+                    *      if (const EnumDecl *TD = dyn_cast_or_null<EnumDecl>(D)) {
+                    *        QualType T = TD->getIntegerType();
+                    *        return MakeCXType(T, TU);
+                    *      }
+                    *      return MakeCXType(QualType(), TU);
+                    *    }
+                    *    return MakeCXType(QualType(), TU);
+                    *  }
+                    */
+                  bool isScoped=false;
+                  {
+                    using namespace clang;
+                    const Decl *D = static_cast<const Decl *>(cursor.data[0]);
+                    if(const EnumDecl *TD = dyn_cast_or_null<EnumDecl>(D))
+                    {
+                      isScoped=TD->isScoped();
+                    }
+                  }
+                  std::cout << "I see enum " << cursor.kind << " of type " << clang_getCursorType(cursor).kind << " isScoped=" << isScoped << std::endl;
+                  auto enumit=p->out.enums.insert(std::make_pair(fullname, std::vector<std::string>())).first;
+                  // If scoped we don't need to duplicate binds into the surrounding namespace
+                  if(isScoped)
+                    break;
+                  typedef decltype(enumit) enumit_t;
+                  p->scratch=&enumit;
+                  //p->location.push_back(name);
+                  //auto unlocation=undoer([&]{ p->location.pop_back(); });
+                  clang_visitChildren(cursor, [](CXCursor cursor, CXCursor parent, CXClientData client_data){
+                    std::cout << "I see enum item " << cursor.kind << " of type " << to_string(clang_getCursorType(cursor)) << " parent " << to_string(clang_getTypeSpelling(clang_getCursorType(parent))) << std::endl;
+                    map_tu_params *p=(map_tu_params *) client_data;
+                    enumit_t &enumit=*(enumit_t *) p->scratch;
+                    auto name(p->fullqual(to_string(clang_getCursorSpelling(cursor))));
+                    /*switch(cursor.kind)
+                    {
+                      case CXCursor_EnumDecl:*/
+                        enumit->second.push_back(name);
+                    /*  break;
+                    }*/
+                    return CXChildVisit_Continue;
+                  }, p);
+                  break;
+              };
+              break;
+            }
+          break;
+      }
+      return CXChildVisit_Continue;
+    }, p);
+  }
+}
 void map_tu(map_tu_params *p)
 {
   index_ptr index(clang_createIndex(1,1));
@@ -231,173 +387,24 @@ void map_tu(map_tu_params *p)
     const char *args[]={ "-x", "c++", "-std=c++11" };
     //const char *args[]={ "-x", "c++", "-std=c++11", "-nostdinc++", "-I/usr/include/c++/4.8", "-I/usr/include/x86_64-linux-gnu/c++/4.8" };
     tu=tu_ptr(clang_createTranslationUnitFromSourceFile(index.get(), "__temp.cpp", sizeof(args)/sizeof(args[0]), args, 0, nullptr));
+    clang_visitChildren(clang_getTranslationUnitCursor(tu.get()), [](CXCursor cursor, CXCursor parent, CXClientData client_data){
+      map_tu_params *p=(map_tu_params *) client_data;
+      switch(cursor.kind)
+      {
+        case CXCursor_Namespace:
+          parse_namespace(cursor, p);
+      }
+      return CXChildVisit_Continue;
+    }, p);
   }
-  clang_visitChildren(clang_getTranslationUnitCursor(tu.get()), [](CXCursor cursor, CXCursor parent, CXClientData client_data){
-    map_tu_params *p=(map_tu_params *) client_data;
-    switch(cursor.kind)
-    {
-      case CXCursor_Namespace:
-        if(!p->location.empty())
-          p->location.pop_back();
-        //std::cout << "I see namespace " << p->fullqual(to_string(clang_getCursorDisplayName(cursor))) << std::endl;
-        auto name(to_string(clang_getCursorSpelling(cursor)));
-        p->location.push_back(name);
-        for(auto &i : p->items)
-        {
-          clang_visitChildren(cursor, [](CXCursor cursor, CXCursor parent, CXClientData client_data){
-            map_tu_params *p=(map_tu_params *) client_data;
-            std::cout << "I see entity " << cursor.kind << " " << p->fullqual(to_string(clang_getCursorDisplayName(cursor))) << std::endl;
-            switch(cursor.kind)
-            {
-              case CXCursor_UnexposedDecl:
-              case CXCursor_StructDecl:
-              case CXCursor_UnionDecl:
-              case CXCursor_ClassDecl:
-              case CXCursor_EnumDecl:
-              case CXCursor_ClassTemplate:
-                auto name(to_string(clang_getCursorSpelling(cursor)));
-                auto fullname(p->fullqual(name));
-                for(auto &i : p->items)
-                  if(std::regex_match(fullname, i))
-                  {
-                    // This matches
-                    std::vector<std::string> params;
-                    switch(cursor.kind)
-                    {
-                      case CXCursor_UnionDecl:
-                        break;
-                      case CXCursor_ClassTemplate:
-                        clang_visitChildren(cursor, [](CXCursor cursor, CXCursor parent, CXClientData client_data){
-                          std::vector<std::string> &params=*(std::vector<std::string> *) client_data;
-                          CXType type=clang_getCursorType(cursor);
-                          auto name(to_string(type));
-                          CXCursor param_decl=clang_getTypeDeclaration(type);
-                          switch(cursor.kind)
-                          {
-                            case CXCursor_TemplateTemplateParameter:
-                            case CXCursor_TemplateTypeParameter:
-                            {
-                              /* libclang also seems incapable of telling us whether a type is a variadic
-                               * pack, so once again drop into the C++ API ...
-                               * type[2]= { QualType_as_opaque_ptr, TU };
-                               */
-                              bool isPack=false;
-                              {
-                                using namespace clang;
-                                QualType T = QualType::getFromOpaquePtr(type.data[0]);
-                                if (!T.isNull())
-                                {
-                                  isPack=T->containsUnexpandedParameterPack();
-                                }
-                              }
-                              std::string prefix("class");
-                              if(isPack)
-                                prefix.append("...");
-                              name=prefix+" "+to_identifier(name);
-                              std::cout << "I see parameter " << cursor.kind << " of type " << type.kind << " param_decl.kind=" << param_decl.kind << std::endl;
-                              params.push_back(name);
-                              break;
-                            }
-                            case CXCursor_NonTypeTemplateParameter:
-                              std::cout << "I see parameter " << cursor.kind << " of type " << type.kind << std::endl;
-                              name.append(" _"+std::to_string(params.size()));
-                              params.push_back(name);
-                              break;
-                            default:
-                              std::cout << "I see unknown parameter " << cursor.kind << " of type " << type.kind << std::endl;
-                              break;
-                          }
-                          return CXChildVisit_Continue;
-                        }, &params);
-                        // fall through
-                      case CXCursor_StructDecl:
-                      case CXCursor_ClassDecl:
-                      {
-                        auto it=p->out.types.equal_range(fullname);
-                        // If he's already in there as a template type, and I am not template, skip
-                        if(it.first!=p->out.types.end() && !it.first->second.empty() && params.empty())
-                          break;
-                        bool done=false;
-                        for(auto n=it.first; n!=it.second; ++n)
-                          if(n->second==params)
-                          {
-                            done=true;
-                            break;
-                          }
-                        if(!done) p->out.types.insert(std::make_pair(fullname, params));
-                        break;
-                      }
-                      case CXCursor_EnumDecl:
-                        /* libclang won't tell us whether this is a scoped enum or not, so ...
-                         * A CXCursor contains a kind, an int xdata member, and a void *data[3]
-                         * data[3] = { const clang::Decl *Parent, const clang::Stmt *S, CXTranslationUnit TU };
-                         * 
-                         * This function is implemented like this:
-                         *  CXType clang_getEnumDeclIntegerType(CXCursor C) {
-                         *    using namespace cxcursor;
-                         *    CXTranslationUnit TU = cxcursor::getCursorTU(C);
-                         *    if (clang_isDeclaration(C.kind)) {
-                         *      const Decl *D = static_cast<const Decl *>(C.data[0]);
-                         *      if (const EnumDecl *TD = dyn_cast_or_null<EnumDecl>(D)) {
-                         *        QualType T = TD->getIntegerType();
-                         *        return MakeCXType(T, TU);
-                         *      }
-                         *      return MakeCXType(QualType(), TU);
-                         *    }
-                         *    return MakeCXType(QualType(), TU);
-                         *  }
-                         */
-                        bool isScoped=false;
-                        {
-                          using namespace clang;
-                          const Decl *D = static_cast<const Decl *>(cursor.data[0]);
-                          if(const EnumDecl *TD = dyn_cast_or_null<EnumDecl>(D))
-                          {
-                            isScoped=TD->isScoped();
-                          }
-                        }
-                        std::cout << "I see enum " << cursor.kind << " of type " << clang_getCursorType(cursor).kind << " isScoped=" << isScoped << std::endl;
-                        auto enumit=p->out.enums.insert(std::make_pair(fullname, std::vector<std::string>())).first;
-                        // If scoped we don't need to duplicate binds into the surrounding namespace
-                        if(isScoped)
-                          break;
-                        typedef decltype(enumit) enumit_t;
-                        p->scratch=&enumit;
-                        //p->location.push_back(name);
-                        //auto unlocation=undoer([&]{ p->location.pop_back(); });
-                        clang_visitChildren(cursor, [](CXCursor cursor, CXCursor parent, CXClientData client_data){
-                          std::cout << "I see enum item " << cursor.kind << " of type " << to_string(clang_getCursorType(cursor)) << " parent " << to_string(clang_getTypeSpelling(clang_getCursorType(parent))) << std::endl;
-                          map_tu_params *p=(map_tu_params *) client_data;
-                          enumit_t &enumit=*(enumit_t *) p->scratch;
-                          auto name(p->fullqual(to_string(clang_getCursorSpelling(cursor))));
-                          /*switch(cursor.kind)
-                          {
-                            case CXCursor_EnumDecl:*/
-                              enumit->second.push_back(name);
-                          /*  break;
-                          }*/
-                          return CXChildVisit_Continue;
-                        }, p);
-                        break;
-                    };
-                    break;
-                  }
-                break;
-            }
-            return CXChildVisit_Continue;
-          }, p);
-        }
-        break;
-    }
-    return CXChildVisit_Continue;
-  }, p);
 }
 
 int main(int argc, char *argv[])
 {
   path_t outpath;
+  std::string prefix;
   std::vector<std::pair<std::vector<std::regex>, path_t>> inpaths;
-  if(argc<4 || (argc&1)!=0)
+  if(argc<4 || (argc&1)!=1)
   {
 #if 0
     outpath="atomic_map.hpp";
@@ -405,13 +412,14 @@ int main(int argc, char *argv[])
     inpathdest="atomic";
     //inpathsrc.push_back();
 #else
-    std::cerr << "Usage: " << argv[0] << " <output> <comma separated list of regexs e.g. std::[^_].*>, <dest header file (can be a system header)> [<comma separated list of regexs> <src header file>]..." << std::endl;
+    std::cerr << "Usage: " << argv[0] << " <output> <macro prefix> <comma separated list of regexs e.g. std::[^_].*>, <dest header file (can be a system header)> [<comma separated list of regexs> <src header file>]..." << std::endl;
     return 1;
 #endif
   }
   else
   {
     outpath=argv[1];
+    prefix=argv[2];
     auto parse_regex=[](const char *argv){
       // TODO replace this with regex matching
       std::vector<std::regex> items;
@@ -425,7 +433,7 @@ int main(int argc, char *argv[])
       }
       return items;
     };
-    for(int n=2; n<argc; n+=2)
+    for(int n=3; n<argc; n+=2)
     {
       std::cout << "Mapping from header " << argv[n+1] << " these items:" << std::endl;
       inpaths.push_back(std::make_pair(parse_regex(argv[n]), argv[n+1]));
@@ -443,7 +451,7 @@ int main(int argc, char *argv[])
   }
   {
     std::ofstream o(outpath);
-    tu_p.dump(o);
+    tu_p.dump(o, prefix);
   }
   return 0;
 }
