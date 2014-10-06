@@ -20,7 +20,7 @@ Created: Sept 2014
 #define __STDC_CONSTANT_MACROS 1
 #include "clang-c/Index.h"
 #include "clang/AST/Decl.h"
-#include "clang/AST/DeclTemplate.h"
+#include "clang/AST/Type.h"
 
 struct index_ptr_deleter { void operator()(CXIndex i){ clang_disposeIndex(i); } };
 typedef std::unique_ptr<void, index_ptr_deleter> index_ptr;
@@ -277,7 +277,19 @@ void map_tu(map_tu_params *p)
                             case CXCursor_TemplateTemplateParameter:
                             case CXCursor_TemplateTypeParameter:
                             {
+                              /* libclang also seems incapable of telling us whether a type is a variadic
+                               * pack, so once again drop into the C++ API ...
+                               * type[2]= { QualType_as_opaque_ptr, TU };
+                               */
                               bool isPack=false;
+                              {
+                                using namespace clang;
+                                QualType T = QualType::getFromOpaquePtr(type.data[0]);
+                                if (!T.isNull())
+                                {
+                                  isPack=T->containsUnexpandedParameterPack();
+                                }
+                              }
                               std::string prefix("class");
                               if(isPack)
                                 prefix.append("...");
