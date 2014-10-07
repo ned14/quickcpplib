@@ -12,7 +12,7 @@ clang++ -o genmap genmap.cpp -g -O3 -std=c++11 -I/usr/lib/llvm-3.4/include /usr/
 ./genmap include/stl11/ratio BOOST_STL11_MAP_ "std::([^_][^:]*)" ratio "boost::([^_][^:]*)" boost/ratio.hpp
 ./genmap include/stl11/regex BOOST_STL11_MAP_ "std::([^_][^:]*)" regex "boost::([^_][^:]*)" boost/regex.hpp
 ./genmap include/stl11/system_error BOOST_STL11_MAP_ "std::([^_][^:]*)" system_error "boost::system::([^_][^:]*)" boost/system/system_error.hpp
-./genmap include/stl11/thread BOOST_STL11_MAP_ "std::([^_][^:]*)" thread "boost::([^_][^:]*)" boost/thread.hpp
+./genmap include/stl11/thread BOOST_STL11_MAP_ "std::([^_][^:]*),std::(this_thread::[^_][^:]*)" thread "boost::([^_][^:]*),boost::(this_thread::[^_][^:]*)" boost/thread.hpp
 ./genmap include/stl11/tuple BOOST_STL11_MAP_ "std::([^_][^:]*)" tuple "boost::tuples::([^_][^:]*)" boost/tuple/tuple.hpp
 ./genmap include/stl11/typeindex BOOST_STL11_MAP_ "std::([^_][^:]*)" typeindex
 ./genmap include/stl11/type_traits BOOST_STL11_MAP_ "std::([^_][^:]*)" type_traits "boost::([^_][^:]*)" boost/type_traits.hpp

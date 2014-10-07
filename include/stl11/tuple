@@ -4,6 +4,10 @@
 #endif
 #include <tuple>
 BOOST_STL11_MAP_BEGIN_NAMESPACE
+using std::tie;
+using std::make_tuple;
+using std::swap;
 template<class... _Elements> using tuple = std::tuple<_Elements...>;
 template<class... type_parameter_0_0> using tuple = std::tuple<type_parameter_0_0...>;
+using std::get;
 BOOST_STL11_MAP_END_NAMESPACE

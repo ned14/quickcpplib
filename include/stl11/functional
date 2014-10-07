@@ -4,7 +4,12 @@
 #endif
 #include <functional>
 BOOST_STL11_MAP_BEGIN_NAMESPACE
+using std::bind;
 template<class _Tp> using is_placeholder = std::is_placeholder<_Tp>;
 template<class _Tp> using is_bind_expression = std::is_bind_expression<_Tp>;
+using std::ref;
+using std::cref;
+using std::addressof;
+using std::mem_fn;
 template<class _Tp> using reference_wrapper = std::reference_wrapper<_Tp>;
 BOOST_STL11_MAP_END_NAMESPACE

@@ -6,4 +6,7 @@
 BOOST_STL11_MAP_BEGIN_NAMESPACE
 template<class _Tp> using hash = std::hash<_Tp>;
 using type_index = std::type_index;
+using std::nullptr_t;
+using std::ptrdiff_t;
+using std::size_t;
 BOOST_STL11_MAP_END_NAMESPACE

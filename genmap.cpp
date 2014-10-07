@@ -4,6 +4,8 @@ Uses libclang to parse a STL header into a local namespace bind
 Created: Sept 2014
 */
 
+#define LOGGING 1
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -85,7 +87,7 @@ template<typename callable> inline UndoerImpl<callable> undoer(callable c)
 struct header_map
 {
   std::unordered_map<std::string, std::vector<std::string>> enums; // enum name: values
-  std::unordered_multimap<std::string, std::vector<std::string>> types; // type name: template parameters
+  std::unordered_multimap<std::string, std::pair<bool, std::vector<std::string>>> types; // type name: alias, template parameters
 };
 
 struct map_tu_params
@@ -115,7 +117,7 @@ struct map_tu_params
     {
       if(std::regex_match(fullname, results, i))
       {
-#if 0
+#if LOGGING && 0
         std::cout << "Matched " << results.size() << " items:";
         for(auto &m : results)
           std::cout << " " << m;
@@ -126,13 +128,43 @@ struct map_tu_params
     }
     return fullname;
   }
+  void leafname(std::string &namespace1, std::string &leaf, std::string &namespace2, std::string fullname)
+  {
+    std::smatch results;
+    namespace1.clear();
+    namespace2.clear();
+    for(auto &i : items)
+    {
+      if(std::regex_match(fullname, results, i))
+      {
+#if LOGGING && 0
+        std::cout << "Matched " << results.size() << " items:";
+        for(auto &m : results)
+          std::cout << " " << m;
+        std::cout << std::endl;
+#endif
+        std::string match=results[results.size()-1].str();
+        for(size_t colon; ((colon=match.find("::"))!=std::string::npos);)
+        {
+          namespace1.append("namespace "+match.substr(0, colon)+" { ");
+          namespace2.append(" }");
+          match=match.substr(colon+2);
+        }
+        leaf=match;
+        return;
+      }
+    }
+    leaf=fullname;
+  }
   void filter(map_tu_params &o)
   {
     std::vector<std::string> enums, types;
     for(auto &i : out.enums)
     {
       std::string l(leafname(i.first));
+#if LOGGING
       std::cout << "Checking " << l << std::endl;
+#endif
       bool found=false;
       for(auto &m : o.out.enums)
         if(l==o.leafname(m.first))
@@ -143,7 +175,9 @@ struct map_tu_params
       if(!found)
       {
         enums.push_back(i.first);
+#if LOGGING
         std::cout << "Removing " << i.first << " as not in all input headers.\n";
+#endif
       }
     }
     for(auto &i : enums)
@@ -151,7 +185,9 @@ struct map_tu_params
     for(auto &i : out.types)
     {
       std::string l(leafname(i.first));
+#if LOGGING
       std::cout << "Checking " << l << std::endl;
+#endif
       bool found=false;
       for(auto &m : o.out.types)
         if(l==o.leafname(m.first))
@@ -162,7 +198,9 @@ struct map_tu_params
       if(!found)
       {
         types.push_back(i.first);
+#if LOGGING
         std::cout << "Removing " << i.first << " as not in all input headers.\n";
+#endif
       }
     }
     for(auto &i : types)
@@ -170,7 +208,7 @@ struct map_tu_params
   }
   void dump(std::ostream &s, std::string macro_prefix)
   {
-    std::string pathupper(path);
+    std::string pathupper(path), namespace1, leaf, namespace2;
     for(auto &i : pathupper)
       i=std::toupper(i);
     s << "/* This is an automatically generated bindings file. Don't modify it! */" << std::endl;
@@ -184,27 +222,37 @@ struct map_tu_params
     // Enums before all else   
     for(auto &i : out.enums)
     {
-      s << "using " << i.first << ";\n";
+      leafname(namespace1, leaf, namespace2, i.first);
+      s << namespace1 << "using " << i.first << ((i.second.empty() || namespace2.empty()) ? ";\n" : ";");
       for(auto &v : i.second)
         s << "  using " << v << ";\n";
+      if(!namespace2.empty())
+        s << namespace2 << std::endl;
     }
     // Map out each type, template aliased where appropriate
     for(auto &i : out.types)
     {
-      if(!i.second.empty())
+      leafname(namespace1, leaf, namespace2, i.first);
+      bool isAlias=i.second.first;
+      auto &templatepars=i.second.second;
+      s << namespace1;
+      if(!templatepars.empty())
       {
         s << "template<";
         bool first=true;
-        for(auto &p : i.second)
+        for(auto &p : templatepars)
           s << (first ? (first=false, "") : ", ") << p;
         s << "> ";
       }
-      s << "using " << leafname(i.first) << " = " << i.first;
-      if(!i.second.empty())
+      s << "using ";
+      if(isAlias)
+        s << leaf << " = ";
+      s << i.first;
+      if(!templatepars.empty())
       {
         s << "<";
         bool first=true;
-        for(auto &p : i.second)
+        for(auto &p : templatepars)
         {
           s << (first ? (first=false, "") : ", ") << &p[p.rfind(" ")+1];
           if(p.find("...")!=std::string::npos)
@@ -212,7 +260,7 @@ struct map_tu_params
         }
         s << ">";
       }
-      s << ";\n";
+      s << ";" << namespace2 << std::endl;
     }
     
     s << macro_prefix << "END_NAMESPACE" << std::endl;
@@ -228,20 +276,29 @@ static void parse_namespace(CXCursor cursor, map_tu_params *p)
   {
     clang_visitChildren(cursor, [](CXCursor cursor, CXCursor parent, CXClientData client_data){
       map_tu_params *p=(map_tu_params *) client_data;
+#if LOGGING
       std::cout << "I see entity " << cursor.kind << " " << p->fullqual(to_string(clang_getCursorDisplayName(cursor))) << std::endl;
+#endif
       switch(cursor.kind)
       {
         case CXCursor_Namespace:
           // Recurse
           parse_namespace(cursor, p);
           break;
-        case CXCursor_UnexposedDecl:
         case CXCursor_StructDecl:
-        case CXCursor_UnionDecl:
         case CXCursor_ClassDecl:
         case CXCursor_EnumDecl:
+        case CXCursor_FunctionDecl:
+        case CXCursor_TypedefDecl:
+        case CXCursor_FunctionTemplate:
         case CXCursor_ClassTemplate:
+        case CXCursor_TypeAliasDecl:
+        {
+          bool isAlias=false;
           auto name(to_string(clang_getCursorSpelling(cursor)));
+          // Skip operator mapping as ADL will find those.
+          if(name.compare(0, 8, "operator") == 0)
+            break;
           auto fullname(p->fullqual(name));
           for(auto &i : p->items)
             if(std::regex_match(fullname, i))
@@ -250,8 +307,6 @@ static void parse_namespace(CXCursor cursor, map_tu_params *p)
               std::vector<std::string> params;
               switch(cursor.kind)
               {
-                case CXCursor_UnionDecl:
-                  break;
                 case CXCursor_ClassTemplate:
                   clang_visitChildren(cursor, [](CXCursor cursor, CXCursor parent, CXClientData client_data){
                     std::vector<std::string> &params=*(std::vector<std::string> *) client_data;
@@ -280,17 +335,23 @@ static void parse_namespace(CXCursor cursor, map_tu_params *p)
                         if(isPack)
                           prefix.append("...");
                         name=prefix+" "+to_identifier(name);
-                        std::cout << "I see parameter " << cursor.kind << " of type " << type.kind << " param_decl.kind=" << param_decl.kind << std::endl;
+#if LOGGING
+                        std::cout << "I see parameter " << cursor.kind << " of type " << type.kind << " isPack=" << isPack << std::endl;
+#endif
                         params.push_back(name);
                         break;
                       }
                       case CXCursor_NonTypeTemplateParameter:
+#if LOGGING
                         std::cout << "I see parameter " << cursor.kind << " of type " << type.kind << std::endl;
+#endif
                         name.append(" _"+std::to_string(params.size()));
                         params.push_back(name);
                         break;
                       default:
+#if LOGGING
                         std::cout << "I see unknown parameter " << cursor.kind << " of type " << type.kind << std::endl;
+#endif
                         break;
                     }
                     return CXChildVisit_Continue;
@@ -298,19 +359,25 @@ static void parse_namespace(CXCursor cursor, map_tu_params *p)
                   // fall through
                 case CXCursor_StructDecl:
                 case CXCursor_ClassDecl:
+                  isAlias=true;
+                  // fall through
+                case CXCursor_FunctionDecl:
+                case CXCursor_TypedefDecl:
+                case CXCursor_FunctionTemplate:
+                case CXCursor_TypeAliasDecl:
                 {
                   auto it=p->out.types.equal_range(fullname);
                   // If he's already in there as a template type, and I am not template, skip
-                  if(it.first!=p->out.types.end() && !it.first->second.empty() && params.empty())
+                  if(it.first!=p->out.types.end() && !it.first->second.second.empty() && params.empty())
                     break;
                   bool done=false;
                   for(auto n=it.first; n!=it.second; ++n)
-                    if(n->second==params)
+                    if(n->second.second==params)
                     {
                       done=true;
                       break;
                     }
-                  if(!done) p->out.types.insert(std::make_pair(fullname, params));
+                  if(!done) p->out.types.insert(std::make_pair(std::move(fullname), std::make_pair(isAlias, std::move(params))));
                   break;
                 }
                 case CXCursor_EnumDecl:
@@ -342,7 +409,9 @@ static void parse_namespace(CXCursor cursor, map_tu_params *p)
                       isScoped=TD->isScoped();
                     }
                   }
+#if LOGGING
                   std::cout << "I see enum " << cursor.kind << " of type " << clang_getCursorType(cursor).kind << " isScoped=" << isScoped << std::endl;
+#endif
                   auto enumit=p->out.enums.insert(std::make_pair(fullname, std::vector<std::string>())).first;
                   // If scoped we don't need to duplicate binds into the surrounding namespace
                   if(isScoped)
@@ -352,7 +421,6 @@ static void parse_namespace(CXCursor cursor, map_tu_params *p)
                   //p->location.push_back(name);
                   //auto unlocation=undoer([&]{ p->location.pop_back(); });
                   clang_visitChildren(cursor, [](CXCursor cursor, CXCursor parent, CXClientData client_data){
-                    std::cout << "I see enum item " << cursor.kind << " of type " << to_string(clang_getCursorType(cursor)) << " parent " << to_string(clang_getTypeSpelling(clang_getCursorType(parent))) << std::endl;
                     map_tu_params *p=(map_tu_params *) client_data;
                     enumit_t &enumit=*(enumit_t *) p->scratch;
                     auto name(p->fullqual(to_string(clang_getCursorSpelling(cursor))));
@@ -365,10 +433,11 @@ static void parse_namespace(CXCursor cursor, map_tu_params *p)
                     return CXChildVisit_Continue;
                   }, p);
                   break;
-              };
+              }
               break;
             }
           break;
+        }
       }
       return CXChildVisit_Continue;
     }, p);

@@ -4,8 +4,16 @@
 #endif
 #include <chrono>
 BOOST_STL11_MAP_BEGIN_NAMESPACE
-template<class _Rep> using duration_values = std::chrono::duration_values<_Rep>;
-template<class _Rep> using treat_as_floating_point = std::chrono::treat_as_floating_point<_Rep>;
-template<class _Clock, class _Dur> using time_point = std::chrono::time_point<_Clock, _Dur>;
+using std::chrono::time_point_cast;
+using std::chrono::hours;
 template<class _Rep, class _Period> using duration = std::chrono::duration<_Rep, _Period>;
+template<class _Clock, class _Dur> using time_point = std::chrono::time_point<_Clock, _Dur>;
+using std::chrono::duration_cast;
+using std::chrono::nanoseconds;
+template<class _Rep> using duration_values = std::chrono::duration_values<_Rep>;
+using std::chrono::microseconds;
+using std::chrono::milliseconds;
+using std::chrono::seconds;
+template<class _Rep> using treat_as_floating_point = std::chrono::treat_as_floating_point<_Rep>;
+using std::chrono::minutes;
 BOOST_STL11_MAP_END_NAMESPACE

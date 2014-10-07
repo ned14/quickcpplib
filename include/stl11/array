@@ -4,6 +4,7 @@
 #endif
 #include <array>
 BOOST_STL11_MAP_BEGIN_NAMESPACE
-template<class _Tp, std::size_t _1> using array = std::array<_Tp, _1>;
 template<class _Tp> using hash = std::hash<_Tp>;
+using std::swap;
+template<class _Tp, std::size_t _1> using array = std::array<_Tp, _1>;
 BOOST_STL11_MAP_END_NAMESPACE

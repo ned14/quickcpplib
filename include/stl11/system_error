@@ -5,9 +5,11 @@
 #include <system_error>
 BOOST_STL11_MAP_BEGIN_NAMESPACE
 template<class _Tp> using is_error_condition_enum = std::is_error_condition_enum<_Tp>;
-template<class _Tp> using is_error_code_enum = std::is_error_code_enum<_Tp>;
 using system_error = std::system_error;
 using error_condition = std::error_condition;
 using error_code = std::error_code;
+using std::system_category;
+template<class _Tp> using is_error_code_enum = std::is_error_code_enum<_Tp>;
 using error_category = std::error_category;
+using std::generic_category;
 BOOST_STL11_MAP_END_NAMESPACE
