@@ -36,7 +36,7 @@ To then include those local namespace bindings into let's say namespace `boost::
     #undef STL11_MAP_END_NAMESPACE
     
 You'll probably note the use of an inline namespace for the innermost namespace - this is best practice, and
-the bindings will actually appear in `boost::spinlock`. Library implementation code inside `boost::spinlock` can
+the bindings will also appear in `boost::spinlock`. Library implementation code inside `boost::spinlock` can
 now use `atomic<T>` and will default to the nearest bind, which will be in `boost::spinlock`.
 
 
@@ -81,7 +81,7 @@ binding and probably a few other things like unions. It does mostly support temp
 * regex
 * system_error
 * thread
-* tuple (the lack of make_tuple is a pain though)
+* tuple
 * type_traits
 * typeindex
 
