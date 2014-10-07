@@ -78,4 +78,8 @@ extern "C" void _mm_pause();
 # define BOOST_CONSTEXPR_OR_CONST const
 #endif
 
+#ifndef BOOST_FORCEINLINE
+# define BOOST_FORCEINLINE __forceinline
+#endif
+
 #endif
