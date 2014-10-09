@@ -60,6 +60,24 @@ extern "C" void _mm_pause();
 # define BOOST_NOEXCEPT_OR_NOTHROW throw()
 #endif
 
+#ifndef BOOST_NOEXCEPT_IF
+# if !defined(_MSC_VER) || _MSC_VER >= 1900
+#  define BOOST_NOEXCEPT_IF(v) noexcept(v)
+# endif
+#endif
+#ifndef BOOST_NOEXCEPT_IF
+# define BOOST_NOEXCEPT_IF
+#endif
+
+#ifndef BOOST_NOEXCEPT_EXPR
+# if !defined(_MSC_VER) || _MSC_VER >= 1900
+#  define BOOST_NOEXCEPT_EXPR(v) noexcept(v)
+# endif
+#endif
+#ifndef BOOST_NOEXCEPT_EXPR
+# define BOOST_NOEXCEPT_EXPR false
+#endif
+
 #ifndef BOOST_CONSTEXPR
 # if !defined(_MSC_VER) || _MSC_VER >= 2000
 #  define BOOST_CONSTEXPR constexpr
@@ -79,7 +97,31 @@ extern "C" void _mm_pause();
 #endif
 
 #ifndef BOOST_FORCEINLINE
-# define BOOST_FORCEINLINE __forceinline
+# if defined(_MSC_VER)
+#  define BOOST_FORCEINLINE __forceinline
+# elif defined(__GNUC__)
+#  define BOOST_FORCEINLINE __attribute__((always_inline))
+# else
+#  define BOOST_FORCEINLINE
+# endif
+#endif
+
+
+/* The following are for convenience, but really should be regex find & replace in modern C++ */
+#ifndef BOOST_FWD_REF
+#define BOOST_FWD_REF(a) a&&
+#endif
+
+#ifndef BOOST_RV_REF
+#define BOOST_RV_REF(a) a&&
+#endif
+
+#ifndef BOOST_COPY_ASSIGN_REF
+#define BOOST_COPY_ASSIGN_REF(a) const a&
+#endif
+
+#ifndef BOOST_STATIC_ASSERT_MSG
+#define BOOST_STATIC_ASSERT_MSG(v, m) static_assert((v), m)
 #endif
 
 #endif
