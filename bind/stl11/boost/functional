@@ -1,0 +1,18 @@
+/* This is an automatically generated bindings file. Don't modify it! */
+#if !defined(BOOST_STL11_FUNCTIONAL_MAP_NAMESPACE_BEGIN) || !defined(BOOST_STL11_FUNCTIONAL_MAP_NAMESPACE_END)
+#error You need to define BOOST_STL11_FUNCTIONAL_MAP_NAMESPACE_BEGIN and BOOST_STL11_FUNCTIONAL_MAP_NAMESPACE_END to use this header file
+#endif
+#include <boost/bind.hpp>
+BOOST_STL11_FUNCTIONAL_MAP_NAMESPACE_BEGIN
+extern const char *boost_local_bind_in;
+using boost::bind;
+template<class T> using is_bind_expression = boost::is_bind_expression<T>;
+template<class T> using is_placeholder = boost::is_placeholder<T>;
+using boost::mem_fn;
+template<class T> using reference_wrapper = boost::reference_wrapper<T>;
+using boost::addressof;
+using boost::ref;
+using boost::cref;
+BOOST_STL11_FUNCTIONAL_MAP_NAMESPACE_END
+#undef BOOST_STL11_FUNCTIONAL_MAP_NAMESPACE_BEGIN
+#undef BOOST_STL11_FUNCTIONAL_MAP_NAMESPACE_END

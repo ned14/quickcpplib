@@ -1,0 +1,47 @@
+/* This is an automatically generated bindings file. Don't modify it! */
+#if !defined(BOOST_STL11_RANDOM_MAP_NAMESPACE_BEGIN) || !defined(BOOST_STL11_RANDOM_MAP_NAMESPACE_END)
+#error You need to define BOOST_STL11_RANDOM_MAP_NAMESPACE_BEGIN and BOOST_STL11_RANDOM_MAP_NAMESPACE_END to use this header file
+#endif
+#include <boost/random.hpp>
+BOOST_STL11_RANDOM_MAP_NAMESPACE_BEGIN
+extern const char *boost_local_bind_in;
+template<class RealType, class WeightType> using piecewise_constant_distribution = boost::random::piecewise_constant_distribution<RealType, WeightType>;
+template<class IntType, class RealType> using poisson_distribution = boost::random::poisson_distribution<IntType, RealType>;
+template<class RealType> using normal_distribution = boost::random::normal_distribution<RealType>;
+template<class RealType> using gamma_distribution = boost::random::gamma_distribution<RealType>;
+template<class RealType> using lognormal_distribution = boost::random::lognormal_distribution<RealType>;
+template<class IntType> using uniform_int_distribution = boost::random::uniform_int_distribution<IntType>;
+using boost::random::generate_canonical;
+template<class UniformRandomNumberGenerator, std::size_t _1> using shuffle_order_engine = boost::random::shuffle_order_engine<UniformRandomNumberGenerator, _1>;
+using boost::random::ranlux48;
+template<class RealType> using fisher_f_distribution = boost::random::fisher_f_distribution<RealType>;
+using boost::random::ranlux48_base;
+template<class RealType> using student_t_distribution = boost::random::student_t_distribution<RealType>;
+template<class RealType> using uniform_real_distribution = boost::random::uniform_real_distribution<RealType>;
+using boost::random::ranlux24;
+template<class RealType> using cauchy_distribution = boost::random::cauchy_distribution<RealType>;
+template<class RealType> using extreme_value_distribution = boost::random::extreme_value_distribution<RealType>;
+using boost::random::mt19937;
+template<class UniformRandomNumberGenerator, std::size_t _1, std::size_t _2> using discard_block_engine = boost::random::discard_block_engine<UniformRandomNumberGenerator, _1, _2>;
+using boost::random::minstd_rand;
+template<class RealType> using exponential_distribution = boost::random::exponential_distribution<RealType>;
+using seed_seq = boost::random::seed_seq;
+template<class IntType, IntType _1, IntType _2, IntType _3> using linear_congruential_engine = boost::random::linear_congruential_engine<IntType, _1, _2, _3>;
+template<class RealType> using weibull_distribution = boost::random::weibull_distribution<RealType>;
+template<class Engine, std::size_t _1, class UIntType> using independent_bits_engine = boost::random::independent_bits_engine<Engine, _1, UIntType>;
+using boost::random::minstd_rand0;
+template<class IntType, class WeightType> using discrete_distribution = boost::random::discrete_distribution<IntType, WeightType>;
+template<class RealType> using piecewise_linear_distribution = boost::random::piecewise_linear_distribution<RealType>;
+using boost::random::knuth_b;
+template<class IntType, class RealType> using binomial_distribution = boost::random::binomial_distribution<IntType, RealType>;
+template<class IntType, std::size_t _1, std::size_t _2, std::size_t _3> using subtract_with_carry_engine = boost::random::subtract_with_carry_engine<IntType, _1, _2, _3>;
+template<class RealType> using bernoulli_distribution = boost::random::bernoulli_distribution<RealType>;
+template<class IntType, class RealType> using geometric_distribution = boost::random::geometric_distribution<IntType, RealType>;
+template<class UIntType, std::size_t _1, std::size_t _2, std::size_t _3, std::size_t _4, UIntType _5, std::size_t _6, UIntType _7, std::size_t _8, UIntType _9, std::size_t _10, UIntType _11, std::size_t _12, UIntType _13> using mersenne_twister_engine = boost::random::mersenne_twister_engine<UIntType, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13>;
+template<class RealType> using chi_squared_distribution = boost::random::chi_squared_distribution<RealType>;
+using boost::random::mt19937_64;
+using boost::random::ranlux24_base;
+template<class IntType, class RealType> using negative_binomial_distribution = boost::random::negative_binomial_distribution<IntType, RealType>;
+BOOST_STL11_RANDOM_MAP_NAMESPACE_END
+#undef BOOST_STL11_RANDOM_MAP_NAMESPACE_BEGIN
+#undef BOOST_STL11_RANDOM_MAP_NAMESPACE_END

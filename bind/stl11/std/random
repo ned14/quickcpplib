@@ -1,20 +1,20 @@
 /* This is an automatically generated bindings file. Don't modify it! */
-#if !defined(BOOST_STL11_MAP_BEGIN_NAMESPACE) || !defined(BOOST_STL11_MAP_END_NAMESPACE)
-#error You need to define BOOST_STL11_MAP_BEGIN_NAMESPACE and BOOST_STL11_MAP_END_NAMESPACE to use this header file
+#if !defined(BOOST_STL11_RANDOM_MAP_NAMESPACE_BEGIN) || !defined(BOOST_STL11_RANDOM_MAP_NAMESPACE_END)
+#error You need to define BOOST_STL11_RANDOM_MAP_NAMESPACE_BEGIN and BOOST_STL11_RANDOM_MAP_NAMESPACE_END to use this header file
 #endif
 #include <random>
-BOOST_STL11_MAP_BEGIN_NAMESPACE
+BOOST_STL11_RANDOM_MAP_NAMESPACE_BEGIN
+extern const char *boost_local_bind_in;
 using seed_seq = std::seed_seq;
 template<class _RealType> using extreme_value_distribution = std::extreme_value_distribution<_RealType>;
 template<class _RealType> using weibull_distribution = std::weibull_distribution<_RealType>;
 template<class _IntType> using poisson_distribution = std::poisson_distribution<_IntType>;
-template<class _IntType> using binomial_distribution = std::binomial_distribution<_IntType>;
-template<class _IntType> using negative_binomial_distribution = std::negative_binomial_distribution<_IntType>;
-template<class _IntType> using geometric_distribution = std::geometric_distribution<_IntType>;
 template<class _RandomNumberEngine, size_t _1, class _UIntType> using independent_bits_engine = std::independent_bits_engine<_RandomNumberEngine, _1, _UIntType>;
 using std::ranlux24;
 template<class _IntType> using uniform_int_distribution = std::uniform_int_distribution<_IntType>;
 template<class _RandomNumberEngine, size_t _1, size_t _2> using discard_block_engine = std::discard_block_engine<_RandomNumberEngine, _1, _2>;
+template<class _IntType> using binomial_distribution = std::binomial_distribution<_IntType>;
+template<class _IntType> using negative_binomial_distribution = std::negative_binomial_distribution<_IntType>;
 template<class _IntType> using discrete_distribution = std::discrete_distribution<_IntType>;
 template<class _RealType> using cauchy_distribution = std::cauchy_distribution<_RealType>;
 template<class _RealType> using piecewise_linear_distribution = std::piecewise_linear_distribution<_RealType>;
@@ -41,4 +41,7 @@ template<class _RealType> using gamma_distribution = std::gamma_distribution<_Re
 template<class _RealType> using chi_squared_distribution = std::chi_squared_distribution<_RealType>;
 template<class _RealType> using fisher_f_distribution = std::fisher_f_distribution<_RealType>;
 template<class _RealType> using student_t_distribution = std::student_t_distribution<_RealType>;
-BOOST_STL11_MAP_END_NAMESPACE
+template<class _IntType> using geometric_distribution = std::geometric_distribution<_IntType>;
+BOOST_STL11_RANDOM_MAP_NAMESPACE_END
+#undef BOOST_STL11_RANDOM_MAP_NAMESPACE_BEGIN
+#undef BOOST_STL11_RANDOM_MAP_NAMESPACE_END

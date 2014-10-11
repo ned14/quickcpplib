@@ -1,0 +1,78 @@
+/* This is an automatically generated bindings file. Don't modify it! */
+#if !defined(BOOST_STL11_REGEX_MAP_NAMESPACE_BEGIN) || !defined(BOOST_STL11_REGEX_MAP_NAMESPACE_END)
+#error You need to define BOOST_STL11_REGEX_MAP_NAMESPACE_BEGIN and BOOST_STL11_REGEX_MAP_NAMESPACE_END to use this header file
+#endif
+#include <boost/regex.hpp>
+BOOST_STL11_REGEX_MAP_NAMESPACE_BEGIN
+extern const char *boost_local_bind_in;
+using boost::wsregex_token_iterator;
+using boost::sregex_token_iterator;
+using boost::wcregex_iterator;
+using boost::sregex_iterator;
+using boost::cregex_iterator;
+using boost::regex_search;
+using boost::wsmatch;
+template<class BidirectionalIterator, class charT, class traits> using regex_token_iterator = boost::regex_token_iterator<BidirectionalIterator, charT, traits>;
+template<class BidiIterator, class Allocator> using match_results = boost::match_results<BidiIterator, Allocator>;
+using boost::cref;
+using boost::wcmatch;
+template<class T> using is_function = boost::is_function<T>;
+using boost::regex_match;
+template<class T> using is_member_pointer = boost::is_member_pointer<T>;
+template<class T> using is_member_function_pointer = boost::is_member_function_pointer<T>;
+using boost::wssub_match;
+using boost::wcsub_match;
+template<class BidirectionalIterator, class charT, class traits> using regex_iterator = boost::regex_iterator<BidirectionalIterator, charT, traits>;
+using boost::addressof;
+using boost::cregex_token_iterator;
+template<class Cond, class T> using enable_if = boost::enable_if<Cond, T>;
+using boost::ssub_match;
+template<class T> using is_pointer = boost::is_pointer<T>;
+using boost::wsregex_iterator;
+template<class BidiIterator> using sub_match = boost::sub_match<BidiIterator>;
+using boost::static_pointer_cast;
+template<class T> using weak_ptr = boost::weak_ptr<T>;
+template<class T> using is_const = boost::is_const<T>;
+using bad_weak_ptr = boost::bad_weak_ptr;
+using boost::cmatch;
+using boost::dynamic_pointer_cast;
+template<class T> using enable_shared_from_this = boost::enable_shared_from_this<T>;
+using boost::swap;
+using boost::regex_replace;
+template<class T> using hash = boost::hash<T>;
+template<class T> using is_enum = boost::is_enum<T>;
+using boost::ref;
+template<class T, class U> using is_same = boost::is_same<T, U>;
+using boost::const_pointer_cast;
+template<class T> using is_class = boost::is_class<T>;
+template<class T> using is_integral = boost::is_integral<T>;
+using boost::wcregex_token_iterator;
+template<class T> using shared_ptr = boost::shared_ptr<T>;
+using boost::regex;
+using boost::csub_match;
+using boost::smatch;
+template<class T> using make_unsigned = boost::make_unsigned<T>;
+template<class T> using remove_pointer = boost::remove_pointer<T>;
+template<class charT, class traits> using basic_regex = boost::basic_regex<charT, traits>;
+template<class charT, class implementationT> using regex_traits = boost::regex_traits<charT, implementationT>;
+using boost::wregex;
+using boost::false_type;
+using boost::get_deleter;
+using regex_error = boost::regex_error;
+template<class T> using add_volatile = boost::add_volatile<T>;
+template<class T> using add_const = boost::add_const<T>;
+template<class T, T _1> using integral_constant = boost::integral_constant<T, _1>;
+template<class T> using remove_cv = boost::remove_cv<T>;
+using boost::true_type;
+template<class T> using is_lvalue_reference = boost::is_lvalue_reference<T>;
+template<class T> using is_volatile = boost::is_volatile<T>;
+template<class T> using is_rvalue_reference = boost::is_rvalue_reference<T>;
+template<class T> using reference_wrapper = boost::reference_wrapper<T>;
+template<class T> using is_unsigned = boost::is_unsigned<T>;
+template<class T> using is_reference = boost::is_reference<T>;
+template<class T> using is_abstract = boost::is_abstract<T>;
+template<class From, class To> using is_convertible = boost::is_convertible<From, To>;
+template<class T> using is_signed = boost::is_signed<T>;
+BOOST_STL11_REGEX_MAP_NAMESPACE_END
+#undef BOOST_STL11_REGEX_MAP_NAMESPACE_BEGIN
+#undef BOOST_STL11_REGEX_MAP_NAMESPACE_END

@@ -1,0 +1,74 @@
+/* This is an automatically generated bindings file. Don't modify it! */
+#if !defined(BOOST_STL11_TYPE_TRAITS_MAP_NAMESPACE_BEGIN) || !defined(BOOST_STL11_TYPE_TRAITS_MAP_NAMESPACE_END)
+#error You need to define BOOST_STL11_TYPE_TRAITS_MAP_NAMESPACE_BEGIN and BOOST_STL11_TYPE_TRAITS_MAP_NAMESPACE_END to use this header file
+#endif
+#include <boost/type_traits.hpp>
+BOOST_STL11_TYPE_TRAITS_MAP_NAMESPACE_BEGIN
+extern const char *boost_local_bind_in;
+template<class T> using rank = boost::rank<T>;
+template<class T> using make_unsigned = boost::make_unsigned<T>;
+template<class T> using is_unsigned = boost::is_unsigned<T>;
+template<class T> using is_union = boost::is_union<T>;
+template<class T> using is_polymorphic = boost::is_polymorphic<T>;
+template<class T> using is_nothrow_move_assignable = boost::is_nothrow_move_assignable<T>;
+template<class Cond, class T> using enable_if = boost::enable_if<Cond, T>;
+template<class T> using is_floating_point = boost::is_floating_point<T>;
+template<class T> using is_member_object_pointer = boost::is_member_object_pointer<T>;
+template<class T> using is_empty = boost::is_empty<T>;
+template<class T> using is_copy_constructible = boost::is_copy_constructible<T>;
+template<class T> using is_compound = boost::is_compound<T>;
+template<class T> using has_virtual_destructor = boost::has_virtual_destructor<T>;
+template<class T, std::size_t _1> using extent = boost::extent<T, _1>;
+template<class T> using is_abstract = boost::is_abstract<T>;
+template<class T> using remove_const = boost::remove_const<T>;
+template<class T> using decay = boost::decay<T>;
+template<class T> using is_fundamental = boost::is_fundamental<T>;
+template<bool _0, class T, class U> using conditional = boost::conditional<_0, T, U>;
+template<class T> using make_signed = boost::make_signed<T>;
+template<class T> using is_pointer = boost::is_pointer<T>;
+template<class... T> using common_type = boost::common_type<T...>;
+template<class T> using add_const = boost::add_const<T>;
+using boost::declval;
+using boost::false_type;
+template<class T> using is_pod = boost::is_pod<T>;
+template<class T> using remove_cv = boost::remove_cv<T>;
+template<class T, T _1> using integral_constant = boost::integral_constant<T, _1>;
+template<class T> using is_enum = boost::is_enum<T>;
+template<class T> using is_integral = boost::is_integral<T>;
+template<class T> using is_nothrow_move_constructible = boost::is_nothrow_move_constructible<T>;
+template<class T> using is_member_pointer = boost::is_member_pointer<T>;
+template<class T> using is_function = boost::is_function<T>;
+template<class T> using is_void = boost::is_void<T>;
+template<class T> using is_lvalue_reference = boost::is_lvalue_reference<T>;
+template<class Base, class Derived> using is_base_of = boost::is_base_of<Base, Derived>;
+template<class T> using is_arithmetic = boost::is_arithmetic<T>;
+template<class T> using add_pointer = boost::add_pointer<T>;
+template<class T> using is_reference = boost::is_reference<T>;
+template<std::size_t _0, std::size_t _1> using aligned_storage = boost::aligned_storage<_0, _1>;
+template<class T> using is_const = boost::is_const<T>;
+template<class T> using is_rvalue_reference = boost::is_rvalue_reference<T>;
+template<class T> using add_cv = boost::add_cv<T>;
+template<class T> using add_lvalue_reference = boost::add_lvalue_reference<T>;
+template<class T> using is_scalar = boost::is_scalar<T>;
+using boost::true_type;
+template<class T> using remove_reference = boost::remove_reference<T>;
+template<class T> using add_volatile = boost::add_volatile<T>;
+template<class T> using remove_extent = boost::remove_extent<T>;
+template<class T> using is_class = boost::is_class<T>;
+template<class T> using has_trivial_default_constructor = boost::has_trivial_default_constructor<T>;
+template<class T> using remove_all_extents = boost::remove_all_extents<T>;
+template<class T> using has_trivial_copy_constructor = boost::has_trivial_copy_constructor<T>;
+template<class T> using is_member_function_pointer = boost::is_member_function_pointer<T>;
+template<class T> using is_volatile = boost::is_volatile<T>;
+template<class T> using is_array = boost::is_array<T>;
+template<class T> using remove_pointer = boost::remove_pointer<T>;
+template<class T> using is_signed = boost::is_signed<T>;
+template<class From, class To> using is_convertible = boost::is_convertible<From, To>;
+template<class T> using alignment_of = boost::alignment_of<T>;
+template<class T, class U> using is_same = boost::is_same<T, U>;
+template<class T> using add_rvalue_reference = boost::add_rvalue_reference<T>;
+template<class T> using is_object = boost::is_object<T>;
+template<class T> using remove_volatile = boost::remove_volatile<T>;
+BOOST_STL11_TYPE_TRAITS_MAP_NAMESPACE_END
+#undef BOOST_STL11_TYPE_TRAITS_MAP_NAMESPACE_BEGIN
+#undef BOOST_STL11_TYPE_TRAITS_MAP_NAMESPACE_END

@@ -4,7 +4,7 @@ Uses libclang to parse a STL header into a local namespace bind
 Created: Sept 2014
 */
 
-#define LOGGING 1
+#define LOGGING 0
 
 #include <iostream>
 #include <fstream>
@@ -212,12 +212,13 @@ struct map_tu_params
     for(auto &i : pathupper)
       i=std::toupper(i);
     s << "/* This is an automatically generated bindings file. Don't modify it! */" << std::endl;
-    s << "#if !defined(" << macro_prefix << "BEGIN_NAMESPACE) || !defined(" << macro_prefix << "END_NAMESPACE)" << std::endl;
-    s << "#error You need to define " << macro_prefix << "BEGIN_NAMESPACE and " << macro_prefix << "END_NAMESPACE to use this header file" << std::endl;
+    s << "#if !defined(" << macro_prefix << "NAMESPACE_BEGIN) || !defined(" << macro_prefix << "NAMESPACE_END)" << std::endl;
+    s << "#error You need to define " << macro_prefix << "NAMESPACE_BEGIN and " << macro_prefix << "NAMESPACE_END to use this header file" << std::endl;
     s << "#endif" << std::endl;
 //    s << "#include \"boostmacros.hpp\"\n";
     s << "#include <" << path << ">" << std::endl;
-    s << macro_prefix << "BEGIN_NAMESPACE" << std::endl;
+    s << macro_prefix << "NAMESPACE_BEGIN" << std::endl;
+    s << "extern const char *boost_local_bind_in;" << std::endl;
 
     // Enums before all else   
     for(auto &i : out.enums)
@@ -263,7 +264,9 @@ struct map_tu_params
       s << ";" << namespace2 << std::endl;
     }
     
-    s << macro_prefix << "END_NAMESPACE" << std::endl;
+    s << macro_prefix << "NAMESPACE_END" << std::endl;
+    s << "#undef " << macro_prefix << "NAMESPACE_BEGIN" << std::endl;
+    s << "#undef " << macro_prefix << "NAMESPACE_END" << std::endl;
   }
 };
 static void parse_namespace(CXCursor cursor, map_tu_params *p)
@@ -276,9 +279,6 @@ static void parse_namespace(CXCursor cursor, map_tu_params *p)
   {
     clang_visitChildren(cursor, [](CXCursor cursor, CXCursor parent, CXClientData client_data){
       map_tu_params *p=(map_tu_params *) client_data;
-#if LOGGING
-      std::cout << "I see entity " << cursor.kind << " " << p->fullqual(to_string(clang_getCursorDisplayName(cursor))) << std::endl;
-#endif
       switch(cursor.kind)
       {
         case CXCursor_Namespace:
@@ -299,6 +299,13 @@ static void parse_namespace(CXCursor cursor, map_tu_params *p)
           // Skip operator mapping as ADL will find those.
           if(name.compare(0, 8, "operator") == 0)
             break;
+          // If the semantic parent is not a namespace, this is an out of class implementation. Skip
+          if(clang_getCursorSemanticParent(cursor).kind!=CXCursor_Namespace)
+            break;
+#if LOGGING
+          std::cout << "I see entity " << cursor.kind << " " << p->fullqual(to_string(clang_getCursorDisplayName(cursor))) << " [" << name << "]" << std::endl;
+          //std::cout << "*** parent kind = " << parent.kind << " semantic parent kind = " << clang_getCursorSemanticParent(cursor).kind << std::endl;
+#endif
           auto fullname(p->fullqual(name));
           for(auto &i : p->items)
             if(std::regex_match(fullname, i))
@@ -453,8 +460,12 @@ void map_tu(map_tu_params *p)
       std::ofstream temph("__temp.cpp");  
       temph << "#include <" << p->path << ">" << std::endl;
     }
-    const char *args[]={ "-x", "c++", "-std=c++11" };
+#if 0
+    const char *args[]={ "-x", "c++", "-std=c++11", "-I." };
+#else
     //const char *args[]={ "-x", "c++", "-std=c++11", "-nostdinc++", "-I/usr/include/c++/4.8", "-I/usr/include/x86_64-linux-gnu/c++/4.8" };
+    const char *args[]={ "-x", "c++", "-std=c++11", "-I.", "-I/home/ned/boost-release" };
+#endif
     tu=tu_ptr(clang_createTranslationUnitFromSourceFile(index.get(), "__temp.cpp", sizeof(args)/sizeof(args[0]), args, 0, nullptr));
     clang_visitChildren(clang_getTranslationUnitCursor(tu.get()), [](CXCursor cursor, CXCursor parent, CXClientData client_data){
       map_tu_params *p=(map_tu_params *) client_data;

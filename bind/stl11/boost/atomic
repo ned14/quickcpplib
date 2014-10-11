@@ -1,0 +1,64 @@
+/* This is an automatically generated bindings file. Don't modify it! */
+#if !defined(BOOST_STL11_ATOMIC_MAP_NAMESPACE_BEGIN) || !defined(BOOST_STL11_ATOMIC_MAP_NAMESPACE_END)
+#error You need to define BOOST_STL11_ATOMIC_MAP_NAMESPACE_BEGIN and BOOST_STL11_ATOMIC_MAP_NAMESPACE_END to use this header file
+#endif
+#include <boost/atomic.hpp>
+BOOST_STL11_ATOMIC_MAP_NAMESPACE_BEGIN
+extern const char *boost_local_bind_in;
+using boost::memory_order;
+  using boost::memory_order_relaxed;
+  using boost::memory_order_consume;
+  using boost::memory_order_acquire;
+  using boost::memory_order_release;
+  using boost::memory_order_acq_rel;
+  using boost::memory_order_seq_cst;
+  using boost::memory_order_relaxed;
+  using boost::memory_order_consume;
+  using boost::memory_order_acquire;
+  using boost::memory_order_release;
+  using boost::memory_order_acq_rel;
+  using boost::memory_order_seq_cst;
+using boost::atomics::atomic_uintptr_t;
+using boost::atomics::atomic_ptrdiff_t;
+using boost::atomics::atomic_size_t;
+using boost::atomics::atomic_uintmax_t;
+using boost::atomics::atomic_intmax_t;
+using boost::atomics::atomic_int_fast64_t;
+using boost::atomics::atomic_int_fast32_t;
+using boost::atomics::atomic_uint_fast16_t;
+using boost::atomics::atomic_int_fast16_t;
+using boost::atomics::atomic_uint_fast8_t;
+using boost::atomics::atomic_uint_least64_t;
+using boost::atomics::atomic_int_least64_t;
+using boost::atomics::atomic_uint_least32_t;
+using boost::atomics::atomic_int_fast8_t;
+using boost::atomics::atomic_int_least32_t;
+using boost::atomics::atomic_uint_least16_t;
+using boost::atomics::atomic_uint_least8_t;
+using boost::atomics::atomic_char;
+using boost::atomics::atomic_signal_fence;
+using boost::atomics::atomic_llong;
+using boost::atomics::atomic_int_least16_t;
+using boost::atomics::atomic_thread_fence;
+using boost::atomics::atomic_ullong;
+template<class T> using atomic = boost::atomics::atomic<T>;
+using boost::atomics::atomic_ushort;
+using boost::atomics::atomic_short;
+using boost::atomics::atomic_long;
+using atomic_flag = boost::atomics::atomic_flag;
+using boost::atomics::atomic_uint_fast32_t;
+using boost::atomics::atomic_uchar;
+using boost::atomics::atomic_schar;
+using boost::atomics::atomic_uint;
+using boost::atomics::atomic_uint_fast64_t;
+using boost::atomics::atomic_int;
+using boost::atomics::atomic_ulong;
+using boost::atomics::atomic_bool;
+using boost::atomics::atomic_intptr_t;
+using boost::atomics::atomic_char32_t;
+using boost::atomics::atomic_int_least8_t;
+using boost::atomics::atomic_wchar_t;
+using boost::atomics::atomic_char16_t;
+BOOST_STL11_ATOMIC_MAP_NAMESPACE_END
+#undef BOOST_STL11_ATOMIC_MAP_NAMESPACE_BEGIN
+#undef BOOST_STL11_ATOMIC_MAP_NAMESPACE_END

@@ -1,0 +1,18 @@
+/* This is an automatically generated bindings file. Don't modify it! */
+#if !defined(BOOST_STL11_SYSTEM_ERROR_MAP_NAMESPACE_BEGIN) || !defined(BOOST_STL11_SYSTEM_ERROR_MAP_NAMESPACE_END)
+#error You need to define BOOST_STL11_SYSTEM_ERROR_MAP_NAMESPACE_BEGIN and BOOST_STL11_SYSTEM_ERROR_MAP_NAMESPACE_END to use this header file
+#endif
+#include <boost/system/system_error.hpp>
+BOOST_STL11_SYSTEM_ERROR_MAP_NAMESPACE_BEGIN
+extern const char *boost_local_bind_in;
+using system_error = boost::system::system_error;
+using error_code = boost::system::error_code;
+using error_condition = boost::system::error_condition;
+template<class T> using is_error_condition_enum = boost::system::is_error_condition_enum<T>;
+template<class T> using is_error_code_enum = boost::system::is_error_code_enum<T>;
+using error_category = boost::system::error_category;
+using boost::system::system_category;
+using boost::system::generic_category;
+BOOST_STL11_SYSTEM_ERROR_MAP_NAMESPACE_END
+#undef BOOST_STL11_SYSTEM_ERROR_MAP_NAMESPACE_BEGIN
+#undef BOOST_STL11_SYSTEM_ERROR_MAP_NAMESPACE_END

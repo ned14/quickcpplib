@@ -1,0 +1,115 @@
+/* This is an automatically generated bindings file. Don't modify it! */
+#if !defined(BOOST_STL11_THREAD_MAP_NAMESPACE_BEGIN) || !defined(BOOST_STL11_THREAD_MAP_NAMESPACE_END)
+#error You need to define BOOST_STL11_THREAD_MAP_NAMESPACE_BEGIN and BOOST_STL11_THREAD_MAP_NAMESPACE_END to use this header file
+#endif
+#include <boost/thread.hpp>
+BOOST_STL11_THREAD_MAP_NAMESPACE_BEGIN
+extern const char *boost_local_bind_in;
+using boost::next;
+template<class T> using hash = boost::hash<T>;
+template<class T, T _1> using integral_constant = boost::integral_constant<T, _1>;
+using boost::static_pointer_cast;
+template<class R1, class R2> using ratio_less_equal = boost::ratio_less_equal<R1, R2>;
+using boost::declval;
+namespace this_thread { using boost::this_thread::sleep_for; }
+template<class T> using is_array = boost::is_array<T>;
+template<class T> using is_member_pointer = boost::is_member_pointer<T>;
+template<class T> using is_reference = boost::is_reference<T>;
+template<class T> using is_lvalue_reference = boost::is_lvalue_reference<T>;
+using boost::peta;
+template<class From, class To> using is_convertible = boost::is_convertible<From, To>;
+using boost::get_deleter;
+template<class T> using alignment_of = boost::alignment_of<T>;
+using boost::const_pointer_cast;
+using boost::swap;
+template<class R1, class R2> using ratio_not_equal = boost::ratio_not_equal<R1, R2>;
+using boost::dynamic_pointer_cast;
+template<class T> using enable_shared_from_this = boost::enable_shared_from_this<T>;
+template<class T> using remove_cv = boost::remove_cv<T>;
+template<class Base, class Derived> using is_base_of = boost::is_base_of<Base, Derived>;
+template<class T> using is_abstract = boost::is_abstract<T>;
+template<class T, class U> using is_same = boost::is_same<T, U>;
+template<class T> using is_function = boost::is_function<T>;
+template<class T> using is_fundamental = boost::is_fundamental<T>;
+template<class T> using remove_reference = boost::remove_reference<T>;
+using boost::micro;
+using boost::false_type;
+template<class T> using remove_const = boost::remove_const<T>;
+using boost::centi;
+template<class Cond, class T> using enable_if = boost::enable_if<Cond, T>;
+namespace this_thread { using boost::this_thread::sleep_until; }
+template<class T> using remove_volatile = boost::remove_volatile<T>;
+template<class T> using add_pointer = boost::add_pointer<T>;
+template<bool _0, class T, class U> using conditional = boost::conditional<_0, T, U>;
+template<class T> using is_nothrow_move_constructible = boost::is_nothrow_move_constructible<T>;
+template<class T> using is_placeholder = boost::is_placeholder<T>;
+using boost::forward;
+using boost::kilo;
+template<class T> using weak_ptr = boost::weak_ptr<T>;
+template<class T> using is_member_function_pointer = boost::is_member_function_pointer<T>;
+using boost::true_type;
+template<class T> using is_scalar = boost::is_scalar<T>;
+template<class T> using is_pod = boost::is_pod<T>;
+template<class T> using add_const = boost::add_const<T>;
+template<class T> using is_enum = boost::is_enum<T>;
+template<class T> using has_trivial_copy_constructor = boost::has_trivial_copy_constructor<T>;
+template<class T> using remove_extent = boost::remove_extent<T>;
+template<class T> using is_class = boost::is_class<T>;
+using boost::tera;
+using boost::exa;
+using boost::milli;
+template<class T> using is_unsigned = boost::is_unsigned<T>;
+using boost::deca;
+template<class T> using is_void = boost::is_void<T>;
+using boost::move;
+template<class T> using shared_ptr = boost::shared_ptr<T>;
+using boost::move_backward;
+using boost::pico;
+template<class T> using is_union = boost::is_union<T>;
+template<class T> using is_const = boost::is_const<T>;
+template<class T> using is_nothrow_move_assignable = boost::is_nothrow_move_assignable<T>;
+template<class T> using add_volatile = boost::add_volatile<T>;
+template<class T> using is_rvalue_reference = boost::is_rvalue_reference<T>;
+template<class R1, class R2> using ratio_greater = boost::ratio_greater<R1, R2>;
+template<class R1, class R2> using ratio_less = boost::ratio_less<R1, R2>;
+using boost::mem_fn;
+template<class T> using is_bind_expression = boost::is_bind_expression<T>;
+template<class R1, class R2> using ratio_greater_equal = boost::ratio_greater_equal<R1, R2>;
+using boost::atto;
+using boost::femto;
+template<class T> using decay = boost::decay<T>;
+using boost::nano;
+using boost::deci;
+using boost::hecto;
+using boost::mega;
+using boost::giga;
+template<class T> using is_floating_point = boost::is_floating_point<T>;
+template<class F> using result_of = boost::result_of<F>;
+using boost::make_move_iterator;
+namespace this_thread { using boost::this_thread::yield; }
+template<boost::intmax_t _0, boost::intmax_t _1> using ratio = boost::ratio<_0, _1>;
+using boost::addressof;
+template<class T> using reference_wrapper = boost::reference_wrapper<T>;
+template<class T> using is_pointer = boost::is_pointer<T>;
+template<class T> using is_volatile = boost::is_volatile<T>;
+using boost::ref;
+using boost::cref;
+using boost::bind;
+template<class T> using is_integral = boost::is_integral<T>;
+using thread = boost::thread;
+template<class R1, class R2> using ratio_equal = boost::ratio_equal<R1, R2>;
+template<class T> using add_rvalue_reference = boost::add_rvalue_reference<T>;
+namespace this_thread { using boost::this_thread::get_id; }
+template<class Signature> using function = boost::function<Signature>;
+template<class T> using is_signed = boost::is_signed<T>;
+template<class It> using move_iterator = boost::move_iterator<It>;
+template<std::size_t _0, std::size_t _1> using aligned_storage = boost::aligned_storage<_0, _1>;
+using bad_weak_ptr = boost::bad_weak_ptr;
+template<class T> using add_cv = boost::add_cv<T>;
+using bad_function_call = boost::bad_function_call;
+using boost::to_string;
+template<class T> using is_arithmetic = boost::is_arithmetic<T>;
+template<class... T> using common_type = boost::common_type<T...>;
+BOOST_STL11_THREAD_MAP_NAMESPACE_END
+#undef BOOST_STL11_THREAD_MAP_NAMESPACE_BEGIN
+#undef BOOST_STL11_THREAD_MAP_NAMESPACE_END

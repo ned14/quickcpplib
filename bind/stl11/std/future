@@ -1,9 +1,10 @@
 /* This is an automatically generated bindings file. Don't modify it! */
-#if !defined(BOOST_STL11_MAP_BEGIN_NAMESPACE) || !defined(BOOST_STL11_MAP_END_NAMESPACE)
-#error You need to define BOOST_STL11_MAP_BEGIN_NAMESPACE and BOOST_STL11_MAP_END_NAMESPACE to use this header file
+#if !defined(BOOST_STL11_FUTURE_MAP_NAMESPACE_BEGIN) || !defined(BOOST_STL11_FUTURE_MAP_NAMESPACE_END)
+#error You need to define BOOST_STL11_FUTURE_MAP_NAMESPACE_BEGIN and BOOST_STL11_FUTURE_MAP_NAMESPACE_END to use this header file
 #endif
 #include <future>
-BOOST_STL11_MAP_BEGIN_NAMESPACE
+BOOST_STL11_FUTURE_MAP_NAMESPACE_BEGIN
+extern const char *boost_local_bind_in;
 using std::future_status;
 using std::launch;
 using std::future_errc;
@@ -23,56 +24,23 @@ using std::atomic_load;
 using std::atomic_store;
 using std::atomic_load_explicit;
 using std::atomic_store_explicit;
-using atomic_bool = std::atomic_bool;
-using atomic_flag = std::atomic_flag;
-using std::atomic_ptrdiff_t;
-using std::atomic_uintmax_t;
-using std::atomic_size_t;
-using std::atomic_uintptr_t;
-using std::atomic_uint_fast64_t;
-using std::atomic_uint_fast32_t;
-using std::atomic_int_fast32_t;
-using std::atomic_int_fast16_t;
-using std::atomic_uint_fast8_t;
-using std::atomic_int_fast8_t;
 using std::atomic_exchange_explicit;
-using std::atomic_uint_least64_t;
-using std::atomic_int_least64_t;
-using std::atomic_uint_least32_t;
-using std::atomic_int_least32_t;
-using std::atomic_int_least16_t;
-using std::atomic_uint_least8_t;
-using std::atomic_int_least8_t;
-using std::atomic_char32_t;
-using std::atomic_llong;
-using std::atomic_int;
-using std::atomic_ushort;
-using std::atomic_short;
-using std::atomic_schar;
-using std::atomic_signal_fence;
-using std::atomic_thread_fence;
-using condition_variable = std::condition_variable;
-using std::atomic_uchar;
 using future_error = std::future_error;
 template<class _Tp> using remove_reference = std::remove_reference<_Tp>;
 template<class type_parameter_0_0> using remove_reference = std::remove_reference<type_parameter_0_0>;
 using std::centi;
 template<class _Tp> using is_union = std::is_union<_Tp>;
-template<class _Category, class _Tp, class _Distance, class _Pointer, class _Reference> using iterator = std::iterator<_Category, _Tp, _Distance, _Pointer, _Reference>;
-template<class _Tp> using has_trivial_default_constructor = std::has_trivial_default_constructor<_Tp>;
 template<class _R1, class _R2> using ratio_less_equal = std::ratio_less_equal<_R1, _R2>;
 using std::forward;
-template<class _Tp> using underlying_type = std::underlying_type<_Tp>;
 template<class _Tp> using decay = std::decay<_Tp>;
 template<class type_parameter_0_0> using is_const = std::is_const<type_parameter_0_0>;
+template<class _Tp> using remove_extent = std::remove_extent<_Tp>;
 using std::lock;
 template<class _From, class _To> using is_convertible = std::is_convertible<_From, _To>;
-using std::atomic_char16_t;
 template<class _Tp> using add_rvalue_reference = std::add_rvalue_reference<_Tp>;
 template<class type_parameter_0_0> using add_rvalue_reference = std::add_rvalue_reference<type_parameter_0_0>;
 template<class _Tp> using is_nothrow_move_constructible = std::is_nothrow_move_constructible<_Tp>;
 template<class _Tp> using is_pod = std::is_pod<_Tp>;
-using std::atomic_int_fast64_t;
 using std::declval;
 template<class _Tp> using add_cv = std::add_cv<_Tp>;
 using std::false_type;
@@ -81,13 +49,11 @@ template<class _Base, class _Derived> using is_base_of = std::is_base_of<_Base, 
 template<class type_parameter_0_0, class type_parameter_0_1> using is_base_of = std::is_base_of<type_parameter_0_0, type_parameter_0_1>;
 template<class _Tp> using reference_wrapper = std::reference_wrapper<_Tp>;
 using once_flag = std::once_flag;
-template<class _Tp> using atomic = std::atomic<_Tp>;
+template<class _Iterator> using move_iterator = std::move_iterator<_Iterator>;
 template<class type_parameter_0_0> using is_volatile = std::is_volatile<type_parameter_0_0>;
 template<class _Tp> using is_unsigned = std::is_unsigned<_Tp>;
 using try_to_lock_t = std::try_to_lock_t;
-using std::atomic_uint_fast16_t;
 using std::dynamic_pointer_cast;
-using std::atomic_intptr_t;
 using std::static_pointer_cast;
 template<class _Tp> using remove_cv = std::remove_cv<_Tp>;
 template<class type_parameter_0_0> using remove_cv = std::remove_cv<type_parameter_0_0>;
@@ -100,9 +66,10 @@ template<class _Tp> using add_pointer = std::add_pointer<_Tp>;
 template<class _Tp> using is_abstract = std::is_abstract<_Tp>;
 template<class _R1, class _R2> using ratio_not_equal = std::ratio_not_equal<_R1, _R2>;
 template<class _Tp> using is_enum = std::is_enum<_Tp>;
+template<bool _0, class _Iftrue, class _Iffalse> using conditional = std::conditional<_0, _Iftrue, _Iffalse>;
+template<bool _0, class type_parameter_0_1, class type_parameter_0_2> using conditional = std::conditional<_0, type_parameter_0_1, type_parameter_0_2>;
 template<bool _0, class _Tp> using enable_if = std::enable_if<_0, _Tp>;
 template<class _Tp> using remove_volatile = std::remove_volatile<_Tp>;
-using std::atomic_wchar_t;
 template<class _Tp> using is_arithmetic = std::is_arithmetic<_Tp>;
 template<class _Tp, _Tp _1> using integral_constant = std::integral_constant<_Tp, _1>;
 template<class _Tp> using alignment_of = std::alignment_of<_Tp>;
@@ -110,11 +77,11 @@ template<class _Tp> using is_floating_point = std::is_floating_point<_Tp>;
 using std::kilo;
 using std::true_type;
 template<class type_parameter_0_0> using is_array = std::is_array<type_parameter_0_0>;
-using std::atomic_ullong;
 template<class _Tp> using is_pointer = std::is_pointer<_Tp>;
 template<class _Tp> using is_member_function_pointer = std::is_member_function_pointer<_Tp>;
 template<class _Tp> using is_class = std::is_class<_Tp>;
 template<class _Tp> using is_integral = std::is_integral<_Tp>;
+using std::move_backward;
 template<class _Tp> using weak_ptr = std::weak_ptr<_Tp>;
 using std::addressof;
 template<class _Signature> using result_of = std::result_of<_Signature>;
@@ -123,18 +90,16 @@ using std::swap;
 template<class _Tp> using is_member_pointer = std::is_member_pointer<_Tp>;
 template<class type_parameter_0_0> using is_member_pointer = std::is_member_pointer<type_parameter_0_0>;
 using std::mem_fn;
-using std::atomic_uint_least16_t;
-using std::atomic_intmax_t;
 template<class _Tp> using has_trivial_copy_constructor = std::has_trivial_copy_constructor<_Tp>;
 template<class _Tp> using enable_shared_from_this = std::enable_shared_from_this<_Tp>;
 using std::atomic_is_lock_free;
 using std::next;
-using std::atomic_char;
+using condition_variable = std::condition_variable;
 using std::micro;
 template<class type_parameter_0_0, class type_parameter_0_1> using is_same = std::is_same<type_parameter_0_0, type_parameter_0_1>;
 using std::femto;
 template<class type_parameter_0_0> using is_lvalue_reference = std::is_lvalue_reference<type_parameter_0_0>;
-using std::atomic_ulong;
+using std::make_move_iterator;
 template<class type_parameter_0_0> using is_rvalue_reference = std::is_rvalue_reference<type_parameter_0_0>;
 using std::move;
 using adopt_lock_t = std::adopt_lock_t;
@@ -144,14 +109,13 @@ template<class _Tp> using is_nothrow_move_assignable = std::is_nothrow_move_assi
 using std::tera;
 using std::cref;
 template<class _Mutex> using lock_guard = std::lock_guard<_Mutex>;
-using std::get;
-using std::atomic_long;
 using std::pico;
 using std::to_string;
 template<class _Tp> using hash = std::hash<_Tp>;
 template<class _Tp> using add_volatile = std::add_volatile<_Tp>;
 using std::milli;
 template<class _Tp> using add_const = std::add_const<_Tp>;
+template<std::size_t _0, std::size_t _1> using aligned_storage = std::aligned_storage<_0, _1>;
 using std::ref;
 template<class _Tp> using is_bind_expression = std::is_bind_expression<_Tp>;
 template<class _Tp> using is_placeholder = std::is_placeholder<_Tp>;
@@ -172,7 +136,6 @@ using std::peta;
 using std::exa;
 using recursive_mutex = std::recursive_mutex;
 using timed_mutex = std::timed_mutex;
-using std::atomic_uint;
 using mutex = std::mutex;
 using recursive_timed_mutex = std::recursive_timed_mutex;
 using defer_lock_t = std::defer_lock_t;
@@ -187,4 +150,6 @@ template<class _Tp> using remove_const = std::remove_const<_Tp>;
 using std::get_deleter;
 template<class... _Tp> using common_type = std::common_type<_Tp...>;
 using thread = std::thread;
-BOOST_STL11_MAP_END_NAMESPACE
+BOOST_STL11_FUTURE_MAP_NAMESPACE_END
+#undef BOOST_STL11_FUTURE_MAP_NAMESPACE_BEGIN
+#undef BOOST_STL11_FUTURE_MAP_NAMESPACE_END

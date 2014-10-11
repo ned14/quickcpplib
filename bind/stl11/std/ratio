@@ -1,9 +1,10 @@
 /* This is an automatically generated bindings file. Don't modify it! */
-#if !defined(BOOST_STL11_MAP_BEGIN_NAMESPACE) || !defined(BOOST_STL11_MAP_END_NAMESPACE)
-#error You need to define BOOST_STL11_MAP_BEGIN_NAMESPACE and BOOST_STL11_MAP_END_NAMESPACE to use this header file
+#if !defined(BOOST_STL11_RATIO_MAP_NAMESPACE_BEGIN) || !defined(BOOST_STL11_RATIO_MAP_NAMESPACE_END)
+#error You need to define BOOST_STL11_RATIO_MAP_NAMESPACE_BEGIN and BOOST_STL11_RATIO_MAP_NAMESPACE_END to use this header file
 #endif
 #include <ratio>
-BOOST_STL11_MAP_BEGIN_NAMESPACE
+BOOST_STL11_RATIO_MAP_NAMESPACE_BEGIN
+extern const char *boost_local_bind_in;
 using std::peta;
 using std::tera;
 using std::hecto;
@@ -31,4 +32,6 @@ using std::false_type;
 using std::exa;
 template<class _R1, class _R2> using ratio_greater = std::ratio_greater<_R1, _R2>;
 template<bool _0, class _Tp> using enable_if = std::enable_if<_0, _Tp>;
-BOOST_STL11_MAP_END_NAMESPACE
+BOOST_STL11_RATIO_MAP_NAMESPACE_END
+#undef BOOST_STL11_RATIO_MAP_NAMESPACE_BEGIN
+#undef BOOST_STL11_RATIO_MAP_NAMESPACE_END

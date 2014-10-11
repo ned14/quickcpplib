@@ -1,0 +1,22 @@
+/* This is an automatically generated bindings file. Don't modify it! */
+#if !defined(BOOST_STL11_CHRONO_MAP_NAMESPACE_BEGIN) || !defined(BOOST_STL11_CHRONO_MAP_NAMESPACE_END)
+#error You need to define BOOST_STL11_CHRONO_MAP_NAMESPACE_BEGIN and BOOST_STL11_CHRONO_MAP_NAMESPACE_END to use this header file
+#endif
+#include <boost/chrono.hpp>
+BOOST_STL11_CHRONO_MAP_NAMESPACE_BEGIN
+extern const char *boost_local_bind_in;
+using boost::chrono::hours;
+using boost::chrono::minutes;
+using boost::chrono::milliseconds;
+using boost::chrono::seconds;
+using boost::chrono::nanoseconds;
+template<class Rep> using treat_as_floating_point = boost::chrono::treat_as_floating_point<Rep>;
+using boost::chrono::microseconds;
+template<class Rep, class Period> using duration = boost::chrono::duration<Rep, Period>;
+using boost::chrono::duration_cast;
+template<class Clock, class Duration> using time_point = boost::chrono::time_point<Clock, Duration>;
+using boost::chrono::time_point_cast;
+template<class Rep> using duration_values = boost::chrono::duration_values<Rep>;
+BOOST_STL11_CHRONO_MAP_NAMESPACE_END
+#undef BOOST_STL11_CHRONO_MAP_NAMESPACE_BEGIN
+#undef BOOST_STL11_CHRONO_MAP_NAMESPACE_END

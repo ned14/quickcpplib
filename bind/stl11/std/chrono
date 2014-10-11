@@ -1,9 +1,10 @@
 /* This is an automatically generated bindings file. Don't modify it! */
-#if !defined(BOOST_STL11_MAP_BEGIN_NAMESPACE) || !defined(BOOST_STL11_MAP_END_NAMESPACE)
-#error You need to define BOOST_STL11_MAP_BEGIN_NAMESPACE and BOOST_STL11_MAP_END_NAMESPACE to use this header file
+#if !defined(BOOST_STL11_CHRONO_MAP_NAMESPACE_BEGIN) || !defined(BOOST_STL11_CHRONO_MAP_NAMESPACE_END)
+#error You need to define BOOST_STL11_CHRONO_MAP_NAMESPACE_BEGIN and BOOST_STL11_CHRONO_MAP_NAMESPACE_END to use this header file
 #endif
 #include <chrono>
-BOOST_STL11_MAP_BEGIN_NAMESPACE
+BOOST_STL11_CHRONO_MAP_NAMESPACE_BEGIN
+extern const char *boost_local_bind_in;
 using std::chrono::time_point_cast;
 using std::chrono::hours;
 template<class _Rep, class _Period> using duration = std::chrono::duration<_Rep, _Period>;
@@ -16,4 +17,6 @@ using std::chrono::milliseconds;
 using std::chrono::seconds;
 template<class _Rep> using treat_as_floating_point = std::chrono::treat_as_floating_point<_Rep>;
 using std::chrono::minutes;
-BOOST_STL11_MAP_END_NAMESPACE
+BOOST_STL11_CHRONO_MAP_NAMESPACE_END
+#undef BOOST_STL11_CHRONO_MAP_NAMESPACE_BEGIN
+#undef BOOST_STL11_CHRONO_MAP_NAMESPACE_END

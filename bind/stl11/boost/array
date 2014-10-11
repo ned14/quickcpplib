@@ -1,0 +1,13 @@
+/* This is an automatically generated bindings file. Don't modify it! */
+#if !defined(BOOST_STL11_ARRAY_MAP_NAMESPACE_BEGIN) || !defined(BOOST_STL11_ARRAY_MAP_NAMESPACE_END)
+#error You need to define BOOST_STL11_ARRAY_MAP_NAMESPACE_BEGIN and BOOST_STL11_ARRAY_MAP_NAMESPACE_END to use this header file
+#endif
+#include <boost/array.hpp>
+BOOST_STL11_ARRAY_MAP_NAMESPACE_BEGIN
+extern const char *boost_local_bind_in;
+template<class T> using hash = boost::hash<T>;
+using boost::swap;
+template<class T, std::size_t _1> using array = boost::array<T, _1>;
+BOOST_STL11_ARRAY_MAP_NAMESPACE_END
+#undef BOOST_STL11_ARRAY_MAP_NAMESPACE_BEGIN
+#undef BOOST_STL11_ARRAY_MAP_NAMESPACE_END

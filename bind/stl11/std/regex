@@ -1,9 +1,10 @@
 /* This is an automatically generated bindings file. Don't modify it! */
-#if !defined(BOOST_STL11_MAP_BEGIN_NAMESPACE) || !defined(BOOST_STL11_MAP_END_NAMESPACE)
-#error You need to define BOOST_STL11_MAP_BEGIN_NAMESPACE and BOOST_STL11_MAP_END_NAMESPACE to use this header file
+#if !defined(BOOST_STL11_REGEX_MAP_NAMESPACE_BEGIN) || !defined(BOOST_STL11_REGEX_MAP_NAMESPACE_END)
+#error You need to define BOOST_STL11_REGEX_MAP_NAMESPACE_BEGIN and BOOST_STL11_REGEX_MAP_NAMESPACE_END to use this header file
 #endif
 #include <regex>
-BOOST_STL11_MAP_BEGIN_NAMESPACE
+BOOST_STL11_REGEX_MAP_NAMESPACE_BEGIN
+extern const char *boost_local_bind_in;
 template<class _Bi_iter, class _Ch_type, class _Rx_traits> using regex_token_iterator = std::regex_token_iterator<_Bi_iter, _Ch_type, _Rx_traits>;
 using std::wsregex_iterator;
 template<class _Bi_iter, class _Ch_type, class _Rx_traits> using regex_iterator = std::regex_iterator<_Bi_iter, _Ch_type, _Rx_traits>;
@@ -29,6 +30,8 @@ template<class _Tp> using weak_ptr = std::weak_ptr<_Tp>;
 using std::cmatch;
 using std::regex_match;
 template<class _Tp> using is_reference = std::is_reference<_Tp>;
+template<class _Tp> using is_signed = std::is_signed<_Tp>;
+template<class type_parameter_0_0> using is_const = std::is_const<type_parameter_0_0>;
 template<class _Tp> using is_member_pointer = std::is_member_pointer<_Tp>;
 template<class type_parameter_0_0> using is_member_pointer = std::is_member_pointer<type_parameter_0_0>;
 template<class _Tp> using is_abstract = std::is_abstract<_Tp>;
@@ -36,9 +39,11 @@ template<class _Tp> using remove_cv = std::remove_cv<_Tp>;
 template<class type_parameter_0_0> using remove_cv = std::remove_cv<type_parameter_0_0>;
 template<class _Tp, _Tp _1> using integral_constant = std::integral_constant<_Tp, _1>;
 using std::true_type;
+template<class _Tp> using is_unsigned = std::is_unsigned<_Tp>;
 using std::get_deleter;
 template<class _Tp> using is_integral = std::is_integral<_Tp>;
 template<class _Tp> using is_pointer = std::is_pointer<_Tp>;
+template<class _Tp> using add_volatile = std::add_volatile<_Tp>;
 using std::cref;
 template<class type_parameter_0_0> using is_volatile = std::is_volatile<type_parameter_0_0>;
 template<class _From, class _To> using is_convertible = std::is_convertible<_From, _To>;
@@ -54,6 +59,7 @@ template<class type_parameter_0_0, class type_parameter_0_1> using match_results
 using std::wcregex_iterator;
 template<class type_parameter_0_0> using is_function = std::is_function<type_parameter_0_0>;
 template<class _Tp> using enable_shared_from_this = std::enable_shared_from_this<_Tp>;
+template<class _Tp> using make_unsigned = std::make_unsigned<_Tp>;
 template<bool _0, class _Tp> using enable_if = std::enable_if<_0, _Tp>;
 template<class _Tp> using reference_wrapper = std::reference_wrapper<_Tp>;
 using std::sregex_iterator;
@@ -64,10 +70,13 @@ template<class type_parameter_0_0> using is_rvalue_reference = std::is_rvalue_re
 using std::wcmatch;
 using std::regex_search;
 template<class _Tp> using is_class = std::is_class<_Tp>;
+template<class _Tp> using add_const = std::add_const<_Tp>;
 template<class type_parameter_0_0> using is_lvalue_reference = std::is_lvalue_reference<type_parameter_0_0>;
 template<class _BiIter> using sub_match = std::sub_match<_BiIter>;
 template<class _Ch_type, class _Rx_traits> using basic_regex = std::basic_regex<_Ch_type, _Rx_traits>;
 template<class type_parameter_0_0, class type_parameter_0_1> using basic_regex = std::basic_regex<type_parameter_0_0, type_parameter_0_1>;
 template<class _Tp> using is_member_function_pointer = std::is_member_function_pointer<_Tp>;
 using std::smatch;
-BOOST_STL11_MAP_END_NAMESPACE
+BOOST_STL11_REGEX_MAP_NAMESPACE_END
+#undef BOOST_STL11_REGEX_MAP_NAMESPACE_BEGIN
+#undef BOOST_STL11_REGEX_MAP_NAMESPACE_END

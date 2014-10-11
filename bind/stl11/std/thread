@@ -1,9 +1,10 @@
 /* This is an automatically generated bindings file. Don't modify it! */
-#if !defined(BOOST_STL11_MAP_BEGIN_NAMESPACE) || !defined(BOOST_STL11_MAP_END_NAMESPACE)
-#error You need to define BOOST_STL11_MAP_BEGIN_NAMESPACE and BOOST_STL11_MAP_END_NAMESPACE to use this header file
+#if !defined(BOOST_STL11_THREAD_MAP_NAMESPACE_BEGIN) || !defined(BOOST_STL11_THREAD_MAP_NAMESPACE_END)
+#error You need to define BOOST_STL11_THREAD_MAP_NAMESPACE_BEGIN and BOOST_STL11_THREAD_MAP_NAMESPACE_END to use this header file
 #endif
 #include <thread>
-BOOST_STL11_MAP_BEGIN_NAMESPACE
+BOOST_STL11_THREAD_MAP_NAMESPACE_BEGIN
+extern const char *boost_local_bind_in;
 namespace this_thread { using std::this_thread::sleep_until; }
 using std::get_deleter;
 using std::const_pointer_cast;
@@ -18,9 +19,12 @@ using std::to_string;
 using std::cref;
 using bad_weak_ptr = std::bad_weak_ptr;
 namespace this_thread { using std::this_thread::sleep_for; }
+using std::make_move_iterator;
 template<class _Tp> using reference_wrapper = std::reference_wrapper<_Tp>;
 template<class _Tp> using add_pointer = std::add_pointer<_Tp>;
 template<bool _0, class _Tp> using enable_if = std::enable_if<_0, _Tp>;
+template<std::size_t _0, std::size_t _1> using aligned_storage = std::aligned_storage<_0, _1>;
+template<class _Tp> using remove_extent = std::remove_extent<_Tp>;
 template<class _Tp> using add_const = std::add_const<_Tp>;
 template<class _R1, class _R2> using ratio_greater = std::ratio_greater<_R1, _R2>;
 template<class _Tp> using remove_volatile = std::remove_volatile<_Tp>;
@@ -54,13 +58,14 @@ using std::kilo;
 template<class _Tp> using is_floating_point = std::is_floating_point<_Tp>;
 template<class _Tp> using is_integral = std::is_integral<_Tp>;
 template<class _Tp> using remove_const = std::remove_const<_Tp>;
-template<class _Tp> using underlying_type = std::underlying_type<_Tp>;
 template<class _Tp> using add_volatile = std::add_volatile<_Tp>;
 template<class _Tp> using is_unsigned = std::is_unsigned<_Tp>;
 using std::true_type;
 template<class _Tp> using weak_ptr = std::weak_ptr<_Tp>;
 template<class _Tp, _Tp _1> using integral_constant = std::integral_constant<_Tp, _1>;
 template<class _Tp> using is_fundamental = std::is_fundamental<_Tp>;
+template<bool _0, class _Iftrue, class _Iffalse> using conditional = std::conditional<_0, _Iftrue, _Iffalse>;
+template<bool _0, class type_parameter_0_1, class type_parameter_0_2> using conditional = std::conditional<_0, type_parameter_0_1, type_parameter_0_2>;
 using std::micro;
 template<class _Tp> using is_nothrow_move_constructible = std::is_nothrow_move_constructible<_Tp>;
 template<class _Tp> using add_rvalue_reference = std::add_rvalue_reference<_Tp>;
@@ -92,6 +97,7 @@ template<class _R1, class _R2> using ratio_greater_equal = std::ratio_greater_eq
 using std::atto;
 using std::femto;
 using std::nano;
+using std::move_backward;
 using std::centi;
 using std::hecto;
 using std::tera;
@@ -104,12 +110,12 @@ using std::declval;
 using std::false_type;
 using std::deca;
 using std::mem_fn;
+template<class _Iterator> using move_iterator = std::move_iterator<_Iterator>;
 namespace this_thread { using std::this_thread::yield; }
 using std::dynamic_pointer_cast;
-using std::get;
 using std::deci;
-template<class _Tp> using has_trivial_default_constructor = std::has_trivial_default_constructor<_Tp>;
 template<class _R1, class _R2> using ratio_less = std::ratio_less<_R1, _R2>;
-template<class _Category, class _Tp, class _Distance, class _Pointer, class _Reference> using iterator = std::iterator<_Category, _Tp, _Distance, _Pointer, _Reference>;
 template<class _Tp> using is_union = std::is_union<_Tp>;
-BOOST_STL11_MAP_END_NAMESPACE
+BOOST_STL11_THREAD_MAP_NAMESPACE_END
+#undef BOOST_STL11_THREAD_MAP_NAMESPACE_BEGIN
+#undef BOOST_STL11_THREAD_MAP_NAMESPACE_END

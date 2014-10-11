@@ -1,0 +1,16 @@
+/* This is an automatically generated bindings file. Don't modify it! */
+#if !defined(BOOST_STL11_TUPLE_MAP_NAMESPACE_BEGIN) || !defined(BOOST_STL11_TUPLE_MAP_NAMESPACE_END)
+#error You need to define BOOST_STL11_TUPLE_MAP_NAMESPACE_BEGIN and BOOST_STL11_TUPLE_MAP_NAMESPACE_END to use this header file
+#endif
+#include <tuple>
+BOOST_STL11_TUPLE_MAP_NAMESPACE_BEGIN
+extern const char *boost_local_bind_in;
+using std::tie;
+using std::make_tuple;
+using std::swap;
+template<class... _Elements> using tuple = std::tuple<_Elements...>;
+template<class... type_parameter_0_0> using tuple = std::tuple<type_parameter_0_0...>;
+using std::get;
+BOOST_STL11_TUPLE_MAP_NAMESPACE_END
+#undef BOOST_STL11_TUPLE_MAP_NAMESPACE_BEGIN
+#undef BOOST_STL11_TUPLE_MAP_NAMESPACE_END

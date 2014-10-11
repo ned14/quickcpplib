@@ -1,9 +1,10 @@
 /* This is an automatically generated bindings file. Don't modify it! */
-#if !defined(BOOST_STL11_MAP_BEGIN_NAMESPACE) || !defined(BOOST_STL11_MAP_END_NAMESPACE)
-#error You need to define BOOST_STL11_MAP_BEGIN_NAMESPACE and BOOST_STL11_MAP_END_NAMESPACE to use this header file
+#if !defined(BOOST_STL11_FILESYSTEM_MAP_NAMESPACE_BEGIN) || !defined(BOOST_STL11_FILESYSTEM_MAP_NAMESPACE_END)
+#error You need to define BOOST_STL11_FILESYSTEM_MAP_NAMESPACE_BEGIN and BOOST_STL11_FILESYSTEM_MAP_NAMESPACE_END to use this header file
 #endif
 #include <boost/filesystem.hpp>
-BOOST_STL11_MAP_BEGIN_NAMESPACE
+BOOST_STL11_FILESYSTEM_MAP_NAMESPACE_BEGIN
+extern const char *boost_local_bind_in;
 using boost::filesystem::symlink_option;
 using boost::filesystem::copy_option;
 using boost::filesystem::perms;
@@ -43,10 +44,13 @@ using boost::filesystem::file_type;
   using boost::filesystem::reparse_file;
   using boost::filesystem::type_unknown;
   using boost::filesystem::_detail_directory_symlink;
-using filesystem_error = boost::filesystem::filesystem_error;
+using recursive_directory_iterator = boost::filesystem::recursive_directory_iterator;
+using boost::filesystem::range_end;
+using boost::filesystem::range_begin;
+using boost::filesystem::end;
 using boost::filesystem::change_extension;
 using boost::filesystem::wrecursive_directory_iterator;
-using recursive_directory_iterator = boost::filesystem::recursive_directory_iterator;
+using boost::filesystem::begin;
 using directory_iterator = boost::filesystem::directory_iterator;
 using boost::filesystem::unique_path;
 using boost::filesystem::temp_directory_path;
@@ -55,7 +59,7 @@ using boost::filesystem::extension;
 using boost::filesystem::space;
 using boost::filesystem::rename;
 using boost::filesystem::read_symlink;
-using boost::filesystem::last_write_time;
+using boost::filesystem::canonical;
 using boost::filesystem::exists;
 using boost::filesystem::is_regular_file;
 using boost::filesystem::type_present;
@@ -65,27 +69,25 @@ using boost::filesystem::portable_file_name;
 using boost::filesystem::portable_directory_name;
 using boost::filesystem::current_path;
 using boost::filesystem::create_directory;
-using boost::filesystem::copy;
-using boost::filesystem::portable_name;
-using boost::filesystem::append;
 using path = boost::filesystem::path;
 using directory_entry = boost::filesystem::directory_entry;
-using boost::filesystem::canonical;
 using boost::filesystem::is_directory;
 using boost::filesystem::symlink_status;
 using boost::filesystem::remove;
-using file_status = boost::filesystem::file_status;
 using boost::filesystem::is_symlink;
+using file_status = boost::filesystem::file_status;
 using boost::filesystem::status_known;
 using boost::filesystem::file_size;
 using boost::filesystem::hard_link_count;
 using boost::filesystem::portable_posix_name;
+using filesystem_error = boost::filesystem::filesystem_error;
 using boost::filesystem::lexicographical_compare;
 using boost::filesystem::swap;
 using boost::filesystem::equivalent;
-using iterator = boost::filesystem::iterator;
 using boost::filesystem::hash_value;
 using boost::filesystem::windows_name;
+using boost::filesystem::copy;
+using boost::filesystem::portable_name;
 using boost::filesystem::is_other;
 using space_info = boost::filesystem::space_info;
 using boost::filesystem::is_empty;
@@ -108,4 +110,7 @@ using boost::filesystem::create_directory_symlink;
 using boost::filesystem::symbolic_link_exists;
 using boost::filesystem::copy_directory;
 using boost::filesystem::create_hard_link;
-BOOST_STL11_MAP_END_NAMESPACE
+using boost::filesystem::last_write_time;
+BOOST_STL11_FILESYSTEM_MAP_NAMESPACE_END
+#undef BOOST_STL11_FILESYSTEM_MAP_NAMESPACE_BEGIN
+#undef BOOST_STL11_FILESYSTEM_MAP_NAMESPACE_END

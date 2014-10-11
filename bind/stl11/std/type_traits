@@ -1,9 +1,10 @@
 /* This is an automatically generated bindings file. Don't modify it! */
-#if !defined(BOOST_STL11_MAP_BEGIN_NAMESPACE) || !defined(BOOST_STL11_MAP_END_NAMESPACE)
-#error You need to define BOOST_STL11_MAP_BEGIN_NAMESPACE and BOOST_STL11_MAP_END_NAMESPACE to use this header file
+#if !defined(BOOST_STL11_TYPE_TRAITS_MAP_NAMESPACE_BEGIN) || !defined(BOOST_STL11_TYPE_TRAITS_MAP_NAMESPACE_END)
+#error You need to define BOOST_STL11_TYPE_TRAITS_MAP_NAMESPACE_BEGIN and BOOST_STL11_TYPE_TRAITS_MAP_NAMESPACE_END to use this header file
 #endif
 #include <type_traits>
-BOOST_STL11_MAP_BEGIN_NAMESPACE
+BOOST_STL11_TYPE_TRAITS_MAP_NAMESPACE_BEGIN
+extern const char *boost_local_bind_in;
 template<class... _Tp> using common_type = std::common_type<_Tp...>;
 template<bool _0, class _Tp> using enable_if = std::enable_if<_0, _Tp>;
 template<class _Tp> using add_pointer = std::add_pointer<_Tp>;
@@ -75,4 +76,6 @@ template<class type_parameter_0_0> using add_rvalue_reference = std::add_rvalue_
 template<class _Tp> using remove_const = std::remove_const<_Tp>;
 template<class type_parameter_0_0, unsigned int _1> using extent = std::extent<type_parameter_0_0, _1>;
 template<class _Tp> using is_reference = std::is_reference<_Tp>;
-BOOST_STL11_MAP_END_NAMESPACE
+BOOST_STL11_TYPE_TRAITS_MAP_NAMESPACE_END
+#undef BOOST_STL11_TYPE_TRAITS_MAP_NAMESPACE_BEGIN
+#undef BOOST_STL11_TYPE_TRAITS_MAP_NAMESPACE_END

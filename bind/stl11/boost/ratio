@@ -1,0 +1,37 @@
+/* This is an automatically generated bindings file. Don't modify it! */
+#if !defined(BOOST_STL11_RATIO_MAP_NAMESPACE_BEGIN) || !defined(BOOST_STL11_RATIO_MAP_NAMESPACE_END)
+#error You need to define BOOST_STL11_RATIO_MAP_NAMESPACE_BEGIN and BOOST_STL11_RATIO_MAP_NAMESPACE_END to use this header file
+#endif
+#include <boost/ratio.hpp>
+BOOST_STL11_RATIO_MAP_NAMESPACE_BEGIN
+extern const char *boost_local_bind_in;
+using boost::kilo;
+using boost::hecto;
+using boost::centi;
+using boost::exa;
+using boost::micro;
+using boost::milli;
+using boost::nano;
+using boost::deci;
+using boost::pico;
+using boost::femto;
+using boost::peta;
+using boost::atto;
+template<class R1, class R2> using ratio_greater_equal = boost::ratio_greater_equal<R1, R2>;
+using boost::giga;
+template<class R1, class R2> using ratio_greater = boost::ratio_greater<R1, R2>;
+template<class R1, class R2> using ratio_less = boost::ratio_less<R1, R2>;
+template<class R1, class R2> using ratio_not_equal = boost::ratio_not_equal<R1, R2>;
+using boost::mega;
+template<class R1, class R2> using ratio_less_equal = boost::ratio_less_equal<R1, R2>;
+using boost::true_type;
+template<class Cond, class T> using enable_if = boost::enable_if<Cond, T>;
+using boost::false_type;
+using boost::deca;
+template<boost::intmax_t _0, boost::intmax_t _1> using ratio = boost::ratio<_0, _1>;
+template<class T, T _1> using integral_constant = boost::integral_constant<T, _1>;
+using boost::tera;
+template<class R1, class R2> using ratio_equal = boost::ratio_equal<R1, R2>;
+BOOST_STL11_RATIO_MAP_NAMESPACE_END
+#undef BOOST_STL11_RATIO_MAP_NAMESPACE_BEGIN
+#undef BOOST_STL11_RATIO_MAP_NAMESPACE_END

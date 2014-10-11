@@ -1,4 +1,4 @@
-# local-bind-cpp-library v0.10 (7th Oct 2014)
+# local-bind-cpp-library v0.20 (11th Oct 2014)
 
 (C) 2014 Niall Douglas http://www.nedproductions.biz/
 
@@ -6,38 +6,111 @@ This is a tool which can generate a set of local bindings of some C++ library in
 by parsing the source C++ library using clang's AST library and extracting a regular expression matched API into
 a sequence of template alias, using, and typedefs in the local namespace.
 
+## Usage:
+
 Usage looks like this:
 
-    ./genmap include/thread STL11_MAP_ "std::([^_][^:]*)" thread
+    ./genmap bind/stl11/std/thread BOOST_STL11_THREAD_MAP_ "std::([^_][^:]*)" thread
 
 This would grok through everything declared into namespace std by doing `#include <thread>` not prefixed with an
 underscore and not inside another namespace or scope and generate a set of bindings into include/thread.
 
 In case that outputs too much to be portable, you can reduce to a least common subset too:
 
-    ./genmap include/mutex STL11_MAP_ "std::([^_][^:]*)" mutex "boost::([^_][^:]*)" boost/thread.hpp
+    ./genmap bind/stl11/std/mutex BOOST_STL11_MUTEX_MAP_ "std::([^_][^:]*)" mutex "boost::([^_][^:]*)" boost/thread.hpp
 
 This takes all items common to both `#include <mutex>` and `#include <boost/thread.hpp>` and generates
-bindings just for those. If one regular expression isn't enough, you can separate multiple regexs with commas.
+bindings just for those binding to the first item, so here it would be std::*. If one regular expression isn't
+enough, you can separate multiple regexs with commas e.g.
 
-To then include those local namespace bindings into let's say namespace `boost::spinlock` one simply does this:
+    ./genmap bind/stl11/std/thread BOOST_STL11_THREAD_MAP_ "std::([^_][^:]*),std::(this_thread::[^_][^:]*)" thread "boost::([^_][^:]*),boost::(this_thread::[^_][^:]*)" boost/thread.hpp
 
-    #define STL11_MAP_BEGIN_NAMESPACE namespace boost { namespace spinlock { inline namespace stl11 {
-    #define STL11_MAP_END_NAMESPACE } } }
-    #include "local-bind-cpp-library/include/stl11/atomic"
-    #include "local-bind-cpp-library/include/stl11/mutex"
-    #include "local-bind-cpp-library/include/stl11/thread"
-    #undef STL11_MAP_BEGIN_NAMESPACE
-    #undef STL11_MAP_END_NAMESPACE
-    #define STL11_MAP_BEGIN_NAMESPACE namespace boost { namespace spinlock { inline namespace stl11 { namespace chrono {
-    #define STL11_MAP_END_NAMESPACE } } } }
-    #include "local-bind-cpp-library/include/stl11/chrono"
-    #undef STL11_MAP_BEGIN_NAMESPACE
-    #undef STL11_MAP_END_NAMESPACE
+If you put the boost match in front of the std match, you'll get bindings for boost instead of bindings for std.
+This lets you have preprocessor macros choose which bindings your library will use. For example, let us say the
+library Boost.Spinlock wants some implementation of atomic, mutex, thread and chrono bound into the namespace
+`boost::spinlock`, so this is how boost/spinlock.hpp might look, and I have added explanatory comments inline:
+
+    #ifndef BOOST_SPINLOCK_HPP
+    #define BOOST_SPINLOCK_HPP
+
+    #include "local-bind-cpp-library/include/import.hpp"
+    #define BOOST_SPINLOCK_V1 (boost), (spinlock), (v1, inline)
     
-You'll probably note the use of an inline namespace for the innermost namespace - this is best practice, and
-the bindings will also appear in `boost::spinlock`. Library implementation code inside `boost::spinlock` can
-now use `atomic<T>` and will default to the nearest bind, which will be in `boost::spinlock`.
+Here we say that we are implementing the library boost::spinlock. The v1 will be appended if and only if the
+compiler understands inline namespaces.
+
+    #ifndef BOOST_SPINLOCK_V1_STL11_IMPL
+    #define BOOST_SPINLOCK_V1_STL11_IMPL std
+    #endif
+
+This say we wish to use the standard C++ 11 STL. If someone defined BOOST_SPINLOCK_V1_STL11_IMPL to be 'boost'
+instead, then the forthcoming binds would bind the boost implementation instead of the std implementation.
+    
+    #define BOOST_SPINLOCK_V1_NAMESPACE       BOOST_LOCAL_BIND_NAMESPACE      (BOOST_SPINLOCK_V1)
+    #define BOOST_SPINLOCK_V1_NAMESPACE_BEGIN BOOST_LOCAL_BIND_NAMESPACE_BEGIN(BOOST_SPINLOCK_V1)
+    #define BOOST_SPINLOCK_V1_NAMESPACE_END   BOOST_LOCAL_BIND_NAMESPACE_END  (BOOST_SPINLOCK_V1)
+
+    #define BOOST_STL11_ATOMIC_MAP_NAMESPACE_BEGIN        BOOST_LOCAL_BIND_NAMESPACE_BEGIN(BOOST_SPINLOCK_V1, (stl11, inline))
+    #define BOOST_STL11_ATOMIC_MAP_NAMESPACE_END          BOOST_LOCAL_BIND_NAMESPACE_END  (BOOST_SPINLOCK_V1, (stl11, inline))
+
+Some preprocessor metaprogramming generates the correct namespacing boilerplate, so the above sets
+BOOST_SPINLOCK_V1_NAMESPACE to `boost::spinlock::v1`, BOOST_SPINLOCK_V1_NAMESPACE_BEGIN to
+`namespace boost { namespace spinlock { inline namespace v1 {` and BOOST_SPINLOCK_V1_NAMESPACE_END to the
+correct number of closing braces. It naturally follows from there that BOOST_STL11_ATOMIC_MAP_NAMESPACE_BEGIN
+expands into `namespace boost { namespace spinlock { inline namespace v1 { inline namespace stl11 {` which is
+where we are requesting some `atomic<>` implementation to become bound into. The following is therefore obvious:
+    
+    #define BOOST_STL11_CHRONO_MAP_NAMESPACE_BEGIN        BOOST_LOCAL_BIND_NAMESPACE_BEGIN(BOOST_SPINLOCK_V1, (stl11, inline), (chrono))
+    #define BOOST_STL11_CHRONO_MAP_NAMESPACE_END          BOOST_LOCAL_BIND_NAMESPACE_END  (BOOST_SPINLOCK_V1, (stl11, inline), (chrono))
+    #define BOOST_STL11_MUTEX_MAP_NAMESPACE_BEGIN         BOOST_LOCAL_BIND_NAMESPACE_BEGIN(BOOST_SPINLOCK_V1, (stl11, inline))
+    #define BOOST_STL11_MUTEX_MAP_NAMESPACE_END           BOOST_LOCAL_BIND_NAMESPACE_END  (BOOST_SPINLOCK_V1, (stl11, inline))
+    #define BOOST_STL11_THREAD_MAP_NAMESPACE_BEGIN        BOOST_LOCAL_BIND_NAMESPACE_BEGIN(BOOST_SPINLOCK_V1, (stl11, inline))
+    #define BOOST_STL11_THREAD_MAP_NAMESPACE_END          BOOST_LOCAL_BIND_NAMESPACE_END  (BOOST_SPINLOCK_V1, (stl11, inline))
+    #include BOOST_LOCAL_BIND_INCLUDE_STL11(BOOST_SPINLOCK_V1_STL11_IMPL, atomic)
+
+The BOOST_LOCAL_BIND_INCLUDE_STL11 generates the path to the bindings include file for whatever atomic
+implementation you chose, so if BOOST_SPINLOCK_V1_STL11_IMPL were std it will bind into
+`namespace boost { namespace spinlock { inline namespace v1 { inline namespace stl11 {` the atomic
+implementation of `std::atomic`.
+
+    #include BOOST_LOCAL_BIND_INCLUDE_STL11(BOOST_SPINLOCK_V1_STL11_IMPL, chrono)
+    #include BOOST_LOCAL_BIND_INCLUDE_STL11(BOOST_SPINLOCK_V1_STL11_IMPL, mutex)
+    #include BOOST_LOCAL_BIND_INCLUDE_STL11(BOOST_SPINLOCK_V1_STL11_IMPL, thread)
+    
+    ... other includes ...
+    
+    BOOST_SPINLOCK_V1_NAMESPACE_BEGIN
+    
+    BOOST_LOCAL_BIND_DECLARE(BOOST_SPINLOCK_V1)
+    
+    ... boost.spinlock implementation goes here ...
+    
+    BOOST_SPINLOCK_V1_NAMESPACE_END
+    
+    #endif // BOOST_SPINLOCK_HPP
+    
+    #ifdef BOOST_SPINLOCK_MAP_NAMESPACE_BEGIN
+    #include "spinlock.bind.hpp"
+    #endif
+
+Having bound in whichever implementation of the C++ 11 STL you wish (i.e. external code gets to choose)
+into the local implementation namespace, Boost.Spinlock implementation code can simply use `atomic<T>`
+with no namespace qualifier and the user selected implementation gets chosen automatically. Each library
+can mash up its own particular mix of externally chosen STL implementations as so desired.
+
+You might note above that after the header guard exits, we test for BOOST_SPINLOCK_MAP_NAMESPACE_BEGIN
+and if defined we include the bindings for the library we just defined! This facility allows code wishing
+to bind Boost.Spinlock into their local namespace to simply do:
+
+    #define BOOST_SPINLOCK_MAP_NAMESPACE_BEGIN        BOOST_LOCAL_BIND_NAMESPACE_BEGIN(MY_NAMESPACE, (spinlock))
+    #define BOOST_SPINLOCK_MAP_NAMESPACE_END          BOOST_LOCAL_BIND_NAMESPACE_END  (MY_NAMESPACE, (spinlock))
+    #include "boost/spinlock.hpp"
+    
+Or more directly:
+
+    #define BOOST_SPINLOCK_MAP_NAMESPACE_BEGIN        BOOST_LOCAL_BIND_NAMESPACE_BEGIN(MY_NAMESPACE, (spinlock))
+    #define BOOST_SPINLOCK_MAP_NAMESPACE_END          BOOST_LOCAL_BIND_NAMESPACE_END  (MY_NAMESPACE, (spinlock))
+    #include "boost/spinlock.bind.hpp"
 
 
 ##  Why on earth would you possibly want such a thing?
@@ -55,7 +128,7 @@ of dependent library implementation, and you no longer need to care about who is
 This lets you custom configure, per library, some arbitrary mix of dependent libraries. For example, if you want
 all C++ 11 STL *except* for future<T> promise<T> which you want from Boost.Thread, this binding tool makes
 achieving that far easier. You generate your bindings and then hand edit them to reflect your particular
-custom configuration. Much easier!
+custom configuration, shipping the custom configuration as an internal implementation detail. Much easier!
 
 It also lets one break off Boost libraries away from Boost and become capable of being used standalone or
 with a very minimal set of dependencies instead of dragging in the entire of Boost for even a small library.
@@ -72,7 +145,7 @@ binding and probably a few other things like unions. It does mostly support temp
 * atomic
 * chrono
 * condition_variable
-* filesystem (defaulted to Boost's implementation)
+* filesystem
 * functional
 * future
 * mutex
@@ -85,7 +158,8 @@ binding and probably a few other things like unions. It does mostly support temp
 * type_traits
 * typeindex
 
-Your compiler *must* support template aliasing for these bindings to work, and you can find a prebuilt set in
-include/stl11 which were generated by distilling the subset of the functionality defined in both libstdc++ 4.8
-and Boost. Note that apart from filesystem these bindings always bind to the C++ 11 STL as the implementation,
-but it's very easy to have them target boost instead - simply swap the order of parameters in withgcc.sh.
+Your compiler *must* support template aliasing for these bindings to work, and you can find a prebuilt set
+targeting Boost and the STL in:
+
+* bind/stl11/boost/* - these bind the Boost implementation
+* bind/stl11/std/* - these bind the std implementation
