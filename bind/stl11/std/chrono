@@ -5,18 +5,66 @@
 #include <chrono>
 BOOST_STL11_CHRONO_MAP_NAMESPACE_BEGIN
 extern const char *boost_local_bind_in;
+#ifdef BOOST_STL11_CHRONO_MAP_NO_TIME_POINT_CAST
+#undef BOOST_STL11_CHRONO_MAP_NO_TIME_POINT_CAST
+#else
 using std::chrono::time_point_cast;
+#endif
+#ifdef BOOST_STL11_CHRONO_MAP_NO_HOURS
+#undef BOOST_STL11_CHRONO_MAP_NO_HOURS
+#else
 using std::chrono::hours;
+#endif
+#ifdef BOOST_STL11_CHRONO_MAP_NO_DURATION
+#undef BOOST_STL11_CHRONO_MAP_NO_DURATION
+#else
 template<class _Rep, class _Period> using duration = std::chrono::duration<_Rep, _Period>;
+#endif
+#ifdef BOOST_STL11_CHRONO_MAP_NO_TIME_POINT
+#undef BOOST_STL11_CHRONO_MAP_NO_TIME_POINT
+#else
 template<class _Clock, class _Dur> using time_point = std::chrono::time_point<_Clock, _Dur>;
+#endif
+#ifdef BOOST_STL11_CHRONO_MAP_NO_DURATION_CAST
+#undef BOOST_STL11_CHRONO_MAP_NO_DURATION_CAST
+#else
 using std::chrono::duration_cast;
+#endif
+#ifdef BOOST_STL11_CHRONO_MAP_NO_NANOSECONDS
+#undef BOOST_STL11_CHRONO_MAP_NO_NANOSECONDS
+#else
 using std::chrono::nanoseconds;
+#endif
+#ifdef BOOST_STL11_CHRONO_MAP_NO_DURATION_VALUES
+#undef BOOST_STL11_CHRONO_MAP_NO_DURATION_VALUES
+#else
 template<class _Rep> using duration_values = std::chrono::duration_values<_Rep>;
+#endif
+#ifdef BOOST_STL11_CHRONO_MAP_NO_MICROSECONDS
+#undef BOOST_STL11_CHRONO_MAP_NO_MICROSECONDS
+#else
 using std::chrono::microseconds;
+#endif
+#ifdef BOOST_STL11_CHRONO_MAP_NO_MILLISECONDS
+#undef BOOST_STL11_CHRONO_MAP_NO_MILLISECONDS
+#else
 using std::chrono::milliseconds;
+#endif
+#ifdef BOOST_STL11_CHRONO_MAP_NO_SECONDS
+#undef BOOST_STL11_CHRONO_MAP_NO_SECONDS
+#else
 using std::chrono::seconds;
+#endif
+#ifdef BOOST_STL11_CHRONO_MAP_NO_TREAT_AS_FLOATING_POINT
+#undef BOOST_STL11_CHRONO_MAP_NO_TREAT_AS_FLOATING_POINT
+#else
 template<class _Rep> using treat_as_floating_point = std::chrono::treat_as_floating_point<_Rep>;
+#endif
+#ifdef BOOST_STL11_CHRONO_MAP_NO_MINUTES
+#undef BOOST_STL11_CHRONO_MAP_NO_MINUTES
+#else
 using std::chrono::minutes;
+#endif
 BOOST_STL11_CHRONO_MAP_NAMESPACE_END
 #undef BOOST_STL11_CHRONO_MAP_NAMESPACE_BEGIN
 #undef BOOST_STL11_CHRONO_MAP_NAMESPACE_END

@@ -234,8 +234,14 @@ struct map_tu_params
     for(auto &i : out.types)
     {
       leafname(namespace1, leaf, namespace2, i.first);
+      std::string leafupper(leaf);
+      for(auto &i : leafupper)
+        i=std::toupper(i);
       bool isAlias=i.second.first;
       auto &templatepars=i.second.second;
+      s << "#ifdef " << macro_prefix << "NO_" << leafupper << std::endl;
+      s << "#undef " << macro_prefix << "NO_" << leafupper << std::endl;
+      s << "#else" << std::endl;
       s << namespace1;
       if(!templatepars.empty())
       {
@@ -262,6 +268,7 @@ struct map_tu_params
         s << ">";
       }
       s << ";" << namespace2 << std::endl;
+      s << "#endif" << std::endl;
     }
     
     s << macro_prefix << "NAMESPACE_END" << std::endl;

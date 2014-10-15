@@ -5,43 +5,191 @@
 #include <boost/random.hpp>
 BOOST_STL11_RANDOM_MAP_NAMESPACE_BEGIN
 extern const char *boost_local_bind_in;
+#ifdef BOOST_STL11_RANDOM_MAP_NO_PIECEWISE_CONSTANT_DISTRIBUTION
+#undef BOOST_STL11_RANDOM_MAP_NO_PIECEWISE_CONSTANT_DISTRIBUTION
+#else
 template<class RealType, class WeightType> using piecewise_constant_distribution = boost::random::piecewise_constant_distribution<RealType, WeightType>;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_POISSON_DISTRIBUTION
+#undef BOOST_STL11_RANDOM_MAP_NO_POISSON_DISTRIBUTION
+#else
 template<class IntType, class RealType> using poisson_distribution = boost::random::poisson_distribution<IntType, RealType>;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_NORMAL_DISTRIBUTION
+#undef BOOST_STL11_RANDOM_MAP_NO_NORMAL_DISTRIBUTION
+#else
 template<class RealType> using normal_distribution = boost::random::normal_distribution<RealType>;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_GAMMA_DISTRIBUTION
+#undef BOOST_STL11_RANDOM_MAP_NO_GAMMA_DISTRIBUTION
+#else
 template<class RealType> using gamma_distribution = boost::random::gamma_distribution<RealType>;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_LOGNORMAL_DISTRIBUTION
+#undef BOOST_STL11_RANDOM_MAP_NO_LOGNORMAL_DISTRIBUTION
+#else
 template<class RealType> using lognormal_distribution = boost::random::lognormal_distribution<RealType>;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_UNIFORM_INT_DISTRIBUTION
+#undef BOOST_STL11_RANDOM_MAP_NO_UNIFORM_INT_DISTRIBUTION
+#else
 template<class IntType> using uniform_int_distribution = boost::random::uniform_int_distribution<IntType>;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_GENERATE_CANONICAL
+#undef BOOST_STL11_RANDOM_MAP_NO_GENERATE_CANONICAL
+#else
 using boost::random::generate_canonical;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_SHUFFLE_ORDER_ENGINE
+#undef BOOST_STL11_RANDOM_MAP_NO_SHUFFLE_ORDER_ENGINE
+#else
 template<class UniformRandomNumberGenerator, std::size_t _1> using shuffle_order_engine = boost::random::shuffle_order_engine<UniformRandomNumberGenerator, _1>;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_RANLUX48
+#undef BOOST_STL11_RANDOM_MAP_NO_RANLUX48
+#else
 using boost::random::ranlux48;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_FISHER_F_DISTRIBUTION
+#undef BOOST_STL11_RANDOM_MAP_NO_FISHER_F_DISTRIBUTION
+#else
 template<class RealType> using fisher_f_distribution = boost::random::fisher_f_distribution<RealType>;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_RANLUX48_BASE
+#undef BOOST_STL11_RANDOM_MAP_NO_RANLUX48_BASE
+#else
 using boost::random::ranlux48_base;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_STUDENT_T_DISTRIBUTION
+#undef BOOST_STL11_RANDOM_MAP_NO_STUDENT_T_DISTRIBUTION
+#else
 template<class RealType> using student_t_distribution = boost::random::student_t_distribution<RealType>;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_UNIFORM_REAL_DISTRIBUTION
+#undef BOOST_STL11_RANDOM_MAP_NO_UNIFORM_REAL_DISTRIBUTION
+#else
 template<class RealType> using uniform_real_distribution = boost::random::uniform_real_distribution<RealType>;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_RANLUX24
+#undef BOOST_STL11_RANDOM_MAP_NO_RANLUX24
+#else
 using boost::random::ranlux24;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_CAUCHY_DISTRIBUTION
+#undef BOOST_STL11_RANDOM_MAP_NO_CAUCHY_DISTRIBUTION
+#else
 template<class RealType> using cauchy_distribution = boost::random::cauchy_distribution<RealType>;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_EXTREME_VALUE_DISTRIBUTION
+#undef BOOST_STL11_RANDOM_MAP_NO_EXTREME_VALUE_DISTRIBUTION
+#else
 template<class RealType> using extreme_value_distribution = boost::random::extreme_value_distribution<RealType>;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_MT19937
+#undef BOOST_STL11_RANDOM_MAP_NO_MT19937
+#else
 using boost::random::mt19937;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_DISCARD_BLOCK_ENGINE
+#undef BOOST_STL11_RANDOM_MAP_NO_DISCARD_BLOCK_ENGINE
+#else
 template<class UniformRandomNumberGenerator, std::size_t _1, std::size_t _2> using discard_block_engine = boost::random::discard_block_engine<UniformRandomNumberGenerator, _1, _2>;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_MINSTD_RAND
+#undef BOOST_STL11_RANDOM_MAP_NO_MINSTD_RAND
+#else
 using boost::random::minstd_rand;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_EXPONENTIAL_DISTRIBUTION
+#undef BOOST_STL11_RANDOM_MAP_NO_EXPONENTIAL_DISTRIBUTION
+#else
 template<class RealType> using exponential_distribution = boost::random::exponential_distribution<RealType>;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_SEED_SEQ
+#undef BOOST_STL11_RANDOM_MAP_NO_SEED_SEQ
+#else
 using seed_seq = boost::random::seed_seq;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_LINEAR_CONGRUENTIAL_ENGINE
+#undef BOOST_STL11_RANDOM_MAP_NO_LINEAR_CONGRUENTIAL_ENGINE
+#else
 template<class IntType, IntType _1, IntType _2, IntType _3> using linear_congruential_engine = boost::random::linear_congruential_engine<IntType, _1, _2, _3>;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_WEIBULL_DISTRIBUTION
+#undef BOOST_STL11_RANDOM_MAP_NO_WEIBULL_DISTRIBUTION
+#else
 template<class RealType> using weibull_distribution = boost::random::weibull_distribution<RealType>;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_INDEPENDENT_BITS_ENGINE
+#undef BOOST_STL11_RANDOM_MAP_NO_INDEPENDENT_BITS_ENGINE
+#else
 template<class Engine, std::size_t _1, class UIntType> using independent_bits_engine = boost::random::independent_bits_engine<Engine, _1, UIntType>;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_MINSTD_RAND0
+#undef BOOST_STL11_RANDOM_MAP_NO_MINSTD_RAND0
+#else
 using boost::random::minstd_rand0;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_DISCRETE_DISTRIBUTION
+#undef BOOST_STL11_RANDOM_MAP_NO_DISCRETE_DISTRIBUTION
+#else
 template<class IntType, class WeightType> using discrete_distribution = boost::random::discrete_distribution<IntType, WeightType>;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_PIECEWISE_LINEAR_DISTRIBUTION
+#undef BOOST_STL11_RANDOM_MAP_NO_PIECEWISE_LINEAR_DISTRIBUTION
+#else
 template<class RealType> using piecewise_linear_distribution = boost::random::piecewise_linear_distribution<RealType>;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_KNUTH_B
+#undef BOOST_STL11_RANDOM_MAP_NO_KNUTH_B
+#else
 using boost::random::knuth_b;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_BINOMIAL_DISTRIBUTION
+#undef BOOST_STL11_RANDOM_MAP_NO_BINOMIAL_DISTRIBUTION
+#else
 template<class IntType, class RealType> using binomial_distribution = boost::random::binomial_distribution<IntType, RealType>;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_SUBTRACT_WITH_CARRY_ENGINE
+#undef BOOST_STL11_RANDOM_MAP_NO_SUBTRACT_WITH_CARRY_ENGINE
+#else
 template<class IntType, std::size_t _1, std::size_t _2, std::size_t _3> using subtract_with_carry_engine = boost::random::subtract_with_carry_engine<IntType, _1, _2, _3>;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_BERNOULLI_DISTRIBUTION
+#undef BOOST_STL11_RANDOM_MAP_NO_BERNOULLI_DISTRIBUTION
+#else
 template<class RealType> using bernoulli_distribution = boost::random::bernoulli_distribution<RealType>;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_GEOMETRIC_DISTRIBUTION
+#undef BOOST_STL11_RANDOM_MAP_NO_GEOMETRIC_DISTRIBUTION
+#else
 template<class IntType, class RealType> using geometric_distribution = boost::random::geometric_distribution<IntType, RealType>;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_MERSENNE_TWISTER_ENGINE
+#undef BOOST_STL11_RANDOM_MAP_NO_MERSENNE_TWISTER_ENGINE
+#else
 template<class UIntType, std::size_t _1, std::size_t _2, std::size_t _3, std::size_t _4, UIntType _5, std::size_t _6, UIntType _7, std::size_t _8, UIntType _9, std::size_t _10, UIntType _11, std::size_t _12, UIntType _13> using mersenne_twister_engine = boost::random::mersenne_twister_engine<UIntType, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13>;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_CHI_SQUARED_DISTRIBUTION
+#undef BOOST_STL11_RANDOM_MAP_NO_CHI_SQUARED_DISTRIBUTION
+#else
 template<class RealType> using chi_squared_distribution = boost::random::chi_squared_distribution<RealType>;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_MT19937_64
+#undef BOOST_STL11_RANDOM_MAP_NO_MT19937_64
+#else
 using boost::random::mt19937_64;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_RANLUX24_BASE
+#undef BOOST_STL11_RANDOM_MAP_NO_RANLUX24_BASE
+#else
 using boost::random::ranlux24_base;
+#endif
+#ifdef BOOST_STL11_RANDOM_MAP_NO_NEGATIVE_BINOMIAL_DISTRIBUTION
+#undef BOOST_STL11_RANDOM_MAP_NO_NEGATIVE_BINOMIAL_DISTRIBUTION
+#else
 template<class IntType, class RealType> using negative_binomial_distribution = boost::random::negative_binomial_distribution<IntType, RealType>;
+#endif
 BOOST_STL11_RANDOM_MAP_NAMESPACE_END
 #undef BOOST_STL11_RANDOM_MAP_NAMESPACE_BEGIN
 #undef BOOST_STL11_RANDOM_MAP_NAMESPACE_END

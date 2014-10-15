@@ -34,18 +34,18 @@ library Boost.Spinlock wants some implementation of atomic, mutex, thread and ch
     #define BOOST_SPINLOCK_HPP
 
     #include "local-bind-cpp-library/include/import.hpp"
-    #define BOOST_SPINLOCK_V1 (boost), (spinlock), (v1, inline)
-    
-Here we say that we are implementing the library boost::spinlock. The v1 will be appended if and only if the
-compiler understands inline namespaces.
-
     #ifndef BOOST_SPINLOCK_V1_STL11_IMPL
     #define BOOST_SPINLOCK_V1_STL11_IMPL std
     #endif
 
-This say we wish to use the standard C++ 11 STL. If someone defined BOOST_SPINLOCK_V1_STL11_IMPL to be 'boost'
+This says we wish to default to using the standard C++ 11 STL. If someone defined BOOST_SPINLOCK_V1_STL11_IMPL to be 'boost'
 instead, then the forthcoming binds would bind the boost implementation instead of the std implementation.
-    
+
+    #define BOOST_SPINLOCK_V1 (boost), (spinlock), (BOOST_LOCAL_BIND_NAMESPACE_VERSION(v1, BOOST_SPINLOCK_V1_STL11_IMPL), inline)
+
+Here we say that we are implementing the library boost::spinlock. The v1_stlimpl will be appended if and only if the
+compiler understands inline namespaces.
+
     #define BOOST_SPINLOCK_V1_NAMESPACE       BOOST_LOCAL_BIND_NAMESPACE      (BOOST_SPINLOCK_V1)
     #define BOOST_SPINLOCK_V1_NAMESPACE_BEGIN BOOST_LOCAL_BIND_NAMESPACE_BEGIN(BOOST_SPINLOCK_V1)
     #define BOOST_SPINLOCK_V1_NAMESPACE_END   BOOST_LOCAL_BIND_NAMESPACE_END  (BOOST_SPINLOCK_V1)

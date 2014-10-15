@@ -5,11 +5,31 @@
 #include <boost/tuple/tuple.hpp>
 BOOST_STL11_TUPLE_MAP_NAMESPACE_BEGIN
 extern const char *boost_local_bind_in;
+#ifdef BOOST_STL11_TUPLE_MAP_NO_SWAP
+#undef BOOST_STL11_TUPLE_MAP_NO_SWAP
+#else
 using boost::tuples::swap;
+#endif
+#ifdef BOOST_STL11_TUPLE_MAP_NO_TIE
+#undef BOOST_STL11_TUPLE_MAP_NO_TIE
+#else
 using boost::tuples::tie;
+#endif
+#ifdef BOOST_STL11_TUPLE_MAP_NO_TUPLE
+#undef BOOST_STL11_TUPLE_MAP_NO_TUPLE
+#else
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9> using tuple = boost::tuples::tuple<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>;
+#endif
+#ifdef BOOST_STL11_TUPLE_MAP_NO_GET
+#undef BOOST_STL11_TUPLE_MAP_NO_GET
+#else
 using boost::tuples::get;
+#endif
+#ifdef BOOST_STL11_TUPLE_MAP_NO_MAKE_TUPLE
+#undef BOOST_STL11_TUPLE_MAP_NO_MAKE_TUPLE
+#else
 using boost::tuples::make_tuple;
+#endif
 BOOST_STL11_TUPLE_MAP_NAMESPACE_END
 #undef BOOST_STL11_TUPLE_MAP_NAMESPACE_BEGIN
 #undef BOOST_STL11_TUPLE_MAP_NAMESPACE_END

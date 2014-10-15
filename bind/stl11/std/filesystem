@@ -44,73 +44,341 @@ using std::filesystem::file_type;
   using std::filesystem::reparse_file;
   using std::filesystem::type_unknown;
   using std::filesystem::_detail_directory_symlink;
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_RECURSIVE_DIRECTORY_ITERATOR
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_RECURSIVE_DIRECTORY_ITERATOR
+#else
 using recursive_directory_iterator = std::filesystem::recursive_directory_iterator;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_RANGE_END
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_RANGE_END
+#else
 using std::filesystem::range_end;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_RANGE_BEGIN
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_RANGE_BEGIN
+#else
 using std::filesystem::range_begin;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_END
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_END
+#else
 using std::filesystem::end;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_CHANGE_EXTENSION
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_CHANGE_EXTENSION
+#else
 using std::filesystem::change_extension;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_WRECURSIVE_DIRECTORY_ITERATOR
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_WRECURSIVE_DIRECTORY_ITERATOR
+#else
 using std::filesystem::wrecursive_directory_iterator;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_BEGIN
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_BEGIN
+#else
 using std::filesystem::begin;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_DIRECTORY_ITERATOR
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_DIRECTORY_ITERATOR
+#else
 using directory_iterator = std::filesystem::directory_iterator;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_UNIQUE_PATH
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_UNIQUE_PATH
+#else
 using std::filesystem::unique_path;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_TEMP_DIRECTORY_PATH
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_TEMP_DIRECTORY_PATH
+#else
 using std::filesystem::temp_directory_path;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_SYSTEM_COMPLETE
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_SYSTEM_COMPLETE
+#else
 using std::filesystem::system_complete;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_EXTENSION
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_EXTENSION
+#else
 using std::filesystem::extension;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_SPACE
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_SPACE
+#else
 using std::filesystem::space;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_RENAME
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_RENAME
+#else
 using std::filesystem::rename;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_READ_SYMLINK
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_READ_SYMLINK
+#else
 using std::filesystem::read_symlink;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_CANONICAL
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_CANONICAL
+#else
 using std::filesystem::canonical;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_EXISTS
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_EXISTS
+#else
 using std::filesystem::exists;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_IS_REGULAR_FILE
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_IS_REGULAR_FILE
+#else
 using std::filesystem::is_regular_file;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_TYPE_PRESENT
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_TYPE_PRESENT
+#else
 using std::filesystem::type_present;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_PERMISSIONS
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_PERMISSIONS
+#else
 using std::filesystem::permissions;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_NATIVE
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_NATIVE
+#else
 using std::filesystem::native;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_PORTABLE_FILE_NAME
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_PORTABLE_FILE_NAME
+#else
 using std::filesystem::portable_file_name;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_PORTABLE_DIRECTORY_NAME
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_PORTABLE_DIRECTORY_NAME
+#else
 using std::filesystem::portable_directory_name;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_CURRENT_PATH
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_CURRENT_PATH
+#else
 using std::filesystem::current_path;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_CREATE_DIRECTORY
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_CREATE_DIRECTORY
+#else
 using std::filesystem::create_directory;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_PATH
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_PATH
+#else
 using path = std::filesystem::path;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_DIRECTORY_ENTRY
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_DIRECTORY_ENTRY
+#else
 using directory_entry = std::filesystem::directory_entry;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_IS_DIRECTORY
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_IS_DIRECTORY
+#else
 using std::filesystem::is_directory;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_SYMLINK_STATUS
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_SYMLINK_STATUS
+#else
 using std::filesystem::symlink_status;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_REMOVE
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_REMOVE
+#else
 using std::filesystem::remove;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_IS_SYMLINK
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_IS_SYMLINK
+#else
 using std::filesystem::is_symlink;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_FILE_STATUS
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_FILE_STATUS
+#else
 using file_status = std::filesystem::file_status;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_STATUS_KNOWN
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_STATUS_KNOWN
+#else
 using std::filesystem::status_known;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_FILE_SIZE
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_FILE_SIZE
+#else
 using std::filesystem::file_size;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_HARD_LINK_COUNT
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_HARD_LINK_COUNT
+#else
 using std::filesystem::hard_link_count;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_PORTABLE_POSIX_NAME
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_PORTABLE_POSIX_NAME
+#else
 using std::filesystem::portable_posix_name;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_FILESYSTEM_ERROR
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_FILESYSTEM_ERROR
+#else
 using filesystem_error = std::filesystem::filesystem_error;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_LEXICOGRAPHICAL_COMPARE
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_LEXICOGRAPHICAL_COMPARE
+#else
 using std::filesystem::lexicographical_compare;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_SWAP
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_SWAP
+#else
 using std::filesystem::swap;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_EQUIVALENT
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_EQUIVALENT
+#else
 using std::filesystem::equivalent;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_HASH_VALUE
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_HASH_VALUE
+#else
 using std::filesystem::hash_value;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_WINDOWS_NAME
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_WINDOWS_NAME
+#else
 using std::filesystem::windows_name;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_COPY
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_COPY
+#else
 using std::filesystem::copy;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_PORTABLE_NAME
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_PORTABLE_NAME
+#else
 using std::filesystem::portable_name;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_IS_OTHER
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_IS_OTHER
+#else
 using std::filesystem::is_other;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_SPACE_INFO
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_SPACE_INFO
+#else
 using space_info = std::filesystem::space_info;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_IS_EMPTY
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_IS_EMPTY
+#else
 using std::filesystem::is_empty;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_BASENAME
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_BASENAME
+#else
 using std::filesystem::basename;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_COMPLETE
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_COMPLETE
+#else
 using std::filesystem::complete;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_STATUS
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_STATUS
+#else
 using std::filesystem::status;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_RESIZE_FILE
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_RESIZE_FILE
+#else
 using std::filesystem::resize_file;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_IS_REGULAR
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_IS_REGULAR
+#else
 using std::filesystem::is_regular;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_CREATE_DIRECTORIES
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_CREATE_DIRECTORIES
+#else
 using std::filesystem::create_directories;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_REMOVE_ALL
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_REMOVE_ALL
+#else
 using std::filesystem::remove_all;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_INITIAL_PATH
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_INITIAL_PATH
+#else
 using std::filesystem::initial_path;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_PERMISSIONS_PRESENT
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_PERMISSIONS_PRESENT
+#else
 using std::filesystem::permissions_present;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_COPY_FILE
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_COPY_FILE
+#else
 using std::filesystem::copy_file;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_CODECVT_ERROR_CATEGORY
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_CODECVT_ERROR_CATEGORY
+#else
 using std::filesystem::codecvt_error_category;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_CREATE_SYMLINK
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_CREATE_SYMLINK
+#else
 using std::filesystem::create_symlink;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_WPATH
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_WPATH
+#else
 using std::filesystem::wpath;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_ABSOLUTE
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_ABSOLUTE
+#else
 using std::filesystem::absolute;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_COPY_SYMLINK
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_COPY_SYMLINK
+#else
 using std::filesystem::copy_symlink;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_CREATE_DIRECTORY_SYMLINK
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_CREATE_DIRECTORY_SYMLINK
+#else
 using std::filesystem::create_directory_symlink;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_SYMBOLIC_LINK_EXISTS
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_SYMBOLIC_LINK_EXISTS
+#else
 using std::filesystem::symbolic_link_exists;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_COPY_DIRECTORY
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_COPY_DIRECTORY
+#else
 using std::filesystem::copy_directory;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_CREATE_HARD_LINK
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_CREATE_HARD_LINK
+#else
 using std::filesystem::create_hard_link;
+#endif
+#ifdef BOOST_STL11_FILESYSTEM_MAP_NO_LAST_WRITE_TIME
+#undef BOOST_STL11_FILESYSTEM_MAP_NO_LAST_WRITE_TIME
+#else
 using std::filesystem::last_write_time;
+#endif
 BOOST_STL11_FILESYSTEM_MAP_NAMESPACE_END
 #undef BOOST_STL11_FILESYSTEM_MAP_NAMESPACE_BEGIN
 #undef BOOST_STL11_FILESYSTEM_MAP_NAMESPACE_END

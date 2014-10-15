@@ -16,140 +16,676 @@ using std::memory_order;
   using std::memory_order_acq_rel;
   using std::memory_order_seq_cst;
 using std::cv_status;
+#ifdef BOOST_STL11_FUTURE_MAP_NO_PROMISE
+#undef BOOST_STL11_FUTURE_MAP_NO_PROMISE
+#else
 template<class _Res> using promise = std::promise<_Res>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_PACKAGED_TASK
+#undef BOOST_STL11_FUTURE_MAP_NO_PACKAGED_TASK
+#else
 template<class _Signature> using packaged_task = std::packaged_task<_Signature>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_SHARED_FUTURE
+#undef BOOST_STL11_FUTURE_MAP_NO_SHARED_FUTURE
+#else
 template<class _Res> using shared_future = std::shared_future<_Res>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_EXCHANGE
+#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_EXCHANGE
+#else
 using std::atomic_exchange;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_LOAD
+#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_LOAD
+#else
 using std::atomic_load;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_STORE
+#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_STORE
+#else
 using std::atomic_store;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_LOAD_EXPLICIT
+#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_LOAD_EXPLICIT
+#else
 using std::atomic_load_explicit;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_STORE_EXPLICIT
+#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_STORE_EXPLICIT
+#else
 using std::atomic_store_explicit;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_EXCHANGE_EXPLICIT
+#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_EXCHANGE_EXPLICIT
+#else
 using std::atomic_exchange_explicit;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_FUTURE_ERROR
+#undef BOOST_STL11_FUTURE_MAP_NO_FUTURE_ERROR
+#else
 using future_error = std::future_error;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_REMOVE_REFERENCE
+#undef BOOST_STL11_FUTURE_MAP_NO_REMOVE_REFERENCE
+#else
 template<class _Tp> using remove_reference = std::remove_reference<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_REMOVE_REFERENCE
+#undef BOOST_STL11_FUTURE_MAP_NO_REMOVE_REFERENCE
+#else
 template<class type_parameter_0_0> using remove_reference = std::remove_reference<type_parameter_0_0>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_CENTI
+#undef BOOST_STL11_FUTURE_MAP_NO_CENTI
+#else
 using std::centi;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_UNION
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_UNION
+#else
 template<class _Tp> using is_union = std::is_union<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_RATIO_LESS_EQUAL
+#undef BOOST_STL11_FUTURE_MAP_NO_RATIO_LESS_EQUAL
+#else
 template<class _R1, class _R2> using ratio_less_equal = std::ratio_less_equal<_R1, _R2>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_FORWARD
+#undef BOOST_STL11_FUTURE_MAP_NO_FORWARD
+#else
 using std::forward;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_DECAY
+#undef BOOST_STL11_FUTURE_MAP_NO_DECAY
+#else
 template<class _Tp> using decay = std::decay<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_CONST
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_CONST
+#else
 template<class type_parameter_0_0> using is_const = std::is_const<type_parameter_0_0>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_REMOVE_EXTENT
+#undef BOOST_STL11_FUTURE_MAP_NO_REMOVE_EXTENT
+#else
 template<class _Tp> using remove_extent = std::remove_extent<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_LOCK
+#undef BOOST_STL11_FUTURE_MAP_NO_LOCK
+#else
 using std::lock;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_CONVERTIBLE
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_CONVERTIBLE
+#else
 template<class _From, class _To> using is_convertible = std::is_convertible<_From, _To>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ADD_RVALUE_REFERENCE
+#undef BOOST_STL11_FUTURE_MAP_NO_ADD_RVALUE_REFERENCE
+#else
 template<class _Tp> using add_rvalue_reference = std::add_rvalue_reference<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ADD_RVALUE_REFERENCE
+#undef BOOST_STL11_FUTURE_MAP_NO_ADD_RVALUE_REFERENCE
+#else
 template<class type_parameter_0_0> using add_rvalue_reference = std::add_rvalue_reference<type_parameter_0_0>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_NOTHROW_MOVE_CONSTRUCTIBLE
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_NOTHROW_MOVE_CONSTRUCTIBLE
+#else
 template<class _Tp> using is_nothrow_move_constructible = std::is_nothrow_move_constructible<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_POD
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_POD
+#else
 template<class _Tp> using is_pod = std::is_pod<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_DECLVAL
+#undef BOOST_STL11_FUTURE_MAP_NO_DECLVAL
+#else
 using std::declval;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ADD_CV
+#undef BOOST_STL11_FUTURE_MAP_NO_ADD_CV
+#else
 template<class _Tp> using add_cv = std::add_cv<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_FALSE_TYPE
+#undef BOOST_STL11_FUTURE_MAP_NO_FALSE_TYPE
+#else
 using std::false_type;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_DECA
+#undef BOOST_STL11_FUTURE_MAP_NO_DECA
+#else
 using std::deca;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_BASE_OF
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_BASE_OF
+#else
 template<class _Base, class _Derived> using is_base_of = std::is_base_of<_Base, _Derived>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_BASE_OF
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_BASE_OF
+#else
 template<class type_parameter_0_0, class type_parameter_0_1> using is_base_of = std::is_base_of<type_parameter_0_0, type_parameter_0_1>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_REFERENCE_WRAPPER
+#undef BOOST_STL11_FUTURE_MAP_NO_REFERENCE_WRAPPER
+#else
 template<class _Tp> using reference_wrapper = std::reference_wrapper<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ONCE_FLAG
+#undef BOOST_STL11_FUTURE_MAP_NO_ONCE_FLAG
+#else
 using once_flag = std::once_flag;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_MOVE_ITERATOR
+#undef BOOST_STL11_FUTURE_MAP_NO_MOVE_ITERATOR
+#else
 template<class _Iterator> using move_iterator = std::move_iterator<_Iterator>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_VOLATILE
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_VOLATILE
+#else
 template<class type_parameter_0_0> using is_volatile = std::is_volatile<type_parameter_0_0>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_UNSIGNED
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_UNSIGNED
+#else
 template<class _Tp> using is_unsigned = std::is_unsigned<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_TRY_TO_LOCK_T
+#undef BOOST_STL11_FUTURE_MAP_NO_TRY_TO_LOCK_T
+#else
 using try_to_lock_t = std::try_to_lock_t;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_DYNAMIC_POINTER_CAST
+#undef BOOST_STL11_FUTURE_MAP_NO_DYNAMIC_POINTER_CAST
+#else
 using std::dynamic_pointer_cast;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_STATIC_POINTER_CAST
+#undef BOOST_STL11_FUTURE_MAP_NO_STATIC_POINTER_CAST
+#else
 using std::static_pointer_cast;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_REMOVE_CV
+#undef BOOST_STL11_FUTURE_MAP_NO_REMOVE_CV
+#else
 template<class _Tp> using remove_cv = std::remove_cv<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_REMOVE_CV
+#undef BOOST_STL11_FUTURE_MAP_NO_REMOVE_CV
+#else
 template<class type_parameter_0_0> using remove_cv = std::remove_cv<type_parameter_0_0>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_VOID
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_VOID
+#else
 template<class _Tp> using is_void = std::is_void<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_SCALAR
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_SCALAR
+#else
 template<class _Tp> using is_scalar = std::is_scalar<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_SIGNED
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_SIGNED
+#else
 template<class _Tp> using is_signed = std::is_signed<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ASYNC
+#undef BOOST_STL11_FUTURE_MAP_NO_ASYNC
+#else
 using std::async;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_GIGA
+#undef BOOST_STL11_FUTURE_MAP_NO_GIGA
+#else
 using std::giga;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ADD_POINTER
+#undef BOOST_STL11_FUTURE_MAP_NO_ADD_POINTER
+#else
 template<class _Tp> using add_pointer = std::add_pointer<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_ABSTRACT
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_ABSTRACT
+#else
 template<class _Tp> using is_abstract = std::is_abstract<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_RATIO_NOT_EQUAL
+#undef BOOST_STL11_FUTURE_MAP_NO_RATIO_NOT_EQUAL
+#else
 template<class _R1, class _R2> using ratio_not_equal = std::ratio_not_equal<_R1, _R2>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_ENUM
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_ENUM
+#else
 template<class _Tp> using is_enum = std::is_enum<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_CONDITIONAL
+#undef BOOST_STL11_FUTURE_MAP_NO_CONDITIONAL
+#else
 template<bool _0, class _Iftrue, class _Iffalse> using conditional = std::conditional<_0, _Iftrue, _Iffalse>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_CONDITIONAL
+#undef BOOST_STL11_FUTURE_MAP_NO_CONDITIONAL
+#else
 template<bool _0, class type_parameter_0_1, class type_parameter_0_2> using conditional = std::conditional<_0, type_parameter_0_1, type_parameter_0_2>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ENABLE_IF
+#undef BOOST_STL11_FUTURE_MAP_NO_ENABLE_IF
+#else
 template<bool _0, class _Tp> using enable_if = std::enable_if<_0, _Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_REMOVE_VOLATILE
+#undef BOOST_STL11_FUTURE_MAP_NO_REMOVE_VOLATILE
+#else
 template<class _Tp> using remove_volatile = std::remove_volatile<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_ARITHMETIC
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_ARITHMETIC
+#else
 template<class _Tp> using is_arithmetic = std::is_arithmetic<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_INTEGRAL_CONSTANT
+#undef BOOST_STL11_FUTURE_MAP_NO_INTEGRAL_CONSTANT
+#else
 template<class _Tp, _Tp _1> using integral_constant = std::integral_constant<_Tp, _1>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ALIGNMENT_OF
+#undef BOOST_STL11_FUTURE_MAP_NO_ALIGNMENT_OF
+#else
 template<class _Tp> using alignment_of = std::alignment_of<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_FLOATING_POINT
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_FLOATING_POINT
+#else
 template<class _Tp> using is_floating_point = std::is_floating_point<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_KILO
+#undef BOOST_STL11_FUTURE_MAP_NO_KILO
+#else
 using std::kilo;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_TRUE_TYPE
+#undef BOOST_STL11_FUTURE_MAP_NO_TRUE_TYPE
+#else
 using std::true_type;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_ARRAY
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_ARRAY
+#else
 template<class type_parameter_0_0> using is_array = std::is_array<type_parameter_0_0>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_POINTER
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_POINTER
+#else
 template<class _Tp> using is_pointer = std::is_pointer<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_MEMBER_FUNCTION_POINTER
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_MEMBER_FUNCTION_POINTER
+#else
 template<class _Tp> using is_member_function_pointer = std::is_member_function_pointer<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_CLASS
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_CLASS
+#else
 template<class _Tp> using is_class = std::is_class<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_INTEGRAL
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_INTEGRAL
+#else
 template<class _Tp> using is_integral = std::is_integral<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_MOVE_BACKWARD
+#undef BOOST_STL11_FUTURE_MAP_NO_MOVE_BACKWARD
+#else
 using std::move_backward;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_WEAK_PTR
+#undef BOOST_STL11_FUTURE_MAP_NO_WEAK_PTR
+#else
 template<class _Tp> using weak_ptr = std::weak_ptr<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ADDRESSOF
+#undef BOOST_STL11_FUTURE_MAP_NO_ADDRESSOF
+#else
 using std::addressof;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_RESULT_OF
+#undef BOOST_STL11_FUTURE_MAP_NO_RESULT_OF
+#else
 template<class _Signature> using result_of = std::result_of<_Signature>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_FUTURE_CATEGORY
+#undef BOOST_STL11_FUTURE_MAP_NO_FUTURE_CATEGORY
+#else
 using std::future_category;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_SWAP
+#undef BOOST_STL11_FUTURE_MAP_NO_SWAP
+#else
 using std::swap;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_MEMBER_POINTER
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_MEMBER_POINTER
+#else
 template<class _Tp> using is_member_pointer = std::is_member_pointer<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_MEMBER_POINTER
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_MEMBER_POINTER
+#else
 template<class type_parameter_0_0> using is_member_pointer = std::is_member_pointer<type_parameter_0_0>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_MEM_FN
+#undef BOOST_STL11_FUTURE_MAP_NO_MEM_FN
+#else
 using std::mem_fn;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_HAS_TRIVIAL_COPY_CONSTRUCTOR
+#undef BOOST_STL11_FUTURE_MAP_NO_HAS_TRIVIAL_COPY_CONSTRUCTOR
+#else
 template<class _Tp> using has_trivial_copy_constructor = std::has_trivial_copy_constructor<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ENABLE_SHARED_FROM_THIS
+#undef BOOST_STL11_FUTURE_MAP_NO_ENABLE_SHARED_FROM_THIS
+#else
 template<class _Tp> using enable_shared_from_this = std::enable_shared_from_this<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_IS_LOCK_FREE
+#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_IS_LOCK_FREE
+#else
 using std::atomic_is_lock_free;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_NEXT
+#undef BOOST_STL11_FUTURE_MAP_NO_NEXT
+#else
 using std::next;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_CONDITION_VARIABLE
+#undef BOOST_STL11_FUTURE_MAP_NO_CONDITION_VARIABLE
+#else
 using condition_variable = std::condition_variable;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_MICRO
+#undef BOOST_STL11_FUTURE_MAP_NO_MICRO
+#else
 using std::micro;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_SAME
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_SAME
+#else
 template<class type_parameter_0_0, class type_parameter_0_1> using is_same = std::is_same<type_parameter_0_0, type_parameter_0_1>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_FEMTO
+#undef BOOST_STL11_FUTURE_MAP_NO_FEMTO
+#else
 using std::femto;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_LVALUE_REFERENCE
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_LVALUE_REFERENCE
+#else
 template<class type_parameter_0_0> using is_lvalue_reference = std::is_lvalue_reference<type_parameter_0_0>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_MAKE_MOVE_ITERATOR
+#undef BOOST_STL11_FUTURE_MAP_NO_MAKE_MOVE_ITERATOR
+#else
 using std::make_move_iterator;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_RVALUE_REFERENCE
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_RVALUE_REFERENCE
+#else
 template<class type_parameter_0_0> using is_rvalue_reference = std::is_rvalue_reference<type_parameter_0_0>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_MOVE
+#undef BOOST_STL11_FUTURE_MAP_NO_MOVE
+#else
 using std::move;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ADOPT_LOCK_T
+#undef BOOST_STL11_FUTURE_MAP_NO_ADOPT_LOCK_T
+#else
 using adopt_lock_t = std::adopt_lock_t;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_BAD_WEAK_PTR
+#undef BOOST_STL11_FUTURE_MAP_NO_BAD_WEAK_PTR
+#else
 using bad_weak_ptr = std::bad_weak_ptr;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_RATIO_LESS
+#undef BOOST_STL11_FUTURE_MAP_NO_RATIO_LESS
+#else
 template<class _R1, class _R2> using ratio_less = std::ratio_less<_R1, _R2>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_NOTHROW_MOVE_ASSIGNABLE
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_NOTHROW_MOVE_ASSIGNABLE
+#else
 template<class _Tp> using is_nothrow_move_assignable = std::is_nothrow_move_assignable<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_TERA
+#undef BOOST_STL11_FUTURE_MAP_NO_TERA
+#else
 using std::tera;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_CREF
+#undef BOOST_STL11_FUTURE_MAP_NO_CREF
+#else
 using std::cref;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_LOCK_GUARD
+#undef BOOST_STL11_FUTURE_MAP_NO_LOCK_GUARD
+#else
 template<class _Mutex> using lock_guard = std::lock_guard<_Mutex>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_PICO
+#undef BOOST_STL11_FUTURE_MAP_NO_PICO
+#else
 using std::pico;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_TO_STRING
+#undef BOOST_STL11_FUTURE_MAP_NO_TO_STRING
+#else
 using std::to_string;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_HASH
+#undef BOOST_STL11_FUTURE_MAP_NO_HASH
+#else
 template<class _Tp> using hash = std::hash<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ADD_VOLATILE
+#undef BOOST_STL11_FUTURE_MAP_NO_ADD_VOLATILE
+#else
 template<class _Tp> using add_volatile = std::add_volatile<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_MILLI
+#undef BOOST_STL11_FUTURE_MAP_NO_MILLI
+#else
 using std::milli;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ADD_CONST
+#undef BOOST_STL11_FUTURE_MAP_NO_ADD_CONST
+#else
 template<class _Tp> using add_const = std::add_const<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ALIGNED_STORAGE
+#undef BOOST_STL11_FUTURE_MAP_NO_ALIGNED_STORAGE
+#else
 template<std::size_t _0, std::size_t _1> using aligned_storage = std::aligned_storage<_0, _1>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_REF
+#undef BOOST_STL11_FUTURE_MAP_NO_REF
+#else
 using std::ref;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_BIND_EXPRESSION
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_BIND_EXPRESSION
+#else
 template<class _Tp> using is_bind_expression = std::is_bind_expression<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_PLACEHOLDER
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_PLACEHOLDER
+#else
 template<class _Tp> using is_placeholder = std::is_placeholder<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_BIND
+#undef BOOST_STL11_FUTURE_MAP_NO_BIND
+#else
 using std::bind;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_BAD_FUNCTION_CALL
+#undef BOOST_STL11_FUTURE_MAP_NO_BAD_FUNCTION_CALL
+#else
 using bad_function_call = std::bad_function_call;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_FUNCTION
+#undef BOOST_STL11_FUTURE_MAP_NO_FUNCTION
+#else
 template<class _Signature> using function = std::function<_Signature>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_RATIO_GREATER_EQUAL
+#undef BOOST_STL11_FUTURE_MAP_NO_RATIO_GREATER_EQUAL
+#else
 template<class _R1, class _R2> using ratio_greater_equal = std::ratio_greater_equal<_R1, _R2>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_RATIO
+#undef BOOST_STL11_FUTURE_MAP_NO_RATIO
+#else
 template<intmax_t _0, intmax_t _1> using ratio = std::ratio<_0, _1>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_FUNCTION
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_FUNCTION
+#else
 template<class type_parameter_0_0> using is_function = std::is_function<type_parameter_0_0>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_FUNDAMENTAL
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_FUNDAMENTAL
+#else
 template<class _Tp> using is_fundamental = std::is_fundamental<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_RATIO_EQUAL
+#undef BOOST_STL11_FUTURE_MAP_NO_RATIO_EQUAL
+#else
 template<class _R1, class _R2> using ratio_equal = std::ratio_equal<_R1, _R2>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_RATIO_GREATER
+#undef BOOST_STL11_FUTURE_MAP_NO_RATIO_GREATER
+#else
 template<class _R1, class _R2> using ratio_greater = std::ratio_greater<_R1, _R2>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ATTO
+#undef BOOST_STL11_FUTURE_MAP_NO_ATTO
+#else
 using std::atto;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_NANO
+#undef BOOST_STL11_FUTURE_MAP_NO_NANO
+#else
 using std::nano;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_REFERENCE
+#undef BOOST_STL11_FUTURE_MAP_NO_IS_REFERENCE
+#else
 template<class _Tp> using is_reference = std::is_reference<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_MEGA
+#undef BOOST_STL11_FUTURE_MAP_NO_MEGA
+#else
 using std::mega;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_PETA
+#undef BOOST_STL11_FUTURE_MAP_NO_PETA
+#else
 using std::peta;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_EXA
+#undef BOOST_STL11_FUTURE_MAP_NO_EXA
+#else
 using std::exa;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_RECURSIVE_MUTEX
+#undef BOOST_STL11_FUTURE_MAP_NO_RECURSIVE_MUTEX
+#else
 using recursive_mutex = std::recursive_mutex;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_TIMED_MUTEX
+#undef BOOST_STL11_FUTURE_MAP_NO_TIMED_MUTEX
+#else
 using timed_mutex = std::timed_mutex;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_MUTEX
+#undef BOOST_STL11_FUTURE_MAP_NO_MUTEX
+#else
 using mutex = std::mutex;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_RECURSIVE_TIMED_MUTEX
+#undef BOOST_STL11_FUTURE_MAP_NO_RECURSIVE_TIMED_MUTEX
+#else
 using recursive_timed_mutex = std::recursive_timed_mutex;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_DEFER_LOCK_T
+#undef BOOST_STL11_FUTURE_MAP_NO_DEFER_LOCK_T
+#else
 using defer_lock_t = std::defer_lock_t;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_UNIQUE_LOCK
+#undef BOOST_STL11_FUTURE_MAP_NO_UNIQUE_LOCK
+#else
 template<class _Mutex> using unique_lock = std::unique_lock<_Mutex>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_TRY_LOCK
+#undef BOOST_STL11_FUTURE_MAP_NO_TRY_LOCK
+#else
 using std::try_lock;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_CALL_ONCE
+#undef BOOST_STL11_FUTURE_MAP_NO_CALL_ONCE
+#else
 using std::call_once;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_HECTO
+#undef BOOST_STL11_FUTURE_MAP_NO_HECTO
+#else
 using std::hecto;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_DECI
+#undef BOOST_STL11_FUTURE_MAP_NO_DECI
+#else
 using std::deci;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_SHARED_PTR
+#undef BOOST_STL11_FUTURE_MAP_NO_SHARED_PTR
+#else
 template<class _Tp> using shared_ptr = std::shared_ptr<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_CONST_POINTER_CAST
+#undef BOOST_STL11_FUTURE_MAP_NO_CONST_POINTER_CAST
+#else
 using std::const_pointer_cast;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_REMOVE_CONST
+#undef BOOST_STL11_FUTURE_MAP_NO_REMOVE_CONST
+#else
 template<class _Tp> using remove_const = std::remove_const<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_GET_DELETER
+#undef BOOST_STL11_FUTURE_MAP_NO_GET_DELETER
+#else
 using std::get_deleter;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_COMMON_TYPE
+#undef BOOST_STL11_FUTURE_MAP_NO_COMMON_TYPE
+#else
 template<class... _Tp> using common_type = std::common_type<_Tp...>;
+#endif
+#ifdef BOOST_STL11_FUTURE_MAP_NO_THREAD
+#undef BOOST_STL11_FUTURE_MAP_NO_THREAD
+#else
 using thread = std::thread;
+#endif
 BOOST_STL11_FUTURE_MAP_NAMESPACE_END
 #undef BOOST_STL11_FUTURE_MAP_NAMESPACE_BEGIN
 #undef BOOST_STL11_FUTURE_MAP_NAMESPACE_END

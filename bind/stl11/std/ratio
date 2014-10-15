@@ -5,33 +5,141 @@
 #include <ratio>
 BOOST_STL11_RATIO_MAP_NAMESPACE_BEGIN
 extern const char *boost_local_bind_in;
+#ifdef BOOST_STL11_RATIO_MAP_NO_PETA
+#undef BOOST_STL11_RATIO_MAP_NO_PETA
+#else
 using std::peta;
+#endif
+#ifdef BOOST_STL11_RATIO_MAP_NO_TERA
+#undef BOOST_STL11_RATIO_MAP_NO_TERA
+#else
 using std::tera;
+#endif
+#ifdef BOOST_STL11_RATIO_MAP_NO_HECTO
+#undef BOOST_STL11_RATIO_MAP_NO_HECTO
+#else
 using std::hecto;
+#endif
+#ifdef BOOST_STL11_RATIO_MAP_NO_DECI
+#undef BOOST_STL11_RATIO_MAP_NO_DECI
+#else
 using std::deci;
+#endif
+#ifdef BOOST_STL11_RATIO_MAP_NO_CENTI
+#undef BOOST_STL11_RATIO_MAP_NO_CENTI
+#else
 using std::centi;
+#endif
+#ifdef BOOST_STL11_RATIO_MAP_NO_NANO
+#undef BOOST_STL11_RATIO_MAP_NO_NANO
+#else
 using std::nano;
+#endif
+#ifdef BOOST_STL11_RATIO_MAP_NO_FEMTO
+#undef BOOST_STL11_RATIO_MAP_NO_FEMTO
+#else
 using std::femto;
+#endif
+#ifdef BOOST_STL11_RATIO_MAP_NO_ATTO
+#undef BOOST_STL11_RATIO_MAP_NO_ATTO
+#else
 using std::atto;
+#endif
+#ifdef BOOST_STL11_RATIO_MAP_NO_RATIO_GREATER_EQUAL
+#undef BOOST_STL11_RATIO_MAP_NO_RATIO_GREATER_EQUAL
+#else
 template<class _R1, class _R2> using ratio_greater_equal = std::ratio_greater_equal<_R1, _R2>;
+#endif
+#ifdef BOOST_STL11_RATIO_MAP_NO_PICO
+#undef BOOST_STL11_RATIO_MAP_NO_PICO
+#else
 using std::pico;
+#endif
+#ifdef BOOST_STL11_RATIO_MAP_NO_RATIO_LESS
+#undef BOOST_STL11_RATIO_MAP_NO_RATIO_LESS
+#else
 template<class _R1, class _R2> using ratio_less = std::ratio_less<_R1, _R2>;
+#endif
+#ifdef BOOST_STL11_RATIO_MAP_NO_RATIO_NOT_EQUAL
+#undef BOOST_STL11_RATIO_MAP_NO_RATIO_NOT_EQUAL
+#else
 template<class _R1, class _R2> using ratio_not_equal = std::ratio_not_equal<_R1, _R2>;
+#endif
+#ifdef BOOST_STL11_RATIO_MAP_NO_MEGA
+#undef BOOST_STL11_RATIO_MAP_NO_MEGA
+#else
 using std::mega;
+#endif
+#ifdef BOOST_STL11_RATIO_MAP_NO_MILLI
+#undef BOOST_STL11_RATIO_MAP_NO_MILLI
+#else
 using std::milli;
+#endif
+#ifdef BOOST_STL11_RATIO_MAP_NO_DECA
+#undef BOOST_STL11_RATIO_MAP_NO_DECA
+#else
 using std::deca;
+#endif
+#ifdef BOOST_STL11_RATIO_MAP_NO_RATIO
+#undef BOOST_STL11_RATIO_MAP_NO_RATIO
+#else
 template<intmax_t _0, intmax_t _1> using ratio = std::ratio<_0, _1>;
+#endif
+#ifdef BOOST_STL11_RATIO_MAP_NO_RATIO_EQUAL
+#undef BOOST_STL11_RATIO_MAP_NO_RATIO_EQUAL
+#else
 template<class _R1, class _R2> using ratio_equal = std::ratio_equal<_R1, _R2>;
+#endif
+#ifdef BOOST_STL11_RATIO_MAP_NO_INTEGRAL_CONSTANT
+#undef BOOST_STL11_RATIO_MAP_NO_INTEGRAL_CONSTANT
+#else
 template<class _Tp, _Tp _1> using integral_constant = std::integral_constant<_Tp, _1>;
+#endif
+#ifdef BOOST_STL11_RATIO_MAP_NO_TRUE_TYPE
+#undef BOOST_STL11_RATIO_MAP_NO_TRUE_TYPE
+#else
 using std::true_type;
+#endif
+#ifdef BOOST_STL11_RATIO_MAP_NO_MICRO
+#undef BOOST_STL11_RATIO_MAP_NO_MICRO
+#else
 using std::micro;
+#endif
+#ifdef BOOST_STL11_RATIO_MAP_NO_GIGA
+#undef BOOST_STL11_RATIO_MAP_NO_GIGA
+#else
 using std::giga;
+#endif
+#ifdef BOOST_STL11_RATIO_MAP_NO_KILO
+#undef BOOST_STL11_RATIO_MAP_NO_KILO
+#else
 using std::kilo;
+#endif
+#ifdef BOOST_STL11_RATIO_MAP_NO_RATIO_LESS_EQUAL
+#undef BOOST_STL11_RATIO_MAP_NO_RATIO_LESS_EQUAL
+#else
 template<class _R1, class _R2> using ratio_less_equal = std::ratio_less_equal<_R1, _R2>;
+#endif
+#ifdef BOOST_STL11_RATIO_MAP_NO_FALSE_TYPE
+#undef BOOST_STL11_RATIO_MAP_NO_FALSE_TYPE
+#else
 using std::false_type;
+#endif
+#ifdef BOOST_STL11_RATIO_MAP_NO_EXA
+#undef BOOST_STL11_RATIO_MAP_NO_EXA
+#else
 using std::exa;
+#endif
+#ifdef BOOST_STL11_RATIO_MAP_NO_RATIO_GREATER
+#undef BOOST_STL11_RATIO_MAP_NO_RATIO_GREATER
+#else
 template<class _R1, class _R2> using ratio_greater = std::ratio_greater<_R1, _R2>;
+#endif
+#ifdef BOOST_STL11_RATIO_MAP_NO_ENABLE_IF
+#undef BOOST_STL11_RATIO_MAP_NO_ENABLE_IF
+#else
 template<bool _0, class _Tp> using enable_if = std::enable_if<_0, _Tp>;
+#endif
 BOOST_STL11_RATIO_MAP_NAMESPACE_END
 #undef BOOST_STL11_RATIO_MAP_NAMESPACE_BEGIN
 #undef BOOST_STL11_RATIO_MAP_NAMESPACE_END

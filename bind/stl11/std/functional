@@ -5,14 +5,46 @@
 #include <functional>
 BOOST_STL11_FUNCTIONAL_MAP_NAMESPACE_BEGIN
 extern const char *boost_local_bind_in;
+#ifdef BOOST_STL11_FUNCTIONAL_MAP_NO_BIND
+#undef BOOST_STL11_FUNCTIONAL_MAP_NO_BIND
+#else
 using std::bind;
+#endif
+#ifdef BOOST_STL11_FUNCTIONAL_MAP_NO_IS_PLACEHOLDER
+#undef BOOST_STL11_FUNCTIONAL_MAP_NO_IS_PLACEHOLDER
+#else
 template<class _Tp> using is_placeholder = std::is_placeholder<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUNCTIONAL_MAP_NO_IS_BIND_EXPRESSION
+#undef BOOST_STL11_FUNCTIONAL_MAP_NO_IS_BIND_EXPRESSION
+#else
 template<class _Tp> using is_bind_expression = std::is_bind_expression<_Tp>;
+#endif
+#ifdef BOOST_STL11_FUNCTIONAL_MAP_NO_REF
+#undef BOOST_STL11_FUNCTIONAL_MAP_NO_REF
+#else
 using std::ref;
+#endif
+#ifdef BOOST_STL11_FUNCTIONAL_MAP_NO_CREF
+#undef BOOST_STL11_FUNCTIONAL_MAP_NO_CREF
+#else
 using std::cref;
+#endif
+#ifdef BOOST_STL11_FUNCTIONAL_MAP_NO_ADDRESSOF
+#undef BOOST_STL11_FUNCTIONAL_MAP_NO_ADDRESSOF
+#else
 using std::addressof;
+#endif
+#ifdef BOOST_STL11_FUNCTIONAL_MAP_NO_MEM_FN
+#undef BOOST_STL11_FUNCTIONAL_MAP_NO_MEM_FN
+#else
 using std::mem_fn;
+#endif
+#ifdef BOOST_STL11_FUNCTIONAL_MAP_NO_REFERENCE_WRAPPER
+#undef BOOST_STL11_FUNCTIONAL_MAP_NO_REFERENCE_WRAPPER
+#else
 template<class _Tp> using reference_wrapper = std::reference_wrapper<_Tp>;
+#endif
 BOOST_STL11_FUNCTIONAL_MAP_NAMESPACE_END
 #undef BOOST_STL11_FUNCTIONAL_MAP_NAMESPACE_BEGIN
 #undef BOOST_STL11_FUNCTIONAL_MAP_NAMESPACE_END

@@ -5,11 +5,31 @@
 #include <typeindex>
 BOOST_STL11_TYPEINDEX_MAP_NAMESPACE_BEGIN
 extern const char *boost_local_bind_in;
+#ifdef BOOST_STL11_TYPEINDEX_MAP_NO_HASH
+#undef BOOST_STL11_TYPEINDEX_MAP_NO_HASH
+#else
 template<class _Tp> using hash = std::hash<_Tp>;
+#endif
+#ifdef BOOST_STL11_TYPEINDEX_MAP_NO_TYPE_INDEX
+#undef BOOST_STL11_TYPEINDEX_MAP_NO_TYPE_INDEX
+#else
 using type_index = std::type_index;
+#endif
+#ifdef BOOST_STL11_TYPEINDEX_MAP_NO_NULLPTR_T
+#undef BOOST_STL11_TYPEINDEX_MAP_NO_NULLPTR_T
+#else
 using std::nullptr_t;
+#endif
+#ifdef BOOST_STL11_TYPEINDEX_MAP_NO_PTRDIFF_T
+#undef BOOST_STL11_TYPEINDEX_MAP_NO_PTRDIFF_T
+#else
 using std::ptrdiff_t;
+#endif
+#ifdef BOOST_STL11_TYPEINDEX_MAP_NO_SIZE_T
+#undef BOOST_STL11_TYPEINDEX_MAP_NO_SIZE_T
+#else
 using std::size_t;
+#endif
 BOOST_STL11_TYPEINDEX_MAP_NAMESPACE_END
 #undef BOOST_STL11_TYPEINDEX_MAP_NAMESPACE_BEGIN
 #undef BOOST_STL11_TYPEINDEX_MAP_NAMESPACE_END
