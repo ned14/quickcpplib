@@ -5,177 +5,50 @@
 #include <networking>
 BOOST_STL1z_NETWORKING_MAP_NAMESPACE_BEGIN
 extern const char *std::experimental_local_bind_in;
-namespace detail { using std::experimental::asio::detail::;  using std::experimental::asio::detail::max_signal_number;
- }
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_STRAND
-#undef BOOST_STL1z_NETWORKING_MAP_NO_STRAND
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_STREAMBUF
+#undef BOOST_STL1z_NETWORKING_MAP_NO_STREAMBUF
 #else
-using std::experimental::asio::strand;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ERROR
-#undef BOOST_STL1z_NETWORKING_MAP_NO_ERROR
-#else
-namespace placeholders { using std::experimental::asio::placeholders::error; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ENDPOINT
-#undef BOOST_STL1z_NETWORKING_MAP_NO_ENDPOINT
-#else
-namespace local { namespace detail { using endpoint = std::experimental::asio::local::detail::endpoint; } }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_READ
-#undef BOOST_STL1z_NETWORKING_MAP_NO_READ
-#else
-using std::experimental::asio::read;
+using std::experimental::asio::streambuf;
 #endif
 #ifdef BOOST_STL1z_NETWORKING_MAP_NO_HOPS
 #undef BOOST_STL1z_NETWORKING_MAP_NO_HOPS
 #else
 namespace ip { namespace unicast { using std::experimental::asio::ip::unicast::hops; } }
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ICMP
-#undef BOOST_STL1z_NETWORKING_MAP_NO_ICMP
-#else
-namespace ip { using icmp = std::experimental::asio::ip::icmp; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_CLVREF
-#undef BOOST_STL1z_NETWORKING_MAP_NO_CLVREF
-#else
-namespace detail { using std::experimental::asio::detail::clvref; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_MUTEX
-#undef BOOST_STL1z_NETWORKING_MAP_NO_MUTEX
-#else
-namespace detail { using std::experimental::asio::detail::mutex; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BINDER5
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BINDER5
-#else
-namespace detail { template<class Handler, class Arg1, class Arg2, class Arg3, class Arg4, class Arg5> using binder5 = std::experimental::asio::detail::binder5<Handler, Arg1, Arg2, Arg3, Arg4, Arg5>; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ITERATOR
-#undef BOOST_STL1z_NETWORKING_MAP_NO_ITERATOR
-#else
-namespace placeholders { using std::experimental::asio::placeholders::iterator; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_REACTOR
-#undef BOOST_STL1z_NETWORKING_MAP_NO_REACTOR
-#else
-namespace detail { using std::experimental::asio::detail::reactor; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BINDER4
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BINDER4
-#else
-namespace detail { template<class Handler, class Arg1, class Arg2, class Arg3, class Arg4> using binder4 = std::experimental::asio::detail::binder4<Handler, Arg1, Arg2, Arg3, Arg4>; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BINDER3
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BINDER3
-#else
-namespace detail { template<class Handler, class Arg1, class Arg2, class Arg3> using binder3 = std::experimental::asio::detail::binder3<Handler, Arg1, Arg2, Arg3>; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BINDER2
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BINDER2
-#else
-namespace detail { template<class Handler, class Arg1, class Arg2> using binder2 = std::experimental::asio::detail::binder2<Handler, Arg1, Arg2>; }
-#endif
 #ifdef BOOST_STL1z_NETWORKING_MAP_NO_TCP
 #undef BOOST_STL1z_NETWORKING_MAP_NO_TCP
 #else
 namespace ip { using tcp = std::experimental::asio::ip::tcp; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ARGBYV
-#undef BOOST_STL1z_NETWORKING_MAP_NO_ARGBYV
-#else
-namespace detail { using std::experimental::asio::detail::argbyv; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_UDP
-#undef BOOST_STL1z_NETWORKING_MAP_NO_UDP
-#else
-namespace ip { using udp = std::experimental::asio::ip::udp; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_LVREF
-#undef BOOST_STL1z_NETWORKING_MAP_NO_LVREF
-#else
-namespace detail { using std::experimental::asio::detail::lvref; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_NONCOPYABLE
-#undef BOOST_STL1z_NETWORKING_MAP_NO_NONCOPYABLE
-#else
-namespace detail { using noncopyable = std::experimental::asio::detail::noncopyable; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_THREAD
-#undef BOOST_STL1z_NETWORKING_MAP_NO_THREAD
-#else
-namespace detail { using std::experimental::asio::detail::thread; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ADDRESS
-#undef BOOST_STL1z_NETWORKING_MAP_NO_ADDRESS
-#else
-namespace ip { using address = std::experimental::asio::ip::address; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BINDER1
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BINDER1
-#else
-namespace detail { template<class Handler, class Arg1> using binder1 = std::experimental::asio::detail::binder1<Handler, Arg1>; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_INCREMENT
-#undef BOOST_STL1z_NETWORKING_MAP_NO_INCREMENT
-#else
-namespace detail { using std::experimental::asio::detail::increment; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_EVENT
-#undef BOOST_STL1z_NETWORKING_MAP_NO_EVENT
-#else
-namespace detail { using std::experimental::asio::detail::event; }
 #endif
 #ifdef BOOST_STL1z_NETWORKING_MAP_NO_HOPS
 #undef BOOST_STL1z_NETWORKING_MAP_NO_HOPS
 #else
 namespace ip { namespace multicast { using std::experimental::asio::ip::multicast::hops; } }
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BUFFER
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BUFFER
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_COROUTINE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_COROUTINE
 #else
-using std::experimental::asio::buffer;
+using coroutine = std::experimental::asio::coroutine;
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_GCD
-#undef BOOST_STL1z_NETWORKING_MAP_NO_GCD
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ICMP
+#undef BOOST_STL1z_NETWORKING_MAP_NO_ICMP
 #else
-namespace detail { template<int64_t _0, int64_t _1> using gcd = std::experimental::asio::detail::gcd<_0, _1>; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_WRITE
-#undef BOOST_STL1z_NETWORKING_MAP_NO_WRITE
-#else
-using std::experimental::asio::write;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_OPERATION
-#undef BOOST_STL1z_NETWORKING_MAP_NO_OPERATION
-#else
-namespace detail { using std::experimental::asio::detail::operation; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ENDPOINT
-#undef BOOST_STL1z_NETWORKING_MAP_NO_ENDPOINT
-#else
-namespace generic { namespace detail { using endpoint = std::experimental::asio::generic::detail::endpoint; } }
+namespace ip { using icmp = std::experimental::asio::ip::icmp; }
 #endif
 #ifdef BOOST_STL1z_NETWORKING_MAP_NO_CONNECT
 #undef BOOST_STL1z_NETWORKING_MAP_NO_CONNECT
 #else
 using std::experimental::asio::connect;
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ENDPOINT
-#undef BOOST_STL1z_NETWORKING_MAP_NO_ENDPOINT
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_WRITE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_WRITE
 #else
-namespace ip { namespace detail { using endpoint = std::experimental::asio::ip::detail::endpoint; } }
+using std::experimental::asio::write;
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_STREAMBUF
-#undef BOOST_STL1z_NETWORKING_MAP_NO_STREAMBUF
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BUFFER
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BUFFER
 #else
-using std::experimental::asio::streambuf;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_COROUTINE
-#undef BOOST_STL1z_NETWORKING_MAP_NO_COROUTINE
-#else
-using coroutine = std::experimental::asio::coroutine;
+using std::experimental::asio::buffer;
 #endif
 BOOST_STL1z_NETWORKING_MAP_NAMESPACE_END
 #undef BOOST_STL1z_NETWORKING_MAP_NAMESPACE_BEGIN

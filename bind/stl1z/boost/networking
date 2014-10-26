@@ -5,177 +5,50 @@
 #include <boost/asio.hpp>
 BOOST_STL1z_NETWORKING_MAP_NAMESPACE_BEGIN
 extern const char *boost_local_bind_in;
-namespace detail { using boost::asio::detail::;  using boost::asio::detail::max_signal_number;
- }
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_STRAND
-#undef BOOST_STL1z_NETWORKING_MAP_NO_STRAND
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_STREAMBUF
+#undef BOOST_STL1z_NETWORKING_MAP_NO_STREAMBUF
 #else
-using boost::asio::strand;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ERROR
-#undef BOOST_STL1z_NETWORKING_MAP_NO_ERROR
-#else
-namespace placeholders { using boost::asio::placeholders::error; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ENDPOINT
-#undef BOOST_STL1z_NETWORKING_MAP_NO_ENDPOINT
-#else
-namespace local { namespace detail { using endpoint = boost::asio::local::detail::endpoint; } }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_READ
-#undef BOOST_STL1z_NETWORKING_MAP_NO_READ
-#else
-using boost::asio::read;
+using boost::asio::streambuf;
 #endif
 #ifdef BOOST_STL1z_NETWORKING_MAP_NO_HOPS
 #undef BOOST_STL1z_NETWORKING_MAP_NO_HOPS
 #else
 namespace ip { namespace unicast { using boost::asio::ip::unicast::hops; } }
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ICMP
-#undef BOOST_STL1z_NETWORKING_MAP_NO_ICMP
-#else
-namespace ip { using icmp = boost::asio::ip::icmp; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_CLVREF
-#undef BOOST_STL1z_NETWORKING_MAP_NO_CLVREF
-#else
-namespace detail { using boost::asio::detail::clvref; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_MUTEX
-#undef BOOST_STL1z_NETWORKING_MAP_NO_MUTEX
-#else
-namespace detail { using boost::asio::detail::mutex; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BINDER5
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BINDER5
-#else
-namespace detail { template<class Handler, class Arg1, class Arg2, class Arg3, class Arg4, class Arg5> using binder5 = boost::asio::detail::binder5<Handler, Arg1, Arg2, Arg3, Arg4, Arg5>; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ITERATOR
-#undef BOOST_STL1z_NETWORKING_MAP_NO_ITERATOR
-#else
-namespace placeholders { using boost::asio::placeholders::iterator; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_REACTOR
-#undef BOOST_STL1z_NETWORKING_MAP_NO_REACTOR
-#else
-namespace detail { using boost::asio::detail::reactor; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BINDER4
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BINDER4
-#else
-namespace detail { template<class Handler, class Arg1, class Arg2, class Arg3, class Arg4> using binder4 = boost::asio::detail::binder4<Handler, Arg1, Arg2, Arg3, Arg4>; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BINDER3
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BINDER3
-#else
-namespace detail { template<class Handler, class Arg1, class Arg2, class Arg3> using binder3 = boost::asio::detail::binder3<Handler, Arg1, Arg2, Arg3>; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BINDER2
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BINDER2
-#else
-namespace detail { template<class Handler, class Arg1, class Arg2> using binder2 = boost::asio::detail::binder2<Handler, Arg1, Arg2>; }
-#endif
 #ifdef BOOST_STL1z_NETWORKING_MAP_NO_TCP
 #undef BOOST_STL1z_NETWORKING_MAP_NO_TCP
 #else
 namespace ip { using tcp = boost::asio::ip::tcp; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ARGBYV
-#undef BOOST_STL1z_NETWORKING_MAP_NO_ARGBYV
-#else
-namespace detail { using boost::asio::detail::argbyv; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_UDP
-#undef BOOST_STL1z_NETWORKING_MAP_NO_UDP
-#else
-namespace ip { using udp = boost::asio::ip::udp; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_LVREF
-#undef BOOST_STL1z_NETWORKING_MAP_NO_LVREF
-#else
-namespace detail { using boost::asio::detail::lvref; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_NONCOPYABLE
-#undef BOOST_STL1z_NETWORKING_MAP_NO_NONCOPYABLE
-#else
-namespace detail { using noncopyable = boost::asio::detail::noncopyable; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_THREAD
-#undef BOOST_STL1z_NETWORKING_MAP_NO_THREAD
-#else
-namespace detail { using boost::asio::detail::thread; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ADDRESS
-#undef BOOST_STL1z_NETWORKING_MAP_NO_ADDRESS
-#else
-namespace ip { using address = boost::asio::ip::address; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BINDER1
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BINDER1
-#else
-namespace detail { template<class Handler, class Arg1> using binder1 = boost::asio::detail::binder1<Handler, Arg1>; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_INCREMENT
-#undef BOOST_STL1z_NETWORKING_MAP_NO_INCREMENT
-#else
-namespace detail { using boost::asio::detail::increment; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_EVENT
-#undef BOOST_STL1z_NETWORKING_MAP_NO_EVENT
-#else
-namespace detail { using boost::asio::detail::event; }
 #endif
 #ifdef BOOST_STL1z_NETWORKING_MAP_NO_HOPS
 #undef BOOST_STL1z_NETWORKING_MAP_NO_HOPS
 #else
 namespace ip { namespace multicast { using boost::asio::ip::multicast::hops; } }
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BUFFER
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BUFFER
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_COROUTINE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_COROUTINE
 #else
-using boost::asio::buffer;
+using coroutine = boost::asio::coroutine;
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_GCD
-#undef BOOST_STL1z_NETWORKING_MAP_NO_GCD
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ICMP
+#undef BOOST_STL1z_NETWORKING_MAP_NO_ICMP
 #else
-namespace detail { template<int64_t _0, int64_t _1> using gcd = boost::asio::detail::gcd<_0, _1>; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_WRITE
-#undef BOOST_STL1z_NETWORKING_MAP_NO_WRITE
-#else
-using boost::asio::write;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_OPERATION
-#undef BOOST_STL1z_NETWORKING_MAP_NO_OPERATION
-#else
-namespace detail { using boost::asio::detail::operation; }
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ENDPOINT
-#undef BOOST_STL1z_NETWORKING_MAP_NO_ENDPOINT
-#else
-namespace generic { namespace detail { using endpoint = boost::asio::generic::detail::endpoint; } }
+namespace ip { using icmp = boost::asio::ip::icmp; }
 #endif
 #ifdef BOOST_STL1z_NETWORKING_MAP_NO_CONNECT
 #undef BOOST_STL1z_NETWORKING_MAP_NO_CONNECT
 #else
 using boost::asio::connect;
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ENDPOINT
-#undef BOOST_STL1z_NETWORKING_MAP_NO_ENDPOINT
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_WRITE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_WRITE
 #else
-namespace ip { namespace detail { using endpoint = boost::asio::ip::detail::endpoint; } }
+using boost::asio::write;
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_STREAMBUF
-#undef BOOST_STL1z_NETWORKING_MAP_NO_STREAMBUF
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BUFFER
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BUFFER
 #else
-using boost::asio::streambuf;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_COROUTINE
-#undef BOOST_STL1z_NETWORKING_MAP_NO_COROUTINE
-#else
-using coroutine = boost::asio::coroutine;
+using boost::asio::buffer;
 #endif
 BOOST_STL1z_NETWORKING_MAP_NAMESPACE_END
 #undef BOOST_STL1z_NETWORKING_MAP_NAMESPACE_BEGIN
