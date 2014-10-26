@@ -97,6 +97,7 @@ DEALINGS IN THE SOFTWARE.
 
 // Expands into "local-bind-cpp-library/bind/stl11/impl/library"
 #define BOOST_LOCAL_BIND_INCLUDE_STL11(impl, lib) BOOST_LOCAL_BIND_STRINGIZE(local-bind-cpp-library/bind/stl11/impl/lib)
+#define BOOST_LOCAL_BIND_INCLUDE_STL1z(impl, lib) BOOST_LOCAL_BIND_STRINGIZE(local-bind-cpp-library/bind/stl1z/impl/lib)
 
 // Expands into
 #define BOOST_LOCAL_BIND_DECLARE(decl) static const char *boost_local_bind_out[]={ #decl };
