@@ -5,405 +5,177 @@
 #include <networking>
 BOOST_STL1z_NETWORKING_MAP_NAMESPACE_BEGIN
 extern const char *std::experimental_local_bind_in;
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_WRITE_AT
-#undef BOOST_STL1z_NETWORKING_MAP_NO_WRITE_AT
+namespace detail { using std::experimental::asio::detail::;  using std::experimental::asio::detail::max_signal_number;
+ }
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_STRAND
+#undef BOOST_STL1z_NETWORKING_MAP_NO_STRAND
 #else
-using std::experimental::asio::write_at;
+using std::experimental::asio::strand;
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_STREAMBUF
-#undef BOOST_STL1z_NETWORKING_MAP_NO_STREAMBUF
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ERROR
+#undef BOOST_STL1z_NETWORKING_MAP_NO_ERROR
 #else
-using std::experimental::asio::streambuf;
+namespace placeholders { using std::experimental::asio::placeholders::error; }
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_SIGNAL_SET
-#undef BOOST_STL1z_NETWORKING_MAP_NO_SIGNAL_SET
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ENDPOINT
+#undef BOOST_STL1z_NETWORKING_MAP_NO_ENDPOINT
 #else
-using std::experimental::asio::signal_set;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_READ_AT
-#undef BOOST_STL1z_NETWORKING_MAP_NO_READ_AT
-#else
-using std::experimental::asio::read_at;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_IS_READ_BUFFERED
-#undef BOOST_STL1z_NETWORKING_MAP_NO_IS_READ_BUFFERED
-#else
-template<class Stream> using is_read_buffered = std::experimental::asio::is_read_buffered<Stream>;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_CONNECT
-#undef BOOST_STL1z_NETWORKING_MAP_NO_CONNECT
-#else
-using std::experimental::asio::connect;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_SERIAL_PORT
-#undef BOOST_STL1z_NETWORKING_MAP_NO_SERIAL_PORT
-#else
-using std::experimental::asio::serial_port;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_READ_UNTIL
-#undef BOOST_STL1z_NETWORKING_MAP_NO_READ_UNTIL
-#else
-using std::experimental::asio::read_until;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BUFFERS_END
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BUFFERS_END
-#else
-using std::experimental::asio::buffers_end;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BUFFERS_ITERATOR
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BUFFERS_ITERATOR
-#else
-template<class BufferSequence, class ByteType> using buffers_iterator = std::experimental::asio::buffers_iterator<BufferSequence, ByteType>;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ASYNC_WRITE
-#undef BOOST_STL1z_NETWORKING_MAP_NO_ASYNC_WRITE
-#else
-using std::experimental::asio::async_write;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_WRITE
-#undef BOOST_STL1z_NETWORKING_MAP_NO_WRITE
-#else
-using std::experimental::asio::write;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_TRANSFER_EXACTLY
-#undef BOOST_STL1z_NETWORKING_MAP_NO_TRANSFER_EXACTLY
-#else
-using std::experimental::asio::transfer_exactly;
+namespace local { namespace detail { using endpoint = std::experimental::asio::local::detail::endpoint; } }
 #endif
 #ifdef BOOST_STL1z_NETWORKING_MAP_NO_READ
 #undef BOOST_STL1z_NETWORKING_MAP_NO_READ
 #else
 using std::experimental::asio::read;
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_TRANSFER_ALL
-#undef BOOST_STL1z_NETWORKING_MAP_NO_TRANSFER_ALL
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_HOPS
+#undef BOOST_STL1z_NETWORKING_MAP_NO_HOPS
 #else
-using std::experimental::asio::transfer_all;
+namespace ip { namespace unicast { using std::experimental::asio::ip::unicast::hops; } }
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BUFFERED_WRITE_STREAM
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BUFFERED_WRITE_STREAM
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ICMP
+#undef BOOST_STL1z_NETWORKING_MAP_NO_ICMP
 #else
-template<class Stream> using buffered_write_stream = std::experimental::asio::buffered_write_stream<Stream>;
+namespace ip { using icmp = std::experimental::asio::ip::icmp; }
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BUFFERED_STREAM
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BUFFERED_STREAM
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_CLVREF
+#undef BOOST_STL1z_NETWORKING_MAP_NO_CLVREF
 #else
-template<class Stream> using buffered_stream = std::experimental::asio::buffered_stream<Stream>;
+namespace detail { using std::experimental::asio::detail::clvref; }
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_WAITABLE_TIMER_SERVICE
-#undef BOOST_STL1z_NETWORKING_MAP_NO_WAITABLE_TIMER_SERVICE
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_MUTEX
+#undef BOOST_STL1z_NETWORKING_MAP_NO_MUTEX
 #else
-template<class Clock, class WaitTraits> using waitable_timer_service = std::experimental::asio::waitable_timer_service<Clock, WaitTraits>;
+namespace detail { using std::experimental::asio::detail::mutex; }
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_WAIT_TRAITS
-#undef BOOST_STL1z_NETWORKING_MAP_NO_WAIT_TRAITS
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BINDER5
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BINDER5
 #else
-template<class Clock> using wait_traits = std::experimental::asio::wait_traits<Clock>;
+namespace detail { template<class Handler, class Arg1, class Arg2, class Arg3, class Arg4, class Arg5> using binder5 = std::experimental::asio::detail::binder5<Handler, Arg1, Arg2, Arg3, Arg4, Arg5>; }
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_READ_SIZE_HELPER
-#undef BOOST_STL1z_NETWORKING_MAP_NO_READ_SIZE_HELPER
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ITERATOR
+#undef BOOST_STL1z_NETWORKING_MAP_NO_ITERATOR
 #else
-using std::experimental::asio::read_size_helper;
+namespace placeholders { using std::experimental::asio::placeholders::iterator; }
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_IS_MATCH_CONDITION
-#undef BOOST_STL1z_NETWORKING_MAP_NO_IS_MATCH_CONDITION
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_REACTOR
+#undef BOOST_STL1z_NETWORKING_MAP_NO_REACTOR
 #else
-template<class T> using is_match_condition = std::experimental::asio::is_match_condition<T>;
+namespace detail { using std::experimental::asio::detail::reactor; }
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_STREAMBUF
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_STREAMBUF
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BINDER4
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BINDER4
 #else
-template<class Allocator> using basic_streambuf = std::experimental::asio::basic_streambuf<Allocator>;
+namespace detail { template<class Handler, class Arg1, class Arg2, class Arg3, class Arg4> using binder4 = std::experimental::asio::detail::binder4<Handler, Arg1, Arg2, Arg3, Arg4>; }
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_COROUTINE
-#undef BOOST_STL1z_NETWORKING_MAP_NO_COROUTINE
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BINDER3
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BINDER3
 #else
-using coroutine = std::experimental::asio::coroutine;
+namespace detail { template<class Handler, class Arg1, class Arg2, class Arg3> using binder3 = std::experimental::asio::detail::binder3<Handler, Arg1, Arg2, Arg3>; }
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BUFFER_SIZE
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BUFFER_SIZE
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BINDER2
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BINDER2
 #else
-using std::experimental::asio::buffer_size;
+namespace detail { template<class Handler, class Arg1, class Arg2> using binder2 = std::experimental::asio::detail::binder2<Handler, Arg1, Arg2>; }
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ASIO_HANDLER_ALLOCATE
-#undef BOOST_STL1z_NETWORKING_MAP_NO_ASIO_HANDLER_ALLOCATE
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_TCP
+#undef BOOST_STL1z_NETWORKING_MAP_NO_TCP
 #else
-using std::experimental::asio::asio_handler_allocate;
+namespace ip { using tcp = std::experimental::asio::ip::tcp; }
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_SERIAL_PORT
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_SERIAL_PORT
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ARGBYV
+#undef BOOST_STL1z_NETWORKING_MAP_NO_ARGBYV
 #else
-template<class SerialPortService> using basic_serial_port = std::experimental::asio::basic_serial_port<SerialPortService>;
+namespace detail { using std::experimental::asio::detail::argbyv; }
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_SOCKET
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_SOCKET
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_UDP
+#undef BOOST_STL1z_NETWORKING_MAP_NO_UDP
 #else
-template<class Protocol, class SocketService> using basic_socket = std::experimental::asio::basic_socket<Protocol, SocketService>;
+namespace ip { using udp = std::experimental::asio::ip::udp; }
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_SEQ_PACKET_SOCKET_SERVICE
-#undef BOOST_STL1z_NETWORKING_MAP_NO_SEQ_PACKET_SOCKET_SERVICE
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_LVREF
+#undef BOOST_STL1z_NETWORKING_MAP_NO_LVREF
 #else
-template<class Protocol> using seq_packet_socket_service = std::experimental::asio::seq_packet_socket_service<Protocol>;
+namespace detail { using std::experimental::asio::detail::lvref; }
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_IO_OBJECT
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_IO_OBJECT
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_NONCOPYABLE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_NONCOPYABLE
 #else
-template<class IoObjectService, bool _1> using basic_io_object = std::experimental::asio::basic_io_object<IoObjectService, _1>;
+namespace detail { using noncopyable = std::experimental::asio::detail::noncopyable; }
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_STRAND
-#undef BOOST_STL1z_NETWORKING_MAP_NO_STRAND
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_THREAD
+#undef BOOST_STL1z_NETWORKING_MAP_NO_THREAD
 #else
-using std::experimental::asio::strand;
+namespace detail { using std::experimental::asio::detail::thread; }
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_DATAGRAM_SOCKET_SERVICE
-#undef BOOST_STL1z_NETWORKING_MAP_NO_DATAGRAM_SOCKET_SERVICE
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ADDRESS
+#undef BOOST_STL1z_NETWORKING_MAP_NO_ADDRESS
 #else
-template<class Protocol> using datagram_socket_service = std::experimental::asio::datagram_socket_service<Protocol>;
+namespace ip { using address = std::experimental::asio::ip::address; }
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_INVALID_SERVICE_OWNER
-#undef BOOST_STL1z_NETWORKING_MAP_NO_INVALID_SERVICE_OWNER
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BINDER1
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BINDER1
 #else
-using invalid_service_owner = std::experimental::asio::invalid_service_owner;
+namespace detail { template<class Handler, class Arg1> using binder1 = std::experimental::asio::detail::binder1<Handler, Arg1>; }
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_SERVICE_ALREADY_EXISTS
-#undef BOOST_STL1z_NETWORKING_MAP_NO_SERVICE_ALREADY_EXISTS
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_INCREMENT
+#undef BOOST_STL1z_NETWORKING_MAP_NO_INCREMENT
 #else
-using service_already_exists = std::experimental::asio::service_already_exists;
+namespace detail { using std::experimental::asio::detail::increment; }
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_HANDLER_TYPE
-#undef BOOST_STL1z_NETWORKING_MAP_NO_HANDLER_TYPE
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_EVENT
+#undef BOOST_STL1z_NETWORKING_MAP_NO_EVENT
 #else
-template<class Handler, class Signature> using handler_type = std::experimental::asio::handler_type<Handler, Signature>;
+namespace detail { using std::experimental::asio::detail::event; }
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_MUTABLE_BUFFERS_1
-#undef BOOST_STL1z_NETWORKING_MAP_NO_MUTABLE_BUFFERS_1
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_HOPS
+#undef BOOST_STL1z_NETWORKING_MAP_NO_HOPS
 #else
-using mutable_buffers_1 = std::experimental::asio::mutable_buffers_1;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_USE_SERVICE
-#undef BOOST_STL1z_NETWORKING_MAP_NO_USE_SERVICE
-#else
-using std::experimental::asio::use_service;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_SERIAL_PORT_SERVICE
-#undef BOOST_STL1z_NETWORKING_MAP_NO_SERIAL_PORT_SERVICE
-#else
-using serial_port_service = std::experimental::asio::serial_port_service;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ASYNC_READ
-#undef BOOST_STL1z_NETWORKING_MAP_NO_ASYNC_READ
-#else
-using std::experimental::asio::async_read;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_NULL_BUFFERS
-#undef BOOST_STL1z_NETWORKING_MAP_NO_NULL_BUFFERS
-#else
-using null_buffers = std::experimental::asio::null_buffers;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BUFFERS_BEGIN
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BUFFERS_BEGIN
-#else
-using std::experimental::asio::buffers_begin;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_HAS_SERVICE
-#undef BOOST_STL1z_NETWORKING_MAP_NO_HAS_SERVICE
-#else
-using std::experimental::asio::has_service;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ASYNC_READ_UNTIL
-#undef BOOST_STL1z_NETWORKING_MAP_NO_ASYNC_READ_UNTIL
-#else
-using std::experimental::asio::async_read_until;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_RAW_SOCKET
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_RAW_SOCKET
-#else
-template<class Protocol, class RawSocketService> using basic_raw_socket = std::experimental::asio::basic_raw_socket<Protocol, RawSocketService>;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_CONST_BUFFERS_1
-#undef BOOST_STL1z_NETWORKING_MAP_NO_CONST_BUFFERS_1
-#else
-using const_buffers_1 = std::experimental::asio::const_buffers_1;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_WAITABLE_TIMER
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_WAITABLE_TIMER
-#else
-template<class Clock, class WaitTraits, class WaitableTimerService> using basic_waitable_timer = std::experimental::asio::basic_waitable_timer<Clock, WaitTraits, WaitableTimerService>;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ENABLE_IF
-#undef BOOST_STL1z_NETWORKING_MAP_NO_ENABLE_IF
-#else
-template<bool _0, class Type> using enable_if = std::experimental::asio::enable_if<_0, Type>;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ASIO_HANDLER_DEALLOCATE
-#undef BOOST_STL1z_NETWORKING_MAP_NO_ASIO_HANDLER_DEALLOCATE
-#else
-using std::experimental::asio::asio_handler_deallocate;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_DEADLINE_TIMER_SERVICE
-#undef BOOST_STL1z_NETWORKING_MAP_NO_DEADLINE_TIMER_SERVICE
-#else
-template<class TimeType, class TimeTraits> using deadline_timer_service = std::experimental::asio::deadline_timer_service<TimeType, TimeTraits>;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_TRANSFER_AT_LEAST
-#undef BOOST_STL1z_NETWORKING_MAP_NO_TRANSFER_AT_LEAST
-#else
-using std::experimental::asio::transfer_at_least;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_SEQ_PACKET_SOCKET
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_SEQ_PACKET_SOCKET
-#else
-template<class Protocol, class SeqPacketSocketService> using basic_seq_packet_socket = std::experimental::asio::basic_seq_packet_socket<Protocol, SeqPacketSocketService>;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_IS_WRITE_BUFFERED
-#undef BOOST_STL1z_NETWORKING_MAP_NO_IS_WRITE_BUFFERED
-#else
-template<class Stream> using is_write_buffered = std::experimental::asio::is_write_buffered<Stream>;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ASIO_HANDLER_INVOKE
-#undef BOOST_STL1z_NETWORKING_MAP_NO_ASIO_HANDLER_INVOKE
-#else
-using std::experimental::asio::asio_handler_invoke;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ASYNC_WRITE_AT
-#undef BOOST_STL1z_NETWORKING_MAP_NO_ASYNC_WRITE_AT
-#else
-using std::experimental::asio::async_write_at;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_IO_SERVICE
-#undef BOOST_STL1z_NETWORKING_MAP_NO_IO_SERVICE
-#else
-using io_service = std::experimental::asio::io_service;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_CONST_BUFFER
-#undef BOOST_STL1z_NETWORKING_MAP_NO_CONST_BUFFER
-#else
-using const_buffer = std::experimental::asio::const_buffer;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ADD_SERVICE
-#undef BOOST_STL1z_NETWORKING_MAP_NO_ADD_SERVICE
-#else
-using std::experimental::asio::add_service;
+namespace ip { namespace multicast { using std::experimental::asio::ip::multicast::hops; } }
 #endif
 #ifdef BOOST_STL1z_NETWORKING_MAP_NO_BUFFER
 #undef BOOST_STL1z_NETWORKING_MAP_NO_BUFFER
 #else
 using std::experimental::asio::buffer;
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BUFFER_CAST
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BUFFER_CAST
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_GCD
+#undef BOOST_STL1z_NETWORKING_MAP_NO_GCD
 #else
-using std::experimental::asio::buffer_cast;
+namespace detail { template<int64_t _0, int64_t _1> using gcd = std::experimental::asio::detail::gcd<_0, _1>; }
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_SOCKET_ACCEPTOR_SERVICE
-#undef BOOST_STL1z_NETWORKING_MAP_NO_SOCKET_ACCEPTOR_SERVICE
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_WRITE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_WRITE
 #else
-template<class Protocol> using socket_acceptor_service = std::experimental::asio::socket_acceptor_service<Protocol>;
+using std::experimental::asio::write;
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ASIO_HANDLER_IS_CONTINUATION
-#undef BOOST_STL1z_NETWORKING_MAP_NO_ASIO_HANDLER_IS_CONTINUATION
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_OPERATION
+#undef BOOST_STL1z_NETWORKING_MAP_NO_OPERATION
 #else
-using std::experimental::asio::asio_handler_is_continuation;
+namespace detail { using std::experimental::asio::detail::operation; }
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BUFFER_COPY
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BUFFER_COPY
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ENDPOINT
+#undef BOOST_STL1z_NETWORKING_MAP_NO_ENDPOINT
 #else
-using std::experimental::asio::buffer_copy;
+namespace generic { namespace detail { using endpoint = std::experimental::asio::generic::detail::endpoint; } }
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_SOCKET_IOSTREAM
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_SOCKET_IOSTREAM
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_CONNECT
+#undef BOOST_STL1z_NETWORKING_MAP_NO_CONNECT
 #else
-template<class Protocol, class StreamSocketService, class Time, class TimeTraits, class TimerService> using basic_socket_iostream = std::experimental::asio::basic_socket_iostream<Protocol, StreamSocketService, Time, TimeTraits, TimerService>;
+using std::experimental::asio::connect;
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_SOCKET_BASE
-#undef BOOST_STL1z_NETWORKING_MAP_NO_SOCKET_BASE
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ENDPOINT
+#undef BOOST_STL1z_NETWORKING_MAP_NO_ENDPOINT
 #else
-using socket_base = std::experimental::asio::socket_base;
+namespace ip { namespace detail { using endpoint = std::experimental::asio::ip::detail::endpoint; } }
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ASYNC_RESULT
-#undef BOOST_STL1z_NETWORKING_MAP_NO_ASYNC_RESULT
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_STREAMBUF
+#undef BOOST_STL1z_NETWORKING_MAP_NO_STREAMBUF
 #else
-template<class Handler> using async_result = std::experimental::asio::async_result<Handler>;
+using std::experimental::asio::streambuf;
 #endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_STREAM_SOCKET_SERVICE
-#undef BOOST_STL1z_NETWORKING_MAP_NO_STREAM_SOCKET_SERVICE
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_COROUTINE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_COROUTINE
 #else
-template<class Protocol> using stream_socket_service = std::experimental::asio::stream_socket_service<Protocol>;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_SOCKET_ACCEPTOR
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_SOCKET_ACCEPTOR
-#else
-template<class Protocol, class SocketAcceptorService> using basic_socket_acceptor = std::experimental::asio::basic_socket_acceptor<Protocol, SocketAcceptorService>;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_DATAGRAM_SOCKET
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_DATAGRAM_SOCKET
-#else
-template<class Protocol, class DatagramSocketService> using basic_datagram_socket = std::experimental::asio::basic_datagram_socket<Protocol, DatagramSocketService>;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_TIME_TRAITS
-#undef BOOST_STL1z_NETWORKING_MAP_NO_TIME_TRAITS
-#else
-template<class Time> using time_traits = std::experimental::asio::time_traits<Time>;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_MUTABLE_BUFFER
-#undef BOOST_STL1z_NETWORKING_MAP_NO_MUTABLE_BUFFER
-#else
-using mutable_buffer = std::experimental::asio::mutable_buffer;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_DEADLINE_TIMER
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_DEADLINE_TIMER
-#else
-template<class Time, class TimeTraits, class TimerService> using basic_deadline_timer = std::experimental::asio::basic_deadline_timer<Time, TimeTraits, TimerService>;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_RAW_SOCKET_SERVICE
-#undef BOOST_STL1z_NETWORKING_MAP_NO_RAW_SOCKET_SERVICE
-#else
-template<class Protocol> using raw_socket_service = std::experimental::asio::raw_socket_service<Protocol>;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BUFFERED_READ_STREAM
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BUFFERED_READ_STREAM
-#else
-template<class Stream> using buffered_read_stream = std::experimental::asio::buffered_read_stream<Stream>;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_SIGNAL_SET_SERVICE
-#undef BOOST_STL1z_NETWORKING_MAP_NO_SIGNAL_SET_SERVICE
-#else
-using signal_set_service = std::experimental::asio::signal_set_service;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_SIGNAL_SET
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_SIGNAL_SET
-#else
-template<class SignalSetService> using basic_signal_set = std::experimental::asio::basic_signal_set<SignalSetService>;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_DEADLINE_TIMER
-#undef BOOST_STL1z_NETWORKING_MAP_NO_DEADLINE_TIMER
-#else
-using std::experimental::asio::deadline_timer;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ASYNC_READ_AT
-#undef BOOST_STL1z_NETWORKING_MAP_NO_ASYNC_READ_AT
-#else
-using std::experimental::asio::async_read_at;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_SERIAL_PORT_BASE
-#undef BOOST_STL1z_NETWORKING_MAP_NO_SERIAL_PORT_BASE
-#else
-using serial_port_base = std::experimental::asio::serial_port_base;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_SOCKET_STREAMBUF
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_SOCKET_STREAMBUF
-#else
-template<class Protocol, class StreamSocketService, class Time, class TimeTraits, class TimerService> using basic_socket_streambuf = std::experimental::asio::basic_socket_streambuf<Protocol, StreamSocketService, Time, TimeTraits, TimerService>;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ASYNC_CONNECT
-#undef BOOST_STL1z_NETWORKING_MAP_NO_ASYNC_CONNECT
-#else
-using std::experimental::asio::async_connect;
-#endif
-#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_STREAM_SOCKET
-#undef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_STREAM_SOCKET
-#else
-template<class Protocol, class StreamSocketService> using basic_stream_socket = std::experimental::asio::basic_stream_socket<Protocol, StreamSocketService>;
+using coroutine = std::experimental::asio::coroutine;
 #endif
 BOOST_STL1z_NETWORKING_MAP_NAMESPACE_END
 #undef BOOST_STL1z_NETWORKING_MAP_NAMESPACE_BEGIN

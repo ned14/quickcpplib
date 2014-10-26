@@ -27,7 +27,7 @@ sed -e 's/boost\/filesystem.hpp/filesystem/g' -e 's/boost/std::experimental/g' b
 ./genmap bind/stl11/boost/mutex BOOST_STL11_MUTEX_MAP_ "boost::([^_][^:]*)" boost/thread.hpp "std::([^_][^:]*)" mutex
 ./genmap bind/stl11/std/mutex BOOST_STL11_MUTEX_MAP_ "std::([^_][^:]*)" mutex "boost::([^_][^:]*)" boost/thread.hpp
 
-./genmap bind/stl1z/boost/networking BOOST_STL1z_NETWORKING_MAP_ "boost::asio::([^_][^:]*)" boost/asio.hpp
+./genmap bind/stl1z/boost/networking BOOST_STL1z_NETWORKING_MAP_ "boost::asio::([^_]*)" boost/asio.hpp
 sed -e 's/boost\/asio.hpp/networking/g' -e 's/boost/std::experimental/g' bind/stl1z/boost/networking > bind/stl1z/std/networking
 
 ./genmap bind/stl11/boost/random BOOST_STL11_RANDOM_MAP_ "boost::random::([^_][^:]*)" boost/random.hpp "std::([^_][^:]*)" random
