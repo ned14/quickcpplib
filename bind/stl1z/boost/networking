@@ -1,0 +1,410 @@
+/* This is an automatically generated bindings file. Don't modify it! */
+#if !defined(BOOST_STL1z_NETWORKING_MAP_NAMESPACE_BEGIN) || !defined(BOOST_STL1z_NETWORKING_MAP_NAMESPACE_END)
+#error You need to define BOOST_STL1z_NETWORKING_MAP_NAMESPACE_BEGIN and BOOST_STL1z_NETWORKING_MAP_NAMESPACE_END to use this header file
+#endif
+#include <boost/asio.hpp>
+BOOST_STL1z_NETWORKING_MAP_NAMESPACE_BEGIN
+extern const char *boost_local_bind_in;
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_WRITE_AT
+#undef BOOST_STL1z_NETWORKING_MAP_NO_WRITE_AT
+#else
+using boost::asio::write_at;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_STREAMBUF
+#undef BOOST_STL1z_NETWORKING_MAP_NO_STREAMBUF
+#else
+using boost::asio::streambuf;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_SIGNAL_SET
+#undef BOOST_STL1z_NETWORKING_MAP_NO_SIGNAL_SET
+#else
+using boost::asio::signal_set;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_READ_AT
+#undef BOOST_STL1z_NETWORKING_MAP_NO_READ_AT
+#else
+using boost::asio::read_at;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_IS_READ_BUFFERED
+#undef BOOST_STL1z_NETWORKING_MAP_NO_IS_READ_BUFFERED
+#else
+template<class Stream> using is_read_buffered = boost::asio::is_read_buffered<Stream>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_CONNECT
+#undef BOOST_STL1z_NETWORKING_MAP_NO_CONNECT
+#else
+using boost::asio::connect;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_SERIAL_PORT
+#undef BOOST_STL1z_NETWORKING_MAP_NO_SERIAL_PORT
+#else
+using boost::asio::serial_port;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_READ_UNTIL
+#undef BOOST_STL1z_NETWORKING_MAP_NO_READ_UNTIL
+#else
+using boost::asio::read_until;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BUFFERS_END
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BUFFERS_END
+#else
+using boost::asio::buffers_end;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BUFFERS_ITERATOR
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BUFFERS_ITERATOR
+#else
+template<class BufferSequence, class ByteType> using buffers_iterator = boost::asio::buffers_iterator<BufferSequence, ByteType>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ASYNC_WRITE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_ASYNC_WRITE
+#else
+using boost::asio::async_write;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_WRITE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_WRITE
+#else
+using boost::asio::write;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_TRANSFER_EXACTLY
+#undef BOOST_STL1z_NETWORKING_MAP_NO_TRANSFER_EXACTLY
+#else
+using boost::asio::transfer_exactly;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_READ
+#undef BOOST_STL1z_NETWORKING_MAP_NO_READ
+#else
+using boost::asio::read;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_TRANSFER_ALL
+#undef BOOST_STL1z_NETWORKING_MAP_NO_TRANSFER_ALL
+#else
+using boost::asio::transfer_all;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BUFFERED_WRITE_STREAM
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BUFFERED_WRITE_STREAM
+#else
+template<class Stream> using buffered_write_stream = boost::asio::buffered_write_stream<Stream>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BUFFERED_STREAM
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BUFFERED_STREAM
+#else
+template<class Stream> using buffered_stream = boost::asio::buffered_stream<Stream>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_WAITABLE_TIMER_SERVICE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_WAITABLE_TIMER_SERVICE
+#else
+template<class Clock, class WaitTraits> using waitable_timer_service = boost::asio::waitable_timer_service<Clock, WaitTraits>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_WAIT_TRAITS
+#undef BOOST_STL1z_NETWORKING_MAP_NO_WAIT_TRAITS
+#else
+template<class Clock> using wait_traits = boost::asio::wait_traits<Clock>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_READ_SIZE_HELPER
+#undef BOOST_STL1z_NETWORKING_MAP_NO_READ_SIZE_HELPER
+#else
+using boost::asio::read_size_helper;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_IS_MATCH_CONDITION
+#undef BOOST_STL1z_NETWORKING_MAP_NO_IS_MATCH_CONDITION
+#else
+template<class T> using is_match_condition = boost::asio::is_match_condition<T>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_STREAMBUF
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_STREAMBUF
+#else
+template<class Allocator> using basic_streambuf = boost::asio::basic_streambuf<Allocator>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_COROUTINE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_COROUTINE
+#else
+using coroutine = boost::asio::coroutine;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BUFFER_SIZE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BUFFER_SIZE
+#else
+using boost::asio::buffer_size;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ASIO_HANDLER_ALLOCATE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_ASIO_HANDLER_ALLOCATE
+#else
+using boost::asio::asio_handler_allocate;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_SERIAL_PORT
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_SERIAL_PORT
+#else
+template<class SerialPortService> using basic_serial_port = boost::asio::basic_serial_port<SerialPortService>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_SOCKET
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_SOCKET
+#else
+template<class Protocol, class SocketService> using basic_socket = boost::asio::basic_socket<Protocol, SocketService>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_SEQ_PACKET_SOCKET_SERVICE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_SEQ_PACKET_SOCKET_SERVICE
+#else
+template<class Protocol> using seq_packet_socket_service = boost::asio::seq_packet_socket_service<Protocol>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_IO_OBJECT
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_IO_OBJECT
+#else
+template<class IoObjectService, bool _1> using basic_io_object = boost::asio::basic_io_object<IoObjectService, _1>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_STRAND
+#undef BOOST_STL1z_NETWORKING_MAP_NO_STRAND
+#else
+using boost::asio::strand;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_DATAGRAM_SOCKET_SERVICE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_DATAGRAM_SOCKET_SERVICE
+#else
+template<class Protocol> using datagram_socket_service = boost::asio::datagram_socket_service<Protocol>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_INVALID_SERVICE_OWNER
+#undef BOOST_STL1z_NETWORKING_MAP_NO_INVALID_SERVICE_OWNER
+#else
+using invalid_service_owner = boost::asio::invalid_service_owner;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_SERVICE_ALREADY_EXISTS
+#undef BOOST_STL1z_NETWORKING_MAP_NO_SERVICE_ALREADY_EXISTS
+#else
+using service_already_exists = boost::asio::service_already_exists;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_HANDLER_TYPE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_HANDLER_TYPE
+#else
+template<class Handler, class Signature> using handler_type = boost::asio::handler_type<Handler, Signature>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_MUTABLE_BUFFERS_1
+#undef BOOST_STL1z_NETWORKING_MAP_NO_MUTABLE_BUFFERS_1
+#else
+using mutable_buffers_1 = boost::asio::mutable_buffers_1;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_USE_SERVICE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_USE_SERVICE
+#else
+using boost::asio::use_service;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_SERIAL_PORT_SERVICE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_SERIAL_PORT_SERVICE
+#else
+using serial_port_service = boost::asio::serial_port_service;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ASYNC_READ
+#undef BOOST_STL1z_NETWORKING_MAP_NO_ASYNC_READ
+#else
+using boost::asio::async_read;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_NULL_BUFFERS
+#undef BOOST_STL1z_NETWORKING_MAP_NO_NULL_BUFFERS
+#else
+using null_buffers = boost::asio::null_buffers;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BUFFERS_BEGIN
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BUFFERS_BEGIN
+#else
+using boost::asio::buffers_begin;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_HAS_SERVICE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_HAS_SERVICE
+#else
+using boost::asio::has_service;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ASYNC_READ_UNTIL
+#undef BOOST_STL1z_NETWORKING_MAP_NO_ASYNC_READ_UNTIL
+#else
+using boost::asio::async_read_until;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_RAW_SOCKET
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_RAW_SOCKET
+#else
+template<class Protocol, class RawSocketService> using basic_raw_socket = boost::asio::basic_raw_socket<Protocol, RawSocketService>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_CONST_BUFFERS_1
+#undef BOOST_STL1z_NETWORKING_MAP_NO_CONST_BUFFERS_1
+#else
+using const_buffers_1 = boost::asio::const_buffers_1;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_WAITABLE_TIMER
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_WAITABLE_TIMER
+#else
+template<class Clock, class WaitTraits, class WaitableTimerService> using basic_waitable_timer = boost::asio::basic_waitable_timer<Clock, WaitTraits, WaitableTimerService>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ENABLE_IF
+#undef BOOST_STL1z_NETWORKING_MAP_NO_ENABLE_IF
+#else
+template<bool _0, class Type> using enable_if = boost::asio::enable_if<_0, Type>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ASIO_HANDLER_DEALLOCATE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_ASIO_HANDLER_DEALLOCATE
+#else
+using boost::asio::asio_handler_deallocate;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_DEADLINE_TIMER_SERVICE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_DEADLINE_TIMER_SERVICE
+#else
+template<class TimeType, class TimeTraits> using deadline_timer_service = boost::asio::deadline_timer_service<TimeType, TimeTraits>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_TRANSFER_AT_LEAST
+#undef BOOST_STL1z_NETWORKING_MAP_NO_TRANSFER_AT_LEAST
+#else
+using boost::asio::transfer_at_least;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_SEQ_PACKET_SOCKET
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_SEQ_PACKET_SOCKET
+#else
+template<class Protocol, class SeqPacketSocketService> using basic_seq_packet_socket = boost::asio::basic_seq_packet_socket<Protocol, SeqPacketSocketService>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_IS_WRITE_BUFFERED
+#undef BOOST_STL1z_NETWORKING_MAP_NO_IS_WRITE_BUFFERED
+#else
+template<class Stream> using is_write_buffered = boost::asio::is_write_buffered<Stream>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ASIO_HANDLER_INVOKE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_ASIO_HANDLER_INVOKE
+#else
+using boost::asio::asio_handler_invoke;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ASYNC_WRITE_AT
+#undef BOOST_STL1z_NETWORKING_MAP_NO_ASYNC_WRITE_AT
+#else
+using boost::asio::async_write_at;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_IO_SERVICE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_IO_SERVICE
+#else
+using io_service = boost::asio::io_service;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_CONST_BUFFER
+#undef BOOST_STL1z_NETWORKING_MAP_NO_CONST_BUFFER
+#else
+using const_buffer = boost::asio::const_buffer;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ADD_SERVICE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_ADD_SERVICE
+#else
+using boost::asio::add_service;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BUFFER
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BUFFER
+#else
+using boost::asio::buffer;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BUFFER_CAST
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BUFFER_CAST
+#else
+using boost::asio::buffer_cast;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_SOCKET_ACCEPTOR_SERVICE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_SOCKET_ACCEPTOR_SERVICE
+#else
+template<class Protocol> using socket_acceptor_service = boost::asio::socket_acceptor_service<Protocol>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ASIO_HANDLER_IS_CONTINUATION
+#undef BOOST_STL1z_NETWORKING_MAP_NO_ASIO_HANDLER_IS_CONTINUATION
+#else
+using boost::asio::asio_handler_is_continuation;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BUFFER_COPY
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BUFFER_COPY
+#else
+using boost::asio::buffer_copy;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_SOCKET_IOSTREAM
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_SOCKET_IOSTREAM
+#else
+template<class Protocol, class StreamSocketService, class Time, class TimeTraits, class TimerService> using basic_socket_iostream = boost::asio::basic_socket_iostream<Protocol, StreamSocketService, Time, TimeTraits, TimerService>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_SOCKET_BASE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_SOCKET_BASE
+#else
+using socket_base = boost::asio::socket_base;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ASYNC_RESULT
+#undef BOOST_STL1z_NETWORKING_MAP_NO_ASYNC_RESULT
+#else
+template<class Handler> using async_result = boost::asio::async_result<Handler>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_STREAM_SOCKET_SERVICE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_STREAM_SOCKET_SERVICE
+#else
+template<class Protocol> using stream_socket_service = boost::asio::stream_socket_service<Protocol>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_SOCKET_ACCEPTOR
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_SOCKET_ACCEPTOR
+#else
+template<class Protocol, class SocketAcceptorService> using basic_socket_acceptor = boost::asio::basic_socket_acceptor<Protocol, SocketAcceptorService>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_DATAGRAM_SOCKET
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_DATAGRAM_SOCKET
+#else
+template<class Protocol, class DatagramSocketService> using basic_datagram_socket = boost::asio::basic_datagram_socket<Protocol, DatagramSocketService>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_TIME_TRAITS
+#undef BOOST_STL1z_NETWORKING_MAP_NO_TIME_TRAITS
+#else
+template<class Time> using time_traits = boost::asio::time_traits<Time>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_MUTABLE_BUFFER
+#undef BOOST_STL1z_NETWORKING_MAP_NO_MUTABLE_BUFFER
+#else
+using mutable_buffer = boost::asio::mutable_buffer;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_DEADLINE_TIMER
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_DEADLINE_TIMER
+#else
+template<class Time, class TimeTraits, class TimerService> using basic_deadline_timer = boost::asio::basic_deadline_timer<Time, TimeTraits, TimerService>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_RAW_SOCKET_SERVICE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_RAW_SOCKET_SERVICE
+#else
+template<class Protocol> using raw_socket_service = boost::asio::raw_socket_service<Protocol>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BUFFERED_READ_STREAM
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BUFFERED_READ_STREAM
+#else
+template<class Stream> using buffered_read_stream = boost::asio::buffered_read_stream<Stream>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_SIGNAL_SET_SERVICE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_SIGNAL_SET_SERVICE
+#else
+using signal_set_service = boost::asio::signal_set_service;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_SIGNAL_SET
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_SIGNAL_SET
+#else
+template<class SignalSetService> using basic_signal_set = boost::asio::basic_signal_set<SignalSetService>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_DEADLINE_TIMER
+#undef BOOST_STL1z_NETWORKING_MAP_NO_DEADLINE_TIMER
+#else
+using boost::asio::deadline_timer;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ASYNC_READ_AT
+#undef BOOST_STL1z_NETWORKING_MAP_NO_ASYNC_READ_AT
+#else
+using boost::asio::async_read_at;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_SERIAL_PORT_BASE
+#undef BOOST_STL1z_NETWORKING_MAP_NO_SERIAL_PORT_BASE
+#else
+using serial_port_base = boost::asio::serial_port_base;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_SOCKET_STREAMBUF
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_SOCKET_STREAMBUF
+#else
+template<class Protocol, class StreamSocketService, class Time, class TimeTraits, class TimerService> using basic_socket_streambuf = boost::asio::basic_socket_streambuf<Protocol, StreamSocketService, Time, TimeTraits, TimerService>;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_ASYNC_CONNECT
+#undef BOOST_STL1z_NETWORKING_MAP_NO_ASYNC_CONNECT
+#else
+using boost::asio::async_connect;
+#endif
+#ifdef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_STREAM_SOCKET
+#undef BOOST_STL1z_NETWORKING_MAP_NO_BASIC_STREAM_SOCKET
+#else
+template<class Protocol, class StreamSocketService> using basic_stream_socket = boost::asio::basic_stream_socket<Protocol, StreamSocketService>;
+#endif
+BOOST_STL1z_NETWORKING_MAP_NAMESPACE_END
+#undef BOOST_STL1z_NETWORKING_MAP_NAMESPACE_BEGIN
+#undef BOOST_STL1z_NETWORKING_MAP_NAMESPACE_END

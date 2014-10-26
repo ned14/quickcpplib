@@ -1,0 +1,384 @@
+/* This is an automatically generated bindings file. Don't modify it! */
+#if !defined(BOOST_STL1z_FILESYSTEM_MAP_NAMESPACE_BEGIN) || !defined(BOOST_STL1z_FILESYSTEM_MAP_NAMESPACE_END)
+#error You need to define BOOST_STL1z_FILESYSTEM_MAP_NAMESPACE_BEGIN and BOOST_STL1z_FILESYSTEM_MAP_NAMESPACE_END to use this header file
+#endif
+#include <boost/filesystem.hpp>
+BOOST_STL1z_FILESYSTEM_MAP_NAMESPACE_BEGIN
+extern const char *boost_local_bind_in;
+using boost::filesystem::symlink_option;
+using boost::filesystem::copy_option;
+using boost::filesystem::perms;
+  using boost::filesystem::no_perms;
+  using boost::filesystem::owner_read;
+  using boost::filesystem::owner_write;
+  using boost::filesystem::owner_exe;
+  using boost::filesystem::owner_all;
+  using boost::filesystem::group_read;
+  using boost::filesystem::group_write;
+  using boost::filesystem::group_exe;
+  using boost::filesystem::group_all;
+  using boost::filesystem::others_read;
+  using boost::filesystem::others_write;
+  using boost::filesystem::others_exe;
+  using boost::filesystem::others_all;
+  using boost::filesystem::all_all;
+  using boost::filesystem::set_uid_on_exe;
+  using boost::filesystem::set_gid_on_exe;
+  using boost::filesystem::sticky_bit;
+  using boost::filesystem::perms_mask;
+  using boost::filesystem::perms_not_known;
+  using boost::filesystem::add_perms;
+  using boost::filesystem::remove_perms;
+  using boost::filesystem::symlink_perms;
+using boost::filesystem::file_type;
+  using boost::filesystem::status_error;
+  using boost::filesystem::status_unknown;
+  using boost::filesystem::file_not_found;
+  using boost::filesystem::regular_file;
+  using boost::filesystem::directory_file;
+  using boost::filesystem::symlink_file;
+  using boost::filesystem::block_file;
+  using boost::filesystem::character_file;
+  using boost::filesystem::fifo_file;
+  using boost::filesystem::socket_file;
+  using boost::filesystem::reparse_file;
+  using boost::filesystem::type_unknown;
+  using boost::filesystem::_detail_directory_symlink;
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_RECURSIVE_DIRECTORY_ITERATOR
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_RECURSIVE_DIRECTORY_ITERATOR
+#else
+using recursive_directory_iterator = boost::filesystem::recursive_directory_iterator;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_RANGE_END
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_RANGE_END
+#else
+using boost::filesystem::range_end;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_RANGE_BEGIN
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_RANGE_BEGIN
+#else
+using boost::filesystem::range_begin;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_END
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_END
+#else
+using boost::filesystem::end;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_CHANGE_EXTENSION
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_CHANGE_EXTENSION
+#else
+using boost::filesystem::change_extension;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_WRECURSIVE_DIRECTORY_ITERATOR
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_WRECURSIVE_DIRECTORY_ITERATOR
+#else
+using boost::filesystem::wrecursive_directory_iterator;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_BEGIN
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_BEGIN
+#else
+using boost::filesystem::begin;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_DIRECTORY_ITERATOR
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_DIRECTORY_ITERATOR
+#else
+using directory_iterator = boost::filesystem::directory_iterator;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_UNIQUE_PATH
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_UNIQUE_PATH
+#else
+using boost::filesystem::unique_path;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_TEMP_DIRECTORY_PATH
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_TEMP_DIRECTORY_PATH
+#else
+using boost::filesystem::temp_directory_path;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_SYSTEM_COMPLETE
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_SYSTEM_COMPLETE
+#else
+using boost::filesystem::system_complete;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_EXTENSION
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_EXTENSION
+#else
+using boost::filesystem::extension;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_SPACE
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_SPACE
+#else
+using boost::filesystem::space;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_RENAME
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_RENAME
+#else
+using boost::filesystem::rename;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_READ_SYMLINK
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_READ_SYMLINK
+#else
+using boost::filesystem::read_symlink;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_CANONICAL
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_CANONICAL
+#else
+using boost::filesystem::canonical;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_EXISTS
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_EXISTS
+#else
+using boost::filesystem::exists;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_REGULAR_FILE
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_REGULAR_FILE
+#else
+using boost::filesystem::is_regular_file;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_TYPE_PRESENT
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_TYPE_PRESENT
+#else
+using boost::filesystem::type_present;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_PERMISSIONS
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_PERMISSIONS
+#else
+using boost::filesystem::permissions;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_NATIVE
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_NATIVE
+#else
+using boost::filesystem::native;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_PORTABLE_FILE_NAME
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_PORTABLE_FILE_NAME
+#else
+using boost::filesystem::portable_file_name;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_PORTABLE_DIRECTORY_NAME
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_PORTABLE_DIRECTORY_NAME
+#else
+using boost::filesystem::portable_directory_name;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_CURRENT_PATH
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_CURRENT_PATH
+#else
+using boost::filesystem::current_path;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_DIRECTORY
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_DIRECTORY
+#else
+using boost::filesystem::create_directory;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_PATH
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_PATH
+#else
+using path = boost::filesystem::path;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_DIRECTORY_ENTRY
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_DIRECTORY_ENTRY
+#else
+using directory_entry = boost::filesystem::directory_entry;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_DIRECTORY
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_DIRECTORY
+#else
+using boost::filesystem::is_directory;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_SYMLINK_STATUS
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_SYMLINK_STATUS
+#else
+using boost::filesystem::symlink_status;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_REMOVE
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_REMOVE
+#else
+using boost::filesystem::remove;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_SYMLINK
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_SYMLINK
+#else
+using boost::filesystem::is_symlink;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_FILE_STATUS
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_FILE_STATUS
+#else
+using file_status = boost::filesystem::file_status;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_STATUS_KNOWN
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_STATUS_KNOWN
+#else
+using boost::filesystem::status_known;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_FILE_SIZE
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_FILE_SIZE
+#else
+using boost::filesystem::file_size;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_HARD_LINK_COUNT
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_HARD_LINK_COUNT
+#else
+using boost::filesystem::hard_link_count;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_PORTABLE_POSIX_NAME
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_PORTABLE_POSIX_NAME
+#else
+using boost::filesystem::portable_posix_name;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_FILESYSTEM_ERROR
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_FILESYSTEM_ERROR
+#else
+using filesystem_error = boost::filesystem::filesystem_error;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_LEXICOGRAPHICAL_COMPARE
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_LEXICOGRAPHICAL_COMPARE
+#else
+using boost::filesystem::lexicographical_compare;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_SWAP
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_SWAP
+#else
+using boost::filesystem::swap;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_EQUIVALENT
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_EQUIVALENT
+#else
+using boost::filesystem::equivalent;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_HASH_VALUE
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_HASH_VALUE
+#else
+using boost::filesystem::hash_value;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_WINDOWS_NAME
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_WINDOWS_NAME
+#else
+using boost::filesystem::windows_name;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_COPY
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_COPY
+#else
+using boost::filesystem::copy;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_PORTABLE_NAME
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_PORTABLE_NAME
+#else
+using boost::filesystem::portable_name;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_OTHER
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_OTHER
+#else
+using boost::filesystem::is_other;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_SPACE_INFO
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_SPACE_INFO
+#else
+using space_info = boost::filesystem::space_info;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_EMPTY
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_EMPTY
+#else
+using boost::filesystem::is_empty;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_BASENAME
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_BASENAME
+#else
+using boost::filesystem::basename;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_COMPLETE
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_COMPLETE
+#else
+using boost::filesystem::complete;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_STATUS
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_STATUS
+#else
+using boost::filesystem::status;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_RESIZE_FILE
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_RESIZE_FILE
+#else
+using boost::filesystem::resize_file;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_REGULAR
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_REGULAR
+#else
+using boost::filesystem::is_regular;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_DIRECTORIES
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_DIRECTORIES
+#else
+using boost::filesystem::create_directories;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_REMOVE_ALL
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_REMOVE_ALL
+#else
+using boost::filesystem::remove_all;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_INITIAL_PATH
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_INITIAL_PATH
+#else
+using boost::filesystem::initial_path;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_PERMISSIONS_PRESENT
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_PERMISSIONS_PRESENT
+#else
+using boost::filesystem::permissions_present;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_COPY_FILE
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_COPY_FILE
+#else
+using boost::filesystem::copy_file;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_CODECVT_ERROR_CATEGORY
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_CODECVT_ERROR_CATEGORY
+#else
+using boost::filesystem::codecvt_error_category;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_SYMLINK
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_SYMLINK
+#else
+using boost::filesystem::create_symlink;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_WPATH
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_WPATH
+#else
+using boost::filesystem::wpath;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_ABSOLUTE
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_ABSOLUTE
+#else
+using boost::filesystem::absolute;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_COPY_SYMLINK
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_COPY_SYMLINK
+#else
+using boost::filesystem::copy_symlink;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_DIRECTORY_SYMLINK
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_DIRECTORY_SYMLINK
+#else
+using boost::filesystem::create_directory_symlink;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_SYMBOLIC_LINK_EXISTS
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_SYMBOLIC_LINK_EXISTS
+#else
+using boost::filesystem::symbolic_link_exists;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_COPY_DIRECTORY
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_COPY_DIRECTORY
+#else
+using boost::filesystem::copy_directory;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_HARD_LINK
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_HARD_LINK
+#else
+using boost::filesystem::create_hard_link;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_LAST_WRITE_TIME
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_LAST_WRITE_TIME
+#else
+using boost::filesystem::last_write_time;
+#endif
+BOOST_STL1z_FILESYSTEM_MAP_NAMESPACE_END
+#undef BOOST_STL1z_FILESYSTEM_MAP_NAMESPACE_BEGIN
+#undef BOOST_STL1z_FILESYSTEM_MAP_NAMESPACE_END
