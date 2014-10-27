@@ -80,11 +80,6 @@ using boost::giga;
 #else
 template<class R1, class R2> using ratio_greater = boost::ratio_greater<R1, R2>;
 #endif
-#ifdef BOOST_STL11_RATIO_MAP_NO_RATIO_LESS
-#undef BOOST_STL11_RATIO_MAP_NO_RATIO_LESS
-#else
-template<class R1, class R2> using ratio_less = boost::ratio_less<R1, R2>;
-#endif
 #ifdef BOOST_STL11_RATIO_MAP_NO_RATIO_NOT_EQUAL
 #undef BOOST_STL11_RATIO_MAP_NO_RATIO_NOT_EQUAL
 #else
@@ -114,6 +109,11 @@ template<class Cond, class T> using enable_if = boost::enable_if<Cond, T>;
 #undef BOOST_STL11_RATIO_MAP_NO_FALSE_TYPE
 #else
 using boost::false_type;
+#endif
+#ifdef BOOST_STL11_RATIO_MAP_NO_RATIO_LESS
+#undef BOOST_STL11_RATIO_MAP_NO_RATIO_LESS
+#else
+template<class R1, class R2> using ratio_less = boost::ratio_less<R1, R2>;
 #endif
 #ifdef BOOST_STL11_RATIO_MAP_NO_DECA
 #undef BOOST_STL11_RATIO_MAP_NO_DECA

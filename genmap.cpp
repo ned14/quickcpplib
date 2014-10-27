@@ -471,7 +471,7 @@ void map_tu(map_tu_params *p)
     const char *args[]={ "-x", "c++", "-std=c++11", "-I." };
 #else
     //const char *args[]={ "-x", "c++", "-std=c++11", "-nostdinc++", "-I/usr/include/c++/4.8", "-I/usr/include/x86_64-linux-gnu/c++/4.8" };
-    const char *args[]={ "-x", "c++", "-std=c++11", "-I.", "-I/home/ned/boost-release" };
+    const char *args[]={ "-x", "c++", "-std=c++11", "-I.", "-DASIO_STANDALONE=1" };
 #endif
     tu=tu_ptr(clang_createTranslationUnitFromSourceFile(index.get(), "__temp.cpp", sizeof(args)/sizeof(args[0]), args, 0, nullptr));
     clang_visitChildren(clang_getTranslationUnitCursor(tu.get()), [](CXCursor cursor, CXCursor parent, CXClientData client_data){

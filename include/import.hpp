@@ -96,8 +96,8 @@ DEALINGS IN THE SOFTWARE.
 #define BOOST_LOCAL_BIND_NAMESPACE_END(...) BOOST_LOCAL_BIND_CALL_OVERLOAD(BOOST_LOCAL_BIND_NAMESPACE_END_EXPAND,__VA_ARGS__)
 
 // Expands into "local-bind-cpp-library/bind/stl11/impl/library"
-#define BOOST_LOCAL_BIND_INCLUDE_STL11(impl, lib) BOOST_LOCAL_BIND_STRINGIZE(local-bind-cpp-library/bind/stl11/impl/lib)
-#define BOOST_LOCAL_BIND_INCLUDE_STL1z(impl, lib) BOOST_LOCAL_BIND_STRINGIZE(local-bind-cpp-library/bind/stl1z/impl/lib)
+#define BOOST_LOCAL_BIND_INCLUDE_STL11(prefix, impl, lib) BOOST_LOCAL_BIND_STRINGIZE(prefix/bind/stl11/impl/lib)
+#define BOOST_LOCAL_BIND_INCLUDE_STL1z(prefix, impl, lib) BOOST_LOCAL_BIND_STRINGIZE(prefix/bind/stl1z/impl/lib)
 
 // Expands into
 #define BOOST_LOCAL_BIND_DECLARE(decl) static const char *boost_local_bind_out[]={ #decl };

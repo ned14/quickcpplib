@@ -150,11 +150,6 @@ template<class type_parameter_0_0> using is_array = std::is_array<type_parameter
 #else
 template<class type_parameter_0_0> using is_function = std::is_function<type_parameter_0_0>;
 #endif
-#ifdef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_COPY_CONSTRUCTIBLE
-#undef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_COPY_CONSTRUCTIBLE
-#else
-template<class _Tp> using is_copy_constructible = std::is_copy_constructible<_Tp>;
-#endif
 #ifdef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_FLOATING_POINT
 #undef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_FLOATING_POINT
 #else

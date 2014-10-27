@@ -1,4 +1,5 @@
 rm -rf genmap
+mkdir -p bind/stl11/boost bind/stl11/std bind/stl1z/boost bind/stl1z/std bind/stl1z/asio
 clang++ -o genmap genmap.cpp -g -O3 -std=c++11 -I/usr/lib/llvm-3.4/include /usr/lib/llvm-3.4/lib/libclang.so
 
 
@@ -29,6 +30,8 @@ sed -e 's/boost\/filesystem.hpp/filesystem/g' -e 's/boost/std::experimental/g' b
 
 ./genmap bind/stl1z/boost/networking BOOST_STL1z_NETWORKING_MAP_ "boost::asio::([^_d].*)" boost/asio.hpp
 sed -e 's/boost\/asio.hpp/networking/g' -e 's/boost/std::experimental/g' bind/stl1z/boost/networking > bind/stl1z/std/networking
+CPLUS_INCLUDE_PATH=/home/ned/boost.afio/asio/asio/include ./genmap bind/stl1z/asio/networking BOOST_STL1z_NETWORKING_MAP_ "asio::([^_d].*)" asio.hpp || true
+#sed -e 's/boost\/asio.hpp/asio.hpp/g' -e 's/boost::asio/asio/g' bind/stl1z/boost/networking > bind/stl1z/asio/networking
 
 ./genmap bind/stl11/boost/random BOOST_STL11_RANDOM_MAP_ "boost::random::([^_][^:]*)" boost/random.hpp "std::([^_][^:]*)" random
 ./genmap bind/stl11/std/random BOOST_STL11_RANDOM_MAP_ "std::([^_][^:]*)" random "boost::random::([^_][^:]*)" boost/random.hpp

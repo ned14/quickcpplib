@@ -130,16 +130,6 @@ using std::regex_match;
 #else
 template<class _Tp> using is_reference = std::is_reference<_Tp>;
 #endif
-#ifdef BOOST_STL11_REGEX_MAP_NO_IS_SIGNED
-#undef BOOST_STL11_REGEX_MAP_NO_IS_SIGNED
-#else
-template<class _Tp> using is_signed = std::is_signed<_Tp>;
-#endif
-#ifdef BOOST_STL11_REGEX_MAP_NO_IS_CONST
-#undef BOOST_STL11_REGEX_MAP_NO_IS_CONST
-#else
-template<class type_parameter_0_0> using is_const = std::is_const<type_parameter_0_0>;
-#endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_IS_MEMBER_POINTER
 #undef BOOST_STL11_REGEX_MAP_NO_IS_MEMBER_POINTER
 #else
@@ -175,11 +165,6 @@ template<class _Tp, _Tp _1> using integral_constant = std::integral_constant<_Tp
 #else
 using std::true_type;
 #endif
-#ifdef BOOST_STL11_REGEX_MAP_NO_IS_UNSIGNED
-#undef BOOST_STL11_REGEX_MAP_NO_IS_UNSIGNED
-#else
-template<class _Tp> using is_unsigned = std::is_unsigned<_Tp>;
-#endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_GET_DELETER
 #undef BOOST_STL11_REGEX_MAP_NO_GET_DELETER
 #else
@@ -194,11 +179,6 @@ template<class _Tp> using is_integral = std::is_integral<_Tp>;
 #undef BOOST_STL11_REGEX_MAP_NO_IS_POINTER
 #else
 template<class _Tp> using is_pointer = std::is_pointer<_Tp>;
-#endif
-#ifdef BOOST_STL11_REGEX_MAP_NO_ADD_VOLATILE
-#undef BOOST_STL11_REGEX_MAP_NO_ADD_VOLATILE
-#else
-template<class _Tp> using add_volatile = std::add_volatile<_Tp>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_CREF
 #undef BOOST_STL11_REGEX_MAP_NO_CREF
@@ -275,11 +255,6 @@ template<class type_parameter_0_0> using is_function = std::is_function<type_par
 #else
 template<class _Tp> using enable_shared_from_this = std::enable_shared_from_this<_Tp>;
 #endif
-#ifdef BOOST_STL11_REGEX_MAP_NO_MAKE_UNSIGNED
-#undef BOOST_STL11_REGEX_MAP_NO_MAKE_UNSIGNED
-#else
-template<class _Tp> using make_unsigned = std::make_unsigned<_Tp>;
-#endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_ENABLE_IF
 #undef BOOST_STL11_REGEX_MAP_NO_ENABLE_IF
 #else
@@ -329,11 +304,6 @@ using std::regex_search;
 #undef BOOST_STL11_REGEX_MAP_NO_IS_CLASS
 #else
 template<class _Tp> using is_class = std::is_class<_Tp>;
-#endif
-#ifdef BOOST_STL11_REGEX_MAP_NO_ADD_CONST
-#undef BOOST_STL11_REGEX_MAP_NO_ADD_CONST
-#else
-template<class _Tp> using add_const = std::add_const<_Tp>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_IS_LVALUE_REFERENCE
 #undef BOOST_STL11_REGEX_MAP_NO_IS_LVALUE_REFERENCE

@@ -44,25 +44,10 @@ using boost::filesystem::file_type;
   using boost::filesystem::reparse_file;
   using boost::filesystem::type_unknown;
   using boost::filesystem::_detail_directory_symlink;
-#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_RECURSIVE_DIRECTORY_ITERATOR
-#undef BOOST_STL1z_FILESYSTEM_MAP_NO_RECURSIVE_DIRECTORY_ITERATOR
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_FILESYSTEM_ERROR
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_FILESYSTEM_ERROR
 #else
-using recursive_directory_iterator = boost::filesystem::recursive_directory_iterator;
-#endif
-#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_RANGE_END
-#undef BOOST_STL1z_FILESYSTEM_MAP_NO_RANGE_END
-#else
-using boost::filesystem::range_end;
-#endif
-#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_RANGE_BEGIN
-#undef BOOST_STL1z_FILESYSTEM_MAP_NO_RANGE_BEGIN
-#else
-using boost::filesystem::range_begin;
-#endif
-#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_END
-#undef BOOST_STL1z_FILESYSTEM_MAP_NO_END
-#else
-using boost::filesystem::end;
+using filesystem_error = boost::filesystem::filesystem_error;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_CHANGE_EXTENSION
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_CHANGE_EXTENSION
@@ -74,10 +59,10 @@ using boost::filesystem::change_extension;
 #else
 using boost::filesystem::wrecursive_directory_iterator;
 #endif
-#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_BEGIN
-#undef BOOST_STL1z_FILESYSTEM_MAP_NO_BEGIN
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_RECURSIVE_DIRECTORY_ITERATOR
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_RECURSIVE_DIRECTORY_ITERATOR
 #else
-using boost::filesystem::begin;
+using recursive_directory_iterator = boost::filesystem::recursive_directory_iterator;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_DIRECTORY_ITERATOR
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_DIRECTORY_ITERATOR
@@ -139,16 +124,6 @@ using boost::filesystem::is_regular_file;
 #else
 using boost::filesystem::type_present;
 #endif
-#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_PERMISSIONS
-#undef BOOST_STL1z_FILESYSTEM_MAP_NO_PERMISSIONS
-#else
-using boost::filesystem::permissions;
-#endif
-#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_NATIVE
-#undef BOOST_STL1z_FILESYSTEM_MAP_NO_NATIVE
-#else
-using boost::filesystem::native;
-#endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_PORTABLE_FILE_NAME
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_PORTABLE_FILE_NAME
 #else
@@ -178,6 +153,11 @@ using path = boost::filesystem::path;
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_DIRECTORY_ENTRY
 #else
 using directory_entry = boost::filesystem::directory_entry;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_OTHER
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_OTHER
+#else
+using boost::filesystem::is_other;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_DIRECTORY
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_DIRECTORY
@@ -224,11 +204,6 @@ using boost::filesystem::hard_link_count;
 #else
 using boost::filesystem::portable_posix_name;
 #endif
-#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_FILESYSTEM_ERROR
-#undef BOOST_STL1z_FILESYSTEM_MAP_NO_FILESYSTEM_ERROR
-#else
-using filesystem_error = boost::filesystem::filesystem_error;
-#endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_LEXICOGRAPHICAL_COMPARE
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_LEXICOGRAPHICAL_COMPARE
 #else
@@ -263,11 +238,6 @@ using boost::filesystem::copy;
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_PORTABLE_NAME
 #else
 using boost::filesystem::portable_name;
-#endif
-#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_OTHER
-#undef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_OTHER
-#else
-using boost::filesystem::is_other;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_SPACE_INFO
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_SPACE_INFO
@@ -378,6 +348,16 @@ using boost::filesystem::create_hard_link;
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_LAST_WRITE_TIME
 #else
 using boost::filesystem::last_write_time;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_NATIVE
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_NATIVE
+#else
+using boost::filesystem::native;
+#endif
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_PERMISSIONS
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_PERMISSIONS
+#else
+using boost::filesystem::permissions;
 #endif
 BOOST_STL1z_FILESYSTEM_MAP_NAMESPACE_END
 #undef BOOST_STL1z_FILESYSTEM_MAP_NAMESPACE_BEGIN

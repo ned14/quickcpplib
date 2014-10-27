@@ -55,11 +55,6 @@ template<class T> using is_member_object_pointer = boost::is_member_object_point
 #else
 template<class T> using is_empty = boost::is_empty<T>;
 #endif
-#ifdef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_COPY_CONSTRUCTIBLE
-#undef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_COPY_CONSTRUCTIBLE
-#else
-template<class T> using is_copy_constructible = boost::is_copy_constructible<T>;
-#endif
 #ifdef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_COMPOUND
 #undef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_COMPOUND
 #else
@@ -69,6 +64,16 @@ template<class T> using is_compound = boost::is_compound<T>;
 #undef BOOST_STL11_TYPE_TRAITS_MAP_NO_HAS_VIRTUAL_DESTRUCTOR
 #else
 template<class T> using has_virtual_destructor = boost::has_virtual_destructor<T>;
+#endif
+#ifdef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_CONST
+#undef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_CONST
+#else
+template<class T> using is_const = boost::is_const<T>;
+#endif
+#ifdef BOOST_STL11_TYPE_TRAITS_MAP_NO_ALIGNED_STORAGE
+#undef BOOST_STL11_TYPE_TRAITS_MAP_NO_ALIGNED_STORAGE
+#else
+template<std::size_t _0, std::size_t _1> using aligned_storage = boost::aligned_storage<_0, _1>;
 #endif
 #ifdef BOOST_STL11_TYPE_TRAITS_MAP_NO_EXTENT
 #undef BOOST_STL11_TYPE_TRAITS_MAP_NO_EXTENT
@@ -135,6 +140,21 @@ using boost::false_type;
 #else
 template<class T> using is_pod = boost::is_pod<T>;
 #endif
+#ifdef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_NOTHROW_MOVE_CONSTRUCTIBLE
+#undef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_NOTHROW_MOVE_CONSTRUCTIBLE
+#else
+template<class T> using is_nothrow_move_constructible = boost::is_nothrow_move_constructible<T>;
+#endif
+#ifdef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_MEMBER_POINTER
+#undef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_MEMBER_POINTER
+#else
+template<class T> using is_member_pointer = boost::is_member_pointer<T>;
+#endif
+#ifdef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_INTEGRAL
+#undef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_INTEGRAL
+#else
+template<class T> using is_integral = boost::is_integral<T>;
+#endif
 #ifdef BOOST_STL11_TYPE_TRAITS_MAP_NO_REMOVE_CV
 #undef BOOST_STL11_TYPE_TRAITS_MAP_NO_REMOVE_CV
 #else
@@ -150,20 +170,10 @@ template<class T, T _1> using integral_constant = boost::integral_constant<T, _1
 #else
 template<class T> using is_enum = boost::is_enum<T>;
 #endif
-#ifdef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_INTEGRAL
-#undef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_INTEGRAL
+#ifdef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_REFERENCE
+#undef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_REFERENCE
 #else
-template<class T> using is_integral = boost::is_integral<T>;
-#endif
-#ifdef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_NOTHROW_MOVE_CONSTRUCTIBLE
-#undef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_NOTHROW_MOVE_CONSTRUCTIBLE
-#else
-template<class T> using is_nothrow_move_constructible = boost::is_nothrow_move_constructible<T>;
-#endif
-#ifdef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_MEMBER_POINTER
-#undef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_MEMBER_POINTER
-#else
-template<class T> using is_member_pointer = boost::is_member_pointer<T>;
+template<class T> using is_reference = boost::is_reference<T>;
 #endif
 #ifdef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_FUNCTION
 #undef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_FUNCTION
@@ -194,21 +204,6 @@ template<class T> using is_arithmetic = boost::is_arithmetic<T>;
 #undef BOOST_STL11_TYPE_TRAITS_MAP_NO_ADD_POINTER
 #else
 template<class T> using add_pointer = boost::add_pointer<T>;
-#endif
-#ifdef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_REFERENCE
-#undef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_REFERENCE
-#else
-template<class T> using is_reference = boost::is_reference<T>;
-#endif
-#ifdef BOOST_STL11_TYPE_TRAITS_MAP_NO_ALIGNED_STORAGE
-#undef BOOST_STL11_TYPE_TRAITS_MAP_NO_ALIGNED_STORAGE
-#else
-template<std::size_t _0, std::size_t _1> using aligned_storage = boost::aligned_storage<_0, _1>;
-#endif
-#ifdef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_CONST
-#undef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_CONST
-#else
-template<class T> using is_const = boost::is_const<T>;
 #endif
 #ifdef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_RVALUE_REFERENCE
 #undef BOOST_STL11_TYPE_TRAITS_MAP_NO_IS_RVALUE_REFERENCE
