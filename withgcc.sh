@@ -10,8 +10,8 @@ clang++ -o genmap genmap.cpp -g -O3 -std=c++11 -I/usr/lib/llvm-3.4/include /usr/
 ./genmap bind/stl11/boost/array BOOST_STL11_ARRAY_MAP_ "boost::([^_][^:]*)" boost/array.hpp "std::([^_][^:]*)" array
 ./genmap bind/stl11/std/array BOOST_STL11_ARRAY_MAP_ "std::([^_][^:]*)" array "boost::([^_][^:]*)" boost/array.hpp
 
-./genmap bind/stl11/boost/chrono BOOST_STL11_CHRONO_MAP_ "boost::chrono::([^_][^:]*)" boost/chrono.hpp "std::chrono::([^_][^:]*)" chrono
-./genmap bind/stl11/std/chrono BOOST_STL11_CHRONO_MAP_ "std::chrono::([^_][^:]*)" chrono "boost::chrono::([^_][^:]*)" boost/chrono.hpp
+./genmap bind/stl11/boost/chrono BOOST_STL11_CHRONO_MAP_ "boost::chrono::([^_].*)" boost/chrono.hpp "std::chrono::([^_].*)" chrono
+./genmap bind/stl11/std/chrono BOOST_STL11_CHRONO_MAP_ "std::chrono::([^_].*)" chrono "boost::chrono::([^_].*)" boost/chrono.hpp
 
 ./genmap bind/stl11/boost/condition_variable BOOST_STL11_CONDITION_VARIABLE_MAP_ "boost::([^_][^:]*)" boost/thread.hpp "std::([^_][^:]*)" condition_variable
 ./genmap bind/stl11/std/condition_variable BOOST_STL11_CONDITION_VARIABLE_MAP_ "std::([^_][^:]*)" condition_variable "boost::([^_][^:]*)" boost/thread.hpp

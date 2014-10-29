@@ -4,191 +4,191 @@
 #endif
 #include <random>
 BOOST_STL11_RANDOM_MAP_NAMESPACE_BEGIN
-extern const char *boost_local_bind_in;
+extern const char *boost_bindlib_in;
 #ifdef BOOST_STL11_RANDOM_MAP_NO_SEED_SEQ
 #undef BOOST_STL11_RANDOM_MAP_NO_SEED_SEQ
 #else
-using seed_seq = std::seed_seq;
+using seed_seq = ::std::seed_seq;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_EXTREME_VALUE_DISTRIBUTION
 #undef BOOST_STL11_RANDOM_MAP_NO_EXTREME_VALUE_DISTRIBUTION
 #else
-template<class _RealType> using extreme_value_distribution = std::extreme_value_distribution<_RealType>;
+template<class _RealType> using extreme_value_distribution = ::std::extreme_value_distribution<_RealType>;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_WEIBULL_DISTRIBUTION
 #undef BOOST_STL11_RANDOM_MAP_NO_WEIBULL_DISTRIBUTION
 #else
-template<class _RealType> using weibull_distribution = std::weibull_distribution<_RealType>;
+template<class _RealType> using weibull_distribution = ::std::weibull_distribution<_RealType>;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_POISSON_DISTRIBUTION
 #undef BOOST_STL11_RANDOM_MAP_NO_POISSON_DISTRIBUTION
 #else
-template<class _IntType> using poisson_distribution = std::poisson_distribution<_IntType>;
+template<class _IntType> using poisson_distribution = ::std::poisson_distribution<_IntType>;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_INDEPENDENT_BITS_ENGINE
 #undef BOOST_STL11_RANDOM_MAP_NO_INDEPENDENT_BITS_ENGINE
 #else
-template<class _RandomNumberEngine, size_t _1, class _UIntType> using independent_bits_engine = std::independent_bits_engine<_RandomNumberEngine, _1, _UIntType>;
+template<class _RandomNumberEngine, size_t _1, class _UIntType> using independent_bits_engine = ::std::independent_bits_engine<_RandomNumberEngine, _1, _UIntType>;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_RANLUX24
 #undef BOOST_STL11_RANDOM_MAP_NO_RANLUX24
 #else
-using std::ranlux24;
+using ::std::ranlux24;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_UNIFORM_INT_DISTRIBUTION
 #undef BOOST_STL11_RANDOM_MAP_NO_UNIFORM_INT_DISTRIBUTION
 #else
-template<class _IntType> using uniform_int_distribution = std::uniform_int_distribution<_IntType>;
+template<class _IntType> using uniform_int_distribution = ::std::uniform_int_distribution<_IntType>;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_DISCARD_BLOCK_ENGINE
 #undef BOOST_STL11_RANDOM_MAP_NO_DISCARD_BLOCK_ENGINE
 #else
-template<class _RandomNumberEngine, size_t _1, size_t _2> using discard_block_engine = std::discard_block_engine<_RandomNumberEngine, _1, _2>;
+template<class _RandomNumberEngine, size_t _1, size_t _2> using discard_block_engine = ::std::discard_block_engine<_RandomNumberEngine, _1, _2>;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_BINOMIAL_DISTRIBUTION
 #undef BOOST_STL11_RANDOM_MAP_NO_BINOMIAL_DISTRIBUTION
 #else
-template<class _IntType> using binomial_distribution = std::binomial_distribution<_IntType>;
+template<class _IntType> using binomial_distribution = ::std::binomial_distribution<_IntType>;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_NEGATIVE_BINOMIAL_DISTRIBUTION
 #undef BOOST_STL11_RANDOM_MAP_NO_NEGATIVE_BINOMIAL_DISTRIBUTION
 #else
-template<class _IntType> using negative_binomial_distribution = std::negative_binomial_distribution<_IntType>;
+template<class _IntType> using negative_binomial_distribution = ::std::negative_binomial_distribution<_IntType>;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_DISCRETE_DISTRIBUTION
 #undef BOOST_STL11_RANDOM_MAP_NO_DISCRETE_DISTRIBUTION
 #else
-template<class _IntType> using discrete_distribution = std::discrete_distribution<_IntType>;
+template<class _IntType> using discrete_distribution = ::std::discrete_distribution<_IntType>;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_CAUCHY_DISTRIBUTION
 #undef BOOST_STL11_RANDOM_MAP_NO_CAUCHY_DISTRIBUTION
 #else
-template<class _RealType> using cauchy_distribution = std::cauchy_distribution<_RealType>;
+template<class _RealType> using cauchy_distribution = ::std::cauchy_distribution<_RealType>;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_PIECEWISE_LINEAR_DISTRIBUTION
 #undef BOOST_STL11_RANDOM_MAP_NO_PIECEWISE_LINEAR_DISTRIBUTION
 #else
-template<class _RealType> using piecewise_linear_distribution = std::piecewise_linear_distribution<_RealType>;
+template<class _RealType> using piecewise_linear_distribution = ::std::piecewise_linear_distribution<_RealType>;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_LOGNORMAL_DISTRIBUTION
 #undef BOOST_STL11_RANDOM_MAP_NO_LOGNORMAL_DISTRIBUTION
 #else
-template<class _RealType> using lognormal_distribution = std::lognormal_distribution<_RealType>;
+template<class _RealType> using lognormal_distribution = ::std::lognormal_distribution<_RealType>;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_BERNOULLI_DISTRIBUTION
 #undef BOOST_STL11_RANDOM_MAP_NO_BERNOULLI_DISTRIBUTION
 #else
-using bernoulli_distribution = std::bernoulli_distribution;
+using bernoulli_distribution = ::std::bernoulli_distribution;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_EXPONENTIAL_DISTRIBUTION
 #undef BOOST_STL11_RANDOM_MAP_NO_EXPONENTIAL_DISTRIBUTION
 #else
-template<class _RealType> using exponential_distribution = std::exponential_distribution<_RealType>;
+template<class _RealType> using exponential_distribution = ::std::exponential_distribution<_RealType>;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_SHUFFLE_ORDER_ENGINE
 #undef BOOST_STL11_RANDOM_MAP_NO_SHUFFLE_ORDER_ENGINE
 #else
-template<class _RandomNumberEngine, size_t _1> using shuffle_order_engine = std::shuffle_order_engine<_RandomNumberEngine, _1>;
+template<class _RandomNumberEngine, size_t _1> using shuffle_order_engine = ::std::shuffle_order_engine<_RandomNumberEngine, _1>;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_GENERATE_CANONICAL
 #undef BOOST_STL11_RANDOM_MAP_NO_GENERATE_CANONICAL
 #else
-using std::generate_canonical;
+using ::std::generate_canonical;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_LINEAR_CONGRUENTIAL_ENGINE
 #undef BOOST_STL11_RANDOM_MAP_NO_LINEAR_CONGRUENTIAL_ENGINE
 #else
-template<class _UIntType, _UIntType _1, _UIntType _2, _UIntType _3> using linear_congruential_engine = std::linear_congruential_engine<_UIntType, _1, _2, _3>;
+template<class _UIntType, _UIntType _1, _UIntType _2, _UIntType _3> using linear_congruential_engine = ::std::linear_congruential_engine<_UIntType, _1, _2, _3>;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_MERSENNE_TWISTER_ENGINE
 #undef BOOST_STL11_RANDOM_MAP_NO_MERSENNE_TWISTER_ENGINE
 #else
-template<class _UIntType, size_t _1, size_t _2, size_t _3, size_t _4, _UIntType _5, size_t _6, _UIntType _7, size_t _8, _UIntType _9, size_t _10, _UIntType _11, size_t _12, _UIntType _13> using mersenne_twister_engine = std::mersenne_twister_engine<_UIntType, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13>;
+template<class _UIntType, size_t _1, size_t _2, size_t _3, size_t _4, _UIntType _5, size_t _6, _UIntType _7, size_t _8, _UIntType _9, size_t _10, _UIntType _11, size_t _12, _UIntType _13> using mersenne_twister_engine = ::std::mersenne_twister_engine<_UIntType, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13>;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_SUBTRACT_WITH_CARRY_ENGINE
 #undef BOOST_STL11_RANDOM_MAP_NO_SUBTRACT_WITH_CARRY_ENGINE
 #else
-template<class _UIntType, size_t _1, size_t _2, size_t _3> using subtract_with_carry_engine = std::subtract_with_carry_engine<_UIntType, _1, _2, _3>;
+template<class _UIntType, size_t _1, size_t _2, size_t _3> using subtract_with_carry_engine = ::std::subtract_with_carry_engine<_UIntType, _1, _2, _3>;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_MINSTD_RAND0
 #undef BOOST_STL11_RANDOM_MAP_NO_MINSTD_RAND0
 #else
-using std::minstd_rand0;
+using ::std::minstd_rand0;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_MINSTD_RAND
 #undef BOOST_STL11_RANDOM_MAP_NO_MINSTD_RAND
 #else
-using std::minstd_rand;
+using ::std::minstd_rand;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_MT19937
 #undef BOOST_STL11_RANDOM_MAP_NO_MT19937
 #else
-using std::mt19937;
+using ::std::mt19937;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_MT19937_64
 #undef BOOST_STL11_RANDOM_MAP_NO_MT19937_64
 #else
-using std::mt19937_64;
+using ::std::mt19937_64;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_RANLUX24_BASE
 #undef BOOST_STL11_RANDOM_MAP_NO_RANLUX24_BASE
 #else
-using std::ranlux24_base;
+using ::std::ranlux24_base;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_RANLUX48_BASE
 #undef BOOST_STL11_RANDOM_MAP_NO_RANLUX48_BASE
 #else
-using std::ranlux48_base;
+using ::std::ranlux48_base;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_KNUTH_B
 #undef BOOST_STL11_RANDOM_MAP_NO_KNUTH_B
 #else
-using std::knuth_b;
+using ::std::knuth_b;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_RANLUX48
 #undef BOOST_STL11_RANDOM_MAP_NO_RANLUX48
 #else
-using std::ranlux48;
+using ::std::ranlux48;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_UNIFORM_REAL_DISTRIBUTION
 #undef BOOST_STL11_RANDOM_MAP_NO_UNIFORM_REAL_DISTRIBUTION
 #else
-template<class _RealType> using uniform_real_distribution = std::uniform_real_distribution<_RealType>;
+template<class _RealType> using uniform_real_distribution = ::std::uniform_real_distribution<_RealType>;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_PIECEWISE_CONSTANT_DISTRIBUTION
 #undef BOOST_STL11_RANDOM_MAP_NO_PIECEWISE_CONSTANT_DISTRIBUTION
 #else
-template<class _RealType> using piecewise_constant_distribution = std::piecewise_constant_distribution<_RealType>;
+template<class _RealType> using piecewise_constant_distribution = ::std::piecewise_constant_distribution<_RealType>;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_NORMAL_DISTRIBUTION
 #undef BOOST_STL11_RANDOM_MAP_NO_NORMAL_DISTRIBUTION
 #else
-template<class _RealType> using normal_distribution = std::normal_distribution<_RealType>;
+template<class _RealType> using normal_distribution = ::std::normal_distribution<_RealType>;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_GAMMA_DISTRIBUTION
 #undef BOOST_STL11_RANDOM_MAP_NO_GAMMA_DISTRIBUTION
 #else
-template<class _RealType> using gamma_distribution = std::gamma_distribution<_RealType>;
+template<class _RealType> using gamma_distribution = ::std::gamma_distribution<_RealType>;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_CHI_SQUARED_DISTRIBUTION
 #undef BOOST_STL11_RANDOM_MAP_NO_CHI_SQUARED_DISTRIBUTION
 #else
-template<class _RealType> using chi_squared_distribution = std::chi_squared_distribution<_RealType>;
+template<class _RealType> using chi_squared_distribution = ::std::chi_squared_distribution<_RealType>;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_FISHER_F_DISTRIBUTION
 #undef BOOST_STL11_RANDOM_MAP_NO_FISHER_F_DISTRIBUTION
 #else
-template<class _RealType> using fisher_f_distribution = std::fisher_f_distribution<_RealType>;
+template<class _RealType> using fisher_f_distribution = ::std::fisher_f_distribution<_RealType>;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_STUDENT_T_DISTRIBUTION
 #undef BOOST_STL11_RANDOM_MAP_NO_STUDENT_T_DISTRIBUTION
 #else
-template<class _RealType> using student_t_distribution = std::student_t_distribution<_RealType>;
+template<class _RealType> using student_t_distribution = ::std::student_t_distribution<_RealType>;
 #endif
 #ifdef BOOST_STL11_RANDOM_MAP_NO_GEOMETRIC_DISTRIBUTION
 #undef BOOST_STL11_RANDOM_MAP_NO_GEOMETRIC_DISTRIBUTION
 #else
-template<class _IntType> using geometric_distribution = std::geometric_distribution<_IntType>;
+template<class _IntType> using geometric_distribution = ::std::geometric_distribution<_IntType>;
 #endif
 BOOST_STL11_RANDOM_MAP_NAMESPACE_END
 #undef BOOST_STL11_RANDOM_MAP_NAMESPACE_BEGIN

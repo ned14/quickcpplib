@@ -218,15 +218,15 @@ struct map_tu_params
 //    s << "#include \"boostmacros.hpp\"\n";
     s << "#include <" << path << ">" << std::endl;
     s << macro_prefix << "NAMESPACE_BEGIN" << std::endl;
-    s << "extern const char *boost_local_bind_in;" << std::endl;
+    s << "extern const char *boost_bindlib_in;" << std::endl;
 
     // Enums before all else   
     for(auto &i : out.enums)
     {
       leafname(namespace1, leaf, namespace2, i.first);
-      s << namespace1 << "using " << i.first << ((i.second.empty() || namespace2.empty()) ? ";\n" : ";");
+      s << namespace1 << "using ::" << i.first << ((i.second.empty() || namespace2.empty()) ? ";\n" : ";");
       for(auto &v : i.second)
-        s << "  using " << v << ";\n";
+        s << "  using ::" << v << ";\n";
       if(!namespace2.empty())
         s << namespace2 << std::endl;
     }
@@ -254,7 +254,7 @@ struct map_tu_params
       s << "using ";
       if(isAlias)
         s << leaf << " = ";
-      s << i.first;
+      s << "::" << i.first;
       if(!templatepars.empty())
       {
         s << "<";
@@ -280,8 +280,19 @@ static void parse_namespace(CXCursor cursor, map_tu_params *p)
 {
   //std::cout << "I see namespace " << p->fullqual(to_string(clang_getCursorDisplayName(cursor))) << std::endl;
   auto name(to_string(clang_getCursorSpelling(cursor)));
-  p->location.push_back(name);
-  auto unlocation=undoer([p]{p->location.pop_back();});
+  // If this is an inline namespace, ignore it
+  bool isInline=false;
+  {
+    using namespace clang;
+    const Decl *D = static_cast<const Decl *>(cursor.data[0]);
+    if(const NamespaceDecl *TD = dyn_cast_or_null<NamespaceDecl>(D))
+    {
+      isInline=TD->isInline();
+    }
+  }
+  if(!isInline)
+    p->location.push_back(name);
+  auto unlocation=undoer([p, isInline]{if(!isInline) p->location.pop_back();});
   for(auto &i : p->items)
   {
     clang_visitChildren(cursor, [](CXCursor cursor, CXCursor parent, CXClientData client_data){
@@ -471,7 +482,7 @@ void map_tu(map_tu_params *p)
     const char *args[]={ "-x", "c++", "-std=c++11", "-I." };
 #else
     //const char *args[]={ "-x", "c++", "-std=c++11", "-nostdinc++", "-I/usr/include/c++/4.8", "-I/usr/include/x86_64-linux-gnu/c++/4.8" };
-    const char *args[]={ "-x", "c++", "-std=c++11", "-I.", "-DASIO_STANDALONE=1" };
+    const char *args[]={ "-x", "c++", "-std=c++11", "-I.", "-DASIO_STANDALONE=1", "-DASIO_HAS_STD_CHRONO=1", "-DBOOST_THREAD_VERSION=3" };
 #endif
     tu=tu_ptr(clang_createTranslationUnitFromSourceFile(index.get(), "__temp.cpp", sizeof(args)/sizeof(args[0]), args, 0, nullptr));
     clang_visitChildren(clang_getTranslationUnitCursor(tu.get()), [](CXCursor cursor, CXCursor parent, CXClientData client_data){

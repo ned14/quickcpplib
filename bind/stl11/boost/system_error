@@ -4,46 +4,46 @@
 #endif
 #include <boost/system/system_error.hpp>
 BOOST_STL11_SYSTEM_ERROR_MAP_NAMESPACE_BEGIN
-extern const char *boost_local_bind_in;
+extern const char *boost_bindlib_in;
 #ifdef BOOST_STL11_SYSTEM_ERROR_MAP_NO_SYSTEM_ERROR
 #undef BOOST_STL11_SYSTEM_ERROR_MAP_NO_SYSTEM_ERROR
 #else
-using system_error = boost::system::system_error;
+using system_error = ::boost::system::system_error;
 #endif
 #ifdef BOOST_STL11_SYSTEM_ERROR_MAP_NO_ERROR_CODE
 #undef BOOST_STL11_SYSTEM_ERROR_MAP_NO_ERROR_CODE
 #else
-using error_code = boost::system::error_code;
+using error_code = ::boost::system::error_code;
 #endif
 #ifdef BOOST_STL11_SYSTEM_ERROR_MAP_NO_ERROR_CONDITION
 #undef BOOST_STL11_SYSTEM_ERROR_MAP_NO_ERROR_CONDITION
 #else
-using error_condition = boost::system::error_condition;
+using error_condition = ::boost::system::error_condition;
 #endif
 #ifdef BOOST_STL11_SYSTEM_ERROR_MAP_NO_IS_ERROR_CONDITION_ENUM
 #undef BOOST_STL11_SYSTEM_ERROR_MAP_NO_IS_ERROR_CONDITION_ENUM
 #else
-template<class T> using is_error_condition_enum = boost::system::is_error_condition_enum<T>;
+template<class T> using is_error_condition_enum = ::boost::system::is_error_condition_enum<T>;
 #endif
 #ifdef BOOST_STL11_SYSTEM_ERROR_MAP_NO_IS_ERROR_CODE_ENUM
 #undef BOOST_STL11_SYSTEM_ERROR_MAP_NO_IS_ERROR_CODE_ENUM
 #else
-template<class T> using is_error_code_enum = boost::system::is_error_code_enum<T>;
+template<class T> using is_error_code_enum = ::boost::system::is_error_code_enum<T>;
 #endif
 #ifdef BOOST_STL11_SYSTEM_ERROR_MAP_NO_ERROR_CATEGORY
 #undef BOOST_STL11_SYSTEM_ERROR_MAP_NO_ERROR_CATEGORY
 #else
-using error_category = boost::system::error_category;
+using error_category = ::boost::system::error_category;
 #endif
 #ifdef BOOST_STL11_SYSTEM_ERROR_MAP_NO_SYSTEM_CATEGORY
 #undef BOOST_STL11_SYSTEM_ERROR_MAP_NO_SYSTEM_CATEGORY
 #else
-using boost::system::system_category;
+using ::boost::system::system_category;
 #endif
 #ifdef BOOST_STL11_SYSTEM_ERROR_MAP_NO_GENERIC_CATEGORY
 #undef BOOST_STL11_SYSTEM_ERROR_MAP_NO_GENERIC_CATEGORY
 #else
-using boost::system::generic_category;
+using ::boost::system::generic_category;
 #endif
 BOOST_STL11_SYSTEM_ERROR_MAP_NAMESPACE_END
 #undef BOOST_STL11_SYSTEM_ERROR_MAP_NAMESPACE_BEGIN

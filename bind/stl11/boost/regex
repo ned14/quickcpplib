@@ -4,316 +4,316 @@
 #endif
 #include <boost/regex.hpp>
 BOOST_STL11_REGEX_MAP_NAMESPACE_BEGIN
-extern const char *boost_local_bind_in;
+extern const char *boost_bindlib_in;
 #ifdef BOOST_STL11_REGEX_MAP_NO_WSREGEX_TOKEN_ITERATOR
 #undef BOOST_STL11_REGEX_MAP_NO_WSREGEX_TOKEN_ITERATOR
 #else
-using boost::wsregex_token_iterator;
+using ::boost::wsregex_token_iterator;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_SREGEX_TOKEN_ITERATOR
 #undef BOOST_STL11_REGEX_MAP_NO_SREGEX_TOKEN_ITERATOR
 #else
-using boost::sregex_token_iterator;
+using ::boost::sregex_token_iterator;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_WCREGEX_ITERATOR
 #undef BOOST_STL11_REGEX_MAP_NO_WCREGEX_ITERATOR
 #else
-using boost::wcregex_iterator;
+using ::boost::wcregex_iterator;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_SREGEX_ITERATOR
 #undef BOOST_STL11_REGEX_MAP_NO_SREGEX_ITERATOR
 #else
-using boost::sregex_iterator;
+using ::boost::sregex_iterator;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_CREGEX_ITERATOR
 #undef BOOST_STL11_REGEX_MAP_NO_CREGEX_ITERATOR
 #else
-using boost::cregex_iterator;
+using ::boost::cregex_iterator;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_REGEX_SEARCH
 #undef BOOST_STL11_REGEX_MAP_NO_REGEX_SEARCH
 #else
-using boost::regex_search;
+using ::boost::regex_search;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_WSMATCH
 #undef BOOST_STL11_REGEX_MAP_NO_WSMATCH
 #else
-using boost::wsmatch;
+using ::boost::wsmatch;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_REGEX_TOKEN_ITERATOR
 #undef BOOST_STL11_REGEX_MAP_NO_REGEX_TOKEN_ITERATOR
 #else
-template<class BidirectionalIterator, class charT, class traits> using regex_token_iterator = boost::regex_token_iterator<BidirectionalIterator, charT, traits>;
+template<class BidirectionalIterator, class charT, class traits> using regex_token_iterator = ::boost::regex_token_iterator<BidirectionalIterator, charT, traits>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_MATCH_RESULTS
 #undef BOOST_STL11_REGEX_MAP_NO_MATCH_RESULTS
 #else
-template<class BidiIterator, class Allocator> using match_results = boost::match_results<BidiIterator, Allocator>;
+template<class BidiIterator, class Allocator> using match_results = ::boost::match_results<BidiIterator, Allocator>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_CREF
 #undef BOOST_STL11_REGEX_MAP_NO_CREF
 #else
-using boost::cref;
+using ::boost::cref;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_IS_CONVERTIBLE
 #undef BOOST_STL11_REGEX_MAP_NO_IS_CONVERTIBLE
 #else
-template<class From, class To> using is_convertible = boost::is_convertible<From, To>;
+template<class From, class To> using is_convertible = ::boost::is_convertible<From, To>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_WCMATCH
 #undef BOOST_STL11_REGEX_MAP_NO_WCMATCH
 #else
-using boost::wcmatch;
+using ::boost::wcmatch;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_IS_FUNCTION
 #undef BOOST_STL11_REGEX_MAP_NO_IS_FUNCTION
 #else
-template<class T> using is_function = boost::is_function<T>;
+template<class T> using is_function = ::boost::is_function<T>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_REGEX_MATCH
 #undef BOOST_STL11_REGEX_MAP_NO_REGEX_MATCH
 #else
-using boost::regex_match;
+using ::boost::regex_match;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_IS_MEMBER_POINTER
 #undef BOOST_STL11_REGEX_MAP_NO_IS_MEMBER_POINTER
 #else
-template<class T> using is_member_pointer = boost::is_member_pointer<T>;
+template<class T> using is_member_pointer = ::boost::is_member_pointer<T>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_IS_MEMBER_FUNCTION_POINTER
 #undef BOOST_STL11_REGEX_MAP_NO_IS_MEMBER_FUNCTION_POINTER
 #else
-template<class T> using is_member_function_pointer = boost::is_member_function_pointer<T>;
+template<class T> using is_member_function_pointer = ::boost::is_member_function_pointer<T>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_REMOVE_CV
 #undef BOOST_STL11_REGEX_MAP_NO_REMOVE_CV
 #else
-template<class T> using remove_cv = boost::remove_cv<T>;
+template<class T> using remove_cv = ::boost::remove_cv<T>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_WSSUB_MATCH
 #undef BOOST_STL11_REGEX_MAP_NO_WSSUB_MATCH
 #else
-using boost::wssub_match;
+using ::boost::wssub_match;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_WCSUB_MATCH
 #undef BOOST_STL11_REGEX_MAP_NO_WCSUB_MATCH
 #else
-using boost::wcsub_match;
+using ::boost::wcsub_match;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_IS_INTEGRAL
 #undef BOOST_STL11_REGEX_MAP_NO_IS_INTEGRAL
 #else
-template<class T> using is_integral = boost::is_integral<T>;
+template<class T> using is_integral = ::boost::is_integral<T>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_REFERENCE_WRAPPER
 #undef BOOST_STL11_REGEX_MAP_NO_REFERENCE_WRAPPER
 #else
-template<class T> using reference_wrapper = boost::reference_wrapper<T>;
+template<class T> using reference_wrapper = ::boost::reference_wrapper<T>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_SSUB_MATCH
 #undef BOOST_STL11_REGEX_MAP_NO_SSUB_MATCH
 #else
-using boost::ssub_match;
+using ::boost::ssub_match;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_IS_POINTER
 #undef BOOST_STL11_REGEX_MAP_NO_IS_POINTER
 #else
-template<class T> using is_pointer = boost::is_pointer<T>;
+template<class T> using is_pointer = ::boost::is_pointer<T>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_WSREGEX_ITERATOR
 #undef BOOST_STL11_REGEX_MAP_NO_WSREGEX_ITERATOR
 #else
-using boost::wsregex_iterator;
+using ::boost::wsregex_iterator;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_SUB_MATCH
 #undef BOOST_STL11_REGEX_MAP_NO_SUB_MATCH
 #else
-template<class BidiIterator> using sub_match = boost::sub_match<BidiIterator>;
+template<class BidiIterator> using sub_match = ::boost::sub_match<BidiIterator>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_STATIC_POINTER_CAST
 #undef BOOST_STL11_REGEX_MAP_NO_STATIC_POINTER_CAST
 #else
-using boost::static_pointer_cast;
+using ::boost::static_pointer_cast;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_WEAK_PTR
 #undef BOOST_STL11_REGEX_MAP_NO_WEAK_PTR
 #else
-template<class T> using weak_ptr = boost::weak_ptr<T>;
+template<class T> using weak_ptr = ::boost::weak_ptr<T>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_REGEX_ITERATOR
 #undef BOOST_STL11_REGEX_MAP_NO_REGEX_ITERATOR
 #else
-template<class BidirectionalIterator, class charT, class traits> using regex_iterator = boost::regex_iterator<BidirectionalIterator, charT, traits>;
+template<class BidirectionalIterator, class charT, class traits> using regex_iterator = ::boost::regex_iterator<BidirectionalIterator, charT, traits>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_BAD_WEAK_PTR
 #undef BOOST_STL11_REGEX_MAP_NO_BAD_WEAK_PTR
 #else
-using bad_weak_ptr = boost::bad_weak_ptr;
+using bad_weak_ptr = ::boost::bad_weak_ptr;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_CMATCH
 #undef BOOST_STL11_REGEX_MAP_NO_CMATCH
 #else
-using boost::cmatch;
+using ::boost::cmatch;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_REGEX_REPLACE
 #undef BOOST_STL11_REGEX_MAP_NO_REGEX_REPLACE
 #else
-using boost::regex_replace;
+using ::boost::regex_replace;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_HASH
 #undef BOOST_STL11_REGEX_MAP_NO_HASH
 #else
-template<class T> using hash = boost::hash<T>;
+template<class T> using hash = ::boost::hash<T>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_IS_ENUM
 #undef BOOST_STL11_REGEX_MAP_NO_IS_ENUM
 #else
-template<class T> using is_enum = boost::is_enum<T>;
+template<class T> using is_enum = ::boost::is_enum<T>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_DYNAMIC_POINTER_CAST
 #undef BOOST_STL11_REGEX_MAP_NO_DYNAMIC_POINTER_CAST
 #else
-using boost::dynamic_pointer_cast;
+using ::boost::dynamic_pointer_cast;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_ENABLE_SHARED_FROM_THIS
 #undef BOOST_STL11_REGEX_MAP_NO_ENABLE_SHARED_FROM_THIS
 #else
-template<class T> using enable_shared_from_this = boost::enable_shared_from_this<T>;
+template<class T> using enable_shared_from_this = ::boost::enable_shared_from_this<T>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_SWAP
 #undef BOOST_STL11_REGEX_MAP_NO_SWAP
 #else
-using boost::swap;
+using ::boost::swap;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_REMOVE_POINTER
 #undef BOOST_STL11_REGEX_MAP_NO_REMOVE_POINTER
 #else
-template<class T> using remove_pointer = boost::remove_pointer<T>;
+template<class T> using remove_pointer = ::boost::remove_pointer<T>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_BASIC_REGEX
 #undef BOOST_STL11_REGEX_MAP_NO_BASIC_REGEX
 #else
-template<class charT, class traits> using basic_regex = boost::basic_regex<charT, traits>;
+template<class charT, class traits> using basic_regex = ::boost::basic_regex<charT, traits>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_CONST_POINTER_CAST
 #undef BOOST_STL11_REGEX_MAP_NO_CONST_POINTER_CAST
 #else
-using boost::const_pointer_cast;
+using ::boost::const_pointer_cast;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_IS_CLASS
 #undef BOOST_STL11_REGEX_MAP_NO_IS_CLASS
 #else
-template<class T> using is_class = boost::is_class<T>;
+template<class T> using is_class = ::boost::is_class<T>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_WCREGEX_TOKEN_ITERATOR
 #undef BOOST_STL11_REGEX_MAP_NO_WCREGEX_TOKEN_ITERATOR
 #else
-using boost::wcregex_token_iterator;
+using ::boost::wcregex_token_iterator;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_SHARED_PTR
 #undef BOOST_STL11_REGEX_MAP_NO_SHARED_PTR
 #else
-template<class T> using shared_ptr = boost::shared_ptr<T>;
+template<class T> using shared_ptr = ::boost::shared_ptr<T>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_REGEX
 #undef BOOST_STL11_REGEX_MAP_NO_REGEX
 #else
-using boost::regex;
+using ::boost::regex;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_CSUB_MATCH
 #undef BOOST_STL11_REGEX_MAP_NO_CSUB_MATCH
 #else
-using boost::csub_match;
+using ::boost::csub_match;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_SMATCH
 #undef BOOST_STL11_REGEX_MAP_NO_SMATCH
 #else
-using boost::smatch;
+using ::boost::smatch;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_REGEX_TRAITS
 #undef BOOST_STL11_REGEX_MAP_NO_REGEX_TRAITS
 #else
-template<class charT, class implementationT> using regex_traits = boost::regex_traits<charT, implementationT>;
+template<class charT, class implementationT> using regex_traits = ::boost::regex_traits<charT, implementationT>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_WREGEX
 #undef BOOST_STL11_REGEX_MAP_NO_WREGEX
 #else
-using boost::wregex;
+using ::boost::wregex;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_FALSE_TYPE
 #undef BOOST_STL11_REGEX_MAP_NO_FALSE_TYPE
 #else
-using boost::false_type;
+using ::boost::false_type;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_GET_DELETER
 #undef BOOST_STL11_REGEX_MAP_NO_GET_DELETER
 #else
-using boost::get_deleter;
+using ::boost::get_deleter;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_REGEX_ERROR
 #undef BOOST_STL11_REGEX_MAP_NO_REGEX_ERROR
 #else
-using regex_error = boost::regex_error;
+using regex_error = ::boost::regex_error;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_INTEGRAL_CONSTANT
 #undef BOOST_STL11_REGEX_MAP_NO_INTEGRAL_CONSTANT
 #else
-template<class T, T _1> using integral_constant = boost::integral_constant<T, _1>;
+template<class T, T _1> using integral_constant = ::boost::integral_constant<T, _1>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_TRUE_TYPE
 #undef BOOST_STL11_REGEX_MAP_NO_TRUE_TYPE
 #else
-using boost::true_type;
+using ::boost::true_type;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_REF
 #undef BOOST_STL11_REGEX_MAP_NO_REF
 #else
-using boost::ref;
+using ::boost::ref;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_IS_SAME
 #undef BOOST_STL11_REGEX_MAP_NO_IS_SAME
 #else
-template<class T, class U> using is_same = boost::is_same<T, U>;
+template<class T, class U> using is_same = ::boost::is_same<T, U>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_ENABLE_IF
 #undef BOOST_STL11_REGEX_MAP_NO_ENABLE_IF
 #else
-template<class Cond, class T> using enable_if = boost::enable_if<Cond, T>;
+template<class Cond, class T> using enable_if = ::boost::enable_if<Cond, T>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_CREGEX_TOKEN_ITERATOR
 #undef BOOST_STL11_REGEX_MAP_NO_CREGEX_TOKEN_ITERATOR
 #else
-using boost::cregex_token_iterator;
+using ::boost::cregex_token_iterator;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_IS_ABSTRACT
 #undef BOOST_STL11_REGEX_MAP_NO_IS_ABSTRACT
 #else
-template<class T> using is_abstract = boost::is_abstract<T>;
+template<class T> using is_abstract = ::boost::is_abstract<T>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_ADDRESSOF
 #undef BOOST_STL11_REGEX_MAP_NO_ADDRESSOF
 #else
-using boost::addressof;
+using ::boost::addressof;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_IS_LVALUE_REFERENCE
 #undef BOOST_STL11_REGEX_MAP_NO_IS_LVALUE_REFERENCE
 #else
-template<class T> using is_lvalue_reference = boost::is_lvalue_reference<T>;
+template<class T> using is_lvalue_reference = ::boost::is_lvalue_reference<T>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_IS_VOLATILE
 #undef BOOST_STL11_REGEX_MAP_NO_IS_VOLATILE
 #else
-template<class T> using is_volatile = boost::is_volatile<T>;
+template<class T> using is_volatile = ::boost::is_volatile<T>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_IS_RVALUE_REFERENCE
 #undef BOOST_STL11_REGEX_MAP_NO_IS_RVALUE_REFERENCE
 #else
-template<class T> using is_rvalue_reference = boost::is_rvalue_reference<T>;
+template<class T> using is_rvalue_reference = ::boost::is_rvalue_reference<T>;
 #endif
 #ifdef BOOST_STL11_REGEX_MAP_NO_IS_REFERENCE
 #undef BOOST_STL11_REGEX_MAP_NO_IS_REFERENCE
 #else
-template<class T> using is_reference = boost::is_reference<T>;
+template<class T> using is_reference = ::boost::is_reference<T>;
 #endif
 BOOST_STL11_REGEX_MAP_NAMESPACE_END
 #undef BOOST_STL11_REGEX_MAP_NAMESPACE_BEGIN

@@ -100,6 +100,6 @@ DEALINGS IN THE SOFTWARE.
 #define BOOST_LOCAL_BIND_INCLUDE_STL1z(prefix, impl, lib) BOOST_LOCAL_BIND_STRINGIZE(prefix/bind/stl1z/impl/lib)
 
 // Expands into
-#define BOOST_LOCAL_BIND_DECLARE(decl) static const char *boost_local_bind_out[]={ #decl };
+#define BOOST_LOCAL_BIND_DECLARE(decl) static const char *boost_bindlib_out[]={ #decl };
 
 #endif

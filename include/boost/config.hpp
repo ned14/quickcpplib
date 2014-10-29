@@ -106,6 +106,22 @@ extern "C" void _mm_pause();
 # endif
 #endif
 
+#ifndef BOOST_FOREACH
+#define BOOST_FOREACH(a, b) for(a : b)
+#endif
+
+#ifndef BOOST_MSVC
+#ifdef _MSC_VER
+#define BOOST_MSVC _MSC_VER
+#endif
+#endif
+#ifndef BOOST_GCC
+#ifdef __GNUC__
+#define BOOST_GCC (__GNUC__ * 10000 \
+                   + __GNUC_MINOR__ * 100 \
+                   + __GNUC_PATCHLEVEL__)
+#endif
+#endif
 
 /* The following are for convenience, but really should be regex find & replace in modern C++ */
 #ifndef BOOST_FWD_REF
