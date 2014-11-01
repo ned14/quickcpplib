@@ -5,359 +5,359 @@
 #include <filesystem>
 BOOST_STL1z_FILESYSTEM_MAP_NAMESPACE_BEGIN
 extern const char *boost_bindlib_in;
-using ::std::filesystem::symlink_option;
-using ::std::filesystem::copy_option;
-using ::std::filesystem::perms;
-  using ::std::filesystem::no_perms;
-  using ::std::filesystem::owner_read;
-  using ::std::filesystem::owner_write;
-  using ::std::filesystem::owner_exe;
-  using ::std::filesystem::owner_all;
-  using ::std::filesystem::group_read;
-  using ::std::filesystem::group_write;
-  using ::std::filesystem::group_exe;
-  using ::std::filesystem::group_all;
-  using ::std::filesystem::others_read;
-  using ::std::filesystem::others_write;
-  using ::std::filesystem::others_exe;
-  using ::std::filesystem::others_all;
-  using ::std::filesystem::all_all;
-  using ::std::filesystem::set_uid_on_exe;
-  using ::std::filesystem::set_gid_on_exe;
-  using ::std::filesystem::sticky_bit;
-  using ::std::filesystem::perms_mask;
-  using ::std::filesystem::perms_not_known;
-  using ::std::filesystem::add_perms;
-  using ::std::filesystem::remove_perms;
-  using ::std::filesystem::symlink_perms;
-using ::std::filesystem::file_type;
-  using ::std::filesystem::status_error;
-  using ::std::filesystem::status_unknown;
-  using ::std::filesystem::file_not_found;
-  using ::std::filesystem::regular_file;
-  using ::std::filesystem::directory_file;
-  using ::std::filesystem::symlink_file;
-  using ::std::filesystem::block_file;
-  using ::std::filesystem::character_file;
-  using ::std::filesystem::fifo_file;
-  using ::std::filesystem::socket_file;
-  using ::std::filesystem::reparse_file;
-  using ::std::filesystem::type_unknown;
-  using ::std::filesystem::_detail_directory_symlink;
+using ::std::tr2::sys::symlink_option;
+using ::std::tr2::sys::copy_option;
+using ::std::tr2::sys::perms;
+  using ::std::tr2::sys::no_perms;
+  using ::std::tr2::sys::owner_read;
+  using ::std::tr2::sys::owner_write;
+  using ::std::tr2::sys::owner_exe;
+  using ::std::tr2::sys::owner_all;
+  using ::std::tr2::sys::group_read;
+  using ::std::tr2::sys::group_write;
+  using ::std::tr2::sys::group_exe;
+  using ::std::tr2::sys::group_all;
+  using ::std::tr2::sys::others_read;
+  using ::std::tr2::sys::others_write;
+  using ::std::tr2::sys::others_exe;
+  using ::std::tr2::sys::others_all;
+  using ::std::tr2::sys::all_all;
+  using ::std::tr2::sys::set_uid_on_exe;
+  using ::std::tr2::sys::set_gid_on_exe;
+  using ::std::tr2::sys::sticky_bit;
+  using ::std::tr2::sys::perms_mask;
+  using ::std::tr2::sys::perms_not_known;
+  using ::std::tr2::sys::add_perms;
+  using ::std::tr2::sys::remove_perms;
+  using ::std::tr2::sys::symlink_perms;
+using ::std::tr2::sys::file_type;
+  using ::std::tr2::sys::status_error;
+  using ::std::tr2::sys::status_unknown;
+  using ::std::tr2::sys::file_not_found;
+  using ::std::tr2::sys::regular_file;
+  using ::std::tr2::sys::directory_file;
+  using ::std::tr2::sys::symlink_file;
+  using ::std::tr2::sys::block_file;
+  using ::std::tr2::sys::character_file;
+  using ::std::tr2::sys::fifo_file;
+  using ::std::tr2::sys::socket_file;
+  using ::std::tr2::sys::reparse_file;
+  using ::std::tr2::sys::type_unknown;
+  using ::std::tr2::sys::_detail_directory_symlink;
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_FILESYSTEM_ERROR
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_FILESYSTEM_ERROR
 #else
-using filesystem_error = ::std::filesystem::filesystem_error;
+using filesystem_error = ::std::tr2::sys::filesystem_error;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_CHANGE_EXTENSION
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_CHANGE_EXTENSION
 #else
-using ::std::filesystem::change_extension;
+using ::std::tr2::sys::change_extension;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_WRECURSIVE_DIRECTORY_ITERATOR
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_WRECURSIVE_DIRECTORY_ITERATOR
 #else
-using ::std::filesystem::wrecursive_directory_iterator;
+using ::std::tr2::sys::wrecursive_directory_iterator;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_RECURSIVE_DIRECTORY_ITERATOR
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_RECURSIVE_DIRECTORY_ITERATOR
 #else
-using recursive_directory_iterator = ::std::filesystem::recursive_directory_iterator;
+using recursive_directory_iterator = ::std::tr2::sys::recursive_directory_iterator;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_DIRECTORY_ITERATOR
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_DIRECTORY_ITERATOR
 #else
-using directory_iterator = ::std::filesystem::directory_iterator;
+using directory_iterator = ::std::tr2::sys::directory_iterator;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_UNIQUE_PATH
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_UNIQUE_PATH
 #else
-using ::std::filesystem::unique_path;
+using ::std::tr2::sys::unique_path;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_TEMP_DIRECTORY_PATH
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_TEMP_DIRECTORY_PATH
 #else
-using ::std::filesystem::temp_directory_path;
+using ::std::tr2::sys::temp_directory_path;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_SYSTEM_COMPLETE
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_SYSTEM_COMPLETE
 #else
-using ::std::filesystem::system_complete;
+using ::std::tr2::sys::system_complete;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_EXTENSION
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_EXTENSION
 #else
-using ::std::filesystem::extension;
+using ::std::tr2::sys::extension;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_SPACE
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_SPACE
 #else
-using ::std::filesystem::space;
+using ::std::tr2::sys::space;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_RENAME
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_RENAME
 #else
-using ::std::filesystem::rename;
+using ::std::tr2::sys::rename;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_READ_SYMLINK
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_READ_SYMLINK
 #else
-using ::std::filesystem::read_symlink;
+using ::std::tr2::sys::read_symlink;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_CANONICAL
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_CANONICAL
 #else
-using ::std::filesystem::canonical;
+using ::std::tr2::sys::canonical;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_EXISTS
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_EXISTS
 #else
-using ::std::filesystem::exists;
+using ::std::tr2::sys::exists;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_REGULAR_FILE
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_REGULAR_FILE
 #else
-using ::std::filesystem::is_regular_file;
+using ::std::tr2::sys::is_regular_file;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_TYPE_PRESENT
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_TYPE_PRESENT
 #else
-using ::std::filesystem::type_present;
+using ::std::tr2::sys::type_present;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_PORTABLE_FILE_NAME
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_PORTABLE_FILE_NAME
 #else
-using ::std::filesystem::portable_file_name;
+using ::std::tr2::sys::portable_file_name;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_PORTABLE_DIRECTORY_NAME
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_PORTABLE_DIRECTORY_NAME
 #else
-using ::std::filesystem::portable_directory_name;
+using ::std::tr2::sys::portable_directory_name;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_CURRENT_PATH
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_CURRENT_PATH
 #else
-using ::std::filesystem::current_path;
+using ::std::tr2::sys::current_path;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_DIRECTORY
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_DIRECTORY
 #else
-using ::std::filesystem::create_directory;
+using ::std::tr2::sys::create_directory;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_PATH
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_PATH
 #else
-using path = ::std::filesystem::path;
+using path = ::std::tr2::sys::path;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_DIRECTORY_ENTRY
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_DIRECTORY_ENTRY
 #else
-using directory_entry = ::std::filesystem::directory_entry;
+using directory_entry = ::std::tr2::sys::directory_entry;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_OTHER
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_OTHER
 #else
-using ::std::filesystem::is_other;
+using ::std::tr2::sys::is_other;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_DIRECTORY
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_DIRECTORY
 #else
-using ::std::filesystem::is_directory;
+using ::std::tr2::sys::is_directory;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_SYMLINK_STATUS
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_SYMLINK_STATUS
 #else
-using ::std::filesystem::symlink_status;
+using ::std::tr2::sys::symlink_status;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_REMOVE
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_REMOVE
 #else
-using ::std::filesystem::remove;
+using ::std::tr2::sys::remove;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_SYMLINK
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_SYMLINK
 #else
-using ::std::filesystem::is_symlink;
+using ::std::tr2::sys::is_symlink;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_FILE_STATUS
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_FILE_STATUS
 #else
-using file_status = ::std::filesystem::file_status;
+using file_status = ::std::tr2::sys::file_status;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_STATUS_KNOWN
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_STATUS_KNOWN
 #else
-using ::std::filesystem::status_known;
+using ::std::tr2::sys::status_known;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_FILE_SIZE
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_FILE_SIZE
 #else
-using ::std::filesystem::file_size;
+using ::std::tr2::sys::file_size;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_HARD_LINK_COUNT
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_HARD_LINK_COUNT
 #else
-using ::std::filesystem::hard_link_count;
+using ::std::tr2::sys::hard_link_count;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_PORTABLE_POSIX_NAME
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_PORTABLE_POSIX_NAME
 #else
-using ::std::filesystem::portable_posix_name;
+using ::std::tr2::sys::portable_posix_name;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_LEXICOGRAPHICAL_COMPARE
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_LEXICOGRAPHICAL_COMPARE
 #else
-using ::std::filesystem::lexicographical_compare;
+using ::std::tr2::sys::lexicographical_compare;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_SWAP
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_SWAP
 #else
-using ::std::filesystem::swap;
+using ::std::tr2::sys::swap;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_EQUIVALENT
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_EQUIVALENT
 #else
-using ::std::filesystem::equivalent;
+using ::std::tr2::sys::equivalent;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_HASH_VALUE
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_HASH_VALUE
 #else
-using ::std::filesystem::hash_value;
+using ::std::tr2::sys::hash_value;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_WINDOWS_NAME
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_WINDOWS_NAME
 #else
-using ::std::filesystem::windows_name;
+using ::std::tr2::sys::windows_name;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_COPY
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_COPY
 #else
-using ::std::filesystem::copy;
+using ::std::tr2::sys::copy;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_PORTABLE_NAME
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_PORTABLE_NAME
 #else
-using ::std::filesystem::portable_name;
+using ::std::tr2::sys::portable_name;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_SPACE_INFO
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_SPACE_INFO
 #else
-using space_info = ::std::filesystem::space_info;
+using space_info = ::std::tr2::sys::space_info;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_EMPTY
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_EMPTY
 #else
-using ::std::filesystem::is_empty;
+using ::std::tr2::sys::is_empty;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_BASENAME
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_BASENAME
 #else
-using ::std::filesystem::basename;
+using ::std::tr2::sys::basename;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_COMPLETE
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_COMPLETE
 #else
-using ::std::filesystem::complete;
+using ::std::tr2::sys::complete;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_STATUS
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_STATUS
 #else
-using ::std::filesystem::status;
+using ::std::tr2::sys::status;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_RESIZE_FILE
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_RESIZE_FILE
 #else
-using ::std::filesystem::resize_file;
+using ::std::tr2::sys::resize_file;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_REGULAR
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_REGULAR
 #else
-using ::std::filesystem::is_regular;
+using ::std::tr2::sys::is_regular;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_DIRECTORIES
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_DIRECTORIES
 #else
-using ::std::filesystem::create_directories;
+using ::std::tr2::sys::create_directories;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_REMOVE_ALL
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_REMOVE_ALL
 #else
-using ::std::filesystem::remove_all;
+using ::std::tr2::sys::remove_all;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_INITIAL_PATH
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_INITIAL_PATH
 #else
-using ::std::filesystem::initial_path;
+using ::std::tr2::sys::initial_path;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_PERMISSIONS_PRESENT
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_PERMISSIONS_PRESENT
 #else
-using ::std::filesystem::permissions_present;
+using ::std::tr2::sys::permissions_present;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_COPY_FILE
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_COPY_FILE
 #else
-using ::std::filesystem::copy_file;
+using ::std::tr2::sys::copy_file;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_CODECVT_ERROR_CATEGORY
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_CODECVT_ERROR_CATEGORY
 #else
-using ::std::filesystem::codecvt_error_category;
+using ::std::tr2::sys::codecvt_error_category;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_SYMLINK
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_SYMLINK
 #else
-using ::std::filesystem::create_symlink;
+using ::std::tr2::sys::create_symlink;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_WPATH
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_WPATH
 #else
-using ::std::filesystem::wpath;
+using ::std::tr2::sys::wpath;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_ABSOLUTE
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_ABSOLUTE
 #else
-using ::std::filesystem::absolute;
+using ::std::tr2::sys::absolute;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_COPY_SYMLINK
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_COPY_SYMLINK
 #else
-using ::std::filesystem::copy_symlink;
+using ::std::tr2::sys::copy_symlink;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_DIRECTORY_SYMLINK
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_DIRECTORY_SYMLINK
 #else
-using ::std::filesystem::create_directory_symlink;
+using ::std::tr2::sys::create_directory_symlink;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_SYMBOLIC_LINK_EXISTS
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_SYMBOLIC_LINK_EXISTS
 #else
-using ::std::filesystem::symbolic_link_exists;
+using ::std::tr2::sys::symbolic_link_exists;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_COPY_DIRECTORY
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_COPY_DIRECTORY
 #else
-using ::std::filesystem::copy_directory;
+using ::std::tr2::sys::copy_directory;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_HARD_LINK
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_HARD_LINK
 #else
-using ::std::filesystem::create_hard_link;
+using ::std::tr2::sys::create_hard_link;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_LAST_WRITE_TIME
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_LAST_WRITE_TIME
 #else
-using ::std::filesystem::last_write_time;
+using ::std::tr2::sys::last_write_time;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_NATIVE
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_NATIVE
 #else
-using ::std::filesystem::native;
+using ::std::tr2::sys::native;
 #endif
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_PERMISSIONS
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_PERMISSIONS
 #else
-using ::std::filesystem::permissions;
+using ::std::tr2::sys::permissions;
 #endif
 BOOST_STL1z_FILESYSTEM_MAP_NAMESPACE_END
 #undef BOOST_STL1z_FILESYSTEM_MAP_NAMESPACE_BEGIN
