@@ -5,45 +5,9 @@
 #include <filesystem>
 BOOST_STL1z_FILESYSTEM_MAP_NAMESPACE_BEGIN
 extern const char *boost_bindlib_in;
-using ::std::tr2::sys::symlink_option;
-using ::std::tr2::sys::copy_option;
+using ::std::tr2::sys::copy_options;
 using ::std::tr2::sys::perms;
-  using ::std::tr2::sys::no_perms;
-  using ::std::tr2::sys::owner_read;
-  using ::std::tr2::sys::owner_write;
-  using ::std::tr2::sys::owner_exe;
-  using ::std::tr2::sys::owner_all;
-  using ::std::tr2::sys::group_read;
-  using ::std::tr2::sys::group_write;
-  using ::std::tr2::sys::group_exe;
-  using ::std::tr2::sys::group_all;
-  using ::std::tr2::sys::others_read;
-  using ::std::tr2::sys::others_write;
-  using ::std::tr2::sys::others_exe;
-  using ::std::tr2::sys::others_all;
-  using ::std::tr2::sys::all_all;
-  using ::std::tr2::sys::set_uid_on_exe;
-  using ::std::tr2::sys::set_gid_on_exe;
-  using ::std::tr2::sys::sticky_bit;
-  using ::std::tr2::sys::perms_mask;
-  using ::std::tr2::sys::perms_not_known;
-  using ::std::tr2::sys::add_perms;
-  using ::std::tr2::sys::remove_perms;
-  using ::std::tr2::sys::symlink_perms;
 using ::std::tr2::sys::file_type;
-  using ::std::tr2::sys::status_error;
-  using ::std::tr2::sys::status_unknown;
-  using ::std::tr2::sys::file_not_found;
-  using ::std::tr2::sys::regular_file;
-  using ::std::tr2::sys::directory_file;
-  using ::std::tr2::sys::symlink_file;
-  using ::std::tr2::sys::block_file;
-  using ::std::tr2::sys::character_file;
-  using ::std::tr2::sys::fifo_file;
-  using ::std::tr2::sys::socket_file;
-  using ::std::tr2::sys::reparse_file;
-  using ::std::tr2::sys::type_unknown;
-  using ::std::tr2::sys::_detail_directory_symlink;
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_FILESYSTEM_ERROR
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_FILESYSTEM_ERROR
 #else
