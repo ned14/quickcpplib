@@ -17,7 +17,7 @@ clang++ -o genmap genmap.cpp -g -O3 -std=c++11 -I/usr/lib/llvm-3.4/include /usr/
 ./genmap bind/stl11/std/condition_variable BOOST_STL11_CONDITION_VARIABLE_MAP_ "std::([^_][^:]*)" condition_variable "boost::([^_][^:]*)" boost/thread.hpp
 
 ./genmap bind/stl1z/boost/filesystem BOOST_STL1z_FILESYSTEM_MAP_ "boost::filesystem::([^_][^:]*)" boost/filesystem.hpp
-sed -e 's/boost\/filesystem.hpp/filesystem/g' -e 's/boost/std::experimental/g' bind/stl1z/boost/filesystem > bind/stl1z/std/filesystem
+sed -e 's/boost\/filesystem.hpp/filesystem/g' -e 's/boost::filesystem/std::filesystem/g' bind/stl1z/boost/filesystem > bind/stl1z/std/filesystem
 
 ./genmap bind/stl11/boost/functional BOOST_STL11_FUNCTIONAL_MAP_ "boost::([^_][^:]*)" boost/bind.hpp "std::([^_][^:]*)" functional
 ./genmap bind/stl11/std/functional BOOST_STL11_FUNCTIONAL_MAP_ "std::([^_][^:]*)" functional "boost::([^_][^:]*)" boost/bind.hpp
