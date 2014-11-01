@@ -1,4 +1,4 @@
-#include "include/boost/afio/bindlib/include/import.hpp"
+#include "include/import.hpp"
 # define BOOST_AFIO_V1_STL11_IMPL std
 #define BOOST_AFIO_V1 (boost), (afio), (BOOST_LOCAL_BIND_NAMESPACE_VERSION(v1, BOOST_AFIO_V1_STL11_IMPL), inline)
 #define BOOST_AFIO_V1_NAMESPACE       BOOST_LOCAL_BIND_NAMESPACE      (BOOST_AFIO_V1)
