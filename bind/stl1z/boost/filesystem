@@ -5,8 +5,24 @@
 #include <boost/filesystem.hpp>
 BOOST_STL1z_FILESYSTEM_MAP_NAMESPACE_BEGIN
 extern const char *boost_bindlib_in;
+// begin symlink_option
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_SYMLINK_OPTION
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_SYMLINK_OPTION
+#else
 using ::boost::filesystem::symlink_option;
+#endif
+// end symlink_option
+// begin copy_option
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_COPY_OPTION
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_COPY_OPTION
+#else
 using ::boost::filesystem::copy_option;
+#endif
+// end copy_option
+// begin perms
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_PERMS
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_PERMS
+#else
 using ::boost::filesystem::perms;
   using ::boost::filesystem::no_perms;
   using ::boost::filesystem::owner_read;
@@ -30,6 +46,12 @@ using ::boost::filesystem::perms;
   using ::boost::filesystem::add_perms;
   using ::boost::filesystem::remove_perms;
   using ::boost::filesystem::symlink_perms;
+#endif
+// end perms
+// begin file_type
+#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_FILE_TYPE
+#undef BOOST_STL1z_FILESYSTEM_MAP_NO_FILE_TYPE
+#else
 using ::boost::filesystem::file_type;
   using ::boost::filesystem::status_error;
   using ::boost::filesystem::status_unknown;
@@ -44,321 +66,421 @@ using ::boost::filesystem::file_type;
   using ::boost::filesystem::reparse_file;
   using ::boost::filesystem::type_unknown;
   using ::boost::filesystem::_detail_directory_symlink;
+#endif
+// end file_type
+// begin filesystem_error
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_FILESYSTEM_ERROR
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_FILESYSTEM_ERROR
 #else
 using filesystem_error = ::boost::filesystem::filesystem_error;
 #endif
+// end filesystem_error
+// begin change_extension
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_CHANGE_EXTENSION
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_CHANGE_EXTENSION
 #else
 using ::boost::filesystem::change_extension;
 #endif
+// end change_extension
+// begin wrecursive_directory_iterator
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_WRECURSIVE_DIRECTORY_ITERATOR
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_WRECURSIVE_DIRECTORY_ITERATOR
 #else
 using ::boost::filesystem::wrecursive_directory_iterator;
 #endif
+// end wrecursive_directory_iterator
+// begin recursive_directory_iterator
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_RECURSIVE_DIRECTORY_ITERATOR
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_RECURSIVE_DIRECTORY_ITERATOR
 #else
 using recursive_directory_iterator = ::boost::filesystem::recursive_directory_iterator;
 #endif
+// end recursive_directory_iterator
+// begin directory_iterator
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_DIRECTORY_ITERATOR
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_DIRECTORY_ITERATOR
 #else
 using directory_iterator = ::boost::filesystem::directory_iterator;
 #endif
+// end directory_iterator
+// begin unique_path
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_UNIQUE_PATH
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_UNIQUE_PATH
 #else
 using ::boost::filesystem::unique_path;
 #endif
+// end unique_path
+// begin temp_directory_path
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_TEMP_DIRECTORY_PATH
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_TEMP_DIRECTORY_PATH
 #else
 using ::boost::filesystem::temp_directory_path;
 #endif
+// end temp_directory_path
+// begin system_complete
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_SYSTEM_COMPLETE
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_SYSTEM_COMPLETE
 #else
 using ::boost::filesystem::system_complete;
 #endif
+// end system_complete
+// begin extension
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_EXTENSION
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_EXTENSION
 #else
 using ::boost::filesystem::extension;
 #endif
+// end extension
+// begin space
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_SPACE
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_SPACE
 #else
 using ::boost::filesystem::space;
 #endif
+// end space
+// begin rename
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_RENAME
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_RENAME
 #else
 using ::boost::filesystem::rename;
 #endif
+// end rename
+// begin read_symlink
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_READ_SYMLINK
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_READ_SYMLINK
 #else
 using ::boost::filesystem::read_symlink;
 #endif
+// end read_symlink
+// begin canonical
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_CANONICAL
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_CANONICAL
 #else
 using ::boost::filesystem::canonical;
 #endif
+// end canonical
+// begin exists
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_EXISTS
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_EXISTS
 #else
 using ::boost::filesystem::exists;
 #endif
+// end exists
+// begin is_regular_file
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_REGULAR_FILE
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_REGULAR_FILE
 #else
 using ::boost::filesystem::is_regular_file;
 #endif
+// end is_regular_file
+// begin type_present
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_TYPE_PRESENT
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_TYPE_PRESENT
 #else
 using ::boost::filesystem::type_present;
 #endif
+// end type_present
+// begin portable_file_name
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_PORTABLE_FILE_NAME
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_PORTABLE_FILE_NAME
 #else
 using ::boost::filesystem::portable_file_name;
 #endif
+// end portable_file_name
+// begin portable_directory_name
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_PORTABLE_DIRECTORY_NAME
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_PORTABLE_DIRECTORY_NAME
 #else
 using ::boost::filesystem::portable_directory_name;
 #endif
+// end portable_directory_name
+// begin current_path
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_CURRENT_PATH
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_CURRENT_PATH
 #else
 using ::boost::filesystem::current_path;
 #endif
+// end current_path
+// begin create_directory
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_DIRECTORY
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_DIRECTORY
 #else
 using ::boost::filesystem::create_directory;
 #endif
+// end create_directory
+// begin path
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_PATH
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_PATH
 #else
 using path = ::boost::filesystem::path;
 #endif
+// end path
+// begin directory_entry
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_DIRECTORY_ENTRY
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_DIRECTORY_ENTRY
 #else
 using directory_entry = ::boost::filesystem::directory_entry;
 #endif
+// end directory_entry
+// begin is_other
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_OTHER
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_OTHER
 #else
 using ::boost::filesystem::is_other;
 #endif
+// end is_other
+// begin is_directory
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_DIRECTORY
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_DIRECTORY
 #else
 using ::boost::filesystem::is_directory;
 #endif
+// end is_directory
+// begin symlink_status
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_SYMLINK_STATUS
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_SYMLINK_STATUS
 #else
 using ::boost::filesystem::symlink_status;
 #endif
+// end symlink_status
+// begin remove
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_REMOVE
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_REMOVE
 #else
 using ::boost::filesystem::remove;
 #endif
+// end remove
+// begin is_symlink
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_SYMLINK
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_SYMLINK
 #else
 using ::boost::filesystem::is_symlink;
 #endif
+// end is_symlink
+// begin file_status
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_FILE_STATUS
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_FILE_STATUS
 #else
 using file_status = ::boost::filesystem::file_status;
 #endif
+// end file_status
+// begin status_known
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_STATUS_KNOWN
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_STATUS_KNOWN
 #else
 using ::boost::filesystem::status_known;
 #endif
+// end status_known
+// begin file_size
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_FILE_SIZE
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_FILE_SIZE
 #else
 using ::boost::filesystem::file_size;
 #endif
+// end file_size
+// begin hard_link_count
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_HARD_LINK_COUNT
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_HARD_LINK_COUNT
 #else
 using ::boost::filesystem::hard_link_count;
 #endif
+// end hard_link_count
+// begin portable_posix_name
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_PORTABLE_POSIX_NAME
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_PORTABLE_POSIX_NAME
 #else
 using ::boost::filesystem::portable_posix_name;
 #endif
-#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_LEXICOGRAPHICAL_COMPARE
-#undef BOOST_STL1z_FILESYSTEM_MAP_NO_LEXICOGRAPHICAL_COMPARE
-#else
-using ::boost::filesystem::lexicographical_compare;
-#endif
-#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_SWAP
-#undef BOOST_STL1z_FILESYSTEM_MAP_NO_SWAP
-#else
-using ::boost::filesystem::swap;
-#endif
+// end portable_posix_name
+// begin equivalent
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_EQUIVALENT
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_EQUIVALENT
 #else
 using ::boost::filesystem::equivalent;
 #endif
+// end equivalent
+// begin hash_value
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_HASH_VALUE
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_HASH_VALUE
 #else
 using ::boost::filesystem::hash_value;
 #endif
+// end hash_value
+// begin windows_name
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_WINDOWS_NAME
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_WINDOWS_NAME
 #else
 using ::boost::filesystem::windows_name;
 #endif
-#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_COPY
-#undef BOOST_STL1z_FILESYSTEM_MAP_NO_COPY
-#else
-using ::boost::filesystem::copy;
-#endif
+// end windows_name
+// begin portable_name
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_PORTABLE_NAME
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_PORTABLE_NAME
 #else
 using ::boost::filesystem::portable_name;
 #endif
+// end portable_name
+// begin space_info
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_SPACE_INFO
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_SPACE_INFO
 #else
 using space_info = ::boost::filesystem::space_info;
 #endif
-#ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_EMPTY
-#undef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_EMPTY
-#else
-using ::boost::filesystem::is_empty;
-#endif
+// end space_info
+// begin basename
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_BASENAME
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_BASENAME
 #else
 using ::boost::filesystem::basename;
 #endif
+// end basename
+// begin complete
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_COMPLETE
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_COMPLETE
 #else
 using ::boost::filesystem::complete;
 #endif
+// end complete
+// begin status
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_STATUS
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_STATUS
 #else
 using ::boost::filesystem::status;
 #endif
+// end status
+// begin resize_file
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_RESIZE_FILE
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_RESIZE_FILE
 #else
 using ::boost::filesystem::resize_file;
 #endif
+// end resize_file
+// begin is_regular
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_REGULAR
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_IS_REGULAR
 #else
 using ::boost::filesystem::is_regular;
 #endif
+// end is_regular
+// begin create_directories
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_DIRECTORIES
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_DIRECTORIES
 #else
 using ::boost::filesystem::create_directories;
 #endif
+// end create_directories
+// begin remove_all
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_REMOVE_ALL
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_REMOVE_ALL
 #else
 using ::boost::filesystem::remove_all;
 #endif
+// end remove_all
+// begin initial_path
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_INITIAL_PATH
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_INITIAL_PATH
 #else
 using ::boost::filesystem::initial_path;
 #endif
+// end initial_path
+// begin permissions_present
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_PERMISSIONS_PRESENT
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_PERMISSIONS_PRESENT
 #else
 using ::boost::filesystem::permissions_present;
 #endif
+// end permissions_present
+// begin copy_file
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_COPY_FILE
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_COPY_FILE
 #else
 using ::boost::filesystem::copy_file;
 #endif
+// end copy_file
+// begin codecvt_error_category
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_CODECVT_ERROR_CATEGORY
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_CODECVT_ERROR_CATEGORY
 #else
 using ::boost::filesystem::codecvt_error_category;
 #endif
+// end codecvt_error_category
+// begin create_symlink
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_SYMLINK
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_SYMLINK
 #else
 using ::boost::filesystem::create_symlink;
 #endif
+// end create_symlink
+// begin wpath
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_WPATH
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_WPATH
 #else
 using ::boost::filesystem::wpath;
 #endif
+// end wpath
+// begin absolute
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_ABSOLUTE
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_ABSOLUTE
 #else
 using ::boost::filesystem::absolute;
 #endif
+// end absolute
+// begin copy_symlink
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_COPY_SYMLINK
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_COPY_SYMLINK
 #else
 using ::boost::filesystem::copy_symlink;
 #endif
+// end copy_symlink
+// begin create_directory_symlink
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_DIRECTORY_SYMLINK
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_DIRECTORY_SYMLINK
 #else
 using ::boost::filesystem::create_directory_symlink;
 #endif
+// end create_directory_symlink
+// begin symbolic_link_exists
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_SYMBOLIC_LINK_EXISTS
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_SYMBOLIC_LINK_EXISTS
 #else
 using ::boost::filesystem::symbolic_link_exists;
 #endif
+// end symbolic_link_exists
+// begin copy_directory
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_COPY_DIRECTORY
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_COPY_DIRECTORY
 #else
 using ::boost::filesystem::copy_directory;
 #endif
+// end copy_directory
+// begin create_hard_link
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_HARD_LINK
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_CREATE_HARD_LINK
 #else
 using ::boost::filesystem::create_hard_link;
 #endif
+// end create_hard_link
+// begin last_write_time
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_LAST_WRITE_TIME
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_LAST_WRITE_TIME
 #else
 using ::boost::filesystem::last_write_time;
 #endif
+// end last_write_time
+// begin native
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_NATIVE
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_NATIVE
 #else
 using ::boost::filesystem::native;
 #endif
+// end native
+// begin permissions
 #ifdef BOOST_STL1z_FILESYSTEM_MAP_NO_PERMISSIONS
 #undef BOOST_STL1z_FILESYSTEM_MAP_NO_PERMISSIONS
 #else
 using ::boost::filesystem::permissions;
 #endif
+// end permissions
 BOOST_STL1z_FILESYSTEM_MAP_NAMESPACE_END
 #undef BOOST_STL1z_FILESYSTEM_MAP_NAMESPACE_BEGIN
 #undef BOOST_STL1z_FILESYSTEM_MAP_NAMESPACE_END

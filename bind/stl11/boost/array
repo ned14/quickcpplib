@@ -5,21 +5,6 @@
 #include <boost/array.hpp>
 BOOST_STL11_ARRAY_MAP_NAMESPACE_BEGIN
 extern const char *boost_bindlib_in;
-#ifdef BOOST_STL11_ARRAY_MAP_NO_ARRAY
-#undef BOOST_STL11_ARRAY_MAP_NO_ARRAY
-#else
-template<class T, std::size_t _1> using array = ::boost::array<T, _1>;
-#endif
-#ifdef BOOST_STL11_ARRAY_MAP_NO_SWAP
-#undef BOOST_STL11_ARRAY_MAP_NO_SWAP
-#else
-using ::boost::swap;
-#endif
-#ifdef BOOST_STL11_ARRAY_MAP_NO_HASH
-#undef BOOST_STL11_ARRAY_MAP_NO_HASH
-#else
-template<class T> using hash = ::boost::hash<T>;
-#endif
 BOOST_STL11_ARRAY_MAP_NAMESPACE_END
 #undef BOOST_STL11_ARRAY_MAP_NAMESPACE_BEGIN
 #undef BOOST_STL11_ARRAY_MAP_NAMESPACE_END

@@ -5,36 +5,6 @@
 #include <tuple>
 BOOST_STL11_TUPLE_MAP_NAMESPACE_BEGIN
 extern const char *boost_bindlib_in;
-#ifdef BOOST_STL11_TUPLE_MAP_NO_TIE
-#undef BOOST_STL11_TUPLE_MAP_NO_TIE
-#else
-using ::std::tie;
-#endif
-#ifdef BOOST_STL11_TUPLE_MAP_NO_MAKE_TUPLE
-#undef BOOST_STL11_TUPLE_MAP_NO_MAKE_TUPLE
-#else
-using ::std::make_tuple;
-#endif
-#ifdef BOOST_STL11_TUPLE_MAP_NO_SWAP
-#undef BOOST_STL11_TUPLE_MAP_NO_SWAP
-#else
-using ::std::swap;
-#endif
-#ifdef BOOST_STL11_TUPLE_MAP_NO_TUPLE
-#undef BOOST_STL11_TUPLE_MAP_NO_TUPLE
-#else
-template<class... _Elements> using tuple = ::std::tuple<_Elements...>;
-#endif
-#ifdef BOOST_STL11_TUPLE_MAP_NO_TUPLE
-#undef BOOST_STL11_TUPLE_MAP_NO_TUPLE
-#else
-template<class... type_parameter_0_0> using tuple = ::std::tuple<type_parameter_0_0...>;
-#endif
-#ifdef BOOST_STL11_TUPLE_MAP_NO_GET
-#undef BOOST_STL11_TUPLE_MAP_NO_GET
-#else
-using ::std::get;
-#endif
 BOOST_STL11_TUPLE_MAP_NAMESPACE_END
 #undef BOOST_STL11_TUPLE_MAP_NAMESPACE_BEGIN
 #undef BOOST_STL11_TUPLE_MAP_NAMESPACE_END

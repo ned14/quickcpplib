@@ -5,912 +5,125 @@
 #include <boost/thread.hpp>
 BOOST_STL11_FUTURE_MAP_NAMESPACE_BEGIN
 extern const char *boost_bindlib_in;
+// begin launch
+#ifdef BOOST_STL11_FUTURE_MAP_NO_LAUNCH
+#undef BOOST_STL11_FUTURE_MAP_NO_LAUNCH
+#else
 using ::boost::launch;
+#endif
+// end launch
+// begin future_status
+#ifdef BOOST_STL11_FUTURE_MAP_NO_FUTURE_STATUS
+#undef BOOST_STL11_FUTURE_MAP_NO_FUTURE_STATUS
+#else
 using ::boost::future_status;
+#endif
+// end future_status
+// begin future_errc
+#ifdef BOOST_STL11_FUTURE_MAP_NO_FUTURE_ERRC
+#undef BOOST_STL11_FUTURE_MAP_NO_FUTURE_ERRC
+#else
 using ::boost::future_errc;
-using ::boost::cv_status;
-using ::boost::memory_order;
-  using ::boost::memory_order_relaxed;
-  using ::boost::memory_order_acquire;
-  using ::boost::memory_order_release;
-  using ::boost::memory_order_acq_rel;
-  using ::boost::memory_order_seq_cst;
-  using ::boost::memory_order_consume;
+#endif
+// end future_errc
+// begin async
 #ifdef BOOST_STL11_FUTURE_MAP_NO_ASYNC
 #undef BOOST_STL11_FUTURE_MAP_NO_ASYNC
 #else
 using ::boost::async;
 #endif
+// end async
+// begin packaged_task
 #ifdef BOOST_STL11_FUTURE_MAP_NO_PACKAGED_TASK
 #undef BOOST_STL11_FUTURE_MAP_NO_PACKAGED_TASK
 #else
 template<class R> using packaged_task = ::boost::packaged_task<R>;
 #endif
+// end packaged_task
+// begin promise
 #ifdef BOOST_STL11_FUTURE_MAP_NO_PROMISE
 #undef BOOST_STL11_FUTURE_MAP_NO_PROMISE
 #else
 template<class R> using promise = ::boost::promise<R>;
 #endif
+// end promise
+// begin shared_future
 #ifdef BOOST_STL11_FUTURE_MAP_NO_SHARED_FUTURE
 #undef BOOST_STL11_FUTURE_MAP_NO_SHARED_FUTURE
 #else
 template<class R> using shared_future = ::boost::shared_future<R>;
 #endif
+// end shared_future
+// begin future
 #ifdef BOOST_STL11_FUTURE_MAP_NO_FUTURE
 #undef BOOST_STL11_FUTURE_MAP_NO_FUTURE
 #else
 template<class R> using future = ::boost::future<R>;
 #endif
+// end future
+// begin future_error
 #ifdef BOOST_STL11_FUTURE_MAP_NO_FUTURE_ERROR
 #undef BOOST_STL11_FUTURE_MAP_NO_FUTURE_ERROR
 #else
 using future_error = ::boost::future_error;
 #endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_DEFAULT_DELETE
-#undef BOOST_STL11_FUTURE_MAP_NO_DEFAULT_DELETE
-#else
-template<class T> using default_delete = ::boost::default_delete<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_USES_ALLOCATOR
-#undef BOOST_STL11_FUTURE_MAP_NO_USES_ALLOCATOR
-#else
-template<class T, class Alloc> using uses_allocator = ::boost::uses_allocator<T, Alloc>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ALLOCATOR_ARG_T
-#undef BOOST_STL11_FUTURE_MAP_NO_ALLOCATOR_ARG_T
-#else
-using ::boost::allocator_arg_t;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_FUNCTION
-#undef BOOST_STL11_FUTURE_MAP_NO_FUNCTION
-#else
-template<class Signature> using function = ::boost::function<Signature>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_BAD_FUNCTION_CALL
-#undef BOOST_STL11_FUTURE_MAP_NO_BAD_FUNCTION_CALL
-#else
-using bad_function_call = ::boost::bad_function_call;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_UNION
-#undef BOOST_STL11_FUTURE_MAP_NO_IS_UNION
-#else
-template<class T> using is_union = ::boost::is_union<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_REVERSE_ITERATOR
-#undef BOOST_STL11_FUTURE_MAP_NO_REVERSE_ITERATOR
-#else
-template<class Iterator> using reverse_iterator = ::boost::reverse_iterator<Iterator>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_NEXT
-#undef BOOST_STL11_FUTURE_MAP_NO_NEXT
-#else
-using ::boost::next;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_MAKE_UNSIGNED
-#undef BOOST_STL11_FUTURE_MAP_NO_MAKE_UNSIGNED
-#else
-template<class T> using make_unsigned = ::boost::make_unsigned<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_SWAP
-#undef BOOST_STL11_FUTURE_MAP_NO_SWAP
-#else
-using ::boost::swap;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_RATIO_NOT_EQUAL
-#undef BOOST_STL11_FUTURE_MAP_NO_RATIO_NOT_EQUAL
-#else
-template<class R1, class R2> using ratio_not_equal = ::boost::ratio_not_equal<R1, R2>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_CHAR32_T
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_CHAR32_T
-#else
-using ::boost::atomic_char32_t;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ENABLE_SHARED_FROM_THIS
-#undef BOOST_STL11_FUTURE_MAP_NO_ENABLE_SHARED_FROM_THIS
-#else
-template<class T> using enable_shared_from_this = ::boost::enable_shared_from_this<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_WEAK_PTR
-#undef BOOST_STL11_FUTURE_MAP_NO_WEAK_PTR
-#else
-template<class T> using weak_ptr = ::boost::weak_ptr<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_CLASS
-#undef BOOST_STL11_FUTURE_MAP_NO_IS_CLASS
-#else
-template<class T> using is_class = ::boost::is_class<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ADOPT_LOCK_T
-#undef BOOST_STL11_FUTURE_MAP_NO_ADOPT_LOCK_T
-#else
-using adopt_lock_t = ::boost::adopt_lock_t;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_POD
-#undef BOOST_STL11_FUTURE_MAP_NO_IS_POD
-#else
-template<class T> using is_pod = ::boost::is_pod<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_UINT_FAST16_T
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_UINT_FAST16_T
-#else
-using ::boost::atomic_uint_fast16_t;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_MEMBER_POINTER
-#undef BOOST_STL11_FUTURE_MAP_NO_IS_MEMBER_POINTER
-#else
-template<class T> using is_member_pointer = ::boost::is_member_pointer<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_MEMBER_FUNCTION_POINTER
-#undef BOOST_STL11_FUTURE_MAP_NO_IS_MEMBER_FUNCTION_POINTER
-#else
-template<class T> using is_member_function_pointer = ::boost::is_member_function_pointer<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_VOID
-#undef BOOST_STL11_FUTURE_MAP_NO_IS_VOID
-#else
-template<class T> using is_void = ::boost::is_void<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_UINT_LEAST16_T
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_UINT_LEAST16_T
-#else
-using ::boost::atomic_uint_least16_t;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_FUNCTION
-#undef BOOST_STL11_FUTURE_MAP_NO_IS_FUNCTION
-#else
-template<class T> using is_function = ::boost::is_function<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_CONVERTIBLE
-#undef BOOST_STL11_FUTURE_MAP_NO_IS_CONVERTIBLE
-#else
-template<class From, class To> using is_convertible = ::boost::is_convertible<From, To>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_ABSTRACT
-#undef BOOST_STL11_FUTURE_MAP_NO_IS_ABSTRACT
-#else
-template<class T> using is_abstract = ::boost::is_abstract<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_LVALUE_REFERENCE
-#undef BOOST_STL11_FUTURE_MAP_NO_IS_LVALUE_REFERENCE
-#else
-template<class T> using is_lvalue_reference = ::boost::is_lvalue_reference<T>;
-#endif
+// end future_error
+// begin atomic_store
 #ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_STORE
 #undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_STORE
 #else
 using ::boost::atomic_store;
 #endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ADD_POINTER
-#undef BOOST_STL11_FUTURE_MAP_NO_ADD_POINTER
-#else
-template<class T> using add_pointer = ::boost::add_pointer<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_TO_STRING
-#undef BOOST_STL11_FUTURE_MAP_NO_TO_STRING
-#else
-using ::boost::to_string;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_INT_FAST16_T
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_INT_FAST16_T
-#else
-using ::boost::atomic_int_fast16_t;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ENABLE_IF
-#undef BOOST_STL11_FUTURE_MAP_NO_ENABLE_IF
-#else
-template<class Cond, class T> using enable_if = ::boost::enable_if<Cond, T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_SIGNAL_FENCE
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_SIGNAL_FENCE
-#else
-using ::boost::atomic_signal_fence;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ADD_RVALUE_REFERENCE
-#undef BOOST_STL11_FUTURE_MAP_NO_ADD_RVALUE_REFERENCE
-#else
-template<class T> using add_rvalue_reference = ::boost::add_rvalue_reference<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_RATIO_GREATER
-#undef BOOST_STL11_FUTURE_MAP_NO_RATIO_GREATER
-#else
-template<class R1, class R2> using ratio_greater = ::boost::ratio_greater<R1, R2>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_DISTANCE
-#undef BOOST_STL11_FUTURE_MAP_NO_DISTANCE
-#else
-using ::boost::distance;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ALIGNED_STORAGE
-#undef BOOST_STL11_FUTURE_MAP_NO_ALIGNED_STORAGE
-#else
-template<std::size_t _0, std::size_t _1> using aligned_storage = ::boost::aligned_storage<_0, _1>;
-#endif
+// end atomic_store
+// begin future_category
 #ifdef BOOST_STL11_FUTURE_MAP_NO_FUTURE_CATEGORY
 #undef BOOST_STL11_FUTURE_MAP_NO_FUTURE_CATEGORY
 #else
 using ::boost::future_category;
 #endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ALIGNMENT_OF
-#undef BOOST_STL11_FUTURE_MAP_NO_ALIGNMENT_OF
-#else
-template<class T> using alignment_of = ::boost::alignment_of<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_REMOVE_CONST
-#undef BOOST_STL11_FUTURE_MAP_NO_REMOVE_CONST
-#else
-template<class T> using remove_const = ::boost::remove_const<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ADD_CONST
-#undef BOOST_STL11_FUTURE_MAP_NO_ADD_CONST
-#else
-template<class T> using add_const = ::boost::add_const<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_MOVE
-#undef BOOST_STL11_FUTURE_MAP_NO_MOVE
-#else
-using ::boost::move;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_HASH
-#undef BOOST_STL11_FUTURE_MAP_NO_HASH
-#else
-template<class T> using hash = ::boost::hash<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_STATIC_POINTER_CAST
-#undef BOOST_STL11_FUTURE_MAP_NO_STATIC_POINTER_CAST
-#else
-using ::boost::static_pointer_cast;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_RATIO_LESS_EQUAL
-#undef BOOST_STL11_FUTURE_MAP_NO_RATIO_LESS_EQUAL
-#else
-template<class R1, class R2> using ratio_less_equal = ::boost::ratio_less_equal<R1, R2>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_PETA
-#undef BOOST_STL11_FUTURE_MAP_NO_PETA
-#else
-using ::boost::peta;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_REMOVE_POINTER
-#undef BOOST_STL11_FUTURE_MAP_NO_REMOVE_POINTER
-#else
-template<class T> using remove_pointer = ::boost::remove_pointer<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_UINT_LEAST32_T
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_UINT_LEAST32_T
-#else
-using ::boost::atomic_uint_least32_t;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_ARRAY
-#undef BOOST_STL11_FUTURE_MAP_NO_IS_ARRAY
-#else
-template<class T> using is_array = ::boost::is_array<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_SCALAR
-#undef BOOST_STL11_FUTURE_MAP_NO_IS_SCALAR
-#else
-template<class T> using is_scalar = ::boost::is_scalar<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_TRUE_TYPE
-#undef BOOST_STL11_FUTURE_MAP_NO_TRUE_TYPE
-#else
-using ::boost::true_type;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_DEFER_LOCK_T
-#undef BOOST_STL11_FUTURE_MAP_NO_DEFER_LOCK_T
-#else
-using defer_lock_t = ::boost::defer_lock_t;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_RVALUE_REFERENCE
-#undef BOOST_STL11_FUTURE_MAP_NO_IS_RVALUE_REFERENCE
-#else
-template<class T> using is_rvalue_reference = ::boost::is_rvalue_reference<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_REMOVE_CV
-#undef BOOST_STL11_FUTURE_MAP_NO_REMOVE_CV
-#else
-template<class T> using remove_cv = ::boost::remove_cv<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_BASE_OF
-#undef BOOST_STL11_FUTURE_MAP_NO_IS_BASE_OF
-#else
-template<class Base, class Derived> using is_base_of = ::boost::is_base_of<Base, Derived>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_DECA
-#undef BOOST_STL11_FUTURE_MAP_NO_DECA
-#else
-using ::boost::deca;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_RATIO_LESS
-#undef BOOST_STL11_FUTURE_MAP_NO_RATIO_LESS
-#else
-template<class R1, class R2> using ratio_less = ::boost::ratio_less<R1, R2>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_SHARED_PTR
-#undef BOOST_STL11_FUTURE_MAP_NO_SHARED_PTR
-#else
-template<class T> using shared_ptr = ::boost::shared_ptr<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_UNDERLYING_TYPE
-#undef BOOST_STL11_FUTURE_MAP_NO_UNDERLYING_TYPE
-#else
-template<class EnumType> using underlying_type = ::boost::underlying_type<EnumType>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_PLACEHOLDER
-#undef BOOST_STL11_FUTURE_MAP_NO_IS_PLACEHOLDER
-#else
-template<class T> using is_placeholder = ::boost::is_placeholder<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_SAME
-#undef BOOST_STL11_FUTURE_MAP_NO_IS_SAME
-#else
-template<class T, class U> using is_same = ::boost::is_same<T, U>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_CONST_POINTER_CAST
-#undef BOOST_STL11_FUTURE_MAP_NO_CONST_POINTER_CAST
-#else
-using ::boost::const_pointer_cast;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_ARITHMETIC
-#undef BOOST_STL11_FUTURE_MAP_NO_IS_ARITHMETIC
-#else
-template<class T> using is_arithmetic = ::boost::is_arithmetic<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_DECAY
-#undef BOOST_STL11_FUTURE_MAP_NO_DECAY
-#else
-template<class T> using decay = ::boost::decay<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_SIZE_T
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_SIZE_T
-#else
-using ::boost::atomic_size_t;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_MILLI
-#undef BOOST_STL11_FUTURE_MAP_NO_MILLI
-#else
-using ::boost::milli;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_UNSIGNED
-#undef BOOST_STL11_FUTURE_MAP_NO_IS_UNSIGNED
-#else
-template<class T> using is_unsigned = ::boost::is_unsigned<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_EXA
-#undef BOOST_STL11_FUTURE_MAP_NO_EXA
-#else
-using ::boost::exa;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_INT_LEAST16_T
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_INT_LEAST16_T
-#else
-using ::boost::atomic_int_least16_t;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_UINT_LEAST8_T
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_UINT_LEAST8_T
-#else
-using ::boost::atomic_uint_least8_t;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_FUNDAMENTAL
-#undef BOOST_STL11_FUTURE_MAP_NO_IS_FUNDAMENTAL
-#else
-template<class T> using is_fundamental = ::boost::is_fundamental<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_BAD_WEAK_PTR
-#undef BOOST_STL11_FUTURE_MAP_NO_BAD_WEAK_PTR
-#else
-using bad_weak_ptr = ::boost::bad_weak_ptr;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_CONDITION_VARIABLE_ANY
-#undef BOOST_STL11_FUTURE_MAP_NO_CONDITION_VARIABLE_ANY
-#else
-using condition_variable_any = ::boost::condition_variable_any;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_ENUM
-#undef BOOST_STL11_FUTURE_MAP_NO_IS_ENUM
-#else
-template<class T> using is_enum = ::boost::is_enum<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_INT_FAST64_T
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_INT_FAST64_T
-#else
-using ::boost::atomic_int_fast64_t;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_REMOVE_VOLATILE
-#undef BOOST_STL11_FUTURE_MAP_NO_REMOVE_VOLATILE
-#else
-template<class T> using remove_volatile = ::boost::remove_volatile<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_FORWARD
-#undef BOOST_STL11_FUTURE_MAP_NO_FORWARD
-#else
-using ::boost::forward;
-#endif
+// end future_category
+// begin atomic_load
 #ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_LOAD
 #undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_LOAD
 #else
 using ::boost::atomic_load;
 #endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_TERA
-#undef BOOST_STL11_FUTURE_MAP_NO_TERA
-#else
-using ::boost::tera;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ITERATOR
-#undef BOOST_STL11_FUTURE_MAP_NO_ITERATOR
-#else
-template<class Category, class T, class Distance, class Pointer, class Reference> using iterator = ::boost::iterator<Category, T, Distance, Pointer, Reference>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_CENTI
-#undef BOOST_STL11_FUTURE_MAP_NO_CENTI
-#else
-using ::boost::centi;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_MOVE_BACKWARD
-#undef BOOST_STL11_FUTURE_MAP_NO_MOVE_BACKWARD
-#else
-using ::boost::move_backward;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_PICO
-#undef BOOST_STL11_FUTURE_MAP_NO_PICO
-#else
-using ::boost::pico;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_PTRDIFF_T
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_PTRDIFF_T
-#else
-using ::boost::atomic_ptrdiff_t;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_KILO
-#undef BOOST_STL11_FUTURE_MAP_NO_KILO
-#else
-using ::boost::kilo;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_CHAR16_T
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_CHAR16_T
-#else
-using ::boost::atomic_char16_t;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_DYNAMIC_POINTER_CAST
-#undef BOOST_STL11_FUTURE_MAP_NO_DYNAMIC_POINTER_CAST
-#else
-using ::boost::dynamic_pointer_cast;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ADD_VOLATILE
-#undef BOOST_STL11_FUTURE_MAP_NO_ADD_VOLATILE
-#else
-template<class T> using add_volatile = ::boost::add_volatile<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_GET_DELETER
-#undef BOOST_STL11_FUTURE_MAP_NO_GET_DELETER
-#else
-using ::boost::get_deleter;
-#endif
+// end atomic_load
+// begin atomic_exchange_explicit
 #ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_EXCHANGE_EXPLICIT
 #undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_EXCHANGE_EXPLICIT
 #else
 using ::boost::atomic_exchange_explicit;
 #endif
+// end atomic_exchange_explicit
+// begin atomic_load_explicit
 #ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_LOAD_EXPLICIT
 #undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_LOAD_EXPLICIT
 #else
 using ::boost::atomic_load_explicit;
 #endif
+// end atomic_load_explicit
+// begin atomic_exchange
 #ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_EXCHANGE
 #undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_EXCHANGE
 #else
 using ::boost::atomic_exchange;
 #endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_MEM_FN
-#undef BOOST_STL11_FUTURE_MAP_NO_MEM_FN
-#else
-using ::boost::mem_fn;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_BIND_EXPRESSION
-#undef BOOST_STL11_FUTURE_MAP_NO_IS_BIND_EXPRESSION
-#else
-template<class T> using is_bind_expression = ::boost::is_bind_expression<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_RECURSIVE_TIMED_MUTEX
-#undef BOOST_STL11_FUTURE_MAP_NO_RECURSIVE_TIMED_MUTEX
-#else
-using recursive_timed_mutex = ::boost::recursive_timed_mutex;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_RATIO_GREATER_EQUAL
-#undef BOOST_STL11_FUTURE_MAP_NO_RATIO_GREATER_EQUAL
-#else
-template<class R1, class R2> using ratio_greater_equal = ::boost::ratio_greater_equal<R1, R2>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATTO
-#undef BOOST_STL11_FUTURE_MAP_NO_ATTO
-#else
-using ::boost::atto;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_FEMTO
-#undef BOOST_STL11_FUTURE_MAP_NO_FEMTO
-#else
-using ::boost::femto;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_NANO
-#undef BOOST_STL11_FUTURE_MAP_NO_NANO
-#else
-using ::boost::nano;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_DECI
-#undef BOOST_STL11_FUTURE_MAP_NO_DECI
-#else
-using ::boost::deci;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_HECTO
-#undef BOOST_STL11_FUTURE_MAP_NO_HECTO
-#else
-using ::boost::hecto;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_MEGA
-#undef BOOST_STL11_FUTURE_MAP_NO_MEGA
-#else
-using ::boost::mega;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_INTPTR_T
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_INTPTR_T
-#else
-using ::boost::atomic_intptr_t;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_GIGA
-#undef BOOST_STL11_FUTURE_MAP_NO_GIGA
-#else
-using ::boost::giga;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_UINT_FAST8_T
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_UINT_FAST8_T
-#else
-using ::boost::atomic_uint_fast8_t;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_COMMON_TYPE
-#undef BOOST_STL11_FUTURE_MAP_NO_COMMON_TYPE
-#else
-template<class... T> using common_type = ::boost::common_type<T...>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_REMOVE_REFERENCE
-#undef BOOST_STL11_FUTURE_MAP_NO_REMOVE_REFERENCE
-#else
-template<class T> using remove_reference = ::boost::remove_reference<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_UNIQUE_LOCK
-#undef BOOST_STL11_FUTURE_MAP_NO_UNIQUE_LOCK
-#else
-template<class Mutex> using unique_lock = ::boost::unique_lock<Mutex>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_LOCK_GUARD
-#undef BOOST_STL11_FUTURE_MAP_NO_LOCK_GUARD
-#else
-template<class Mutex> using lock_guard = ::boost::lock_guard<Mutex>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_UINT_FAST32_T
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_UINT_FAST32_T
-#else
-using ::boost::atomic_uint_fast32_t;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_MUTEX
-#undef BOOST_STL11_FUTURE_MAP_NO_MUTEX
-#else
-using mutex = ::boost::mutex;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_TIMED_MUTEX
-#undef BOOST_STL11_FUTURE_MAP_NO_TIMED_MUTEX
-#else
-using timed_mutex = ::boost::timed_mutex;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_CONDITION_VARIABLE
-#undef BOOST_STL11_FUTURE_MAP_NO_CONDITION_VARIABLE
-#else
-using condition_variable = ::boost::condition_variable;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_RESULT_OF
-#undef BOOST_STL11_FUTURE_MAP_NO_RESULT_OF
-#else
-template<class F> using result_of = ::boost::result_of<F>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_HAS_TRIVIAL_DEFAULT_CONSTRUCTOR
-#undef BOOST_STL11_FUTURE_MAP_NO_HAS_TRIVIAL_DEFAULT_CONSTRUCTOR
-#else
-template<class T> using has_trivial_default_constructor = ::boost::has_trivial_default_constructor<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_POINTER_TRAITS
-#undef BOOST_STL11_FUTURE_MAP_NO_POINTER_TRAITS
-#else
-template<class Ptr> using pointer_traits = ::boost::pointer_traits<Ptr>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_HAS_TRIVIAL_COPY_CONSTRUCTOR
-#undef BOOST_STL11_FUTURE_MAP_NO_HAS_TRIVIAL_COPY_CONSTRUCTOR
-#else
-template<class T> using has_trivial_copy_constructor = ::boost::has_trivial_copy_constructor<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_RATIO
-#undef BOOST_STL11_FUTURE_MAP_NO_RATIO
-#else
-template<boost::intmax_t _0, boost::intmax_t _1> using ratio = ::boost::ratio<_0, _1>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ADDRESSOF
-#undef BOOST_STL11_FUTURE_MAP_NO_ADDRESSOF
-#else
-using ::boost::addressof;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_CHAR
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_CHAR
-#else
-using ::boost::atomic_char;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_CREF
-#undef BOOST_STL11_FUTURE_MAP_NO_CREF
-#else
-using ::boost::cref;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_UINTMAX_T
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_UINTMAX_T
-#else
-using ::boost::atomic_uintmax_t;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_MICRO
-#undef BOOST_STL11_FUTURE_MAP_NO_MICRO
-#else
-using ::boost::micro;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_USHORT
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_USHORT
-#else
-using ::boost::atomic_ushort;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_CONST
-#undef BOOST_STL11_FUTURE_MAP_NO_IS_CONST
-#else
-template<class T> using is_const = ::boost::is_const<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_INTEGRAL_CONSTANT
-#undef BOOST_STL11_FUTURE_MAP_NO_INTEGRAL_CONSTANT
-#else
-template<class T, T _1> using integral_constant = ::boost::integral_constant<T, _1>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_GET
-#undef BOOST_STL11_FUTURE_MAP_NO_GET
-#else
-using ::boost::get;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_TRY_TO_LOCK_T
-#undef BOOST_STL11_FUTURE_MAP_NO_TRY_TO_LOCK_T
-#else
-using try_to_lock_t = ::boost::try_to_lock_t;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_MAKE_MOVE_ITERATOR
-#undef BOOST_STL11_FUTURE_MAP_NO_MAKE_MOVE_ITERATOR
-#else
-using ::boost::make_move_iterator;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_REFERENCE_WRAPPER
-#undef BOOST_STL11_FUTURE_MAP_NO_REFERENCE_WRAPPER
-#else
-template<class T> using reference_wrapper = ::boost::reference_wrapper<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_POINTER
-#undef BOOST_STL11_FUTURE_MAP_NO_IS_POINTER
-#else
-template<class T> using is_pointer = ::boost::is_pointer<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_VOLATILE
-#undef BOOST_STL11_FUTURE_MAP_NO_IS_VOLATILE
-#else
-template<class T> using is_volatile = ::boost::is_volatile<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_REF
-#undef BOOST_STL11_FUTURE_MAP_NO_REF
-#else
-using ::boost::ref;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_MOVE_ITERATOR
-#undef BOOST_STL11_FUTURE_MAP_NO_MOVE_ITERATOR
-#else
-template<class It> using move_iterator = ::boost::move_iterator<It>;
-#endif
+// end atomic_exchange
+// begin atomic_store_explicit
 #ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_STORE_EXPLICIT
 #undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_STORE_EXPLICIT
 #else
 using ::boost::atomic_store_explicit;
 #endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_BIND
-#undef BOOST_STL11_FUTURE_MAP_NO_BIND
-#else
-using ::boost::bind;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_SCHAR
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_SCHAR
-#else
-using ::boost::atomic_schar;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_THREAD
-#undef BOOST_STL11_FUTURE_MAP_NO_THREAD
-#else
-using thread = ::boost::thread;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_RATIO_EQUAL
-#undef BOOST_STL11_FUTURE_MAP_NO_RATIO_EQUAL
-#else
-template<class R1, class R2> using ratio_equal = ::boost::ratio_equal<R1, R2>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_INT_LEAST64_T
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_INT_LEAST64_T
-#else
-using ::boost::atomic_int_least64_t;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_UINT_FAST64_T
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_UINT_FAST64_T
-#else
-using ::boost::atomic_uint_fast64_t;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_DECLVAL
-#undef BOOST_STL11_FUTURE_MAP_NO_DECLVAL
-#else
-using ::boost::declval;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_FLAG
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_FLAG
-#else
-using atomic_flag = ::boost::atomic_flag;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_INTEGRAL
-#undef BOOST_STL11_FUTURE_MAP_NO_IS_INTEGRAL
-#else
-template<class T> using is_integral = ::boost::is_integral<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_THREAD_FENCE
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_THREAD_FENCE
-#else
-using ::boost::atomic_thread_fence;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC
-#else
-template<class T> using atomic = ::boost::atomic<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_SIGNED
-#undef BOOST_STL11_FUTURE_MAP_NO_IS_SIGNED
-#else
-template<class T> using is_signed = ::boost::is_signed<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_UCHAR
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_UCHAR
-#else
-using ::boost::atomic_uchar;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_FLOATING_POINT
-#undef BOOST_STL11_FUTURE_MAP_NO_IS_FLOATING_POINT
-#else
-template<class T> using is_floating_point = ::boost::is_floating_point<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_SHORT
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_SHORT
-#else
-using ::boost::atomic_short;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_UINT
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_UINT
-#else
-using ::boost::atomic_uint;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_INT
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_INT
-#else
-using ::boost::atomic_int;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_RECURSIVE_MUTEX
-#undef BOOST_STL11_FUTURE_MAP_NO_RECURSIVE_MUTEX
-#else
-using recursive_mutex = ::boost::recursive_mutex;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_ULONG
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_ULONG
-#else
-using ::boost::atomic_ulong;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_LONG
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_LONG
-#else
-using ::boost::atomic_long;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_ULLONG
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_ULLONG
-#else
-using ::boost::atomic_ullong;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_LLONG
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_LLONG
-#else
-using ::boost::atomic_llong;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_BOOL
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_BOOL
-#else
-using ::boost::atomic_bool;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_WCHAR_T
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_WCHAR_T
-#else
-using ::boost::atomic_wchar_t;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_INT_LEAST8_T
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_INT_LEAST8_T
-#else
-using ::boost::atomic_int_least8_t;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_FALSE_TYPE
-#undef BOOST_STL11_FUTURE_MAP_NO_FALSE_TYPE
-#else
-using ::boost::false_type;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_INT_LEAST32_T
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_INT_LEAST32_T
-#else
-using ::boost::atomic_int_least32_t;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_UINT_LEAST64_T
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_UINT_LEAST64_T
-#else
-using ::boost::atomic_uint_least64_t;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_INT_FAST8_T
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_INT_FAST8_T
-#else
-using ::boost::atomic_int_fast8_t;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_INT_FAST32_T
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_INT_FAST32_T
-#else
-using ::boost::atomic_int_fast32_t;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_IS_REFERENCE
-#undef BOOST_STL11_FUTURE_MAP_NO_IS_REFERENCE
-#else
-template<class T> using is_reference = ::boost::is_reference<T>;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_INTMAX_T
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_INTMAX_T
-#else
-using ::boost::atomic_intmax_t;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_UINTPTR_T
-#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_UINTPTR_T
-#else
-using ::boost::atomic_uintptr_t;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_CALL_ONCE
-#undef BOOST_STL11_FUTURE_MAP_NO_CALL_ONCE
-#else
-using ::boost::call_once;
-#endif
+// end atomic_store_explicit
+// begin atomic_is_lock_free
 #ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_IS_LOCK_FREE
 #undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_IS_LOCK_FREE
 #else
 using ::boost::atomic_is_lock_free;
 #endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ONCE_FLAG
-#undef BOOST_STL11_FUTURE_MAP_NO_ONCE_FLAG
-#else
-using once_flag = ::boost::once_flag;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_LOCK
-#undef BOOST_STL11_FUTURE_MAP_NO_LOCK
-#else
-using ::boost::lock;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_TRY_LOCK
-#undef BOOST_STL11_FUTURE_MAP_NO_TRY_LOCK
-#else
-using ::boost::try_lock;
-#endif
-#ifdef BOOST_STL11_FUTURE_MAP_NO_ADD_CV
-#undef BOOST_STL11_FUTURE_MAP_NO_ADD_CV
-#else
-template<class T> using add_cv = ::boost::add_cv<T>;
-#endif
+// end atomic_is_lock_free
 BOOST_STL11_FUTURE_MAP_NAMESPACE_END
 #undef BOOST_STL11_FUTURE_MAP_NAMESPACE_BEGIN
 #undef BOOST_STL11_FUTURE_MAP_NAMESPACE_END

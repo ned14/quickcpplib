@@ -25,6 +25,8 @@ clang++ -o genmap genmap.cpp -g -O3 -std=c++11 -I/usr/lib/llvm-3.4/include /usr/
 ./genmap bind/stl11/boost/future BOOST_STL11_FUTURE_MAP_ "boost::([^_][^:]*)" boost/thread.hpp "std::([^_][^:]*)" future
 ./genmap bind/stl11/std/future BOOST_STL11_FUTURE_MAP_ "std::([^_][^:]*)" future "boost::([^_][^:]*)" boost/thread.hpp
 
+./genmap bind/stl11/std/memory BOOST_STL11_MEMORY_MAP_ "std::([^_][^:]*)" memory
+
 ./genmap bind/stl11/boost/mutex BOOST_STL11_MUTEX_MAP_ "boost::([^_][^:]*)" boost/thread.hpp "std::([^_][^:]*)" mutex
 ./genmap bind/stl11/std/mutex BOOST_STL11_MUTEX_MAP_ "std::([^_][^:]*)" mutex "boost::([^_][^:]*)" boost/thread.hpp
 
@@ -55,4 +57,26 @@ CPLUS_INCLUDE_PATH=/home/ned/boost.afio/asio/asio/include ./genmap bind/stl1z/as
 
 ./genmap bind/stl11/boost/type_traits BOOST_STL11_TYPE_TRAITS_MAP_ "boost::([^_][^:]*)" boost/type_traits.hpp "std::([^_][^:]*)" type_traits
 ./genmap bind/stl11/std/type_traits BOOST_STL11_TYPE_TRAITS_MAP_ "std::([^_][^:]*)" type_traits "boost::([^_][^:]*)" boost/type_traits.hpp
+
+# Clean out duplicates
+./clean_duplicates.py bind/stl11/boost/type_traits bind/stl11/boost/atomic bind/stl11/boost/array bind/stl11/boost/chrono bind/stl11/boost/condition_variable bind/stl1z/boost/filesystem bind/stl11/boost/functional bind/stl11/boost/future bind/stl11/boost/mutex bind/stl1z/boost/networking bind/stl11/boost/random bind/stl11/boost/ratio bind/stl11/boost/regex bind/stl11/boost/system_error bind/stl11/boost/thread bind/stl11/boost/tuple
+./clean_duplicates.py bind/stl11/std/type_traits bind/stl11/std/atomic bind/stl11/std/array bind/stl11/std/chrono bind/stl11/std/condition_variable bind/stl1z/std/filesystem bind/stl11/std/functional bind/stl11/std/future bind/stl11/std/mutex bind/stl1z/std/networking bind/stl11/std/random bind/stl11/std/ratio bind/stl11/std/regex bind/stl11/std/system_error bind/stl11/std/thread bind/stl11/std/tuple bind/stl11/std/typeindex
+
+./clean_duplicates.py bind/stl11/std/memory bind/stl11/boost/atomic bind/stl11/boost/array bind/stl11/boost/chrono bind/stl11/boost/condition_variable bind/stl1z/boost/filesystem bind/stl11/boost/functional bind/stl11/boost/future bind/stl11/boost/mutex bind/stl1z/boost/networking bind/stl11/boost/random bind/stl11/boost/ratio bind/stl11/boost/regex bind/stl11/boost/system_error bind/stl11/boost/thread bind/stl11/boost/tuple bind/stl11/boost/type_traits
+./clean_duplicates.py bind/stl11/std/memory bind/stl11/std/atomic bind/stl11/std/array bind/stl11/std/chrono bind/stl11/std/condition_variable bind/stl1z/std/filesystem bind/stl11/std/functional bind/stl11/std/future bind/stl11/std/mutex bind/stl1z/std/networking bind/stl11/std/random bind/stl11/std/ratio bind/stl11/std/regex bind/stl11/std/system_error bind/stl11/std/thread bind/stl11/std/tuple bind/stl11/std/typeindex bind/stl11/std/type_traits
+
+./clean_duplicates.py bind/stl11/boost/atomic bind/stl11/boost/future
+./clean_duplicates.py bind/stl11/std/atomic bind/stl11/std/future
+
+./clean_duplicates.py bind/stl11/boost/condition_variable bind/stl11/boost/future
+./clean_duplicates.py bind/stl11/std/condition_variable bind/stl11/std/future
+
+./clean_duplicates.py bind/stl11/boost/mutex bind/stl11/boost/future bind/stl11/boost/condition_variable
+./clean_duplicates.py bind/stl11/std/mutex bind/stl11/std/future bind/stl11/std/condition_variable
+
+./clean_duplicates.py bind/stl11/boost/ratio bind/stl11/boost/future bind/stl11/boost/mutex bind/stl11/boost/thread
+./clean_duplicates.py bind/stl11/std/ratio bind/stl11/std/future bind/stl11/std/mutex bind/stl11/std/thread
+
+./clean_duplicates.py bind/stl11/boost/thread bind/stl11/boost/future
+./clean_duplicates.py bind/stl11/std/thread bind/stl11/std/future
 

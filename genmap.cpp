@@ -224,11 +224,20 @@ struct map_tu_params
     for(auto &i : out.enums)
     {
       leafname(namespace1, leaf, namespace2, i.first);
+      std::string leafupper(leaf);
+      for(auto &i : leafupper)
+        i=std::toupper(i);
+      s << "// begin " << leaf << std::endl;
+      s << "#ifdef " << macro_prefix << "NO_" << leafupper << std::endl;
+      s << "#undef " << macro_prefix << "NO_" << leafupper << std::endl;
+      s << "#else" << std::endl;
       s << namespace1 << "using ::" << i.first << ((i.second.empty() || namespace2.empty()) ? ";\n" : ";");
       for(auto &v : i.second)
         s << "  using ::" << v << ";\n";
       if(!namespace2.empty())
         s << namespace2 << std::endl;
+      s << "#endif" << std::endl;
+      s << "// end " << leaf << std::endl;
     }
     // Map out each type, template aliased where appropriate
     for(auto &i : out.types)
@@ -239,6 +248,7 @@ struct map_tu_params
         i=std::toupper(i);
       bool isAlias=i.second.first;
       auto &templatepars=i.second.second;
+      s << "// begin " << leaf << std::endl;
       s << "#ifdef " << macro_prefix << "NO_" << leafupper << std::endl;
       s << "#undef " << macro_prefix << "NO_" << leafupper << std::endl;
       s << "#else" << std::endl;
@@ -269,6 +279,7 @@ struct map_tu_params
       }
       s << ";" << namespace2 << std::endl;
       s << "#endif" << std::endl;
+      s << "// end " << leaf << std::endl;
     }
     
     s << macro_prefix << "NAMESPACE_END" << std::endl;
@@ -320,6 +331,10 @@ static void parse_namespace(CXCursor cursor, map_tu_params *p)
           // If the semantic parent is not a namespace, this is an out of class implementation. Skip
           if(clang_getCursorSemanticParent(cursor).kind!=CXCursor_Namespace)
             break;
+          // If the file location doesn't include our path, ignore
+          //CXFile location;
+          //clang_getFileLocation(clang_getCursorLocation(cursor), &location, nullptr, nullptr, nullptr);
+          //auto filepath(to_string(clang_getFileName(location)));
 #if LOGGING
           std::cout << "I see entity " << cursor.kind << " " << p->fullqual(to_string(clang_getCursorDisplayName(cursor))) << " [" << name << "]" << std::endl;
           //std::cout << "*** parent kind = " << parent.kind << " semantic parent kind = " << clang_getCursorSemanticParent(cursor).kind << std::endl;
