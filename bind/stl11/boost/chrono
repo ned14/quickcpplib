@@ -5,48 +5,6 @@
 #include <boost/chrono.hpp>
 BOOST_STL11_CHRONO_MAP_NAMESPACE_BEGIN
 extern const char *boost_bindlib_in;
-// begin milliseconds
-#ifdef BOOST_STL11_CHRONO_MAP_NO_MILLISECONDS
-#undef BOOST_STL11_CHRONO_MAP_NO_MILLISECONDS
-#else
-using ::boost::chrono::milliseconds;
-#endif
-// end milliseconds
-// begin duration_values
-#ifdef BOOST_STL11_CHRONO_MAP_NO_DURATION_VALUES
-#undef BOOST_STL11_CHRONO_MAP_NO_DURATION_VALUES
-#else
-template<class Rep> using duration_values = ::boost::chrono::duration_values<Rep>;
-#endif
-// end duration_values
-// begin seconds
-#ifdef BOOST_STL11_CHRONO_MAP_NO_SECONDS
-#undef BOOST_STL11_CHRONO_MAP_NO_SECONDS
-#else
-using ::boost::chrono::seconds;
-#endif
-// end seconds
-// begin treat_as_floating_point
-#ifdef BOOST_STL11_CHRONO_MAP_NO_TREAT_AS_FLOATING_POINT
-#undef BOOST_STL11_CHRONO_MAP_NO_TREAT_AS_FLOATING_POINT
-#else
-template<class Rep> using treat_as_floating_point = ::boost::chrono::treat_as_floating_point<Rep>;
-#endif
-// end treat_as_floating_point
-// begin microseconds
-#ifdef BOOST_STL11_CHRONO_MAP_NO_MICROSECONDS
-#undef BOOST_STL11_CHRONO_MAP_NO_MICROSECONDS
-#else
-using ::boost::chrono::microseconds;
-#endif
-// end microseconds
-// begin nanoseconds
-#ifdef BOOST_STL11_CHRONO_MAP_NO_NANOSECONDS
-#undef BOOST_STL11_CHRONO_MAP_NO_NANOSECONDS
-#else
-using ::boost::chrono::nanoseconds;
-#endif
-// end nanoseconds
 // begin hours
 #ifdef BOOST_STL11_CHRONO_MAP_NO_HOURS
 #undef BOOST_STL11_CHRONO_MAP_NO_HOURS
@@ -61,6 +19,27 @@ using ::boost::chrono::hours;
 using ::boost::chrono::minutes;
 #endif
 // end minutes
+// begin milliseconds
+#ifdef BOOST_STL11_CHRONO_MAP_NO_MILLISECONDS
+#undef BOOST_STL11_CHRONO_MAP_NO_MILLISECONDS
+#else
+using ::boost::chrono::milliseconds;
+#endif
+// end milliseconds
+// begin seconds
+#ifdef BOOST_STL11_CHRONO_MAP_NO_SECONDS
+#undef BOOST_STL11_CHRONO_MAP_NO_SECONDS
+#else
+using ::boost::chrono::seconds;
+#endif
+// end seconds
+// begin nanoseconds
+#ifdef BOOST_STL11_CHRONO_MAP_NO_NANOSECONDS
+#undef BOOST_STL11_CHRONO_MAP_NO_NANOSECONDS
+#else
+using ::boost::chrono::nanoseconds;
+#endif
+// end nanoseconds
 // begin duration
 #ifdef BOOST_STL11_CHRONO_MAP_NO_DURATION
 #undef BOOST_STL11_CHRONO_MAP_NO_DURATION
@@ -68,6 +47,20 @@ using ::boost::chrono::minutes;
 template<class Rep, class Period> using duration = ::boost::chrono::duration<Rep, Period>;
 #endif
 // end duration
+// begin treat_as_floating_point
+#ifdef BOOST_STL11_CHRONO_MAP_NO_TREAT_AS_FLOATING_POINT
+#undef BOOST_STL11_CHRONO_MAP_NO_TREAT_AS_FLOATING_POINT
+#else
+template<class Rep> using treat_as_floating_point = ::boost::chrono::treat_as_floating_point<Rep>;
+#endif
+// end treat_as_floating_point
+// begin microseconds
+#ifdef BOOST_STL11_CHRONO_MAP_NO_MICROSECONDS
+#undef BOOST_STL11_CHRONO_MAP_NO_MICROSECONDS
+#else
+using ::boost::chrono::microseconds;
+#endif
+// end microseconds
 // begin duration_cast
 #ifdef BOOST_STL11_CHRONO_MAP_NO_DURATION_CAST
 #undef BOOST_STL11_CHRONO_MAP_NO_DURATION_CAST
@@ -96,13 +89,6 @@ using ::boost::chrono::time_point_cast;
 using system_clock = ::boost::chrono::system_clock;
 #endif
 // end system_clock
-// begin steady_clock
-#ifdef BOOST_STL11_CHRONO_MAP_NO_STEADY_CLOCK
-#undef BOOST_STL11_CHRONO_MAP_NO_STEADY_CLOCK
-#else
-using steady_clock = ::boost::chrono::steady_clock;
-#endif
-// end steady_clock
 // begin high_resolution_clock
 #ifdef BOOST_STL11_CHRONO_MAP_NO_HIGH_RESOLUTION_CLOCK
 #undef BOOST_STL11_CHRONO_MAP_NO_HIGH_RESOLUTION_CLOCK
@@ -110,6 +96,20 @@ using steady_clock = ::boost::chrono::steady_clock;
 using ::boost::chrono::high_resolution_clock;
 #endif
 // end high_resolution_clock
+// begin steady_clock
+#ifdef BOOST_STL11_CHRONO_MAP_NO_STEADY_CLOCK
+#undef BOOST_STL11_CHRONO_MAP_NO_STEADY_CLOCK
+#else
+using steady_clock = ::boost::chrono::steady_clock;
+#endif
+// end steady_clock
+// begin duration_values
+#ifdef BOOST_STL11_CHRONO_MAP_NO_DURATION_VALUES
+#undef BOOST_STL11_CHRONO_MAP_NO_DURATION_VALUES
+#else
+template<class Rep> using duration_values = ::boost::chrono::duration_values<Rep>;
+#endif
+// end duration_values
 BOOST_STL11_CHRONO_MAP_NAMESPACE_END
 #undef BOOST_STL11_CHRONO_MAP_NAMESPACE_BEGIN
 #undef BOOST_STL11_CHRONO_MAP_NAMESPACE_END

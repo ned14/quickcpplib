@@ -311,9 +311,14 @@ static void parse_namespace(CXCursor cursor, map_tu_params *p)
       switch(cursor.kind)
       {
         case CXCursor_Namespace:
+        {
           // Recurse
+          auto name(to_string(clang_getCursorSpelling(cursor)));
+          if(name=="detail")
+            break;
           parse_namespace(cursor, p);
           break;
+        }
         case CXCursor_StructDecl:
         case CXCursor_ClassDecl:
         case CXCursor_EnumDecl:
