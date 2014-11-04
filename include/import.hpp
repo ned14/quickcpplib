@@ -66,6 +66,12 @@ DEALINGS IN THE SOFTWARE.
 #define BOOST_LOCAL_BIND_CALL_OVERLOAD_(name, ...) BOOST_LOCAL_BIND_GLUE_(BOOST_LOCAL_BIND_OVERLOAD_MACRO_(name, BOOST_LOCAL_BIND_COUNT_ARGS_MAX8_(__VA_ARGS__)), (__VA_ARGS__))
 
 #define BOOST_LOCAL_BIND_STRINGIZE(a) #a
+#define BOOST_LOCAL_BIND_NAMESPACE_VERSION8(a, b, c, d, e, f, g, h) a ## _ ## b ## _ ## c ## _ ## d ## _ ## e ## _ ## f ## _ ## g ## _ ## h
+#define BOOST_LOCAL_BIND_NAMESPACE_VERSION7(a, b, c, d, e, f, g) a ## _ ## b ## _ ## c ## _ ## d ## _ ## e ## _ ## f ## _ ## g
+#define BOOST_LOCAL_BIND_NAMESPACE_VERSION6(a, b, c, d, e, f) a ## _ ## b ## _ ## c ## _ ## d ## _ ## e ## _ ## f
+#define BOOST_LOCAL_BIND_NAMESPACE_VERSION5(a, b, c, d, e) a ## _ ## b ## _ ## c ## _ ## d ## _ ## e
+#define BOOST_LOCAL_BIND_NAMESPACE_VERSION4(a, b, c, d) a ## _ ## b ## _ ## c ## _ ## d
+#define BOOST_LOCAL_BIND_NAMESPACE_VERSION3(a, b, c) a ## _ ## b ## _ ## c
 #define BOOST_LOCAL_BIND_NAMESPACE_VERSION2(a, b) a ## _ ## b
 #define BOOST_LOCAL_BIND_NAMESPACE_VERSION1(a) a
 #define BOOST_LOCAL_BIND_NAMESPACE_VERSION(...) BOOST_LOCAL_BIND_CALL_OVERLOAD(BOOST_LOCAL_BIND_NAMESPACE_VERSION,__VA_ARGS__)

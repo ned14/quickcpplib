@@ -29,8 +29,8 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef BOOST_STL11_MAP_MACROS_HPP
-#define BOOST_STL11_MAP_MACROS_HPP
+#ifndef BOOST_BINDLIB_BOOST_MACROS_HPP
+#define BOOST_BINDLIB_BOOST_MACROS_HPP
  
 #ifndef BOOST_SMT_PAUSE
 # if defined(_MSC_VER) && _MSC_VER >= 1310 && ( defined(_M_IX86) || defined(_M_X64) )
@@ -113,6 +113,11 @@ extern "C" void _mm_pause();
 #ifndef BOOST_MSVC
 #ifdef _MSC_VER
 #define BOOST_MSVC _MSC_VER
+#endif
+#endif
+#ifndef BOOST_WINDOWS
+#ifdef WIN32
+#define BOOST_WINDOWS 1
 #endif
 #endif
 #ifndef BOOST_GCC
