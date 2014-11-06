@@ -35,6 +35,7 @@ DEALINGS IN THE SOFTWARE.
 #include "../config.hpp"
 #include <mutex>
 #define CATCH_CONFIG_PREFIX_ALL
+#define CATCH_CONFIG_RUNNER
 #include "../../CATCH/single_include/catch.hpp"
 
 #ifndef BOOST_CATCH_ELIDE_SUCCESSES
@@ -49,8 +50,8 @@ namespace boost { namespace unit_test_as_catch {
   }
 } } // namespace
 
-#define BOOST_CATCH_LOCK(stmt) { std::lock_guard<decltype(::boost::unit_test_as_catch::global_lock())> ___g(::boost::unit_test_as_catch::global_lock()); stmt }
-#define BOOST_CATCH_LOCK_IF(p, stmt) if(!(p) || !BOOST_CATCH_ELIDE_SUCCESSES) { std::lock_guard<decltype(::boost::unit_test_as_catch::global_lock())> ___g(::boost::unit_test_as_catch::global_lock()); stmt }
+#define BOOST_CATCH_LOCK(stmt) { std::lock_guard<decltype(::boost::unit_test_as_catch::global_lock())> ___g(::boost::unit_test_as_catch::global_lock()); stmt; }
+#define BOOST_CATCH_LOCK_IF(p, stmt) if(!(p) || !BOOST_CATCH_ELIDE_SUCCESSES) { std::lock_guard<decltype(::boost::unit_test_as_catch::global_lock())> ___g(::boost::unit_test_as_catch::global_lock()); stmt; }
 
 #define BOOST_TEST_MESSAGE(msg) BOOST_CATCH_LOCK(CATCH_INFO(msg))
 #define BOOST_CHECK_MESSAGE(p, msg) BOOST_CATCH_LOCK_IF((p), if(!(p)) CATCH_INFO(msg))
@@ -58,12 +59,21 @@ namespace boost { namespace unit_test_as_catch {
 #define BOOST_CHECK_THROWS(expr)\
 try{\
     expr;\
-}catch(...){BOOST_CATCH_LOCK(CATCH_CHECK_THROWS(throw))}
+    BOOST_CATCH_LOCK(CATCH_CHECK_THROWS(;)) \
+}catch(...){BOOST_CATCH_LOCK_IF(true, CATCH_CHECK_THROWS(throw))}
 #define BOOST_CHECK_NO_THROW(expr)\
 try{\
     expr;\
-}catch(...){BOOST_CATCH_LOCK(CATCH_CHECK_NO_THROW(throw))}
+    BOOST_CATCH_LOCK_IF(true, CATCH_CHECK_NOTHROW(;)) \
+}catch(...){BOOST_CATCH_LOCK(CATCH_CHECK_NOTHROW(throw))}
 
-#define BOOST_AUTO_TEST_CASE(test_name, desc) CATCH_TEST_CASE(test_name, desc)
+#define BOOST_AUTO_TEST_SUITE(name) \
+inline int main( int argc, char* const argv[] ) \
+{ \
+  int result = Catch::Session().run( argc, argv ); \
+  return result; \
+}
+#define BOOST_AUTO_TEST_SUITE_END()
+#define BOOST_AUTO_TEST_CASE(test_name, desc) CATCH_TEST_CASE(#test_name, desc)
 
 #endif
