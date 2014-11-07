@@ -33,6 +33,7 @@ DEALINGS IN THE SOFTWARE.
 #define BOOST_BINDLIB_BOOST_UNIT_TEST_HPP
  
 #include "../config.hpp"
+#include <atomic>
 #include <mutex>
 #define CATCH_CONFIG_PREFIX_ALL
 #define CATCH_CONFIG_RUNNER
@@ -43,10 +44,25 @@ DEALINGS IN THE SOFTWARE.
 #endif
 
 namespace boost { namespace unit_test_as_catch {
-  static std::mutex &global_lock()
+  static std::mutex &__global_lock()
   {
     static std::mutex lock;
     return lock;
+  }
+  static std::mutex &global_lock()
+  {
+    static std::atomic<int> c;
+    while(2!=c.load(std::memory_order_acquire))
+    {
+      int expected=0;
+      if(c.compare_exchange_weak(expected, 1, std::memory_order_acquire, std::memory_order_consume))
+      {
+        __global_lock();
+        c.store(2, std::memory_order_release);
+        break;
+      }
+    }
+    return __global_lock();
   }
 } } // namespace
 
