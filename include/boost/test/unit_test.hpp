@@ -85,7 +85,7 @@ try{\
 }catch(...){BOOST_CATCH_LOCK(CATCH_CHECK_NOTHROW(throw))}
 
 #ifdef _MSC_VER
-# define BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS __declspec(selectany)
+# define BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS inline
 #elif defined __GNUC__
 # define BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS __attribute__((weak))
 #else
