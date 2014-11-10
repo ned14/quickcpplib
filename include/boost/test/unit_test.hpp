@@ -70,6 +70,7 @@ namespace boost { namespace unit_test_as_catch {
 #define BOOST_CATCH_LOCK_IF(p, stmt) if(!(p) || !BOOST_CATCH_ELIDE_SUCCESSES) { std::lock_guard<decltype(::boost::unit_test_as_catch::global_lock())> ___g(::boost::unit_test_as_catch::global_lock()); stmt; }
 
 #define BOOST_TEST_MESSAGE(msg) BOOST_CATCH_LOCK(CATCH_INFO(msg))
+#define BOOST_FAIL(msg) BOOST_CATCH_LOCK(CATCH_FAIL(msg))
 #define BOOST_CHECK_MESSAGE(p, msg) BOOST_CATCH_LOCK_IF((p), if(!(p)) CATCH_INFO(msg))
 #define BOOST_CHECK(expr) BOOST_CATCH_LOCK_IF((expr), CATCH_CHECK(expr))
 #define BOOST_CHECK_THROWS(expr)\
@@ -83,8 +84,16 @@ try{\
     BOOST_CATCH_LOCK_IF(true, CATCH_CHECK_NOTHROW(;)) \
 }catch(...){BOOST_CATCH_LOCK(CATCH_CHECK_NOTHROW(throw))}
 
+#ifdef _MSC_VER
+# define BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS __declspec(selectany)
+#elif defined __GNUC__
+# define BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS __attribute__((weak))
+#else
+# define BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS inline
+#endif
+
 #define BOOST_AUTO_TEST_SUITE(name) \
-inline int main( int argc, char* const argv[] ) \
+BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS int main( int argc, char* const argv[] ) \
 { \
   int result = Catch::Session().run( argc, argv ); \
   return result; \
