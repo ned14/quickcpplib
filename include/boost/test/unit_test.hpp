@@ -84,8 +84,10 @@ try{\
     BOOST_CATCH_LOCK_IF(true, CATCH_CHECK_NOTHROW(;)) \
 }catch(...){BOOST_CATCH_LOCK(CATCH_CHECK_NOTHROW(throw))}
 
-#ifdef _MSC_VER
+#if defined _MSC_VER
 # define BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS inline
+#elif defined __MINGW32__
+# define BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS
 #elif defined __GNUC__
 # define BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS __attribute__((weak))
 #else
