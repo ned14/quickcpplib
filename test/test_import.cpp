@@ -1,5 +1,6 @@
 #include "include/import.hpp"
-# define BOOST_AFIO_V1_STL11_IMPL std
+
+#define BOOST_AFIO_V1_STL11_IMPL std
 #define BOOST_AFIO_V1 (boost), (afio), (BOOST_LOCAL_BIND_NAMESPACE_VERSION(v1, BOOST_AFIO_V1_STL11_IMPL), inline)
 #define BOOST_AFIO_V1_NAMESPACE       BOOST_LOCAL_BIND_NAMESPACE      (BOOST_AFIO_V1)
 #define BOOST_AFIO_V1_NAMESPACE_BEGIN BOOST_LOCAL_BIND_NAMESPACE_BEGIN(BOOST_AFIO_V1)
@@ -9,9 +10,16 @@
 
 BOOST_STL11_ATOMIC_MAP_NAMESPACE_BEGIN
 
-void foo()
+int foo()
 {
-  printf(BOOST_AFIO_V1_NAMESPACE::a);
+  return 1;
 }
 
 BOOST_STL11_ATOMIC_MAP_NAMESPACE_END
+
+extern "C" void printf(const char *, ...);
+int main(void)
+{
+  printf("foo=%d\n", BOOST_AFIO_V1_NAMESPACE::foo());
+  return 0;
+}
