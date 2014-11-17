@@ -36,7 +36,7 @@ DEALINGS IN THE SOFTWARE.
 // VS2010: _MSC_VER=1600
 // VS2012: _MSC_VER=1700
 // VS2013: _MSC_VER=1800
-//   VS14: _MSC_VER=1900
+// VS2015: _MSC_VER=1900
 #ifdef _MSC_VER
 
 #if !defined(__cpp_exceptions) && defined(_CPPUNWIND)
@@ -187,11 +187,11 @@ DEALINGS IN THE SOFTWARE.
 
 
 // C++ 14
-#if !defined(__cpp_binary_literals)
+#if !defined(__cpp_binary_literals) && _MSC_VER >= 1900
 # define __cpp_binary_literals 190000
 #endif
 
-#if !defined(__cpp_contextual_conversions)
+#if !defined(__cpp_contextual_conversions) && _MSC_VER >= 1800
 # define __cpp_contextual_conversions 190000
 #endif
 
@@ -204,14 +204,14 @@ DEALINGS IN THE SOFTWARE.
 #endif
 
 #if !defined(__cpp_digit_separators)
-# define __cpp_digit_separators 190000
+# define __cpp_digit_separators 190000 && _MSC_VER >= 1900
 #endif
 
 #if !defined(__cpp_init_captures)
-# define __cpp_init_captures 190000
+# define __cpp_init_captures 190000 && _MSC_VER >= 1900
 #endif
 
-#if !defined(__cpp_generic_lambdas)
+#if !defined(__cpp_generic_lambdas) && _MSC_VER >= 1900
 # define __cpp_generic_lambdas 190000
 #endif
 

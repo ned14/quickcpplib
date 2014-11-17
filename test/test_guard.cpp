@@ -1,5 +1,3 @@
-#include "include/guard.h"
-
 // Define std::boost::asio ABI
 #define BOOST_AFIO_USE_BOOST_THREAD 0
 #define BOOST_AFIO_USE_BOOST_FILESYSTEM 1
@@ -10,6 +8,8 @@ static int (*abi1)()=BOOST_AFIO_V1_NAMESPACE::foo;
 
 // Should be ignored as second inclusion with same ABI
 #include "test_guard.hpp"
+
+#ifdef __cpp_inline_namespaces
 
 // Define new boost::std::std ABI
 #undef BOOST_AFIO_USE_BOOST_THREAD
@@ -34,14 +34,22 @@ static int (*abi2)()=BOOST_AFIO_V1_NAMESPACE::foo;
 #define ASIO_STANDALONE 1
 #include "test_guard.hpp"
 
+#endif // __cpp_inline_namespaces
+
 static int (*abi3)()=BOOST_AFIO_V1_NAMESPACE::foo;
 
 extern "C" void printf(const char *, ...);
 int main(void)
 {
   printf("std::boost::asio::foo=%p\n", abi1);
+#ifdef __cpp_inline_namespaces
   printf("boost::std::std::foo=%p\n", abi2);
+#endif
   printf("std::boost::asio::foo=%p\n", abi3);
-  printf("result=%d\n", abi1!=abi3 || abi1==abi2 || abi2==abi3);
-  return abi1!=abi3 || abi1==abi2 || abi2==abi3;
+  //printf("result=%d\n", abi1!=abi3 || abi1==abi2 || abi2==abi3);
+  return abi1!=abi3
+#ifdef __cpp_inline_namespaces
+  || abi1==abi2 || abi2==abi3
+#endif
+  ;
 }
