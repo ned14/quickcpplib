@@ -31,5 +31,8 @@ for TEST in test_*.cpp; do
       echo PASS: $TEST
     fi
   fi
+  if [ $FAIL -ne 0 ]; then
+    FAILED=1
+  fi
 done
 exit $FAILED
