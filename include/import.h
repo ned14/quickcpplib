@@ -32,18 +32,11 @@ DEALINGS IN THE SOFTWARE.
 #ifndef BOOST_BINDLIB_IMPORT_HPP
 #define BOOST_BINDLIB_IMPORT_HPP
 
+#include "cpp_feature.h"
+
 #ifndef BOOST_BINDLIB_DISABLE_NAMESPACE_MODIFIERS
-# ifdef __has_feature
-#  if !__has_feature(cxx_inline_namespaces)
-#   define BOOST_BINDLIB_DISABLE_NAMESPACE_MODIFIERS
-#  endif
-# else
-#  if defined(_MSC_VER) && _MSC_VER < 1900 // < VS14
-#   define BOOST_BINDLIB_DISABLE_NAMESPACE_MODIFIERS
-#  endif
-#  if defined(__GNUC__) && (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__) < 40400
-#   define BOOST_BINDLIB_DISABLE_NAMESPACE_MODIFIERS
-#  endif
+# ifndef __cpp_inline_namespaces
+#  define BOOST_BINDLIB_DISABLE_NAMESPACE_MODIFIERS
 # endif
 #endif
 
