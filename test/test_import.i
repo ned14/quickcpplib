@@ -1,4 +1,4 @@
-namespace boost { namespace afio { inline namespace v1_std { inline namespace stl11 {
+namespace boost { namespace afio { inline namespace v1_std_boost_asio { inline namespace stl11 {
 
 int foo()
 {
@@ -10,6 +10,6 @@ int foo()
 extern "C" void printf(const char *, ...);
 int main(void)
 {
-  printf("foo=%d\n", boost :: afio :: v1_std::foo());
+  printf("foo=%d\n", boost :: afio :: v1_std_boost_asio::foo());
   return 0;
 }
