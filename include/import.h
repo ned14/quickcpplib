@@ -145,4 +145,8 @@ DEALINGS IN THE SOFTWARE.
 //! Have the compiler output an error
 #define BOOST_BINDLIB_ERROR(msg) BOOST_BINDLIB_MESSAGE_(GCC error, BOOST_BINDLIB_MESSAGE_PREFIX("error"), msg)
 
+#if defined(BOOST_BINDLIB_DISABLE_NAMESPACE_MODIFIERS) && !defined(BOOST_BINDLIB_SUPPRESS_WARNINGS)
+BOOST_BINDLIB_WARNING("Boost.BindLib: inline namespace support not available or disabled, therefore ABI versioning inhibited")
+#endif
+
 #endif

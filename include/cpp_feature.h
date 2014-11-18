@@ -240,7 +240,7 @@ DEALINGS IN THE SOFTWARE.
 
 #define BOOST_BINDLIB_GCC (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
 
-#if !defined(__cpp_exceptions) && defined(_EXCEPTIONS)
+#if !defined(__cpp_exceptions) && defined(__EXCEPTIONS)
 # define __cpp_exceptions 190000
 #endif
 
