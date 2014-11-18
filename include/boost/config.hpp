@@ -31,6 +31,8 @@ DEALINGS IN THE SOFTWARE.
 
 #ifndef BOOST_BINDLIB_BOOST_MACROS_HPP
 #define BOOST_BINDLIB_BOOST_MACROS_HPP
+
+#include "../cpp_feature.h"
  
 #ifndef BOOST_SMT_PAUSE
 # if defined(_MSC_VER) && _MSC_VER >= 1310 && ( defined(_M_IX86) || defined(_M_X64) )
@@ -43,7 +45,7 @@ extern "C" void _mm_pause();
 #endif
 
 #ifndef BOOST_NOEXCEPT
-# if !defined(_MSC_VER) || _MSC_VER >= 1900
+# ifdef __cpp_noexcept
 #  define BOOST_NOEXCEPT noexcept
 # endif
 #endif
@@ -52,7 +54,7 @@ extern "C" void _mm_pause();
 #endif
 
 #ifndef BOOST_NOEXCEPT_OR_NOTHROW
-# if !defined(_MSC_VER) || _MSC_VER >= 1900
+# ifdef __cpp_noexcept
 #  define BOOST_NOEXCEPT_OR_NOTHROW noexcept
 # endif
 #endif
@@ -61,7 +63,7 @@ extern "C" void _mm_pause();
 #endif
 
 #ifndef BOOST_NOEXCEPT_IF
-# if !defined(_MSC_VER) || _MSC_VER >= 1900
+# ifdef __cpp_noexcept
 #  define BOOST_NOEXCEPT_IF(v) noexcept(v)
 # endif
 #endif
@@ -70,7 +72,7 @@ extern "C" void _mm_pause();
 #endif
 
 #ifndef BOOST_NOEXCEPT_EXPR
-# if !defined(_MSC_VER) || _MSC_VER >= 1900
+# ifdef __cpp_noexcept
 #  define BOOST_NOEXCEPT_EXPR(v) noexcept(v)
 # endif
 #endif
@@ -79,7 +81,7 @@ extern "C" void _mm_pause();
 #endif
 
 #ifndef BOOST_CONSTEXPR
-# if !defined(_MSC_VER) || _MSC_VER >= 2000
+# ifdef __cpp_constexpr
 #  define BOOST_CONSTEXPR constexpr
 # endif
 #endif
@@ -88,7 +90,7 @@ extern "C" void _mm_pause();
 #endif
 
 #ifndef BOOST_CONSTEXPR_OR_CONST
-# if !defined(_MSC_VER) || _MSC_VER >= 1900
+# ifdef __cpp_constexpr
 #  define BOOST_CONSTEXPR_OR_CONST constexpr
 # endif
 #endif

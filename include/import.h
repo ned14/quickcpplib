@@ -47,6 +47,7 @@ DEALINGS IN THE SOFTWARE.
 #include "detail/preprocessor_macro_overload.h"
 
 #define BOOST_BINDLIB_STRINGIZE(a) #a
+#define BOOST_BINDLIB_STRINGIZE2(a) BOOST_BINDLIB_STRINGIZE(a)
 #define BOOST_BINDLIB_NAMESPACE_VERSION8(a, b, c, d, e, f, g, h) a ## _ ## b ## _ ## c ## _ ## d ## _ ## e ## _ ## f ## _ ## g ## _ ## h
 #define BOOST_BINDLIB_NAMESPACE_VERSION7(a, b, c, d, e, f, g) a ## _ ## b ## _ ## c ## _ ## d ## _ ## e ## _ ## f ## _ ## g
 #define BOOST_BINDLIB_NAMESPACE_VERSION6(a, b, c, d, e, f) a ## _ ## b ## _ ## c ## _ ## d ## _ ## e ## _ ## f
@@ -55,6 +56,7 @@ DEALINGS IN THE SOFTWARE.
 #define BOOST_BINDLIB_NAMESPACE_VERSION3(a, b, c) a ## _ ## b ## _ ## c
 #define BOOST_BINDLIB_NAMESPACE_VERSION2(a, b) a ## _ ## b
 #define BOOST_BINDLIB_NAMESPACE_VERSION1(a) a
+//! Concatenates each parameter with _
 #define BOOST_BINDLIB_NAMESPACE_VERSION(...) BOOST_BINDLIB_CALL_OVERLOAD(BOOST_BINDLIB_NAMESPACE_VERSION,__VA_ARGS__)
 
 #ifdef BOOST_BINDLIB_DISABLE_NAMESPACE_MODIFIERS
@@ -76,7 +78,7 @@ DEALINGS IN THE SOFTWARE.
 #define BOOST_BINDLIB_NAMESPACE_EXPAND3(a, b, c) BOOST_BINDLIB_NAMESPACE_SELECT_ a BOOST_BINDLIB_NAMESPACE_SELECT b BOOST_BINDLIB_NAMESPACE_SELECT c
 #define BOOST_BINDLIB_NAMESPACE_EXPAND2(a, b) BOOST_BINDLIB_NAMESPACE_SELECT_ a BOOST_BINDLIB_NAMESPACE_SELECT b
 #define BOOST_BINDLIB_NAMESPACE_EXPAND1(a) BOOST_BINDLIB_NAMESPACE_SELECT_ a
-// Expands into a::b::c:: ...
+//! Expands into a::b::c:: ...
 #define BOOST_BINDLIB_NAMESPACE(...) BOOST_BINDLIB_CALL_OVERLOAD(BOOST_BINDLIB_NAMESPACE_EXPAND,__VA_ARGS__)
 
 #ifdef BOOST_BINDLIB_DISABLE_NAMESPACE_MODIFIERS
@@ -95,7 +97,7 @@ DEALINGS IN THE SOFTWARE.
 #define BOOST_BINDLIB_NAMESPACE_BEGIN_EXPAND2(a, b) BOOST_BINDLIB_NAMESPACE_BEGIN_NAMESPACE_SELECT a BOOST_BINDLIB_NAMESPACE_BEGIN_EXPAND1(b)
 #define BOOST_BINDLIB_NAMESPACE_BEGIN_EXPAND1(a) BOOST_BINDLIB_NAMESPACE_BEGIN_NAMESPACE_SELECT a
 
-// Expands into namespace a { namespace b { namespace c ...
+//! Expands into namespace a { namespace b { namespace c ...
 #define BOOST_BINDLIB_NAMESPACE_BEGIN(...) BOOST_BINDLIB_CALL_OVERLOAD(BOOST_BINDLIB_NAMESPACE_BEGIN_EXPAND,__VA_ARGS__)
 
 #ifdef BOOST_BINDLIB_DISABLE_NAMESPACE_MODIFIERS
@@ -114,14 +116,33 @@ DEALINGS IN THE SOFTWARE.
 #define BOOST_BINDLIB_NAMESPACE_END_EXPAND2(a, b) BOOST_BINDLIB_NAMESPACE_END_NAMESPACE_SELECT a BOOST_BINDLIB_NAMESPACE_END_EXPAND1(b)
 #define BOOST_BINDLIB_NAMESPACE_END_EXPAND1(a) BOOST_BINDLIB_NAMESPACE_END_NAMESPACE_SELECT a
 
-// Expands into } } ...
+//! Expands into } } ...
 #define BOOST_BINDLIB_NAMESPACE_END(...) BOOST_BINDLIB_CALL_OVERLOAD(BOOST_BINDLIB_NAMESPACE_END_EXPAND,__VA_ARGS__)
 
-// Expands into "local-bind-cpp-library/bind/stl11/impl/library"
+//! Expands into "local-bind-cpp-library/bind/stl11/impl/library"
 #define BOOST_BINDLIB_INCLUDE_STL11(prefix, impl, lib) BOOST_BINDLIB_STRINGIZE(prefix/bind/stl11/impl/lib)
 #define BOOST_BINDLIB_INCLUDE_STL1z(prefix, impl, lib) BOOST_BINDLIB_STRINGIZE(prefix/bind/stl1z/impl/lib)
 
-// Expands into
+//! Expands into a static const char string array used to mark BindLib compatible namespaces
 #define BOOST_BINDLIB_DECLARE(decl, desc) static const char *boost_bindlib_out[]={ #decl, desc };
+
+#ifdef _MSC_VER
+# define BOOST_BINDLIB_MESSAGE_PRAGMA2(x) __pragma message(x)
+# define BOOST_BINDLIB_MESSAGE_PRAGMA(x) BOOST_BINDLIB_MESSAGE_PRAGMA2(x)
+# define BOOST_BINDLIB_MESSAGE_PREFIX(type) __FILE__ "(" BOOST_BINDLIB_STRINGIZE2(__LINE__) "): " type ": "
+# define BOOST_BINDLIB_MESSAGE_(type, prefix, msg) BOOST_BINDLIB_MESSAGE_PRAGMA(prefix msg)
+#else
+# define BOOST_BINDLIB_MESSAGE_PRAGMA2(x) _Pragma(#x)
+# define BOOST_BINDLIB_MESSAGE_PRAGMA(type, x) BOOST_BINDLIB_MESSAGE_PRAGMA2(type x)
+# define BOOST_BINDLIB_MESSAGE_(type, prefix, msg) BOOST_BINDLIB_MESSAGE_PRAGMA(type, msg)
+#endif
+//! Have the compiler output a message
+#define BOOST_BINDLIB_MESSAGE(msg) BOOST_BINDLIB_MESSAGE_(message, BOOST_BINDLIB_MESSAGE_PREFIX("message"), msg)
+//! Have the compiler output a note
+#define BOOST_BINDLIB_NOTE(msg) BOOST_BINDLIB_MESSAGE_(message, BOOST_BINDLIB_MESSAGE_PREFIX("note"), msg)
+//! Have the compiler output a warning
+#define BOOST_BINDLIB_WARNING(msg) BOOST_BINDLIB_MESSAGE_(GCC warning, BOOST_BINDLIB_MESSAGE_PREFIX("warning"), msg)
+//! Have the compiler output an error
+#define BOOST_BINDLIB_ERROR(msg) BOOST_BINDLIB_MESSAGE_(GCC error, BOOST_BINDLIB_MESSAGE_PREFIX("error"), msg)
 
 #endif
