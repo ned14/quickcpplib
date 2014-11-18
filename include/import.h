@@ -127,7 +127,7 @@ DEALINGS IN THE SOFTWARE.
 #define BOOST_BINDLIB_DECLARE(decl, desc) static const char *boost_bindlib_out[]={ #decl, desc };
 
 #ifdef _MSC_VER
-# define BOOST_BINDLIB_MESSAGE_PRAGMA2(x) __pragma message(x)
+# define BOOST_BINDLIB_MESSAGE_PRAGMA2(x) __pragma(message(x))
 # define BOOST_BINDLIB_MESSAGE_PRAGMA(x) BOOST_BINDLIB_MESSAGE_PRAGMA2(x)
 # define BOOST_BINDLIB_MESSAGE_PREFIX(type) __FILE__ "(" BOOST_BINDLIB_STRINGIZE2(__LINE__) "): " type ": "
 # define BOOST_BINDLIB_MESSAGE_(type, prefix, msg) BOOST_BINDLIB_MESSAGE_PRAGMA(prefix msg)
