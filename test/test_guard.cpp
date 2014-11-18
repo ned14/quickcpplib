@@ -1,3 +1,4 @@
+
 // Define std::boost::asio ABI
 #define BOOST_AFIO_USE_BOOST_THREAD 0
 #define BOOST_AFIO_USE_BOOST_FILESYSTEM 1
@@ -38,15 +39,17 @@ static int (*abi2)()=BOOST_AFIO_V1_NAMESPACE::foo;
 
 static int (*abi3)()=BOOST_AFIO_V1_NAMESPACE::foo;
 
-extern "C" void printf(const char *, ...);
+//extern "C" void printf(const char *, ...);
 int main(void)
 {
+#if 0
   printf("std::boost::asio::foo=%p\n", abi1);
 #ifdef __cpp_inline_namespaces
   printf("boost::std::std::foo=%p\n", abi2);
 #endif
   printf("std::boost::asio::foo=%p\n", abi3);
   //printf("result=%d\n", abi1!=abi3 || abi1==abi2 || abi2==abi3);
+#endif
   return abi1!=abi3
 #ifdef __cpp_inline_namespaces
   || abi1==abi2 || abi2==abi3

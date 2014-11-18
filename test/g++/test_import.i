@@ -7,9 +7,10 @@ int foo()
 
 } } } }
 
-extern "C" void printf(const char *, ...);
+
 int main(void)
 {
-  printf("foo=%d\n", boost :: afio :: v1_std_boost_asio::foo());
+  boost :: afio :: v1_std_boost_asio::foo();
+
   return 0;
 }

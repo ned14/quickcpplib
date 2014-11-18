@@ -36,14 +36,16 @@ static int (*abi2)()=boost :: afio :: v1_boost_std_boost::foo;
 
 
 
+
+
 static int (*abi3)()=boost :: afio :: v1_std_boost_asio::foo;
 
-extern "C" void printf(const char *, ...);
+
 int main(void)
 {
-  printf("std::boost::asio::foo=%p\n", abi1);
-  printf("boost::std::std::foo=%p\n", abi2);
-  printf("std::boost::asio::foo=%p\n", abi3);
-  printf("result=%d\n", abi1!=abi3 || abi1==abi2 || abi2==abi3);
-  return abi1!=abi3 || abi1==abi2 || abi2==abi3;
+  return abi1!=abi3
+
+  || abi1==abi2 || abi2==abi3
+
+  ;
 }

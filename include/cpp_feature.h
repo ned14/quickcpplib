@@ -1,5 +1,5 @@
 /* has_feature.h
-Provides __has_feature for all C++ compilers
+Provides SG-10 feature checking for all C++ compilers
 (C) 2014 Niall Douglas http://www.nedprod.com/
 File Created: Nov 2014
 
@@ -32,7 +32,6 @@ DEALINGS IN THE SOFTWARE.
 #ifndef BOOST_BINDLIB_HAS_FEATURE_H
 #define BOOST_BINDLIB_HAS_FEATURE_H
 
-// Recent GCCs and clangs already do this, so only care about MSVC
 // VS2010: _MSC_VER=1600
 // VS2012: _MSC_VER=1700
 // VS2013: _MSC_VER=1800
@@ -49,9 +48,9 @@ DEALINGS IN THE SOFTWARE.
 
 
 // C++ 11
-#if !defined(__cpp_access_control_sfinae)
-# define __cpp_access_control_sfinae 190000
-#endif
+//#if !defined(__cpp_access_control_sfinae)
+//# define __cpp_access_control_sfinae 190000
+//#endif
 
 #if !defined(__cpp_alias_templates) && _MSC_VER >= 1800
 # define __cpp_alias_templates 190000
@@ -61,13 +60,13 @@ DEALINGS IN THE SOFTWARE.
 # define __cpp_alignas 190000
 #endif
 
-#if !defined(__cpp_attributes)
-# define __cpp_attributes 190000
-#endif
+//#if !defined(__cpp_attributes)
+//# define __cpp_attributes 190000
+//#endif
 
-#if !defined(__cpp_constexpr)
-# define __cpp_constexpr 190000
-#endif
+//#if !defined(__cpp_constexpr)
+//# define __cpp_constexpr 190000
+//#endif
 
 #if !defined(__cpp_decltype) && _MSC_VER >= 1600
 # define __cpp_decltype 190000
@@ -141,8 +140,8 @@ DEALINGS IN THE SOFTWARE.
 # define __cpp_range_for 190000
 #endif
 
-#if !defined(__cpp_raw_string_literals) && _MSC_VER >= 1800
-# define __cpp_raw_string_literals 190000
+#if !defined(__cpp_raw_strings) && _MSC_VER >= 1800
+# define __cpp_raw_strings 190000
 #endif
 
 #if !defined(__cpp_rvalue_references) && _MSC_VER >= 1600
@@ -169,16 +168,16 @@ DEALINGS IN THE SOFTWARE.
 # define __cpp_trailing_return 190000
 #endif
 
-#if !defined(__cpp_unicode_literals)
-# define __cpp_unicode_literals 190000
-#endif
+//#if !defined(__cpp_unicode_literals)
+//# define __cpp_unicode_literals 190000
+//#endif
 
 #if !defined(__cpp_unrestricted_unions) && _MSC_VER >= 1900
 # define __cpp_unrestricted_unions 190000
 #endif
 
-#if !defined(__cpp_user_literals) && _MSC_VER >= 1900
-# define __cpp_user_literals 190000
+#if !defined(__cpp_user_defined_literals) && _MSC_VER >= 1900
+# define __cpp_user_defined_literals 190000
 #endif
 
 #if !defined(__cpp_variadic_templates) && _MSC_VER >= 1800
@@ -187,9 +186,9 @@ DEALINGS IN THE SOFTWARE.
 
 
 // C++ 14
-#if !defined(__cpp_binary_literals) && _MSC_VER >= 1900
-# define __cpp_binary_literals 190000
-#endif
+//#if !defined(__cpp_binary_literals) && _MSC_VER >= 1900
+//# define __cpp_binary_literals 190000
+//#endif
 
 #if !defined(__cpp_contextual_conversions) && _MSC_VER >= 1800
 # define __cpp_contextual_conversions 190000
@@ -203,34 +202,257 @@ DEALINGS IN THE SOFTWARE.
 # define __cpp_aggregate_nsdmi 190000
 #endif
 
-#if !defined(__cpp_digit_separators)
-# define __cpp_digit_separators 190000 && _MSC_VER >= 1900
+#if !defined(__cpp_digit_separators) && _MSC_VER >= 1900
+# define __cpp_digit_separators 190000
 #endif
 
-#if !defined(__cpp_init_captures)
-# define __cpp_init_captures 190000 && _MSC_VER >= 1900
+#if !defined(__cpp_init_captures) && _MSC_VER >= 1900
+# define __cpp_init_captures 190000
 #endif
 
 #if !defined(__cpp_generic_lambdas) && _MSC_VER >= 1900
 # define __cpp_generic_lambdas 190000
 #endif
 
-#if !defined(__cpp_relaxed_constexpr)
-# define __cpp_relaxed_constexpr 190000
-#endif
+//#if !defined(__cpp_relaxed_constexpr)
+//# define __cpp_relaxed_constexpr 190000
+//#endif
 
 #if !defined(__cpp_return_type_deduction) && _MSC_VER >= 1900
 # define __cpp_return_type_deduction 190000
 #endif
 
-#if !defined(__cpp_runtime_array)
-# define __cpp_runtime_array 190000
-#endif
+//#if !defined(__cpp_runtime_arrays)
+//# define __cpp_runtime_arrays 190000
+//#endif
 
-#if !defined(__cpp_variable_templates)
-# define __cpp_variable_templates 190000
-#endif
+//#if !defined(__cpp_variable_templates)
+//# define __cpp_variable_templates 190000
+//#endif
 
 #endif // _MSC_VER
+
+
+
+
+// Much to my surprise, GCC's support of these is actually incomplete, so fill in the gaps
+#if (defined(__GNUC__) && !defined(__clang__))
+
+#define BOOST_BINDLIB_GCC (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
+
+#if !defined(__cpp_exceptions) && defined(_EXCEPTIONS)
+# define __cpp_exceptions 190000
+#endif
+
+#if !defined(__cpp_rtti) && defined(__GXX_RTTI)
+# define __cpp_rtti 190000
+#endif
+
+
+// C++ 11
+#if !defined(__cpp_access_control_sfinae) && (BOOST_BINDLIB_GCC >= 40400)
+# define __cpp_access_control_sfinae 190000
+#endif
+
+////#if !defined(__cpp_alias_templates)
+////# define __cpp_alias_templates 190000
+////#endif
+
+#if !defined(__cpp_alignas) && (BOOST_BINDLIB_GCC >= 40800)
+# define __cpp_alignas 190000
+#endif
+
+////#if !defined(__cpp_attributes)
+////# define __cpp_attributes 190000
+////#endif
+
+////#if !defined(__cpp_constexpr)
+////# define __cpp_constexpr 190000
+////#endif
+
+////#if !defined(__cpp_decltype)
+////# define __cpp_decltype 190000
+////#endif
+
+#if !defined(__cpp_default_function_template_args) && (BOOST_BINDLIB_GCC >= 40300)
+# define __cpp_default_function_template_args 190000
+#endif
+
+#if !defined(__cpp_defaulted_functions) && (BOOST_BINDLIB_GCC >= 40400)
+# define __cpp_defaulted_functions 190000
+#endif
+
+#if !defined(__cpp_delegating_constructors) && (BOOST_BINDLIB_GCC >= 40700)
+# define __cpp_delegating_constructors 190000
+#endif
+
+#if !defined(__cpp_deleted_functions) && (BOOST_BINDLIB_GCC >= 40400)
+# define __cpp_deleted_functions 190000
+#endif
+
+#if !defined(__cpp_explicit_conversions) && (BOOST_BINDLIB_GCC >= 40500)
+# define __cpp_explicit_conversions 190000
+#endif
+
+#if !defined(__cpp_generalized_initializers) && (BOOST_BINDLIB_GCC >= 40600)
+# define __cpp_generalized_initializers 190000
+#endif
+
+#if !defined(__cpp_implicit_moves) && (BOOST_BINDLIB_GCC >= 40600)
+# define __cpp_implicit_moves 190000
+#endif
+
+#if !defined(__cpp_inheriting_constructors) && (BOOST_BINDLIB_GCC >= 40800)
+# define __cpp_inheriting_constructors 190000
+#endif
+
+#if !defined(__cpp_inline_namespaces) && (BOOST_BINDLIB_GCC >= 40400)
+# define __cpp_inline_namespaces 190000
+#endif
+
+////#if !defined(__cpp_lambdas)
+////# define __cpp_lambdas 190000
+////#endif
+
+#if !defined(__cpp_local_type_template_args) && (BOOST_BINDLIB_GCC >= 40500)
+# define __cpp_local_type_template_args 190000
+#endif
+
+#if !defined(__cpp_noexcept) && (BOOST_BINDLIB_GCC >= 40600)
+# define __cpp_noexcept 190000
+#endif
+
+#if !defined(__cpp_nonstatic_member_init) && (BOOST_BINDLIB_GCC >= 40700)
+# define __cpp_nonstatic_member_init 190000
+#endif
+
+#if !defined(__cpp_nullptr) && (BOOST_BINDLIB_GCC >= 40600)
+# define __cpp_nullptr 190000
+#endif
+
+#if !defined(__cpp_override_control) && (BOOST_BINDLIB_GCC >= 40700)
+# define __cpp_override_control 190000
+#endif
+
+#if !defined(__cpp_reference_qualified_functions) && (BOOST_BINDLIB_GCC >= 40801)
+# define __cpp_reference_qualified_functions 190000
+#endif
+
+#if !defined(__cpp_range_for) && (BOOST_BINDLIB_GCC >= 40600)
+# define __cpp_range_for 190000
+#endif
+
+#if !defined(__cpp_raw_strings) && (BOOST_BINDLIB_GCC >= 40500)
+# define __cpp_raw_strings 190000
+#endif
+
+// __cpp_rvalue_reference deviation
+#if !defined(__cpp_rvalue_references) && defined(__cpp_rvalue_reference)
+# define __cpp_rvalue_references __cpp_rvalue_reference
+#endif
+
+////#if !defined(__cpp_static_assert)
+////# define __cpp_static_assert 190000
+////#endif
+
+#if !defined(__cpp_thread_local) && (BOOST_BINDLIB_GCC >= 40800)
+# define __cpp_thread_local 190000
+#endif
+
+#if !defined(__cpp_auto_type) && (BOOST_BINDLIB_GCC >= 40400)
+# define __cpp_auto_type 190000
+#endif
+
+#if !defined(__cpp_strong_enums) && (BOOST_BINDLIB_GCC >= 40400)
+# define __cpp_strong_enums 190000
+#endif
+
+#if !defined(__cpp_trailing_return) && (BOOST_BINDLIB_GCC >= 40500)
+# define __cpp_trailing_return 190000
+#endif
+
+#if !defined(__cpp_unicode_literals) && (BOOST_BINDLIB_GCC >= 40500)
+# define __cpp_unicode_literals 190000
+#endif
+
+#if !defined(__cpp_unrestricted_unions) && (BOOST_BINDLIB_GCC >= 40600)
+# define __cpp_unrestricted_unions 190000
+#endif
+
+#if !defined(__cpp_user_defined_literals) && (BOOST_BINDLIB_GCC >= 40700)
+# define __cpp_user_defined_literals 190000
+#endif
+
+////#if !defined(__cpp_variadic_templates)
+////# define __cpp_variadic_templates 190000
+////#endif
+
+
+// C++ 14
+////#if !defined(__cpp_binary_literals)
+////# define __cpp_binary_literals 190000
+////#endif
+
+#if !defined(__cpp_contextual_conversions) && (BOOST_BINDLIB_GCC >= 40900)
+# define __cpp_contextual_conversions 190000
+#endif
+
+////#if !defined(__cpp_decltype_auto)
+////# define __cpp_decltype_auto 190000
+////#endif
+
+//#if !defined(__cpp_aggregate_nsdmi)
+//# define __cpp_aggregate_nsdmi 190000
+//#endif
+
+////#if !defined(__cpp_digit_separators)
+////# define __cpp_digit_separators 190000
+////#endif
+
+////#if !defined(__cpp_init_captures)
+////# define __cpp_init_captures 190000
+////#endif
+
+////#if !defined(__cpp_generic_lambdas)
+////# define __cpp_generic_lambdas 190000
+////#endif
+
+//#if !defined(__cpp_relaxed_constexpr)
+//# define __cpp_relaxed_constexpr 190000
+//#endif
+
+//#if !defined(__cpp_return_type_deduction)
+//# define __cpp_return_type_deduction 190000
+//#endif
+
+////#if !defined(__cpp_runtime_arrays)
+////# define __cpp_runtime_arrays 190000
+////#endif
+
+//#if !defined(__cpp_variable_templates)
+//# define __cpp_variable_templates 190000
+//#endif
+
+
+#endif // GCC
+
+
+
+// clang deviates in some places from the present SG-10 draft
+#if defined(__clang__)
+
+#if !defined(__cpp_raw_strings) && defined(__cpp_raw_string_literals)
+# define __cpp_raw_strings __cpp_raw_string_literals
+#endif
+
+#if !defined(__cpp_user_defined_literals) && defined(__cpp_user_literals)
+# define __cpp_user_defined_literals __cpp_user_literals
+#endif
+
+#if !defined(__cpp_runtime_arrays) && defined(__cpp_runtime_array)
+# define __cpp_runtime_arrays __cpp_runtime_array
+#endif
+
+#endif // clang
 
 #endif

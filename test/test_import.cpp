@@ -20,9 +20,10 @@ int foo()
 
 BOOST_STL11_ATOMIC_MAP_NAMESPACE_END
 
-extern "C" void printf(const char *, ...);
+//extern "C" void printf(const char *, ...);
 int main(void)
 {
-  printf("foo=%d\n", BOOST_AFIO_V1_NAMESPACE::foo());
+  BOOST_AFIO_V1_NAMESPACE::foo();
+  //printf("foo=%d\n", BOOST_AFIO_V1_NAMESPACE::foo());
   return 0;
 }

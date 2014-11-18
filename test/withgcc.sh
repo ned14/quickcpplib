@@ -2,6 +2,10 @@
 if [ -z "$CXX" ]; then
   CXX=g++
 fi
+EXTRA=
+if [ "${CXX%++}" = "g" ] || [ "${CXX%++}" = "clang" ]; then
+  EXTRA=-std=c++0x
+fi
 FAILED=0
 mkdir -p build
 if [ -e /usr/bin/python3 ]; then
@@ -12,7 +16,7 @@ for TEST in test_*.cpp; do
   PREPROCESSED=${TEST%.cpp}
   if [ -z "$VISUALSTUDIOVERSION" ] || [ "${VISUALSTUDIOVERSION%.0}" -gt "12" ]; then
     if [ -e "$CXX/$PREPROCESSED.i" ]; then
-      "$CXX" -E -I.. "$TEST" > "build/$PREPROCESSED.it"
+      "$CXX" -E -I.. $EXTRA "$TEST" > "build/$PREPROCESSED.it"
       sed '/^#/d' < "build/$PREPROCESSED.it" > "build/$PREPROCESSED.i"
       DIFF=$(diff "build/$PREPROCESSED.i" "$CXX/$PREPROCESSED.i")
       if [ $? -ne 0 ]; then
@@ -23,7 +27,7 @@ for TEST in test_*.cpp; do
     fi
   fi
   rm -rf "build/$PREPROCESSED"
-  OUTPUT=$($CXX -o "build/$PREPROCESSED" -I.. "$TEST")
+  OUTPUT=$($CXX -o "build/$PREPROCESSED" -I.. $EXTRA "$TEST")
   if [ $? -ne 0 ]; then
     echo ERROR: $TEST did not compile!
     echo "   " $OUTPUT
