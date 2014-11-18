@@ -18,7 +18,7 @@ for TEST in test_*.cpp; do
     if [ -e "$CXX/$PREPROCESSED.i" ]; then
       "$CXX" -E -I.. $EXTRA "$TEST" > "build/$PREPROCESSED.it"
       sed '/^#/d' < "build/$PREPROCESSED.it" > "build/$PREPROCESSED.i"
-      DIFF=$(diff -b "build/$PREPROCESSED.i" "$CXX/$PREPROCESSED.i")
+      DIFF=$(diff -w -B "build/$PREPROCESSED.i" "$CXX/$PREPROCESSED.i")
       if [ $? -ne 0 ]; then
         echo ERROR: $TEST is not producing correct preprocessed output!
         echo "   " $DIFF
