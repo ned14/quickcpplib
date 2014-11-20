@@ -89,6 +89,15 @@ extern "C" void _mm_pause();
 # define BOOST_CONSTEXPR
 #endif
 
+#ifndef BOOST_CXX14_CONSTEXPR
+# ifdef __cpp_relaxed_constexpr
+#  define BOOST_CXX14_CONSTEXPR constexpr
+# endif
+#endif
+#ifndef BOOST_CXX14_CONSTEXPR
+# define BOOST_CXX14_CONSTEXPR
+#endif
+
 #ifndef BOOST_CONSTEXPR_OR_CONST
 # ifdef __cpp_constexpr
 #  define BOOST_CONSTEXPR_OR_CONST constexpr
@@ -145,6 +154,200 @@ extern "C" void _mm_pause();
 
 #ifndef BOOST_STATIC_ASSERT_MSG
 #define BOOST_STATIC_ASSERT_MSG(v, m) static_assert((v), m)
+#endif
+
+// Map SG10 feature macros to Boost ones
+#if !defined(__cpp_exceptions) && !defined(BOOST_NO_EXCEPTIONS)
+# define BOOST_NO_EXCEPTIONS 1
+#endif
+
+#if !defined(__cpp_rtti) && !defined(BOOST_NO_RTTI)
+# define BOOST_NO_RTTI 1
+#endif
+
+
+// C++ 11
+//#if !defined(__cpp_access_control_sfinae)
+//# define __cpp_access_control_sfinae 190000
+//#endif
+
+#if !defined(__cpp_alias_templates) && !defined(BOOST_NO_CXX11_TEMPLATE_ALIASES)
+# define BOOST_NO_CXX11_TEMPLATE_ALIASES 1
+#endif
+
+#if !defined(__cpp_alignas) && !defined(BOOST_NO_CXX11_ALIGNAS)
+# define BOOST_NO_CXX11_ALIGNAS 1
+#endif
+
+//#if !defined(__cpp_attributes)
+//# define __cpp_attributes 190000
+//#endif
+
+#if !defined(__cpp_constexpr) && !defined(BOOST_NO_CXX11_CONSTEXPR)
+# define BOOST_NO_CXX11_CONSTEXPR 1
+#endif
+
+#if !defined(__cpp_decltype) && !defined(BOOST_NO_CXX11_DECLTYPE)
+# define BOOST_NO_CXX11_DECLTYPE 1
+#endif
+
+#if !defined(__cpp_default_function_template_args) && !defined(BOOST_NO_CXX11_FUNCTION_TEMPLATE_DEFAULT_ARGS)
+# define BOOST_NO_CXX11_FUNCTION_TEMPLATE_DEFAULT_ARGS 1
+#endif
+
+#if !defined(__cpp_defaulted_functions) && !defined(BOOST_NO_CXX11_DEFAULTED_FUNCTIONS)
+# define BOOST_NO_CXX11_DEFAULTED_FUNCTIONS 1
+#endif
+
+//#if !defined(__cpp_delegating_constructors)
+//# define __cpp_delegating_constructors 190000
+//#endif
+
+#if !defined(__cpp_deleted_functions) && !defined(BOOST_NO_CXX11_DELETED_FUNCTIONS)
+# define BOOST_NO_CXX11_DELETED_FUNCTIONS 1
+#endif
+
+#if !defined(__cpp_explicit_conversions) && !defined(BOOST_NO_CXX11_EXPLICIT_CONVERSION_OPERATORS)
+# define BOOST_NO_CXX11_EXPLICIT_CONVERSION_OPERATORS 1
+#endif
+
+#if !defined(__cpp_generalized_initializers) && !defined(BOOST_NO_CXX11_UNIFIED_INITIALIZATION_SYNTAX)
+# define BOOST_NO_CXX11_UNIFIED_INITIALIZATION_SYNTAX 1
+#endif
+
+//#if !defined(__cpp_implicit_moves)
+//# define __cpp_implicit_moves 190000
+//#endif
+
+//#if !defined(__cpp_inheriting_constructors)
+//# define __cpp_inheriting_constructors 190000
+//#endif
+
+#if !defined(__cpp_inline_namespaces) && !defined(BOOST_NO_CXX11_INLINE_NAMESPACES)
+# define BOOST_NO_CXX11_INLINE_NAMESPACES 1
+#endif
+
+#if !defined(__cpp_lambdas) && !defined(BOOST_NO_CXX11_LAMBDAS)
+# define BOOST_NO_CXX11_LAMBDAS 1
+#endif
+
+//#if !defined(__cpp_local_type_template_args)
+//# define __cpp_local_type_template_args 190000
+//#endif
+
+#if !defined(__cpp_noexcept) && !defined(BOOST_NO_CXX11_NOEXCEPT)
+# define BOOST_NO_CXX11_NOEXCEPT 1
+#endif
+
+//#if !defined(__cpp_nonstatic_member_init)
+//# define __cpp_nonstatic_member_init 190000
+//#endif
+
+#if !defined(__cpp_nullptr) && !defined(BOOST_NO_CXX11_NULLPTR)
+# define BOOST_NO_CXX11_NULLPTR 1
+#endif
+
+//#if !defined(__cpp_override_control)
+//# define __cpp_override_control 190000
+//#endif
+
+#if !defined(__cpp_reference_qualified_functions) && !defined(BOOST_NO_CXX11_REF_QUALIFIERS)
+# define BOOST_NO_CXX11_REF_QUALIFIERS 1
+#endif
+
+#if !defined(__cpp_range_for) && !defined(BOOST_NO_CXX11_RANGE_BASED_FOR)
+# define BOOST_NO_CXX11_RANGE_BASED_FOR 1
+#endif
+
+#if !defined(__cpp_raw_strings) && !defined(BOOST_NO_CXX11_RAW_LITERALS)
+# define BOOST_NO_CXX11_RAW_LITERALS 1
+#endif
+
+#if !defined(__cpp_rvalue_references) && !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
+# define BOOST_NO_CXX11_RVALUE_REFERENCES 1
+#endif
+
+#if !defined(__cpp_static_assert) && !defined(BOOST_NO_CXX11_STATIC_ASSERT)
+# define BOOST_NO_CXX11_STATIC_ASSERT 1
+#endif
+
+//#if !defined(__cpp_thread_local)
+//# define __cpp_thread_local 190000
+//#endif
+
+#if !defined(__cpp_auto_type) && !defined(BOOST_NO_CXX11_AUTO_DECLARATIONS)
+# define BOOST_NO_CXX11_AUTO_DECLARATIONS 1
+# define BOOST_NO_CXX11_AUTO_MULTIDECLARATIONS 1
+#endif
+
+#if !defined(__cpp_strong_enums) && !defined(BOOST_NO_CXX11_SCOPED_ENUMS)
+# define BOOST_NO_CXX11_SCOPED_ENUMS 1
+#endif
+
+#if !defined(__cpp_trailing_return) && !defined(BOOST_NO_CXX11_TRAILING_RESULT_TYPES)
+# define BOOST_NO_CXX11_TRAILING_RESULT_TYPES 1
+#endif
+
+#if !defined(__cpp_unicode_literals) && !defined(BOOST_NO_CXX11_UNICODE_LITERALS)
+# define BOOST_NO_CXX11_UNICODE_LITERALS 1
+#endif
+
+//#if !defined(__cpp_unrestricted_unions)
+//# define __cpp_unrestricted_unions 190000
+//#endif
+
+#if !defined(__cpp_user_defined_literals) && !defined(BOOST_NO_CXX11_USER_DEFINED_LITERALS)
+# define BOOST_NO_CXX11_USER_DEFINED_LITERALS 1
+#endif
+
+#if !defined(__cpp_variadic_templates) && !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
+# define BOOST_NO_CXX11_VARIADIC_TEMPLATES 1
+#endif
+
+
+// C++ 14
+#if !defined(__cpp_binary_literals) && !defined(BOOST_NO_CXX14_BINARY_LITERALS)
+# define BOOST_NO_CXX14_BINARY_LITERALS 1
+#endif
+
+//#if !defined(__cpp_contextual_conversions)
+//# define __cpp_contextual_conversions 190000
+//#endif
+
+#if !defined(__cpp_decltype_auto) && !defined(BOOST_NO_CXX14_DECLTYPE_AUTO)
+# define BOOST_NO_CXX14_DECLTYPE_AUTO 1
+#endif
+
+#if !defined(__cpp_aggregate_nsdmi) && !defined(BOOST_NO_CXX14_AGGREGATE_NSDMI)
+# define BOOST_NO_CXX14_AGGREGATE_NSDMI 1
+#endif
+
+#if !defined(__cpp_digit_separators) && !defined(BOOST_NO_CXX14_DIGIT_SEPARATORS)
+# define BOOST_NO_CXX14_DIGIT_SEPARATORS 1
+#endif
+
+#if !defined(__cpp_init_captures) && !defined(BOOST_NO_CXX14_INITIALIZED_LAMBDA_CAPTURES)
+# define BOOST_NO_CXX14_INITIALIZED_LAMBDA_CAPTURES 1
+#endif
+
+#if !defined(__cpp_generic_lambdas) && !defined(BOOST_NO_CXX14_GENERIC_LAMBDAS)
+# define BOOST_NO_CXX14_GENERIC_LAMBDAS 1
+#endif
+
+#if !defined(__cpp_relaxed_constexpr) && !defined(BOOST_NO_CXX14_CONSTEXPR)
+# define BOOST_NO_CXX14_CONSTEXPR 1
+#endif
+
+#if !defined(__cpp_return_type_deduction) && !defined(BOOST_NO_CXX14_RETURN_TYPE_DEDUCTION)
+# define BOOST_NO_CXX14_RETURN_TYPE_DEDUCTION 1
+#endif
+
+//#if !defined(__cpp_runtime_arrays)
+//# define __cpp_runtime_arrays 190000
+//#endif
+
+#if !defined(__cpp_variable_templates) && !defined(BOOST_NO_CXX14_VARIABLE_TEMPLATES)
+# define BOOST_NO_CXX14_VARIABLE_TEMPLATES 1
 #endif
 
 #endif
