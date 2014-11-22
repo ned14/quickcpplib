@@ -94,13 +94,19 @@ try{\
 # define BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS inline
 #endif
 
-#define BOOST_AUTO_TEST_SUITE(name) \
-BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS int main( int argc, char* const argv[] ) \
-{ \
-  int result = Catch::Session().run( argc, argv ); \
-  return result; \
+BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS int main( int argc, char* const argv[] )
+{
+  int result = Catch::Session().run( argc, argv );
+  return result;
 }
-#define BOOST_AUTO_TEST_SUITE_END()
-#define BOOST_AUTO_TEST_CASE(test_name, desc) CATCH_TEST_CASE(#test_name, desc)
+
+#define BOOST_AUTO_TEST_SUITE3(a, b) a ## b
+#define BOOST_AUTO_TEST_SUITE2(a, b) BOOST_AUTO_TEST_SUITE3(a, b)
+#define BOOST_AUTO_TEST_SUITE(name) namespace BOOST_AUTO_TEST_SUITE2(boost_catch_auto_test_suite, __COUNTER__) {
+#define BOOST_AUTO_TEST_SUITE_END() }
+#ifndef BOOST_CATCH_AUTO_TEST_CASE_NAME
+#define BOOST_CATCH_AUTO_TEST_CASE_NAME(name) #name
+#endif
+#define BOOST_AUTO_TEST_CASE(test_name, desc) CATCH_TEST_CASE(BOOST_CATCH_AUTO_TEST_CASE_NAME(test_name), desc)
 
 #endif
