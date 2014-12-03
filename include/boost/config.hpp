@@ -68,7 +68,7 @@ extern "C" void _mm_pause();
 # endif
 #endif
 #ifndef BOOST_NOEXCEPT_IF
-# define BOOST_NOEXCEPT_IF
+# define BOOST_NOEXCEPT_IF(v)
 #endif
 
 #ifndef BOOST_NOEXCEPT_EXPR
@@ -77,7 +77,7 @@ extern "C" void _mm_pause();
 # endif
 #endif
 #ifndef BOOST_NOEXCEPT_EXPR
-# define BOOST_NOEXCEPT_EXPR false
+# define BOOST_NOEXCEPT_EXPR(v) false
 #endif
 
 #ifndef BOOST_CONSTEXPR
