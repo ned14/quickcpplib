@@ -39,6 +39,7 @@ DEALINGS IN THE SOFTWARE.
 #define CATCH_CONFIG_RUNNER
 #include "../../CATCH/single_include/catch.hpp"
 
+#define BOOST_CATCH_UNIT_TESTING 1
 #ifndef BOOST_CATCH_ELIDE_SUCCESSES
 # define BOOST_CATCH_ELIDE_SUCCESSES 0
 #endif
@@ -72,17 +73,40 @@ namespace boost { namespace unit_test_as_catch {
 #define BOOST_TEST_MESSAGE(msg) BOOST_CATCH_LOCK(CATCH_INFO(msg))
 #define BOOST_FAIL(msg) BOOST_CATCH_LOCK(CATCH_FAIL(msg))
 #define BOOST_CHECK_MESSAGE(p, msg) BOOST_CATCH_LOCK_IF((p), if(!(p)) CATCH_INFO(msg))
+
 #define BOOST_CHECK(expr) BOOST_CATCH_LOCK_IF((expr), CATCH_CHECK(expr))
 #define BOOST_CHECK_THROWS(expr)\
 try{\
     expr;\
     BOOST_CATCH_LOCK(CATCH_CHECK_THROWS(;)) \
 }catch(...){BOOST_CATCH_LOCK_IF(true, CATCH_CHECK_THROWS(throw))}
+#define BOOST_CHECK_THROW(expr, type)\
+try{\
+    expr;\
+    BOOST_CATCH_LOCK(CATCH_CHECK_THROWS_AS(;, type)) \
+}catch(...){BOOST_CATCH_LOCK_IF(true, CATCH_CHECK_THROWS_AS(throw, type))}
 #define BOOST_CHECK_NO_THROW(expr)\
 try{\
     expr;\
     BOOST_CATCH_LOCK_IF(true, CATCH_CHECK_NOTHROW(;)) \
 }catch(...){BOOST_CATCH_LOCK(CATCH_CHECK_NOTHROW(throw))}
+
+#define BOOST_REQUIRE(expr) BOOST_CATCH_LOCK_IF((expr), CATCH_REQUIRE(expr))
+#define BOOST_REQUIRE_THROWS(expr)\
+try{\
+    expr;\
+    BOOST_CATCH_LOCK(CATCH_REQUIRE_THROWS(;)) \
+}catch(...){BOOST_CATCH_LOCK_IF(true, CATCH_REQUIRE_THROWS(throw))}
+#define BOOST_CHECK_REQUIRE(expr, type)\
+try{\
+    expr;\
+    BOOST_CATCH_LOCK(CATCH_REQUIRE_THROWS_AS(;, type)) \
+}catch(...){BOOST_CATCH_LOCK_IF(true, CATCH_REQUIRE_THROWS_AS(throw, type))}
+#define BOOST_REQUIRE_NO_THROW(expr)\
+try{\
+    expr;\
+    BOOST_CATCH_LOCK_IF(true, CATCH_REQUIRE_NOTHROW(;)) \
+}catch(...){BOOST_CATCH_LOCK(CATCH_REQUIRE_NOTHROW(throw))}
 
 #if defined _MSC_VER
 # define BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS inline
@@ -94,11 +118,13 @@ try{\
 # define BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS inline
 #endif
 
+#ifndef BOOST_CATCH_CUSTOM_MAIN_DEFINED
 BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS int main( int argc, char* const argv[] )
 {
   int result = Catch::Session().run( argc, argv );
   return result;
 }
+#endif
 
 #define BOOST_AUTO_TEST_SUITE3(a, b) a ## b
 #define BOOST_AUTO_TEST_SUITE2(a, b) BOOST_AUTO_TEST_SUITE3(a, b)
