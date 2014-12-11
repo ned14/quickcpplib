@@ -40,9 +40,6 @@ DEALINGS IN THE SOFTWARE.
 #include "../../CATCH/single_include/catch.hpp"
 
 #define BOOST_CATCH_UNIT_TESTING 1
-#ifndef BOOST_CATCH_ELIDE_SUCCESSES
-# define BOOST_CATCH_ELIDE_SUCCESSES 0
-#endif
 
 namespace boost { namespace unit_test_as_catch {
   static std::mutex &__global_lock()
@@ -67,46 +64,103 @@ namespace boost { namespace unit_test_as_catch {
   }
 } } // namespace
 
-#define BOOST_CATCH_LOCK(stmt) { std::lock_guard<decltype(::boost::unit_test_as_catch::global_lock())> ___g(::boost::unit_test_as_catch::global_lock()); stmt; }
-#define BOOST_CATCH_LOCK_IF(p, stmt) if(!(p) || !BOOST_CATCH_ELIDE_SUCCESSES) { std::lock_guard<decltype(::boost::unit_test_as_catch::global_lock())> ___g(::boost::unit_test_as_catch::global_lock()); stmt; }
+#undef INTERNAL_CATCH_TEST
+#define INTERNAL_CATCH_TEST( expr, resultDisposition, macroName ) \
+    { std::lock_guard<decltype(::boost::unit_test_as_catch::global_lock())> ___g(::boost::unit_test_as_catch::global_lock()); \
+    do { \
+        Catch::ResultBuilder __catchResult( macroName, CATCH_INTERNAL_LINEINFO, #expr, resultDisposition ); \
+        try { \
+            ( __catchResult->*expr ).endExpression(); \
+        } \
+        catch( ... ) { \
+            __catchResult.useActiveException( Catch::ResultDisposition::Normal ); \
+        } \
+        INTERNAL_CATCH_REACT( __catchResult ) \
+        } while( Catch::isTrue( false && (expr) ) ); }
 
-#define BOOST_TEST_MESSAGE(msg) BOOST_CATCH_LOCK(CATCH_INFO(msg))
-#define BOOST_FAIL(msg) BOOST_CATCH_LOCK(CATCH_FAIL(msg))
-#define BOOST_CHECK_MESSAGE(p, msg) BOOST_CATCH_LOCK_IF((p), if(!(p)) CATCH_INFO(msg))
+#undef INTERNAL_CATCH_NO_THROW
+#define INTERNAL_CATCH_NO_THROW( expr, resultDisposition, macroName ) \
+    { std::lock_guard<decltype(::boost::unit_test_as_catch::global_lock())> ___g(::boost::unit_test_as_catch::global_lock()); \
+    do { \
+        Catch::ResultBuilder __catchResult( macroName, CATCH_INTERNAL_LINEINFO, #expr, resultDisposition ); \
+        try { \
+            expr; \
+            __catchResult.captureResult( Catch::ResultWas::Ok ); \
+        } \
+        catch( ... ) { \
+            __catchResult.useActiveException( resultDisposition ); \
+        } \
+        INTERNAL_CATCH_REACT( __catchResult ) \
+        } while( Catch::alwaysFalse() ); }
 
-#define BOOST_CHECK(expr) BOOST_CATCH_LOCK_IF((expr), CATCH_CHECK(expr))
-#define BOOST_CHECK_THROWS(expr)\
-try{\
-    expr;\
-    BOOST_CATCH_LOCK(CATCH_CHECK_THROWS(;)) \
-}catch(...){BOOST_CATCH_LOCK_IF(true, CATCH_CHECK_THROWS(throw))}
-#define BOOST_CHECK_THROW(expr, type)\
-try{\
-    expr;\
-    BOOST_CATCH_LOCK(CATCH_CHECK_THROWS_AS(;, type)) \
-}catch(...){BOOST_CATCH_LOCK_IF(true, CATCH_CHECK_THROWS_AS(throw, type))}
-#define BOOST_CHECK_NO_THROW(expr)\
-try{\
-    expr;\
-    BOOST_CATCH_LOCK_IF(true, CATCH_CHECK_NOTHROW(;)) \
-}catch(...){BOOST_CATCH_LOCK(CATCH_CHECK_NOTHROW(throw))}
+#undef INTERNAL_CATCH_THROWS
+#define INTERNAL_CATCH_THROWS( expr, resultDisposition, macroName ) \
+    { std::lock_guard<decltype(::boost::unit_test_as_catch::global_lock())> ___g(::boost::unit_test_as_catch::global_lock()); \
+    do { \
+        Catch::ResultBuilder __catchResult( macroName, CATCH_INTERNAL_LINEINFO, #expr, resultDisposition ); \
+        if( __catchResult.allowThrows() ) \
+            try { \
+                expr; \
+                __catchResult.captureResult( Catch::ResultWas::DidntThrowException ); \
+            } \
+            catch( ... ) { \
+                __catchResult.captureResult( Catch::ResultWas::Ok ); \
+            } \
+                else \
+            __catchResult.captureResult( Catch::ResultWas::Ok ); \
+        INTERNAL_CATCH_REACT( __catchResult ) \
+        } while( Catch::alwaysFalse() ); }
 
-#define BOOST_REQUIRE(expr) BOOST_CATCH_LOCK_IF((expr), CATCH_REQUIRE(expr))
-#define BOOST_REQUIRE_THROWS(expr)\
-try{\
-    expr;\
-    BOOST_CATCH_LOCK(CATCH_REQUIRE_THROWS(;)) \
-}catch(...){BOOST_CATCH_LOCK_IF(true, CATCH_REQUIRE_THROWS(throw))}
-#define BOOST_CHECK_REQUIRE(expr, type)\
-try{\
-    expr;\
-    BOOST_CATCH_LOCK(CATCH_REQUIRE_THROWS_AS(;, type)) \
-}catch(...){BOOST_CATCH_LOCK_IF(true, CATCH_REQUIRE_THROWS_AS(throw, type))}
-#define BOOST_REQUIRE_NO_THROW(expr)\
-try{\
-    expr;\
-    BOOST_CATCH_LOCK_IF(true, CATCH_REQUIRE_NOTHROW(;)) \
-}catch(...){BOOST_CATCH_LOCK(CATCH_REQUIRE_NOTHROW(throw))}
+#undef INTERNAL_CATCH_THROWS_AS
+#define INTERNAL_CATCH_THROWS_AS( expr, exceptionType, resultDisposition, macroName ) \
+    { std::lock_guard<decltype(::boost::unit_test_as_catch::global_lock())> ___g(::boost::unit_test_as_catch::global_lock()); \
+    do { \
+        Catch::ResultBuilder __catchResult( macroName, CATCH_INTERNAL_LINEINFO, #expr, resultDisposition ); \
+        if( __catchResult.allowThrows() ) \
+            try { \
+                expr; \
+                __catchResult.captureResult( Catch::ResultWas::DidntThrowException ); \
+            } \
+            catch( exceptionType ) { \
+                __catchResult.captureResult( Catch::ResultWas::Ok ); \
+            } \
+            catch( ... ) { \
+                __catchResult.useActiveException( resultDisposition ); \
+            } \
+                else \
+            __catchResult.captureResult( Catch::ResultWas::Ok ); \
+        INTERNAL_CATCH_REACT( __catchResult ) \
+        } while( Catch::alwaysFalse() ); }
+
+#undef INTERNAL_CATCH_INFO
+#define INTERNAL_CATCH_INFO( log, macroName ) \
+    { std::lock_guard<decltype(::boost::unit_test_as_catch::global_lock())> ___g(::boost::unit_test_as_catch::global_lock()); \
+    Catch::ScopedMessage INTERNAL_CATCH_UNIQUE_NAME( scopedMessage ) = Catch::MessageBuilder( macroName, CATCH_INTERNAL_LINEINFO, Catch::ResultWas::Info ) << log; }
+
+#undef INTERNAL_CATCH_MSG
+#define INTERNAL_CATCH_MSG( messageType, resultDisposition, macroName, log ) \
+    { std::lock_guard<decltype(::boost::unit_test_as_catch::global_lock())> ___g(::boost::unit_test_as_catch::global_lock()); \
+        do { \
+            Catch::ResultBuilder __catchResult( macroName, CATCH_INTERNAL_LINEINFO, "", resultDisposition ); \
+            __catchResult << log + ::Catch::StreamEndStop(); \
+            __catchResult.captureResult( messageType ); \
+            INTERNAL_CATCH_REACT( __catchResult ) \
+                } while( Catch::alwaysFalse() ); }
+
+
+#define BOOST_TEST_MESSAGE(msg) CATCH_INFO(msg)
+#define BOOST_FAIL(msg) CATCH_FAIL(msg)
+#define BOOST_CHECK_MESSAGE(p, msg) CATCH_INFO(msg)
+
+#define BOOST_CHECK(expr) CATCH_CHECK(expr)
+#define BOOST_CHECK_THROWS(expr) CATCH_CHECK_THROWS(expr)
+#define BOOST_CHECK_THROW(expr, type) CATCH_CHECK_THROWS_AS(expr, type)
+#define BOOST_CHECK_NO_THROW(expr) CATCH_CHECK_NOTHROW(expr)
+
+#define BOOST_REQUIRE(expr) CATCH_REQUIRE(expr)
+#define BOOST_REQUIRE_THROWS(expr) CATCH_REQUIRE_THROWS(expr)
+#define BOOST_CHECK_REQUIRE(expr, type) CATCH_REQUIRE_THROWS_AS(expr, type)
+#define BOOST_REQUIRE_NO_THROW(expr) CATCH_REQUIRE_NOTHROW(expr)
 
 #if defined _MSC_VER
 # define BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS inline
