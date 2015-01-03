@@ -149,6 +149,7 @@ namespace boost { namespace unit_test_as_catch {
 
 
 #define BOOST_TEST_MESSAGE(msg) CATCH_INFO(msg)
+#define BOOST_WARN_MESSAGE(msg) CATCH_WARN(msg)
 #define BOOST_FAIL(msg) CATCH_FAIL(msg)
 #define BOOST_CHECK_MESSAGE(p, msg) CATCH_INFO(msg)
 
