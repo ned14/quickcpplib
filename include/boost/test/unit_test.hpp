@@ -149,9 +149,9 @@ namespace boost { namespace unit_test_as_catch {
 
 
 #define BOOST_TEST_MESSAGE(msg) CATCH_INFO(msg)
-#define BOOST_WARN_MESSAGE(msg) CATCH_WARN(msg)
+#define BOOST_WARN_MESSAGE(pred, msg) if(!(pred)) CATCH_WARN(msg)
 #define BOOST_FAIL(msg) CATCH_FAIL(msg)
-#define BOOST_CHECK_MESSAGE(p, msg) CATCH_INFO(msg)
+#define BOOST_CHECK_MESSAGE(pred, msg) if(!(pred)) CATCH_INFO(msg)
 
 #define BOOST_CHECK(expr) CATCH_CHECK(expr)
 #define BOOST_CHECK_THROWS(expr) CATCH_CHECK_THROWS(expr)
