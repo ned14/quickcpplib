@@ -1,3 +1,4 @@
 [submodule "include/CATCH"]
 	path = include/CATCH
 	url = https://github.com/ned14/Catch.git
+        branch = use-counter-for-testcase
