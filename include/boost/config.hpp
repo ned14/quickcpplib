@@ -107,6 +107,15 @@ extern "C" void _mm_pause();
 # define BOOST_CONSTEXPR_OR_CONST const
 #endif
 
+#ifndef BOOST_STATIC_CONSTEXPR
+# ifdef __cpp_constexpr
+#  define BOOST_STATIC_CONSTEXPR static constexpr
+# endif
+#endif
+#ifndef BOOST_STATIC_CONSTEXPR
+# define BOOST_STATIC_CONSTEXPR static const
+#endif
+
 #ifndef BOOST_FORCEINLINE
 # if defined(_MSC_VER)
 #  define BOOST_FORCEINLINE __forceinline
