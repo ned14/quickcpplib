@@ -67,11 +67,18 @@ DEALINGS IN THE SOFTWARE.
 #endif
 
 #ifndef BOOST_CATCH_CUSTOM_MAIN_DEFINED
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4008)  // inline on main
+#endif
 BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS int main( int argc, char* const argv[] )
 {
   int result = Catch::Session().run( argc, argv );
   return result;
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 #endif
 
 #define BOOST_AUTO_TEST_SUITE3(a, b) a ## b
