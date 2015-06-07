@@ -126,6 +126,46 @@ extern "C" void _mm_pause();
 # endif
 #endif
 
+#ifndef BOOST_NOINLINE
+# if defined(_MSC_VER)
+#  define BOOST_NOINLINE __declspec(noinline)
+# elif defined(__GNUC__)
+#  define BOOST_NOINLINE __attribute__((noinline))
+# else
+#  define BOOST_NOINLINE
+# endif
+#endif
+
+#ifndef BOOST_SYMBOL_VISIBLE
+# if defined(_MSC_VER)
+#  define BOOST_SYMBOL_VISIBLE __declspec(dllexport)
+# elif defined(__GNUC__)
+#  define BOOST_SYMBOL_VISIBLE __attribute__((visibility("default")))
+# else
+#  define BOOST_SYMBOL_VISIBLE
+# endif
+#endif
+
+#ifndef BOOST_SYMBOL_EXPORT
+# if defined(_MSC_VER)
+#  define BOOST_SYMBOL_EXPORT __declspec(dllexport)
+# elif defined(__GNUC__)
+#  define BOOST_SYMBOL_EXPORT __attribute__((visibility("default")))
+# else
+#  define BOOST_SYMBOL_EXPORT
+# endif
+#endif
+
+#ifndef BOOST_SYMBOL_IMPORT
+# if defined(_MSC_VER)
+#  define BOOST_SYMBOL_IMPORT __declspec(dllimport)
+# elif defined(__GNUC__)
+#  define BOOST_SYMBOL_IMPORT
+# else
+#  define BOOST_SYMBOL_IMPORT
+# endif
+#endif
+
 #ifndef BOOST_FOREACH
 #define BOOST_FOREACH(a, b) for(a : b)
 #endif
