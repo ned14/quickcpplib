@@ -138,7 +138,7 @@ extern "C" void _mm_pause();
 
 #ifndef BOOST_SYMBOL_VISIBLE
 # if defined(_MSC_VER)
-#  define BOOST_SYMBOL_VISIBLE __declspec(dllexport)
+#  define BOOST_SYMBOL_VISIBLE
 # elif defined(__GNUC__)
 #  define BOOST_SYMBOL_VISIBLE __attribute__((visibility("default")))
 # else
