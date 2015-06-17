@@ -6,14 +6,20 @@
 import sys, os, re
 
 if len(sys.argv)<2:
-    print("Usage: "+sys.argv[0]+" [-Iincludepath...] header1 [header2...]", file=sys.stderr)
+    print("Usage: "+sys.argv[0]+" [-Iincludepath...] [-Dmacro...] [-Aalwaysinclude...] header1 [header2...]", file=sys.stderr)
     sys.exit(1)
 
 includepaths=[]
 headers=[]
+defines=[]
+alwaysincludes=[]
 for arg in sys.argv[1:]:
     if arg[:2]=="-I":
         includepaths.append(os.path.abspath(arg[2:]))
+    elif arg[:2]=="-D":
+        defines.append(arg[2:])
+    elif arg[:2]=="-A":
+        alwaysincludes.append(arg[2:])
     else:
         headers.append(arg)
 #print(includepaths)
@@ -27,7 +33,7 @@ def find_header(header):
     return None
 
 headers_seen={}
-def parse_header(indent, header_path):
+def parse_header(indent, header_path, alwaysinclude):
     indentstring=" ".ljust(indent)
     currentpath=os.getcwd()
     #print(indentstring+currentpath+": Now parsing "+header_path)
@@ -65,16 +71,34 @@ def parse_header(indent, header_path):
                     sub_header_path=find_header(include)
                     if sub_header_path is not None:
                         fullincludepath=os.path.abspath(sub_header_path)
-                        if fullincludepath not in headers_seen:
+                        _alwaysinclude=alwaysinclude
+                        if not _alwaysinclude:
+                            for name in alwaysincludes:
+                                if name in sub_header_path:
+                                    _alwaysinclude=True
+                                    break
+                        if _alwaysinclude or fullincludepath not in headers_seen:
                             #print(indentstring+"   Not seen header "+fullincludepath+" before, parsing")
                             headers_seen[fullincludepath]=None
-                            parse_header(indent+4, sub_header_path)
+                            parse_header(indent+4, sub_header_path, _alwaysinclude)
+                            print("/* Returning to "+os.path.join(currentpath, header_path)+" */\n")
+                        elif sub_header_path==os.path.basename(header_path):
+                            # "atomic" includes <atomic>
+                            print(line)
+                    else:
+                        print(line)
                 finally:
                     os.chdir(currentpath)
                 continue
             print(line)
     print("/* End "+os.path.join(currentpath, header_path)+" */\n")
 
+print("""/* THIS IS AN AUTOMATICALLY GENERATED FILE, DO NOT EDIT! */""")
+for define in defines:
+    if '=' in define:
+        define=define.replace('=', ' ')
+    print("#define "+define)
 for header in headers:
     header_path=find_header(header)
-    parse_header(0, header_path)
+    parse_header(0, header_path, False)
+print("""/* END OF AUTOMATICALLY GENERATED FILE */\n""")
