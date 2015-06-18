@@ -2,7 +2,11 @@
 #if !defined(BOOST_STL1z_FILESYSTEM_MAP_NAMESPACE_BEGIN) || !defined(BOOST_STL1z_FILESYSTEM_MAP_NAMESPACE_END)
 #error You need to define BOOST_STL1z_FILESYSTEM_MAP_NAMESPACE_BEGIN and BOOST_STL1z_FILESYSTEM_MAP_NAMESPACE_END to use this header file
 #endif
+#ifdef __MSC_VER
 #include <filesystem>
+#else
+#include <experimental/filesystem>
+#endif
 BOOST_STL1z_FILESYSTEM_MAP_NAMESPACE_BEGIN
 extern const char *boost_bindlib_in;
 using ::std::tr2::sys::copy_options;

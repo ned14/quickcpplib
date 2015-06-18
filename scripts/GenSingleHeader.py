@@ -6,13 +6,14 @@
 import sys, os, re
 
 if len(sys.argv)<2:
-    print("Usage: "+sys.argv[0]+" [-Iincludepath...] [-Dmacro...] [-Aalwaysinclude...] header1 [header2...]", file=sys.stderr)
+    print("Usage: "+sys.argv[0]+" [-Iincludepath...] [-Dmacro...] [-Aalwaysinclude...] [-Ealwaysexclude] header1 [header2...]", file=sys.stderr)
     sys.exit(1)
 
 includepaths=[]
 headers=[]
 defines=[]
 alwaysincludes=[]
+alwaysexcludes=[]
 for arg in sys.argv[1:]:
     if arg[:2]=="-I":
         includepaths.append(os.path.abspath(arg[2:]))
@@ -20,6 +21,8 @@ for arg in sys.argv[1:]:
         defines.append(arg[2:])
     elif arg[:2]=="-A":
         alwaysincludes.append(arg[2:])
+    elif arg[:2]=="-E":
+        alwaysexcludes.append(arg[2:])
     else:
         headers.append(arg)
 #print(includepaths)
@@ -61,9 +64,9 @@ def parse_header(indent, header_path, alwaysinclude):
                       is_include=re.match("""\s*#\s*include\s*BOOST_BINDLIB_INCLUDE_STL1z\((.*),.*, (.*)\)""", line)
                       if is_include:
                           if is_include.group(2)=="filesystem":
-                              include=os.path.join(is_include.group(1), "bind/stl1z/std/filesystem")
+                              include=os.path.join(is_include.group(1), "bind/stl1z/boost/filesystem")
                           elif is_include.group(2)=="networking":
-                              include=os.path.join(is_include.group(1), "bind/stl1z/asio/networking")
+                              include=os.path.join(is_include.group(1), "bind/stl1z/boost/networking")
             if include is not None:
                 #print(indentstring+"   Found #include "+is_include.group(1)+" at line "+str(lineno)+" "+line)
                 try:
@@ -77,13 +80,21 @@ def parse_header(indent, header_path, alwaysinclude):
                                 if name in sub_header_path:
                                     _alwaysinclude=True
                                     break
-                        if _alwaysinclude or fullincludepath not in headers_seen:
-                            #print(indentstring+"   Not seen header "+fullincludepath+" before, parsing")
-                            headers_seen[fullincludepath]=None
-                            parse_header(indent+4, sub_header_path, _alwaysinclude)
-                            print("/* Returning to "+os.path.join(currentpath, header_path)+" */\n")
-                        elif sub_header_path==os.path.basename(header_path):
-                            # "atomic" includes <atomic>
+                        for name in alwaysexcludes:
+                            if name in sub_header_path:
+                                _alwaysinclude=None
+                                break
+                        if _alwaysinclude is not None:
+                            if _alwaysinclude or fullincludepath not in headers_seen:
+                                #print(indentstring+"   Not seen header "+fullincludepath+" before, parsing")
+                                headers_seen[fullincludepath]=None
+                                parse_header(indent+4, sub_header_path, _alwaysinclude)
+                                print("/* Returning to "+os.path.join(currentpath, header_path)+" */\n")
+                            elif '<'+include+'>' in line:
+                                # "atomic" having been seen must not preclude including <atomic>
+                                print(line)
+                            # Else don't output the include as we've already output it
+                        else:
                             print(line)
                     else:
                         print(line)
