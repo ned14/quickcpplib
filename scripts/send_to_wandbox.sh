@@ -27,7 +27,7 @@ json_coliru() {
 }
 
 json_wandbox $1 $2 > json_input.json
-curl -v --tr-encoding -F json_file=@json_input.json http://melpon.org/wandbox/api/compile.json
+curl -v -H "Content-type: application/json" -F json_file=@json_input.json http://melpon.org/wandbox/api/compile.json
 #URL=`curl -H "Content-type: application/json" -d "\`json $1 $2\`" http://melpon.org/wandbox/api/compile.json | grep url | awk '{print $3}' | tr -d '"'`
 #json_coliru $1 $2 > json_input.json
 #curl -v --tr-encoding -F json_file=@json_input.json http://coliru.stacked-crooked.com/compile
