@@ -103,9 +103,9 @@ def main():
             'code': strip_comments(open(header).read())
         } for header in headers(directory)],
         'options': 'boost-1.58,c++14,cpp-no-pedantic',
-        'compiler': 'clang-3.6',
+        'compiler': 'gcc-4.9.2',
         'save': True,
-        'compiler-option-raw': '-I.'
+        'compiler-option-raw': ''
     })
 
     if 'status' in response and response['status'] == '0':
