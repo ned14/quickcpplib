@@ -102,13 +102,13 @@ def main():
             'file': os.path.relpath(header, directory),
             'code': strip_comments(open(header).read())
         } for header in headers(directory)],
-        'options': 'warning,c++14',
+        'options': 'boost-1.58,c++14,cpp-no-pedantic',
         'compiler': 'clang-3.6',
         'save': True,
         'compiler-option-raw': '-I.'
     })
 
-    if response['status'] == '0':
+    if 'status' in response and response['status'] == '0':
         print response['url']
         return 0
     else:
