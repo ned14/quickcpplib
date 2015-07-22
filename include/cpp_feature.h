@@ -60,13 +60,13 @@ DEALINGS IN THE SOFTWARE.
 # define __cpp_alignas 190000
 #endif
 
-//#if !defined(__cpp_attributes)
-//# define __cpp_attributes 190000
-//#endif
+#if !defined(__cpp_attributes)
+# define __cpp_attributes 190000
+#endif
 
-//#if !defined(__cpp_constexpr)
-//# define __cpp_constexpr 190000
-//#endif
+#if !defined(__cpp_constexpr)
+# define __cpp_constexpr 190000
+#endif
 
 #if !defined(__cpp_decltype) && _MSC_VER >= 1600
 # define __cpp_decltype 190000
@@ -186,9 +186,9 @@ DEALINGS IN THE SOFTWARE.
 
 
 // C++ 14
-//#if !defined(__cpp_binary_literals) && _MSC_VER >= 1900
-//# define __cpp_binary_literals 190000
-//#endif
+#if !defined(__cpp_binary_literals) && _MSC_VER >= 1900
+# define __cpp_binary_literals 190000
+#endif
 
 #if !defined(__cpp_contextual_conversions) && _MSC_VER >= 1800
 # define __cpp_contextual_conversions 190000
@@ -198,9 +198,9 @@ DEALINGS IN THE SOFTWARE.
 # define __cpp_decltype_auto 190000
 #endif
 
-#if !defined(__cpp_aggregate_nsdmi) && _MSC_VER >= 1800
-# define __cpp_aggregate_nsdmi 190000
-#endif
+//#if !defined(__cpp_aggregate_nsdmi) && _MSC_VER >= 1900
+//# define __cpp_aggregate_nsdmi 190000
+//#endif
 
 #if !defined(__cpp_digit_separators) && _MSC_VER >= 1900
 # define __cpp_digit_separators 190000
