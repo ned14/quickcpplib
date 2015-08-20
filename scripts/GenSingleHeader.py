@@ -51,6 +51,8 @@ def parse_header(indent, header_path, alwaysinclude):
                 continue;
             lastlinewasempty=(len(line)==0)
             include=None
+            _alwaysinclude=alwaysinclude
+            __alwaysinclude=alwaysinclude
             if "include" in line:
                 is_include=re.match("""\s*#\s*include\s*["<](.*)[">]""", line)
                 if is_include is not None:
@@ -59,9 +61,11 @@ def parse_header(indent, header_path, alwaysinclude):
                     # #include BOOST_BINDLIB_INCLUDE_STL11(bindlib, BOOST_AFIO_V1_STL11_IMPL, atomic)
                     is_include=re.match("""\s*#\s*include\s*BOOST_BINDLIB_INCLUDE_STL11\((.*),.*, (.*)\)""", line)
                     if is_include:
-                        include=os.path.join(is_include.group(1), "bind/stl11/std", is_include.group(2))
-                        if include not in alwaysincludes:
-                            alwaysincludes+=include
+                        if is_include.group(2)=="system_error":
+                          include=os.path.join(is_include.group(1), "bind/stl11/boost", is_include.group(2))
+                        else:
+                          include=os.path.join(is_include.group(1), "bind/stl11/std", is_include.group(2))
+                        __alwaysinclude=True
                     else:
                       is_include=re.match("""\s*#\s*include\s*BOOST_BINDLIB_INCLUDE_STL1z\((.*),.*, (.*)\)""", line)
                       if is_include:
@@ -69,8 +73,7 @@ def parse_header(indent, header_path, alwaysinclude):
                               include=os.path.join(is_include.group(1), "bind/stl1z/boost/filesystem")
                           elif is_include.group(2)=="networking":
                               include=os.path.join(is_include.group(1), "bind/stl1z/boost/networking")
-                          if include not in alwaysincludes:
-                              alwaysincludes+=include
+                          __alwaysinclude=True
             if include is not None:
                 #print(indentstring+"   Found #include "+is_include.group(1)+" at line "+str(lineno)+" "+line)
                 try:
@@ -78,7 +81,6 @@ def parse_header(indent, header_path, alwaysinclude):
                     sub_header_path=find_header(include)
                     if sub_header_path is not None:
                         fullincludepath=os.path.abspath(sub_header_path)
-                        _alwaysinclude=alwaysinclude
                         if not _alwaysinclude:
                             for name in alwaysincludes:
                                 if name in sub_header_path:
@@ -89,7 +91,7 @@ def parse_header(indent, header_path, alwaysinclude):
                                 _alwaysinclude=None
                                 break
                         if _alwaysinclude is not None:
-                            if _alwaysinclude or fullincludepath not in headers_seen:
+                            if _alwaysinclude or __alwaysinclude or fullincludepath not in headers_seen:
                                 #print(indentstring+"   Not seen header "+fullincludepath+" before, parsing")
                                 headers_seen[fullincludepath]=None
                                 parse_header(indent+4, sub_header_path, _alwaysinclude)
