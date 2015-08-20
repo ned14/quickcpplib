@@ -60,6 +60,8 @@ def parse_header(indent, header_path, alwaysinclude):
                     is_include=re.match("""\s*#\s*include\s*BOOST_BINDLIB_INCLUDE_STL11\((.*),.*, (.*)\)""", line)
                     if is_include:
                         include=os.path.join(is_include.group(1), "bind/stl11/std", is_include.group(2))
+                        if include not in alwaysincludes:
+                            alwaysincludes+=include
                     else:
                       is_include=re.match("""\s*#\s*include\s*BOOST_BINDLIB_INCLUDE_STL1z\((.*),.*, (.*)\)""", line)
                       if is_include:
@@ -67,6 +69,8 @@ def parse_header(indent, header_path, alwaysinclude):
                               include=os.path.join(is_include.group(1), "bind/stl1z/boost/filesystem")
                           elif is_include.group(2)=="networking":
                               include=os.path.join(is_include.group(1), "bind/stl1z/boost/networking")
+                          if include not in alwaysincludes:
+                              alwaysincludes+=include
             if include is not None:
                 #print(indentstring+"   Found #include "+is_include.group(1)+" at line "+str(lineno)+" "+line)
                 try:
