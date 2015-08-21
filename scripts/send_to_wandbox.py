@@ -102,10 +102,10 @@ def main():
             'file': os.path.relpath(header, directory),
             'code': strip_comments(open(header).read())
         } for header in headers(directory)],
-        'options': 'boost-1.59,c++1z,cpp-no-pedantic',
-        'compiler': 'clang-3.6.0',
+        'options': 'boost-1.59,c++14,cpp-no-pedantic',
+        'compiler': 'gcc-4.9.2',
         'save': True,
-        'compiler-option-raw': ''
+        'compiler-option-raw': '-Wno-deprecated-declarations'
     })
 
     if 'status' in response and response['status'] == '0':
