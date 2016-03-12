@@ -35,9 +35,11 @@ DEALINGS IN THE SOFTWARE.
 #include "../cpp_feature.h"
 
 #ifndef BOOST_SMT_PAUSE
-# if defined(_MSC_VER) && _MSC_VER >= 1310 && ( defined(_M_IX86) || defined(_M_X64) ) && !defined(__clang__)
+#if defined(_MSC_VER) && _MSC_VER >= 1310 && (defined(_M_IX86) || defined(_M_X64))
 extern "C" void _mm_pause();
+#if !defined(__clang__)
 #pragma intrinsic(_mm_pause)
+#endif
 #define BOOST_SMT_PAUSE _mm_pause();
 #elif defined(__GNUC__) && (defined(__i386__) || defined(__x86_64__))
 #define BOOST_SMT_PAUSE __asm__ __volatile__("rep; nop" : : : "memory");
@@ -185,6 +187,22 @@ extern "C" void _mm_pause();
 #define BOOST_GCC (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
 #endif
 #endif
+
+/* This doesn't exist yet in Boost, but this is its likely future name */
+#ifndef BOOST_CXX17_NODISCARD
+#if __cplusplus >= 201701L || (__clang_major__ * 10000 + __clang_minor__ * 100 + __clang_patchlevel__) >= 30900
+#define BOOST_CXX17_NODISCARD [[nodiscard]]
+#elif defined(__clang__) || defined(__GNUC__)
+#define BOOST_CXX17_NODISCARD __attribute__((warn_unused_result))
+#elif defined(_MSC_VER)
+// _Must_inspect_result_ expands into this
+#define BOOST_CXX17_NODISCARD __declspec("SAL_name" "(" "\"_Must_inspect_result_\"" "," "\"\"" "," "\"2\"" ")") __declspec("SAL_begin") __declspec("SAL_post") __declspec("SAL_mustInspect") __declspec("SAL_post") __declspec("SAL_checkReturn")  __declspec("SAL_end")
+#endif
+#endif
+#ifndef BOOST_CXX17_NODISCARD
+#define BOOST_CXX17_NODISCARD
+#endif
+
 
 /* The following are for convenience, but really should be regex find & replace in modern C++ */
 #ifndef BOOST_FWD_REF
