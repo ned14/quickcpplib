@@ -31,7 +31,7 @@ DEALINGS IN THE SOFTWARE.
 
 #ifndef BOOST_BINDLIB_BOOST_UNIT_TEST_HPP
 #define BOOST_BINDLIB_BOOST_UNIT_TEST_HPP
- 
+
 #include "../config.hpp"
 #include <atomic>
 #include <mutex>
@@ -42,9 +42,13 @@ DEALINGS IN THE SOFTWARE.
 #define BOOST_CATCH_UNIT_TESTING 1
 
 #define BOOST_TEST_MESSAGE(msg) CATCH_INFO(msg)
-#define BOOST_WARN_MESSAGE(pred, msg) if(!(pred)) CATCH_WARN(msg)
+#define BOOST_WARN_MESSAGE(pred, msg)                                                                                                                                                                                                                                                                                          \
+  if(!(pred))                                                                                                                                                                                                                                                                                                                  \
+  CATCH_WARN(msg)
 #define BOOST_FAIL(msg) CATCH_FAIL(msg)
-#define BOOST_CHECK_MESSAGE(pred, msg) if(!(pred)) CATCH_INFO(msg)
+#define BOOST_CHECK_MESSAGE(pred, msg)                                                                                                                                                                                                                                                                                         \
+  if(!(pred))                                                                                                                                                                                                                                                                                                                  \
+  CATCH_INFO(msg)
 
 #define BOOST_CHECK(expr) CATCH_CHECK(expr)
 #define BOOST_CHECK_THROWS(expr) CATCH_CHECK_THROWS(expr)
@@ -56,24 +60,26 @@ DEALINGS IN THE SOFTWARE.
 #define BOOST_CHECK_REQUIRE(expr, type) CATCH_REQUIRE_THROWS_AS(expr, type)
 #define BOOST_REQUIRE_NO_THROW(expr) CATCH_REQUIRE_NOTHROW(expr)
 
-#if defined _MSC_VER
-# define BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS inline
+#if defined _MSC_VER && !defined(__clang__)
+#define BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS inline
+#elif defined _MSC_VER && defined(__clang__)
+#define BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS
 #elif defined __MINGW32__
-# define BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS
+#define BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS
 #elif defined __GNUC__
-# define BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS __attribute__((weak))
+#define BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS __attribute__((weak))
 #else
-# define BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS inline
+#define BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS inline
 #endif
 
 #ifndef BOOST_CATCH_CUSTOM_MAIN_DEFINED
 #ifdef _MSC_VER
 #pragma warning(push)
-#pragma warning(disable: 4008)  // inline on main
+#pragma warning(disable : 4008)  // inline on main
 #endif
-BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS int main( int argc, char* const argv[] )
+BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS int main(int argc, char *const argv[])
 {
-  int result = Catch::Session().run( argc, argv );
+  int result = Catch::Session().run(argc, argv);
   return result;
 }
 #ifdef _MSC_VER
@@ -81,9 +87,11 @@ BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS int main( int argc, char* const argv[]
 #endif
 #endif
 
-#define BOOST_AUTO_TEST_SUITE3(a, b) a ## b
+#define BOOST_AUTO_TEST_SUITE3(a, b) a##b
 #define BOOST_AUTO_TEST_SUITE2(a, b) BOOST_AUTO_TEST_SUITE3(a, b)
-#define BOOST_AUTO_TEST_SUITE(name) namespace BOOST_AUTO_TEST_SUITE2(boost_catch_auto_test_suite, __COUNTER__) {
+#define BOOST_AUTO_TEST_SUITE(name)                                                                                                                                                                                                                                                                                            \
+  namespace BOOST_AUTO_TEST_SUITE2(boost_catch_auto_test_suite, __COUNTER__)                                                                                                                                                                                                                                                   \
+  {
 #define BOOST_AUTO_TEST_SUITE_END() }
 #ifndef BOOST_CATCH_AUTO_TEST_CASE_NAME
 #define BOOST_CATCH_AUTO_TEST_CASE_NAME(name) #name
