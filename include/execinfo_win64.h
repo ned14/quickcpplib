@@ -40,9 +40,13 @@ DEALINGS IN THE SOFTWARE.
 #include <stddef.h>
 
 #ifdef BINDLIB_EXPORTS
-#define EXECINFO_DECL __declspec(dllexport)
+#define EXECINFO_DECL extern __declspec(dllexport)
 #else
-#define EXECINFO_DECL __declspec(dllimport)
+#if defined(__cplusplus) && (!defined(BOOST_BINDLIB_HEADERS_ONLY) || BOOST_BINDLIB_HEADERS_ONLY == 1) && !defined(DOXYGEN_SHOULD_SKIP_THIS)
+#define EXECINFO_DECL inline
+#else
+#define EXECINFO_DECL extern __declspec(dllimport)
+#endif
 #endif
 
 #ifdef __cplusplus
@@ -50,15 +54,22 @@ extern "C" {
 #endif
 
 //! Fill the array of void * at bt with up to len entries, returning entries filled.
-extern EXECINFO_DECL _Check_return_ size_t backtrace(_Out_writes_(len) void **bt, _In_ size_t len);
+EXECINFO_DECL _Check_return_ size_t backtrace(_Out_writes_(len) void **bt, _In_ size_t len);
 
 //! Returns a malloced block of string representations of the input backtrace.
-extern EXECINFO_DECL _Check_return_ _Ret_writes_(len) char **backtrace_symbols(_In_reads_(len) void *const *bt, _In_ size_t len);
+EXECINFO_DECL _Check_return_ _Ret_writes_maybenull_(len) char **backtrace_symbols(_In_reads_(len) void *const *bt, _In_ size_t len);
 
 // extern void backtrace_symbols_fd(void *const *bt, size_t len, int fd);
 
 #ifdef __cplusplus
 }
+
+#if(!defined(BOOST_BINDLIB_HEADERS_ONLY) || BOOST_BINDLIB_HEADERS_ONLY == 1) && !defined(DOXYGEN_SHOULD_SKIP_THIS)
+#define BOOST_BINDLIB_INCLUDED_BY_HEADER 1
+#include "../src/execinfo_win64.c"
+#undef BOOST_BINDLIB_INCLUDED_BY_HEADER
+#endif
+
 #endif
 
 #endif

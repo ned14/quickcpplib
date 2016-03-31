@@ -31,131 +31,154 @@ DEALINGS IN THE SOFTWARE.
 
 #include "../include/execinfo_win64.h"
 
+#define NOMINMAX
 #include "windows.h"
+
+#ifdef __cplusplus
+namespace
+{
+#endif
+  typedef struct _IMAGEHLP_LINE64
+  {
+    DWORD SizeOfStruct;
+    PVOID Key;
+    DWORD LineNumber;
+    PTSTR FileName;
+    DWORD64 Address;
+  } IMAGEHLP_LINE64, *PIMAGEHLP_LINE64;
+
+  typedef BOOL(WINAPI *SymInitialize_t)(_In_ HANDLE hProcess, _In_opt_ PCTSTR UserSearchPath, _In_ BOOL fInvadeProcess);
+
+  typedef BOOL(WINAPI *SymGetLineFromAddr64_t)(_In_ HANDLE hProcess, _In_ DWORD64 dwAddr, _Out_ PDWORD pdwDisplacement, _Out_ PIMAGEHLP_LINE64 Line);
+
+  static HMODULE dbghelp;
+  static SymInitialize_t SymInitialize;
+  static SymGetLineFromAddr64_t SymGetLineFromAddr64;
+
+  static void load_dbghelp()
+  {
+    if(dbghelp)
+      return;
+    dbghelp = LoadLibraryA("DBGHELP.DLL");
+    if(dbghelp)
+    {
+      if(!(SymInitialize = (SymInitialize_t) GetProcAddress(dbghelp, "SymInitializeW")))
+        abort();
+      if(!SymInitialize(GetCurrentProcess(), NULL, TRUE))
+        abort();
+      if(!(SymGetLineFromAddr64 = (SymGetLineFromAddr64_t) GetProcAddress(dbghelp, "SymGetLineFromAddrW64")))
+        abort();
+    }
+  }
+
+#ifdef __cplusplus
+}
+#endif
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-extern _Check_return_ size_t backtrace(_Out_writes_(len) void **bt, _In_ size_t len)
+_Check_return_ size_t backtrace(_Out_writes_(len) void **bt, _In_ size_t len)
 {
-  return RtlCaptureStackBackTrace(1, (DWORD) len, (PVOID) bt, NULL);
+  return RtlCaptureStackBackTrace(1, (DWORD) len, bt, NULL);
 }
 
-typedef struct _IMAGEHLP_LINE64
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable : 6385 6386)  // MSVC static analyser can't grok this function. clang's analyser gives it thumbs up.
+#endif
+_Check_return_ _Ret_writes_maybenull_(len) char **backtrace_symbols(_In_reads_(len) void *const *bt, _In_ size_t len)
 {
-  DWORD SizeOfStruct;
-  PVOID Key;
-  DWORD LineNumber;
-  PTSTR FileName;
-  DWORD64 Address;
-} IMAGEHLP_LINE64, *PIMAGEHLP_LINE64;
-
-typedef BOOL(WINAPI *SymInitialize_t)(_In_ HANDLE hProcess, _In_opt_ PCTSTR UserSearchPath, _In_ BOOL fInvadeProcess);
-
-typedef BOOL(WINAPI *SymGetLineFromAddr64_t)(_In_ HANDLE hProcess, _In_ DWORD64 dwAddr, _Out_ PDWORD pdwDisplacement, _Out_ PIMAGEHLP_LINE64 Line);
-
-static HMODULE dbghelp;
-static SymInitialize_t SymInitialize;
-static SymGetLineFromAddr64_t SymGetLineFromAddr64;
-
-static void load_dbghelp()
-{
-  if(dbghelp)
-    return;
-  dbghelp = LoadLibraryA("DBGHELP.DLL");
-  if(dbghelp)
-  {
-    if(!(SymInitialize = (SymInitialize_t) GetProcAddress(dbghelp, "SymInitializeW")))
-      abort();
-    if(!SymInitialize(GetCurrentProcess(), NULL, TRUE))
-      abort();
-    if(!(SymGetLineFromAddr64 = (SymGetLineFromAddr64_t) GetProcAddress(dbghelp, "SymGetLineFromAddrW64")))
-      abort();
-  }
-}
-
-extern _Check_return_ _Ret_writes_(len) char **backtrace_symbols(_In_reads_(len) void *const *bt, _In_ size_t len)
-{
-  size_t bytes = len * sizeof(void *) + 256, n;
-  char **ret = malloc(bytes);
-  char *p = (char *) (ret + len), *end = (char *) ret + bytes;
-  if(!ret)
+  size_t bytes = (len + 1) * sizeof(void *) + 256, n;
+  if(!len)
     return NULL;
-  load_dbghelp();
-  for(n = 0; n < len; n++)
+  else
   {
-    DWORD displ;
-    IMAGEHLP_LINE64 ihl = {sizeof(IMAGEHLP_LINE64)};
-    int please_realloc = 0;
-    if(!bt[n])
-    {
+    char **ret = (char **) malloc(bytes);
+    char *p = (char *) (ret + len + 1), *end = (char *) ret + bytes;
+    if(!ret)
+      return NULL;
+    for(n = 0; n < len + 1; n++)
       ret[n] = NULL;
-    }
-    else
+    load_dbghelp();
+    for(n = 0; n < len; n++)
     {
-      // Keep offset till later
-      ret[n] = (char *) ((char *) p - (char *) ret);
-      if(SymGetLineFromAddr64 && SymGetLineFromAddr64(GetCurrentProcess(), (size_t) bt[n], &displ, &ihl))
+      DWORD displ;
+      IMAGEHLP_LINE64 ihl = {sizeof(IMAGEHLP_LINE64)};
+      int please_realloc = 0;
+      if(!bt[n])
       {
-      retry:
-        if(please_realloc)
+        ret[n] = NULL;
+      }
+      else
+      {
+        // Keep offset till later
+        ret[n] = (char *) ((char *) p - (char *) ret);
+        if(SymGetLineFromAddr64 && SymGetLineFromAddr64(GetCurrentProcess(), (size_t) bt[n], &displ, &ihl))
         {
-          char **temp = (char **) realloc(ret, bytes + 256);
-          if(!temp)
+        retry:
+          if(please_realloc)
           {
-            free(ret);
-            return NULL;
+            char **temp = (char **) realloc(ret, bytes + 256);
+            if(!temp)
+            {
+              free(ret);
+              return NULL;
+            }
+            p = (char *) temp + (p - (char *) ret);
+            ret = temp;
+            bytes += 256;
+            end = (char *) ret + bytes;
           }
-          p = (char *) temp + (p - (char *) ret);
-          ret = temp;
-          bytes += 256;
-          end = (char *) ret + bytes;
-        }
-        if(ihl.FileName && ihl.FileName[0])
-        {
-          int plen = WideCharToMultiByte(CP_UTF8, 0, ihl.FileName, -1, p, (int) (end - p), NULL, NULL);
-          if(!plen)
+          if(ihl.FileName && ihl.FileName[0])
           {
-            please_realloc = 1;
-            goto retry;
+            int plen = WideCharToMultiByte(CP_UTF8, 0, ihl.FileName, -1, p, (int) (end - p), NULL, NULL);
+            if(!plen)
+            {
+              please_realloc = 1;
+              goto retry;
+            }
+            p[plen - 1] = 0;
+            p += plen - 1;
           }
-          p[plen - 1] = 0;
-          p += plen - 1;
-        }
-        else
-        {
+          else
+          {
+            if(end - p < 16)
+            {
+              please_realloc = 1;
+              goto retry;
+            }
+            _ui64toa_s((size_t) bt[n], p, end - p, 16);
+            p = strchr(p, 0);
+          }
           if(end - p < 16)
           {
             please_realloc = 1;
             goto retry;
           }
-          _ui64toa_s((size_t) bt[n], p, end - p, 16);
-          p = strchr(p, 0);
+          *p++ = ':';
+          _itoa_s(ihl.LineNumber, p, end - p, 10);
+          p = strchr(p, 0) + 1;
         }
-        if(end - p < 16)
+        else
         {
-          please_realloc = 1;
-          goto retry;
+          free(ret);
+          return NULL;
         }
-        *p++ = ':';
-        _itoa_s(ihl.LineNumber, p, end - p, 10);
-        p = strchr(p, 0) + 1;
-      }
-      else
-      {
-        free(ret);
-        return NULL;
       }
     }
+    for(n = 0; n < len; n++)
+    {
+      if(ret[n])
+        ret[n] = (char *) ret + (size_t) ret[n];
+    }
+    return ret;
   }
-  for(n = 0; n < len; n++)
-  {
-    if(ret[n])
-      ret[n] = (char *) ret + (size_t) ret[n];
-  }
-  return ret;
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 // extern void backtrace_symbols_fd(void *const *bt, size_t len, int fd);
 

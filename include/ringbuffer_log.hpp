@@ -46,6 +46,11 @@ DEALINGS IN THE SOFTWARE.
 #define BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES_DEBUG
 #endif
 
+// If I'm on winclang, I can't stop the deprecation warnings from MSVCRT unless I do this
+#if defined(_MSC_VER) && defined(__clang__)
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#endif
+
 #include "cpp_feature.h"
 
 #include <array>
@@ -131,16 +136,20 @@ namespace ringbuffer_log
         strncpy(message, _message, sizeof(message));
         if(_function)
         {
-          strncpy(function, _function, sizeof(function));
-          char temp[32], *e = function;
-          for(size_t n = 0; n < sizeof(function) && *e != 0; n++, e++)
-            ;
-          _ultoa_s(lineno, temp, 10);
-          ptrdiff_t len = strlen(temp);
-          if(function + sizeof(function) - e >= len + 2)
+          if(_function[0])
           {
-            *e++ = ':';
-            memcpy(e, temp, len);
+            strncpy(function, _function, sizeof(function));
+            char temp[32], *e = function;
+            for(size_t n = 0; n < sizeof(function) && *e != 0; n++, e++)
+              ;
+            _ultoa_s(lineno, temp, 10);
+            temp[31] = 0;
+            ptrdiff_t len = strlen(temp);
+            if(function + sizeof(function) - e >= len + 2)
+            {
+              *e++ = ':';
+              memcpy(e, temp, len);
+            }
           }
         }
         else
@@ -148,7 +157,7 @@ namespace ringbuffer_log
           constexpr size_t items = 1 + sizeof(backtrace) / sizeof(backtrace[0]);
           void *temp[items];
           memset(temp, 0, sizeof(temp));
-          size_t len = ::backtrace(temp, items);
+          (void) ::backtrace(temp, items);
           memcpy(backtrace, temp + 1, sizeof(backtrace));
         }
 #ifdef _MSC_VER
@@ -169,7 +178,7 @@ namespace ringbuffer_log
     using container_type = std::array<value_type, max_items>;
   };
   //! std::ostream writer for simple_ringbuffer_log_policy's value_type
-  template <size_t Bytes = BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES * 256> std::ostream &operator<<(std::ostream &s, const typename simple_ringbuffer_log_policy<Bytes>::value_type &v)
+  template <size_t Bytes = BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES * 256> inline std::ostream &operator<<(std::ostream &s, const typename simple_ringbuffer_log_policy<Bytes>::value_type &v)
   {
     s << "+" << std::setfill('0') << std::setw(16) << v.timestamp << " " << std::setfill(' ') << std::setw(1);
     switch(v.level)
@@ -498,7 +507,7 @@ namespace ringbuffer_log
       size_type size = counter;
       if(_store.size() < size)
         size = _store.size();
-      return id < counter && id >= counter - size;
+      return id.value < counter && id.value >= counter - size;
     }
 
     //! Returns the front of the ringbuffer. Be careful of races with concurrent modifies.
@@ -517,7 +526,7 @@ namespace ringbuffer_log
     {
       if(!valid(id))
         throw std::out_of_range();
-      return _store[counter_to_idx(id)];
+      return _store[counter_to_idx(id.value)];
     }
     //! Returns a reference to the specified element. Be careful of races with concurrent modifies.
     const_reference at(size_type pos) const
@@ -531,12 +540,16 @@ namespace ringbuffer_log
     {
       if(!valid(id))
         throw std::out_of_range();
-      return _store[counter_to_idx(id)];
+      return _store[counter_to_idx(id.value)];
     }
     //! Returns a reference to the specified element. Be careful of races with concurrent modifies.
     reference operator[](size_type pos) noexcept { return _store[counter_to_idx(_counter.load(std::memory_order_relaxed) - 1 - pos)]; }
+    //! Returns a reference to the specified element.
+    reference operator[](unique_id id) noexcept { return _store[counter_to_idx(id.value)]; }
     //! Returns a reference to the specified element. Be careful of races with concurrent modifies.
     const_reference operator[](size_type pos) const noexcept { return _store[counter_to_idx(_counter.load(std::memory_order_relaxed) - 1 - pos)]; }
+    //! Returns a reference to the specified element.
+    const_reference operator[](unique_id id) const noexcept { return _store[counter_to_idx(id.value)]; }
     //! Returns the back of the ringbuffer. Be careful of races with concurrent modifies.
     reference back() noexcept
     {
@@ -617,7 +630,7 @@ namespace ringbuffer_log
       _counter.store(0, std::memory_order_relaxed);
       std::fill(_store.begin(), _store.end(), value_type());
     }
-    //! Logs a new item, returning its unique counter id
+    //! THREADSAFE Logs a new item, returning its unique counter id
     size_type push_back(value_type &&v) noexcept
     {
       if(static_cast<level>(v.level) <= _level)
@@ -629,7 +642,7 @@ namespace ringbuffer_log
       }
       return (size_type) -1;
     }
-    //! Logs a new item, returning its unique counter id
+    //! THREADSAFE Logs a new item, returning its unique counter id
     template <class... Args> size_type emplace_back(level __level, Args &&... args) noexcept
     {
       if(__level <= _level)
@@ -645,7 +658,7 @@ namespace ringbuffer_log
   };
 
   //! std::ostream writer for a log
-  template <class Policy> std::ostream &operator<<(std::ostream &s, const ringbuffer_log<Policy> &l)
+  template <class Policy> inline std::ostream &operator<<(std::ostream &s, const ringbuffer_log<Policy> &l)
   {
     for(const auto &i : l)
     {
