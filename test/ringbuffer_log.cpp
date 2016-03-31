@@ -33,7 +33,7 @@ BOOST_AUTO_TEST_CASE(ringbuffer_log / simple / works, "Tests that the simple_rin
     BOOST_CHECK(!strcmp(v.message, "test message"));
     BOOST_CHECK(v.code32[0] == 1);
     BOOST_CHECK(v.code32[1] == 2);
-    BOOST_CHECK(!strcmp(v.function, "test_function"));
+    BOOST_CHECK(!strcmp(v.function, "test_function:15"));
   }
 
   test_function(true);
@@ -67,6 +67,8 @@ BOOST_AUTO_TEST_CASE(ringbuffer_log / simple / works, "Tests that the simple_rin
     }
     free(symbols);
   }
+
+  std::cout << "\nDump of log:\n" << simple << std::endl;
 }
 
 BOOST_AUTO_TEST_CASE(ringbuffer_log / simple / iterators, "Tests that the simple_ringbuffer_log iterator works as advertised")
@@ -78,6 +80,21 @@ BOOST_AUTO_TEST_CASE(ringbuffer_log / simple / iterators, "Tests that the simple
   --end;
   BOOST_CHECK(simple.front() == *begin);
   BOOST_CHECK(simple.back() == *end);
+  BOOST_CHECK(simple.front() == simple[0]);
+  BOOST_CHECK(simple.back() == simple[1]);
+}
+
+BOOST_AUTO_TEST_CASE(ringbuffer_log / simple / performance, "Tests that the simple_ringbuffer_log is fast to log to")
+{
+  test_function(false);
+  test_function(false);
+  test_function(true);
+  test_function(true);
+  BOOST_CHECK(simple.size() == 6);
+  auto diff_nobacktrace = simple[2].timestamp - simple[3].timestamp;
+  auto diff_backtrace = simple[0].timestamp - simple[1].timestamp;
+  std::cout << "Nanoseconds to log item without backtrace: " << diff_nobacktrace << std::endl;
+  std::cout << "Nanoseconds to log item with    backtrace: " << diff_backtrace << std::endl;
 }
 
 BOOST_AUTO_TEST_SUITE_END()

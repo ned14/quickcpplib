@@ -29,14 +29,29 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef BOOST_BINDLIB_IMPORT_HPP
-#define BOOST_BINDLIB_IMPORT_HPP
+#ifndef BOOST_BINDLIB_RINGBUFFER_LOG_HPP
+#define BOOST_BINDLIB_RINGBUFFER_LOG_HPP
+
+#ifndef BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES_DEBUG
+#define BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES_DEBUG 4096
+#endif
+
+#ifndef BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES_NDEBUG
+#define BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES_NDEBUG 256
+#endif
+
+#ifdef NDEBUG
+#define BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES_NDEBUG
+#else
+#define BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES_DEBUG
+#endif
 
 #include "cpp_feature.h"
 
 #include <array>
 #include <atomic>
 #include <chrono>
+#include <ostream>
 #include <system_error>
 
 #ifdef _WIN32
@@ -61,13 +76,15 @@ namespace ringbuffer_log
   };
 
   /*! \struct simple_ringbuffer_log_policy
-  \brief A ring buffer log stored in a fixed 64Kb std::array recording
+  \brief A ring buffer log stored in a fixed
+  BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES_NDEBUG/BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES_DEBUG
+  std::array recording
   monotonic counter (8 bytes), high resolution clock time stamp (8 bytes),
   stack backtrace or __func__ (40 bytes), level (1 byte), 191 bytes of
   char message. Each record is 256 bytes, therefore the ring buffer
-  wraps after 256 entries.
+  wraps after 256/4096 entries by default.
   */
-  template <size_t Bytes = 65536> struct simple_ringbuffer_log_policy
+  template <size_t Bytes = BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES * 256> struct simple_ringbuffer_log_policy
   {
     using level_ = level;
     using uint8 = unsigned char;
@@ -90,15 +107,18 @@ namespace ringbuffer_log
       uint8 using_backtrace : 1;
       char message[191];
 
-      static std::chrono::high_resolution_clock::time_point first_item()
+    private:
+      static std::chrono::high_resolution_clock::time_point _first_item()
       {
         static std::chrono::high_resolution_clock::time_point now = std::chrono::high_resolution_clock::now();
         return now;
       }
+
+    public:
       value_type() { memset(this, 0, sizeof(*this)); }
-      value_type(level_ _level, const char *_message, uint32 _code1, uint32 _code2, const char *_function = nullptr)
+      value_type(level_ _level, const char *_message, uint32 _code1, uint32 _code2, const char *_function = nullptr, unsigned lineno = 0)
           : counter((size_t) -1)
-          , timestamp(std::chrono::duration_cast<std::chrono::nanoseconds>((first_item(), std::chrono::high_resolution_clock::now() - first_item())).count())
+          , timestamp(std::chrono::duration_cast<std::chrono::nanoseconds>((_first_item(), std::chrono::high_resolution_clock::now() - _first_item())).count())
           , code32{_code1, _code2}
           , level(static_cast<uint8>(_level))
           , using_code64(false)
@@ -110,7 +130,19 @@ namespace ringbuffer_log
 #endif
         strncpy(message, _message, sizeof(message));
         if(_function)
+        {
           strncpy(function, _function, sizeof(function));
+          char temp[32], *e = function;
+          for(size_t n = 0; n < sizeof(function) && *e != 0; n++, e++)
+            ;
+          _ultoa_s(lineno, temp, 10);
+          ptrdiff_t len = strlen(temp);
+          if(function + sizeof(function) - e >= len + 2)
+          {
+            *e++ = ':';
+            memcpy(e, temp, len);
+          }
+        }
         else
         {
           constexpr size_t items = 1 + sizeof(backtrace) / sizeof(backtrace[0]);
@@ -123,13 +155,85 @@ namespace ringbuffer_log
 #pragma warning(pop)
 #endif
       }
-      bool operator==(const value_type &o) const noexcept { return !memcmp(this, &o, sizeof(*this)); }
-      bool operator!=(const value_type &o) const noexcept { return memcmp(this, &o, sizeof(*this)); }
+      bool operator==(const value_type &o) const noexcept { return memcmp(this, &o, sizeof(*this)) == 0; }
+      bool operator!=(const value_type &o) const noexcept { return memcmp(this, &o, sizeof(*this)) != 0; }
+      bool operator<(const value_type &o) const noexcept { return memcmp(this, &o, sizeof(*this)) < 0; }
+      bool operator>(const value_type &o) const noexcept { return memcmp(this, &o, sizeof(*this)) > 0; }
+      bool operator<=(const value_type &o) const noexcept { return memcmp(this, &o, sizeof(*this)) <= 0; }
+      bool operator>=(const value_type &o) const noexcept { return memcmp(this, &o, sizeof(*this)) >= 0; }
     };
     static_assert(sizeof(value_type) == 256, "value_type is not 256 bytes long!");
+    //! Maximum items of this value_type in this log
     static constexpr size_t max_items = Bytes / sizeof(value_type);
+    //! Container for storing log
     using container_type = std::array<value_type, max_items>;
   };
+  //! std::ostream writer for simple_ringbuffer_log_policy's value_type
+  template <size_t Bytes = BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES * 256> std::ostream &operator<<(std::ostream &s, const typename simple_ringbuffer_log_policy<Bytes>::value_type &v)
+  {
+    s << "+" << std::setfill('0') << std::setw(16) << v.timestamp << " " << std::setfill(' ') << std::setw(1);
+    switch(v.level)
+    {
+    case 0:
+      s << "none:  ";
+      break;
+    case 1:
+      s << "fatal: ";
+      break;
+    case 2:
+      s << "error: ";
+      break;
+    case 3:
+      s << "warn:  ";
+      break;
+    case 4:
+      s << "info:  ";
+      break;
+    case 5:
+      s << "debug: ";
+      break;
+    case 6:
+      s << "all:   ";
+      break;
+    default:
+      s << "unknown: ";
+      break;
+    }
+    if(v.using_code64)
+      s << "{ " << v.code64 << " } ";
+    else
+      s << "{ " << v.code32[0] << ", " << v.code32[1] << " } ";
+    char temp[256];
+    memcpy(temp, v.message, sizeof(v.message));
+    temp[sizeof(v.message)] = 0;
+    s << temp << " @ ";
+    if(v.using_backtrace)
+    {
+      char **symbols = backtrace_symbols((void **) v.backtrace, sizeof(v.backtrace) / sizeof(v.backtrace[0]));
+      if(!symbols)
+        s << "BACKTRACE FAILED!";
+      else
+      {
+        for(size_t n = 0; n < sizeof(v.backtrace) / sizeof(v.backtrace[0]); n++)
+        {
+          if(symbols[n])
+          {
+            if(n)
+              s << ", ";
+            s << symbols[n];
+          }
+        }
+        free(symbols);
+      }
+    }
+    else
+    {
+      memcpy(temp, v.function, sizeof(v.function));
+      temp[sizeof(v.function)] = 0;
+      s << temp;
+    }
+    return s << "\n";
+  }
 
   /*! \class ringbuffer_log
   \brief Very fast threadsafe ring buffer log
@@ -137,15 +241,18 @@ namespace ringbuffer_log
   Works on the basis of an always incrementing atomic<size_t> which writes
   into the ring buffer at modulus of the ring buffer size. Items stored per
   log entry are defined by the Policy class' value_type. To log an item,
-  call the BINDLIB_RINGBUFFERLOG_ITEM macro. Here might be a typical stanza
-  creating a log for some library or part thereof.
+  call the BINDLIB_RINGBUFFERLOG_ITEM_* family of macros.
 
-  Log item helpers include:
-  - Fast stack backtrace.
+  Be aware iteration, indexing etc. is most recent first, so log[0] is
+  the most recently logged item. Use the reversed iterators if you don't
+  want this.
 
-  TODO:
-  - Should be a 4/8/12/16Kb memory mapped file on disc so it survives sudden process
-  exit.
+  For simple_ringbuffer_log_policy, typical item logging times are:
+  - without backtrace: 1.2 microseconds.
+  - with backtrace (windows): up to 33 microseconds.
+
+  \todo Implement STL allocator for a memory mapped file on disc so log
+  survives sudden process exit.
   */
   template <class Policy> class ringbuffer_log
   {
@@ -175,15 +282,15 @@ namespace ringbuffer_log
     using const_pointer = typename container_type::const_pointer;
 
   protected:
-    template <class Pointer, class Reference> class iterator_;
-    template <class Pointer, class Reference> class iterator_ : public std::iterator<std::random_access_iterator_tag, value_type, difference_type, pointer, reference>
+    template <class Parent, class Pointer, class Reference> class iterator_;
+    template <class Parent, class Pointer, class Reference> class iterator_ : public std::iterator<std::random_access_iterator_tag, value_type, difference_type, pointer, reference>
     {
       friend class ringbuffer_log;
-      template <class Pointer_, class Reference_> friend class iterator_;
-      ringbuffer_log *_parent;
+      template <class Parent_, class Pointer_, class Reference_> friend class iterator_;
+      Parent *_parent;
       size_type _counter, _togo;
 
-      constexpr iterator_(ringbuffer_log *parent, size_type counter, size_type items)
+      constexpr iterator_(Parent *parent, size_type counter, size_type items)
           : _parent(parent)
           , _counter(counter)
           , _togo(items)
@@ -202,7 +309,7 @@ namespace ringbuffer_log
       iterator_ &operator=(const iterator_ &) noexcept = default;
       iterator_ &operator=(iterator_ &&) noexcept = default;
       // Non-const to const iterator
-      template <class Pointer_, class Reference_, typename = std::enable_if_t<!std::is_const<Pointer_>::value && !std::is_const<Reference_>::value>> constexpr iterator_(const iterator_<Pointer_, Reference_> &o) noexcept : _parent(o._parent), _counter(o._counter), _togo(o._togo) {}
+      template <class Parent_, class Pointer_, class Reference_, typename = std::enable_if_t<!std::is_const<Pointer_>::value && !std::is_const<Reference_>::value>> constexpr iterator_(const iterator_<Parent_, Pointer_, Reference_> &o) noexcept : _parent(o._parent), _counter(o._counter), _togo(o._togo) {}
       iterator_ &operator++() noexcept
       {
         if(_parent && _togo)
@@ -314,13 +421,13 @@ namespace ringbuffer_log
       difference_type operator-(const iterator_ &o) const noexcept { return (difference_type)(o._counter - _counter); }
       Reference operator[](size_type v) const noexcept { return _parent->_store[_parent->counter_to_idx(_counter + v)]; }
     };
-    template <class Pointer, class Reference> friend class iterator_;
+    template <class Parent, class Pointer, class Reference> friend class iterator_;
 
   public:
     //! The iterator type
-    using iterator = iterator_<pointer, reference>;
+    using iterator = iterator_<ringbuffer_log, pointer, reference>;
     //! The const iterator type
-    using const_iterator = iterator_<const_pointer, const_reference>;
+    using const_iterator = iterator_<const ringbuffer_log, const_pointer, const_reference>;
     //! The reverse iterator type
     using reverse_iterator = std::reverse_iterator<iterator>;
     //! The const reverse iterator type
@@ -331,7 +438,7 @@ namespace ringbuffer_log
     level _level;
     std::atomic<size_type> _counter;
 
-    size_type counter_to_idx(size_type counter) noexcept { return max_items ? (counter % max_items) : (counter % _store.size()); }
+    size_type counter_to_idx(size_type counter) const noexcept { return max_items ? (counter % max_items) : (counter % _store.size()); }
   public:
     //! Default construction, passes through args to container_type
     template <class... Args>
@@ -375,23 +482,56 @@ namespace ringbuffer_log
     //! Returns the maximum number of items in the log
     size_type max_size() const noexcept { return max_items ? max_items : _store.size(); }
 
+    //! Used to tag an index as being an absolute lookup of a unique counter value returned by push_back/emplace_back.
+    struct unique_id
+    {
+      size_type value;
+      constexpr unique_id(size_type _value)
+          : value(_value)
+      {
+      }
+    };
+    //! True if a unique id is still valid
+    bool valid(unique_id id) const noexcept
+    {
+      size_type counter = _counter.load(std::memory_order_relaxed);
+      size_type size = counter;
+      if(_store.size() < size)
+        size = _store.size();
+      return id < counter && id >= counter - size;
+    }
+
     //! Returns the front of the ringbuffer. Be careful of races with concurrent modifies.
     reference front() noexcept { return _store[counter_to_idx(_counter.load(std::memory_order_relaxed) - 1)]; }
     //! Returns the front of the ringbuffer. Be careful of races with concurrent modifies.
     const_reference front() const noexcept { return _store[counter_to_idx(_counter.load(std::memory_order_relaxed) - 1)]; }
     //! Returns a reference to the specified element. Be careful of races with concurrent modifies.
-    reference at(size_type pos) noexcept
+    reference at(size_type pos)
     {
       if(pos >= size())
         throw std::out_of_range();
       return _store[counter_to_idx(_counter.load(std::memory_order_relaxed) - 1 - pos)];
     }
+    //! Returns a reference to the specified element.
+    reference at(unique_id id)
+    {
+      if(!valid(id))
+        throw std::out_of_range();
+      return _store[counter_to_idx(id)];
+    }
     //! Returns a reference to the specified element. Be careful of races with concurrent modifies.
-    const_reference at(size_type pos) const noexcept
+    const_reference at(size_type pos) const
     {
       if(pos >= size())
         throw std::out_of_range();
       return _store[counter_to_idx(_counter.load(std::memory_order_relaxed) - 1 - pos)];
+    }
+    //! Returns a reference to the specified element.
+    const_reference at(unique_id id) const
+    {
+      if(!valid(id))
+        throw std::out_of_range();
+      return _store[counter_to_idx(id)];
     }
     //! Returns a reference to the specified element. Be careful of races with concurrent modifies.
     reference operator[](size_type pos) noexcept { return _store[counter_to_idx(_counter.load(std::memory_order_relaxed) - 1 - pos)]; }
@@ -432,7 +572,7 @@ namespace ringbuffer_log
       size_type size = counter;
       if(_store.size() < size)
         size = _store.size();
-      return iterator(this, counter - 1, size);
+      return const_iterator(this, counter - 1, size);
     }
     //! Returns an iterator to the first item in the log. Be careful of races with concurrent modifies.
     const_iterator cbegin() const noexcept
@@ -441,7 +581,7 @@ namespace ringbuffer_log
       size_type size = counter;
       if(_store.size() < size)
         size = _store.size();
-      return iterator(this, counter - 1, size);
+      return const_iterator(this, counter - 1, size);
     }
     //! Returns an iterator to the item after the last in the log. Be careful of races with concurrent modifies.
     iterator end() noexcept
@@ -459,7 +599,7 @@ namespace ringbuffer_log
       size_type size = counter;
       if(_store.size() < size)
         size = _store.size();
-      return iterator(this, counter - 1 - size, 0);
+      return const_iterator(this, counter - 1 - size, 0);
     }
     //! Returns an iterator to the item after the last in the log. Be careful of races with concurrent modifies.
     const_iterator cend() const noexcept
@@ -468,7 +608,7 @@ namespace ringbuffer_log
       size_type size = counter;
       if(_store.size() < size)
         size = _store.size();
-      return iterator(this, counter - 1 - size, 0);
+      return const_iterator(this, counter - 1 - size, 0);
     }
 
     //! Clears the log
@@ -477,7 +617,7 @@ namespace ringbuffer_log
       _counter.store(0, std::memory_order_relaxed);
       std::fill(_store.begin(), _store.end(), value_type());
     }
-    //! Logs a new item, returning its unique id
+    //! Logs a new item, returning its unique counter id
     size_type push_back(value_type &&v) noexcept
     {
       if(static_cast<level>(v.level) <= _level)
@@ -489,12 +629,12 @@ namespace ringbuffer_log
       }
       return (size_type) -1;
     }
-    //! Logs a new item, returning its unique id
-    template <class... Args> size_type emplace_back(Args &&... args) noexcept
+    //! Logs a new item, returning its unique counter id
+    template <class... Args> size_type emplace_back(level __level, Args &&... args) noexcept
     {
-      value_type v(std::forward<Args>(args)...);
-      if(static_cast<level>(v.level) <= _level)
+      if(__level <= _level)
       {
+        value_type v(__level, std::forward<Args>(args)...);
         size_type thisitem = _counter++;
         v.counter = thisitem;
         _store[counter_to_idx(thisitem)] = std::move(v);
@@ -504,12 +644,22 @@ namespace ringbuffer_log
     }
   };
 
+  //! std::ostream writer for a log
+  template <class Policy> std::ostream &operator<<(std::ostream &s, const ringbuffer_log<Policy> &l)
+  {
+    for(const auto &i : l)
+    {
+      s << i;
+    }
+    return s;
+  }
+
   //! Alias for a simple ringbuffer log
-  template <size_t Bytes = 65536> using simple_ringbuffer_log = ringbuffer_log<simple_ringbuffer_log_policy<Bytes>>;
+  template <size_t Bytes = BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES * 256> using simple_ringbuffer_log = ringbuffer_log<simple_ringbuffer_log_policy<Bytes>>;
 }
 
 //! Logs an item to the log with calling function name
-#define BINDLIB_RINGBUFFERLOG_ITEM_FUNCTION(log, level, message, code1, code2) (log).emplace_back((level), (message), (code1), (code2), __func__)
+#define BINDLIB_RINGBUFFERLOG_ITEM_FUNCTION(log, level, message, code1, code2) (log).emplace_back((level), (message), (code1), (code2), __func__, __LINE__)
 //! Logs an item to the log with stack backtrace
 #define BINDLIB_RINGBUFFERLOG_ITEM_BACKTRACE(log, level, message, code1, code2) (log).emplace_back((level), (message), (code1), (code2), nullptr)
 
