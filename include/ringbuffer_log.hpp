@@ -80,6 +80,16 @@ namespace ringbuffer_log
     all
   };
 
+  //! The thread id of the calling thread
+  inline unsigned this_thread_id() noexcept
+  {
+#ifdef _WIN32
+    return (unsigned) GetCurrentThreadId();
+#else
+    return (unsigned) pthread_getthreadid_np();
+#endif
+  }
+
   /*! \struct simple_ringbuffer_log_policy
   \brief A ring buffer log stored in a fixed
   BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES_NDEBUG/BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES_DEBUG
