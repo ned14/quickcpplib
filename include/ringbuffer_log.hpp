@@ -253,6 +253,46 @@ namespace ringbuffer_log
     }
     return s << "\n";
   }
+  //! CSV std::ostream writer for simple_ringbuffer_log_policy's value_type
+  template <size_t Bytes = BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES * 256> inline std::ostream &csv(std::ostream &s, const typename simple_ringbuffer_log_policy<Bytes>::value_type &v)
+  {
+    // timestamp,level,using_code64,using_backtrace,code0,code1,message,backtrace
+    s << v.timestamp << "," << v.level << "," << v.using_code64 << "," << v.using_backtrace << ",";
+    if(v.using_code64)
+      s << v.code64 << ",0,\"";
+    else
+      s << v.code32[0] << "," << v.code32[1] << ",\"";
+    char temp[256];
+    memcpy(temp, v.message, sizeof(v.message));
+    temp[sizeof(v.message)] = 0;
+    s << temp << "\",\"";
+    if(v.using_backtrace)
+    {
+      char **symbols = backtrace_symbols((void **) v.backtrace, sizeof(v.backtrace) / sizeof(v.backtrace[0]));
+      if(!symbols)
+        s << "BACKTRACE FAILED!";
+      else
+      {
+        for(size_t n = 0; n < sizeof(v.backtrace) / sizeof(v.backtrace[0]); n++)
+        {
+          if(symbols[n])
+          {
+            if(n)
+              s << ";";
+            s << symbols[n];
+          }
+        }
+        free(symbols);
+      }
+    }
+    else
+    {
+      memcpy(temp, v.function, sizeof(v.function));
+      temp[sizeof(v.function)] = 0;
+      s << temp;
+    }
+    return s << "\"\n";
+  }
 
   /*! \class ringbuffer_log
   \brief Very fast threadsafe ring buffer log
@@ -673,6 +713,18 @@ namespace ringbuffer_log
     for(const auto &i : l)
     {
       s << i;
+    }
+    return s;
+  }
+
+  //! CSV std::ostream writer for a log
+  template <class Policy> inline std::ostream &csv(std::ostream &s, const ringbuffer_log<Policy> &l)
+  {
+    // timestamp,level,using_code64,using_backtrace,code0,code1,message,backtrace
+    s << "timestamp,level,using_code64,using_backtrace,code0,code1,message,backtrace\n";
+    for(const auto &i : l)
+    {
+      csv(s, i);
     }
     return s;
   }
