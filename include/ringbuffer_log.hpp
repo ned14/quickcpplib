@@ -58,6 +58,7 @@ DEALINGS IN THE SOFTWARE.
 #include <chrono>
 #include <iomanip>
 #include <ostream>
+#include <sstream>
 #include <system_error>
 
 #ifdef _WIN32
@@ -245,7 +246,7 @@ namespace ringbuffer_log
     inline std::ostream &csv(std::ostream &s, const value_type &v)
     {
       // timestamp,level,using_code64,using_backtrace,code0,code1,message,backtrace
-      s << v.timestamp << "," << v.level << "," << v.using_code64 << "," << v.using_backtrace << ",";
+      s << v.timestamp << "," << (unsigned) v.level << "," << (unsigned) v.using_code64 << "," << (unsigned) v.using_backtrace << ",";
       if(v.using_code64)
         s << v.code64 << ",0,\"";
       else
@@ -725,16 +726,17 @@ namespace ringbuffer_log
     return s;
   }
 
-  //! CSV std::ostream writer for a log
-  template <class Policy> inline std::ostream &csv(std::ostream &s, const ringbuffer_log<Policy> &l)
+  //! CSV string writer for a log
+  template <class Policy> inline std::string csv(const ringbuffer_log<Policy> &l)
   {
+    std::stringstream s;
     // timestamp,level,using_code64,using_backtrace,code0,code1,message,backtrace
     s << "timestamp,level,using_code64,using_backtrace,code0,code1,message,backtrace\n";
     for(const auto &i : l)
     {
       csv(s, i);
     }
-    return s;
+    return s.str();
   }
 
   //! Alias for a simple ringbuffer log
