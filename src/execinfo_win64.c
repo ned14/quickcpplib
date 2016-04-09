@@ -62,11 +62,13 @@ namespace
     dbghelp = LoadLibraryA("DBGHELP.DLL");
     if(dbghelp)
     {
-      if(!(SymInitialize = (SymInitialize_t) GetProcAddress(dbghelp, "SymInitializeW")))
+      SymInitialize = (SymInitialize_t) GetProcAddress(dbghelp, "SymInitializeW");
+      if(!SymInitialize)
         abort();
       if(!SymInitialize(GetCurrentProcess(), NULL, TRUE))
         abort();
-      if(!(SymGetLineFromAddr64 = (SymGetLineFromAddr64_t) GetProcAddress(dbghelp, "SymGetLineFromAddrW64")))
+      SymGetLineFromAddr64 = (SymGetLineFromAddr64_t) GetProcAddress(dbghelp, "SymGetLineFromAddrW64");
+      if(!SymGetLineFromAddr64)
         abort();
     }
   }

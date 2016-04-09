@@ -56,6 +56,7 @@ DEALINGS IN THE SOFTWARE.
 #include <array>
 #include <atomic>
 #include <chrono>
+#include <iomanip>
 #include <ostream>
 #include <system_error>
 
@@ -90,16 +91,7 @@ namespace ringbuffer_log
 #endif
   }
 
-  /*! \struct simple_ringbuffer_log_policy
-  \brief A ring buffer log stored in a fixed
-  BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES_NDEBUG/BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES_DEBUG
-  std::array recording
-  monotonic counter (8 bytes), high resolution clock time stamp (8 bytes),
-  stack backtrace or __func__ (40 bytes), level (1 byte), 191 bytes of
-  char message. Each record is 256 bytes, therefore the ring buffer
-  wraps after 256/4096 entries by default.
-  */
-  template <size_t Bytes = BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES * 256> struct simple_ringbuffer_log_policy
+  namespace simple_ringbuffer_log_policy_detail
   {
     using level_ = level;
     using uint8 = unsigned char;
@@ -182,117 +174,133 @@ namespace ringbuffer_log
       bool operator>=(const value_type &o) const noexcept { return memcmp(this, &o, sizeof(*this)) >= 0; }
     };
     static_assert(sizeof(value_type) == 256, "value_type is not 256 bytes long!");
+
+    //! std::ostream writer for simple_ringbuffer_log_policy's value_type
+    inline std::ostream &operator<<(std::ostream &s, const value_type &v)
+    {
+      s << "+" << std::setfill('0') << std::setw(16) << v.timestamp << " " << std::setfill(' ') << std::setw(1);
+      switch(v.level)
+      {
+      case 0:
+        s << "none:  ";
+        break;
+      case 1:
+        s << "fatal: ";
+        break;
+      case 2:
+        s << "error: ";
+        break;
+      case 3:
+        s << "warn:  ";
+        break;
+      case 4:
+        s << "info:  ";
+        break;
+      case 5:
+        s << "debug: ";
+        break;
+      case 6:
+        s << "all:   ";
+        break;
+      default:
+        s << "unknown: ";
+        break;
+      }
+      if(v.using_code64)
+        s << "{ " << v.code64 << " } ";
+      else
+        s << "{ " << v.code32[0] << ", " << v.code32[1] << " } ";
+      char temp[256];
+      memcpy(temp, v.message, sizeof(v.message));
+      temp[sizeof(v.message)] = 0;
+      s << temp << " @ ";
+      if(v.using_backtrace)
+      {
+        char **symbols = backtrace_symbols((void **) v.backtrace, sizeof(v.backtrace) / sizeof(v.backtrace[0]));
+        if(!symbols)
+          s << "BACKTRACE FAILED!";
+        else
+        {
+          for(size_t n = 0; n < sizeof(v.backtrace) / sizeof(v.backtrace[0]); n++)
+          {
+            if(symbols[n])
+            {
+              if(n)
+                s << ", ";
+              s << symbols[n];
+            }
+          }
+          free(symbols);
+        }
+      }
+      else
+      {
+        memcpy(temp, v.function, sizeof(v.function));
+        temp[sizeof(v.function)] = 0;
+        s << temp;
+      }
+      return s << "\n";
+    }
+    //! CSV std::ostream writer for simple_ringbuffer_log_policy's value_type
+    inline std::ostream &csv(std::ostream &s, const value_type &v)
+    {
+      // timestamp,level,using_code64,using_backtrace,code0,code1,message,backtrace
+      s << v.timestamp << "," << v.level << "," << v.using_code64 << "," << v.using_backtrace << ",";
+      if(v.using_code64)
+        s << v.code64 << ",0,\"";
+      else
+        s << v.code32[0] << "," << v.code32[1] << ",\"";
+      char temp[256];
+      memcpy(temp, v.message, sizeof(v.message));
+      temp[sizeof(v.message)] = 0;
+      s << temp << "\",\"";
+      if(v.using_backtrace)
+      {
+        char **symbols = backtrace_symbols((void **) v.backtrace, sizeof(v.backtrace) / sizeof(v.backtrace[0]));
+        if(!symbols)
+          s << "BACKTRACE FAILED!";
+        else
+        {
+          for(size_t n = 0; n < sizeof(v.backtrace) / sizeof(v.backtrace[0]); n++)
+          {
+            if(symbols[n])
+            {
+              if(n)
+                s << ";";
+              s << symbols[n];
+            }
+          }
+          free(symbols);
+        }
+      }
+      else
+      {
+        memcpy(temp, v.function, sizeof(v.function));
+        temp[sizeof(v.function)] = 0;
+        s << temp;
+      }
+      return s << "\"\n";
+    }
+  }
+
+  /*! \struct simple_ringbuffer_log_policy
+  \brief A ring buffer log stored in a fixed
+  BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES_NDEBUG/BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES_DEBUG
+  std::array recording
+  monotonic counter (8 bytes), high resolution clock time stamp (8 bytes),
+  stack backtrace or __func__ (40 bytes), level (1 byte), 191 bytes of
+  char message. Each record is 256 bytes, therefore the ring buffer
+  wraps after 256/4096 entries by default.
+  */
+  template <size_t Bytes = BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES * 256> struct simple_ringbuffer_log_policy
+  {
+    //! Item logged in this log
+    using value_type = simple_ringbuffer_log_policy_detail::value_type;
     //! Maximum items of this value_type in this log
     static constexpr size_t max_items = Bytes / sizeof(value_type);
     //! Container for storing log
     using container_type = std::array<value_type, max_items>;
   };
-  //! std::ostream writer for simple_ringbuffer_log_policy's value_type
-  template <size_t Bytes = BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES * 256> inline std::ostream &operator<<(std::ostream &s, const typename simple_ringbuffer_log_policy<Bytes>::value_type &v)
-  {
-    s << "+" << std::setfill('0') << std::setw(16) << v.timestamp << " " << std::setfill(' ') << std::setw(1);
-    switch(v.level)
-    {
-    case 0:
-      s << "none:  ";
-      break;
-    case 1:
-      s << "fatal: ";
-      break;
-    case 2:
-      s << "error: ";
-      break;
-    case 3:
-      s << "warn:  ";
-      break;
-    case 4:
-      s << "info:  ";
-      break;
-    case 5:
-      s << "debug: ";
-      break;
-    case 6:
-      s << "all:   ";
-      break;
-    default:
-      s << "unknown: ";
-      break;
-    }
-    if(v.using_code64)
-      s << "{ " << v.code64 << " } ";
-    else
-      s << "{ " << v.code32[0] << ", " << v.code32[1] << " } ";
-    char temp[256];
-    memcpy(temp, v.message, sizeof(v.message));
-    temp[sizeof(v.message)] = 0;
-    s << temp << " @ ";
-    if(v.using_backtrace)
-    {
-      char **symbols = backtrace_symbols((void **) v.backtrace, sizeof(v.backtrace) / sizeof(v.backtrace[0]));
-      if(!symbols)
-        s << "BACKTRACE FAILED!";
-      else
-      {
-        for(size_t n = 0; n < sizeof(v.backtrace) / sizeof(v.backtrace[0]); n++)
-        {
-          if(symbols[n])
-          {
-            if(n)
-              s << ", ";
-            s << symbols[n];
-          }
-        }
-        free(symbols);
-      }
-    }
-    else
-    {
-      memcpy(temp, v.function, sizeof(v.function));
-      temp[sizeof(v.function)] = 0;
-      s << temp;
-    }
-    return s << "\n";
-  }
-  //! CSV std::ostream writer for simple_ringbuffer_log_policy's value_type
-  template <size_t Bytes = BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES * 256> inline std::ostream &csv(std::ostream &s, const typename simple_ringbuffer_log_policy<Bytes>::value_type &v)
-  {
-    // timestamp,level,using_code64,using_backtrace,code0,code1,message,backtrace
-    s << v.timestamp << "," << v.level << "," << v.using_code64 << "," << v.using_backtrace << ",";
-    if(v.using_code64)
-      s << v.code64 << ",0,\"";
-    else
-      s << v.code32[0] << "," << v.code32[1] << ",\"";
-    char temp[256];
-    memcpy(temp, v.message, sizeof(v.message));
-    temp[sizeof(v.message)] = 0;
-    s << temp << "\",\"";
-    if(v.using_backtrace)
-    {
-      char **symbols = backtrace_symbols((void **) v.backtrace, sizeof(v.backtrace) / sizeof(v.backtrace[0]));
-      if(!symbols)
-        s << "BACKTRACE FAILED!";
-      else
-      {
-        for(size_t n = 0; n < sizeof(v.backtrace) / sizeof(v.backtrace[0]); n++)
-        {
-          if(symbols[n])
-          {
-            if(n)
-              s << ";";
-            s << symbols[n];
-          }
-        }
-        free(symbols);
-      }
-    }
-    else
-    {
-      memcpy(temp, v.function, sizeof(v.function));
-      temp[sizeof(v.function)] = 0;
-      s << temp;
-    }
-    return s << "\"\n";
-  }
 
   /*! \class ringbuffer_log
   \brief Very fast threadsafe ring buffer log
