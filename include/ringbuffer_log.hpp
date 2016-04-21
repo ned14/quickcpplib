@@ -154,7 +154,7 @@ namespace ringbuffer_log
 #ifdef _MSC_VER
             _ultoa_s(lineno, temp, 10);
 #else
-            ultoa(lineno, temp, 10);
+            snprintf(temp, "%lu", lineno);
 #endif
             temp[31] = 0;
             ptrdiff_t len = strlen(temp);
@@ -387,7 +387,7 @@ namespace ringbuffer_log
       iterator_ &operator=(const iterator_ &) noexcept = default;
       iterator_ &operator=(iterator_ &&) noexcept = default;
       // Non-const to const iterator
-      template <class Parent_, class Pointer_, class Reference_, typename = std::enable_if_t<!std::is_const<Pointer_>::value && !std::is_const<Reference_>::value>> constexpr iterator_(const iterator_<Parent_, Pointer_, Reference_> &o) noexcept : _parent(o._parent), _counter(o._counter), _togo(o._togo) {}
+      template <class Parent_, class Pointer_, class Reference_, typename = typename std::enable_if<!std::is_const<Pointer_>::value && !std::is_const<Reference_>::value>::type> constexpr iterator_(const iterator_<Parent_, Pointer_, Reference_> &o) noexcept : _parent(o._parent), _counter(o._counter), _togo(o._togo) {}
       iterator_ &operator++() noexcept
       {
         if(_parent && _togo)
