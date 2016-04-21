@@ -154,7 +154,7 @@ namespace ringbuffer_log
 #ifdef _MSC_VER
             _ultoa_s(lineno, temp, 10);
 #else
-            snprintf(temp, "%lu", lineno);
+            snprintf(temp, sizeof(temp), "%lu", lineno);
 #endif
             temp[31] = 0;
             ptrdiff_t len = strlen(temp);
