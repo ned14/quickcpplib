@@ -190,9 +190,11 @@ extern "C" void _mm_pause();
 
 /* This doesn't exist yet in Boost, but this is its likely future name */
 #ifndef BOOST_CXX17_NODISCARD
-#if __cplusplus >= 201701L || (__clang_major__ * 10000 + __clang_minor__ * 100 + __clang_patchlevel__) >= 30900
+#ifdef __has_cpp_attribute
+#if __has_cpp_attribute(nodiscard)
 #define BOOST_CXX17_NODISCARD [[nodiscard]]
-#elif defined(__clang__) || defined(__GNUC__)
+#endif
+#elif defined(__clang__)
 #define BOOST_CXX17_NODISCARD __attribute__((warn_unused_result))
 #elif defined(_MSC_VER)
 // _Must_inspect_result_ expands into this
