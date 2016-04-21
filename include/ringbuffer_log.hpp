@@ -60,11 +60,15 @@ DEALINGS IN THE SOFTWARE.
 #include <ostream>
 #include <sstream>
 #include <system_error>
+#include <type_traits>
 
 #ifdef _WIN32
 #include "execinfo_win64.h"
 #else
 #include <execinfo.h>
+#ifdef __linux__
+#include <sys/syscall.h>  // for gettid()
+#endif
 #endif
 
 namespace ringbuffer_log
@@ -87,6 +91,8 @@ namespace ringbuffer_log
   {
 #ifdef _WIN32
     return (unsigned) GetCurrentThreadId();
+#elif defined(__linux__)
+    return (unsigned) syscall(SYS_gettid);
 #else
     return (unsigned) pthread_getthreadid_np();
 #endif
@@ -145,7 +151,11 @@ namespace ringbuffer_log
             char temp[32], *e = function;
             for(size_t n = 0; n < sizeof(function) && *e != 0; n++, e++)
               ;
+#ifdef _MSC_VER
             _ultoa_s(lineno, temp, 10);
+#else
+            ultoa(lineno, temp, 10);
+#endif
             temp[31] = 0;
             ptrdiff_t len = strlen(temp);
             if(function + sizeof(function) - e >= len + 2)
