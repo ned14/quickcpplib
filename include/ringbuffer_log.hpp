@@ -154,7 +154,7 @@ namespace ringbuffer_log
 #ifdef _MSC_VER
             _ultoa_s(lineno, temp, 10);
 #else
-            snprintf(temp, sizeof(temp), "%lu", lineno);
+            snprintf(temp, sizeof(temp), "%u", lineno);
 #endif
             temp[31] = 0;
             ptrdiff_t len = strlen(temp);
@@ -587,28 +587,28 @@ namespace ringbuffer_log
     reference at(size_type pos)
     {
       if(pos >= size())
-        throw std::out_of_range();
+        throw std::out_of_range("index exceeds size");
       return _store[counter_to_idx(_counter.load(std::memory_order_relaxed) - 1 - pos)];
     }
     //! Returns a reference to the specified element.
     reference at(unique_id id)
     {
       if(!valid(id))
-        throw std::out_of_range();
+        throw std::out_of_range("index exceeds size");
       return _store[counter_to_idx(id.value)];
     }
     //! Returns a reference to the specified element. Be careful of races with concurrent modifies.
     const_reference at(size_type pos) const
     {
       if(pos >= size())
-        throw std::out_of_range();
+        throw std::out_of_range("index exceeds size");
       return _store[counter_to_idx(_counter.load(std::memory_order_relaxed) - 1 - pos)];
     }
     //! Returns a reference to the specified element.
     const_reference at(unique_id id) const
     {
       if(!valid(id))
-        throw std::out_of_range();
+        throw std::out_of_range("index exceeds size");
       return _store[counter_to_idx(id.value)];
     }
     //! Returns a reference to the specified element. Be careful of races with concurrent modifies.
