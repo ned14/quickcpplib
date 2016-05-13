@@ -294,7 +294,7 @@ namespace ringbuffer_log
     }
   }
 
-  /*! \struct simple_ringbuffer_log_policy
+  /*! \tparam Bytes The size of the ring buffer
   \brief A ring buffer log stored in a fixed
   BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES_NDEBUG/BOOST_BINDLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES_DEBUG
   std::array recording
