@@ -2,6 +2,8 @@
 
 (C) 2014 Niall Douglas http://www.nedproductions.biz/
 
+Linux: [![Build Status](https://travis-ci.org/ned14/Boost.APIBind.svg?branch=master)](https://travis-ci.org/ned14/Boost.APIBind) Windows: [![Build status](https://ci.appveyor.com/api/projects/status/y84ca5mdqwrstaw0?svg=true)](https://ci.appveyor.com/project/ned14/boost-apibind)
+
 This is a tool which can generate a set of local bindings of some C++ library into some namespace. It does this
 by parsing the source C++ library using clang's AST library and extracting a regular expression matched API into
 a sequence of template alias, using, and typedefs in the local namespace.

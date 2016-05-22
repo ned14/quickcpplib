@@ -19,8 +19,6 @@ configuration: Release
 
 before_build:
   - git submodule update --init --recursive
-  - git submodule foreach git checkout master
-  - git submodule foreach git pull origin master
   - cd test
   - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
 build_script:

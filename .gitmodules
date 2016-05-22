@@ -1,4 +1,4 @@
 [submodule "include/CATCH"]
 	path = include/CATCH
 	url = https://github.com/ned14/Catch-ThreadSafe.git
-        branch = develop
+	branch = develop

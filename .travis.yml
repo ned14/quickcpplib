@@ -26,10 +26,10 @@ before_install:
 
 script:
  - cd test
- - CXX=g++-5 ./withgcc.sh
- - g++-5 -o ringbuffer_log -O3 ringbuffer_log.cpp
+ - ./withgcc.sh
+ - g++-5 -std=c++14 -o ringbuffer_log -O3 ringbuffer_log.cpp
  - ./ringbuffer_log
- - g++-5 -o spinlock_tribool -O3 spinlock_tribool.cpp
+ - g++-5 -std=c++14 -o spinlock_tribool -O3 spinlock_tribool.cpp
  - ./spinlock_tribool
  
 after_success:
