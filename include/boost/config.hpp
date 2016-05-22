@@ -35,13 +35,11 @@ DEALINGS IN THE SOFTWARE.
 #include "../cpp_feature.h"
 
 #ifndef BOOST_SMT_PAUSE
-#if defined(_MSC_VER) && _MSC_VER >= 1310 && (defined(_M_IX86) || defined(_M_X64))
+#if !defined(__clang__) && defined(_MSC_VER) && _MSC_VER >= 1310 && (defined(_M_IX86) || defined(_M_X64))
 extern "C" void _mm_pause();
-#if !defined(__clang__)
 #pragma intrinsic(_mm_pause)
-#endif
 #define BOOST_SMT_PAUSE _mm_pause();
-#elif defined(__GNUC__) && (defined(__i386__) || defined(__x86_64__))
+#elif !defined(__c2__) && defined(__GNUC__) && (defined(__i386__) || defined(__x86_64__))
 #define BOOST_SMT_PAUSE __asm__ __volatile__("rep; nop" : : : "memory");
 #endif
 #endif
@@ -198,7 +196,15 @@ extern "C" void _mm_pause();
 #define BOOST_CXX17_NODISCARD __attribute__((warn_unused_result))
 #elif defined(_MSC_VER)
 // _Must_inspect_result_ expands into this
-#define BOOST_CXX17_NODISCARD __declspec("SAL_name" "(" "\"_Must_inspect_result_\"" "," "\"\"" "," "\"2\"" ")") __declspec("SAL_begin") __declspec("SAL_post") __declspec("SAL_mustInspect") __declspec("SAL_post") __declspec("SAL_checkReturn")  __declspec("SAL_end")
+#define BOOST_CXX17_NODISCARD                                                                                                                                                                                                                                                                                                  \
+  __declspec("SAL_name"                                                                                                                                                                                                                                                                                                        \
+             "("                                                                                                                                                                                                                                                                                                               \
+             "\"_Must_inspect_result_\""                                                                                                                                                                                                                                                                                       \
+             ","                                                                                                                                                                                                                                                                                                               \
+             "\"\""                                                                                                                                                                                                                                                                                                            \
+             ","                                                                                                                                                                                                                                                                                                               \
+             "\"2\""                                                                                                                                                                                                                                                                                                           \
+             ")") __declspec("SAL_begin") __declspec("SAL_post") __declspec("SAL_mustInspect") __declspec("SAL_post") __declspec("SAL_checkReturn") __declspec("SAL_end")
 #endif
 #endif
 #ifndef BOOST_CXX17_NODISCARD
