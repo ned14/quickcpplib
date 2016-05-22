@@ -20,9 +20,9 @@ configuration: Release
 before_build:
   - git submodule update --init --recursive
   - cd test
-  - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86
+  - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
 build_script:
-  - cl /EHsc /O2 /Oy- /D_UNICODE /DUNICODE /DNDEBUG ringbuffer_log.cpp
+  - cl /EHsc /O2 /Oy- /Z7 /D_UNICODE /DUNICODE /DNDEBUG ringbuffer_log.cpp
   - cl /EHsc /O2 /D_UNICODE /DUNICODE /DNDEBUG spinlock_tribool.cpp
 after_build:
 
