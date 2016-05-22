@@ -414,7 +414,10 @@ namespace ringbuffer_log
       Reference operator*() const noexcept
       {
         if(!_parent || !_togo)
-          return (Reference)(*(Pointer *) 0);
+        {
+          static value_type v;
+          return v;
+        }
         return _parent->_store[_parent->counter_to_idx(_counter)];
       }
       iterator_ operator++(int) noexcept
