@@ -1,0 +1,38 @@
+language: cpp
+sudo: false
+os:
+ - linux
+notifications:
+  email:
+#    recipients:
+#      - one@example.com
+#      - other@example.com
+    on_success: change # [always|never|change] # default: change
+    on_failure: change # [always|never|change] # default: always
+
+
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    - llvm-toolchain-precise-3.7
+    packages:
+    - g++-4.9
+    - g++-5
+    - clang-3.7
+
+before_install:
+ - git submodule update --init --recursive
+
+script:
+ - cd test
+ - CXX=g++-5 ./withgcc.sh
+ - g++-5 -o ringbuffer_log -O3 ringbuffer_log.cpp
+ - ./ringbuffer_log
+ - g++-5 -o spinlock_tribool -O3 spinlock_tribool.cpp
+ - ./spinlock_tribool
+ 
+after_success:
+# - bash -x ./update_coveralls.sh `pwd`
+
+after_failure:
