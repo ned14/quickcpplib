@@ -27,6 +27,8 @@ before_install:
 script:
  - cd test
  - ./withgcc.sh
+ - g++-5 -std=c++14 -o atuple -O3 atuple.cpp
+ - ./atuple
  - g++-5 -std=c++14 -o ringbuffer_log -O3 ringbuffer_log.cpp
  - ./ringbuffer_log
  - g++-5 -std=c++14 -o spinlock_tribool -O3 spinlock_tribool.cpp

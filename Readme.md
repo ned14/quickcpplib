@@ -41,6 +41,7 @@ unit to avoid compiler warnings.
 
 Other useful bits and pieces have snuck in over time:
 
+* `include/atuple.hpp`: A C++ 14 aggregate initialisable tuple standin for the C++ 17 tuple.
 * `include/cpp_feature.h`: Makes consistent a set of C++ 17 feature test macros on any compiler.
 * `include/execinfo_win64.h`: Implements `backtrace()` and `backtrace_symbols()` from glibc on
 Windows.
