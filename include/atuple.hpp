@@ -7,6 +7,7 @@ Provides a simple aggregate initialisable heterogenous container.
 #define BOOSTLITE_ATUPLE_HPP
 
 #include <type_traits>
+#include <utility>
 
 namespace boost_lite
 {
