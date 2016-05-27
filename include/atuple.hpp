@@ -6,6 +6,7 @@ Provides a simple aggregate initialisable heterogenous container.
 #ifndef BOOSTLITE_ATUPLE_HPP
 #define BOOSTLITE_ATUPLE_HPP
 
+#include <cstddef>  // for size_t
 #include <type_traits>
 #include <utility>
 
