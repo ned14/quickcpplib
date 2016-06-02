@@ -6,9 +6,8 @@ Provides a simple aggregate initialisable heterogenous container.
 #ifndef BOOSTLITE_ATUPLE_HPP
 #define BOOSTLITE_ATUPLE_HPP
 
-#include <cstddef>  // for size_t
+#include <tuple>
 #include <type_traits>
-#include <utility>
 
 namespace boost_lite
 {
@@ -18,122 +17,83 @@ namespace boost_lite
     standing in for C++ 17 tuple.
     \tparam Args An arbitrary list of types
 
-    \note C++ does not allow aggregate initialisable collections to have non-default
-    constructors, so you cannot construct this directly. Use make_tuple().
-
-    This is a highly incomplete and inefficient implementation of std::tuple.
-    However it has one major feature the C++ 14 std::tuple does not:
+    This is a highly incomplete wrapper of std::tuple. It has one major feature the
+    C++ 14 std::tuple does not:
     \code
     constexpr tuple<int, double, const char *> fc[] = {{1, 1.0, "hi1"}, {2, 2.0, "hi2"}, ...};
     \endcode
-    Missing major features include tie(), forward_as_tuple() and tuple_cat(), and
-    lots of smaller features.
     */
-    template <class... Args> struct tuple;
-    template <class T, class... Args> struct tuple<T, Args...>
+    template <class... Args> struct tuple : std::tuple<Args...>
     {
-      // Can't be private if it is to be aggregate initialisable
-      T _value;
-      tuple<Args...> _rest;
-//! True only if entire collection is nothrow swappable
-#if __cplusplus >= 20170000L
-      static constexpr const bool is_nothrow_swappable = std::is_nothrow_swappable<T>::value && tuple<Args...>::is_nothrow_swappable;
-#else
-      static constexpr const bool is_nothrow_swappable = std::is_nothrow_move_constructible<T>::value && tuple<Args...>::is_nothrow_swappable;
-#endif
-
-      //! Default constructor
-      constexpr tuple() = default;
-      //! Swaps this with another instance. Only available if is_nothrow_swappable.
-      template <class U, typename V = typename std::enable_if<std::is_same<U, tuple>::value && is_nothrow_swappable, U>::type> void swap(V &o) noexcept
+      constexpr tuple(tuple &&) = default;
+      constexpr tuple(const tuple &) = default;
+      //! Implicit conversion from the underlying tuple
+      constexpr tuple(std::tuple<Args...> &&o)
+          : std::tuple<Args...>(std::move(o))
       {
-        std::swap(_value, o._value);
-        _rest.swap(o._rest);
       }
-    };
-    template <> struct tuple<>
-    {
-      static constexpr const bool is_nothrow_swappable = true;
-      void swap(tuple &) noexcept {}
-    };
-
-    namespace detail
-    {
-      template <size_t N, class T, class... Args> struct get
+      //! Implicit conversion from the underlying tuple
+      constexpr tuple(const std::tuple<Args...> &o)
+          : std::tuple<Args...>(o)
       {
-        constexpr auto &&operator()(tuple<T, Args...> &&f) const { return get<N - 1, Args...>()(std::move(f._rest)); }
-        constexpr auto &operator()(tuple<T, Args...> &f) const { return get<N - 1, Args...>()(f._rest); }
-        constexpr const auto &operator()(const tuple<T, Args...> &f) const { return get<N - 1, Args...>()(f._rest); }
-      };
-      template <class T, class... Args> struct get<0, T, Args...>
+      }
+      //! Enables list initialisation of the tuple
+      constexpr tuple(Args &&... ts)
+          : std::tuple<Args...>(std::move(ts)...)
       {
-        constexpr T &&operator()(tuple<T, Args...> &&f) const { return std::move(f._value); }
-        constexpr T &operator()(tuple<T, Args...> &f) const { return f._value; }
-        constexpr const T &operator()(const tuple<T, Args...> &f) const { return f._value; }
-      };
-    }
-
-/*! \brief Makes an tuple
-\tparam Args Deduced from the parameter
-\return A tuple
-\param args The types and values for the tuple
-
-\note Does not support std::reference_wrapper<>
-*/
-#ifdef __GNUC__
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wmissing-braces"
+      }
+      //! Enables list initialisation of the tuple
+      constexpr tuple(const Args &... ts)
+          : std::tuple<Args...>(ts...)
+      {
+      }
+#if 0
+      //! Enables list initialisation of the tuple
+      template <class... Ts, typename std::enable_if<sizeof...(Ts) == sizeof...(Args), bool>::type = true>
+      constexpr tuple(Ts &&... ts)
+          : std::tuple<Args...>(std::forward<Ts>(ts)...)
+      {
+      }
 #endif
-    template <class... Args> constexpr tuple<typename std::decay<Args>::type...> make_tuple(Args &&... args) { return tuple<typename std::decay<Args>::type...>{std::forward<Args>(args)...}; };
-#ifdef __GNUC__
-#pragma GCC diagnostic pop
-#endif
+    };
 
-    /*! \brief Accesses the N-th member of the collection
-    \tparam N A number 0 to len-1
-    \tparam Args Deduced from the parameter
-    \return A reference (rvalue, lvalue or const lvalue) to the member
-    \param f The collection to access
-    */
-    template <size_t N, class... Args> constexpr auto &&get(tuple<Args...> &&f) { return detail::get<N, Args...>()(std::move(f)); }
-    //! \overload
-    template <size_t N, class... Args> constexpr auto &get(tuple<Args...> &f) { return detail::get<N, Args...>()(f); }
-    //! \overload
-    template <size_t N, class... Args> constexpr const auto &get(const tuple<Args...> &f) { return detail::get<N, Args...>()(f); }
+    using std::make_tuple;
+    using std::get;
 
-    //! Helper for fetching the size of a tuple
     template <class T> struct tuple_size;
-    template <class... Types> struct tuple_size<tuple<Types...>> : public std::integral_constant<std::size_t, sizeof...(Types)>
+    template <class... Args> struct tuple_size<tuple<Args...>> : std::tuple_size<std::tuple<Args...>>
     {
     };
-    template <class T> struct tuple_size<const T> : public std::integral_constant<std::size_t, tuple_size<T>::value>
+    template <class... Args> struct tuple_size<std::tuple<Args...>> : std::tuple_size<std::tuple<Args...>>
     {
     };
-    template <class T> struct tuple_size<volatile T> : public std::integral_constant<std::size_t, tuple_size<T>::value>
+    template <class T> struct tuple_size<const T> : tuple_size<T>
     {
     };
-    template <class T> struct tuple_size<const volatile T> : public std::integral_constant<std::size_t, tuple_size<T>::value>
+    template <class T> struct tuple_size<volatile T> : tuple_size<T>
+    {
+    };
+    template <class T> struct tuple_size<const volatile T> : tuple_size<T>
     {
     };
 
-    //! Helper for fetching the type of a tuple member
-    template <size_t I, class T> struct tuple_element;
-    template <size_t I, class... Types> struct tuple_element<I, tuple<Types...>>
+    template <size_t N, class T> struct tuple_element;
+    template <size_t N, class... Args> struct tuple_element<N, tuple<Args...>> : std::tuple_element<N, std::tuple<Args...>>
     {
-      typedef decltype(detail::get<I, Types...>()(std::declval<tuple<Types...>>())) type;
     };
-    template <size_t I, class T> struct tuple_element<I, const T>
+    template <size_t N, class... Args> struct tuple_element<N, std::tuple<Args...>> : std::tuple_element<N, std::tuple<Args...>>
     {
-      typedef typename std::add_const<typename tuple_element<I, T>::type>::type type;
     };
-    template <size_t I, class T> struct tuple_element<I, volatile T>
+    template <size_t N, class T> struct tuple_element<N, const T> : tuple_element<N, T>
     {
-      typedef typename std::add_volatile<typename tuple_element<I, T>::type>::type type;
     };
-    template <size_t I, class T> struct tuple_element<I, const volatile T>
+    template <size_t N, class T> struct tuple_element<N, volatile T> : tuple_element<N, T>
     {
-      typedef typename std::add_cv<typename tuple_element<I, T>::type>::type type;
     };
+    template <size_t N, class T> struct tuple_element<N, const volatile T> : tuple_element<N, T>
+    {
+    };
+
   }  // namespace
 }  // namespace
 #endif
