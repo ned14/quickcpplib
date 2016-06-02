@@ -44,7 +44,7 @@ BOOST_AUTO_TEST_SUITE(all)
 
 BOOST_AUTO_TEST_CASE(works / spinlock, "Tests that the spinlock works as intended")
 {
-  spinlock::spinlock<bool> lock;
+  boost_lite::configurable_spinlock::spinlock<bool> lock;
   BOOST_REQUIRE(lock.try_lock());
   BOOST_REQUIRE(!lock.try_lock());
   lock.unlock();
@@ -55,8 +55,8 @@ BOOST_AUTO_TEST_CASE(works / spinlock, "Tests that the spinlock works as intende
 
 BOOST_AUTO_TEST_CASE(works / spinlock / threaded, "Tests that the spinlock works as intended under threads")
 {
-  spinlock::spinlock<bool> lock;
-  spinlock::atomic<size_t> gate(0);
+  boost_lite::configurable_spinlock::spinlock<bool> lock;
+  boost_lite::configurable_spinlock::atomic<size_t> gate(0);
 #pragma omp parallel
   {
     ++gate;
@@ -82,8 +82,8 @@ BOOST_AUTO_TEST_CASE(works / spinlock / threaded, "Tests that the spinlock works
 #if 0
 BOOST_AUTO_TEST_CASE(works / spinlock / transacted, "Tests that the spinlock works as intended under transactions")
 {
-  spinlock::spinlock<bool> lock;
-  spinlock::atomic<size_t> gate(0);
+  boost_lite::configurable_spinlock::spinlock<bool> lock;
+  boost_lite::configurable_spinlock::atomic<size_t> gate(0);
   size_t locked = 0;
 #pragma omp parallel
   {
@@ -117,7 +117,7 @@ template <class T> struct do_lock<true, T>
 template <class locktype> double CalculatePerformance(bool use_transact)
 {
   locktype lock;
-  spinlock::atomic<size_t> gate(0);
+  boost_lite::configurable_spinlock::atomic<size_t> gate(0);
   struct
   {
     size_t value;
@@ -166,7 +166,7 @@ template <class locktype> double CalculatePerformance(bool use_transact)
 BOOST_AUTO_TEST_CASE(performance / spinlock / binary, "Tests the performance of binary spinlocks")
 {
   printf("\n=== Binary spinlock performance ===\n");
-  typedef spinlock::spinlock<bool> locktype;
+  typedef boost_lite::configurable_spinlock::spinlock<bool> locktype;
   printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
   printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
   printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
@@ -175,7 +175,7 @@ BOOST_AUTO_TEST_CASE(performance / spinlock / binary, "Tests the performance of 
 BOOST_AUTO_TEST_CASE(performance / spinlock / binary / transaction, "Tests the performance of binary spinlock transactions")
 {
   printf("\n=== Transacted binary spinlock performance ===\n");
-  typedef spinlock::spinlock<bool> locktype;
+  typedef boost_lite::configurable_spinlock::spinlock<bool> locktype;
   printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(true));
   printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(true));
   printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(true));
@@ -184,7 +184,7 @@ BOOST_AUTO_TEST_CASE(performance / spinlock / binary / transaction, "Tests the p
 BOOST_AUTO_TEST_CASE(performance / spinlock / tristate, "Tests the performance of tristate spinlocks")
 {
   printf("\n=== Tristate spinlock performance ===\n");
-  typedef spinlock::spinlock<int> locktype;
+  typedef boost_lite::configurable_spinlock::spinlock<int> locktype;
   printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
   printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
   printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
@@ -193,7 +193,7 @@ BOOST_AUTO_TEST_CASE(performance / spinlock / tristate, "Tests the performance o
 BOOST_AUTO_TEST_CASE(performance / spinlock / tristate / transaction, "Tests the performance of tristate spinlock transactions")
 {
   printf("\n=== Transacted tristate spinlock performance ===\n");
-  typedef spinlock::spinlock<int> locktype;
+  typedef boost_lite::configurable_spinlock::spinlock<int> locktype;
   printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(true));
   printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(true));
   printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(true));
@@ -202,7 +202,7 @@ BOOST_AUTO_TEST_CASE(performance / spinlock / tristate / transaction, "Tests the
 BOOST_AUTO_TEST_CASE(performance / spinlock / pointer, "Tests the performance of pointer spinlocks")
 {
   printf("\n=== Pointer spinlock performance ===\n");
-  typedef spinlock::spinlock<spinlock::lockable_ptr<int>> locktype;
+  typedef boost_lite::configurable_spinlock::spinlock<boost_lite::configurable_spinlock::lockable_ptr<int>> locktype;
   printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
   printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
   printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
@@ -211,7 +211,7 @@ BOOST_AUTO_TEST_CASE(performance / spinlock / pointer, "Tests the performance of
 BOOST_AUTO_TEST_CASE(performance / spinlock / pointer / transaction, "Tests the performance of pointer spinlock transactions")
 {
   printf("\n=== Transacted pointer spinlock performance ===\n");
-  typedef spinlock::spinlock<spinlock::lockable_ptr<int>> locktype;
+  typedef boost_lite::configurable_spinlock::spinlock<boost_lite::configurable_spinlock::lockable_ptr<int>> locktype;
   printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(true));
   printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(true));
   printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(true));
@@ -219,8 +219,8 @@ BOOST_AUTO_TEST_CASE(performance / spinlock / pointer / transaction, "Tests the 
 
 static double CalculateMallocPerformance(size_t size, bool use_transact)
 {
-  spinlock::spinlock<bool> lock;
-  spinlock::atomic<size_t> gate(0);
+  boost_lite::configurable_spinlock::spinlock<bool> lock;
+  boost_lite::configurable_spinlock::atomic<size_t> gate(0);
   usCount start, end;
 #pragma omp parallel
   {
