@@ -25,6 +25,8 @@ namespace boost_lite
     */
     template <class... Args> struct tuple : std::tuple<Args...>
     {
+      constexpr tuple(tuple &&) = default;
+      constexpr tuple(const tuple &) = default;
       //! Implicit conversion from the underlying tuple
       constexpr tuple(std::tuple<Args...> &&o)
           : std::tuple<Args...>(std::move(o))
@@ -36,11 +38,23 @@ namespace boost_lite
       {
       }
       //! Enables list initialisation of the tuple
+      constexpr tuple(Args &&... ts)
+          : std::tuple<Args...>(std::move(ts)...)
+      {
+      }
+      //! Enables list initialisation of the tuple
+      constexpr tuple(const Args &... ts)
+          : std::tuple<Args...>(ts...)
+      {
+      }
+#if 0
+      //! Enables list initialisation of the tuple
       template <class... Ts, typename std::enable_if<sizeof...(Ts) == sizeof...(Args), bool>::type = true>
       constexpr tuple(Ts &&... ts)
           : std::tuple<Args...>(std::forward<Ts>(ts)...)
       {
       }
+#endif
     };
 
     using std::make_tuple;
