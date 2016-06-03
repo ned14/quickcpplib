@@ -8,28 +8,30 @@ Herein is a set of tooling to enable a Boost library to swap in the C++ 11 stand
 instead of Boost, thus making it optionally independent of Boost. The following libraries
 are swappable:
 
-* array
-* atomic
-* chrono
-* condition_variable
-* filesystem
-* functional
-* future
-* mutex
-* random
-* ratio
-* regex
-* system_error
-* thread
-* tuple
-* type_traits
-* typeindex
+* [array](http://en.cppreference.com/w/cpp/header/atomic)
+* [atomic](http://en.cppreference.com/w/cpp/header/atomic)
+* [chrono](http://en.cppreference.com/w/cpp/header/chrono)
+* [condition_variable](http://en.cppreference.com/w/cpp/header/condition_variable)
+* [filesystem](http://en.cppreference.com/w/cpp/header/filesystem)
+* [functional](http://en.cppreference.com/w/cpp/header/functional)
+* [future](http://en.cppreference.com/w/cpp/header/future)
+* [mutex](http://en.cppreference.com/w/cpp/header/mutex)
+* [random](http://en.cppreference.com/w/cpp/header/random)
+* [ratio](http://en.cppreference.com/w/cpp/header/ratio)
+* [regex](http://en.cppreference.com/w/cpp/header/regex)
+* [system_error](http://en.cppreference.com/w/cpp/header/system_error)
+* [thread](http://en.cppreference.com/w/cpp/header/thread)
+* [tuple](http://en.cppreference.com/w/cpp/header/tuple)
+* [type_traits](http://en.cppreference.com/w/cpp/header/type_traits)
+* [typeindex](http://en.cppreference.com/w/cpp/header/typeindex)
 
 Examine `include/import.h` for macros helping bind these. A clang AST based bindings generator
 which compares two namespaces and extracts the interoperable definitions can be found in
 `build/genmap.cpp`. Be aware that you must port/write your Boost library to use this abstraction
-layer instead of Boost, it requires substantial code refactoring. See Boost.Outcome or
-Boost.AFIO for examples of practice.
+layer instead of Boost, it requires substantial code refactoring. See
+[Boost.Outcome](https://github.com/ned14/boost.outcome),
+[Boost.AFIO](https://github.com/ned14/boost.afio) or
+[Boost.KernelTest](https://github.com/ned14/boost.kerneltest) for examples of practice.
 
 The usual Boost config macros like `BOOST_CONSTEXPR` are defined for you in
 `include/boost/config.hpp`. A minimum emulation of Boost.Test is available in
