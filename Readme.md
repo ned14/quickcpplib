@@ -77,8 +77,33 @@ Boost library to coexist in the same binary, and even the same translation unit!
 be like this:
 
 ```c++
-todo
+#include "boost-lite/include/import.h"
+
+#if defined(BOOST_OUTCOME_LATEST_VERSION) && BOOST_OUTCOME_LATEST_VERSION < 1
+# error You need to include the latest version of Boost.Outcome before any earlier versions within the same translation unit
+#endif
+#ifndef BOOST_OUTCOME_LATEST_VERSION
+# define BOOST_OUTCOME_LATEST_VERSION 1
+#endif
+
+#if BOOST_OUTCOME_USE_BOOST_ERROR_CODE
+# define BOOST_OUTCOME_V1_ERROR_CODE_IMPL boost
+#else
+# define BOOST_OUTCOME_V1_ERROR_CODE_IMPL std
+#endif
+
+#if BOOST_OUTCOME_LATEST_VERSION == 1
+# define BOOST_OUTCOME_V1 (boost), (outcome), (BOOSTLITE_NAMESPACE_VERSION(v1, BOOST_OUTCOME_V1_ERROR_CODE_IMPL), inline)
+#else
+# define BOOST_OUTCOME_V1 (boost), (outcome), (BOOSTLITE_NAMESPACE_VERSION(v1, BOOST_OUTCOME_V1_ERROR_CODE_IMPL))
+#endif
+#define BOOST_OUTCOME_V1_NAMESPACE BOOSTLITE_NAMESPACE(BOOST_OUTCOME_V1)
+#define BOOST_OUTCOME_V1_NAMESPACE_BEGIN BOOSTLITE_NAMESPACE_BEGIN(BOOST_OUTCOME_V1)
+#define BOOST_OUTCOME_V1_NAMESPACE_END BOOSTLITE_NAMESPACE_END(BOOST_OUTCOME_V1)
 ```
+A future edition of this library with come with cmake tooling which allows the `v1` to become
+the last SHA of your git commit. This will effectively make any version of your library completely
+independent of any other copy of your library, something extremely useful for header only libraries.
 
 The usual Boost config macros like `BOOST_CONSTEXPR` are defined for you in
 `include/boost/config.hpp`. A minimum emulation of Boost.Test is available in
@@ -90,6 +115,8 @@ unit to avoid compiler warnings.
 
 Other useful bits and pieces have snuck in over time:
 
+* `include/allocator_testing.hpp`: A STL allocator configurable to fail to allocate in various
+ways.
 * `include/atuple.hpp`: A C++ 14 aggregate initialisable tuple standin for the C++ 17 tuple.
 * `include/cpp_feature.h`: Makes consistent a set of C++ 17 feature test macros on any compiler.
 * `include/execinfo_win64.h`: Implements `backtrace()` and `backtrace_symbols()` from glibc on
