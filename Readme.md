@@ -26,7 +26,7 @@ are swappable:
 * [typeindex](http://en.cppreference.com/w/cpp/header/typeindex)
 
 Usage might be like this:
-```
+```c++
 #include "boost-lite/include/bind/stl11/boost/ratio"
 #include "boost-lite/include/bind/stl11/std/ratio"
 #include "boost-lite/include/boost/test/unit_test.hpp"
@@ -49,12 +49,12 @@ Usage might be like this:
 
 Far more interesting is to have compile time macros select whether your Boost library uses Boost
 or the C++ 11 standard library. This is how my libraries do this:
-```
+```c++
 namespace boost { namespace afio { namespace stl11 {
 #if BOOST_AFIO_USE_BOOST_THREAD
-using namespace boost_lite::bind::boost::thread;
+  using namespace boost_lite::bind::boost::thread;
 #else
-using namespace boost_lite::bind::std::thread;
+  using namespace boost_lite::bind::std::thread;
 #endif
 }}}
 ```
@@ -73,7 +73,7 @@ for some given configuration of your library. This allows differing configuratio
 Boost library to coexist in the same binary, and even the same translation unit! Usage might
 be like this:
 
-```
+```c++
 todo
 ```
 
