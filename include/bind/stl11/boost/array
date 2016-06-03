@@ -1,0 +1,10 @@
+/* This is an automatically generated bindings file. Don't modify it! */
+#ifndef BOOSTLITE_BIND_BOOST_ARRAY_HPP
+#define BOOSTLITE_BIND_BOOST_ARRAY_HPP
+
+#include <boost/array.hpp>
+namespace boost_lite { namespace bind { namespace boost { namespace array {
+extern const char *boost_bindlib_in;
+} } } } // namespace
+
+#endif

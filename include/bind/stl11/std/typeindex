@@ -1,0 +1,17 @@
+/* This is an automatically generated bindings file. Don't modify it! */
+#ifndef BOOSTLITE_BIND_STD_TYPEINDEX_HPP
+#define BOOSTLITE_BIND_STD_TYPEINDEX_HPP
+
+#include <typeindex>
+namespace boost_lite { namespace bind { namespace std { namespace typeindex {
+extern const char *boost_bindlib_in;
+// begin type_index
+#ifdef BOOST_STL11_TYPEINDEX_MAP_NO_TYPE_INDEX
+#undef BOOST_STL11_TYPEINDEX_MAP_NO_TYPE_INDEX
+#else
+using type_index = ::std::type_index;
+#endif
+// end type_index
+} } } } // namespace
+
+#endif

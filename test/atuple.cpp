@@ -2,10 +2,6 @@
 #include "../include/boost/test/unit_test.hpp"
 #include <typeinfo>
 
-#ifdef __GNUC__
-#pragma GCC diagnostic ignored "-Wmissing-braces"
-#endif
-
 BOOST_AUTO_TEST_SUITE(atuple)
 
 template <class T> struct print_type;

@@ -1,0 +1,206 @@
+/* This is an automatically generated bindings file. Don't modify it! */
+#ifndef BOOSTLITE_BIND_BOOST_REGEX_HPP
+#define BOOSTLITE_BIND_BOOST_REGEX_HPP
+
+#include <boost/regex.hpp>
+namespace boost_lite { namespace bind { namespace boost { namespace regex {
+extern const char *boost_bindlib_in;
+// begin wsregex_token_iterator
+#ifdef BOOST_STL11_REGEX_MAP_NO_WSREGEX_TOKEN_ITERATOR
+#undef BOOST_STL11_REGEX_MAP_NO_WSREGEX_TOKEN_ITERATOR
+#else
+using ::boost::wsregex_token_iterator;
+#endif
+// end wsregex_token_iterator
+// begin sregex_token_iterator
+#ifdef BOOST_STL11_REGEX_MAP_NO_SREGEX_TOKEN_ITERATOR
+#undef BOOST_STL11_REGEX_MAP_NO_SREGEX_TOKEN_ITERATOR
+#else
+using ::boost::sregex_token_iterator;
+#endif
+// end sregex_token_iterator
+// begin wcregex_iterator
+#ifdef BOOST_STL11_REGEX_MAP_NO_WCREGEX_ITERATOR
+#undef BOOST_STL11_REGEX_MAP_NO_WCREGEX_ITERATOR
+#else
+using ::boost::wcregex_iterator;
+#endif
+// end wcregex_iterator
+// begin sregex_iterator
+#ifdef BOOST_STL11_REGEX_MAP_NO_SREGEX_ITERATOR
+#undef BOOST_STL11_REGEX_MAP_NO_SREGEX_ITERATOR
+#else
+using ::boost::sregex_iterator;
+#endif
+// end sregex_iterator
+// begin cregex_iterator
+#ifdef BOOST_STL11_REGEX_MAP_NO_CREGEX_ITERATOR
+#undef BOOST_STL11_REGEX_MAP_NO_CREGEX_ITERATOR
+#else
+using ::boost::cregex_iterator;
+#endif
+// end cregex_iterator
+// begin regex_search
+#ifdef BOOST_STL11_REGEX_MAP_NO_REGEX_SEARCH
+#undef BOOST_STL11_REGEX_MAP_NO_REGEX_SEARCH
+#else
+using ::boost::regex_search;
+#endif
+// end regex_search
+// begin wsmatch
+#ifdef BOOST_STL11_REGEX_MAP_NO_WSMATCH
+#undef BOOST_STL11_REGEX_MAP_NO_WSMATCH
+#else
+using ::boost::wsmatch;
+#endif
+// end wsmatch
+// begin regex_token_iterator
+#ifdef BOOST_STL11_REGEX_MAP_NO_REGEX_TOKEN_ITERATOR
+#undef BOOST_STL11_REGEX_MAP_NO_REGEX_TOKEN_ITERATOR
+#else
+template<class BidirectionalIterator, class charT, class traits> using regex_token_iterator = ::boost::regex_token_iterator<BidirectionalIterator, charT, traits>;
+#endif
+// end regex_token_iterator
+// begin match_results
+#ifdef BOOST_STL11_REGEX_MAP_NO_MATCH_RESULTS
+#undef BOOST_STL11_REGEX_MAP_NO_MATCH_RESULTS
+#else
+template<class BidiIterator, class Allocator> using match_results = ::boost::match_results<BidiIterator, Allocator>;
+#endif
+// end match_results
+// begin wcmatch
+#ifdef BOOST_STL11_REGEX_MAP_NO_WCMATCH
+#undef BOOST_STL11_REGEX_MAP_NO_WCMATCH
+#else
+using ::boost::wcmatch;
+#endif
+// end wcmatch
+// begin regex_match
+#ifdef BOOST_STL11_REGEX_MAP_NO_REGEX_MATCH
+#undef BOOST_STL11_REGEX_MAP_NO_REGEX_MATCH
+#else
+using ::boost::regex_match;
+#endif
+// end regex_match
+// begin wssub_match
+#ifdef BOOST_STL11_REGEX_MAP_NO_WSSUB_MATCH
+#undef BOOST_STL11_REGEX_MAP_NO_WSSUB_MATCH
+#else
+using ::boost::wssub_match;
+#endif
+// end wssub_match
+// begin wcsub_match
+#ifdef BOOST_STL11_REGEX_MAP_NO_WCSUB_MATCH
+#undef BOOST_STL11_REGEX_MAP_NO_WCSUB_MATCH
+#else
+using ::boost::wcsub_match;
+#endif
+// end wcsub_match
+// begin ssub_match
+#ifdef BOOST_STL11_REGEX_MAP_NO_SSUB_MATCH
+#undef BOOST_STL11_REGEX_MAP_NO_SSUB_MATCH
+#else
+using ::boost::ssub_match;
+#endif
+// end ssub_match
+// begin wsregex_iterator
+#ifdef BOOST_STL11_REGEX_MAP_NO_WSREGEX_ITERATOR
+#undef BOOST_STL11_REGEX_MAP_NO_WSREGEX_ITERATOR
+#else
+using ::boost::wsregex_iterator;
+#endif
+// end wsregex_iterator
+// begin sub_match
+#ifdef BOOST_STL11_REGEX_MAP_NO_SUB_MATCH
+#undef BOOST_STL11_REGEX_MAP_NO_SUB_MATCH
+#else
+template<class BidiIterator> using sub_match = ::boost::sub_match<BidiIterator>;
+#endif
+// end sub_match
+// begin regex_iterator
+#ifdef BOOST_STL11_REGEX_MAP_NO_REGEX_ITERATOR
+#undef BOOST_STL11_REGEX_MAP_NO_REGEX_ITERATOR
+#else
+template<class BidirectionalIterator, class charT, class traits> using regex_iterator = ::boost::regex_iterator<BidirectionalIterator, charT, traits>;
+#endif
+// end regex_iterator
+// begin cmatch
+#ifdef BOOST_STL11_REGEX_MAP_NO_CMATCH
+#undef BOOST_STL11_REGEX_MAP_NO_CMATCH
+#else
+using ::boost::cmatch;
+#endif
+// end cmatch
+// begin regex_replace
+#ifdef BOOST_STL11_REGEX_MAP_NO_REGEX_REPLACE
+#undef BOOST_STL11_REGEX_MAP_NO_REGEX_REPLACE
+#else
+using ::boost::regex_replace;
+#endif
+// end regex_replace
+// begin basic_regex
+#ifdef BOOST_STL11_REGEX_MAP_NO_BASIC_REGEX
+#undef BOOST_STL11_REGEX_MAP_NO_BASIC_REGEX
+#else
+template<class charT, class traits> using basic_regex = ::boost::basic_regex<charT, traits>;
+#endif
+// end basic_regex
+// begin wcregex_token_iterator
+#ifdef BOOST_STL11_REGEX_MAP_NO_WCREGEX_TOKEN_ITERATOR
+#undef BOOST_STL11_REGEX_MAP_NO_WCREGEX_TOKEN_ITERATOR
+#else
+using ::boost::wcregex_token_iterator;
+#endif
+// end wcregex_token_iterator
+// begin regex
+#ifdef BOOST_STL11_REGEX_MAP_NO_REGEX
+#undef BOOST_STL11_REGEX_MAP_NO_REGEX
+#else
+using ::boost::regex;
+#endif
+// end regex
+// begin csub_match
+#ifdef BOOST_STL11_REGEX_MAP_NO_CSUB_MATCH
+#undef BOOST_STL11_REGEX_MAP_NO_CSUB_MATCH
+#else
+using ::boost::csub_match;
+#endif
+// end csub_match
+// begin smatch
+#ifdef BOOST_STL11_REGEX_MAP_NO_SMATCH
+#undef BOOST_STL11_REGEX_MAP_NO_SMATCH
+#else
+using ::boost::smatch;
+#endif
+// end smatch
+// begin regex_traits
+#ifdef BOOST_STL11_REGEX_MAP_NO_REGEX_TRAITS
+#undef BOOST_STL11_REGEX_MAP_NO_REGEX_TRAITS
+#else
+template<class charT, class implementationT> using regex_traits = ::boost::regex_traits<charT, implementationT>;
+#endif
+// end regex_traits
+// begin wregex
+#ifdef BOOST_STL11_REGEX_MAP_NO_WREGEX
+#undef BOOST_STL11_REGEX_MAP_NO_WREGEX
+#else
+using ::boost::wregex;
+#endif
+// end wregex
+// begin regex_error
+#ifdef BOOST_STL11_REGEX_MAP_NO_REGEX_ERROR
+#undef BOOST_STL11_REGEX_MAP_NO_REGEX_ERROR
+#else
+using regex_error = ::boost::regex_error;
+#endif
+// end regex_error
+// begin cregex_token_iterator
+#ifdef BOOST_STL11_REGEX_MAP_NO_CREGEX_TOKEN_ITERATOR
+#undef BOOST_STL11_REGEX_MAP_NO_CREGEX_TOKEN_ITERATOR
+#else
+using ::boost::cregex_token_iterator;
+#endif
+// end cregex_token_iterator
+} } } } // namespace
+
+#endif

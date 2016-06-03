@@ -1,0 +1,10 @@
+/* This is an automatically generated bindings file. Don't modify it! */
+#ifndef BOOSTLITE_BIND_STD_TYPE_TRAITS_HPP
+#define BOOSTLITE_BIND_STD_TYPE_TRAITS_HPP
+
+#include <type_traits>
+namespace boost_lite { namespace bind { namespace std { namespace type_traits {
+extern const char *boost_bindlib_in;
+} } } } // namespace
+
+#endif

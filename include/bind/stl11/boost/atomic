@@ -1,0 +1,316 @@
+/* This is an automatically generated bindings file. Don't modify it! */
+#ifndef BOOSTLITE_BIND_BOOST_ATOMIC_HPP
+#define BOOSTLITE_BIND_BOOST_ATOMIC_HPP
+
+#include <boost/atomic.hpp>
+namespace boost_lite { namespace bind { namespace boost { namespace atomic {
+extern const char *boost_bindlib_in;
+// begin memory_order
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_MEMORY_ORDER
+#undef BOOST_STL11_ATOMIC_MAP_NO_MEMORY_ORDER
+#else
+using ::boost::memory_order;
+  using ::boost::memory_order_relaxed;
+  using ::boost::memory_order_acquire;
+  using ::boost::memory_order_release;
+  using ::boost::memory_order_acq_rel;
+  using ::boost::memory_order_seq_cst;
+  using ::boost::memory_order_consume;
+  using ::boost::memory_order_relaxed;
+  using ::boost::memory_order_acquire;
+  using ::boost::memory_order_release;
+  using ::boost::memory_order_acq_rel;
+  using ::boost::memory_order_seq_cst;
+  using ::boost::memory_order_consume;
+#endif
+// end memory_order
+// begin atomic_intptr_t
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_INTPTR_T
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_INTPTR_T
+#else
+using ::boost::atomic_intptr_t;
+#endif
+// end atomic_intptr_t
+// begin atomic_intmax_t
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_INTMAX_T
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_INTMAX_T
+#else
+using ::boost::atomic_intmax_t;
+#endif
+// end atomic_intmax_t
+// begin atomic_int_fast64_t
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_INT_FAST64_T
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_INT_FAST64_T
+#else
+using ::boost::atomic_int_fast64_t;
+#endif
+// end atomic_int_fast64_t
+// begin atomic_int_fast32_t
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_INT_FAST32_T
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_INT_FAST32_T
+#else
+using ::boost::atomic_int_fast32_t;
+#endif
+// end atomic_int_fast32_t
+// begin atomic_size_t
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_SIZE_T
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_SIZE_T
+#else
+using ::boost::atomic_size_t;
+#endif
+// end atomic_size_t
+// begin atomic_uint_fast16_t
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_UINT_FAST16_T
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_UINT_FAST16_T
+#else
+using ::boost::atomic_uint_fast16_t;
+#endif
+// end atomic_uint_fast16_t
+// begin atomic_uint_fast8_t
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_UINT_FAST8_T
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_UINT_FAST8_T
+#else
+using ::boost::atomic_uint_fast8_t;
+#endif
+// end atomic_uint_fast8_t
+// begin atomic_int_fast8_t
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_INT_FAST8_T
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_INT_FAST8_T
+#else
+using ::boost::atomic_int_fast8_t;
+#endif
+// end atomic_int_fast8_t
+// begin atomic_int_least64_t
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_INT_LEAST64_T
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_INT_LEAST64_T
+#else
+using ::boost::atomic_int_least64_t;
+#endif
+// end atomic_int_least64_t
+// begin atomic_uint_least32_t
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_UINT_LEAST32_T
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_UINT_LEAST32_T
+#else
+using ::boost::atomic_uint_least32_t;
+#endif
+// end atomic_uint_least32_t
+// begin atomic_uint_least16_t
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_UINT_LEAST16_T
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_UINT_LEAST16_T
+#else
+using ::boost::atomic_uint_least16_t;
+#endif
+// end atomic_uint_least16_t
+// begin atomic_int_fast16_t
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_INT_FAST16_T
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_INT_FAST16_T
+#else
+using ::boost::atomic_int_fast16_t;
+#endif
+// end atomic_int_fast16_t
+// begin atomic_uchar
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_UCHAR
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_UCHAR
+#else
+using ::boost::atomic_uchar;
+#endif
+// end atomic_uchar
+// begin atomic_uint
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_UINT
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_UINT
+#else
+using ::boost::atomic_uint;
+#endif
+// end atomic_uint
+// begin atomic_uintptr_t
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_UINTPTR_T
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_UINTPTR_T
+#else
+using ::boost::atomic_uintptr_t;
+#endif
+// end atomic_uintptr_t
+// begin atomic_uint_fast32_t
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_UINT_FAST32_T
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_UINT_FAST32_T
+#else
+using ::boost::atomic_uint_fast32_t;
+#endif
+// end atomic_uint_fast32_t
+// begin atomic_int_least16_t
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_INT_LEAST16_T
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_INT_LEAST16_T
+#else
+using ::boost::atomic_int_least16_t;
+#endif
+// end atomic_int_least16_t
+// begin atomic_ushort
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_USHORT
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_USHORT
+#else
+using ::boost::atomic_ushort;
+#endif
+// end atomic_ushort
+// begin atomic_uint_fast64_t
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_UINT_FAST64_T
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_UINT_FAST64_T
+#else
+using ::boost::atomic_uint_fast64_t;
+#endif
+// end atomic_uint_fast64_t
+// begin atomic_flag
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_FLAG
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_FLAG
+#else
+using atomic_flag = ::boost::atomic_flag;
+#endif
+// end atomic_flag
+// begin atomic_ptrdiff_t
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_PTRDIFF_T
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_PTRDIFF_T
+#else
+using ::boost::atomic_ptrdiff_t;
+#endif
+// end atomic_ptrdiff_t
+// begin atomic_int_least32_t
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_INT_LEAST32_T
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_INT_LEAST32_T
+#else
+using ::boost::atomic_int_least32_t;
+#endif
+// end atomic_int_least32_t
+// begin atomic_char
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_CHAR
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_CHAR
+#else
+using ::boost::atomic_char;
+#endif
+// end atomic_char
+// begin atomic_char16_t
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_CHAR16_T
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_CHAR16_T
+#else
+using ::boost::atomic_char16_t;
+#endif
+// end atomic_char16_t
+// begin atomic
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC
+#else
+template<class T> using atomic = ::boost::atomic<T>;
+#endif
+// end atomic
+// begin atomic_thread_fence
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_THREAD_FENCE
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_THREAD_FENCE
+#else
+using ::boost::atomic_thread_fence;
+#endif
+// end atomic_thread_fence
+// begin atomic_short
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_SHORT
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_SHORT
+#else
+using ::boost::atomic_short;
+#endif
+// end atomic_short
+// begin atomic_uint_least64_t
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_UINT_LEAST64_T
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_UINT_LEAST64_T
+#else
+using ::boost::atomic_uint_least64_t;
+#endif
+// end atomic_uint_least64_t
+// begin atomic_signal_fence
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_SIGNAL_FENCE
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_SIGNAL_FENCE
+#else
+using ::boost::atomic_signal_fence;
+#endif
+// end atomic_signal_fence
+// begin atomic_ulong
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_ULONG
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_ULONG
+#else
+using ::boost::atomic_ulong;
+#endif
+// end atomic_ulong
+// begin atomic_schar
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_SCHAR
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_SCHAR
+#else
+using ::boost::atomic_schar;
+#endif
+// end atomic_schar
+// begin atomic_long
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_LONG
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_LONG
+#else
+using ::boost::atomic_long;
+#endif
+// end atomic_long
+// begin atomic_uintmax_t
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_UINTMAX_T
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_UINTMAX_T
+#else
+using ::boost::atomic_uintmax_t;
+#endif
+// end atomic_uintmax_t
+// begin atomic_char32_t
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_CHAR32_T
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_CHAR32_T
+#else
+using ::boost::atomic_char32_t;
+#endif
+// end atomic_char32_t
+// begin atomic_ullong
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_ULLONG
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_ULLONG
+#else
+using ::boost::atomic_ullong;
+#endif
+// end atomic_ullong
+// begin atomic_llong
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_LLONG
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_LLONG
+#else
+using ::boost::atomic_llong;
+#endif
+// end atomic_llong
+// begin atomic_bool
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_BOOL
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_BOOL
+#else
+using ::boost::atomic_bool;
+#endif
+// end atomic_bool
+// begin atomic_wchar_t
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_WCHAR_T
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_WCHAR_T
+#else
+using ::boost::atomic_wchar_t;
+#endif
+// end atomic_wchar_t
+// begin atomic_int_least8_t
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_INT_LEAST8_T
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_INT_LEAST8_T
+#else
+using ::boost::atomic_int_least8_t;
+#endif
+// end atomic_int_least8_t
+// begin atomic_int
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_INT
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_INT
+#else
+using ::boost::atomic_int;
+#endif
+// end atomic_int
+// begin atomic_uint_least8_t
+#ifdef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_UINT_LEAST8_T
+#undef BOOST_STL11_ATOMIC_MAP_NO_ATOMIC_UINT_LEAST8_T
+#else
+using ::boost::atomic_uint_least8_t;
+#endif
+// end atomic_uint_least8_t
+} } } } // namespace
+
+#endif

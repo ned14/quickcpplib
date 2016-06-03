@@ -1,0 +1,129 @@
+/* This is an automatically generated bindings file. Don't modify it! */
+#ifndef BOOSTLITE_BIND_BOOST_FUTURE_HPP
+#define BOOSTLITE_BIND_BOOST_FUTURE_HPP
+
+#include <boost/thread.hpp>
+namespace boost_lite { namespace bind { namespace boost { namespace future {
+extern const char *boost_bindlib_in;
+// begin launch
+#ifdef BOOST_STL11_FUTURE_MAP_NO_LAUNCH
+#undef BOOST_STL11_FUTURE_MAP_NO_LAUNCH
+#else
+using ::boost::launch;
+#endif
+// end launch
+// begin future_status
+#ifdef BOOST_STL11_FUTURE_MAP_NO_FUTURE_STATUS
+#undef BOOST_STL11_FUTURE_MAP_NO_FUTURE_STATUS
+#else
+using ::boost::future_status;
+#endif
+// end future_status
+// begin future_errc
+#ifdef BOOST_STL11_FUTURE_MAP_NO_FUTURE_ERRC
+#undef BOOST_STL11_FUTURE_MAP_NO_FUTURE_ERRC
+#else
+using ::boost::future_errc;
+#endif
+// end future_errc
+// begin async
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ASYNC
+#undef BOOST_STL11_FUTURE_MAP_NO_ASYNC
+#else
+using ::boost::async;
+#endif
+// end async
+// begin packaged_task
+#ifdef BOOST_STL11_FUTURE_MAP_NO_PACKAGED_TASK
+#undef BOOST_STL11_FUTURE_MAP_NO_PACKAGED_TASK
+#else
+template<class R> using packaged_task = ::boost::packaged_task<R>;
+#endif
+// end packaged_task
+// begin promise
+#ifdef BOOST_STL11_FUTURE_MAP_NO_PROMISE
+#undef BOOST_STL11_FUTURE_MAP_NO_PROMISE
+#else
+template<class R> using promise = ::boost::promise<R>;
+#endif
+// end promise
+// begin shared_future
+#ifdef BOOST_STL11_FUTURE_MAP_NO_SHARED_FUTURE
+#undef BOOST_STL11_FUTURE_MAP_NO_SHARED_FUTURE
+#else
+template<class R> using shared_future = ::boost::shared_future<R>;
+#endif
+// end shared_future
+// begin future
+#ifdef BOOST_STL11_FUTURE_MAP_NO_FUTURE
+#undef BOOST_STL11_FUTURE_MAP_NO_FUTURE
+#else
+template<class R> using future = ::boost::future<R>;
+#endif
+// end future
+// begin future_error
+#ifdef BOOST_STL11_FUTURE_MAP_NO_FUTURE_ERROR
+#undef BOOST_STL11_FUTURE_MAP_NO_FUTURE_ERROR
+#else
+using future_error = ::boost::future_error;
+#endif
+// end future_error
+// begin atomic_store
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_STORE
+#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_STORE
+#else
+using ::boost::atomic_store;
+#endif
+// end atomic_store
+// begin future_category
+#ifdef BOOST_STL11_FUTURE_MAP_NO_FUTURE_CATEGORY
+#undef BOOST_STL11_FUTURE_MAP_NO_FUTURE_CATEGORY
+#else
+using ::boost::future_category;
+#endif
+// end future_category
+// begin atomic_load
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_LOAD
+#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_LOAD
+#else
+using ::boost::atomic_load;
+#endif
+// end atomic_load
+// begin atomic_exchange_explicit
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_EXCHANGE_EXPLICIT
+#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_EXCHANGE_EXPLICIT
+#else
+using ::boost::atomic_exchange_explicit;
+#endif
+// end atomic_exchange_explicit
+// begin atomic_load_explicit
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_LOAD_EXPLICIT
+#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_LOAD_EXPLICIT
+#else
+using ::boost::atomic_load_explicit;
+#endif
+// end atomic_load_explicit
+// begin atomic_exchange
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_EXCHANGE
+#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_EXCHANGE
+#else
+using ::boost::atomic_exchange;
+#endif
+// end atomic_exchange
+// begin atomic_store_explicit
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_STORE_EXPLICIT
+#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_STORE_EXPLICIT
+#else
+using ::boost::atomic_store_explicit;
+#endif
+// end atomic_store_explicit
+// begin atomic_is_lock_free
+#ifdef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_IS_LOCK_FREE
+#undef BOOST_STL11_FUTURE_MAP_NO_ATOMIC_IS_LOCK_FREE
+#else
+using ::boost::atomic_is_lock_free;
+#endif
+// end atomic_is_lock_free
+} } } } // namespace
+
+#endif

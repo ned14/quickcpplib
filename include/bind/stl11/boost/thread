@@ -1,0 +1,45 @@
+/* This is an automatically generated bindings file. Don't modify it! */
+#ifndef BOOSTLITE_BIND_BOOST_THREAD_HPP
+#define BOOSTLITE_BIND_BOOST_THREAD_HPP
+
+#include <boost/thread.hpp>
+namespace boost_lite { namespace bind { namespace boost { namespace thread {
+extern const char *boost_bindlib_in;
+// begin sleep_for
+#ifdef BOOST_STL11_THREAD_MAP_NO_SLEEP_FOR
+#undef BOOST_STL11_THREAD_MAP_NO_SLEEP_FOR
+#else
+namespace this_thread { using ::boost::this_thread::sleep_for; }
+#endif
+// end sleep_for
+// begin sleep_until
+#ifdef BOOST_STL11_THREAD_MAP_NO_SLEEP_UNTIL
+#undef BOOST_STL11_THREAD_MAP_NO_SLEEP_UNTIL
+#else
+namespace this_thread { using ::boost::this_thread::sleep_until; }
+#endif
+// end sleep_until
+// begin yield
+#ifdef BOOST_STL11_THREAD_MAP_NO_YIELD
+#undef BOOST_STL11_THREAD_MAP_NO_YIELD
+#else
+namespace this_thread { using ::boost::this_thread::yield; }
+#endif
+// end yield
+// begin thread
+#ifdef BOOST_STL11_THREAD_MAP_NO_THREAD
+#undef BOOST_STL11_THREAD_MAP_NO_THREAD
+#else
+using thread = ::boost::thread;
+#endif
+// end thread
+// begin get_id
+#ifdef BOOST_STL11_THREAD_MAP_NO_GET_ID
+#undef BOOST_STL11_THREAD_MAP_NO_GET_ID
+#else
+namespace this_thread { using ::boost::this_thread::get_id; }
+#endif
+// end get_id
+} } } } // namespace
+
+#endif

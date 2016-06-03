@@ -1,0 +1,66 @@
+/* This is an automatically generated bindings file. Don't modify it! */
+#ifndef BOOSTLITE_BIND_STD_SYSTEM_ERROR_HPP
+#define BOOSTLITE_BIND_STD_SYSTEM_ERROR_HPP
+
+#include <system_error>
+namespace boost_lite { namespace bind { namespace std { namespace system_error {
+extern const char *boost_bindlib_in;
+// begin is_error_condition_enum
+#ifdef BOOST_STL11_SYSTEM_ERROR_MAP_NO_IS_ERROR_CONDITION_ENUM
+#undef BOOST_STL11_SYSTEM_ERROR_MAP_NO_IS_ERROR_CONDITION_ENUM
+#else
+template<class _Tp> using is_error_condition_enum = ::std::is_error_condition_enum<_Tp>;
+#endif
+// end is_error_condition_enum
+// begin system_error
+#ifdef BOOST_STL11_SYSTEM_ERROR_MAP_NO_SYSTEM_ERROR
+#undef BOOST_STL11_SYSTEM_ERROR_MAP_NO_SYSTEM_ERROR
+#else
+using system_error = ::std::system_error;
+#endif
+// end system_error
+// begin error_condition
+#ifdef BOOST_STL11_SYSTEM_ERROR_MAP_NO_ERROR_CONDITION
+#undef BOOST_STL11_SYSTEM_ERROR_MAP_NO_ERROR_CONDITION
+#else
+using error_condition = ::std::error_condition;
+#endif
+// end error_condition
+// begin error_code
+#ifdef BOOST_STL11_SYSTEM_ERROR_MAP_NO_ERROR_CODE
+#undef BOOST_STL11_SYSTEM_ERROR_MAP_NO_ERROR_CODE
+#else
+using error_code = ::std::error_code;
+#endif
+// end error_code
+// begin system_category
+#ifdef BOOST_STL11_SYSTEM_ERROR_MAP_NO_SYSTEM_CATEGORY
+#undef BOOST_STL11_SYSTEM_ERROR_MAP_NO_SYSTEM_CATEGORY
+#else
+using ::std::system_category;
+#endif
+// end system_category
+// begin is_error_code_enum
+#ifdef BOOST_STL11_SYSTEM_ERROR_MAP_NO_IS_ERROR_CODE_ENUM
+#undef BOOST_STL11_SYSTEM_ERROR_MAP_NO_IS_ERROR_CODE_ENUM
+#else
+template<class _Tp> using is_error_code_enum = ::std::is_error_code_enum<_Tp>;
+#endif
+// end is_error_code_enum
+// begin error_category
+#ifdef BOOST_STL11_SYSTEM_ERROR_MAP_NO_ERROR_CATEGORY
+#undef BOOST_STL11_SYSTEM_ERROR_MAP_NO_ERROR_CATEGORY
+#else
+using error_category = ::std::error_category;
+#endif
+// end error_category
+// begin generic_category
+#ifdef BOOST_STL11_SYSTEM_ERROR_MAP_NO_GENERIC_CATEGORY
+#undef BOOST_STL11_SYSTEM_ERROR_MAP_NO_GENERIC_CATEGORY
+#else
+using ::std::generic_category;
+#endif
+// end generic_category
+} } } } // namespace
+
+#endif
