@@ -25,6 +25,9 @@ are swappable:
 * [type_traits](http://en.cppreference.com/w/cpp/header/type_traits)
 * [typeindex](http://en.cppreference.com/w/cpp/header/typeindex)
 
+Note that only exactly interoperable binds are provided (excluding stuff not yet
+supported by the clang AST parser extractor, currently namespaces, variables, some other stuff).
+
 Usage might be like this:
 ```c++
 #include "boost-lite/include/bind/stl11/boost/ratio"
