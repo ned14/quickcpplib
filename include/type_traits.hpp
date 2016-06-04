@@ -23,13 +23,14 @@ namespace boost_lite
       //    template<class T, typename = void> struct is_rangeable : std::false_type { };
       //    template<class T> struct is_rangeable<T, decltype(*std::declval<T&>(), ++std::declval<T&>(), void())> : std::true_type { };
       // Support for SFINAE detection of containers (does it have begin() and end()?), made considerably more complex by needing MSVC to work.
-      template <class T> inline auto is_container_impl(T) -> decltype(*std::begin(std::declval<T>()), *std::end(std::declval<T>()), bool()) { return true; }
-      inline int is_container_impl(...) { return 0; }
+      template <class T> inline auto is_sequence_impl(T) -> decltype(*std::begin(std::declval<T>()), *std::end(std::declval<T>()), bool()) { return true; }
+      inline int is_sequence_impl(...) { return 0; }
     }
-    template <class T, typename = decltype(detail::is_container_impl(std::declval<T>()))> struct is_container : std::false_type
+    //! True if type T is a STL compliant sequence (does it have begin() and end()?)
+    template <class T, typename = decltype(detail::is_sequence_impl(std::declval<T>()))> struct is_sequence : std::false_type
     {
     };
-    template <class T> struct is_container<T, bool> : std::true_type
+    template <class T> struct is_sequence<T, bool> : std::true_type
     {
       typedef decltype(*std::begin(*((typename std::remove_reference<T>::type *) nullptr))) raw_type;  //!< The raw type (probably a (const) lvalue ref) returned by *it
       typedef typename detail::decay_preserving_cv<raw_type>::type type;                               //!< The type held by the container, still potentially const if container does not permit write access
