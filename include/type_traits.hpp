@@ -35,6 +35,72 @@ namespace boost_lite
       typedef decltype(*std::begin(*((typename std::remove_reference<T>::type *) nullptr))) raw_type;  //!< The raw type (probably a (const) lvalue ref) returned by *it
       typedef typename detail::decay_preserving_cv<raw_type>::type type;                               //!< The type held by the container, still potentially const if container does not permit write access
     };
+
+
+    namespace detail
+    {
+      template <size_t N> struct Char
+      {
+        char foo[N];
+      };
+      // Overload only available if a default constructed T has a constexpr-available size()
+      template <class T, size_t N = T{}.size() + 1> constexpr inline Char<N> constexpr_size(const T &) { return Char<N>(); }
+      template <class T> constexpr inline Char<1> constexpr_size(...) { return Char<1>(); }
+    }
+    /*! Returns true if the instance of v has a constexpr size()
+    /note This is too overly conservative, it does not correctly return true for constexpr input.
+    */
+    template <class T> constexpr inline bool has_constexpr_size(const T &v) { return sizeof(detail::constexpr_size<typename std::decay<T>::type>(std::move(v))) > 1; }
+    //! \overload
+    template <class T> constexpr inline bool has_constexpr_size() { return sizeof(detail::constexpr_size<typename std::decay<T>::type>(T{})) > 1; }
+
+#if 0
+      // Non-constexpr array (always has a constexpr size())
+      auto ca = std::array<int, 2>();
+      // Constexpr initializer_list (has constexpr size()). Note fails to compile on
+      // VS2015 as its initializer_list isn't constexpr constructible yet
+#ifndef _MSC_VER
+      constexpr std::initializer_list<int> cil{ 1, 2 };
+#endif
+      // Non-constexpr initializer_list (does not have constexpr size())
+      std::initializer_list<int> il{ 1, 2 };
+      // Non-constexpr vector (never has constexpr size())
+      std::vector<int> vec{ 1, 2 };
+
+      // Correct on GCC 4.9 and clang 3.8 and VS2015
+      static_assert(ca.size(), "non-constexpr array size constexpr");
+      // Correct on GCC 4.9 and clang 3.8.
+#ifndef _MSC_VER
+      static_assert(cil.size(), "constexpr il size constexpr");
+#endif
+      // Fails as you'd expect everywhere with non-constexpr il error
+      // static_assert(il.size(), "non-constexpr il size constexpr");
+
+      // Correct on GCC 4.9 and clang 3.8 and VS2015
+      static_assert(has_constexpr_size(ca), "ca");
+      // Incorrect on GCC 4.9 and clang 3.8 and VS2015
+#ifndef _MSC_VER
+      static_assert(!has_constexpr_size(cil), "cil");  // INCORRECT!
+#endif
+                                                       // Correct on GCC 4.9 and clang 3.8 and VS2015
+      static_assert(!has_constexpr_size(il), "il");
+      // Correct on GCC 4.9 and clang 3.8 and VS2015
+      static_assert(!has_constexpr_size(vec), "vec");
+
+      constexpr bool test_ca() {
+        return has_constexpr_size(std::array<int, 2>{1, 2});
+      }
+      constexpr bool testca = test_ca();
+      // Correct on GCC 4.9 and clang 3.8 and VS2015
+      static_assert(testca, "testca()");
+
+      constexpr bool test_cil() {
+        return has_constexpr_size(std::initializer_list<int>{1, 2});
+      }
+      constexpr bool testcil = test_cil();
+      // Incorrect on GCC 4.9 and clang 3.8 and VS2015
+      static_assert(!testcil, "testcil()");          // INCORRECT!
+#endif
   }
 }
 
