@@ -466,5 +466,18 @@ extern "C" void _mm_pause();
 #define BOOSTLITE_IN_THREAD_SANITIZER 0
 #endif
 
+#ifndef BOOSTLITE_THREAD_LOCAL
+# ifdef __cpp_thread_local
+#  define BOOSTLITE_THREAD_LOCAL thread_local
+# elif defined(_MSC_VER)
+#  define BOOSTLITE_THREAD_LOCAL __declspec(thread)
+# elif defined(__GNUC__)
+#  define BOOSTLITE_THREAD_LOCAL __thread
+# else
+#  error Unknown compiler, cannot set BOOSTLITE_THREAD_LOCAL
+# endif
+#endif
+
+
 
 #endif
