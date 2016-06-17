@@ -10,6 +10,13 @@ Created: May 2016
 
 namespace boost_lite
 {
+  //! Gets the compiler to error out printing a type
+  template <class T> struct print_type
+  {
+  private:
+    print_type() {}
+  };
+
   namespace type_traits
   {
     namespace detail
@@ -37,6 +44,8 @@ namespace boost_lite
     };
 
 
+#if 0
+    // Disabled until I find the time to get it working
     namespace detail
     {
       template <size_t N> struct Char
@@ -44,7 +53,7 @@ namespace boost_lite
         char foo[N];
       };
       // Overload only available if a default constructed T has a constexpr-available size()
-      template <class T, size_t N = T{}.size() + 1> constexpr inline Char<N> constexpr_size(const T &) { return Char<N>(); }
+      template <class T, size_t N = static_cast<T *>(nullptr)->size() + 1> constexpr inline Char<N> constexpr_size(const T &) { return Char<N>(); }
       template <class T> constexpr inline Char<1> constexpr_size(...) { return Char<1>(); }
     }
     /*! Returns true if the instance of v has a constexpr size()
@@ -52,7 +61,9 @@ namespace boost_lite
     */
     template <class T> constexpr inline bool has_constexpr_size(const T &v) { return sizeof(detail::constexpr_size<typename std::decay<T>::type>(std::move(v))) > 1; }
     //! \overload
-    template <class T> constexpr inline bool has_constexpr_size() { return sizeof(detail::constexpr_size<typename std::decay<T>::type>(T{})) > 1; }
+    template <class T> constexpr inline bool has_constexpr_size() { return sizeof(detail::constexpr_size<typename std::decay<T>::type>(std::declval<T>())) > 1; }
+
+    static_assert(has_constexpr_size<std::array<std::string, 2>>(), "failed");
 
 #if 0
       // Non-constexpr array (always has a constexpr size())
@@ -100,6 +111,7 @@ namespace boost_lite
       constexpr bool testcil = test_cil();
       // Incorrect on GCC 4.9 and clang 3.8 and VS2015
       static_assert(!testcil, "testcil()");          // INCORRECT!
+#endif
 #endif
   }
 }
