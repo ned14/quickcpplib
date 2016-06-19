@@ -56,6 +56,8 @@ DEALINGS IN THE SOFTWARE.
 #include <array>
 #include <atomic>
 #include <chrono>
+#include <cstddef>  // for ptrdiff_t
+#include <cstring>  // for memcmp
 #include <iomanip>
 #include <ostream>
 #include <sstream>
