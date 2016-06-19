@@ -36,6 +36,8 @@ DEALINGS IN THE SOFTWARE.
 \brief Provides a constexpr C++ 11 tribool
 */
 
+#include <istream>
+
 namespace tribool
 {
   /*! \defgroup tribool Constexpr C++ 11 tribool
