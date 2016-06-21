@@ -3,7 +3,7 @@
 
 BOOST_AUTO_TEST_SUITE(ringbuffer_log)
 
-using namespace ringbuffer_log;
+using namespace boost_lite::ringbuffer_log;
 
 static simple_ringbuffer_log<> simple(level::all);
 
