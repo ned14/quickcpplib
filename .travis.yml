@@ -7,8 +7,8 @@ branches:
     - master
 notifications:
   email:
-#    recipients:
-#      - nialldouglas14@gmail.com
+    recipients:
+      - nialldouglas14@gmail.com
 
 addons:
   apt:
