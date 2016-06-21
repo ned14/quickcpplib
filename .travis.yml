@@ -2,24 +2,21 @@ language: cpp
 sudo: false
 os:
  - linux
+branches:
+  only:
+    - master
 notifications:
   email:
 #    recipients:
-#      - one@example.com
-#      - other@example.com
-    on_success: change # [always|never|change] # default: change
-    on_failure: change # [always|never|change] # default: always
-
+#      - nialldouglas14@gmail.com
 
 addons:
   apt:
     sources:
     - ubuntu-toolchain-r-test
-    - llvm-toolchain-precise-3.7
+#    - llvm-toolchain-precise-3.8  ## not currently working due to bad source signing key
     packages:
-    - g++-4.9
-    - g++-5
-    - clang-3.7
+    - g++-6
 
 before_install:
  - git submodule update --init --recursive
@@ -27,11 +24,11 @@ before_install:
 script:
  - cd test
  - ./withgcc.sh
- - g++-5 -std=c++14 -o atuple -O3 atuple.cpp
+ - g++-6 -std=c++14 -Wall -Wextra -o atuple -O3 atuple.cpp
  - ./atuple
- - g++-5 -std=c++14 -o ringbuffer_log -O3 ringbuffer_log.cpp
+ - g++-6 -std=c++14 -Wall -Wextra -o ringbuffer_log -O3 ringbuffer_log.cpp
  - ./ringbuffer_log
- - g++-5 -std=c++14 -o spinlock_tribool -O3 spinlock_tribool.cpp
+ - g++-6 -std=c++14 -Wall -Wextra -o spinlock_tribool -O3 spinlock_tribool.cpp
  - ./spinlock_tribool
  
 after_success:
