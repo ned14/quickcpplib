@@ -10,9 +10,9 @@ static simple_ringbuffer_log<> simple(level::all);
 extern "C" void test_function(bool backtrace)
 {
   if(backtrace)
-    BINDLIB_RINGBUFFERLOG_ITEM_BACKTRACE(simple, level::warn, "test message", 3, 4);
+    BOOSTLITE_RINGBUFFERLOG_ITEM_BACKTRACE(simple, level::warn, "test message", 3, 4);
   else
-    BINDLIB_RINGBUFFERLOG_ITEM_FUNCTION(simple, level::fatal, "test message", 1, 2);
+    BOOSTLITE_RINGBUFFERLOG_ITEM_FUNCTION(simple, level::fatal, "test message", 1, 2);
 }
 
 BOOST_AUTO_TEST_CASE(ringbuffer_log / simple / works, "Tests that the simple_ringbuffer_log works as advertised")
