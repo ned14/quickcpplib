@@ -226,9 +226,9 @@ DEALINGS IN THE SOFTWARE.
 //# define __cpp_runtime_arrays 190000
 //#endif
 
-//#if !defined(__cpp_variable_templates)
-//# define __cpp_variable_templates 190000
-//#endif
+#if !defined(__cpp_variable_templates) && _MSC_FULL_VER >= 190023506
+#define __cpp_variable_templates 190000
+#endif
 
 #endif  // _MSC_VER
 
