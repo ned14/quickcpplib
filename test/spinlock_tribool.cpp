@@ -280,7 +280,7 @@ BOOST_AUTO_TEST_CASE(performance / malloc / transact / large, "Tests the transac
 
 BOOST_AUTO_TEST_CASE(works / tribool, "Tests that the tribool works as intended")
 {
-  using tribool::tribool;
+  using boost_lite::tribool::tribool;
   auto t(tribool::true_), f(tribool::false_), o(tribool::other), u(tribool::unknown);
   BOOST_CHECK(true_(t));
   BOOST_CHECK(false_(f));
