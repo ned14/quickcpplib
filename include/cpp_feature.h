@@ -64,7 +64,7 @@ DEALINGS IN THE SOFTWARE.
 #define __cpp_attributes 190000
 #endif
 
-#if !defined(__cpp_constexpr)
+#if !defined(__cpp_constexpr) && _MSC_FULL_VER >= 190023506
 #define __cpp_constexpr 190000
 #endif
 
