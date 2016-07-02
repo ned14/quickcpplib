@@ -38,8 +38,9 @@ foreach(_var ${_test})
 	#message(STATUS "comparing ${_bin} and ${_chopped}")
 	if("${_bin}" STREQUAL "${_chopped}")
 		get_filename_component(_parent "${CMAKE_SOURCE_DIR}/.." ABSOLUTE)
-		message(WARNING
-			"You must set a binary directory that is different from your source directory.  You might consider ${CMAKE_SOURCE_DIR}/build or ${_parent}/build-${CMAKE_PROJECT_NAME}")
+		get_filename_component(_leaf "${CMAKE_SOURCE_DIR}" NAME)
+		message("FATAL: You must set a binary directory that is different from your source directory.")
+		message("       You might consider ${CMAKE_SOURCE_DIR}/build or ${_parent}/${_leaf}-build")
         execute_process(COMMAND ${CMAKE_COMMAND} -E remove_directory "${CMAKE_BINARY_DIR}/CMakeFiles")
 		# This next call should cause CMake to crash.  We should remove this dirty hack if CMake becomes
 		# able to be cancelled in a clean way (i.e. doesn't leave behind files/folders).
