@@ -3,12 +3,16 @@
 include(DeduceBoostLiteLibrarySources)
 if(WIN32)
   function(check_if_cmake_incomplete target md5 path)
+    string(REPLACE "/" "\\" TEMPFILE "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}\\boostlite_cmake_tempfile_${target}.txt")
+    #string(REPLACE "/" "\\" CMAKE "\"${CMAKE_COMMAND}\")
+    set(CMAKE "cmake")
+    string(REPLACE "/" "\\" CMAKECACHE "${CMAKE_CURRENT_BINARY_DIR}\\CMakeCache.txt")
     add_custom_command(TARGET ${target} PRE_BUILD
       COMMAND echo Checking if files have been added to ${target} since cmake last auto globbed the source tree ...
-\ndir /b /a-d /s > boostlite_cmake_tempfile_${target}.txt
-\nfor /f \"delims=\" %%a in ('\"${CMAKE_COMMAND}\" -E md5sum boostlite_cmake_tempfile_${target}.txt') do @set MD5=%%a
+\ndir /b /a-d /s > \"${TEMPFILE}\"
+\nfor /f \"delims=\" %%a in ('${CMAKE} -E md5sum \"${TEMPFILE}\"') do @set MD5=%%a
 \nfor /f \"tokens=1\" %%G IN (\"%MD5%\") DO set MD5=%%G
-\nif NOT \"%MD5%\" == \"${md5} \" (echo WARNING cmake needs to be rerun! %MD5% != ${md5} & del \"${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}\\generate.stamp\")
+\nif NOT \"%MD5%\" == \"${md5} \" (echo WARNING cmake needs to be rerun! %MD5% != ${md5} & copy /b \"${CMAKECACHE}\" +,,)
       WORKING_DIRECTORY "${path}"
     )
   endfunction()
@@ -16,10 +20,9 @@ else()
   function(check_if_cmake_incomplete target md5 path)
     add_custom_command(TARGET ${target} PRE_BUILD
       COMMAND echo Checking if files have been added to ${target} since cmake last auto globbed the source tree ...
-\nfind . -type f -printf \"%t\\t%s\\t%p\\n\" > boostlite_cmake_tempfile_${target}.txt
-\nMD5=$(\"${CMAKE_COMMAND}\" -E md5sum boostlite_cmake_tempfile_${target}.txt)
-\nMD5=$(cat boostlite_cmake_tempfile_${target}.txt | cut -d " " -f1)
-\nif [ \"$MD5\" != \"${md5}\" ]; then echo WARNING cmake needs to be rerun! $MD5 != ${md5}; rm \"${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/generate.stamp\"; fi
+\nfind . -type f -printf \"%t\\t%s\\t%p\\n\" > \"${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/boostlite_cmake_tempfile_${target}.txt\"
+\nMD5=$(\"${CMAKE_COMMAND}\" -E md5sum \"${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/boostlite_cmake_tempfile_${target}.txt\" | cut -d " " -f1)
+\nif [ \"$MD5\" != \"${md5}\" ]; then echo WARNING cmake needs to be rerun! $MD5 != ${md5}; touch \"${CMAKE_CURRENT_BINARY_DIR}/CMakeCache.txt\"; fi
       WORKING_DIRECTORY "${path}"
     )
   endfunction()
