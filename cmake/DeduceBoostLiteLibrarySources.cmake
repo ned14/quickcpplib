@@ -50,6 +50,22 @@ else()
   #message(STATUS "  ${PROJECT_NAME}_SOURCES = ${${PROJECT_NAME}_SOURCES}")
   #message(STATUS "  ${PROJECT_NAME}_TESTS = ${${PROJECT_NAME}_TESTS}")
 
+  # Call source_group() on all items with a common path so project files maintain the file hierarchy
+  function(preserve_structure)
+    foreach(item ${ARGV})
+      set(oldbasepath ${basepath})
+      get_filename_component(basepath ${item} DIRECTORY)
+      if(NOT basepath STREQUAL oldbasepath)
+        string(REPLACE "/" "\\" _basepath ${basepath})
+        #message(STATUS "source_group(${_basepath} ${basepath}/.*)")
+        source_group("${_basepath}" "${basepath}/.*")
+      endif()
+    endforeach()
+  endfunction()
+  preserve_structure(${${PROJECT_NAME}_HEADERS})
+  preserve_structure(${${PROJECT_NAME}_SOURCES})
+  preserve_structure(${${PROJECT_NAME}_TESTS})
+
   if(WIN32)
     function(md5_source_tree path outvar)
       execute_process(COMMAND CMD /c dir /b /a-d /s
