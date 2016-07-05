@@ -1,6 +1,6 @@
 # Adds two targets, one a static and the other a shared library for ${PROJECT_NAME}
 
-include(DeduceBoostLiteLibrarySources)
+include(BoostLiteDeduceLibrarySources)
 if(WIN32)
   function(check_if_cmake_incomplete target md5 path)
     string(REPLACE "/" "\\" TEMPFILE "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}\\boostlite_cmake_tempfile_${target}.txt")

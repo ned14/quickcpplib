@@ -12,7 +12,8 @@
 # Outputs:
 #  *                   PROJECT_DIR: PROJECT_NAMESPACE with any :: replaced with a / followed by PROJECT_NAME
 #  *          ${PROJECT_NAME}_PATH: ${CMAKE_CURRENT_SOURCE_DIR}
-#  *       ${PROJECT_NAME}_HEADERS: Any header files found in include/${PROJECT_PATH}
+#  *     ${PROJECT_NAME}_INTERFACE: The master interface header file in include/${PROJECT_DIR}/${PROJECT_NAME}.hpp
+#  *       ${PROJECT_NAME}_HEADERS: Any header files found in include/${PROJECT_DIR}
 #  *       ${PROJECT_NAME}_SOURCES: Any source files found in src
 #  *         ${PROJECT_NAME}_TESTS: Any source files found in test
 #  *   ${PROJECT_NAME}_HEADERS_MD5: The MD5 of the results of 'find . -type f -printf "%t\t%s\t%p\n"' (POSIX) or 'dir /a-d /s' (Windows) for include
@@ -22,9 +23,14 @@
 string(REPLACE "::" "/" PROJECT_DIR ${PROJECT_NAMESPACE})
 set(PROJECT_DIR ${PROJECT_DIR}${PROJECT_NAME})
 set(${PROJECT_NAME}_PATH ${CMAKE_CURRENT_SOURCE_DIR})
+set(${PROJECT_NAME}_INTERFACE include/${PROJECT_DIR}/${PROJECT_NAME}.hpp)
+if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${${PROJECT_NAME}_INTERFACE}")
+  message(FATAL_ERROR "FATAL: No master interface header file found at ${${PROJECT_NAME}_INTERFACE}")
+endif()
+
 # Only go to the expense of recalculating this stuff if needed
 if(${PROJECT_NAME}_HEADERS)
-  message(STATUS "Using earlier scan of ${CMAKE_CURRENT_SOURCE_DIR} ...")
+  message(STATUS "Reusing earlier scan of ${CMAKE_CURRENT_SOURCE_DIR} ...")
 else()
   message(STATUS "Recursively scanning ${CMAKE_CURRENT_SOURCE_DIR} for header and source files ...")
   file(GLOB_RECURSE ${PROJECT_NAME}_HEADERS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
@@ -66,6 +72,8 @@ else()
   preserve_structure(${${PROJECT_NAME}_SOURCES})
   preserve_structure(${${PROJECT_NAME}_TESTS})
 
+  # Take a hash of the current directory hierarchy so our shell slug in the output
+  # build system can complain if new files were added without regening cmake
   if(WIN32)
     function(md5_source_tree path outvar)
       execute_process(COMMAND CMD /c dir /b /a-d /s
