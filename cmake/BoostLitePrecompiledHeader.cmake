@@ -22,24 +22,23 @@ function(target_precompiled_header target headerpath)
   endif()
 endfunction()
 
-# Adds a custom target which generates a precompiled header
+# Adds an object library target which generates a precompiled header
 function(add_precompiled_header outvar headerpath)
   get_filename_component(header "${headerpath}" NAME)
-  set(pchpath ${CMAKE_CURRENT_BINARY_DIR}/${header}.dir/${CMAKE_CFG_INTDIR}/${header}.pch)
-  set(flags ${CMAKE_CXX_FLAGS})
-  separate_arguments(flags)
-  expand_at_build_if_config(Debug flags ${CMAKE_CXX_FLAGS_DEBUG})
-  expand_at_build_if_config(Release flags ${CMAKE_CXX_FLAGS_RELEASE})
-  expand_at_build_if_config(RelWithDebInfo flags ${CMAKE_CXX_FLAGS_RELWITHDEBINFO})
-  expand_at_build_if_config(MinSizeRel flags ${CMAKE_CXX_FLAGS_MINSIZEREL})
-  MESSAGE(STATUS "${flags}")
+  set(sources ${headerpath})
   if(MSVC)
-    add_custom_target(${outvar}
-      COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_CURRENT_BINARY_DIR}/${header}.dir/${CMAKE_CFG_INTDIR}"
-      COMMAND ${CMAKE_CXX_COMPILER} /c ${flags} /Fp"${pchpath}" /Yc"${header}" /Tp"${CMAKE_CURRENT_SOURCE_DIR}/${headerpath}"
-      COMMENT "Precompiling header ${headerpath} ..."
-      SOURCES "${headerpath}"
+    # MSVC PCH generation requires a source file to include the header
+    # so we'll need to generate one
+    file(WRITE "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${header}_pch_gen.cpp"
+      "#include \"${CMAKE_CURRENT_SOURCE_DIR}/${headerpath}\"\n")
+    list(APPEND sources "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${header}_pch_gen.cpp")
+  endif()
+  add_library(${outvar} OBJECT ${sources})
+  if(MSVC)
+    set_target_properties(${outvar} PROPERTIES
+      COMPILE_FLAGS "/Yc${CMAKE_CURRENT_SOURCE_DIR}/${headerpath}"
     )
   else()
+    #set_source_files_properties(${headerpath} PROPERTIES LANGUAGE CXX) 
   endif()
 endfunction()
