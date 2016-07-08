@@ -1,3 +1,16 @@
+# Add generator expressions to appendvar expanding at build time any remaining parameters
+# if the build configuration is config
+function(expand_at_build_if_config config appendvar)
+  set(ret ${${appendvar}})
+  set(items ${ARGV})
+  list(REMOVE_AT items 0 1)
+  separate_arguments(items)
+  foreach(item ${items})
+    list(APPEND ret $<$<CONFIG:${config}>:${item}>)
+  endforeach()
+  set(${appendvar} ${ret} PARENT_SCOPE)
+endfunction()
+
 # Adds a custom command which generates a precompiled header
 function(target_precompiled_header target headerpath)
   if(MSVC)
@@ -13,18 +26,12 @@ endfunction()
 function(add_precompiled_header outvar headerpath)
   get_filename_component(header "${headerpath}" NAME)
   set(pchpath ${CMAKE_CURRENT_BINARY_DIR}/${header}.dir/${CMAKE_CFG_INTDIR}/${header}.pch)
-  set(flags ${CMAKE_CXX_FLAGS}
-
-  )
+  set(flags ${CMAKE_CXX_FLAGS})
   separate_arguments(flags)
-  # FIXME: These generators work, but quote the expansion thus breaking the custom target :(
-  set(flags ${flags}
-#    $<$<CONFIG:Debug>:${CMAKE_CXX_FLAGS_DEBUG}>
-    $<$<CONFIG:Debug>:/A/B/C>
-    $<$<CONFIG:Release>:${CMAKE_CXX_FLAGS_RELEASE}>
-    $<$<CONFIG:RelWithDebInfo>:${CMAKE_CXX_FLAGS_RELWITHDEBINFO}>
-    $<$<CONFIG:MinSizeRel>:${CMAKE_CXX_FLAGS_MINSIZEREL}>
-  )
+  expand_at_build_if_config(Debug flags ${CMAKE_CXX_FLAGS_DEBUG})
+  expand_at_build_if_config(Release flags ${CMAKE_CXX_FLAGS_RELEASE})
+  expand_at_build_if_config(RelWithDebInfo flags ${CMAKE_CXX_FLAGS_RELWITHDEBINFO})
+  expand_at_build_if_config(MinSizeRel flags ${CMAKE_CXX_FLAGS_MINSIZEREL})
   MESSAGE(STATUS "${flags}")
   if(MSVC)
     add_custom_target(${outvar}
@@ -35,5 +42,4 @@ function(add_precompiled_header outvar headerpath)
     )
   else()
   endif()
-#  set(${outvar} ${pch} PARENT_SCOPE)
 endfunction()
