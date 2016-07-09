@@ -30,6 +30,11 @@ if(DEFINED ${PROJECT_NAME}_TESTS)
             RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
           )
           add_test(${testname}-${target} ${testname}_${target})
+          if(MSVC)
+            target_compile_options(${testname}-${target} PRIVATE /W4)                                          # Stronger warnings
+          else()
+            target_compile_options(${testname}-${target} PRIVATE -Wall -Wextra)                                # Stronger warnings
+          endif()
         endforeach()
       endif()
     endforeach()

@@ -32,6 +32,9 @@ else()
   endfunction()
 endif()
 
+# Only explicitly exported symbols are to be available from shared objects
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+
 add_library(${PROJECT_NAME}_sl STATIC ${${PROJECT_NAME}_HEADERS} ${${PROJECT_NAME}_SOURCES})
 list(APPEND ${PROJECT_NAME}_targets ${PROJECT_NAME}_sl)
 check_if_cmake_incomplete(${PROJECT_NAME}_sl ${${PROJECT_NAME}_HEADERS_MD5} "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}")

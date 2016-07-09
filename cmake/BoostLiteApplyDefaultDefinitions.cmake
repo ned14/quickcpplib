@@ -96,6 +96,12 @@ endif()
 
 if(MSVC)
   all_compile_options(PRIVATE /W4)                                          # Stronger warnings
+  if(TARGET ${PROJECT_NAME}_hl)
+    all_compile_options(INTERFACE /W4)                                      # Stronger warnings
+  endif()
 else()
   all_compile_options(PRIVATE -Wall -Wextra)                                # Stronger warnings
+  if(TARGET ${PROJECT_NAME}_hl)
+    all_compile_options(INTERFACE -Wall -Wextra)                            # Stronger warnings
+  endif()
 endif()

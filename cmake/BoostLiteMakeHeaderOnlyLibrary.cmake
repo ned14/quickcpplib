@@ -7,6 +7,12 @@
 include(BoostLiteDeduceLibrarySources)
 include(BoostLitePrecompiledHeader)
 
-# Add a precompiled header for this interface library 
-add_precompiled_header(${PROJECT_NAME}_hl ${${PROJECT_NAME}_INTERFACE})
+if(CMAKE_VERSION VERSION_LESS 3.3)
+  message(WARNING "WARNING: Disabling precompilation of header-only library as using a cmake before v3.3")
+  # Add an interface library representing the PCH header file
+  add_library(${PROJECT_NAME}_hl INTERFACE)
+else()
+  # Add a precompiled header for the PCH header file
+  add_precompiled_header(${PROJECT_NAME}_hl ${${PROJECT_NAME}_INTERFACE})
+endif()
 list(APPEND ${PROJECT_NAME}_targets ${PROJECT_NAME}_hl)

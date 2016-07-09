@@ -3,6 +3,17 @@ if(BoostLiteUtilsIncluded)
 endif()
 set(BoostLiteUtilsIncluded ON)
 
+# Returns a path with forward slashes replaced with backslashes on WIN32
+function(NativisePath outvar)
+  list(REMOVE_AT ARGV 0)
+  if(WIN32)
+    string(REPLACE "/" "\\" new ${ARGV})
+  else()
+    set(new ${ARGV})
+  endif()
+  set(${outvar} ${new} PARENT_SCOPE)
+endfunction()
+
 # We expect a header file with macros like
 # #define BOOST_AFIO_VERSION_MAJOR    2
 # 
