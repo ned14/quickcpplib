@@ -176,7 +176,7 @@ extern "C" void _mm_pause();
 #endif
 #endif
 #ifndef BOOST_WINDOWS
-#ifdef WIN32
+#ifdef _WIN32
 #define BOOST_WINDOWS 1
 #endif
 #endif

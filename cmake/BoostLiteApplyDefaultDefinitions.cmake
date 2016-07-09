@@ -65,6 +65,9 @@ endfunction()
 
 if(WIN32)
   all_compile_definitions(PUBLIC _UNICODE UNICODE)                          # Unicode support
+endif()
+
+if(MSVC)
   all_compile_options(PRIVATE /W4)                                          # Stronger warnings
 else()
   all_compile_options(PRIVATE -Wall -Wextra)                                # Stronger warnings

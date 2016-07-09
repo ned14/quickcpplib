@@ -38,7 +38,8 @@ function(add_precompiled_header outvar headerpath)
     set_target_properties(${outvar} PROPERTIES
       COMPILE_FLAGS "/Yc${CMAKE_CURRENT_SOURCE_DIR}/${headerpath}"
     )
+	# Visual Studio generator outputs PCH to /Fp"afio_hl.dir\Debug\afio_hl.pch" 
   else()
-    #set_source_files_properties(${headerpath} PROPERTIES LANGUAGE CXX) 
+    set_source_files_properties(${headerpath} PROPERTIES LANGUAGE CXX) 
   endif()
 endfunction()

@@ -14,11 +14,7 @@ if(WIN32)
     set(CMAKE "cmake")
     string(REPLACE "/" "\\" CMAKECACHE "${CMAKE_CURRENT_BINARY_DIR}\\CMakeCache.txt")
     add_custom_command(TARGET ${target} PRE_BUILD
-      COMMAND echo Checking if files have been added to ${target} since cmake last auto globbed the source tree ...
-\ndir /b /a-d /s > \"${TEMPFILE}\"
-\nfor /f \"delims=\" %%a in ('${CMAKE} -E md5sum \"${TEMPFILE}\"') do @set MD5=%%a
-\nfor /f \"tokens=1\" %%G IN (\"%MD5%\") DO set MD5=%%G
-\nif NOT \"%MD5%\" == \"${md5} \" (echo WARNING cmake needs to be rerun! %MD5% != ${md5} & copy /b \"${CMAKECACHE}\" +,,)
+      COMMAND echo Checking if files have been added to ${target} since cmake last auto globbed the source tree ... & dir /b /a-d /s > \"${TEMPFILE}\" & for /f \"delims=\" %%a in ('${CMAKE} -E md5sum \"${TEMPFILE}\"') do @set MD5=%%a & for /f \"tokens=1\" %%G IN (\"%MD5%\") DO set MD5=%%G & if NOT \"%MD5%\" == \"${md5} \" (echo WARNING cmake needs to be rerun! %MD5% != ${md5} & copy /b \"${CMAKECACHE}\" +,,)
       WORKING_DIRECTORY "${path}"
     )
   endfunction()
