@@ -31,7 +31,9 @@ DEALINGS IN THE SOFTWARE.
 
 #include "../include/execinfo_win64.h"
 
+#ifndef NOMINMAX
 #define NOMINMAX
+#endif
 #include "windows.h"
 
 #ifdef __cplusplus
