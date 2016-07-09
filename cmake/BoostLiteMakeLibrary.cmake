@@ -7,6 +7,11 @@
 #  * ${PROJECT_NAME}_dlm: Dynamic C++ Module target (where supported)
 
 include(BoostLiteDeduceLibrarySources)
+if(NOT DEFINED ${PROJECT_NAME}_SOURCES)
+  message(FATAL_ERROR "FATAL: Cannot include BoostLiteMakeLibrary without a src directory. "
+                      "Perhaps you meant BoostLiteMakeHeaderOnlyLibrary?")
+endif()
+
 if(WIN32)
   function(check_if_cmake_incomplete target md5 path)
     string(REPLACE "/" "\\" TEMPFILE "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}\\boostlite_cmake_tempfile_${target}.txt")
@@ -21,19 +26,10 @@ if(WIN32)
 else()
   function(check_if_cmake_incomplete target md5 path)
     add_custom_command(TARGET ${target} PRE_BUILD
-      COMMAND echo Checking if files have been added to ${target} since cmake last auto globbed the source tree ...
-\nfind . -type f -printf \"%t\\t%s\\t%p\\n\" > \"${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/boostlite_cmake_tempfile_${target}.txt\"
-\nMD5=$(\"${CMAKE_COMMAND}\" -E md5sum \"${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/boostlite_cmake_tempfile_${target}.txt\" | cut -d " " -f1)
-\nif [ \"$MD5\" != \"${md5}\" ]; then echo WARNING cmake needs to be rerun! $MD5 != ${md5}; touch \"${CMAKE_CURRENT_BINARY_DIR}/CMakeCache.txt\"; fi
+      COMMAND echo Checking if files have been added to ${target} since cmake last auto globbed the source tree ... ; find . -type f -printf \"%t\\t%s\\t%p\\n\" > \"${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/boostlite_cmake_tempfile_${target}.txt\" ; MD5=$(\"${CMAKE_COMMAND}\" -E md5sum \"${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/boostlite_cmake_tempfile_${target}.txt\" | cut -d " " -f1) ; if [ \"$MD5\" != \"${md5}\" ] ; then echo WARNING cmake needs to be rerun! $MD5 != ${md5} ; touch \"${CMAKE_CURRENT_BINARY_DIR}/CMakeCache.txt\" ; fi
       WORKING_DIRECTORY "${path}"
     )
   endfunction()
-endif()
-
-# If not set yet, all binaries go into the toplevel bin directory and libraries into lib directory
-if(NOT EXECUTABLE_OUTPUT_PATH)
-  set(EXECUTABLE_OUTPUT_PATH "${CMAKE_BINARY_DIR}/bin")
-  set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib")
 endif()
 
 add_library(${PROJECT_NAME}_sl STATIC ${${PROJECT_NAME}_HEADERS} ${${PROJECT_NAME}_SOURCES})
@@ -43,6 +39,21 @@ check_if_cmake_incomplete(${PROJECT_NAME}_sl ${${PROJECT_NAME}_HEADERS_MD5} "${C
 add_library(${PROJECT_NAME}_dl SHARED ${${PROJECT_NAME}_HEADERS} ${${PROJECT_NAME}_SOURCES})
 list(APPEND ${PROJECT_NAME}_targets ${PROJECT_NAME}_dl)
 check_if_cmake_incomplete(${PROJECT_NAME}_dl ${${PROJECT_NAME}_HEADERS_MD5} "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}")
+if(CMAKE_GENERATOR MATCHES "Visual Studio")
+  set_target_properties(${PROJECT_NAME}_dl PROPERTIES
+    OUTPUT_NAME "${PROJECT_NAME}-${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}-$<PLATFORM_ID>-$(Platform)-$<CONFIG>"
+  )
+else()
+  set_target_properties(${PROJECT_NAME}_dl PROPERTIES
+    OUTPUT_NAME "${PROJECT_NAME}-${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}-$<PLATFORM_ID>-${CMAKE_SYSTEM_PROCESSOR}-$<CONFIG>"
+  )
+endif()
+
+# Check headers for C++ Modules support
+if(MSVC AND MSVC_VERSION VERSION_GREATER 1900)  # VS2015
+  # Parse the front of each header file looking for ^import .*;
+  # todo
+endif()
 
 include(BoostLitePrecompiledHeader)
 # Now the config is ready, generate a private precompiled header for

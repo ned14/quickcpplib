@@ -6,6 +6,7 @@
 
 include(BoostLiteDeduceLibrarySources)
 include(BoostLitePrecompiledHeader)
-# Generate a precompiled header only library target
+
+# Add a precompiled header for this interface library 
 add_precompiled_header(${PROJECT_NAME}_hl ${${PROJECT_NAME}_INTERFACE})
 list(APPEND ${PROJECT_NAME}_targets ${PROJECT_NAME}_hl)

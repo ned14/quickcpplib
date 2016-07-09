@@ -1,3 +1,8 @@
+if(BoostLiteUtilsIncluded)
+  return()
+endif()
+set(BoostLiteUtilsIncluded ON)
+
 # We expect a header file with macros like
 # #define BOOST_AFIO_VERSION_MAJOR    2
 # 
@@ -53,3 +58,17 @@ function(UpdateRevisionHppFromGit hppfile)
     file(WRITE "${hppfile}" "${HPPFILE}")
   endif()
 endfunction()
+
+# Add generator expressions to appendvar expanding at build time any remaining parameters
+# if the build configuration is config
+function(expand_at_build_if_config config appendvar)
+  set(ret ${${appendvar}})
+  set(items ${ARGV})
+  list(REMOVE_AT items 0 1)
+  separate_arguments(items)
+  foreach(item ${items})
+    list(APPEND ret $<$<CONFIG:${config}>:${item}>)
+  endforeach()
+  set(${appendvar} ${ret} PARENT_SCOPE)
+endfunction()
+

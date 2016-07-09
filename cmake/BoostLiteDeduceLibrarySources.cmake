@@ -7,12 +7,12 @@
 #    * include/${PROJECT_PATH}
 #    * src
 #    * test/tests
-#    Files matched are *.h, *.hpp, *.ipp, *.c, *.cpp
+#    Files matched are *.h, *.hpp, *.ipp, *.c, *.cpp *.cxx
 # 
 # Outputs:
 #  *                   PROJECT_DIR: PROJECT_NAMESPACE with any :: replaced with a / followed by PROJECT_NAME
 #  *          ${PROJECT_NAME}_PATH: ${CMAKE_CURRENT_SOURCE_DIR}
-#  *     ${PROJECT_NAME}_INTERFACE: The master interface header file in include/${PROJECT_DIR}/${PROJECT_NAME}.hpp
+#  *     ${PROJECT_NAME}_INTERFACE: The master interface PCHable header file ${PROJECT_DIR}/${PROJECT_NAME}.hpp
 #  *       ${PROJECT_NAME}_HEADERS: Any header files found in include/${PROJECT_DIR}
 #  *       ${PROJECT_NAME}_SOURCES: Any source files found in src
 #  *         ${PROJECT_NAME}_TESTS: Any source files found in test
@@ -23,9 +23,9 @@
 string(REPLACE "::" "/" PROJECT_DIR ${PROJECT_NAMESPACE})
 set(PROJECT_DIR ${PROJECT_DIR}${PROJECT_NAME})
 set(${PROJECT_NAME}_PATH ${CMAKE_CURRENT_SOURCE_DIR})
-set(${PROJECT_NAME}_INTERFACE include/${PROJECT_DIR}/${PROJECT_NAME}.hpp)
-if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${${PROJECT_NAME}_INTERFACE}")
-  message(FATAL_ERROR "FATAL: No master interface header file found at ${${PROJECT_NAME}_INTERFACE}")
+set(${PROJECT_NAME}_INTERFACE ${PROJECT_DIR}/${PROJECT_NAME}.hpp)
+if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/include/${${PROJECT_NAME}_INTERFACE}")
+  message(FATAL_ERROR "FATAL: No master interface header file found at include/${${PROJECT_NAME}_INTERFACE}")
 endif()
 
 # Only go to the expense of recalculating this stuff if needed
@@ -38,20 +38,26 @@ else()
        "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/*.hpp"
        "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/*.ipp"
        )
-  file(GLOB_RECURSE ${PROJECT_NAME}_SOURCES RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
-       ${CMAKE_CURRENT_SOURCE_DIR}/src/*.h
-       ${CMAKE_CURRENT_SOURCE_DIR}/src/*.hpp
-       ${CMAKE_CURRENT_SOURCE_DIR}/src/*.c
-       ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
-       ${CMAKE_CURRENT_SOURCE_DIR}/src/*.ipp
-       )
-  file(GLOB_RECURSE ${PROJECT_NAME}_TESTS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
-       ${CMAKE_CURRENT_SOURCE_DIR}/test/tests/*.h
-       ${CMAKE_CURRENT_SOURCE_DIR}/test/tests/*.hpp
-       ${CMAKE_CURRENT_SOURCE_DIR}/test/tests/*.c
-       ${CMAKE_CURRENT_SOURCE_DIR}/test/tests/*.cpp
-       ${CMAKE_CURRENT_SOURCE_DIR}/test/tests/*.ipp
-       )
+  if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/src)
+    file(GLOB_RECURSE ${PROJECT_NAME}_SOURCES RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
+         "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h"
+         "${CMAKE_CURRENT_SOURCE_DIR}/src/*.hpp"
+         "${CMAKE_CURRENT_SOURCE_DIR}/src/*.c"
+         "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
+         "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cxx"
+         "${CMAKE_CURRENT_SOURCE_DIR}/src/*.ipp"
+         )
+  endif()
+  if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/test)
+    file(GLOB_RECURSE ${PROJECT_NAME}_TESTS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
+         "${CMAKE_CURRENT_SOURCE_DIR}/test/tests/*.h"
+         "${CMAKE_CURRENT_SOURCE_DIR}/test/tests/*.hpp"
+         "${CMAKE_CURRENT_SOURCE_DIR}/test/tests/*.c"
+         "${CMAKE_CURRENT_SOURCE_DIR}/test/tests/*.cpp"
+         "${CMAKE_CURRENT_SOURCE_DIR}/test/tests/*.cxx"
+         "${CMAKE_CURRENT_SOURCE_DIR}/test/tests/*.ipp"
+         )
+  endif()
   #message(STATUS "  ${PROJECT_NAME}_HEADERS = ${${PROJECT_NAME}_HEADERS}")
   #message(STATUS "  ${PROJECT_NAME}_SOURCES = ${${PROJECT_NAME}_SOURCES}")
   #message(STATUS "  ${PROJECT_NAME}_TESTS = ${${PROJECT_NAME}_TESTS}")
