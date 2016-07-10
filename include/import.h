@@ -105,6 +105,29 @@ DEALINGS IN THE SOFTWARE.
 #define BOOSTLITE_NAMESPACE_BEGIN(...) BOOSTLITE_CALL_OVERLOAD(BOOSTLITE_NAMESPACE_BEGIN_EXPAND, __VA_ARGS__)
 
 #ifdef BOOSTLITE_DISABLE_NAMESPACE_MODIFIERS
+#define BOOSTLITE_NAMESPACE_EXPORT_BEGIN_NAMESPACE_SELECT2(name, modifier)
+#else
+#define BOOSTLITE_NAMESPACE_EXPORT_BEGIN_NAMESPACE_SELECT2(name, modifier)                                                                                                                                                                                                                                                            \
+  modifier namespace name                                                                                                                                                                                                                                                                                                      \
+  {
+#endif
+#define BOOSTLITE_NAMESPACE_EXPORT_BEGIN_NAMESPACE_SELECT1(name)                                                                                                                                                                                                                                                                      \
+  export namespace name                                                                                                                                                                                                                                                                                                               \
+  {
+#define BOOSTLITE_NAMESPACE_EXPORT_BEGIN_NAMESPACE_SELECT(...) BOOSTLITE_CALL_OVERLOAD_(BOOSTLITE_NAMESPACE_EXPORT_BEGIN_NAMESPACE_SELECT, __VA_ARGS__)
+#define BOOSTLITE_NAMESPACE_EXPORT_BEGIN_EXPAND8(a, b, c, d, e, f, g, h) BOOSTLITE_NAMESPACE_EXPORT_BEGIN_NAMESPACE_SELECT a BOOSTLITE_NAMESPACE_EXPORT_BEGIN_EXPAND7(b, c, d, e, f, g, h)
+#define BOOSTLITE_NAMESPACE_EXPORT_BEGIN_EXPAND7(a, b, c, d, e, f, g) BOOSTLITE_NAMESPACE_EXPORT_BEGIN_NAMESPACE_SELECT a BOOSTLITE_NAMESPACE_EXPORT_BEGIN_EXPAND6(b, c, d, e, f, g)
+#define BOOSTLITE_NAMESPACE_EXPORT_BEGIN_EXPAND6(a, b, c, d, e, f) BOOSTLITE_NAMESPACE_EXPORT_BEGIN_NAMESPACE_SELECT a BOOSTLITE_NAMESPACE_EXPORT_BEGIN_EXPAND5(b, c, d, e, f)
+#define BOOSTLITE_NAMESPACE_EXPORT_BEGIN_EXPAND5(a, b, c, d, e) BOOSTLITE_NAMESPACE_EXPORT_BEGIN_NAMESPACE_SELECT a BOOSTLITE_NAMESPACE_EXPORT_BEGIN_EXPAND4(b, c, d, e)
+#define BOOSTLITE_NAMESPACE_EXPORT_BEGIN_EXPAND4(a, b, c, d) BOOSTLITE_NAMESPACE_EXPORT_BEGIN_NAMESPACE_SELECT a BOOSTLITE_NAMESPACE_EXPORT_BEGIN_EXPAND3(b, c, d)
+#define BOOSTLITE_NAMESPACE_EXPORT_BEGIN_EXPAND3(a, b, c) BOOSTLITE_NAMESPACE_EXPORT_BEGIN_NAMESPACE_SELECT a BOOSTLITE_NAMESPACE_EXPORT_BEGIN_EXPAND2(b, c)
+#define BOOSTLITE_NAMESPACE_EXPORT_BEGIN_EXPAND2(a, b) BOOSTLITE_NAMESPACE_EXPORT_BEGIN_NAMESPACE_SELECT a BOOSTLITE_NAMESPACE_EXPORT_BEGIN_EXPAND1(b)
+#define BOOSTLITE_NAMESPACE_EXPORT_BEGIN_EXPAND1(a) BOOSTLITE_NAMESPACE_EXPORT_BEGIN_NAMESPACE_SELECT a
+
+//! Expands into export namespace a { namespace b { namespace c ...
+#define BOOSTLITE_NAMESPACE_EXPORT_BEGIN(...) BOOSTLITE_CALL_OVERLOAD(BOOSTLITE_NAMESPACE_EXPORT_BEGIN_EXPAND, __VA_ARGS__)
+
+#ifdef BOOSTLITE_DISABLE_NAMESPACE_MODIFIERS
 #define BOOSTLITE_NAMESPACE_END_NAMESPACE_SELECT2(name, modifier)
 #else
 #define BOOSTLITE_NAMESPACE_END_NAMESPACE_SELECT2(name, modifier) }

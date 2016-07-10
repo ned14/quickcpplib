@@ -29,7 +29,7 @@ if(DEFINED ${PROJECT_NAME}_TESTS)
           set_target_properties(${testname}-${target} PROPERTIES
             RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
           )
-          add_test(${testname}-${target} ${testname}_${target})
+          add_test(NAME ${testname}-${target} COMMAND $<TARGET_FILE:${testname}-${target}>)
           if(MSVC)
             target_compile_options(${testname}-${target} PRIVATE /W4)                                          # Stronger warnings
           else()
