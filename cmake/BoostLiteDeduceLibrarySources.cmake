@@ -6,8 +6,9 @@
 #  * Directory structure from ${CMAKE_CURRENT_SOURCE_DIR} is assumed to be:
 #    * include/${PROJECT_PATH}
 #    * src
-#    * test/tests
+#    * test
 #    Files matched are *.h, *.hpp, *.ipp, *.c, *.cpp *.cxx
+#    Files excluded are anything with a .boostish file in its root
 # 
 # Outputs:
 #  *                   PROJECT_DIR: PROJECT_NAMESPACE with any :: replaced with a / followed by PROJECT_NAME
@@ -38,6 +39,9 @@ else()
        "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/*.hpp"
        "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/*.ipp"
        )
+  file(GLOB_RECURSE ${PROJECT_NAME}_HEADERS_FILTER RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
+       "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/.boostish"
+       )
   if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/src)
     file(GLOB_RECURSE ${PROJECT_NAME}_SOURCES RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
          "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h"
@@ -47,17 +51,49 @@ else()
          "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cxx"
          "${CMAKE_CURRENT_SOURCE_DIR}/src/*.ipp"
          )
+    file(GLOB_RECURSE ${PROJECT_NAME}_SOURCES_FILTER RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
+         "${CMAKE_CURRENT_SOURCE_DIR}/src/.boostish"
+         )
   endif()
   if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/test)
     file(GLOB_RECURSE ${PROJECT_NAME}_TESTS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
-         "${CMAKE_CURRENT_SOURCE_DIR}/test/tests/*.h"
-         "${CMAKE_CURRENT_SOURCE_DIR}/test/tests/*.hpp"
-         "${CMAKE_CURRENT_SOURCE_DIR}/test/tests/*.c"
-         "${CMAKE_CURRENT_SOURCE_DIR}/test/tests/*.cpp"
-         "${CMAKE_CURRENT_SOURCE_DIR}/test/tests/*.cxx"
-         "${CMAKE_CURRENT_SOURCE_DIR}/test/tests/*.ipp"
+         "${CMAKE_CURRENT_SOURCE_DIR}/test/*.h"
+         "${CMAKE_CURRENT_SOURCE_DIR}/test/*.hpp"
+         "${CMAKE_CURRENT_SOURCE_DIR}/test/*.c"
+         "${CMAKE_CURRENT_SOURCE_DIR}/test/*.cpp"
+         "${CMAKE_CURRENT_SOURCE_DIR}/test/*.cxx"
+         "${CMAKE_CURRENT_SOURCE_DIR}/test/*.ipp"
+         )
+    file(GLOB_RECURSE ${PROJECT_NAME}_TESTS_FILTER RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
+         "${CMAKE_CURRENT_SOURCE_DIR}/test/.boostish"
          )
   endif()
+
+  # Prune any items with a .boostish in their root directory
+  function(prune_boostish_libraries boostishlist fileslist)
+    if(boostishlist)
+      foreach(boostish ${boostislist})
+        if(FALSE) ##CMAKE_VERSION VERSION_GREATER 3.59)
+          #list(FILTER ${fileslist} EXCLUDE REGEX regex)
+        else()
+          set(itemstoremove)
+          string(LENGTH "${boostish}" len)
+          foreach(file ${fileslist})
+            string(SUBSTRING "${file}" 0 ${len} file_)
+            if("${file_}" STREQUAL "${boostish}")
+              list(APPEND itemstoremove "${file}")
+            endif()
+          endforeach()
+          # Batch up the items to remove, lessen quadratic complexity
+          list(REMOVE_ITEM ${fileslist} ${itemstoremove})
+        endif()
+      endforeach()
+    endif()
+  endfunction()
+  prune_boostish_libraries(${PROJECT_NAME}_HEADERS_FILTER ${PROJECT_NAME}_HEADERS)
+  prune_boostish_libraries(${PROJECT_NAME}_SOURCES_FILTER ${PROJECT_NAME}_SOURCES)
+  prune_boostish_libraries(${PROJECT_NAME}_TESTS_FILTER ${PROJECT_NAME}_TESTS)
+  
   #message(STATUS "  ${PROJECT_NAME}_HEADERS = ${${PROJECT_NAME}_HEADERS}")
   #message(STATUS "  ${PROJECT_NAME}_SOURCES = ${${PROJECT_NAME}_SOURCES}")
   #message(STATUS "  ${PROJECT_NAME}_TESTS = ${${PROJECT_NAME}_TESTS}")
