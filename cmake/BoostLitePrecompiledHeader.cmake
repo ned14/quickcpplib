@@ -20,6 +20,7 @@ function(add_precompiled_header outvar headerpath)
     message(FATAL_ERROR "cmake v3.3 is required to use the add_precompiled_header() function")
   endif()
   get_filename_component(header "${headerpath}" NAME)
+  get_filename_component(headerdir "${headerpath}" DIRECTORY)
   set(sources "include/${headerpath}")
   if(MSVC)
     # MSVC PCH generation requires a source file to include the header
@@ -55,18 +56,30 @@ function(add_precompiled_header outvar headerpath)
     endforeach()
     target_compile_options(${outvar} INTERFACE @${outvar}_pch.dir/$<CONFIG>/${outvar}_pch.response)
   else()
-    set_source_files_properties(${headerpath} PROPERTIES
+    set_source_files_properties(${sources} PROPERTIES
       LANGUAGE CXX
     )
     if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-      set_source_files_properties(${headerpath} PROPERTIES
+      set_source_files_properties(${sources} PROPERTIES
         COMPILE_FLAGS "-emit-pch"
       )
-      target_compile_options(${outvar} INTERFACE -Winvalid-pch -include-pch ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${outvar}.dir/${headerpath}.o)
-      message(STATUS "Precompiled header target ${headerpath} => ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${outvar}.dir/${headerpath}.o")
+      target_compile_options(${outvar} INTERFACE -Winvalid-pch -include-pch ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${outvar}_pch.dir/include/${headerpath}.o)
+      message(STATUS "Precompiled header target ${headerpath} => ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${outvar}_pch.dir/include/${headerpath}.o")
     else()
-      target_compile_options(${outvar} INTERFACE -Winvalid-pch -include ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${outvar}.dir/${headerpath}.o)
-      message(STATUS "Precompiled header target ${headerpath} => ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${outvar}.dir/${headerpath}.o")
+      # GCC really needs the precompiled output to have a .gch extension and
+      # to live in the same directory as its .hpp file. So copy over the .hpp
+      # files into the output next to the gch file
+      add_custom_target(${outvar}_gch
+        COMMAND ${CMAKE_COMMAND} -E rename ${headerpath}.o ${headerpath}.gch
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/${sources} ${headerpath}
+        DEPENDS ${outvar}_pch
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${outvar}_pch.dir/include
+        COMMENT "Setting up precompiled header ${headerpath}.gch for forced inclusion ..."
+        VERBATIM
+      )
+      add_dependencies(${outvar} ${outvar}_gch)
+      target_compile_options(${outvar} INTERFACE -Winvalid-pch -I${CMAKE_CURRENT_SOURCE_DIR}/include/${headerdir} -include ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${outvar}_pch.dir/include/${headerpath})
+      message(STATUS "Precompiled header target ${headerpath} => ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${outvar}_pch.dir/include/${headerpath}.o")
     endif()
   endif()
 endfunction()

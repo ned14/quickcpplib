@@ -3,7 +3,7 @@
 #
 # Sets ${PROJECT_NAME}_TEST_TARGETS to the test targets generated
 
-if(DEFINED ${PROJECT_NAME}_TESTS)
+if(DEFINED ${PROJECT_NAME}_TESTS AND NOT PROJECT_IS_DEPENDENCY)
   enable_testing()
   function(generate_tests)
     # Firstly get all non-source files

@@ -12,6 +12,7 @@
 # 
 # Outputs:
 #  *                   PROJECT_DIR: PROJECT_NAMESPACE with any :: replaced with a / followed by PROJECT_NAME
+#  *         PROJECT_IS_DEPENDENCY: ON if this this project is a dependency of a higher level project
 #  *          ${PROJECT_NAME}_PATH: ${CMAKE_CURRENT_SOURCE_DIR}
 #  *     ${PROJECT_NAME}_INTERFACE: The master interface PCHable header file ${PROJECT_DIR}/${PROJECT_NAME}.hpp
 #  *       ${PROJECT_NAME}_HEADERS: Any header files found in include/${PROJECT_DIR}
@@ -23,6 +24,11 @@
 
 string(REPLACE "::" "/" PROJECT_DIR ${PROJECT_NAMESPACE})
 set(PROJECT_DIR ${PROJECT_DIR}${PROJECT_NAME})
+if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
+  set(PROJECT_IS_DEPENDENCY OFF)
+else()
+  set(PROJECT_IS_DEPENDENCY ON)
+endif()
 set(${PROJECT_NAME}_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 set(${PROJECT_NAME}_INTERFACE ${PROJECT_DIR}/${PROJECT_NAME}.hpp)
 if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/include/${${PROJECT_NAME}_INTERFACE}")
