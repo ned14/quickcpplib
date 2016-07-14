@@ -60,15 +60,13 @@ function(add_precompiled_header outvar headerpath)
       LANGUAGE CXX
     )
     if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-      set_source_files_properties(${sources} PROPERTIES
-        COMPILE_FLAGS "-emit-pch"
-      )
       target_compile_options(${outvar} INTERFACE -Winvalid-pch -include-pch ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${outvar}_pch.dir/include/${headerpath}.o)
       message(STATUS "Precompiled header target ${headerpath} => ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${outvar}_pch.dir/include/${headerpath}.o")
     else()
       # GCC really needs the precompiled output to have a .gch extension and
       # to live in the same directory as its .hpp file. So copy over the .hpp
-      # files into the output next to the gch file
+      # file into the output next to the gch file and add an include search
+      # path so it picks up its siblings
       add_custom_target(${outvar}_gch
         COMMAND ${CMAKE_COMMAND} -E rename ${headerpath}.o ${headerpath}.gch
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/${sources} ${headerpath}
