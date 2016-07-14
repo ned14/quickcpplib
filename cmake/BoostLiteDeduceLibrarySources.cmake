@@ -33,17 +33,23 @@ endif()
 if(${PROJECT_NAME}_HEADERS)
   message(STATUS "Reusing earlier scan of ${CMAKE_CURRENT_SOURCE_DIR} ...")
 else()
-  message(STATUS "Recursively scanning ${CMAKE_CURRENT_SOURCE_DIR} for header and source files ...")
+  include(BoostLiteUtils)
+  message(STATUS "Recursively scanning ${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR} for header files ...")
+  # cmake glob is unfortunately very slow on deep directory hierarchies, so we glob
+  # recursively everything we need at once and extract out from that giant list what we need
   file(GLOB_RECURSE ${PROJECT_NAME}_HEADERS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
+       "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/.boostish"
        "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/*.h"
        "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/*.hpp"
        "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/*.ipp"
        )
-  file(GLOB_RECURSE ${PROJECT_NAME}_HEADERS_FILTER RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
-       "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/.boostish"
-       )
+  set(${PROJECT_NAME}_HEADERS_FILTER ${${PROJECT_NAME}_HEADERS})
+  list_filter(${PROJECT_NAME}_HEADERS EXCLUDE REGEX "\\.boostish$")
+  list_filter(${PROJECT_NAME}_HEADERS_FILTER INCLUDE REGEX "\\.boostish$")
   if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/src)
+    message(STATUS "Recursively scanning ${CMAKE_CURRENT_SOURCE_DIR}/src for header and source files ...")
     file(GLOB_RECURSE ${PROJECT_NAME}_SOURCES RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
+         "${CMAKE_CURRENT_SOURCE_DIR}/src/.boostish"
          "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h"
          "${CMAKE_CURRENT_SOURCE_DIR}/src/*.hpp"
          "${CMAKE_CURRENT_SOURCE_DIR}/src/*.c"
@@ -51,12 +57,14 @@ else()
          "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cxx"
          "${CMAKE_CURRENT_SOURCE_DIR}/src/*.ipp"
          )
-    file(GLOB_RECURSE ${PROJECT_NAME}_SOURCES_FILTER RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
-         "${CMAKE_CURRENT_SOURCE_DIR}/src/.boostish"
-         )
+    set(${PROJECT_NAME}_SOURCES_FILTER ${${PROJECT_NAME}_SOURCES})
+    list_filter(${PROJECT_NAME}_SOURCES EXCLUDE REGEX "\\.boostish$")
+    list_filter(${PROJECT_NAME}_SOURCES_FILTER INCLUDE REGEX "\\.boostish$")
   endif()
   if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/test)
+    message(STATUS "Recursively scanning ${CMAKE_CURRENT_SOURCE_DIR}/test for header and source files ...")
     file(GLOB_RECURSE ${PROJECT_NAME}_TESTS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
+         "${CMAKE_CURRENT_SOURCE_DIR}/test/.boostish"
          "${CMAKE_CURRENT_SOURCE_DIR}/test/*.h"
          "${CMAKE_CURRENT_SOURCE_DIR}/test/*.hpp"
          "${CMAKE_CURRENT_SOURCE_DIR}/test/*.c"
@@ -64,43 +72,48 @@ else()
          "${CMAKE_CURRENT_SOURCE_DIR}/test/*.cxx"
          "${CMAKE_CURRENT_SOURCE_DIR}/test/*.ipp"
          )
-    file(GLOB_RECURSE ${PROJECT_NAME}_TESTS_FILTER RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
-         "${CMAKE_CURRENT_SOURCE_DIR}/test/.boostish"
-         )
+    set(${PROJECT_NAME}_TESTS_FILTER ${${PROJECT_NAME}_TESTS})
+    list_filter(${PROJECT_NAME}_TESTS EXCLUDE REGEX "\\.boostish$")
+    list_filter(${PROJECT_NAME}_TESTS_FILTER INCLUDE REGEX "\\.boostish$")
   endif()
 
   # Prune any items with a .boostish in their root directory
   function(prune_boostish_libraries boostishlist fileslist)
     if(${boostishlist})
+      # As an optimisation for deep nested trees of boostish libraries,
+      # use the boostishlist to prune itself first
+      set(boostishlist_)
       foreach(boostish ${${boostishlist}})
-        if(0) ##CMAKE_VERSION VERSION_GREATER 3.59)
-          #list(FILTER ${fileslist} EXCLUDE REGEX regex)
-        else()
-          set(itemstoremove)
-          string(LENGTH "${boostish}" len)
-          math(EXPR len "${len} - 9")
-          string(SUBSTRING "${boostish}" 0 ${len} boostish_)
-          foreach(file ${${fileslist}})
-            string(SUBSTRING "${file}" 0 ${len} file_)
-            if("${file_}" STREQUAL "${boostish_}")
-              list(APPEND itemstoremove "${file}")
-            endif()
-          endforeach()
-          if(itemstoremove)
-            # Batch up the items to remove, lessen quadratic complexity
-            list(REMOVE_ITEM ${fileslist} ${itemstoremove})
-          endif()
-        endif()
+        string(LENGTH "${boostish}" len)
+        math(EXPR len "${len} - 9")
+        string(SUBSTRING "${boostish}" 0 ${len} boostish_)
+        escape_string_into_regex(boostish_ "${boostish_}")
+        list(APPEND boostishlist_ ${boostish_})
       endforeach()
+      foreach(boostish ${boostishlist_})
+        list_filter(boostishlist_ EXCLUDE REGEX "${boostish}.+")
+      endforeach()
+      # Now we have an optimal boostishlist
+      set(fileslist_ ${${fileslist}})
+      foreach(boostish ${boostishlist_})
+        list_filter(fileslist_ EXCLUDE REGEX "${boostish}")
+      endforeach()
+      set(${fileslist} ${fileslist_} PARENT_SCOPE)
     endif()
   endfunction()
+  message(STATUS "Pruning globbed source file list of files not related to ${PROJECT_NAME} ...")
   prune_boostish_libraries(${PROJECT_NAME}_HEADERS_FILTER ${PROJECT_NAME}_HEADERS)
   prune_boostish_libraries(${PROJECT_NAME}_SOURCES_FILTER ${PROJECT_NAME}_SOURCES)
   prune_boostish_libraries(${PROJECT_NAME}_TESTS_FILTER ${PROJECT_NAME}_TESTS)
   
-  message(STATUS "  ${PROJECT_NAME}_HEADERS = ${${PROJECT_NAME}_HEADERS}")
-  message(STATUS "  ${PROJECT_NAME}_SOURCES = ${${PROJECT_NAME}_SOURCES}")
-  message(STATUS "  ${PROJECT_NAME}_TESTS = ${${PROJECT_NAME}_TESTS}")
+  #message(STATUS "  ${PROJECT_NAME}_HEADERS = ${${PROJECT_NAME}_HEADERS}")
+  #message(STATUS "  ${PROJECT_NAME}_SOURCES = ${${PROJECT_NAME}_SOURCES}")
+  #message(STATUS "  ${PROJECT_NAME}_TESTS = ${${PROJECT_NAME}_TESTS}")
+  list(LENGTH ${PROJECT_NAME}_HEADERS ${PROJECT_NAME}_HEADERS_COUNT)
+  list(LENGTH ${PROJECT_NAME}_SOURCES ${PROJECT_NAME}_SOURCES_COUNT)
+  list(LENGTH ${PROJECT_NAME}_TESTS ${PROJECT_NAME}_TESTS_COUNT)
+  message(STATUS "Project ${PROJECT_NAME} has ${${PROJECT_NAME}_HEADERS_COUNT} headers, "
+                 "${${PROJECT_NAME}_SOURCES_COUNT} library sources and ${${PROJECT_NAME}_TESTS_COUNT} test sources.")
 
   # Call source_group() on all items with a common path so project files maintain the file hierarchy
   function(preserve_structure)

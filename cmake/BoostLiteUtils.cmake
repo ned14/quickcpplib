@@ -14,6 +14,47 @@ function(NativisePath outvar)
   set(${outvar} ${new} PARENT_SCOPE)
 endfunction()
 
+# Add generator expressions to appendvar expanding at build time any remaining parameters
+# if the build configuration is config
+function(expand_at_build_if_config config appendvar)
+  set(ret ${${appendvar}})
+  set(items ${ARGN})
+  separate_arguments(items)
+  foreach(item ${items})
+    list(APPEND ret $<$<CONFIG:${config}>:${item}>)
+  endforeach()
+  set(${appendvar} ${ret} PARENT_SCOPE)
+endfunction()
+
+# Emulate list(FILTER list INCLUDE|EXCLUDE REGEX regex) on cmake < 3.6
+function(list_filter listname op regexqualifer regex)
+  if(CMAKE_VERSION VERSION_GREATER 3.59)
+    list(FILTER ${ARGV})
+  else()
+    set(out)
+    foreach(item ${${listname}})
+      string(REGEX MATCH "${regex}" match ${item})
+      if("${op}" STREQUAL "INCLUDE")
+        if(match)
+          list(APPEND out ${item})
+        endif()
+      else()
+        if(NOT match)
+          list(APPEND out ${item})
+        endif()
+      endif()
+    endforeach()
+    set(${listname} ${out} PARENT_SCOPE)
+  endif()
+endfunction()
+
+# Escape a string into a regex matching that string
+function(escape_string_into_regex outvar)
+  string(REGEX REPLACE "(\\^|\\$|\\.|\\[|\\]|\\*|\\+|\\?|\\(|\\)|\\\\)" "\\\\1" out ${ARGN})
+  set(${outvar} ${out} PARENT_SCOPE)
+endfunction()
+
+
 # We expect a header file with macros like
 # #define BOOST_AFIO_VERSION_MAJOR    2
 # 
@@ -68,18 +109,5 @@ function(UpdateRevisionHppFromGit hppfile)
     set(HPPFILE "${txt1}${HEADSHA}${txt2}${HEADSTAMP}${txt3}")
     file(WRITE "${hppfile}" "${HPPFILE}")
   endif()
-endfunction()
-
-# Add generator expressions to appendvar expanding at build time any remaining parameters
-# if the build configuration is config
-function(expand_at_build_if_config config appendvar)
-  set(ret ${${appendvar}})
-  set(items ${ARGV})
-  list(REMOVE_AT items 0 1)
-  separate_arguments(items)
-  foreach(item ${items})
-    list(APPEND ret $<$<CONFIG:${config}>:${item}>)
-  endforeach()
-  set(${appendvar} ${ret} PARENT_SCOPE)
 endfunction()
 
