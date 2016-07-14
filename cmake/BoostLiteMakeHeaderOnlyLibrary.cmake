@@ -24,4 +24,6 @@ else()
   # Add a precompiled header for the PCH header file
   add_precompiled_header(${PROJECT_NAME}_hl ${${PROJECT_NAME}_INTERFACE})
 endif()
-list(APPEND ${PROJECT_NAME}_targets ${PROJECT_NAME}_hl)
+# Cause my master header to appear in the sources of anything consuming me
+target_sources(${PROJECT_NAME}_hl INTERFACE "${${PROJECT_NAME}_PATH}/include/${${PROJECT_NAME}_INTERFACE}")
+list(APPEND ${PROJECT_NAME}_TARGETS ${PROJECT_NAME}_hl)

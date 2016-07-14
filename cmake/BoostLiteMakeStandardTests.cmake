@@ -1,5 +1,8 @@
 # Adds standard ctest tests for each *.c;*.cpp;*.cxx in
 # ${PROJECT_NAME}_TESTS for all ${PROJECT_NAME}_targets
+#
+# Sets ${PROJECT_NAME}_TEST_TARGETS to the test targets generated
+
 if(DEFINED ${PROJECT_NAME}_TESTS)
   enable_testing()
   function(generate_tests)
@@ -9,6 +12,7 @@ if(DEFINED ${PROJECT_NAME}_TESTS)
         list(APPEND testnonsources ${testsource})
       endif()
     endforeach()
+    set(testtargets)
     foreach(testsource ${${PROJECT_NAME}_TESTS})
       if(testsource MATCHES ".+/(.+)[.](c|cpp|cxx)$")
         # We'll assume the test name is the source file name
@@ -23,8 +27,9 @@ if(DEFINED ${PROJECT_NAME}_TESTS)
             list(APPEND thistestsources ${testnonsource})
           endif()
         endforeach()
-        foreach(target ${${PROJECT_NAME}_targets})
+        foreach(target ${${PROJECT_NAME}_TARGETS})
           add_executable(${testname}-${target} ${thistestsources})
+          list(APPEND testtargets "${testname}-${target}")
           target_link_libraries(${testname}-${target} ${target})
           set_target_properties(${testname}-${target} PROPERTIES
             RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
@@ -38,6 +43,7 @@ if(DEFINED ${PROJECT_NAME}_TESTS)
         endforeach()
       endif()
     endforeach()
+    set(${PROJECT_NAME}_TEST_TARGETS ${testtargets} PARENT_SCOPE)
   endfunction()
   generate_tests()
 endif()
