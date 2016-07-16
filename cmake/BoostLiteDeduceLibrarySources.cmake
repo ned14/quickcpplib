@@ -11,7 +11,7 @@
 #    Files excluded are anything with a .boostish file in its root
 # 
 # Outputs:
-#  *                   PROJECT_DIR: PROJECT_NAMESPACE with any :: replaced with a / followed by PROJECT_NAME
+#  *                   PROJECT_DIR: PROJECT_NAMESPACE with any -- replaced with a / followed by PROJECT_NAME
 #  *         PROJECT_IS_DEPENDENCY: ON if this this project is a dependency of a higher level project
 #
 # Cached outputs:
@@ -24,7 +24,7 @@
 #  *   ${PROJECT_NAME}_SOURCES_MD5: The MD5 of the results of 'find . -type f -printf "%t\t%s\t%p\n"' (POSIX) or 'dir /a-d /s' (Windows) for src
 #  *     ${PROJECT_NAME}_TESTS_MD5: The MD5 of the results of 'find . -type f -printf "%t\t%s\t%p\n"' (POSIX) or 'dir /a-d /s' (Windows) for test
 
-string(REPLACE "-" "/" PROJECT_DIR ${PROJECT_NAMESPACE})
+string(REPLACE "--" "/" PROJECT_DIR ${PROJECT_NAMESPACE})
 set(PROJECT_DIR ${PROJECT_DIR}${PROJECT_NAME})
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
   set(PROJECT_IS_DEPENDENCY OFF)

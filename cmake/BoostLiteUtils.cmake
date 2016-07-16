@@ -113,3 +113,12 @@ function(UpdateRevisionHppFromGit hppfile)
   endif()
 endfunction()
 
+# Finds a Boostish library
+#
+# Boostish libraries can be located via these means in order of preference:
+# 1) "./include/${PROJECT_DIR}/${library-name}"
+# 2) "../${library-dir}/${library-name}"
+# 3) <${library-dir}/${library-name}>
+function(find_boostish_library library version)
+  # 
+endfunction()
