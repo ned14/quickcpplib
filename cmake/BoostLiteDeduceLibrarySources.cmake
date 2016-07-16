@@ -13,6 +13,8 @@
 # Outputs:
 #  *                   PROJECT_DIR: PROJECT_NAMESPACE with any :: replaced with a / followed by PROJECT_NAME
 #  *         PROJECT_IS_DEPENDENCY: ON if this this project is a dependency of a higher level project
+#
+# Cached outputs:
 #  *          ${PROJECT_NAME}_PATH: ${CMAKE_CURRENT_SOURCE_DIR}
 #  *     ${PROJECT_NAME}_INTERFACE: The master interface PCHable header file ${PROJECT_DIR}/${PROJECT_NAME}.hpp
 #  *       ${PROJECT_NAME}_HEADERS: Any header files found in include/${PROJECT_DIR}
@@ -22,25 +24,28 @@
 #  *   ${PROJECT_NAME}_SOURCES_MD5: The MD5 of the results of 'find . -type f -printf "%t\t%s\t%p\n"' (POSIX) or 'dir /a-d /s' (Windows) for src
 #  *     ${PROJECT_NAME}_TESTS_MD5: The MD5 of the results of 'find . -type f -printf "%t\t%s\t%p\n"' (POSIX) or 'dir /a-d /s' (Windows) for test
 
-string(REPLACE "::" "/" PROJECT_DIR ${PROJECT_NAMESPACE})
+string(REPLACE "-" "/" PROJECT_DIR ${PROJECT_NAMESPACE})
 set(PROJECT_DIR ${PROJECT_DIR}${PROJECT_NAME})
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
   set(PROJECT_IS_DEPENDENCY OFF)
 else()
   set(PROJECT_IS_DEPENDENCY ON)
 endif()
-set(${PROJECT_NAME}_PATH ${CMAKE_CURRENT_SOURCE_DIR})
-set(${PROJECT_NAME}_INTERFACE ${PROJECT_DIR}/${PROJECT_NAME}.hpp)
-if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/include/${${PROJECT_NAME}_INTERFACE}")
-  message(FATAL_ERROR "FATAL: No master interface header file found at include/${${PROJECT_NAME}_INTERFACE}")
-endif()
 
 # Only go to the expense of recalculating this stuff if needed
 if(${PROJECT_NAME}_HEADERS)
-  message(STATUS "Reusing earlier scan of ${CMAKE_CURRENT_SOURCE_DIR} ...")
+  message(STATUS "Reusing cached scan of project ${PROJECT_NAME} ...")
 else()
   include(BoostLiteUtils)
-  message(STATUS "Recursively scanning ${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR} for header files ...")
+  message(STATUS "Cached scan of project ${PROJECT_NAME} not found! Starting scan ...")
+  set(${PROJECT_NAME}_PATH ${CMAKE_CURRENT_SOURCE_DIR}
+    CACHE PATH "The path to the base of the ${PROJECT_NAME} project")
+  set(${PROJECT_NAME}_INTERFACE ${PROJECT_DIR}/${PROJECT_NAME}.hpp
+    CACHE FILEPATH "The path to the precompilable master header file for the ${PROJECT_NAME} project")
+  if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/include/${${PROJECT_NAME}_INTERFACE}")
+    message(FATAL_ERROR "FATAL: No master interface header file found at include/${${PROJECT_NAME}_INTERFACE}")
+  endif()
+  message(STATUS "  Recursively scanning ${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR} for header files ...")
   # cmake glob is unfortunately very slow on deep directory hierarchies, so we glob
   # recursively everything we need at once and extract out from that giant list what we need
   file(GLOB_RECURSE ${PROJECT_NAME}_HEADERS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
@@ -53,7 +58,7 @@ else()
   list_filter(${PROJECT_NAME}_HEADERS EXCLUDE REGEX "\\.boostish$")
   list_filter(${PROJECT_NAME}_HEADERS_FILTER INCLUDE REGEX "\\.boostish$")
   if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/src)
-    message(STATUS "Recursively scanning ${CMAKE_CURRENT_SOURCE_DIR}/src for header and source files ...")
+    message(STATUS "  Recursively scanning ${CMAKE_CURRENT_SOURCE_DIR}/src for header and source files ...")
     file(GLOB_RECURSE ${PROJECT_NAME}_SOURCES RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
          "${CMAKE_CURRENT_SOURCE_DIR}/src/.boostish"
          "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h"
@@ -68,7 +73,7 @@ else()
     list_filter(${PROJECT_NAME}_SOURCES_FILTER INCLUDE REGEX "\\.boostish$")
   endif()
   if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/test)
-    message(STATUS "Recursively scanning ${CMAKE_CURRENT_SOURCE_DIR}/test for header and source files ...")
+    message(STATUS "  Recursively scanning ${CMAKE_CURRENT_SOURCE_DIR}/test for header and source files ...")
     file(GLOB_RECURSE ${PROJECT_NAME}_TESTS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
          "${CMAKE_CURRENT_SOURCE_DIR}/test/.boostish"
          "${CMAKE_CURRENT_SOURCE_DIR}/test/*.h"
@@ -107,7 +112,7 @@ else()
       set(${fileslist} ${fileslist_} PARENT_SCOPE)
     endif()
   endfunction()
-  message(STATUS "Pruning globbed source file list of files not related to ${PROJECT_NAME} ...")
+  message(STATUS "  Pruning globbed source file list of files not related to ${PROJECT_NAME} ...")
   prune_boostish_libraries(${PROJECT_NAME}_HEADERS_FILTER ${PROJECT_NAME}_HEADERS)
   prune_boostish_libraries(${PROJECT_NAME}_SOURCES_FILTER ${PROJECT_NAME}_SOURCES)
   prune_boostish_libraries(${PROJECT_NAME}_TESTS_FILTER ${PROJECT_NAME}_TESTS)
@@ -159,4 +164,13 @@ else()
   md5_source_tree("${${PROJECT_NAME}_PATH}/include/${PROJECT_DIR}" ${PROJECT_NAME}_HEADERS_MD5)
 #  md5_source_tree("${${PROJECT_NAME}_PATH}/src" ${PROJECT_NAME}_SOURCES_MD5)
 #  md5_source_tree("${${PROJECT_NAME}_PATH}/test" ${PROJECT_NAME}_TESTS_MD5)
+
+  set(${PROJECT_NAME}_HEADERS ${${PROJECT_NAME}_HEADERS}
+    CACHE PATH "The path to the header files for the ${PROJECT_NAME} project")
+  set(${PROJECT_NAME}_SOURCES ${${PROJECT_NAME}_SOURCES}
+    CACHE PATH "The path to the source files for the ${PROJECT_NAME} project")
+  set(${PROJECT_NAME}_TESTS ${${PROJECT_NAME}_TESTS}
+    CACHE PATH "The path to the test files for the ${PROJECT_NAME} project")
+  set(${PROJECT_NAME}_HEADERS_MD5 ${${PROJECT_NAME}_HEADERS_MD5}
+    CACHE STRING "The hash of the header files directory tree for the ${PROJECT_NAME} project")
 endif()

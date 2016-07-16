@@ -84,7 +84,9 @@ function(all_target_properties)
 endfunction()
 
 # Add this include directory to anyone using this library
-all_include_directories(INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/include")
+all_include_directories(INTERFACE
+  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+)
 # Place all binaries into the bin directory
 all_target_properties(PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"

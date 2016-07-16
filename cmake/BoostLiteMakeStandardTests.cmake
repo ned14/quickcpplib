@@ -28,17 +28,18 @@ if(DEFINED ${PROJECT_NAME}_TESTS AND NOT PROJECT_IS_DEPENDENCY)
           endif()
         endforeach()
         foreach(target ${${PROJECT_NAME}_TARGETS})
-          add_executable(${testname}-${target} ${thistestsources})
-          list(APPEND testtargets "${testname}-${target}")
-          target_link_libraries(${testname}-${target} ${target})
-          set_target_properties(${testname}-${target} PROPERTIES
+          set(target_name "${target}-${testname}")
+          add_executable(${target_name} ${thistestsources})
+          list(APPEND testtargets "${target_name}")
+          target_link_libraries(${target_name} ${target})
+          set_target_properties(${target_name} PROPERTIES
             RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
           )
-          add_test(NAME ${testname}-${target} COMMAND $<TARGET_FILE:${testname}-${target}>)
+          add_test(NAME ${target_name} COMMAND $<TARGET_FILE:${target_name}>)
           if(MSVC)
-            target_compile_options(${testname}-${target} PRIVATE /W4)                                          # Stronger warnings
+            target_compile_options(${target_name} PRIVATE /W4)                                          # Stronger warnings
           else()
-            target_compile_options(${testname}-${target} PRIVATE -Wall -Wextra)                                # Stronger warnings
+            target_compile_options(${target_name} PRIVATE -Wall -Wextra)                                # Stronger warnings
           endif()
         endforeach()
       endif()
