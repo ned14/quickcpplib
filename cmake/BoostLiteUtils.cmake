@@ -116,9 +116,35 @@ endfunction()
 # Finds a Boostish library
 #
 # Boostish libraries can be located via these means in order of preference:
-# 1) "./include/${PROJECT_DIR}/${library-name}"
-# 2) "../${library-dir}/${library-name}"
+# 1) "../${library-dir}"
+# 2) "./include/${PROJECT_DIR}/${library-name}"
 # 3) <${library-dir}/${library-name}>
 function(find_boostish_library library version)
-  # 
+  # Convert namespaced library name into path
+  string(REPLACE "--" "/" librarydir "${library}")
+  get_filename_component(libraryname "${librarydir}" NAME)
+  string(REPLACE "--" "/" PROJECT_DIR ${PROJECT_NAMESPACE})
+  set(PROJECT_DIR ${PROJECT_DIR}${PROJECT_NAME})
+  if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../${librarydir}/.boostish")
+    add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/../${librarydir}"
+      "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}"
+      EXCLUDE_FROM_ALL
+    )
+  elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/${libraryname}/.boostish")
+    add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/${libraryname}"
+      EXCLUDE_FROM_ALL
+    )
+  else()
+    list(FIND ARGN "QUIET" quiet_idx)
+    if(${quiet_idx} EQUAL -1)
+      message(WARNING "WARNING: Boostish library ${library} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} not found")
+      message(STATUS "Tried: ")
+      message(STATUS "  ${CMAKE_CURRENT_SOURCE_DIR}/../${librarydir}/.boostish")
+      message(STATUS "  ${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/${libraryname}/.boostish")
+    endif()
+    list(FIND ARGN "REQUIRED" required_idx)
+    if(${required_idx} GREATER -1)
+      message(FATAL_ERROR "FATAL: Boostish library ${library} required by ${PROJECT_NAMESPACE}${PROJECT_NAME} not found")
+    endif()
+  endif()
 endfunction()

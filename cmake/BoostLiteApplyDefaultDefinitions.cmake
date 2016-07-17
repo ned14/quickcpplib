@@ -73,7 +73,22 @@ function(all_link_libraries)
   endif()
 endfunction()
 
-# Apply these target libraries to all library targets
+# Apply these sources to all library targets
+function(all_sources)
+  if(TARGET ${PROJECT_NAME}_sl)
+    target_sources(${PROJECT_NAME}_sl ${ARGV})
+  endif()
+  if(TARGET ${PROJECT_NAME}_dl)
+    target_sources(${PROJECT_NAME}_dl ${ARGV})
+  endif()
+  if(TARGET ${PROJECT_NAME}_hl AND NOT ${ARGV0} STREQUAL "PRIVATE")
+    list(REMOVE_AT ARGV 0)
+    list(INSERT ARGV 0 INTERFACE)
+    target_sources(${PROJECT_NAME}_hl ${ARGV})
+  endif()
+endfunction()
+
+# Apply these target properties to all library targets
 function(all_target_properties)
   if(TARGET ${PROJECT_NAME}_sl)
     set_target_properties(${PROJECT_NAME}_sl ${ARGV})
