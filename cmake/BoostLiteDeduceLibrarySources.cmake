@@ -48,7 +48,11 @@ else()
     set(${PROJECT_NAME}_INTERFACE ${PROJECT_DIR}/${PROJECT_NAME}.hpp
       CACHE FILEPATH "The path to the precompilable master header file for the ${PROJECT_NAME} project")
     if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/include/${${PROJECT_NAME}_INTERFACE}")
-      message(FATAL_ERROR "FATAL: No master interface header file found at include/${${PROJECT_NAME}_INTERFACE}")
+      message(FATAL_ERROR "FATAL: No master interface header file found at include/${${PROJECT_NAME}_INTERFACE}. "
+                          "You need a master interface header file at that location if you are to make available "
+                          "your library as a C++ Module or as a precompiled header. If your library can never "
+                          "support a master interface header file, set ${PROJECT_NAME}_INTERFACE_DISABLED to ON."
+      )
     endif()
   endif()
   message(STATUS "  Recursively scanning ${CMAKE_CURRENT_SOURCE_DIR}/include for header files ...")

@@ -30,7 +30,7 @@ all_compile_features(PUBLIC
 )
 
 # For all possible configurations of this library, add each test
-list_filter(boost-lite_TESTS EXCLUDE REGEX "test_.*\\.cpp")
+list_filter(boost-lite_TESTS EXCLUDE REGEX "test_.*\\.cpp|bind.cpp")
 include(BoostLiteMakeStandardTests)
 
 # Make available this library for install and export
