@@ -32,107 +32,110 @@ DEALINGS IN THE SOFTWARE.
 #ifndef BOOSTLITE_CONSOLE_COLOURS_HPP
 #define BOOSTLITE_CONSOLE_COLOURS_HPP
 
-namespace boost_lite
+#include "config.hpp"
+
+BOOSTLITE_NAMESPACE_BEGIN
+
+namespace console_colours
 {
-  namespace console_colours
-  {
 #ifdef _WIN32
-    namespace detail
+  namespace detail
+  {
+    inline bool &am_in_bold()
     {
-      inline bool &am_in_bold()
-      {
-        static bool v;
-        return v;
-      }
-      inline void set(WORD v)
-      {
-        if(am_in_bold())
-          v |= FOREGROUND_INTENSITY;
-        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), v);
-      }
+      static bool v;
+      return v;
     }
-    //! Makes the text on the console red
-    inline std::ostream &red(std::ostream &s)
+    inline void set(WORD v)
     {
-      s.flush();
-      detail::set(FOREGROUND_RED);
-      return s;
+      if(am_in_bold())
+        v |= FOREGROUND_INTENSITY;
+      SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), v);
     }
-    //! Makes the text on the console green
-    inline std::ostream &green(std::ostream &s)
-    {
-      s.flush();
-      detail::set(FOREGROUND_GREEN);
-      return s;
-    }
-    //! Makes the text on the console blue
-    inline std::ostream &blue(std::ostream &s)
-    {
-      s.flush();
-      detail::set(FOREGROUND_BLUE);
-      return s;
-    }
-    //! Makes the text on the console yellow
-    inline std::ostream &yellow(std::ostream &s)
-    {
-      s.flush();
-      detail::set(FOREGROUND_RED | FOREGROUND_GREEN);
-      return s;
-    }
-    //! Makes the text on the console magenta
-    inline std::ostream &magenta(std::ostream &s)
-    {
-      s.flush();
-      detail::set(FOREGROUND_RED | FOREGROUND_BLUE);
-      return s;
-    }
-    //! Makes the text on the console cyan
-    inline std::ostream &cyan(std::ostream &s)
-    {
-      s.flush();
-      detail::set(FOREGROUND_GREEN | FOREGROUND_BLUE);
-      return s;
-    }
-    //! Makes the text on the console white
-    inline std::ostream &white(std::ostream &s)
-    {
-      s.flush();
-      detail::set(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-      return s;
-    }
-    //! Makes the text on the console bold
-    inline std::ostream &bold(std::ostream &s)
-    {
-      detail::am_in_bold() = true;
-      return s;
-    }
-    //! Makes the text on the console non-bold and white
-    inline std::ostream &normal(std::ostream &s)
-    {
-      detail::am_in_bold() = false;
-      return white(s);
-    }
-#else
-    //! Makes the text on the console red
-    constexpr const char red[] = {0x1b, '[', '3', '1', 'm', 0};
-    //! Makes the text on the console green
-    constexpr const char green[] = {0x1b, '[', '3', '2', 'm', 0};
-    //! Makes the text on the console blue
-    constexpr const char blue[] = {0x1b, '[', '3', '4', 'm', 0};
-    //! Makes the text on the console yellow
-    constexpr const char yellow[] = {0x1b, '[', '3', '3', 'm', 0};
-    //! Makes the text on the console magenta
-    constexpr const char magenta[] = {0x1b, '[', '3', '5', 'm', 0};
-    //! Makes the text on the console cyan
-    constexpr const char cyan[] = {0x1b, '[', '3', '6', 'm', 0};
-    //! Makes the text on the console white
-    constexpr const char white[] = {0x1b, '[', '3', '7', 'm', 0};
-    //! Makes the text on the console bold
-    constexpr const char bold[] = {0x1b, '[', '1', 'm', 0};
-    //! Makes the text on the console non-bold and white
-    constexpr const char normal[] = {0x1b, '[', '0', 'm', 0};
-#endif
   }
+  //! Makes the text on the console red
+  inline std::ostream &red(std::ostream &s)
+  {
+    s.flush();
+    detail::set(FOREGROUND_RED);
+    return s;
+  }
+  //! Makes the text on the console green
+  inline std::ostream &green(std::ostream &s)
+  {
+    s.flush();
+    detail::set(FOREGROUND_GREEN);
+    return s;
+  }
+  //! Makes the text on the console blue
+  inline std::ostream &blue(std::ostream &s)
+  {
+    s.flush();
+    detail::set(FOREGROUND_BLUE);
+    return s;
+  }
+  //! Makes the text on the console yellow
+  inline std::ostream &yellow(std::ostream &s)
+  {
+    s.flush();
+    detail::set(FOREGROUND_RED | FOREGROUND_GREEN);
+    return s;
+  }
+  //! Makes the text on the console magenta
+  inline std::ostream &magenta(std::ostream &s)
+  {
+    s.flush();
+    detail::set(FOREGROUND_RED | FOREGROUND_BLUE);
+    return s;
+  }
+  //! Makes the text on the console cyan
+  inline std::ostream &cyan(std::ostream &s)
+  {
+    s.flush();
+    detail::set(FOREGROUND_GREEN | FOREGROUND_BLUE);
+    return s;
+  }
+  //! Makes the text on the console white
+  inline std::ostream &white(std::ostream &s)
+  {
+    s.flush();
+    detail::set(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+    return s;
+  }
+  //! Makes the text on the console bold
+  inline std::ostream &bold(std::ostream &s)
+  {
+    detail::am_in_bold() = true;
+    return s;
+  }
+  //! Makes the text on the console non-bold and white
+  inline std::ostream &normal(std::ostream &s)
+  {
+    detail::am_in_bold() = false;
+    return white(s);
+  }
+#else
+  //! Makes the text on the console red
+  constexpr const char red[] = {0x1b, '[', '3', '1', 'm', 0};
+  //! Makes the text on the console green
+  constexpr const char green[] = {0x1b, '[', '3', '2', 'm', 0};
+  //! Makes the text on the console blue
+  constexpr const char blue[] = {0x1b, '[', '3', '4', 'm', 0};
+  //! Makes the text on the console yellow
+  constexpr const char yellow[] = {0x1b, '[', '3', '3', 'm', 0};
+  //! Makes the text on the console magenta
+  constexpr const char magenta[] = {0x1b, '[', '3', '5', 'm', 0};
+  //! Makes the text on the console cyan
+  constexpr const char cyan[] = {0x1b, '[', '3', '6', 'm', 0};
+  //! Makes the text on the console white
+  constexpr const char white[] = {0x1b, '[', '3', '7', 'm', 0};
+  //! Makes the text on the console bold
+  constexpr const char bold[] = {0x1b, '[', '1', 'm', 0};
+  //! Makes the text on the console non-bold and white
+  constexpr const char normal[] = {0x1b, '[', '0', 'm', 0};
+#endif
 }
+
+BOOSTLITE_NAMESPACE_END
 
 #endif

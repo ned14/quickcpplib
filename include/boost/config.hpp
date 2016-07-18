@@ -29,8 +29,8 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef BOOSTLITE_CONFIG_HPP
-#define BOOSTLITE_CONFIG_HPP
+#ifndef BOOSTLITE_BOOST_CONFIG_HPP
+#define BOOSTLITE_BOOST_CONFIG_HPP
 
 #include "../cpp_feature.h"
 
@@ -467,17 +467,16 @@ extern "C" void _mm_pause();
 #endif
 
 #ifndef BOOSTLITE_THREAD_LOCAL
-# ifdef __cpp_thread_local
-#  define BOOSTLITE_THREAD_LOCAL thread_local
-# elif defined(_MSC_VER)
-#  define BOOSTLITE_THREAD_LOCAL __declspec(thread)
-# elif defined(__GNUC__)
-#  define BOOSTLITE_THREAD_LOCAL __thread
-# else
-#  error Unknown compiler, cannot set BOOSTLITE_THREAD_LOCAL
-# endif
+#ifdef __cpp_thread_local
+#define BOOSTLITE_THREAD_LOCAL thread_local
+#elif defined(_MSC_VER)
+#define BOOSTLITE_THREAD_LOCAL __declspec(thread)
+#elif defined(__GNUC__)
+#define BOOSTLITE_THREAD_LOCAL __thread
+#else
+#error Unknown compiler, cannot set BOOSTLITE_THREAD_LOCAL
 #endif
-
+#endif
 
 
 #endif

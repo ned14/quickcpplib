@@ -31,32 +31,35 @@ DEALINGS IN THE SOFTWARE.
 #ifndef BOOSTLITE_ALGORITHM_STRING_HPP
 #define BOOSTLITE_ALGORITHM_STRING_HPP
 
+#include "config.hpp"
+
 #include <locale>
 #include <string>
 
-namespace boost_lite
-{
-  namespace algorithm
-  {
-    namespace string
-    {
-      //! Returns an all lower case edition of the input string. i18n aware.
-      template <class Char> std::basic_string<Char> tolower(std::basic_string<Char> s)
-      {
-        auto &f = std::use_facet<std::ctype<wchar_t>>(std::locale());
-        std::transform(s.begin(), s.end(), s.begin(), [&](Char c) { return f.tolower(c); });
-        return s;
-      }
+BOOSTLITE_NAMESPACE_BEGIN
 
-      //! Returns an all upper case edition of the input string. i18n aware.
-      template <class Char> std::basic_string<Char> toupper(std::basic_string<Char> s)
-      {
-        auto &f = std::use_facet<std::ctype<wchar_t>>(std::locale());
-        std::transform(s.begin(), s.end(), s.begin(), [&](Char c) { return f.toupper(c); });
-        return s;
-      }
+namespace algorithm
+{
+  namespace string
+  {
+    //! Returns an all lower case edition of the input string. i18n aware.
+    template <class Char> std::basic_string<Char> tolower(std::basic_string<Char> s)
+    {
+      auto &f = std::use_facet<std::ctype<wchar_t>>(std::locale());
+      std::transform(s.begin(), s.end(), s.begin(), [&](Char c) { return f.tolower(c); });
+      return s;
+    }
+
+    //! Returns an all upper case edition of the input string. i18n aware.
+    template <class Char> std::basic_string<Char> toupper(std::basic_string<Char> s)
+    {
+      auto &f = std::use_facet<std::ctype<wchar_t>>(std::locale());
+      std::transform(s.begin(), s.end(), s.begin(), [&](Char c) { return f.toupper(c); });
+      return s;
     }
   }
 }
+
+BOOSTLITE_NAMESPACE_END
 
 #endif
