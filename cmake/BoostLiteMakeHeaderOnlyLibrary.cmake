@@ -16,6 +16,16 @@ function(default_header_only_interface_library reason)
       "$<BUILD_INTERFACE:${${PROJECT_NAME}_PATH}/include/${${PROJECT_NAME}_INTERFACE}>"
       "$<INSTALL_INTERFACE:include/${${PROJECT_NAME}_INTERFACE}>"
     )
+  else()
+    # Include all my headers into the sources of anything consuming me
+    set(sources)
+    foreach(header ${${PROJECT_NAME}_HEADERS})
+      list(APPEND sources
+      "$<BUILD_INTERFACE:${${PROJECT_NAME}_PATH}/${header}>"
+      "$<INSTALL_INTERFACE:${header}>"
+    )
+    endforeach()
+    target_sources(${PROJECT_NAME}_hl INTERFACE ${sources})
   endif()
 endfunction()
 

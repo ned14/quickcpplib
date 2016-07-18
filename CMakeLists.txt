@@ -15,6 +15,10 @@ set(boost-lite_INTERFACE_DISABLED ON)
 
 # Update this header file with the current git SHA and last timestamp
 UpdateRevisionHppFromGit("${CMAKE_CURRENT_SOURCE_DIR}/include/revision.hpp")
+# Scan myself for sources
+include(BoostLiteDeduceLibrarySources)
+# Exclude any embedded CATCH
+list_filter(boost-lite_HEADERS EXCLUDE REGEX "include/CATCH")
 # Make an interface only library so dependent CMakeLists can bring in this header-only library
 include(BoostLiteMakeHeaderOnlyLibrary)
 

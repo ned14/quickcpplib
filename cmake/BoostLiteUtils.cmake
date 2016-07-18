@@ -15,13 +15,13 @@ function(NativisePath outvar)
 endfunction()
 
 # Add generator expressions to appendvar expanding at build time any remaining parameters
-# if the build configuration is config
-function(expand_at_build_if_config config appendvar)
+# if the <condition> is true at build time
+function(expand_at_build_if condition appendvar)
   set(ret ${${appendvar}})
   set(items ${ARGN})
   separate_arguments(items)
   foreach(item ${items})
-    list(APPEND ret $<$<CONFIG:${config}>:${item}>)
+    list(APPEND ret $<${condition}:${item}>)
   endforeach()
   set(${appendvar} ${ret} PARENT_SCOPE)
 endfunction()
