@@ -17,14 +17,18 @@
 # Cached outputs:
 #  *          ${PROJECT_NAME}_PATH: ${CMAKE_CURRENT_SOURCE_DIR}
 #  *     ${PROJECT_NAME}_INTERFACE: The master interface PCHable header file ${PROJECT_DIR}/${PROJECT_NAME}.hpp
-#  *       ${PROJECT_NAME}_HEADERS: Any header files found in include/${PROJECT_DIR}
+#  *       ${PROJECT_NAME}_HEADERS: Any header files found in include
 #  *       ${PROJECT_NAME}_SOURCES: Any source files found in src
 #  *         ${PROJECT_NAME}_TESTS: Any source files found in test
 #  *   ${PROJECT_NAME}_HEADERS_MD5: The MD5 of the results of 'find . -type f -printf "%t\t%s\t%p\n"' (POSIX) or 'dir /a-d /s' (Windows) for include
 #  *   ${PROJECT_NAME}_SOURCES_MD5: The MD5 of the results of 'find . -type f -printf "%t\t%s\t%p\n"' (POSIX) or 'dir /a-d /s' (Windows) for src
 #  *     ${PROJECT_NAME}_TESTS_MD5: The MD5 of the results of 'find . -type f -printf "%t\t%s\t%p\n"' (POSIX) or 'dir /a-d /s' (Windows) for test
 
-string(REPLACE "--" "/" PROJECT_DIR ${PROJECT_NAMESPACE})
+if(DEFINED PROJECT_NAMESPACE)
+  string(REPLACE "--" "/" PROJECT_DIR ${PROJECT_NAMESPACE})
+else()
+  set(PROJECT_DIR)
+endif()
 set(PROJECT_DIR ${PROJECT_DIR}${PROJECT_NAME})
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
   set(PROJECT_IS_DEPENDENCY OFF)
@@ -40,19 +44,21 @@ else()
   message(STATUS "Cached scan of project ${PROJECT_NAME} not found! Starting scan ...")
   set(${PROJECT_NAME}_PATH ${CMAKE_CURRENT_SOURCE_DIR}
     CACHE PATH "The path to the base of the ${PROJECT_NAME} project")
-  set(${PROJECT_NAME}_INTERFACE ${PROJECT_DIR}/${PROJECT_NAME}.hpp
-    CACHE FILEPATH "The path to the precompilable master header file for the ${PROJECT_NAME} project")
-  if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/include/${${PROJECT_NAME}_INTERFACE}")
-    message(FATAL_ERROR "FATAL: No master interface header file found at include/${${PROJECT_NAME}_INTERFACE}")
+  if(NOT ${PROJECT_NAME}_INTERFACE_DISABLED)
+    set(${PROJECT_NAME}_INTERFACE ${PROJECT_DIR}/${PROJECT_NAME}.hpp
+      CACHE FILEPATH "The path to the precompilable master header file for the ${PROJECT_NAME} project")
+    if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/include/${${PROJECT_NAME}_INTERFACE}")
+      message(FATAL_ERROR "FATAL: No master interface header file found at include/${${PROJECT_NAME}_INTERFACE}")
+    endif()
   endif()
-  message(STATUS "  Recursively scanning ${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR} for header files ...")
+  message(STATUS "  Recursively scanning ${CMAKE_CURRENT_SOURCE_DIR}/include for header files ...")
   # cmake glob is unfortunately very slow on deep directory hierarchies, so we glob
   # recursively everything we need at once and extract out from that giant list what we need
   file(GLOB_RECURSE ${PROJECT_NAME}_HEADERS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
-       "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/.boostish"
-       "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/*.h"
-       "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/*.hpp"
-       "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/*.ipp"
+       "${CMAKE_CURRENT_SOURCE_DIR}/include/.boostish"
+       "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h"
+       "${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp"
+       "${CMAKE_CURRENT_SOURCE_DIR}/include/*.ipp"
        )
   set(${PROJECT_NAME}_HEADERS_FILTER ${${PROJECT_NAME}_HEADERS})
   list_filter(${PROJECT_NAME}_HEADERS EXCLUDE REGEX "\\.boostish$")
@@ -161,7 +167,7 @@ else()
       set(${outvar} ${MD5} PARENT_SCOPE)
     endfunction()
   endif()
-  md5_source_tree("${${PROJECT_NAME}_PATH}/include/${PROJECT_DIR}" ${PROJECT_NAME}_HEADERS_MD5)
+  md5_source_tree("${${PROJECT_NAME}_PATH}/include" ${PROJECT_NAME}_HEADERS_MD5)
 #  md5_source_tree("${${PROJECT_NAME}_PATH}/src" ${PROJECT_NAME}_SOURCES_MD5)
 #  md5_source_tree("${${PROJECT_NAME}_PATH}/test" ${PROJECT_NAME}_TESTS_MD5)
 

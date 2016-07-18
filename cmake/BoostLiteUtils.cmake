@@ -74,9 +74,10 @@ endfunction()
 
 # We expect a header file like this:
 #   // Comment
-#   #define BOOST_AFIO_PREVIOUS_COMMIT_REF  x
-#   #define BOOST_AFIO_PREVIOUS_COMMIT_DATE "x"
-# Lines 2 and 3 need their ending rewritten
+#   #define BOOST_AFIO_PREVIOUS_COMMIT_REF    x
+#   #define BOOST_AFIO_PREVIOUS_COMMIT_DATE   "x"
+#   #define BOOST_AFIO_PREVIOUS_COMMIT_UNIQUE x
+# Lines 2, 3 and 4 need their ending rewritten
 function(UpdateRevisionHppFromGit hppfile)
   set(gitdir "${CMAKE_CURRENT_SOURCE_DIR}/.git")
   if(NOT IS_DIRECTORY "${gitdir}")
@@ -98,16 +99,19 @@ function(UpdateRevisionHppFromGit hppfile)
     string(STRIP "${HEADSHA}" HEADSHA)
     file(TIMESTAMP "${gitdir}/${HEAD}" HEADSTAMP "%Y-%m-%d %H:%M:%S +00:00" UTC)
     #message(STATUS "Last commit was ${HEADSHA} at ${HEADSTAMP}")
+    string(SUBSTRING "${HEADSHA}" 0 8 HEADUNIQUE)
 
     file(READ "${hppfile}" HPPFILE)
-    string(REGEX MATCH "(.*\n.* )([a-f0-9]+)([\r\n]+.* \")(.*)(\"[\r\n]+.*)" txt1 "${HPPFILE}")
+    string(REGEX MATCH "(.*\n.* )([a-f0-9]+)([\r\n]+.* \")(.*)(\"[\r\n]+.* )([a-f0-9]+)([\r\n]+.*)" txt1 "${HPPFILE}")
     set(txt1 "${CMAKE_MATCH_1}")
     set(OLDSHA "${CMAKE_MATCH_2}")
     set(txt2 "${CMAKE_MATCH_3}")
     set(OLDSTAMP "${CMAKE_MATCH_4}")
     set(txt3 "${CMAKE_MATCH_5}")
+    set(OLDUNIQUE "${CMAKE_MATCH_6}")
+    set(txt4 "${CMAKE_MATCH_7}")
     if(NOT HEADSHA STREQUAL OLDSHA)
-      set(HPPFILE "${txt1}${HEADSHA}${txt2}${HEADSTAMP}${txt3}")
+      set(HPPFILE "${txt1}${HEADSHA}${txt2}${HEADSTAMP}${txt3}${HEADUNIQUE}${txt4}")
       file(WRITE "${hppfile}" "${HPPFILE}")
     endif()
   endif()
