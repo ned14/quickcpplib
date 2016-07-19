@@ -37,9 +37,11 @@ function(add_precompiled_header outvar headerpath)
   set_target_properties(${outvar}_pch PROPERTIES
     COMPILE_DEFINITIONS $<TARGET_PROPERTY:${outvar},INTERFACE_COMPILE_DEFINITIONS>
     COMPILE_FEATURES $<TARGET_PROPERTY:${outvar},INTERFACE_COMPILE_FEATURES>
-    # Can't propagate options else the include of myself into dependencies gets propagated too :(
-    #COMPILE_OPTIONS $<TARGET_PROPERTY:${outvar},INTERFACE_COMPILE_OPTIONS>
-    INCLUDE_DIRECTORIES $<TARGET_PROPERTY:${outvar},INTERFACE_INCLUDE_DIRECTORIES>
+    # Can't propagate $<TARGET_PROPERTY:${outvar},INTERFACE_COMPILE_OPTIONS> else the include of
+    # myself into dependencies gets propagated too :(
+    #COMPILE_OPTIONS ${INTERFACE_COMPILE_OPTIONS}
+    #INCLUDE_DIRECTORIES $<TARGET_PROPERTY:${outvar},INTERFACE_INCLUDE_DIRECTORIES>
+    #SYSTEM_INCLUDE_DIRECTORIES $<TARGET_PROPERTY:${outvar},INTERFACE_SYSTEM_INCLUDE_DIRECTORIES>
   )
   if(MSVC)
     # Visual Studio generator outputs PCH to /Fp"afio_hl_pch.dir\Debug\afio_hl.pch"
