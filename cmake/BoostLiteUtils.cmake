@@ -54,6 +54,11 @@ function(escape_string_into_regex outvar)
   set(${outvar} ${out} PARENT_SCOPE)
 endfunction()
 
+# Indents a message by a global variable amount of whitespace
+function(indented_message type)
+  message(${type} "${MESSAGE_INDENT}" ${ARGN})
+endfunction()
+
 
 # We expect a header file with macros like
 # #define BOOST_AFIO_VERSION_MAJOR    2
@@ -89,16 +94,16 @@ function(UpdateRevisionHppFromGit hppfile)
     set(gitdir "${CMAKE_CURRENT_SOURCE_DIR}/${pathtogitdir}")
   endif()
   # Read .git/HEAD and the SHA and timestamp
-  #message(STATUS "gitdir is ${gitdir}")
+  #indented_message(STATUS "gitdir is ${gitdir}")
   file(READ "${gitdir}/HEAD" HEAD)
   string(SUBSTRING "${HEAD}" 5 -1 HEAD)
   string(STRIP "${HEAD}" HEAD)
-  #message(STATUS "head is '${HEAD}'")
+  #indented_message(STATUS "head is '${HEAD}'")
   if(EXISTS "${gitdir}/${HEAD}")
     file(READ "${gitdir}/${HEAD}" HEADSHA)
     string(STRIP "${HEADSHA}" HEADSHA)
     file(TIMESTAMP "${gitdir}/${HEAD}" HEADSTAMP "%Y-%m-%d %H:%M:%S +00:00" UTC)
-    #message(STATUS "Last commit was ${HEADSHA} at ${HEADSTAMP}")
+    #indented_message(STATUS "Last commit was ${HEADSHA} at ${HEADSTAMP}")
     string(SUBSTRING "${HEADSHA}" 0 8 HEADUNIQUE)
 
     file(READ "${hppfile}" HPPFILE)
@@ -131,6 +136,8 @@ function(find_boostish_library library version)
   set(PROJECT_DIR ${PROJECT_DIR}${PROJECT_NAME})
   # Prefer sibling editions of dependencies to embedded editions
   if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../${librarydir}/.boostish")
+    indented_message(STATUS "Found ${library} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} at ../${librarydir}")
+    set(MESSAGE_INDENT "${MESSAGE_INDENT}  ")
     add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/../${librarydir}"
       "${CMAKE_CURRENT_BINARY_DIR}/${librarydir}"
       EXCLUDE_FROM_ALL
@@ -142,6 +149,8 @@ function(find_boostish_library library version)
     get_filename_component(path "${CMAKE_CURRENT_SOURCE_DIR}/../_" ABSOLUTE)
     include_directories(SYSTEM "${path}")
   elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/${libraryname}/.boostish")
+    indented_message(STATUS "Found ${library} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} at include/${PROJECT_DIR}/${libraryname}")
+    set(MESSAGE_INDENT "${MESSAGE_INDENT}  ")
     add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/${libraryname}"
       EXCLUDE_FROM_ALL
     )
@@ -151,14 +160,14 @@ function(find_boostish_library library version)
   else()
     list(FIND ARGN "QUIET" quiet_idx)
     if(${quiet_idx} EQUAL -1)
-      message(WARNING "WARNING: Boostish library ${library} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} not found")
-      message(STATUS "Tried: ")
-      message(STATUS "  ${CMAKE_CURRENT_SOURCE_DIR}/../${librarydir}/.boostish")
-      message(STATUS "  ${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/${libraryname}/.boostish")
+      indented_message(WARNING "WARNING: Boostish library ${library} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} not found")
+      indented_message(STATUS "Tried: ")
+      indented_message(STATUS "  ${CMAKE_CURRENT_SOURCE_DIR}/../${librarydir}/.boostish")
+      indented_message(STATUS "  ${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/${libraryname}/.boostish")
     endif()
     list(FIND ARGN "REQUIRED" required_idx)
     if(${required_idx} GREATER -1)
-      message(FATAL_ERROR "FATAL: Boostish library ${library} required by ${PROJECT_NAMESPACE}${PROJECT_NAME} not found")
+      indented_message(FATAL_ERROR "FATAL: Boostish library ${library} required by ${PROJECT_NAMESPACE}${PROJECT_NAME} not found")
     endif()
   endif()
 endfunction()

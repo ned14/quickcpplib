@@ -8,7 +8,7 @@ include(BoostLiteDeduceLibrarySources)
 include(BoostLitePrecompiledHeader)
 
 function(default_header_only_interface_library reason)
-  message(STATUS "NOTE: NOT compiling header only library for ${PROJECT_NAME} into a C++ Module nor a precompiled header due to ${reason}")
+  indented_message(STATUS "NOTE: NOT compiling header only library for ${PROJECT_NAME} into a C++ Module nor a precompiled header due to ${reason}")
   add_library(${PROJECT_NAME}_hl INTERFACE)
   if(DEFINED ${PROJECT_NAME}_INTERFACE)
     # Cause my master header to appear in the sources of anything consuming me

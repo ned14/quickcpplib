@@ -38,10 +38,10 @@ endif()
 
 # Only go to the expense of recalculating this stuff if needed
 if(${PROJECT_NAME}_HEADERS)
-  message(STATUS "Reusing cached scan of project ${PROJECT_NAME} ...")
+  indented_message(STATUS "Reusing cached scan of project ${PROJECT_NAME} ...")
 else()
   include(BoostLiteUtils)
-  message(STATUS "Cached scan of project ${PROJECT_NAME} not found! Starting scan ...")
+  indented_message(STATUS "Cached scan of project ${PROJECT_NAME} not found! Starting scan ...")
   # TODO: Is this the same as ${PROJECT_NAME}_SOURCE_DIR and therefore is redundant?
   set(${PROJECT_NAME}_PATH ${CMAKE_CURRENT_SOURCE_DIR}
     CACHE PATH "The path to the base of the ${PROJECT_NAME} project")
@@ -49,14 +49,14 @@ else()
     set(${PROJECT_NAME}_INTERFACE ${PROJECT_DIR}/${PROJECT_NAME}.hpp
       CACHE FILEPATH "The path to the precompilable master header file for the ${PROJECT_NAME} project")
     if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/include/${${PROJECT_NAME}_INTERFACE}")
-      message(FATAL_ERROR "FATAL: No master interface header file found at include/${${PROJECT_NAME}_INTERFACE}. "
+      indented_message(FATAL_ERROR "FATAL: No master interface header file found at include/${${PROJECT_NAME}_INTERFACE}. "
                           "You need a master interface header file at that location if you are to make available "
                           "your library as a C++ Module or as a precompiled header. If your library can never "
                           "support a master interface header file, set ${PROJECT_NAME}_INTERFACE_DISABLED to ON."
       )
     endif()
   endif()
-  message(STATUS "  Recursively scanning ${CMAKE_CURRENT_SOURCE_DIR}/include for header files ...")
+  indented_message(STATUS "  Recursively scanning ${CMAKE_CURRENT_SOURCE_DIR}/include for header files ...")
   # cmake glob is unfortunately very slow on deep directory hierarchies, so we glob
   # recursively everything we need at once and extract out from that giant list what we need
   file(GLOB_RECURSE ${PROJECT_NAME}_HEADERS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
@@ -69,7 +69,7 @@ else()
   list_filter(${PROJECT_NAME}_HEADERS EXCLUDE REGEX "\\.boostish$")
   list_filter(${PROJECT_NAME}_HEADERS_FILTER INCLUDE REGEX "\\.boostish$")
   if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/src)
-    message(STATUS "  Recursively scanning ${CMAKE_CURRENT_SOURCE_DIR}/src for header and source files ...")
+    indented_message(STATUS "  Recursively scanning ${CMAKE_CURRENT_SOURCE_DIR}/src for header and source files ...")
     file(GLOB_RECURSE ${PROJECT_NAME}_SOURCES RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
          "${CMAKE_CURRENT_SOURCE_DIR}/src/.boostish"
          "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h"
@@ -84,7 +84,7 @@ else()
     list_filter(${PROJECT_NAME}_SOURCES_FILTER INCLUDE REGEX "\\.boostish$")
   endif()
   if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/test)
-    message(STATUS "  Recursively scanning ${CMAKE_CURRENT_SOURCE_DIR}/test for header and source files ...")
+    indented_message(STATUS "  Recursively scanning ${CMAKE_CURRENT_SOURCE_DIR}/test for header and source files ...")
     file(GLOB_RECURSE ${PROJECT_NAME}_TESTS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
          "${CMAKE_CURRENT_SOURCE_DIR}/test/.boostish"
          "${CMAKE_CURRENT_SOURCE_DIR}/test/*.h"
@@ -123,18 +123,18 @@ else()
       set(${fileslist} ${fileslist_} PARENT_SCOPE)
     endif()
   endfunction()
-  message(STATUS "  Pruning globbed source file list of files not related to ${PROJECT_NAME} ...")
+  indented_message(STATUS "  Pruning globbed source file list of files not related to ${PROJECT_NAME} ...")
   prune_boostish_libraries(${PROJECT_NAME}_HEADERS_FILTER ${PROJECT_NAME}_HEADERS)
   prune_boostish_libraries(${PROJECT_NAME}_SOURCES_FILTER ${PROJECT_NAME}_SOURCES)
   prune_boostish_libraries(${PROJECT_NAME}_TESTS_FILTER ${PROJECT_NAME}_TESTS)
   
-  #message(STATUS "  ${PROJECT_NAME}_HEADERS = ${${PROJECT_NAME}_HEADERS}")
-  #message(STATUS "  ${PROJECT_NAME}_SOURCES = ${${PROJECT_NAME}_SOURCES}")
-  #message(STATUS "  ${PROJECT_NAME}_TESTS = ${${PROJECT_NAME}_TESTS}")
+  #indented_message(STATUS "  ${PROJECT_NAME}_HEADERS = ${${PROJECT_NAME}_HEADERS}")
+  #indented_message(STATUS "  ${PROJECT_NAME}_SOURCES = ${${PROJECT_NAME}_SOURCES}")
+  #indented_message(STATUS "  ${PROJECT_NAME}_TESTS = ${${PROJECT_NAME}_TESTS}")
   list(LENGTH ${PROJECT_NAME}_HEADERS ${PROJECT_NAME}_HEADERS_COUNT)
   list(LENGTH ${PROJECT_NAME}_SOURCES ${PROJECT_NAME}_SOURCES_COUNT)
   list(LENGTH ${PROJECT_NAME}_TESTS ${PROJECT_NAME}_TESTS_COUNT)
-  message(STATUS "Project ${PROJECT_NAME} has ${${PROJECT_NAME}_HEADERS_COUNT} headers, "
+  indented_message(STATUS "Project ${PROJECT_NAME} has ${${PROJECT_NAME}_HEADERS_COUNT} headers, "
                  "${${PROJECT_NAME}_SOURCES_COUNT} library sources and ${${PROJECT_NAME}_TESTS_COUNT} test sources.")
 
   # Call source_group() on all items with a common path so project files maintain the file hierarchy
@@ -144,7 +144,7 @@ else()
       get_filename_component(basepath ${item} DIRECTORY)
       if(NOT basepath STREQUAL oldbasepath)
         string(REPLACE "/" "\\" _basepath ${basepath})
-        #message(STATUS "source_group(${_basepath} ${basepath}/.*)")
+        #indented_message(STATUS "source_group(${_basepath} ${basepath}/.*)")
         source_group("${_basepath}" "${basepath}/.*")
       endif()
     endforeach()
