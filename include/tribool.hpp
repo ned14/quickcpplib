@@ -36,7 +36,7 @@ DEALINGS IN THE SOFTWARE.
 \brief Provides a constexpr C++ 11 tribool
 */
 
-#include <config.hpp>
+#include "config.hpp"
 
 #include <istream>
 

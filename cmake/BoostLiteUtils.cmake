@@ -129,15 +129,25 @@ function(find_boostish_library library version)
   get_filename_component(libraryname "${librarydir}" NAME)
   string(REPLACE "--" "/" PROJECT_DIR ${PROJECT_NAMESPACE})
   set(PROJECT_DIR ${PROJECT_DIR}${PROJECT_NAME})
+  # Prefer sibling editions of dependencies to embedded editions
   if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../${librarydir}/.boostish")
     add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/../${librarydir}"
-      "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}"
+      "${CMAKE_CURRENT_BINARY_DIR}/${librarydir}"
       EXCLUDE_FROM_ALL
     )
+    # One of the only uses of a non-target specific cmake command anywhere,
+    # but this is local to the calling CMakeLists.txt and is the correct
+    # thing to use. We use the fake directory "_" instead of the current
+    # project to prevent accidental pickup of files in the current project.
+    get_filename_component(path "${CMAKE_CURRENT_SOURCE_DIR}/../_" ABSOLUTE)
+    include_directories(SYSTEM "${path}")
   elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/${libraryname}/.boostish")
     add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/${libraryname}"
       EXCLUDE_FROM_ALL
     )
+    # If we are using an embedded dependency, for any unit tests make the
+    # dependencies appear as if at the same location as for the headers
+    include_directories(SYSTEM "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/_")
   else()
     list(FIND ARGN "QUIET" quiet_idx)
     if(${quiet_idx} EQUAL -1)

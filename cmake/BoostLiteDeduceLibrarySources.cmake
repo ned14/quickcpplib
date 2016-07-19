@@ -42,6 +42,7 @@ if(${PROJECT_NAME}_HEADERS)
 else()
   include(BoostLiteUtils)
   message(STATUS "Cached scan of project ${PROJECT_NAME} not found! Starting scan ...")
+  # TODO: Is this the same as ${PROJECT_NAME}_SOURCE_DIR and therefore is redundant?
   set(${PROJECT_NAME}_PATH ${CMAKE_CURRENT_SOURCE_DIR}
     CACHE PATH "The path to the base of the ${PROJECT_NAME} project")
   if(NOT ${PROJECT_NAME}_INTERFACE_DISABLED)
