@@ -134,19 +134,24 @@ function(find_boostish_library library version)
   get_filename_component(libraryname "${librarydir}" NAME)
   string(REPLACE "--" "/" PROJECT_DIR ${PROJECT_NAMESPACE})
   set(PROJECT_DIR ${PROJECT_DIR}${PROJECT_NAME})
+  get_filename_component(boostishdir "${CMAKE_CURRENT_SOURCE_DIR}/.." ABSOLUTE)
+  if(IS_DIRECTORY "${boostishdir}/.use_boostish_siblings")
+    set(siblingenabled ON)
+  else()
+    set(siblingenabled OFF)
+  endif()
   # Prefer sibling editions of dependencies to embedded editions
-  if(IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../.use_boostish_siblings" AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../${librarydir}/.boostish")
+  if(siblingenabled AND EXISTS "${boostishdir}/${librarydir}/.boostish")
     indented_message(STATUS "Found ${library} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} at sibling ../${librarydir}")
     set(MESSAGE_INDENT "${MESSAGE_INDENT}  ")
-    add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/../${librarydir}"
+    add_subdirectory("${boostishdir}/${librarydir}"
       "${CMAKE_CURRENT_BINARY_DIR}/${librarydir}"
       EXCLUDE_FROM_ALL
     )
     # One of the only uses of a non-target specific cmake command anywhere,
     # but this is local to the calling CMakeLists.txt and is the correct
     # thing to use.
-    get_filename_component(path "${CMAKE_CURRENT_SOURCE_DIR}/../.use_boostish_siblings" ABSOLUTE)
-    include_directories(SYSTEM "${path}")
+    include_directories(SYSTEM "${boostishdir}/.use_boostish_siblings")
   elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/${libraryname}/.boostish")
     indented_message(STATUS "Found ${library} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} at embedded include/${PROJECT_DIR}/${libraryname}")
     set(MESSAGE_INDENT "${MESSAGE_INDENT}  ")
@@ -161,8 +166,13 @@ function(find_boostish_library library version)
     if(${quiet_idx} EQUAL -1)
       indented_message(WARNING "WARNING: Boostish library ${library} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} not found")
       indented_message(STATUS "Tried: ")
-      indented_message(STATUS "  ${CMAKE_CURRENT_SOURCE_DIR}/../${librarydir}/.boostish")
+      if(siblingenabled)
+        indented_message(STATUS "  ${boostishdir}/${librarydir}/.boostish")
+      endif()
       indented_message(STATUS "  ${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/${libraryname}/.boostish")
+      if(NOT siblingenabled)
+        indented_message(STATUS "  (sibling library use disabled due to lack of ${boostishdir}/.use_boostish_siblings)")
+      endif()
     endif()
     list(FIND ARGN "REQUIRED" required_idx)
     if(${required_idx} GREATER -1)
