@@ -35,7 +35,10 @@ if(DEFINED ${PROJECT_NAME}_TESTS AND NOT PROJECT_IS_DEPENDENCY)
           set_target_properties(${target_name} PROPERTIES
             RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
           )
-          add_test(NAME ${target_name} COMMAND $<TARGET_FILE:${target_name}>)
+          # FIXME: Cannot assume tests are using CATCH like this
+          add_test(NAME ${target_name}
+            COMMAND $<TARGET_FILE:${target_name}> --reporter junit --out $<TARGET_FILE:${target_name}>.xml
+          )
           if(MSVC)
             target_compile_options(${target_name} PRIVATE /W4)                                          # Stronger warnings
           else()
