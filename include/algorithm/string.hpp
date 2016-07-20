@@ -31,7 +31,7 @@ DEALINGS IN THE SOFTWARE.
 #ifndef BOOSTLITE_ALGORITHM_STRING_HPP
 #define BOOSTLITE_ALGORITHM_STRING_HPP
 
-#include "config.hpp"
+#include "../config.hpp"
 
 #include <locale>
 #include <string>

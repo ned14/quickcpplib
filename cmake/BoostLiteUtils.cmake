@@ -125,14 +125,22 @@ endfunction()
 # Finds a Boostish library
 #
 # Boostish libraries can be located via these means in order of preference:
-# 1) "../${library-dir}"
-# 2) "./include/${PROJECT_DIR}/${library-name}"
-# 3) <${library-dir}/${library-name}>
+# 1) "../${library-dir}"                          (e.g. ../boost/outcome)
+# 2) "../${library-name}"                         (e.g. ../outcome)
+# 3) "./include/${PROJECT_DIR}/${library-name}"   (e.g. include/boost/afio/outcome)
+#### 4) <${library-dir}/${library-name}>
 function(find_boostish_library library version)
+  if(NOT PROJECT_NAME)
+    message(FATAL_ERROR "find_boostish_library() must only be called after a project()")
+  endif()
   # Convert namespaced library name into path
   string(REPLACE "--" "/" librarydir "${library}")
   get_filename_component(libraryname "${librarydir}" NAME)
-  string(REPLACE "--" "/" PROJECT_DIR ${PROJECT_NAMESPACE})
+  if(DEFINED PROJECT_NAMESPACE)
+    string(REPLACE "--" "/" PROJECT_DIR ${PROJECT_NAMESPACE})
+  else()
+    set(PROJECT_DIR)
+  endif()
   set(PROJECT_DIR ${PROJECT_DIR}${PROJECT_NAME})
   get_filename_component(boostishdir "${CMAKE_CURRENT_SOURCE_DIR}/.." ABSOLUTE)
   if(IS_DIRECTORY "${boostishdir}/.use_boostish_siblings")
@@ -140,28 +148,49 @@ function(find_boostish_library library version)
   else()
     set(siblingenabled OFF)
   endif()
-  # Prefer sibling editions of dependencies to embedded editions
-  if(siblingenabled AND EXISTS "${boostishdir}/${librarydir}/.boostish")
-    indented_message(STATUS "Found ${library} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} at sibling ../${librarydir}")
-    set(MESSAGE_INDENT "${MESSAGE_INDENT}  ")
-    add_subdirectory("${boostishdir}/${librarydir}"
-      "${CMAKE_CURRENT_BINARY_DIR}/${librarydir}"
-      EXCLUDE_FROM_ALL
-    )
-    # One of the only uses of a non-target specific cmake command anywhere,
-    # but this is local to the calling CMakeLists.txt and is the correct
-    # thing to use.
-    include_directories(SYSTEM "${boostishdir}/.use_boostish_siblings")
-  elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/${libraryname}/.boostish")
-    indented_message(STATUS "Found ${library} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} at embedded include/${PROJECT_DIR}/${libraryname}")
-    set(MESSAGE_INDENT "${MESSAGE_INDENT}  ")
-    add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/${libraryname}"
-      EXCLUDE_FROM_ALL
-    )
-    # If we are using an embedded dependency, for any unit tests make the
-    # dependencies appear as if at the same location as for the headers
-    include_directories(SYSTEM "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/${libraryname}")
-  else()
+  if(NOT DEFINED ${libraryname}_FOUND)
+    # Prefer sibling editions of dependencies to embedded editions
+    if(siblingenabled AND EXISTS "${boostishdir}/${librarydir}/.boostish")
+      indented_message(STATUS "Found ${library} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} at sibling ../${librarydir}")
+      set(MESSAGE_INDENT "${MESSAGE_INDENT}  ")
+      add_subdirectory("${boostishdir}/${librarydir}"
+        "${CMAKE_CURRENT_BINARY_DIR}/${librarydir}"
+        EXCLUDE_FROM_ALL
+      )
+      get_filename_component(librarydir2 "${librarydir}" DIRECTORY)
+      # One of the only uses of a non-target specific cmake command anywhere,
+      # but this is local to the calling CMakeLists.txt and is the correct
+      # thing to use.
+      include_directories(SYSTEM "${boostishdir}/${librarydir2}/.use_boostish_siblings")
+      set(${libraryname}_FOUND TRUE)
+    elseif(siblingenabled AND EXISTS "${boostishdir}/${libraryname}/.boostish")
+      indented_message(STATUS "Found ${library} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} at sibling ../${libraryname}")
+      set(MESSAGE_INDENT "${MESSAGE_INDENT}  ")
+      add_subdirectory("${boostishdir}/${libraryname}"
+        "${CMAKE_CURRENT_BINARY_DIR}/${libraryname}"
+        EXCLUDE_FROM_ALL
+      )
+      # One of the only uses of a non-target specific cmake command anywhere,
+      # but this is local to the calling CMakeLists.txt and is the correct
+      # thing to use.
+      include_directories(SYSTEM "${boostishdir}/.use_boostish_siblings")
+      set(${libraryname}_FOUND TRUE)
+    elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/${libraryname}/.boostish")
+      indented_message(STATUS "Found ${library} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} at embedded include/${PROJECT_DIR}/${libraryname}")
+      set(MESSAGE_INDENT "${MESSAGE_INDENT}  ")
+      add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/${libraryname}"
+        EXCLUDE_FROM_ALL
+      )
+      # If we are using an embedded dependency, for any unit tests make the
+      # dependencies appear as if at the same location as for the headers
+      include_directories(SYSTEM "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/${libraryname}")
+      set(${libraryname}_FOUND TRUE)
+    else()
+      set(${libraryname}_FOUND FALSE)
+    endif()
+  endif()
+  set(${libraryname}_FOUND ${libraryname}_FOUND PARENT_SCOPE)
+  if(NOT ${libraryname}_FOUND)
     list(FIND ARGN "QUIET" quiet_idx)
     if(${quiet_idx} EQUAL -1)
       indented_message(WARNING "WARNING: Boostish library ${library} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} not found")
