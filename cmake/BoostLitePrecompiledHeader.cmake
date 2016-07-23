@@ -71,7 +71,7 @@ function(add_precompiled_header outvar headerpath)
       # file into the output next to the gch file and add an include search
       # path so it picks up its siblings
       add_custom_target(${outvar}_gch
-        COMMAND ${CMAKE_COMMAND} -E rename ${headerpath}.o ${headerpath}.gch
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${headerpath}.o ${headerpath}.gch
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/${sources} ${headerpath}
         DEPENDS ${outvar}_pch
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${outvar}_pch.dir/include

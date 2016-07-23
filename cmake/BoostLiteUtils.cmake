@@ -84,6 +84,7 @@ endfunction()
 #   #define BOOST_AFIO_PREVIOUS_COMMIT_UNIQUE x
 # Lines 2, 3 and 4 need their ending rewritten
 function(UpdateRevisionHppFromGit hppfile)
+  set(temphppfile "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${PROJECT_NAME}_revision.hpp")
   set(gitdir "${CMAKE_CURRENT_SOURCE_DIR}/.git")
   if(NOT IS_DIRECTORY "${gitdir}")
     file(READ "${gitdir}" pathtogitdir)
@@ -115,11 +116,14 @@ function(UpdateRevisionHppFromGit hppfile)
     set(txt3 "${CMAKE_MATCH_5}")
     set(OLDUNIQUE "${CMAKE_MATCH_6}")
     set(txt4 "${CMAKE_MATCH_7}")
-    if(NOT HEADSHA STREQUAL OLDSHA)
-      set(HPPFILE "${txt1}${HEADSHA}${txt2}${HEADSTAMP}${txt3}${HEADUNIQUE}${txt4}")
-      file(WRITE "${hppfile}" "${HPPFILE}")
-    endif()
+    set(HPPFILE "${txt1}${HEADSHA}${txt2}${HEADSTAMP}${txt3}${HEADUNIQUE}${txt4}")
+    file(WRITE "${temphppfile}" "${HPPFILE}")
   endif()
+  add_custom_target(${PROJECT_NAME}_update_revision_hpp
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${temphppfile} ${hppfile}
+    COMMENT "Updating ${hppfile} ..."
+    SOURCES "${hppfile}"
+  )
 endfunction()
 
 # Finds a Boostish library
