@@ -37,7 +37,7 @@ if(DEFINED ${PROJECT_NAME}_TESTS AND NOT PROJECT_IS_DEPENDENCY)
           )
           # FIXME: Cannot assume tests are using CATCH like this
           add_test(NAME ${target_name}
-            COMMAND $<TARGET_FILE:${target_name}> --reporter junit --out $<TARGET_FILE:${target_name}>.xml
+            COMMAND $<TARGET_FILE:${target_name}> --reporter junit --out $<TARGET_FILE:${target_name}>.junit.xml
           )
           if(MSVC)
             target_compile_options(${target_name} PRIVATE /W4)                                          # Stronger warnings
