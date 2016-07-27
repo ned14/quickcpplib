@@ -233,13 +233,6 @@ macro(configure_ctest_script_for_cdash projectname bindir)
   set(CTEST_BUILD_NAME "${CMAKE_SYSTEM}-${CMAKE_SYSTEM_PROCESSOR}")
 
   find_program(CTEST_PYTHON_COMMAND NAMES python)
-  if(EXISTS "../boost-lite/scripts/merge_junit_results.py")
-    set(CTEST_BOOSTLITE_SCRIPTS "../boost-lite/scripts")
-  elseif(EXISTS "include/boost/outcome/boost-lite/scripts/merge_junit_results.py")
-    set(CTEST_BOOSTLITE_SCRIPTS "include/boost/outcome/boost-lite/scripts")
-  else()
-    message(FATAL_ERROR "FATAL: boost-lite/scripts/merge_junit_results.py not found!")
-  endif()
 endmacro()
 
 function(merge_junit_results_into_ctest_xml)
