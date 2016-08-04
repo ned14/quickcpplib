@@ -5,11 +5,10 @@ set(BoostLiteUtilsIncluded ON)
 
 # Returns a path with forward slashes replaced with backslashes on WIN32
 function(NativisePath outvar)
-  list(REMOVE_AT ARGV 0)
   if(WIN32)
-    string(REPLACE "/" "\\" new ${ARGV})
+    string(REPLACE "/" "\\" new ${ARGN})
   else()
-    set(new ${ARGV})
+    set(new ${ARGN})
   endif()
   set(${outvar} ${new} PARENT_SCOPE)
 endfunction()
@@ -57,6 +56,14 @@ endfunction()
 # Indents a message by a global variable amount of whitespace
 function(indented_message type)
   message(${type} "${MESSAGE_INDENT}" ${ARGN})
+endfunction()
+
+# Executes an external process, fatal erroring if it fails
+function(checked_execute_process desc)
+  execute_process(${ARGN} RESULT_VARIABLE result)
+  if(NOT result EQUAL 0)
+    message(FATAL_ERROR "${desc} failed with error '${result}'")
+  endif()
 endfunction()
 
 
@@ -216,17 +223,21 @@ endfunction()
 
 # Configures a CTest script with a sensible set of defaults
 # for doing a configure, build, test and submission run
-macro(configure_ctest_script_for_cdash projectname bindir)
+macro(CONFIGURE_CTEST_SCRIPT_FOR_CDASH projectname bindir)
   set(CTEST_PROJECT_NAME "${projectname}")
   set(CTEST_SOURCE_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
   set(CTEST_BINARY_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/${bindir}")
   set(CTEST_CONFIGURATION_TYPE Release)
   if(WIN32)
-    set(CTEST_CMAKE_GENERATOR "Visual Studio 14 2015 Win64")
+    if(NOT DEFINED CTEST_CMAKE_GENERATOR)
+      set(CTEST_CMAKE_GENERATOR "Visual Studio 14 2015 Win64")
+    endif()
     set(CTEST_CMAKE_CI_BIN_DIR "${bindir}/bin/${CTEST_CONFIGURATION_TYPE}")
     set(CTEST_SITE $ENV{COMPUTERNAME})
   else()
-    set(CTEST_CMAKE_GENERATOR "Unix Makefiles")
+    if(NOT DEFINED CTEST_CMAKE_GENERATOR)
+      set(CTEST_CMAKE_GENERATOR "Unix Makefiles")
+    endif()
     set(CTEST_CMAKE_CI_BIN_DIR "${bindir}/bin")
     set(CTEST_SITE $ENV{NAME})
   endif()
@@ -236,6 +247,9 @@ macro(configure_ctest_script_for_cdash projectname bindir)
 endmacro()
 
 function(merge_junit_results_into_ctest_xml)
+  if(NOT DEFINED CTEST_PYTHON_COMMAND)
+    message(FATAL_ERROR "Please call the macro CONFIGURE_CTEST_SCRIPT_FOR_CDASH() to configure the ctest environment first")
+  endif()
   # Merge all the junit XML files from the testing into one junit XML file
   execute_process(COMMAND "${CTEST_PYTHON_COMMAND}" "${CTEST_BOOSTLITE_SCRIPTS}/merge_junit_results.py" "${CTEST_BINARY_DIRECTORY}/merged_junit_results.xml" "${CTEST_CMAKE_CI_BIN_DIR}/*.junit.xml"
     RESULT_VARIABLE result
