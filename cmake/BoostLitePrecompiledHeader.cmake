@@ -22,7 +22,7 @@ function(add_precompiled_header outvar headerpath)
   get_filename_component(header "${headerpath}" NAME)
   get_filename_component(headerdir "${headerpath}" DIRECTORY)
   set(sources "include/${headerpath}")
-  if(MSVC)
+  if(MSVC AND NOT CLANG)
     # MSVC PCH generation requires a source file to include the header
     # so we'll need to generate one
     file(WRITE "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${header}_pch_gen.cpp"
@@ -43,7 +43,7 @@ function(add_precompiled_header outvar headerpath)
     #INCLUDE_DIRECTORIES $<TARGET_PROPERTY:${outvar},INTERFACE_INCLUDE_DIRECTORIES>
     #SYSTEM_INCLUDE_DIRECTORIES $<TARGET_PROPERTY:${outvar},INTERFACE_SYSTEM_INCLUDE_DIRECTORIES>
   )
-  if(MSVC)
+  if(MSVC AND NOT CLANG)
     # Visual Studio generator outputs PCH to /Fp"afio_hl_pch.dir\Debug\afio_hl.pch"
     #
     # cmake converts /Fp<something> into the native .vcxproj stanza <PrecompiledHeaderOutputFile>
@@ -62,7 +62,7 @@ function(add_precompiled_header outvar headerpath)
     set_source_files_properties(${sources} PROPERTIES
       LANGUAGE CXX
     )
-    if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    if (CLANG)
       target_compile_options(${outvar} INTERFACE -Winvalid-pch -include-pch ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${outvar}_pch.dir/include/${headerpath}.o)
       indented_message(STATUS "Clang type precompiled header target ${headerpath} => ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${outvar}_pch.dir/include/${headerpath}.o")
     else()
@@ -95,7 +95,7 @@ function(add_cxx_module outvar headerpath)
   endif()
   get_filename_component(header "${headerpath}" NAME)
   set(sources "include/${headerpath}")
-  if(MSVC)
+  if(MSVC AND NOT CLANG)
     # MSVC C++ Module generation requires a source file to include the header
     # so we'll need to generate one
     file(WRITE "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${header}_cxx_module_gen.cpp"
@@ -114,7 +114,7 @@ function(add_cxx_module outvar headerpath)
     #COMPILE_OPTIONS $<TARGET_PROPERTY:${outvar},INTERFACE_COMPILE_OPTIONS>
     INCLUDE_DIRECTORIES $<TARGET_PROPERTY:${outvar},INTERFACE_INCLUDE_DIRECTORIES>
   )
-  if(MSVC)
+  if(MSVC AND NOT CLANG)
     NativisePath(ifcpath ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_v${PROJECT_VERSION_MAJOR}_${PROJECT_VERSION_MINOR})
     target_compile_options(${outvar}_cxx_module PUBLIC /experimental:module /D__cpp_modules=1)
     target_compile_options(${outvar}_cxx_module PRIVATE /DGENERATING_CXX_MODULE_INTERFACE /module:name ${ifcpath} /module:export ${CMAKE_CURRENT_SOURCE_DIR}/include/${headerpath})

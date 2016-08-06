@@ -137,22 +137,6 @@ else()
   indented_message(STATUS "Project ${PROJECT_NAME} has ${${PROJECT_NAME}_HEADERS_COUNT} headers, "
                  "${${PROJECT_NAME}_SOURCES_COUNT} library sources and ${${PROJECT_NAME}_TESTS_COUNT} test sources.")
 
-  # Call source_group() on all items with a common path so project files maintain the file hierarchy
-  function(preserve_structure)
-    foreach(item ${ARGV})
-      set(oldbasepath ${basepath})
-      get_filename_component(basepath ${item} DIRECTORY)
-      if(NOT basepath STREQUAL oldbasepath)
-        string(REPLACE "/" "\\" _basepath ${basepath})
-        #indented_message(STATUS "source_group(${_basepath} ${basepath}/.*)")
-        source_group("${_basepath}" "${basepath}/.*")
-      endif()
-    endforeach()
-  endfunction()
-  preserve_structure(${${PROJECT_NAME}_HEADERS})
-  preserve_structure(${${PROJECT_NAME}_SOURCES})
-  preserve_structure(${${PROJECT_NAME}_TESTS})
-
   # Take a hash of the current directory hierarchy so our shell slug in the output
   # build system can complain if new files were added without regening cmake
   if(WIN32)
@@ -185,3 +169,19 @@ else()
   set(${PROJECT_NAME}_HEADERS_MD5 ${${PROJECT_NAME}_HEADERS_MD5}
     CACHE STRING "The hash of the header files directory tree for the ${PROJECT_NAME} project")
 endif()
+
+# Call source_group() on all items with a common path so project files maintain the file hierarchy
+function(preserve_structure)
+  foreach(item ${ARGV})
+    set(oldbasepath ${basepath})
+    get_filename_component(basepath ${item} DIRECTORY)
+    if(NOT basepath STREQUAL oldbasepath)
+      string(REPLACE "/" "\\" _basepath ${basepath})
+      #indented_message(STATUS "source_group(${_basepath} ${basepath}/.*)")
+      source_group("${_basepath}" "${basepath}/.*")
+    endif()
+  endforeach()
+endfunction()
+preserve_structure(${${PROJECT_NAME}_HEADERS})
+preserve_structure(${${PROJECT_NAME}_SOURCES})
+preserve_structure(${${PROJECT_NAME}_TESTS})

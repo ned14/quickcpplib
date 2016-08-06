@@ -121,7 +121,7 @@ if(WIN32)
   all_compile_definitions(PUBLIC _UNICODE UNICODE)                          # Unicode support
 endif()
 
-if(MSVC)
+if(MSVC AND NOT CLANG)
   all_compile_options(PRIVATE /W4)                                          # Stronger warnings
   if(TARGET ${PROJECT_NAME}_hl)
     all_compile_options(INTERFACE /W4)                                      # Stronger warnings
@@ -130,5 +130,12 @@ else()
   all_compile_options(PRIVATE -Wall -Wextra)                                # Stronger warnings
   if(TARGET ${PROJECT_NAME}_hl)
     all_compile_options(INTERFACE -Wall -Wextra)                            # Stronger warnings
+  endif()
+  if(CLANG)
+    # Make use of clang's ability to warn on bad doxygen markup
+    all_compile_options(PRIVATE
+      -Wdocumentation
+      -fcomment-block-commands=raceguarantees,complexity,exceptionmodel
+    )
   endif()
 endif()

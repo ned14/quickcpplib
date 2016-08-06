@@ -233,6 +233,7 @@ macro(CONFIGURE_CTEST_SCRIPT_FOR_CDASH projectname bindir)
   set(CTEST_CONFIGURATION_TYPE Release)
   if(WIN32)
     if(NOT DEFINED CTEST_CMAKE_GENERATOR)
+      # TODO Figure out how to use winclang via adding in -T v140_clang_c2
       set(CTEST_CMAKE_GENERATOR "Visual Studio 14 2015 Win64")
     endif()
     set(CTEST_CMAKE_CI_BIN_DIR "${bindir}/bin/${CTEST_CONFIGURATION_TYPE}")

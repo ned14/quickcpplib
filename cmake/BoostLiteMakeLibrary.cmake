@@ -6,7 +6,9 @@
 #  * ${PROJECT_NAME}_slm: Static C++ Module target (where supported)
 #  * ${PROJECT_NAME}_dlm: Dynamic C++ Module target (where supported)
 
-include(BoostLiteDeduceLibrarySources)
+if(NOT DEFINED ${PROJECT_NAME}_HEADERS)
+  message(FATAL_ERROR "FATAL: BoostLiteSetupProject has not been included yet.")
+endif()
 if(NOT DEFINED ${PROJECT_NAME}_SOURCES)
   message(FATAL_ERROR "FATAL: Cannot include BoostLiteMakeLibrary without a src directory. "
                       "Perhaps you meant BoostLiteMakeHeaderOnlyLibrary?")

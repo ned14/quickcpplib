@@ -4,7 +4,9 @@
 #  *  ${PROJECT_NAME}_hl: Header only library target
 #  * ${PROJECT_NAME}_hlm: Header only C++ Module target (where supported)
 
-include(BoostLiteDeduceLibrarySources)
+if(NOT DEFINED ${PROJECT_NAME}_HEADERS)
+  message(FATAL_ERROR "FATAL: BoostLiteSetupProject has not been included yet.")
+endif()
 include(BoostLitePrecompiledHeader)
 
 function(default_header_only_interface_library reason)
@@ -33,7 +35,7 @@ if(${PROJECT_NAME}_INTERFACE_DISABLED)
   default_header_only_interface_library("this project not providing a master interface header file")
 elseif(CMAKE_VERSION VERSION_LESS 3.3)
   default_header_only_interface_library("using a cmake before v3.3")
-elseif(MSVC)
+elseif(MSVC AND NOT CLANG)
   if(MSVC_VERSION VERSION_GREATER 1999) # VS2017
     # Add a C++ Module for the PCH header file
     add_cxx_module(${PROJECT_NAME}_hl ${${PROJECT_NAME}_INTERFACE})
