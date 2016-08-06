@@ -9,10 +9,21 @@ if(NOT DEFINED ${PROJECT_NAME}_HEADERS)
 endif()
 include(BoostLitePrecompiledHeader)
 
+function(target_append_header_only_sources tgt)
+  set(sources)
+  foreach(header ${${PROJECT_NAME}_HEADERS})
+    list(APPEND sources
+    "$<BUILD_INTERFACE:${${PROJECT_NAME}_PATH}/${header}>"
+    "$<INSTALL_INTERFACE:${header}>"
+  )
+  endforeach()
+  target_sources(${tgt} INTERFACE ${sources})
+endfunction()
+
 function(default_header_only_interface_library reason)
   indented_message(STATUS "NOTE: NOT compiling header only library for ${PROJECT_NAME} into a C++ Module nor a precompiled header due to ${reason}")
   add_library(${PROJECT_NAME}_hl INTERFACE)
-  if(DEFINED ${PROJECT_NAME}_INTERFACE)
+  if(0) #DEFINED ${PROJECT_NAME}_INTERFACE)
     # Cause my master header to appear in the sources of anything consuming me
     target_sources(${PROJECT_NAME}_hl INTERFACE
       "$<BUILD_INTERFACE:${${PROJECT_NAME}_PATH}/include/${${PROJECT_NAME}_INTERFACE}>"
@@ -20,14 +31,7 @@ function(default_header_only_interface_library reason)
     )
   else()
     # Include all my headers into the sources of anything consuming me
-    set(sources)
-    foreach(header ${${PROJECT_NAME}_HEADERS})
-      list(APPEND sources
-      "$<BUILD_INTERFACE:${${PROJECT_NAME}_PATH}/${header}>"
-      "$<INSTALL_INTERFACE:${header}>"
-    )
-    endforeach()
-    target_sources(${PROJECT_NAME}_hl INTERFACE ${sources})
+    target_append_header_only_sources(${PROJECT_NAME}_hl)
   endif()
 endfunction()
 
@@ -35,18 +39,25 @@ if(${PROJECT_NAME}_INTERFACE_DISABLED)
   default_header_only_interface_library("this project not providing a master interface header file")
 elseif(CMAKE_VERSION VERSION_LESS 3.3)
   default_header_only_interface_library("using a cmake before v3.3")
-elseif(MSVC AND NOT CLANG)
-  if(MSVC_VERSION VERSION_GREATER 1999) # VS2017
-    # Add a C++ Module for the PCH header file
-    add_cxx_module(${PROJECT_NAME}_hl ${${PROJECT_NAME}_INTERFACE})
+elseif(MSVC)
+  if(NOT CLANG)
+    if(MSVC_VERSION VERSION_GREATER 1999) # VS2017
+      # Add a C++ Module for the PCH header file
+      add_cxx_module(${PROJECT_NAME}_hl ${${PROJECT_NAME}_INTERFACE})
+    else()
+      # MSVC can't share precompiled headers between targets
+      # so fall back onto an interface library
+      default_header_only_interface_library("this MSVC does not sufficiently support C++ Modules, and MSVC cannot share precompiled headers between targets")
+    endif()
   else()
-    # MSVC can't share precompiled headers between targets
-    # so fall back onto an interface library
-    default_header_only_interface_library("this MSVC does not sufficiently support C++ Modules, and MSVC cannot share precompiled headers between targets")
+    # C2 clang has broken precompiled headers currently
+    default_header_only_interface_library("this winclang has broken precompiled headers support")
   endif()
 elseif(NOT PROJECT_IS_DEPENDENCY)
   # Add a precompiled header for the PCH header file
   add_precompiled_header(${PROJECT_NAME}_hl ${${PROJECT_NAME}_INTERFACE})
+  # Include all my headers into the sources of anything consuming me
+  target_append_header_only_sources(${PROJECT_NAME}_hl)
 else()
   default_header_only_interface_library("this project being a dependency of a higher level project")
 endif()
