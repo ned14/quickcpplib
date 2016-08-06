@@ -98,12 +98,24 @@ function(all_target_properties)
   endif()
 endfunction()
 
-# Place all binaries into the bin directory
 all_target_properties(PROPERTIES
+  # Place all libraries into the lib directory
   ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
   LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+  # Place all binaries into the bin directory
   RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
 )
+# Originally we were setting these on all targets, but the CMP0063 warning
+# just refused to go away despite us setting it in BoostLitePolicies. So,
+# I give up and just set these properties on the shared library target only.
+if(TARGET ${PROJECT_NAME}_dl)
+  set_target_properties(${PROJECT_NAME}_dl PROPERTIES
+    # Only explicitly exported symbols are to be available from objects
+    CXX_VISIBILITY_PRESET hidden
+    # Reduce linking times by eliminating inlines from being linked
+    VISIBILITY_INLINES_HIDDEN ON
+  )
+endif()
 
 if(WIN32)
   all_compile_definitions(PUBLIC _UNICODE UNICODE)                          # Unicode support
