@@ -4,5 +4,4 @@
 # Apply visibility to all objects
 if(POLICY CMP0063)
   cmake_policy(SET CMP0063 NEW)
-  indented_message(STATUS "SETTING CMP0063!")
 endif()

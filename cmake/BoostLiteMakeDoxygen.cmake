@@ -10,7 +10,7 @@ else()
       set(shell_check_warnings_file_size for %%R in (doxygen_warnings.log) do if not %%~zR==0 (type doxygen_warnings.log & echo. & echo FATAL ERROR: Failing due to doxygen warnings & exit /b 1))
     else()
       set(shell_copy_command cp "doc/html.old/.git*" "doc/html/")
-      set(shell_check_warnings_file_size if [[ -s doxygen_warnings.log ]] ; then cat doxygen_warnings.log; echo \nFATAL ERROR: Failing due to doxygen warnings; exit 1; fi)
+      set(shell_check_warnings_file_size if test -s doxygen_warnings.log $<SEMICOLON> then cat doxygen_warnings.log $<SEMICOLON> echo $<SEMICOLON> echo FATAL ERROR: Failing due to doxygen warnings $<SEMICOLON> echo $<SEMICOLON> exit 1 $<SEMICOLON> fi)
     endif()
     add_custom_target(${tgt}
       COMMAND ${CMAKE_COMMAND} -E rename "doc/html" "doc/html.old"
