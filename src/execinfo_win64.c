@@ -109,7 +109,9 @@ _Check_return_ _Ret_writes_maybenull_(len) char **backtrace_symbols(_In_reads_(l
     for(n = 0; n < len; n++)
     {
       DWORD displ;
-      IMAGEHLP_LINE64 ihl = {sizeof(IMAGEHLP_LINE64)};
+      IMAGEHLP_LINE64 ihl;
+      memset(&ihl, 0, sizeof(ihl));
+      ihl.SizeOfStruct = sizeof(IMAGEHLP_LINE64);
       int please_realloc = 0;
       if(!bt[n])
       {
