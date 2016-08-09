@@ -67,6 +67,41 @@ function(checked_execute_process desc)
 endfunction()
 
 
+# Determines what git revision SHA some path is currently on
+# unsetting outvar if not a git repository
+function(git_revision_from_path path outsha outtimestamp)
+  set(gitdir "${path}/.git")
+  unset(${outsha} PARENT_SCOPE)
+  unset(${outtimestamp} PARENT_SCOPE)
+  if(NOT EXISTS "${gitdir}")
+    return()
+  endif()
+  # Are you a submodule?
+  if(NOT IS_DIRECTORY "${gitdir}")
+    file(READ "${gitdir}" pathtogitdir)
+    # This will have the form:
+    # gitdir: ../../../../.git/modules/include/boost/afio/boost-lite
+    string(SUBSTRING "${pathtogitdir}" 8 -1 pathtogitdir)
+    string(STRIP "${pathtogitdir}" pathtogitdir)
+    set(gitdir "${path}/${pathtogitdir}")
+  endif()
+  # Read .git/HEAD and the SHA and timestamp
+  #indented_message(STATUS "gitdir is ${gitdir}")
+  file(READ "${gitdir}/HEAD" HEAD)
+  string(SUBSTRING "${HEAD}" 5 -1 HEAD)
+  string(STRIP "${HEAD}" HEAD)
+  #indented_message(STATUS "head is '${HEAD}'")
+  if(EXISTS "${gitdir}/${HEAD}")
+    file(READ "${gitdir}/${HEAD}" HEADSHA)
+    string(STRIP "${HEADSHA}" HEADSHA)
+    file(TIMESTAMP "${gitdir}/${HEAD}" HEADSTAMP "%Y-%m-%d %H:%M:%S +00:00" UTC)
+    #indented_message(STATUS "Last commit was ${HEADSHA} at ${HEADSTAMP}")
+    string(SUBSTRING "${HEADSHA}" 0 8 HEADUNIQUE)
+    set(${outsha} ${HEADSHA} PARENT_SCOPE)
+    set(${outtimestamp} ${HEADSTAMP} PARENT_SCOPE)
+  endif()
+endfunction()
+
 # We expect a header file with macros like
 # #define BOOST_AFIO_VERSION_MAJOR    2
 # 
@@ -92,28 +127,9 @@ endfunction()
 # Lines 2, 3 and 4 need their ending rewritten
 function(UpdateRevisionHppFromGit hppfile)
   set(temphppfile "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${PROJECT_NAME}_revision.hpp")
-  set(gitdir "${CMAKE_CURRENT_SOURCE_DIR}/.git")
-  if(NOT IS_DIRECTORY "${gitdir}")
-    file(READ "${gitdir}" pathtogitdir)
-    # This will have the form:
-    # gitdir: ../../../../.git/modules/include/boost/afio/boost-lite
-    string(SUBSTRING "${pathtogitdir}" 8 -1 pathtogitdir)
-    string(STRIP "${pathtogitdir}" pathtogitdir)
-    set(gitdir "${CMAKE_CURRENT_SOURCE_DIR}/${pathtogitdir}")
-  endif()
-  # Read .git/HEAD and the SHA and timestamp
-  #indented_message(STATUS "gitdir is ${gitdir}")
-  file(READ "${gitdir}/HEAD" HEAD)
-  string(SUBSTRING "${HEAD}" 5 -1 HEAD)
-  string(STRIP "${HEAD}" HEAD)
-  #indented_message(STATUS "head is '${HEAD}'")
-  if(EXISTS "${gitdir}/${HEAD}")
-    file(READ "${gitdir}/${HEAD}" HEADSHA)
-    string(STRIP "${HEADSHA}" HEADSHA)
-    file(TIMESTAMP "${gitdir}/${HEAD}" HEADSTAMP "%Y-%m-%d %H:%M:%S +00:00" UTC)
-    #indented_message(STATUS "Last commit was ${HEADSHA} at ${HEADSTAMP}")
+  git_revision_from_path("${CMAKE_CURRENT_SOURCE_DIR}" HEADSHA HEADSTAMP)
+  if(DEFINED HEADSHA)
     string(SUBSTRING "${HEADSHA}" 0 8 HEADUNIQUE)
-
     file(READ "${hppfile}" HPPFILE)
     string(REGEX MATCH "(.*\n.* )([a-f0-9]+)([\r\n]+.* \")(.*)(\"[\r\n]+.* )([a-f0-9]+)([\r\n]+.*)" txt1 "${HPPFILE}")
     set(txt1 "${CMAKE_MATCH_1}")
@@ -125,21 +141,27 @@ function(UpdateRevisionHppFromGit hppfile)
     set(txt4 "${CMAKE_MATCH_7}")
     set(HPPFILE "${txt1}${HEADSHA}${txt2}${HEADSTAMP}${txt3}${HEADUNIQUE}${txt4}")
     file(WRITE "${temphppfile}" "${HPPFILE}")
+    add_custom_target(${PROJECT_NAME}_update_revision_hpp
+      COMMAND ${CMAKE_COMMAND} -E copy_if_different ${temphppfile} ${hppfile}
+      COMMENT "Updating ${hppfile} ..."
+      SOURCES "${hppfile}"
+    )
   endif()
-  add_custom_target(${PROJECT_NAME}_update_revision_hpp
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${temphppfile} ${hppfile}
-    COMMENT "Updating ${hppfile} ..."
-    SOURCES "${hppfile}"
-  )
 endfunction()
 
 # Finds a Boostish library
 #
 # Boostish libraries can be located via these means in order of preference:
-# 1) "../${library-dir}"                          (e.g. ../boost/outcome)
-# 2) "../${library-name}"                         (e.g. ../outcome)
-# 3) "./include/${PROJECT_DIR}/${library-name}"   (e.g. include/boost/afio/outcome)
+# Only if "../.use_boostish_siblings" exists:
+#   1) "../${library-dir}"                          (e.g. ../boost/outcome)
+#   2) "../${library-name}"                         (e.g. ../outcome)
+# Otherwise:
+#   3) "./include/${PROJECT_DIR}/${library-name}"   (e.g. include/boost/afio/outcome)
 #### 4) <${library-dir}/${library-name}>
+#
+# If we use a sibling edition, we update the current git index to point at the 
+# git SHA of the sibling edition. That way when we git commit, we need not arse
+# around with manually updating the embedded submodules.
 function(find_boostish_library library version)
   if(NOT PROJECT_NAME)
     message(FATAL_ERROR "find_boostish_library() must only be called after a project()")
@@ -162,7 +184,8 @@ function(find_boostish_library library version)
   if(NOT DEFINED ${libraryname}_FOUND)
     # Prefer sibling editions of dependencies to embedded editions
     if(siblingenabled AND EXISTS "${boostishdir}/${librarydir}/.boostish")
-      indented_message(STATUS "Found ${library} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} at sibling ../${librarydir}")
+      git_revision_from_path("${boostishdir}/${librarydir}" GITSHA GITTS)
+      indented_message(STATUS "Found ${library} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} at sibling ../${librarydir} git revision ${GITSHA} last commit ${GITTS}")
       set(MESSAGE_INDENT "${MESSAGE_INDENT}  ")
       add_subdirectory("${boostishdir}/${librarydir}"
         "${CMAKE_CURRENT_BINARY_DIR}/${librarydir}"
@@ -175,7 +198,8 @@ function(find_boostish_library library version)
       include_directories(SYSTEM "${boostishdir}/${librarydir2}/.use_boostish_siblings")
       set(${libraryname}_FOUND TRUE)
     elseif(siblingenabled AND EXISTS "${boostishdir}/${libraryname}/.boostish")
-      indented_message(STATUS "Found ${library} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} at sibling ../${libraryname}")
+      git_revision_from_path("${boostishdir}/${libraryname}" GITSHA GITTS)
+      indented_message(STATUS "Found ${library} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} at sibling ../${libraryname} git revision ${GITSHA} last commit ${GITTS}")
       set(MESSAGE_INDENT "${MESSAGE_INDENT}  ")
       add_subdirectory("${boostishdir}/${libraryname}"
         "${CMAKE_CURRENT_BINARY_DIR}/${libraryname}"
@@ -202,6 +226,11 @@ function(find_boostish_library library version)
     # Reset policies after using add_subdirectory() which usually means a cmake_minimum_required()
     # was called which resets policies to default
     include(BoostLitePolicies)
+    # I may need to update git submodule SHAs in the index
+    if(DEFINED GITSHA)
+      # TODO: Need to parse .gitmodules to find any "include/${PROJECT_DIR}/${libraryname}"
+      #       and for each of those, call git update-index --cacheinfo 160000 SHA pathto/mysubmodule
+    endif()
   endif()
   set(${libraryname}_FOUND ${libraryname}_FOUND PARENT_SCOPE)
   if(NOT ${libraryname}_FOUND)
@@ -223,6 +252,8 @@ function(find_boostish_library library version)
     endif()
   endif()
 endfunction()
+
+
 
 # Configures a CTest script with a sensible set of defaults
 # for doing a configure, build, test and submission run
