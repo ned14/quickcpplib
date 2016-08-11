@@ -2,6 +2,11 @@ if(BoostLiteUtilsIncluded)
   return()
 endif()
 set(BoostLiteUtilsIncluded ON)
+include(FindGit)
+if(NOT GIT_FOUND)
+  message(FATAL_ERROR "FATAL: The Boost-lite infrastructure is very tightly integrated with git"
+                      " and requires it to be available")
+endif()
 
 # Returns a path with forward slashes replaced with backslashes on WIN32
 function(NativisePath outvar)
@@ -62,7 +67,50 @@ endfunction()
 function(checked_execute_process desc)
   execute_process(${ARGN} RESULT_VARIABLE result)
   if(NOT result EQUAL 0)
-    message(FATAL_ERROR "${desc} failed with error '${result}'")
+    message(FATAL_ERROR "FATAL: ${desc} failed with error '${result}'")
+  endif()
+endfunction()
+
+# Determines if a git repo has changed
+function(git_repo_changed dir outvar)
+  execute_process(COMMAND "${GIT_EXECUTABLE}" status --porcelain
+    WORKING_DIRECTORY "${dir}"
+    OUTPUT_VARIABLE status
+    RESULT_VARIABLE result
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+  )
+  if(NOT result EQUAL 0)
+    message(FATAL_ERROR "FATAL: git status failed with error '${result}'")
+  endif()
+  message("${status}")
+  if(status STREQUAL "")
+    set(${outvar} FALSE PARENT_SCOPE)
+  else()
+    set(${outvar} TRUE PARENT_SCOPE)
+  endif()
+endfunction()
+
+# Gets the committed SHA in the index for some entry
+function(git_repo_get_entry_sha dir entry outvar)
+  # git ls-files -s produces entries of the format:
+  #   100644 e10ce7c26311e43f337b1f3929450e1804059adf 0       test/test.vcxproj
+  execute_process(COMMAND "${GIT_EXECUTABLE}" ls-files -s
+    WORKING_DIRECTORY "${dir}"
+    OUTPUT_VARIABLE status
+    RESULT_VARIABLE result
+  )
+  if(NOT result EQUAL 0)
+    message(FATAL_ERROR "FATAL: git ls-files failed with error '${result}'")
+  endif()
+  escape_string_into_regex(entry "${entry}")
+  if(status MATCHES "([0-9]+) ([0-9a-f]+) ([0-9]+)\t(${entry})\n")
+    #set(cacheinfo "${CMAKE_MATCH_1}")
+    set(sha "${CMAKE_MATCH_2}")
+    #set(size "${CMAKE_MATCH_3}")
+    #set(mentry "${CMAKE_MATCH_4}")
+    set(${outvar} "${sha}" PARENT_SCOPE)
+  else()
+    unset(${outvar} PARENT_SCOPE)
   endif()
 endfunction()
 
@@ -184,10 +232,11 @@ function(find_boostish_library library version)
   if(NOT DEFINED ${libraryname}_FOUND)
     # Prefer sibling editions of dependencies to embedded editions
     if(siblingenabled AND EXISTS "${boostishdir}/${librarydir}/.boostish")
-      git_revision_from_path("${boostishdir}/${librarydir}" GITSHA GITTS)
+      set(GITREPO "${boostishdir}/${librarydir}")
+      git_revision_from_path("${GITREPO}" GITSHA GITTS)
       indented_message(STATUS "Found ${library} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} at sibling ../${librarydir} git revision ${GITSHA} last commit ${GITTS}")
       set(MESSAGE_INDENT "${MESSAGE_INDENT}  ")
-      add_subdirectory("${boostishdir}/${librarydir}"
+      add_subdirectory("${GITREPO}"
         "${CMAKE_CURRENT_BINARY_DIR}/${librarydir}"
         EXCLUDE_FROM_ALL
       )
@@ -198,10 +247,11 @@ function(find_boostish_library library version)
       include_directories(SYSTEM "${boostishdir}/${librarydir2}/.use_boostish_siblings")
       set(${libraryname}_FOUND TRUE)
     elseif(siblingenabled AND EXISTS "${boostishdir}/${libraryname}/.boostish")
-      git_revision_from_path("${boostishdir}/${libraryname}" GITSHA GITTS)
+      set(GITREPO "${boostishdir}/${libraryname}")
+      git_revision_from_path("${GITREPO}" GITSHA GITTS)
       indented_message(STATUS "Found ${library} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} at sibling ../${libraryname} git revision ${GITSHA} last commit ${GITTS}")
       set(MESSAGE_INDENT "${MESSAGE_INDENT}  ")
-      add_subdirectory("${boostishdir}/${libraryname}"
+      add_subdirectory("${GITREPO}"
         "${CMAKE_CURRENT_BINARY_DIR}/${libraryname}"
         EXCLUDE_FROM_ALL
       )
@@ -226,10 +276,40 @@ function(find_boostish_library library version)
     # Reset policies after using add_subdirectory() which usually means a cmake_minimum_required()
     # was called which resets policies to default
     include(BoostLitePolicies)
-    # I may need to update git submodule SHAs in the index
+    # I may need to update git submodule SHAs in the index to those of the sibling repo
     if(DEFINED GITSHA)
-      # TODO: Need to parse .gitmodules to find any "include/${PROJECT_DIR}/${libraryname}"
-      #       and for each of those, call git update-index --cacheinfo 160000 SHA pathto/mysubmodule
+      # Get the SHA used by our repo for the subrepo
+      git_repo_get_entry_sha("${CMAKE_CURRENT_SOURCE_DIR}" "include/${PROJECT_DIR}/${libraryname}" subreposha)
+      if(NOT DEFINED subreposha)
+        message(FATAL_ERROR "FATAL: Failed to get a SHA for the subrepo 'include/${PROJECT_DIR}/${libraryname}'")
+      endif()
+      if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/${libraryname}/.git")
+        # We need to delete any files inside the "include/${PROJECT_DIR}/${libraryname}"
+        # to prevent the submodule SHA restamp confusing git
+        git_repo_changed("${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/${libraryname}" subrepoochanged)
+        if(subrepoochanged)
+          message(FATAL_ERROR "FATAL: About to replace embedded subrepo 'include/${PROJECT_DIR}/${libraryname}'"
+                              " with sibling subrepo '${GITREPO}' but git says that embedded subrepo has been"
+                              " changed. Please save any changes and hard reset the embedded subrepo.")
+        endif()
+        file(REMOVE_RECURSE "include/${PROJECT_DIR}/${libraryname}")
+        file(MAKE_DIRECTORY "include/${PROJECT_DIR}/${libraryname}")
+      endif()
+      # Git uses the magic cacheinfo of 160000 for subrepos for some reason as can be evidenced by:
+      # ned@LYTA:~/windocs/boostish/afio$ git ls-files -s | grep -e ^160000
+      #   160000 cc293d14a48bf1ee3fb78743c3ad5cf61d63f3ff 0       doc/html
+      #   160000 2682d240406a8a68be442227a6c15df8e2261b94 0       include/boost/afio/boost-lite
+      #   160000 f436d33188b0117c1ecaa40ad9ebadabfdc69c3f 0       include/boost/afio/gsl-lite
+      #   160000 7fb9617c21cae96e04f3a9afa54310a08ad87a57 0       include/boost/afio/outcome
+      #   160000 7f583ce7cc36d2a8baefd3c09445457503614cb8 0       test/kerneltest
+      if(NOT GITSHA STREQUAL subreposha)
+        indented_message(STATUS "Sibling repo for embedded subrepo 'include/${PROJECT_DIR}/${libraryname}' has"
+                                " SHA ${GITSHA} but our index uses SHA ${subreposha}, updating our index"
+        )
+        checked_execute_process("git update-index"
+          COMMAND "${GIT_EXECUTABLE}" update-index --cacheinfo 160000 ${GITSHA} include/${PROJECT_DIR}/${libraryname}
+        )
+      endif()
     endif()
   endif()
   set(${libraryname}_FOUND ${libraryname}_FOUND PARENT_SCOPE)
