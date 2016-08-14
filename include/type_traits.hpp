@@ -31,11 +31,23 @@ namespace type_traits
     //    template<class T, typename = void> struct is_rangeable : std::false_type { };
     //    template<class T> struct is_rangeable<T, decltype(*std::declval<T&>(), ++std::declval<T&>(), void())> : std::true_type { };
     // Support for SFINAE detection of containers (does it have begin() and end()?), made considerably more complex by needing MSVC to work.
-    template <class T> inline auto is_sequence_impl(T) -> decltype(*std::begin(std::declval<T>()), *std::end(std::declval<T>()), bool()) { return true; }
+    template <class T> inline auto is_sequence_impl(T &&) -> decltype(*std::begin(std::declval<T>()), *std::end(std::declval<T>()), bool()) { return true; }
     inline int is_sequence_impl(...) { return 0; }
+
+    template <class T> struct make_sequence_type
+    {
+      auto operator()() const -> decltype(std::declval<T>());
+    };
+    template <> struct make_sequence_type<void>
+    {
+      int operator()() const;
+    };
   }
   //! True if type T is a STL compliant sequence (does it have begin() and end()?)
-  template <class T, typename = decltype(detail::is_sequence_impl(std::declval<T>()))> struct is_sequence : std::false_type
+  template <class T, typename = decltype(detail::is_sequence_impl(detail::make_sequence_type<T>()()))> struct is_sequence : std::false_type
+  {
+  };
+  template <> struct is_sequence<void> : std::false_type
   {
   };
   template <class T> struct is_sequence<T, bool> : std::true_type

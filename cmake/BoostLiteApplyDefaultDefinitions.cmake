@@ -123,19 +123,19 @@ endif()
 
 if(MSVC AND NOT CLANG)
   all_compile_options(PRIVATE /W4)                                          # Stronger warnings
-  if(TARGET ${PROJECT_NAME}_hl)
-    all_compile_options(INTERFACE /W4)                                      # Stronger warnings
-  endif()
 else()
   all_compile_options(PRIVATE -Wall -Wextra)                                # Stronger warnings
-  if(TARGET ${PROJECT_NAME}_hl)
-    all_compile_options(INTERFACE -Wall -Wextra)                            # Stronger warnings
-  endif()
   if(CLANG)
     # Make use of clang's ability to warn on bad doxygen markup
     all_compile_options(PRIVATE
       -Wdocumentation
       -fcomment-block-commands=raceguarantees,complexity,exceptionmodel
     )
+  endif()
+  if(MSVC AND CLANG)
+    # MSVCRT doesn't provide what it should with __STDC__ on
+    all_compile_options(PUBLIC -U__STDC__)
+    # C2 clang defaults to exceptions off, RTTI off and strict aliasing disabled
+    all_compile_options(PUBLIC -fexceptions -frtti -fstrict-aliasing)
   endif()
 endif()

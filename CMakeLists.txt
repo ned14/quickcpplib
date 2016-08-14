@@ -7,22 +7,20 @@ endif()
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(BoostLiteRequireOutOfSourceBuild)
 include(BoostLiteUtils)
+include(BoostLitePolicies)
 
 # Sets the usual PROJECT_NAME etc
 project(boost-lite VERSION 0.1.0.0 LANGUAGES CXX)
 # boost-lite does not provide a master header file
 set(boost-lite_INTERFACE_DISABLED ON)
-
-# Scan myself for sources
-include(BoostLiteDeduceLibrarySources)
+# This file should be updated with the last git SHA next commit
+UpdateRevisionHppFromGit("${CMAKE_CURRENT_SOURCE_DIR}/include/revision.hpp")
+# Setup this cmake environment for this project
+include(BoostLiteSetupProject)
 # Exclude any embedded CATCH
 list_filter(boost-lite_HEADERS EXCLUDE REGEX "include/CATCH")
 # Make an interface only library so dependent CMakeLists can bring in this header-only library
 include(BoostLiteMakeHeaderOnlyLibrary)
-if(NOT PROJECT_IS_DEPENDENCY)
-  # Update this header file with the current git SHA and last timestamp
-  UpdateRevisionHppFromGit("${CMAKE_CURRENT_SOURCE_DIR}/include/revision.hpp")
-endif()
 
 # Set the standard definitions for these libraries and bring in the all_* helper functions
 include(BoostLiteApplyDefaultDefinitions)
@@ -33,6 +31,8 @@ all_compile_features(PUBLIC
   cxx_noexcept
   cxx_constexpr
   cxx_thread_local
+  #cxx_init_captures                      ## Not supported yet by cmake 3.6
+  cxx_generic_lambdas
 )
 
 # For all possible configurations of this library, add each test

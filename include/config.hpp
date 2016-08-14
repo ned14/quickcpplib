@@ -3,9 +3,12 @@
 
 #include "revision.hpp"
 
+#define BOOSTLITE_VERSION_GLUE2(a, b) a##b
+#define BOOSTLITE_VERSION_GLUE(a, b) BOOSTLITE_VERSION_GLUE2(a, b)
+
 // clang-format off
-#define BOOSTLITE_NAMESPACE boost_lite::_ ## BOOSTLITE_PREVIOUS_COMMIT_UNIQUE
-#define BOOSTLITE_NAMESPACE_BEGIN namespace boost_lite { inline namespace _ ## BOOSTLITE_PREVIOUS_COMMIT_UNIQUE {
+#define BOOSTLITE_NAMESPACE boost_lite::BOOSTLITE_VERSION_GLUE(_, BOOSTLITE_PREVIOUS_COMMIT_UNIQUE)
+#define BOOSTLITE_NAMESPACE_BEGIN namespace boost_lite { inline namespace BOOSTLITE_VERSION_GLUE(_, BOOSTLITE_PREVIOUS_COMMIT_UNIQUE) {
 #define BOOSTLITE_NAMESPACE_END } }
 // clang-format on
 

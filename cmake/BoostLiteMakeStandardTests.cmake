@@ -39,7 +39,7 @@ if(DEFINED ${PROJECT_NAME}_TESTS AND NOT PROJECT_IS_DEPENDENCY)
           add_test(NAME ${target_name}
             COMMAND $<TARGET_FILE:${target_name}> --reporter junit --out $<TARGET_FILE:${target_name}>.junit.xml
           )
-          if(MSVC)
+          if(MSVC AND NOT CLANG)
             target_compile_options(${target_name} PRIVATE /W4)                                          # Stronger warnings
           else()
             target_compile_options(${target_name} PRIVATE -Wall -Wextra)                                # Stronger warnings

@@ -201,28 +201,18 @@ endfunction()
 #
 # Boostish libraries can be located via these means in order of preference:
 # Only if "../.use_boostish_siblings" exists:
-#   1) "../${library-dir}"                          (e.g. ../boost/outcome)
-#   2) "../${library-name}"                         (e.g. ../outcome)
+#   1) "../${library}"                         (e.g. ../outcome)
 # Otherwise:
-#   3) "./include/${PROJECT_DIR}/${library-name}"   (e.g. include/boost/afio/outcome)
+#   2) "${path}/${library}"   (e.g. include/boost/afio/outcome)
 #### 4) <${library-dir}/${library-name}>
 #
 # If we use a sibling edition, we update the current git index to point at the 
 # git SHA of the sibling edition. That way when we git commit, we need not arse
 # around with manually updating the embedded submodules.
-function(find_boostish_library library version)
+function(find_boostish_library libraryname path version)
   if(NOT PROJECT_NAME)
     message(FATAL_ERROR "find_boostish_library() must only be called after a project()")
   endif()
-  # Convert namespaced library name into path
-  string(REPLACE "--" "/" librarydir "${library}")
-  get_filename_component(libraryname "${librarydir}" NAME)
-  if(DEFINED PROJECT_NAMESPACE)
-    string(REPLACE "--" "/" PROJECT_DIR ${PROJECT_NAMESPACE})
-  else()
-    set(PROJECT_DIR)
-  endif()
-  set(PROJECT_DIR ${PROJECT_DIR}${PROJECT_NAME})
   get_filename_component(boostishdir "${CMAKE_CURRENT_SOURCE_DIR}/.." ABSOLUTE)
   if(IS_DIRECTORY "${boostishdir}/.use_boostish_siblings")
     set(siblingenabled ON)
@@ -231,22 +221,7 @@ function(find_boostish_library library version)
   endif()
   if(NOT DEFINED ${libraryname}_FOUND)
     # Prefer sibling editions of dependencies to embedded editions
-    if(siblingenabled AND EXISTS "${boostishdir}/${librarydir}/.boostish")
-      set(GITREPO "${boostishdir}/${librarydir}")
-      git_revision_from_path("${GITREPO}" GITSHA GITTS)
-      indented_message(STATUS "Found ${library} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} at sibling ../${librarydir} git revision ${GITSHA} last commit ${GITTS}")
-      set(MESSAGE_INDENT "${MESSAGE_INDENT}  ")
-      add_subdirectory("${GITREPO}"
-        "${CMAKE_CURRENT_BINARY_DIR}/${librarydir}"
-        EXCLUDE_FROM_ALL
-      )
-      get_filename_component(librarydir2 "${librarydir}" DIRECTORY)
-      # One of the only uses of a non-target specific cmake command anywhere,
-      # but this is local to the calling CMakeLists.txt and is the correct
-      # thing to use.
-      include_directories(SYSTEM "${boostishdir}/${librarydir2}/.use_boostish_siblings")
-      set(${libraryname}_FOUND TRUE)
-    elseif(siblingenabled AND EXISTS "${boostishdir}/${libraryname}/.boostish")
+    if(siblingenabled AND EXISTS "${boostishdir}/${libraryname}/.boostish")
       set(GITREPO "${boostishdir}/${libraryname}")
       git_revision_from_path("${GITREPO}" GITSHA GITTS)
       indented_message(STATUS "Found ${library} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} at sibling ../${libraryname} git revision ${GITSHA} last commit ${GITTS}")
@@ -260,15 +235,15 @@ function(find_boostish_library library version)
       # thing to use.
       include_directories(SYSTEM "${boostishdir}/.use_boostish_siblings")
       set(${libraryname}_FOUND TRUE)
-    elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/${libraryname}/.boostish")
-      indented_message(STATUS "Found ${library} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} at embedded include/${PROJECT_DIR}/${libraryname}")
+    elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${path}/${libraryname}/.boostish")
+      indented_message(STATUS "Found ${library} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} at embedded ${path}/${libraryname}")
       set(MESSAGE_INDENT "${MESSAGE_INDENT}  ")
-      add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/${libraryname}"
+      add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/${path}/${libraryname}"
         EXCLUDE_FROM_ALL
       )
       # If we are using an embedded dependency, for any unit tests make the
       # dependencies appear as if at the same location as for the headers
-      include_directories(SYSTEM "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/${libraryname}")
+      include_directories(SYSTEM "${CMAKE_CURRENT_SOURCE_DIR}/${path}/${libraryname}")
       set(${libraryname}_FOUND TRUE)
     else()
       set(${libraryname}_FOUND FALSE)
@@ -279,21 +254,21 @@ function(find_boostish_library library version)
     # I may need to update git submodule SHAs in the index to those of the sibling repo
     if(DEFINED GITSHA)
       # Get the SHA used by our repo for the subrepo
-      git_repo_get_entry_sha("${CMAKE_CURRENT_SOURCE_DIR}" "include/${PROJECT_DIR}/${libraryname}" subreposha)
+      git_repo_get_entry_sha("${CMAKE_CURRENT_SOURCE_DIR}" "${path}/${libraryname}" subreposha)
       if(NOT DEFINED subreposha)
-        message(FATAL_ERROR "FATAL: Failed to get a SHA for the subrepo 'include/${PROJECT_DIR}/${libraryname}'")
+        message(FATAL_ERROR "FATAL: Failed to get a SHA for the subrepo '${path}/${libraryname}'")
       endif()
-      if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/${libraryname}/.git")
-        # We need to delete any files inside the "include/${PROJECT_DIR}/${libraryname}"
+      if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${path}/${libraryname}/.git")
+        # We need to delete any files inside the "${path}/${libraryname}"
         # to prevent the submodule SHA restamp confusing git
-        git_repo_changed("${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/${libraryname}" subrepoochanged)
+        git_repo_changed("${CMAKE_CURRENT_SOURCE_DIR}/${path}/${libraryname}" subrepoochanged)
         if(subrepoochanged)
-          message(FATAL_ERROR "FATAL: About to replace embedded subrepo 'include/${PROJECT_DIR}/${libraryname}'"
+          message(FATAL_ERROR "FATAL: About to replace embedded subrepo '${path}/${libraryname}'"
                               " with sibling subrepo '${GITREPO}' but git says that embedded subrepo has been"
                               " changed. Please save any changes and hard reset the embedded subrepo.")
         endif()
-        file(REMOVE_RECURSE "include/${PROJECT_DIR}/${libraryname}")
-        file(MAKE_DIRECTORY "include/${PROJECT_DIR}/${libraryname}")
+        file(REMOVE_RECURSE "${path}/${libraryname}")
+        file(MAKE_DIRECTORY "${path}/${libraryname}")
       endif()
       # Git uses the magic cacheinfo of 160000 for subrepos for some reason as can be evidenced by:
       # ned@LYTA:~/windocs/boostish/afio$ git ls-files -s | grep -e ^160000
@@ -303,32 +278,33 @@ function(find_boostish_library library version)
       #   160000 7fb9617c21cae96e04f3a9afa54310a08ad87a57 0       include/boost/afio/outcome
       #   160000 7f583ce7cc36d2a8baefd3c09445457503614cb8 0       test/kerneltest
       if(NOT GITSHA STREQUAL subreposha)
-        indented_message(STATUS "Sibling repo for embedded subrepo 'include/${PROJECT_DIR}/${libraryname}' has"
+        indented_message(STATUS "Sibling repo for embedded subrepo '${path}/${libraryname}' has"
                                 " SHA ${GITSHA} but our index uses SHA ${subreposha}, updating our index"
         )
         checked_execute_process("git update-index"
-          COMMAND "${GIT_EXECUTABLE}" update-index --cacheinfo 160000 ${GITSHA} include/${PROJECT_DIR}/${libraryname}
+          COMMAND "${GIT_EXECUTABLE}" update-index --cacheinfo 160000 ${GITSHA} ${path}/${libraryname}
         )
       endif()
     endif()
   endif()
+  # We don't cache this as we want to rerun the above git SHA stamping etc. per build
   set(${libraryname}_FOUND ${libraryname}_FOUND PARENT_SCOPE)
   if(NOT ${libraryname}_FOUND)
     list(FIND ARGN "QUIET" quiet_idx)
     if(${quiet_idx} EQUAL -1)
-      indented_message(WARNING "WARNING: Boostish library ${library} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} not found")
+      indented_message(WARNING "WARNING: Boostish library ${libraryname} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} not found")
       indented_message(STATUS "Tried: ")
       if(siblingenabled)
-        indented_message(STATUS "  ${boostishdir}/${librarydir}/.boostish")
+        indented_message(STATUS "  ${boostishdir}/${libraryname}/.boostish")
       endif()
-      indented_message(STATUS "  ${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/${libraryname}/.boostish")
+      indented_message(STATUS "  ${CMAKE_CURRENT_SOURCE_DIR}/${path}/${libraryname}/.boostish")
       if(NOT siblingenabled)
         indented_message(STATUS "  (sibling library use disabled due to lack of ${boostishdir}/.use_boostish_siblings)")
       endif()
     endif()
     list(FIND ARGN "REQUIRED" required_idx)
     if(${required_idx} GREATER -1)
-      indented_message(FATAL_ERROR "FATAL: Boostish library ${library} required by ${PROJECT_NAMESPACE}${PROJECT_NAME} not found")
+      indented_message(FATAL_ERROR "FATAL: Boostish library ${libraryname} required by ${PROJECT_NAMESPACE}${PROJECT_NAME} not found")
     endif()
   endif()
 endfunction()
