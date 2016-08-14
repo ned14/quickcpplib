@@ -224,7 +224,7 @@ function(find_boostish_library libraryname path version)
     if(siblingenabled AND EXISTS "${boostishdir}/${libraryname}/.boostish")
       set(GITREPO "${boostishdir}/${libraryname}")
       git_revision_from_path("${GITREPO}" GITSHA GITTS)
-      indented_message(STATUS "Found ${library} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} at sibling ../${libraryname} git revision ${GITSHA} last commit ${GITTS}")
+      indented_message(STATUS "Found ${libraryname} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} at sibling ../${libraryname} git revision ${GITSHA} last commit ${GITTS}")
       set(MESSAGE_INDENT "${MESSAGE_INDENT}  ")
       add_subdirectory("${GITREPO}"
         "${CMAKE_CURRENT_BINARY_DIR}/${libraryname}"
@@ -234,9 +234,10 @@ function(find_boostish_library libraryname path version)
       # but this is local to the calling CMakeLists.txt and is the correct
       # thing to use.
       include_directories(SYSTEM "${boostishdir}/.use_boostish_siblings")
+      set(${libraryname}_PATH "${GITREPO}")
       set(${libraryname}_FOUND TRUE)
     elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${path}/${libraryname}/.boostish")
-      indented_message(STATUS "Found ${library} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} at embedded ${path}/${libraryname}")
+      indented_message(STATUS "Found ${libraryname} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} at embedded ${path}/${libraryname}")
       set(MESSAGE_INDENT "${MESSAGE_INDENT}  ")
       add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/${path}/${libraryname}"
         EXCLUDE_FROM_ALL
@@ -244,6 +245,7 @@ function(find_boostish_library libraryname path version)
       # If we are using an embedded dependency, for any unit tests make the
       # dependencies appear as if at the same location as for the headers
       include_directories(SYSTEM "${CMAKE_CURRENT_SOURCE_DIR}/${path}/${libraryname}")
+      set(${libraryname}_PATH "${CMAKE_CURRENT_SOURCE_DIR}/${path}/${libraryname}")
       set(${libraryname}_FOUND TRUE)
     else()
       set(${libraryname}_FOUND FALSE)
@@ -288,8 +290,11 @@ function(find_boostish_library libraryname path version)
     endif()
   endif()
   # We don't cache this as we want to rerun the above git SHA stamping etc. per build
-  set(${libraryname}_FOUND ${libraryname}_FOUND PARENT_SCOPE)
-  if(NOT ${libraryname}_FOUND)
+  set(${libraryname}_PATH "${${libraryname}_PATH}" PARENT_SCOPE)
+  set(${libraryname}_FOUND ${${libraryname}_FOUND} PARENT_SCOPE)
+  if(${libraryname}_FOUND)
+    set(${PROJECT_NAME}_DEPENDENCIES ${${PROJECT_NAME}_DEPENDENCIES} "${libraryname}" PARENT_SCOPE)
+  else()
     list(FIND ARGN "QUIET" quiet_idx)
     if(${quiet_idx} EQUAL -1)
       indented_message(WARNING "WARNING: Boostish library ${libraryname} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} not found")

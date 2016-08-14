@@ -98,6 +98,36 @@ function(all_target_properties)
   endif()
 endfunction()
 
+if(NOT PROJECT_IS_DEPENDENCY AND CMAKE_GENERATOR MATCHES "Visual Studio")
+  # Ensure project files maintain the file hierarchy
+  function(preserve_structure dependency)
+    if(dependency)
+      set(PATH "${${dependency}_PATH}")
+    else()
+      set(PATH "${${PROJECT_NAME}_PATH}")
+    endif()
+    foreach(item ${ARGN})
+      get_filename_component(basepath ${item} DIRECTORY)
+      string(REPLACE "/" "\\" _basepath ${basepath})
+      if(dependency)
+        set(_basepath "dependency\\${dependency}\\${_basepath}")
+      endif()
+      #indented_message(STATUS "source_group(${_basepath} FILES ${PATH}/${item}")
+      source_group("${_basepath}" FILES "${PATH}/${item}")
+    endforeach()
+  endfunction()
+  # Map this library's headers, sources and tests into the root
+  preserve_structure(0 ${${PROJECT_NAME}_HEADERS})
+  preserve_structure(0 ${${PROJECT_NAME}_SOURCES})
+  preserve_structure(0 ${${PROJECT_NAME}_TESTS})
+  # Map our dependencies into dependency/lib
+  foreach(dependency ${${PROJECT_NAME}_DEPENDENCIES})
+    preserve_structure(${dependency} ${${dependency}_HEADERS})
+    preserve_structure(${dependency} ${${dependency}_SOURCES})
+    preserve_structure(${dependency} ${${dependency}_TESTS})
+  endforeach()
+endif()
+
 all_target_properties(PROPERTIES
   # Place all libraries into the lib directory
   ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"

@@ -16,7 +16,7 @@
 #
 # Cached outputs:
 #  *          ${PROJECT_NAME}_PATH: ${CMAKE_CURRENT_SOURCE_DIR}
-#  *     ${PROJECT_NAME}_INTERFACE: The master interface PCHable header file ${PROJECT_DIR}/${PROJECT_NAME}.hpp
+#  *     ${PROJECT_NAME}_INTERFACE: The master interface PCHable header file ${PROJECT_DIR}/${PROJECT_NAME}.hpp, plus any sources which need to be compiled into any consumers
 #  *       ${PROJECT_NAME}_HEADERS: Any header files found in include
 #  *       ${PROJECT_NAME}_SOURCES: Any source files found in src
 #  *         ${PROJECT_NAME}_TESTS: Any source files found in test
@@ -46,8 +46,7 @@ else()
   set(${PROJECT_NAME}_PATH ${CMAKE_CURRENT_SOURCE_DIR}
     CACHE PATH "The path to the base of the ${PROJECT_NAME} project")
   if(NOT ${PROJECT_NAME}_INTERFACE_DISABLED)
-    set(${PROJECT_NAME}_INTERFACE ${PROJECT_DIR}/${PROJECT_NAME}.hpp
-      CACHE FILEPATH "The path to the precompilable master header file for the ${PROJECT_NAME} project")
+    set(${PROJECT_NAME}_INTERFACE ${PROJECT_DIR}/${PROJECT_NAME}.hpp)
     if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/include/${${PROJECT_NAME}_INTERFACE}")
       indented_message(FATAL_ERROR "FATAL: No master interface header file found at include/${${PROJECT_NAME}_INTERFACE}. "
                           "You need a master interface header file at that location if you are to make available "
@@ -64,10 +63,13 @@ else()
        "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h"
        "${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp"
        "${CMAKE_CURRENT_SOURCE_DIR}/include/*.ipp"
+       "${CMAKE_CURRENT_SOURCE_DIR}/include/*.natvis"
        )
+  set(${PROJECT_NAME}_INTERFACE_SOURCES ${${PROJECT_NAME}_HEADERS})
   set(${PROJECT_NAME}_HEADERS_FILTER ${${PROJECT_NAME}_HEADERS})
   list_filter(${PROJECT_NAME}_HEADERS EXCLUDE REGEX "\\.boostish$")
-  list_filter(${PROJECT_NAME}_HEADERS_FILTER INCLUDE REGEX "\\.boostish$")
+  list_filter(${PROJECT_NAME}_INTERFACE_SOURCES INCLUDE REGEX "\\.natvis$")
+  list_filter(${PROJECT_NAME}_HEADERS_FILTER INCLUDE REGEX "\\.boostish$")  
   if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/src)
     indented_message(STATUS "  Recursively scanning ${CMAKE_CURRENT_SOURCE_DIR}/src for header and source files ...")
     file(GLOB_RECURSE ${PROJECT_NAME}_SOURCES RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
@@ -125,9 +127,17 @@ else()
   endfunction()
   indented_message(STATUS "  Pruning globbed source file list of files not related to ${PROJECT_NAME} ...")
   prune_boostish_libraries(${PROJECT_NAME}_HEADERS_FILTER ${PROJECT_NAME}_HEADERS)
+  prune_boostish_libraries(${PROJECT_NAME}_HEADERS_FILTER ${PROJECT_NAME}_INTERFACE_SOURCES)
   prune_boostish_libraries(${PROJECT_NAME}_SOURCES_FILTER ${PROJECT_NAME}_SOURCES)
   prune_boostish_libraries(${PROJECT_NAME}_TESTS_FILTER ${PROJECT_NAME}_TESTS)
-  
+  # MSVC has a cool feature where .natvis files tell the debugger how to display a type
+  # We append this to the main interface header because we want all .natvis in all the
+  # dependencies brought into anything we link
+  if(MSVC)
+    list(APPEND ${PROJECT_NAME}_INTERFACE ${${PROJECT_NAME}_INTERFACE_SOURCES})
+  endif()
+
+  #indented_message(STATUS "  ${PROJECT_NAME}_INTERFACE = ${${PROJECT_NAME}_INTERFACE}")
   #indented_message(STATUS "  ${PROJECT_NAME}_HEADERS = ${${PROJECT_NAME}_HEADERS}")
   #indented_message(STATUS "  ${PROJECT_NAME}_SOURCES = ${${PROJECT_NAME}_SOURCES}")
   #indented_message(STATUS "  ${PROJECT_NAME}_TESTS = ${${PROJECT_NAME}_TESTS}")
@@ -160,6 +170,10 @@ else()
 #  md5_source_tree("${${PROJECT_NAME}_PATH}/src" ${PROJECT_NAME}_SOURCES_MD5)
 #  md5_source_tree("${${PROJECT_NAME}_PATH}/test" ${PROJECT_NAME}_TESTS_MD5)
 
+  if(DEFINED ${PROJECT_NAME}_INTERFACE)
+    set(${PROJECT_NAME}_INTERFACE ${${PROJECT_NAME}_INTERFACE}
+      CACHE FILEPATH "The path to the precompilable master header file for the ${PROJECT_NAME} project")
+  endif()
   set(${PROJECT_NAME}_HEADERS ${${PROJECT_NAME}_HEADERS}
     CACHE PATH "The path to the header files for the ${PROJECT_NAME} project")
   set(${PROJECT_NAME}_SOURCES ${${PROJECT_NAME}_SOURCES}
@@ -169,19 +183,3 @@ else()
   set(${PROJECT_NAME}_HEADERS_MD5 ${${PROJECT_NAME}_HEADERS_MD5}
     CACHE STRING "The hash of the header files directory tree for the ${PROJECT_NAME} project")
 endif()
-
-# Call source_group() on all items with a common path so project files maintain the file hierarchy
-function(preserve_structure)
-  foreach(item ${ARGV})
-    set(oldbasepath ${basepath})
-    get_filename_component(basepath ${item} DIRECTORY)
-    if(NOT basepath STREQUAL oldbasepath)
-      string(REPLACE "/" "\\" _basepath ${basepath})
-      #indented_message(STATUS "source_group(${_basepath} ${basepath}/.*)")
-      source_group("${_basepath}" "${basepath}/.*")
-    endif()
-  endforeach()
-endfunction()
-preserve_structure(${${PROJECT_NAME}_HEADERS})
-preserve_structure(${${PROJECT_NAME}_SOURCES})
-preserve_structure(${${PROJECT_NAME}_TESTS})
