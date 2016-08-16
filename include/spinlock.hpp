@@ -48,6 +48,7 @@ BOOSTLITE_NAMESPACE_BEGIN
 namespace configurable_spinlock
 {
   template <class T> using atomic = std::atomic<T>;
+  template <class T> using lock_guard = std::lock_guard<T>;
   namespace chrono = std::chrono;
   namespace this_thread = std::this_thread;
   using std::memory_order;
@@ -57,6 +58,26 @@ namespace configurable_spinlock
   using std::memory_order_release;
   using std::memory_order_acq_rel;
   using std::memory_order_seq_cst;
+
+  namespace detail
+  {
+    template <class T> struct choose_half_type
+    {
+      static_assert(!std::is_same<T, T>::value, "detail::choose_half_type<T> not specialised for type T");
+    };
+    template <> struct choose_half_type<uint64_t>
+    {
+      using type = uint32_t;
+    };
+    template <> struct choose_half_type<uint32_t>
+    {
+      using type = uint16_t;
+    };
+    template <> struct choose_half_type<uint16_t>
+    {
+      using type = uint8_t;
+    };
+  }
 
   /*! \tparam T The type of the pointer
    * \brief Lets you use a pointer to memory as a spinlock :)
@@ -174,7 +195,8 @@ namespace configurable_spinlock
       volatile T *_v = (volatile T *) &v;
       if((t = *_v))  // Avoid unnecessary cache line invalidation traffic
 #else
-      if((t = v.load(memory_order_relaxed)))  // Avoid unnecessary cache line invalidation traffic
+      t = v.load(memory_order_relaxed);
+      if(t)  // Avoid unnecessary cache line invalidation traffic
 #endif
       {
         expected = t;
@@ -264,6 +286,94 @@ namespace configurable_spinlock
     }
     BOOST_CXX14_CONSTEXPR bool int_yield(size_t) noexcept { return false; }
   };
+  template <typename T> struct ordered_spinlockbase
+  {
+#ifndef _MSC_VER  // Amazingly VS2015 incorrectly fails when T is an unsigned!
+    static_assert(((T) -1) > 0, "T must be an unsigned type for ordered_spinlockbase");
+#endif
+    typedef T value_type;
+
+  protected:
+    atomic<value_type> _v;
+    using _halfT = typename detail::choose_half_type<value_type>::type;
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable : 4201)  // nameless struct/union
+#endif
+    union _internals {
+      value_type uint;
+      struct
+      {
+        _halfT exit, entry;
+      };
+    };
+    static_assert(sizeof(_internals) == sizeof(value_type), "");
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
+
+  public:
+    BOOST_CXX14_CONSTEXPR ordered_spinlockbase() noexcept : _v(0)
+    {
+      BOOSTLITE_ANNOTATE_RWLOCK_CREATE(this);
+      // v.store(0, memory_order_release);
+    }
+    ordered_spinlockbase(const ordered_spinlockbase &) = delete;
+    //! Atomically move constructs
+    ordered_spinlockbase(ordered_spinlockbase &&) noexcept : _v(0)
+    {
+      BOOSTLITE_ANNOTATE_RWLOCK_CREATE(this);
+      // v.store(o.v.exchange(0, memory_order_acq_rel));
+      // v.store(0, memory_order_release);
+    }
+    ~ordered_spinlockbase()
+    {
+#ifdef BOOSTLITE_ENABLE_VALGRIND
+      if(entry.load(memory_order_acquire) != exit.load(memory_order_acquire))
+      {
+        BOOSTLITE_ANNOTATE_RWLOCK_RELEASED(this, true);
+      }
+#endif
+      BOOSTLITE_ANNOTATE_RWLOCK_DESTROY(this);
+    }
+    ordered_spinlockbase &operator=(const ordered_spinlockbase &) = delete;
+    ordered_spinlockbase &operator=(ordered_spinlockbase &&) = delete;
+    //! Returns the raw atomic
+    constexpr T load(memory_order o = memory_order_seq_cst) const noexcept { return _v.load(o); }
+    //! Sets the raw atomic
+    void store(T a, memory_order o = memory_order_seq_cst) noexcept { _v.store(a, o); }
+
+    //! Tries to lock the spinlock, returning true if successful.
+    bool try_lock() noexcept
+    {
+      _internals i = {_v.load(memory_order_relaxed)}, o = i;
+      // If locked, bail out immediately
+      if(i.entry != i.exit)
+        return false;
+      o.entry++;
+      if(_v.compare_exchange_weak(i.uint, o.uint, memory_order_acquire, memory_order_relaxed))
+      {
+        BOOSTLITE_ANNOTATE_RWLOCK_ACQUIRED(this, true);
+        return true;
+      }
+      return false;
+    }
+    //! Releases the lock
+    void unlock() noexcept
+    {
+      BOOSTLITE_ANNOTATE_RWLOCK_RELEASED(this, true);
+      for(;;)
+      {
+        _internals i = {_v.load(memory_order_relaxed)}, o = i;
+        o.exit++;
+        if(_v.compare_exchange_weak(i.uint, o.uint, memory_order_release, memory_order_relaxed))
+          return;
+      }
+    }
+    bool int_yield(size_t) noexcept { return false; }
+  };
+
+
   namespace detail
   {
     template <bool use_pause> inline void smt_pause() noexcept {};
@@ -339,24 +449,33 @@ namespace configurable_spinlock
     };
   };
   template <class T> inline bool is_lockable_locked(T &lockable) noexcept;
+
   /*! \class spinlock
-  \brief A policy configurable spin lock meeting BasicLockable and Lockable.
+  \brief A non-FIFO policy configurable spin lock meeting BasicLockable and Lockable providing
+  the fastest possible spin lock.
 
-  Meets the requirements of BasicLockable and Lockable. Also provides a get() and set() for the
-  type used for the spin lock.
+  `sizeof(spinlock<T>) == sizeof(T)`. Suitable for usage in shared memory.
 
-  So what's wrong with boost/smart_ptr/detail/spinlock.hpp then, and why
-  reinvent the wheel?
+  Meets the requirements of BasicLockable and Lockable. Provides a get() and set() for the
+  type used for the spin lock. Suitable for limited usage in constexpr.
 
-  1. Non-configurable spin. AFIO needs a bigger spin than smart_ptr provides.
+  \warning `spinlock<bool>` which might seem obvious is usually slower than `spinlock<uintptr_t>`
+  on most architectures.
 
-  2. AFIO is C++ 11, and therefore can implement this in pure C++ 11 atomics.
+  So why reinvent the wheel?
 
-  3. I don't much care for doing writes during the spin. It generates an
-  unnecessary amount of cache line invalidation traffic. Better to spin-read
+  1. Policy configurable spin.
+
+  2. Implemented in pure C++ 11 atomics so the thread sanitiser works as expected.
+
+  3. Multistate locks are possible instead of just 0|1.
+
+  4. I don't much care for doing writes during the spin which a lot of other spinlocks
+  do. It generates an unnecessary amount of cache line invalidation traffic. Better to spin-read
   and only write when the read suggests you might have a chance.
 
-  4. This spin lock can use a pointer to memory as the spin lock. See locked_ptr<T>.
+  5. This spin lock can use a pointer to memory as the spin lock at the cost of some
+  performance. It uses the bottom bit as the locked flag. See locked_ptr<T>.
   */
   template <typename T, template <class> class spinpolicy2 = spins_to_loop<125>::policy, template <class> class spinpolicy3 = spins_to_yield<250>::policy, template <class> class spinpolicy4 = spins_to_sleep::policy> class spinlock : public spinpolicy4<spinpolicy3<spinpolicy2<spinlockbase<T>>>>
   {
@@ -385,6 +504,35 @@ namespace configurable_spinlock
           return true;
         if(expected == only_if_not_this)
           return false;
+        parenttype::int_yield(n);
+      }
+    }
+  };
+
+  /*! \class ordered_spinlock
+  \brief A FIFO policy configurable spin lock meeting BasicLockable and Lockable.
+
+  `sizeof(ordered_spinlock<T>) == sizeof(T)`. Suitable for usage in shared memory.
+
+  Has all the advantages of spinlock apart from potential constexpr usage, but
+  also guarantees FIFO ordering such that every lock grant is guaranteed to be in
+  order of lock entry.
+  */
+  template <typename T, template <class> class spinpolicy2 = spins_to_loop<125>::policy, template <class> class spinpolicy3 = spins_to_yield<250>::policy, template <class> class spinpolicy4 = spins_to_sleep::policy> class ordered_spinlock : public spinpolicy4<spinpolicy3<spinpolicy2<ordered_spinlockbase<T>>>>
+  {
+    typedef spinpolicy4<spinpolicy3<spinpolicy2<ordered_spinlockbase<T>>>> parenttype;
+
+  public:
+    constexpr ordered_spinlock() {}
+    ordered_spinlock(const ordered_spinlock &) = delete;
+    ordered_spinlock(ordered_spinlock &&o) noexcept : parenttype(std::move(o)) {}
+    //! Locks the spinlock
+    void lock() noexcept
+    {
+      for(size_t n = 0;; n++)
+      {
+        if(parenttype::try_lock())
+          return;
         parenttype::int_yield(n);
       }
     }
@@ -422,6 +570,25 @@ namespace configurable_spinlock
   }
   // For when used with a locked_ptr
   template <class T, template <class> class spinpolicy2, template <class> class spinpolicy3, template <class> class spinpolicy4> constexpr inline bool is_lockable_locked(spinlock<lockable_ptr<T>, spinpolicy2, spinpolicy3, spinpolicy4> &lockable) noexcept { return ((size_t) lockable.load(memory_order_consume)) & 1; }
+  // For when used with an ordered spinlock
+  template <class T, template <class> class spinpolicy2, template <class> class spinpolicy3, template <class> class spinpolicy4> constexpr inline bool is_lockable_locked(ordered_spinlock<T, spinpolicy2, spinpolicy3, spinpolicy4> &lockable) noexcept
+  {
+    using halfT = typename detail::choose_half_type<T>::type;
+    union {
+      T v;
+      struct
+      {
+        halfT entry, exit;
+      };
+    };
+#ifdef BOOST_HAVE_TRANSACTIONAL_MEMORY_COMPILER
+    // Annoyingly the atomic ops are marked as unsafe for atomic transactions, so ...
+    v = *((volatile T *) &lockable);
+#else
+    v = lockable.load(memory_order_consume);
+#endif
+    return entry != exit;
+  }
 
 #ifndef BOOST_BEGIN_TRANSACT_LOCK
 #ifdef BOOST_HAVE_TRANSACTIONAL_MEMORY_COMPILER
@@ -429,12 +596,12 @@ namespace configurable_spinlock
 #define BOOST_BEGIN_TRANSACT_LOCK(lockable)                                                                                                                                                                                                                                                                                    \
   __transaction_relaxed                                                                                                                                                                                                                                                                                                        \
   {                                                                                                                                                                                                                                                                                                                            \
-    (void) BOOSTLITE_V1_NAMESPACE::is_lockable_locked(lockable);                                                                                                                                                                                                                                                               \
+    (void) BOOSTLITE_NAMESPACE::is_lockable_locked(lockable);                                                                                                                                                                                                                                                                  \
     {
 #define BOOST_BEGIN_TRANSACT_LOCK_ONLY_IF_NOT(lockable, only_if_not_this)                                                                                                                                                                                                                                                      \
   __transaction_relaxed                                                                                                                                                                                                                                                                                                        \
   {                                                                                                                                                                                                                                                                                                                            \
-    if((only_if_not_this) != BOOSTLITE_V1_NAMESPACE::is_lockable_locked(lockable))                                                                                                                                                                                                                                             \
+    if((only_if_not_this) != BOOSTLITE_NAMESPACE::is_lockable_locked(lockable))                                                                                                                                                                                                                                                \
     {
 #define BOOST_END_TRANSACT_LOCK(lockable)                                                                                                                                                                                                                                                                                      \
   }                                                                                                                                                                                                                                                                                                                            \
@@ -447,11 +614,11 @@ namespace configurable_spinlock
 #ifndef BOOST_BEGIN_TRANSACT_LOCK
 #define BOOST_BEGIN_TRANSACT_LOCK(lockable)                                                                                                                                                                                                                                                                                    \
   {                                                                                                                                                                                                                                                                                                                            \
-    BOOSTLITE_V1_NAMESPACE::lock_guard<decltype(lockable)> __tsx_transaction(lockable);
+    BOOSTLITE_NAMESPACE::configurable_spinlock::lock_guard<decltype(lockable)> __tsx_transaction(lockable);
 #define BOOST_BEGIN_TRANSACT_LOCK_ONLY_IF_NOT(lockable, only_if_not_this)                                                                                                                                                                                                                                                      \
   if(lockable.lock(only_if_not_this))                                                                                                                                                                                                                                                                                          \
   {                                                                                                                                                                                                                                                                                                                            \
-    BOOSTLITE_V1_NAMESPACE::lock_guard<decltype(lockable)> __tsx_transaction(lockable, BOOSTLITE_V1_NAMESPACE::adopt_lock_t());
+    BOOSTLITE_NAMESPACE::configurable_spinlock::lock_guard<decltype(lockable)> __tsx_transaction(lockable, BOOSTLITE_NAMESPACE::adopt_lock_t());
 #define BOOST_END_TRANSACT_LOCK(lockable) }
 #define BOOST_BEGIN_NESTED_TRANSACT_LOCK(N)
 #define BOOST_END_NESTED_TRANSACT_LOCK(N)

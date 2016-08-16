@@ -100,7 +100,6 @@ BOOST_AUTO_TEST_CASE(works / spinlock / transacted, "Tests that the spinlock wor
 }
 #endif
 
-#if 0
 template <bool tristate, class T> struct do_lock
 {
   void operator()(T &lock) { lock.lock(); }
@@ -132,8 +131,13 @@ template <class locktype> double CalculatePerformance(bool use_transact)
   size_t threads = gate;
   // printf("There are %u threads in this CPU\n", (unsigned) threads);
   start = GetUsCount();
+#ifdef _MSC_VER
 #pragma omp parallel for
-  for(int thread = 0; thread < threads; thread++)
+  for(long thread = 0; thread < (long) threads; thread++)
+#else
+#pragma omp parallel for
+  for(size_t thread = 0; thread < threads; thread++)
+#endif
   {
     --gate;
     while(gate)
@@ -166,20 +170,22 @@ template <class locktype> double CalculatePerformance(bool use_transact)
 BOOST_AUTO_TEST_CASE(performance / spinlock / binary, "Tests the performance of binary spinlocks")
 {
   printf("\n=== Binary spinlock performance ===\n");
-  typedef boost_lite::configurable_spinlock::spinlock<bool> locktype;
+  typedef boost_lite::configurable_spinlock::spinlock<uintptr_t> locktype;
   printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
   printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
   printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
 }
 
+#if 0
 BOOST_AUTO_TEST_CASE(performance / spinlock / binary / transaction, "Tests the performance of binary spinlock transactions")
 {
   printf("\n=== Transacted binary spinlock performance ===\n");
-  typedef boost_lite::configurable_spinlock::spinlock<bool> locktype;
+  typedef boost_lite::configurable_spinlock::spinlock<uintptr_t> locktype;
   printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(true));
   printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(true));
   printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(true));
 }
+#endif
 
 BOOST_AUTO_TEST_CASE(performance / spinlock / tristate, "Tests the performance of tristate spinlocks")
 {
@@ -190,6 +196,7 @@ BOOST_AUTO_TEST_CASE(performance / spinlock / tristate, "Tests the performance o
   printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
 }
 
+#if 0
 BOOST_AUTO_TEST_CASE(performance / spinlock / tristate / transaction, "Tests the performance of tristate spinlock transactions")
 {
   printf("\n=== Transacted tristate spinlock performance ===\n");
@@ -198,6 +205,7 @@ BOOST_AUTO_TEST_CASE(performance / spinlock / tristate / transaction, "Tests the
   printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(true));
   printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(true));
 }
+#endif
 
 BOOST_AUTO_TEST_CASE(performance / spinlock / pointer, "Tests the performance of pointer spinlocks")
 {
@@ -208,6 +216,7 @@ BOOST_AUTO_TEST_CASE(performance / spinlock / pointer, "Tests the performance of
   printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
 }
 
+#if 0
 BOOST_AUTO_TEST_CASE(performance / spinlock / pointer / transaction, "Tests the performance of pointer spinlock transactions")
 {
   printf("\n=== Transacted pointer spinlock performance ===\n");
@@ -216,7 +225,19 @@ BOOST_AUTO_TEST_CASE(performance / spinlock / pointer / transaction, "Tests the 
   printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(true));
   printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(true));
 }
+#endif
 
+BOOST_AUTO_TEST_CASE(performance / spinlock / ordered, "Tests the performance of ordered spinlocks")
+{
+  printf("\n=== Ordered spinlock performance ===\n");
+  typedef boost_lite::configurable_spinlock::ordered_spinlock<unsigned> locktype;
+  printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
+  printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
+  printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
+}
+
+
+#if 0
 static double CalculateMallocPerformance(size_t size, bool use_transact)
 {
   boost_lite::configurable_spinlock::spinlock<bool> lock;

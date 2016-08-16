@@ -37,7 +37,14 @@ DEALINGS IN THE SOFTWARE.
 #include <mutex>
 #define CATCH_CONFIG_PREFIX_ALL
 #define CATCH_CONFIG_RUNNER
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable : 4100 4702)
+#endif
 #include "../../CATCH/single_include/catch.hpp"
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 #define BOOST_CATCH_UNIT_TESTING 1
 

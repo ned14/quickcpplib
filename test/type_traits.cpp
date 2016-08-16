@@ -48,9 +48,9 @@ BOOST_AUTO_TEST_CASE(works / type_traits, "Tests that the type traits work as in
   struct Foo
   {
     Foo() = delete;
-    Foo(int);
+    Foo(int) {}
     Foo(const Foo &) = delete;
-    Foo(Foo &&);
+    Foo(Foo &&) {}
   };
   static_assert(!is_sequence<Foo>::value, "");
   static_assert(is_sequence<std::vector<Foo>>::value, "");
