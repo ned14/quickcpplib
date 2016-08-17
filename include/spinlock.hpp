@@ -165,7 +165,7 @@ namespace configurable_spinlock
         return false;
 #endif
 #endif
-#if defined(__i386__) || defined(_M_IX86) || defined(__x86_64__) || defined(_M_X64)
+#if 0 /* Disabled as CMPXCHG seems to have sped up on recent Intel */  // defined(__i386__) || defined(_M_IX86) || defined(__x86_64__) || defined(_M_X64)
       // Intel is a lot quicker if you use XCHG instead of CMPXCHG. ARM is definitely not!
       T ret = v.exchange(1, memory_order_acquire);
       if(!ret)
@@ -178,8 +178,7 @@ namespace configurable_spinlock
         BOOSTLITE_ANNOTATE_RWLOCK_ACQUIRED(this, true);
         return true;
       }
-      else
-        return false;
+      else return false;
     }
     constexpr bool try_lock() const noexcept
     {
@@ -329,7 +328,8 @@ namespace configurable_spinlock
     ~ordered_spinlockbase()
     {
 #ifdef BOOSTLITE_ENABLE_VALGRIND
-      if(entry.load(memory_order_acquire) != exit.load(memory_order_acquire))
+      _internals i = {_v.load(memory_order_relaxed)};
+      if(i.entry != i.exit)
       {
         BOOSTLITE_ANNOTATE_RWLOCK_RELEASED(this, true);
       }
@@ -358,18 +358,143 @@ namespace configurable_spinlock
       }
       return false;
     }
+
+  protected:
+    value_type _begin_try_lock() noexcept { return _v.load(memory_order_relaxed); }
+    bool _try_lock(value_type &state) noexcept
+    {
+      _internals i = {state}, o;
+      o = i;
+      o.entry++;
+      if(_v.compare_exchange_weak(i.uint, o.uint, memory_order_acquire, memory_order_relaxed))
+      {
+        BOOSTLITE_ANNOTATE_RWLOCK_ACQUIRED(this, true);
+        return true;
+      }
+      state = i.uint;
+      return false;
+    }
+
+  public:
     //! Releases the lock
     void unlock() noexcept
     {
       BOOSTLITE_ANNOTATE_RWLOCK_RELEASED(this, true);
+      _internals i = {_v.load(memory_order_relaxed)}, o;
       for(;;)
       {
-        _internals i = {_v.load(memory_order_relaxed)}, o = i;
+        o = i;
         o.exit++;
         if(_v.compare_exchange_weak(i.uint, o.uint, memory_order_release, memory_order_relaxed))
           return;
       }
     }
+    bool int_yield(size_t) noexcept { return false; }
+  };
+  template <typename T> struct shared_spinlockbase
+  {
+#ifndef _MSC_VER  // Amazingly VS2015 incorrectly fails when T is an unsigned!
+    static_assert(((T) -1) > 0, "T must be an unsigned type for shared_spinlockbase");
+#endif
+    typedef T value_type;
+
+  protected:
+    atomic<value_type> _v;
+
+  public:
+    BOOST_CXX14_CONSTEXPR shared_spinlockbase() noexcept : _v(0)
+    {
+      BOOSTLITE_ANNOTATE_RWLOCK_CREATE(this);
+      // v.store(0, memory_order_release);
+    }
+    shared_spinlockbase(const shared_spinlockbase &) = delete;
+    //! Atomically move constructs
+    shared_spinlockbase(shared_spinlockbase &&) noexcept : _v(0)
+    {
+      BOOSTLITE_ANNOTATE_RWLOCK_CREATE(this);
+      // v.store(o.v.exchange(0, memory_order_acq_rel));
+      // v.store(0, memory_order_release);
+    }
+    ~shared_spinlockbase()
+    {
+#ifdef BOOSTLITE_ENABLE_VALGRIND
+      value_type i = _v.load(memory_order_relaxed);
+      if(i == 1)
+      {
+        BOOSTLITE_ANNOTATE_RWLOCK_RELEASED(this, true);
+      }
+      else if(i != 0)
+      {
+        BOOSTLITE_ANNOTATE_RWLOCK_RELEASED(this, false);
+      }
+#endif
+      BOOSTLITE_ANNOTATE_RWLOCK_DESTROY(this);
+    }
+    shared_spinlockbase &operator=(const shared_spinlockbase &) = delete;
+    shared_spinlockbase &operator=(shared_spinlockbase &&) = delete;
+    //! Returns the raw atomic
+    constexpr T load(memory_order o = memory_order_seq_cst) const noexcept { return _v.load(o); }
+    //! Sets the raw atomic
+    void store(T a, memory_order o = memory_order_seq_cst) noexcept { _v.store(a, o); }
+
+    //! Tries to lock the spinlock for exclusive access, returning true if successful.
+    bool try_lock() noexcept
+    {
+      value_type i = _v.load(memory_order_relaxed), o = i;
+      // If locked by anybody, bail out immediately
+      if(i)
+        return false;
+      o = 1;
+      if(_v.compare_exchange_weak(i, o, memory_order_acquire, memory_order_relaxed))
+      {
+        BOOSTLITE_ANNOTATE_RWLOCK_ACQUIRED(this, true);
+        return true;
+      }
+      return false;
+    }
+    //! Releases the lock from exclusive access
+    void unlock() noexcept
+    {
+      BOOSTLITE_ANNOTATE_RWLOCK_RELEASED(this, true);
+      _v.store(0, memory_order_release);
+    }
+
+    //! Tries to lock the spinlock for shared access, returning true if successful.
+    bool try_lock_shared() noexcept
+    {
+      // OR in the exclusive lock bit
+      value_type i = _v.fetch_or(1, memory_order_acquire);
+      if(i & 1)
+        return false;
+      // If not locked, increment reader count and unlock
+      i += 2;
+      i &= ~1;
+      _v.store(i, memory_order_release);
+      BOOSTLITE_ANNOTATE_RWLOCK_ACQUIRED(this, false);
+      return true;
+    }
+    //! Releases the lock from shared access
+    void unlock_shared() noexcept
+    {
+      value_type i;
+      for(size_t n = 0;; n++)
+      {
+        i = _v.fetch_or(1, memory_order_acquire);
+        if(!(i & 1))
+          break;
+        // For very heavily contended locks, stop thrashing the cache line
+        if(n > 2)
+        {
+          for(volatile size_t m = 0; m < 15000; m++)
+            ;
+        }
+      }
+      BOOSTLITE_ANNOTATE_RWLOCK_RELEASED(this, false);
+      i -= 2;
+      i &= ~1;
+      _v.store(i, memory_order_release);
+    }
+
     bool int_yield(size_t) noexcept { return false; }
   };
 
@@ -451,8 +576,9 @@ namespace configurable_spinlock
   template <class T> inline bool is_lockable_locked(T &lockable) noexcept;
 
   /*! \class spinlock
-  \brief A non-FIFO policy configurable spin lock meeting BasicLockable and Lockable providing
+  \brief A non-FIFO policy configurable spin lock meeting the `Mutex` concept providing
   the fastest possible spin lock.
+  \tparam T An integral type capable of atomic usage
 
   `sizeof(spinlock<T>) == sizeof(T)`. Suitable for usage in shared memory.
 
@@ -509,16 +635,25 @@ namespace configurable_spinlock
     }
   };
 
+#if 0  // fails its correctness testing in the unit tests, so disabled
   /*! \class ordered_spinlock
-  \brief A FIFO policy configurable spin lock meeting BasicLockable and Lockable.
+  \brief A FIFO policy configurable spin lock meeting the `Mutex` concept.
+  \tparam T An unsigned integral type capable of atomic usage
 
   `sizeof(ordered_spinlock<T>) == sizeof(T)`. Suitable for usage in shared memory.
 
   Has all the advantages of spinlock apart from potential constexpr usage, but
   also guarantees FIFO ordering such that every lock grant is guaranteed to be in
-  order of lock entry.
+  order of lock entry. It is implemented as two monotonically rising counters
+  to enforce ordering of lock grants.  Maximum performance on Intel is roughly one
+  third that of `spinlock<uintptr_t>`.
+
+  \note Maximum contention is the largest integer fitting into half a `T`, so if
+  T were an unsigned short, the maximum threads which could wait on this spinlock
+  before experiencing undefined behaviour would be 255.
   */
-  template <typename T, template <class> class spinpolicy2 = spins_to_loop<125>::policy, template <class> class spinpolicy3 = spins_to_yield<250>::policy, template <class> class spinpolicy4 = spins_to_sleep::policy> class ordered_spinlock : public spinpolicy4<spinpolicy3<spinpolicy2<ordered_spinlockbase<T>>>>
+  template <typename T = uintptr_t, template <class> class spinpolicy2 = spins_to_loop<125>::policy, template <class> class spinpolicy3 = spins_to_yield<250>::policy, template <class> class spinpolicy4 = spins_to_sleep::policy>
+  class ordered_spinlock : public spinpolicy4<spinpolicy3<spinpolicy2<ordered_spinlockbase<T>>>>
   {
     typedef spinpolicy4<spinpolicy3<spinpolicy2<ordered_spinlockbase<T>>>> parenttype;
 
@@ -529,9 +664,57 @@ namespace configurable_spinlock
     //! Locks the spinlock
     void lock() noexcept
     {
+      auto state = parenttype::_begin_try_lock();
+      for(size_t n = 0;; n++)
+      {
+        if(parenttype::_try_lock(state))
+          return;
+        parenttype::int_yield(n);
+      }
+    }
+  };
+#endif
+
+  /*! \class shared_spinlock
+  \brief A non-FIFO policy configurable shared/exclusive spin lock meeting the `SharedMutex` concept.
+  \tparam T An unsigned integral type capable of atomic usage
+
+  `sizeof(shared_spinlock<T>) == sizeof(T)`. Suitable for usage in shared memory.
+
+  Implementing a fair shared spin lock with acceptable performance in just four
+  bytes of storage is challenging, so this is a reader-biased shared lock which
+  uses bit 0 as the exclusion bit, and the remainder of the bits to track how
+  many readers are in the shared lock. Undefined behaviour will occur if the
+  number of concurrent readers exceeds half the maximum value of a `T`.
+
+  Maximum performance on Intel for exclusive locks is the same as a `spinlock<uintptr_t>`.
+  For shared locks it is roughly one third that of `spinlock<uintptr_t>` due to performing
+  twice as many atomic read-modify-updates.
+  */
+  template <typename T = uintptr_t, template <class> class spinpolicy2 = spins_to_loop<125>::policy, template <class> class spinpolicy3 = spins_to_yield<250>::policy, template <class> class spinpolicy4 = spins_to_sleep::policy> class shared_spinlock : public spinpolicy4<spinpolicy3<spinpolicy2<shared_spinlockbase<T>>>>
+  {
+    typedef spinpolicy4<spinpolicy3<spinpolicy2<shared_spinlockbase<T>>>> parenttype;
+
+  public:
+    constexpr shared_spinlock() {}
+    shared_spinlock(const shared_spinlock &) = delete;
+    shared_spinlock(shared_spinlock &&o) noexcept : parenttype(std::move(o)) {}
+    //! Locks the spinlock for exclusive access
+    void lock() noexcept
+    {
       for(size_t n = 0;; n++)
       {
         if(parenttype::try_lock())
+          return;
+        parenttype::int_yield(n);
+      }
+    }
+    //! Locks the spinlock for shared access
+    void lock_shared() noexcept
+    {
+      for(size_t n = 0;; n++)
+      {
+        if(parenttype::try_lock_shared())
           return;
         parenttype::int_yield(n);
       }
@@ -570,6 +753,7 @@ namespace configurable_spinlock
   }
   // For when used with a locked_ptr
   template <class T, template <class> class spinpolicy2, template <class> class spinpolicy3, template <class> class spinpolicy4> constexpr inline bool is_lockable_locked(spinlock<lockable_ptr<T>, spinpolicy2, spinpolicy3, spinpolicy4> &lockable) noexcept { return ((size_t) lockable.load(memory_order_consume)) & 1; }
+#if 0
   // For when used with an ordered spinlock
   template <class T, template <class> class spinpolicy2, template <class> class spinpolicy3, template <class> class spinpolicy4> constexpr inline bool is_lockable_locked(ordered_spinlock<T, spinpolicy2, spinpolicy3, spinpolicy4> &lockable) noexcept
   {
@@ -588,6 +772,17 @@ namespace configurable_spinlock
     v = lockable.load(memory_order_consume);
 #endif
     return entry != exit;
+  }
+#endif
+  // For when used with a shared spinlock
+  template <class T, template <class> class spinpolicy2, template <class> class spinpolicy3, template <class> class spinpolicy4> constexpr inline T is_lockable_locked(shared_spinlock<T, spinpolicy2, spinpolicy3, spinpolicy4> &lockable) noexcept
+  {
+#ifdef BOOST_HAVE_TRANSACTIONAL_MEMORY_COMPILER
+    // Annoyingly the atomic ops are marked as unsafe for atomic transactions, so ...
+    return *((volatile T *) &lockable);
+#else
+    return lockable.load(memory_order_consume);
+#endif
   }
 
 #ifndef BOOST_BEGIN_TRANSACT_LOCK

@@ -40,9 +40,13 @@ DEALINGS IN THE SOFTWARE.
 #include <algorithm>
 #include <stdio.h>
 
+#ifdef _MSC_VER
+#pragma warning(disable : 4127)  // conditional expression is constant
+#endif
+
 BOOST_AUTO_TEST_SUITE(all)
 
-BOOST_AUTO_TEST_CASE(works / spinlock, "Tests that the spinlock works as intended")
+BOOST_AUTO_TEST_CASE(works / spinlock / binary, "Tests that the spinlock works as intended")
 {
   boost_lite::configurable_spinlock::spinlock<bool> lock;
   BOOST_REQUIRE(lock.try_lock());
@@ -51,32 +55,6 @@ BOOST_AUTO_TEST_CASE(works / spinlock, "Tests that the spinlock works as intende
 
   std::lock_guard<decltype(lock)> h(lock);
   BOOST_REQUIRE(!lock.try_lock());
-}
-
-BOOST_AUTO_TEST_CASE(works / spinlock / threaded, "Tests that the spinlock works as intended under threads")
-{
-  boost_lite::configurable_spinlock::spinlock<bool> lock;
-  boost_lite::configurable_spinlock::atomic<size_t> gate(0);
-#pragma omp parallel
-  {
-    ++gate;
-  }
-  size_t threads = gate;
-  for(size_t i = 0; i < 1000; i++)
-  {
-    gate.store(threads);
-    size_t locked = 0;
-#pragma omp parallel for reduction(+ : locked)
-    for(int n = 0; n < (int) threads; n++)
-    {
-      --gate;
-      while(gate)
-        ;
-      locked += lock.try_lock();
-    }
-    BOOST_REQUIRE(locked == 1U);
-    lock.unlock();
-  }
 }
 
 #if 0
@@ -100,6 +78,189 @@ BOOST_AUTO_TEST_CASE(works / spinlock / transacted, "Tests that the spinlock wor
 }
 #endif
 
+#if 0
+BOOST_AUTO_TEST_CASE(works / spinlock / ordered, "Tests that the ordered spinlock works as intended")
+{
+  boost_lite::configurable_spinlock::ordered_spinlock<> lock;
+  BOOST_REQUIRE(lock.try_lock());
+  BOOST_REQUIRE(!lock.try_lock());
+  lock.unlock();
+
+  std::lock_guard<decltype(lock)> h(lock);
+  BOOST_REQUIRE(!lock.try_lock());
+}
+#endif
+
+BOOST_AUTO_TEST_CASE(works / spinlock / shared, "Tests that the shared spinlock works as intended")
+{
+  boost_lite::configurable_spinlock::shared_spinlock<> lock;
+  BOOST_REQUIRE(lock.try_lock());
+  BOOST_REQUIRE(!lock.try_lock());
+  BOOST_REQUIRE(!lock.try_lock_shared());
+  lock.unlock();
+
+  BOOST_REQUIRE(lock.try_lock_shared());
+  BOOST_REQUIRE(!lock.try_lock());
+  BOOST_REQUIRE(lock.try_lock_shared());
+  BOOST_REQUIRE(!lock.try_lock());
+  BOOST_REQUIRE(lock.try_lock_shared());
+  BOOST_REQUIRE(!lock.try_lock());
+  lock.unlock_shared();
+  BOOST_REQUIRE(!lock.try_lock());
+  lock.unlock_shared();
+  BOOST_REQUIRE(!lock.try_lock());
+  lock.unlock_shared();
+  BOOST_REQUIRE(lock.try_lock());
+  BOOST_REQUIRE(!lock.try_lock_shared());
+  lock.unlock();
+}
+
+template <class locktype> void TestLockCorrectness(const char *desc)
+{
+  locktype lock;
+  boost_lite::configurable_spinlock::atomic<size_t> writers(0);
+  boost_lite::configurable_spinlock::atomic<size_t> exclusives(0);
+  std::vector<std::thread> threads;
+  boost_lite::configurable_spinlock::atomic<size_t> done(std::thread::hardware_concurrency() + 1);
+  for(size_t n = 0; n < std::thread::hardware_concurrency(); n++)
+  {
+    threads.push_back(std::thread([&, n] {
+      --done;
+      while(done)
+        std::this_thread::yield();
+      while(!done)
+      {
+        lock.lock();
+        size_t _writers = ++writers;
+        if(_writers > 1)
+        {
+          BOOST_REQUIRE(_writers <= 1);
+        }
+        ++exclusives;
+        --writers;
+        lock.unlock();
+      }
+      ++done;
+    }));
+  }
+  printf("Running %s ...\n", desc);
+  while(done != 1)
+    std::this_thread::yield();
+  auto start = std::chrono::high_resolution_clock::now();
+  --done;
+  std::this_thread::sleep_for(std::chrono::seconds(5));
+  printf("   Stopping test ...\n");
+  ++done;
+  while(done != std::thread::hardware_concurrency() + 1)
+    std::this_thread::yield();
+  auto end = std::chrono::high_resolution_clock::now();
+  for(auto &i : threads)
+    i.join();
+  printf("   Achieved %u exclusive ops/sec\n\n", (unsigned) (exclusives / std::chrono::duration_cast<std::chrono::seconds>(end - start).count()));
+}
+
+template <class locktype, size_t testreaders> void TestSharedLockCorrectness(const char *desc)
+{
+  locktype lock;
+  boost_lite::configurable_spinlock::atomic<size_t> writers(0), readers(0), maxreaders(0);
+  boost_lite::configurable_spinlock::atomic<size_t> exclusives(0), shared(0);
+  std::vector<std::thread> threads;
+  boost_lite::configurable_spinlock::atomic<size_t> done(std::thread::hardware_concurrency() + 1);
+  for(size_t n = 0; n < std::thread::hardware_concurrency(); n++)
+  {
+    threads.push_back(std::thread([&, n] {
+      --done;
+      while(done)
+        std::this_thread::yield();
+      if(n < testreaders)
+      {
+        while(!done)
+        {
+          lock.lock_shared();
+          size_t _ = ++readers;
+          if(_ > maxreaders)
+            maxreaders = _;
+          size_t _writers = writers;
+          if(_writers > 0)
+          {
+            BOOST_REQUIRE(_writers == 0);
+          }
+          ++shared;
+          --readers;
+          lock.unlock_shared();
+        }
+      }
+      else
+      {
+        while(!done)
+        {
+          lock.lock();
+          size_t _writers = ++writers;
+          if(_writers > 1)
+          {
+            BOOST_REQUIRE(_writers == 1);
+          }
+          size_t _readers = readers;
+          if(_readers > 0)
+          {
+            BOOST_REQUIRE(_readers == 0);
+          }
+          ++exclusives;
+          --writers;
+          lock.unlock();
+        }
+      }
+      ++done;
+    }));
+  }
+  printf("Running %s ...\n", desc);
+  while(done != 1)
+    std::this_thread::yield();
+  auto start = std::chrono::high_resolution_clock::now();
+  --done;
+  std::this_thread::sleep_for(std::chrono::seconds(5));
+  printf("   Stopping test ...\n");
+  ++done;
+  while(done != std::thread::hardware_concurrency() + 1)
+    std::this_thread::yield();
+  auto end = std::chrono::high_resolution_clock::now();
+  for(auto &i : threads)
+    i.join();
+  printf("   Achieved %u exclusive ops/sec and %u shared ops/sec, maxreaders=%u\n\n", (unsigned) (exclusives / std::chrono::duration_cast<std::chrono::seconds>(end - start).count()), (unsigned) (shared / std::chrono::duration_cast<std::chrono::seconds>(end - start).count()), (unsigned) maxreaders);
+}
+
+BOOST_AUTO_TEST_CASE(works / spinlock / threaded / binary, "Tests that the binary spinlock works as intended under threads")
+{
+  TestLockCorrectness<boost_lite::configurable_spinlock::spinlock<uintptr_t>>("binary spinlock correctness testing");
+}
+#if 0
+BOOST_AUTO_TEST_CASE(works / spinlock / threaded / ordered, "Tests that the ordered spinlock works as intended under threads")
+{
+  TestLockCorrectness<boost_lite::configurable_spinlock::ordered_spinlock<>>("ordered spinlock correctness testing");
+}
+#endif
+BOOST_AUTO_TEST_CASE(works / spinlock / threaded / shared / exclusive, "Tests that the shared spinlock works as intended under threads")
+{
+  TestLockCorrectness<boost_lite::configurable_spinlock::shared_spinlock<>>("exclusive shared spinlock correctness testing");
+}
+BOOST_AUTO_TEST_CASE(works / spinlock / threaded / shared / shared, "Tests that the shared spinlock works as intended under threads")
+{
+  TestSharedLockCorrectness<boost_lite::configurable_spinlock::shared_spinlock<>, 999>("shared shared spinlock correctness testing");
+}
+BOOST_AUTO_TEST_CASE(works / spinlock / threaded / shared / 1reader, "Tests that the shared spinlock works as intended under threads")
+{
+  TestSharedLockCorrectness<boost_lite::configurable_spinlock::shared_spinlock<>, 1>("single reader shared spinlock correctness testing");
+}
+BOOST_AUTO_TEST_CASE(works / spinlock / threaded / shared / 2reader, "Tests that the shared spinlock works as intended under threads")
+{
+  TestSharedLockCorrectness<boost_lite::configurable_spinlock::shared_spinlock<>, 2>("dual reader shared spinlock correctness testing");
+}
+BOOST_AUTO_TEST_CASE(works / spinlock / threaded / shared / 3reader, "Tests that the shared spinlock works as intended under threads")
+{
+  TestSharedLockCorrectness<boost_lite::configurable_spinlock::shared_spinlock<>, 3>("triple reader shared spinlock correctness testing");
+}
+
+
 template <bool tristate, class T> struct do_lock
 {
   void operator()(T &lock) { lock.lock(); }
@@ -112,8 +273,22 @@ template <class T> struct do_lock<true, T>
     lock.lock(e);
   }
 };
+template <class T> struct do_lock_shared
+{
+  do_lock_shared(T &) {}
+};
+template <class T> struct do_lock_shared<boost_lite::configurable_spinlock::shared_spinlock<T>>
+{
+  boost_lite::configurable_spinlock::shared_spinlock<T> &_lock;
+  do_lock_shared(boost_lite::configurable_spinlock::shared_spinlock<T> &lock)
+      : _lock(lock)
+  {
+    _lock.lock_shared();
+  }
+  ~do_lock_shared() { _lock.unlock_shared(); }
+};
 
-template <class locktype> double CalculatePerformance(bool use_transact)
+template <class locktype> double CalculatePerformance(int use_transact)
 {
   locktype lock;
   boost_lite::configurable_spinlock::atomic<size_t> gate(0);
@@ -144,10 +319,15 @@ template <class locktype> double CalculatePerformance(bool use_transact)
       ;
     for(size_t n = 0; n < 10000000; n++)
     {
-      if(use_transact)
+      if(use_transact == 1)
       {
         BOOST_BEGIN_TRANSACT_LOCK(lock) { ++count[thread].value; }
         BOOST_END_TRANSACT_LOCK(lock)
+      }
+      else if(use_transact == 2)
+      {
+        do_lock_shared<locktype> h(lock);
+        ++count[thread].value;
       }
       else
       {
@@ -227,13 +407,33 @@ BOOST_AUTO_TEST_CASE(performance / spinlock / pointer / transaction, "Tests the 
 }
 #endif
 
+#if 0
 BOOST_AUTO_TEST_CASE(performance / spinlock / ordered, "Tests the performance of ordered spinlocks")
 {
   printf("\n=== Ordered spinlock performance ===\n");
-  typedef boost_lite::configurable_spinlock::ordered_spinlock<unsigned> locktype;
+  typedef boost_lite::configurable_spinlock::ordered_spinlock<> locktype;
   printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
   printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
   printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
+}
+#endif
+
+BOOST_AUTO_TEST_CASE(performance / spinlock / shared / exclusive, "Tests the performance of shared exclusive spinlocks")
+{
+  printf("\n=== Shared exclusive spinlock performance ===\n");
+  typedef boost_lite::configurable_spinlock::shared_spinlock<> locktype;
+  printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
+  printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
+  printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
+}
+
+BOOST_AUTO_TEST_CASE(performance / spinlock / shared / shared, "Tests the performance of shared exclusive spinlocks")
+{
+  printf("\n=== Shared shared spinlock performance ===\n");
+  typedef boost_lite::configurable_spinlock::shared_spinlock<> locktype;
+  printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(2));
+  printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(2));
+  printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(2));
 }
 
 
