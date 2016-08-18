@@ -31,7 +31,7 @@ all_compile_features(PUBLIC
   cxx_noexcept
   cxx_constexpr
   cxx_thread_local
-  #cxx_init_captures                      ## Not supported yet by cmake 3.6
+  cxx_lambda_init_captures
   cxx_generic_lambdas
 )
 
