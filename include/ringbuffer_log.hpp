@@ -58,6 +58,7 @@ DEALINGS IN THE SOFTWARE.
 #include <atomic>
 #include <chrono>
 #include <cstddef>  // for ptrdiff_t
+#include <cstdint>  // for uint32_t etc
 #include <cstring>  // for memcmp
 #include <iomanip>
 #include <ostream>
@@ -91,24 +92,21 @@ namespace ringbuffer_log
   namespace simple_ringbuffer_log_policy_detail
   {
     using level_ = level;
-    using uint8 = unsigned char;
-    using uint32 = unsigned int;
-    using uint64 = unsigned long long;
     struct value_type
     {
-      uint64 counter;
-      uint64 timestamp;
+      uint64_t counter;
+      uint64_t timestamp;
       union {
-        uint32 code32[2];
-        uint64 code64;
+        uint32_t code32[2];
+        uint64_t code64;
       };
       union {
-        uint64 backtrace[5];
+        uint64_t backtrace[5];
         char function[40];
       };
-      uint8 level : 4;
-      uint8 using_code64 : 1;
-      uint8 using_backtrace : 1;
+      uint8_t level : 4;
+      uint8_t using_code64 : 1;
+      uint8_t using_backtrace : 1;
       char message[191];
 
     private:
@@ -120,11 +118,11 @@ namespace ringbuffer_log
 
     public:
       value_type() { memset(this, 0, sizeof(*this)); }
-      value_type(level_ _level, const char *_message, uint32 _code1, uint32 _code2, const char *_function = nullptr, unsigned lineno = 0)
+      value_type(level_ _level, const char *_message, uint32_t _code1, uint32_t _code2, const char *_function = nullptr, unsigned lineno = 0)
           : counter((size_t) -1)
           , timestamp(std::chrono::duration_cast<std::chrono::nanoseconds>((_first_item(), std::chrono::high_resolution_clock::now() - _first_item())).count())
           , code32{_code1, _code2}
-          , level(static_cast<uint8>(_level))
+          , level(static_cast<uint8_t>(_level))
           , using_code64(false)
           , using_backtrace(!_function)
       {

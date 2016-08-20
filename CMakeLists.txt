@@ -41,7 +41,9 @@ include(BoostLiteMakeStandardTests)
 
 # The spinlock_tribool test needs OpenMP
 if(TARGET boost-lite_hl-spinlock_tribool)
-  if(MSVC AND NOT CLANG)
+  if(MSVC AND CLANG)
+    # Currently doesn't work
+  elseif(MSVC)
     target_compile_options(boost-lite_hl-spinlock_tribool PRIVATE /openmp)
   else()
     target_compile_options(boost-lite_hl-spinlock_tribool PRIVATE -fopenmp)

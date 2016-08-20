@@ -26,7 +26,7 @@ BOOST_AUTO_TEST_CASE(ringbuffer_log / simple / works, "Tests that the simple_rin
 
   {
     simple_ringbuffer_log<>::value_type &v = simple.front();
-    BOOST_CHECK(v.counter == 0);
+    BOOST_CHECK(v.counter == 0ULL);
     BOOST_CHECK(v.level == static_cast<unsigned>(level::fatal));
     BOOST_CHECK(v.using_code64 == 0);
     BOOST_CHECK(v.using_backtrace == 0);
@@ -42,7 +42,7 @@ BOOST_AUTO_TEST_CASE(ringbuffer_log / simple / works, "Tests that the simple_rin
 
   {
     simple_ringbuffer_log<>::value_type &v = simple.front();
-    BOOST_CHECK(v.counter == 1);
+    BOOST_CHECK(v.counter == 1ULL);
     BOOST_CHECK(v.level == static_cast<unsigned>(level::warn));
     BOOST_CHECK(v.using_code64 == 0);
     BOOST_CHECK(v.using_backtrace == 1);
