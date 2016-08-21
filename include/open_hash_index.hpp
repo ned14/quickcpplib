@@ -81,6 +81,27 @@ namespace open_hash_index
       }
       return nullptr;
     }
+    template <class T> auto look_for_lock_shared(int) -> typename std::enable_if<std::is_same<decltype(std::declval<T>().lock_shared()), decltype(std::declval<T>().lock_shared())>::value, std::true_type>::type;
+    template <class T> std::false_type look_for_lock_shared(...);
+    template <class T> struct is_shared_mutex : decltype(look_for_lock_shared<T>(0))
+    {
+    };
+    template <bool lock_is_shared> struct lock_shared_if
+    {
+      template <class T> lock_shared_if(T &lock) { lock.lock(); }
+    };
+    template <> struct lock_shared_if<true>
+    {
+      template <class T> lock_shared_if(T &lock) { lock.lock_shared(); }
+    };
+    template <bool lock_is_shared> struct unlock_shared_if
+    {
+      template <class T> unlock_shared_if(T &lock) { lock.unlock(); }
+    };
+    template <> struct unlock_shared_if<true>
+    {
+      template <class T> unlock_shared_if(T &lock) { lock.unlock_shared(); }
+    };
   }
 
   //! Performs k % divisor which is up to 40 CPU cycles depending on architecture
@@ -99,12 +120,12 @@ namespace open_hash_index
   A linear scan is performed up to LinearSearchLimit either side of any collision.
   \tparam KeyType The type of key to use. Must be a trivial type which acts as if an unsigned integer type.
   \tparam T The type of mapped value to use.
+  \tparam LinearSearchLimit How far to search either side of a collison for an entry or an empty slot.
   \tparam KeyModulus A callable which performs modulus of the KeyType with the storage container's size. If you know the container's
   size will always be a power of two, use `twos_power_modulus` instead of `arithmetic_modulus`.
   \tparam KeyCompare A callable which compares two KeyTypes.
-  \tparam LinearSearchLimit How far to search either side of a collison for an entry or an empty slot.
   */
-  template <class KeyType, class T, class KeyModulus = arithmetic_modulus<KeyType>, class KeyCompare = std::equal_to<KeyType>, size_t LinearSearchLimit = 4> struct linear_memory_policy
+  template <class KeyType, class T, size_t LinearSearchLimit = 2, class KeyModulus = arithmetic_modulus<KeyType>, class KeyCompare = std::equal_to<KeyType>> struct linear_memory_policy
   {
     using key_type = typename std::add_const<KeyType>::type;
     using mapped_type = T;
@@ -171,12 +192,12 @@ namespace open_hash_index
     // Returns a pointer to an item if it is in use
     static const_pointer if_inuse_to_pointer(const value_type *p) noexcept { return const_pointer(p->_inuse ? p : nullptr); }
     // Looks up a key in the contiguous container returning a value_type_ptr to any value_type found
-    template <class Container> static pointer find(Container &c, const key_type &k) noexcept
+    template <class Container> static pointer find_exclusive(Container &c, const key_type &k) noexcept
     {
       return detail::linear_find<LinearSearchLimit>(c, KeyModulus()(k, c.size()), [&k](const_reference v) { return v._inuse && KeyCompare()(k, v.first); });
     }
     // Looks up a key in the contiguous container returning a value_type_ptr to any value_type found
-    template <class Container> static const_pointer find(const Container &c, const key_type &k) noexcept
+    template <class Container> static const_pointer find_shared(const Container &c, const key_type &k) noexcept
     {
       return detail::linear_find<LinearSearchLimit>(c, KeyModulus()(k, c.size()), [&k](const_reference v) { return v._inuse && KeyCompare()(k, v.first); });
     }
@@ -191,10 +212,10 @@ namespace open_hash_index
         return true;
       });
     }
-    // Removes an item, returning by value the value_type removed. If returned item doesn't have its _inuse set, key was not found.
-    template <class Container> static std::pair<value_type, bool> erase(Container &c, const key_type &k) noexcept
+    // Removes an item, returning by value the value_type removed. If returned item doesn't have its bool set, key was not found.
+    static std::pair<value_type, bool> erase(pointer v) noexcept
     {
-      value_type ret, *v = find(c, k);
+      value_type ret;
       if(v)
       {
         ret = std::move(*v);
@@ -203,6 +224,8 @@ namespace open_hash_index
       }
       return std::make_pair(std::move(ret), false);
     }
+    // Removes an item, returning by value the value_type removed. If returned item doesn't have its bool set, key was not found.
+    template <class Container> static std::pair<value_type, bool> erase(Container &c, const key_type &k) noexcept { return erase(find_exclusive(c, k)); }
   };
   /*! \struct atomic_linear_memory_policy
   \brief Like `linear_memory_policy`, but threadsafe for key finding, insertion and removal.
@@ -211,19 +234,27 @@ namespace open_hash_index
   anything returning a reference is NOT THREADSAFE. Additionally, all finds which traverse a locked item must necessarily spin on
   that lock even if that item isn't actually the right one, so be ESPECIALLY careful of using an excellent distribution hash function.
 
+  \note If you use a `SharedMutex` instead of a `Mutex` as the LockType (detected via Expression SFINAE), const operations returning
+  a `const_iterator` will take a shared lock instead of an exclusive lock. That makes concurrent read-only usage non-blocking.
+
+  \note Because iterators hold a lock to their pointed to item, iterators are move only and cannot be copied. As basic_open_hash_index
+  is a hash table, simply look up a new iterator, though obviously looking up the same key twice means instant deadlock unless you are using
+  a shared or recursive mutex as the lock.
+
   \tparam KeyType The type of key to use. Must be a trivial type which acts as if an unsigned integer type.
   \tparam T The type of mapped value to use.
-  \tparam LockType The type of BasicLockable to use as the lock type.
+  \tparam LinearSearchLimit How far to search either side of a collison for an entry or an empty slot.
+  \tparam LockType The type of `Mutex` or `SharedMutex` to use as the lock type.
   \tparam KeyModulus A callable which performs modulus of the KeyType with the storage container's size. If you know the container's
   size will always be a power of two, use `twos_power_modulus` instead of `arithmetic_modulus`.
   \tparam KeyCompare A callable which compares two KeyTypes.
-  \tparam LinearSearchLimit How far to search either side of a collison for an entry or an empty slot.
   */
-  template <class KeyType, class T, class LockType = configurable_spinlock::spinlock<uint32_t>, class KeyModulus = arithmetic_modulus<KeyType>, class KeyCompare = std::equal_to<KeyType>, size_t LinearSearchLimit = 4> struct atomic_linear_memory_policy
+  template <class KeyType, class T, size_t LinearSearchLimit = 1, class LockType = configurable_spinlock::spinlock<uint32_t>, class KeyModulus = arithmetic_modulus<KeyType>, class KeyCompare = std::equal_to<KeyType>> struct atomic_linear_memory_policy
   {
     using key_type = typename std::add_const<KeyType>::type;
     using mapped_type = T;
     using lock_type = LockType;
+    static constexpr bool lock_type_is_shared = detail::is_shared_mutex<lock_type>::value;
     struct value_type
     {
       using first_type = key_type;
@@ -281,13 +312,20 @@ namespace open_hash_index
     struct const_pointer
     {
       const value_type *_v;
-      constexpr explicit const_pointer(const value_type *v = nullptr) noexcept : _v(v) {}
-      BOOST_CXX14_CONSTEXPR const_pointer(const_pointer &&o) noexcept : _v(o._v) { o._v = nullptr; }
+      int _locked_type;
+      constexpr explicit const_pointer(const value_type *v = nullptr, bool exclusive_locked = false) noexcept : _v(v), _locked_type(exclusive_locked ? 2 : 1) {}
+      BOOST_CXX14_CONSTEXPR const_pointer(const_pointer &&o) noexcept : _v(o._v), _locked_type(o._locked_type) { o._v = nullptr; }
       const_pointer(const const_pointer &) = delete;
       ~const_pointer()
       {
         if(_v)
-          _v->lock.unlock();
+        {
+          if(2 == _locked_type)
+            _v->lock.unlock();
+          else if(1 == _locked_type)
+            detail::unlock_shared_if<lock_type_is_shared>(_v->lock);
+          _locked_type = 0;
+        }
       }
       BOOST_CXX14_CONSTEXPR const_pointer &operator=(const_pointer &&o) noexcept
       {
@@ -318,7 +356,7 @@ namespace open_hash_index
     };
     struct pointer : public const_pointer
     {
-      constexpr explicit pointer(value_type *v = nullptr) noexcept : const_pointer(v) {}
+      constexpr explicit pointer(value_type *v = nullptr) noexcept : const_pointer(v, true) {}
       BOOST_CXX14_CONSTEXPR pointer(pointer &&o) noexcept : const_pointer(std::move(o)) {}
       BOOST_CXX14_CONSTEXPR pointer &operator=(pointer &&o) noexcept
       {
@@ -368,14 +406,14 @@ namespace open_hash_index
     {
       if(p->_inuse.load(std::memory_order_acquire) != 1)
         return const_pointer();
-      p->lock.lock();
+      detail::lock_shared_if<lock_type_is_shared>(p->lock);
       if(p->_inuse.load(std::memory_order_acquire) == 1)
         return const_pointer(p);
-      p->lock.unlock();
+      detail::unlock_shared_if<lock_type_is_shared>(p->lock);
       return const_pointer();
     }
     // Looks up a key in the contiguous container returning the LOCKED address of any value_type found
-    template <class Container> static pointer find(Container &c, const key_type &k) noexcept
+    template <class Container> static pointer find_exclusive(Container &c, const key_type &k) noexcept
     {
       return pointer(detail::linear_find<LinearSearchLimit>(c, KeyModulus()(k, c.size()), [&k](const value_type &v) {
         if(v._inuse.load(std::memory_order_acquire) != 1)
@@ -388,15 +426,15 @@ namespace open_hash_index
       }));
     }
     // Looks up a key in the contiguous container returning the LOCKED address of any value_type found
-    template <class Container> static const_pointer find(const Container &c, const key_type &k) noexcept
+    template <class Container> static const_pointer find_shared(const Container &c, const key_type &k) noexcept
     {
       return const_pointer(detail::linear_find<LinearSearchLimit>(c, KeyModulus()(k, c.size()), [&k](const value_type &v) {
         if(v._inuse.load(std::memory_order_acquire) != 1)
           return false;
-        v.lock.lock();
+        detail::lock_shared_if<lock_type_is_shared>(v.lock);
         if(v._inuse.load(std::memory_order_acquire) == 1 && KeyCompare()(k, v.first))
           return true;
-        v.lock.unlock();
+        detail::unlock_shared_if<lock_type_is_shared>(v.lock);
         return false;
       }));
     }
@@ -416,23 +454,28 @@ namespace open_hash_index
         return false;
       }));
     }
-    // Removes an item, returning by value the value_type removed. If returned item doesn't have its _inuse set, key was not found.
-    template <class Container> static std::pair<value_type, bool> erase(Container &c, const key_type &k) noexcept
+    // Removes an item, returning by value the value_type removed. If returned item doesn't have its bool set, key was not found.
+    static std::pair<value_type, bool> erase(pointer &v) noexcept
     {
       value_type ret;
-      pointer v = find(c, k);
       if(v)
       {
         uint32_t expected = 1;
         if(v->_inuse.compare_exchange_strong(expected, 2, std::memory_order_acquire, std::memory_order_relaxed))
         {
           ret = value_type(std::move(v->first), std::move(v->second));
-          v->lock.unlock();
-          v->_inuse.store(0, std::memory_order_release);
+          v.~pointer();                                   // unlocks the item
+          v->_inuse.store(0, std::memory_order_release);  // mark as unused
           return std::make_pair(std::move(ret), true);
         }
       }
       return std::make_pair(std::move(ret), false);
+    }
+    // Removes an item, returning by value the value_type removed. If returned item doesn't have its bool set, key was not found.
+    template <class Container> static std::pair<value_type, bool> erase(Container &c, const key_type &k) noexcept
+    {
+      pointer p = find_exclusive(c, k);
+      return erase(p);
     }
   };
 
@@ -452,18 +495,20 @@ namespace open_hash_index
   not the usually poor quality `std::hash` implementation (see `fnv1a_hash`). Note this particular implementation does NOT hash keys for
   you, 'key' here means some type which behaves as if an unsigned integer integral type.
 
+  Because it does so much less work than an `unordered_map<>`, insert/erase performance is typically ~4x faster and lookup
+  performance is typically <= ~2x faster depending on how your STL implements `std::hash<>`.
+
   A particularly interesting use of this class is as a shared memory hash index. Simply use `std::array<>` as the container
-  and construct this class directly into shared memory - `sizeof(basic_open_hash_index) == sizeof(ContiguousContainerType) + sizeof(size_t)`.
+  and placement new this class directly into shared memory - `sizeof(basic_open_hash_index) == sizeof(ContiguousContainerType) + sizeof(size_t)`.
+  If you'd like to safely concurrently read and modify the shared memory hash index, see the `atomic_linear_memory_policy<...>`
+  below.
 
   Some standard policies available:
 
   * `linear_memory_policy<...>`: Keeps a simple boolean for whether the slot is in use. Collision is handled
   via a linear scan either side of the arrival point.
   * `atomic_linear_memory_policy<...>`: Keeps a tristate atomic for whether the slot is in use or being constructed or
-  destructed. Also keeps a spinlock held locked <b>whilst any iterator is held open to that item</b>.
-  \warning Because a linear search is performed
-  \note Iterators aren't copyable. This might seem weird, but it prevents one making silly deadlocks when using
-  `atomic_linear_memory_policy<...>`. The loss of this isn't particularly important with a hash table anyway.
+  destructed. Also keeps a mutex held locked <b>whilst any iterator is held open to that item</b>.
 
   You can of course supply your own policies to implement any semantics you like e.g. storage is a huge sparse file on disc
   and every key lookup is a `read()` and every key update is a `write()`.
@@ -522,7 +567,7 @@ namespace open_hash_index
             else
               break;
           } while(!_p);
-          if(_p > &_parent->_store.back())
+          if(p > &_parent->_store.back())
             _p = Pointer(nullptr);
         }
         return *this;
@@ -542,7 +587,7 @@ namespace open_hash_index
             else
               break;
           } while(!_p);
-          if(_p < &_parent->_store.front())
+          if(p < &_parent->_store.front())
             _p = Pointer(nullptr);
         }
         return *this;
@@ -565,6 +610,9 @@ namespace open_hash_index
         std::swap(_parent, o._parent);
         std::swap(_p, o._p);
       }
+
+      explicit operator bool() const noexcept { return _parent && _p; }
+      bool operator!() const noexcept { return !_parent || !_p; }
       underlying_pointer_type operator->() noexcept
       {
         if(!_parent || !_p || _p < &_parent->_store.front() || _p > &_parent->_store.back())
@@ -755,7 +803,7 @@ namespace open_hash_index
     //! Inserts a new item, returning an iterator to the new item if the bool is true, else an iterator to existing item. If the returned iterator is invalid, there is no more space.
     std::pair<iterator, bool> insert(value_type &&v) noexcept
     {
-      pointer p(!disable_existing_key_check ? Policy::find(_store, v.first) : pointer(nullptr));
+      pointer p(!disable_existing_key_check ? Policy::find_exclusive(_store, v.first) : pointer(nullptr));
       if(p)
         return std::make_pair(iterator(this, std::move(p)), false);
       p = Policy::insert(_store, std::move(v));
@@ -767,7 +815,7 @@ namespace open_hash_index
     //! Inserts a new item or assigns to an existing one, returning an iterator to the new or existing item. If the returned iterator is invalid, there is no more space.
     template <class T> std::pair<iterator, bool> insert_or_assign(const key_type &k, T &&t) noexcept
     {
-      auto p = Policy::find(_store, k);
+      auto p = Policy::find_exclusive(_store, k);
       if(p)
       {
         p->second = std::forward<T>(t);
@@ -784,7 +832,7 @@ namespace open_hash_index
     //! Emplaces a new item, returning an iterator to the new item
     template <class... Args> std::pair<iterator, bool> try_emplace(const key_type &k, Args &&... args) noexcept
     {
-      pointer p(!disable_existing_key_check ? Policy::find(_store, k) : pointer(nullptr));
+      pointer p(!disable_existing_key_check ? Policy::find_exclusive(_store, k) : pointer(nullptr));
       if(p)
         return std::make_pair(iterator(this, std::move(p)), false);
       p = Policy::insert(_store, value_type(k, mapped_type(std::forward<Args>(args)...)));
@@ -793,20 +841,17 @@ namespace open_hash_index
       ++_count;
       return std::make_pair(iterator(this, std::move(p)), true);
     }
-    //! Erases an item
-    iterator erase(const_iterator it) noexcept
+    //! Erases an item. Note takes an iterator not a const_iterator as the STL would.
+    iterator erase(iterator it) noexcept
     {
       if(it._parent != this)
         abort();
-      key_type k(std::move(it->first));
-      size_t idx = it._p - &_store.front();
-      it = const_iterator();  // release any lock in the incoming iterator, otherwise my search will deadlock
-      auto v = Policy::erase(_store, k);
+      auto v = Policy::erase(it._p);
       if(v.second)
         --_count;
-      iterator rit(this, pointer(&_store[idx]));
-      ++rit;
-      return rit;
+      // it._p is still valid but now unlocked
+      ++it;
+      return it;
     }
     //! Erases an item. Note this implementation does not return an iterator as per the STL.
     void erase(const key_type &k) noexcept
@@ -816,25 +861,29 @@ namespace open_hash_index
         --_count;
     }
     //! Finds an item
-    iterator find(const key_type &k) noexcept
+    iterator find_exclusive(const key_type &k) noexcept
     {
-      auto p = Policy::find(_store, k);
+      auto p = Policy::find_exclusive(_store, k);
       if(p)
         return iterator(this, std::move(p));
       return end();
     }
     //! Finds an item
-    const iterator find(const key_type &k) const noexcept
+    const_iterator find_shared(const key_type &k) const noexcept
     {
-      auto p = Policy::find(_store, k);
+      auto p = Policy::find_shared(_store, k);
       if(p)
         return const_iterator(this, std::move(p));
       return cend();
     }
+    //! Finds an item (exclusive)
+    iterator find(const key_type &k) noexcept { return find_exclusive(k); }
+    //! Finds an item (shared)
+    const_iterator find(const key_type &k) const noexcept { return find_shared(k); }
     //! Returns a reference to the specified element, inserting an empty mapped type if necessary
     reference operator[](const key_type &k) noexcept
     {
-      auto p = Policy::find(_store, k);
+      auto p = Policy::find_exclusive(_store, k);
       if(p)
         return p->second;
       p = Policy::insert(_store, value_type(k, mapped_type()));
@@ -848,7 +897,7 @@ namespace open_hash_index
     //! Returns a reference to the specified element.
     const_reference operator[](const key_type &k) const noexcept
     {
-      auto p = Policy::find(_store, k);
+      auto p = Policy::find_exclusive(_store, k);
       if(p)
       {
         ++_count;

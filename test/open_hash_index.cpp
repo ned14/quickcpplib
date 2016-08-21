@@ -2,6 +2,8 @@
 #include "../include/open_hash_index.hpp"
 
 #include <array>
+#include <random>
+#include <unordered_map>
 
 #ifdef _MSC_VER
 #pragma warning(disable : 4503)  // decorated name length exceeded
@@ -57,8 +59,7 @@ template <class OpenHashIndex> void do_test()
     BOOST_CHECK(cont.size() == 5);
   }
   {
-    typename OpenHashIndex::const_iterator it(std::move(dit));
-    cont.erase(std::move(it));
+    cont.erase(std::move(dit));
     BOOST_CHECK(cont.size() == 4);
   }
   {
@@ -131,45 +132,169 @@ template <class OpenHashIndex> void do_test()
 }
 
 template <class T> using array5 = std::array<T, 5>;
+template <class T> using array8192 = std::array<T, 8192>;
+
+void test_traits()
+{
+  using namespace boost_lite::configurable_spinlock;
+  static_assert(!boost_lite::open_hash_index::detail::is_shared_mutex<spinlock<bool>>::value, "");
+  static_assert(boost_lite::open_hash_index::detail::is_shared_mutex<shared_spinlock<bool>>::value, "");
+}
 
 BOOST_AUTO_TEST_CASE(open_hash_index / linear_memory_policy / works, "Tests that the open_hash_index<linear_memory_policy> works as advertised")
 {
   using namespace boost_lite::open_hash_index;
-  do_test<basic_open_hash_index<linear_memory_policy<size_t, int>, array5>>();
+  do_test<basic_open_hash_index<linear_memory_policy<size_t, int, 5, arithmetic_modulus<size_t>, std::equal_to<unsigned>>, array5>>();
 }
 
-BOOST_AUTO_TEST_CASE(open_hash_index / atomic_linear_memory_policy / works, "Tests that the open_hash_index<atomic_linear_memory_policy> works as advertised")
+BOOST_AUTO_TEST_CASE(open_hash_index / atomic_linear_memory_policy / works / single, "Tests that the open_hash_index<atomic_linear_memory_policy> works as advertised")
 {
   using namespace boost_lite::open_hash_index;
-  do_test<basic_open_hash_index<atomic_linear_memory_policy<size_t, int>, array5, true>>();
+  do_test<basic_open_hash_index<atomic_linear_memory_policy<size_t, int, 5, boost_lite::configurable_spinlock::spinlock<uint32_t>, arithmetic_modulus<size_t>, std::equal_to<unsigned>>, array5, true>>();
 }
 
-#if 0
-BOOST_AUTO_TEST_CASE(ringbuffer_log / simple / iterators, "Tests that the simple_ringbuffer_log iterator works as advertised")
+static constexpr size_t ITEMS = 0x4000000;
+alignas(4096) static std::array<unsigned, ITEMS> input;
+
+template <class OpenHashIndex> void do_threaded_test(const char *desc)
 {
-  BOOST_CHECK(simple.size() == 2);
-  simple_ringbuffer_log<>::const_iterator begin = simple.begin();
-  simple_ringbuffer_log<>::const_iterator end = simple.end();
-  BOOST_CHECK((end - begin) == 2);
-  --end;
-  BOOST_CHECK(simple.front() == *begin);
-  BOOST_CHECK(simple.back() == *end);
-  BOOST_CHECK(simple.front() == simple[0]);
-  BOOST_CHECK(simple.back() == simple[1]);
+  OpenHashIndex cont;
+  std::cout << "\nTesting " << desc << " under concurrency ..." << std::endl;
+  for(size_t n = 0; n < 4096; n++)
+    cont.insert(std::make_pair(input[n] >> 1, input[n]));
+
+  std::vector<std::thread> threads;
+  std::atomic<int> done(-int(std::thread::hardware_concurrency() + 1)), updates(0), finds(0);
+  for(size_t i = 0; i < std::thread::hardware_concurrency(); i++)
+  {
+    threads.push_back(std::thread([&, i] {
+      ++done;
+      while(done)
+        std::this_thread::yield();
+      while(!done)
+      {
+        for(size_t n = 0; n < ITEMS; n++)
+        {
+          if(!i)
+          {
+            if(!(input[n] & 3))
+              cont.erase(input[n] >> 1);
+            else
+              cont.insert(std::make_pair(input[n] >> 1, input[n]));
+            ++updates;
+          }
+          else
+          {
+            if(cont.find(input[n] >> 1))
+              ++finds;
+          }
+        }
+      }
+      ++done;
+    }));
+  }
+  while(done < -1)
+    std::this_thread::yield();
+  ++done;
+  auto begin = std::chrono::high_resolution_clock::now();
+  std::this_thread::sleep_for(std::chrono::seconds(5));
+  ++done;
+  while(done < int(std::thread::hardware_concurrency() + 1))
+    std::this_thread::yield();
+  auto end = std::chrono::high_resolution_clock::now();
+  auto diff = std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() / 1000000.0;
+  for(auto &i : threads)
+    i.join();
+  std::cout << "   I saw " << (unsigned long) (updates / diff) << " updates/sec and " << (unsigned long) (finds / diff) << " finds/sec" << std::endl;
 }
 
-BOOST_AUTO_TEST_CASE(ringbuffer_log / simple / performance, "Tests that the simple_ringbuffer_log is fast to log to")
+BOOST_AUTO_TEST_CASE(open_hash_index / atomic_linear_memory_policy / works / concurrent / exclusive, "Tests that the open_hash_index<atomic_linear_memory_policy> works as advertised")
 {
-  test_function(false);
-  test_function(false);
-  test_function(true);
-  test_function(true);
-  BOOST_CHECK(simple.size() == 6);
-  auto diff_nobacktrace = simple[2].timestamp - simple[3].timestamp;
-  auto diff_backtrace = simple[0].timestamp - simple[1].timestamp;
-  std::cout << "Nanoseconds to log item without backtrace: " << diff_nobacktrace << std::endl;
-  std::cout << "Nanoseconds to log item with    backtrace: " << diff_backtrace << std::endl;
+  using namespace boost_lite::open_hash_index;
+  std::mt19937 randomness;
+  std::cout << "\nPreparing randomness ..." << std::endl;
+  for(size_t n = 0; n < input.size(); n++)
+    input[n] = randomness() & 8191;
+  do_threaded_test<basic_open_hash_index<atomic_linear_memory_policy<unsigned, unsigned, 1, boost_lite::configurable_spinlock::spinlock<uint32_t>>, array8192>>("basic_open_hash_index<atomic_linear_memory_policy, spinlock>");
 }
-#endif
+
+BOOST_AUTO_TEST_CASE(open_hash_index / atomic_linear_memory_policy / works / concurrent / shared, "Tests that the open_hash_index<atomic_linear_memory_policy> works as advertised")
+{
+  using namespace boost_lite::open_hash_index;
+  do_threaded_test<basic_open_hash_index<atomic_linear_memory_policy<unsigned, unsigned, 1, boost_lite::configurable_spinlock::shared_spinlock<uint32_t>>, array8192>>("basic_open_hash_index<atomic_linear_memory_policy, shared_spinlock>");
+}
+
+
+template <class MapType> void do_insert_erase_performance(MapType &cont, const char *desc)
+{
+  std::cout << "\nTesting map " << desc << " for single threaded insert/erase ..." << std::endl;
+  // Fill a bit
+  for(size_t n = 0; n < 4096; n++)
+    cont.insert(std::make_pair(input[n] >> 1, input[n]));
+  // Randomly add and remove values
+  auto begin = std::chrono::high_resolution_clock::now();
+  size_t i = 0;
+  do
+  {
+    for(size_t n = 0; n < ITEMS; n++)
+    {
+      if(input[n] & 1)
+        cont.insert(std::make_pair(input[n] >> 1, input[n]));
+      else
+        cont.erase(input[n] >> 1);
+    }
+    ++i;
+  } while(std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - begin).count() < 3);
+  auto end = std::chrono::high_resolution_clock::now();
+  std::cout << "   Map " << desc << " performed " << (unsigned long long) (i * ITEMS * 1000000.0 / std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - begin).count()) << "/sec" << std::endl;
+}
+
+template <class MapType> void do_find_performance(const MapType &cont, const char *desc)
+{
+  std::cout << "\nTesting map " << desc << " for single threaded lookup ..." << std::endl;
+  auto begin = std::chrono::high_resolution_clock::now();
+  size_t i = 0, found = 0;
+  do
+  {
+    for(size_t n = 0; n < ITEMS; n++)
+    {
+      if(cont.end() != cont.find(input[n] >> 1))
+        ++found;
+    }
+    ++i;
+  } while(std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - begin).count() < 3);
+  auto end = std::chrono::high_resolution_clock::now();
+  std::cout << "   Map " << desc << " performed " << (unsigned long long) (i * ITEMS * 1000000.0 / std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - begin).count()) << "/sec. Items were found " << (100.0 * found / (i * ITEMS)) << "% of the time." << std::endl;
+}
+
+BOOST_AUTO_TEST_CASE(open_hash_index / linear_memory_policy / performance, "Tests that the open_hash_index<linear_memory_policy> is fast")
+{
+  using namespace boost_lite::open_hash_index;
+  {
+    std::unordered_map<unsigned, unsigned> cont;
+    do_insert_erase_performance(cont, "unordered_map");
+    do_find_performance(cont, "unordered_map");
+  }
+  {
+    alignas(4096) basic_open_hash_index<linear_memory_policy<unsigned, unsigned, 1, arithmetic_modulus<unsigned>>, array8192> cont;
+    do_insert_erase_performance(cont, "basic_open_hash_index<linear_memory_policy, arithmetic_modulus>");
+    do_find_performance(cont, "basic_open_hash_index<linear_memory_policy, arithmetic_modulus>");
+  }
+  {
+    alignas(4096) basic_open_hash_index<linear_memory_policy<unsigned, unsigned, 1, twos_power_modulus<unsigned>>, array8192> cont;
+    do_insert_erase_performance(cont, "basic_open_hash_index<linear_memory_policy, twos_power_modulus>");
+    do_find_performance(cont, "basic_open_hash_index<linear_memory_policy, twos_power_modulus>");
+  }
+  {
+    alignas(4096) basic_open_hash_index<atomic_linear_memory_policy<unsigned, unsigned>, array8192> cont;
+    do_insert_erase_performance(cont, "basic_open_hash_index<atomic_linear_memory_policy, spinlock>");
+    do_find_performance(cont, "basic_open_hash_index<atomic_linear_memory_policy, spinlock>");
+  }
+  {
+    alignas(4096) basic_open_hash_index<atomic_linear_memory_policy<unsigned, unsigned, 1, boost_lite::configurable_spinlock::shared_spinlock<unsigned>>, array8192> cont;
+    do_insert_erase_performance(cont, "basic_open_hash_index<atomic_linear_memory_policy, shared_spinlock>");
+    do_find_performance(cont, "basic_open_hash_index<atomic_linear_memory_policy, shared_spinlock>");
+  }
+}
 
 BOOST_AUTO_TEST_SUITE_END()

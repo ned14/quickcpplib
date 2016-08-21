@@ -214,6 +214,7 @@ namespace configurable_spinlock
     //! Sets the atomic to zero
     void unlock() noexcept
     {
+      assert(v == 1);
       BOOSTLITE_ANNOTATE_RWLOCK_RELEASED(this, true);
       v.store(0, memory_order_release);
     }
@@ -455,6 +456,7 @@ namespace configurable_spinlock
     //! Releases the lock from exclusive access
     void unlock() noexcept
     {
+      assert(_v == 1);
       BOOSTLITE_ANNOTATE_RWLOCK_RELEASED(this, true);
       _v.store(0, memory_order_release);
     }
@@ -480,6 +482,7 @@ namespace configurable_spinlock
       for(size_t n = 0;; n++)
       {
         i = _v.fetch_or(1, memory_order_acquire);
+        assert(i > 1);
         if(!(i & 1))
           break;
         // For very heavily contended locks, stop thrashing the cache line
@@ -493,6 +496,19 @@ namespace configurable_spinlock
       i -= 2;
       i &= ~1;
       _v.store(i, memory_order_release);
+    }
+
+    //! Tries to convert an exclusive lock to a shared lock, returning true if successful.
+    bool try_convert_lock_to_shared() noexcept
+    {
+      value_type expected = 1;
+      return _v.compare_exchange_strong(expected, 2, memory_order_acquire, memory_order_relaxed);
+    }
+    //! Tries to convert a shared lock to an exclusive lock, returning true if successful.
+    bool try_convert_lock_to_exclusive() noexcept
+    {
+      value_type expected = 2;
+      return _v.compare_exchange_strong(expected, 1, memory_order_acquire, memory_order_relaxed);
     }
 
     bool int_yield(size_t) noexcept { return false; }
