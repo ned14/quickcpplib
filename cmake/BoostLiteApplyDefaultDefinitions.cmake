@@ -147,6 +147,13 @@ if(TARGET ${PROJECT_NAME}_dl)
   )
 endif()
 
+option(ENABLE_VALGRIND "Compiles in valgrind instrumentation such that locks are checked for correctness etc in optimised builds. Always on in Debug builds, defaults to off in optimised builds" OFF)
+if(ENABLE_VALGRIND)
+  all_compile_definitions(PUBLIC BOOSTLITE_ENABLE_VALGRIND=1)
+else()
+  all_compile_definitions(PUBLIC $<$<CONFIG:Debug>:BOOSTLITE_ENABLE_VALGRIND=1>)
+endif()
+
 if(WIN32)
   all_compile_definitions(PUBLIC _UNICODE UNICODE)                          # Unicode support
 endif()
