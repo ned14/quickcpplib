@@ -129,6 +129,10 @@
 #elif defined(__MINGW32__) || defined(__CYGWIN32__) \
       || (defined(_WIN32) && defined(_M_IX86))
 #  define PLAT_x86_win32 1
+// ned: C2 clang dislikey the inline asm
+#ifdef __c2__
+#    define NVALGRIND 1
+#endif
 #elif defined(__MINGW64__) || (defined(_WIN64) && defined(_M_X64))
 #  define PLAT_amd64_win64 1
 // ned: Looks like PLAT_amd64_win64 isn't really implemented
@@ -5056,6 +5060,7 @@ __inline
 VALGRIND_PRINTF(const char *format, ...)
 {
 #if defined(NVALGRIND)
+   (void)format;
    return 0;
 #else /* NVALGRIND */
 #if defined(_MSC_VER) || defined(__MINGW64__)
@@ -5094,6 +5099,7 @@ __inline
 VALGRIND_PRINTF_BACKTRACE(const char *format, ...)
 {
 #if defined(NVALGRIND)
+   (void) format;
    return 0;
 #else /* NVALGRIND */
 #if defined(_MSC_VER) || defined(__MINGW64__)

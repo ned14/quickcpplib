@@ -506,6 +506,7 @@ namespace ringbuffer_log
     container_type _store;
     level _level;
     std::atomic<size_type> _counter;
+    std::ostream *_immediate;
 
     size_type counter_to_idx(size_type counter) const noexcept { return max_items ? (counter % max_items) : (counter % _store.size()); }
   public:
@@ -515,6 +516,7 @@ namespace ringbuffer_log
         : _store(std::forward<Args>(args)...)
         , _level(starting_level)
         , _counter(0)
+        , _immediate(nullptr)
     {
     }
     //! No copying
@@ -531,6 +533,7 @@ namespace ringbuffer_log
       std::swap(_store, o._store);
       std::swap(_level, o._level);
       std::swap(_counter, o._counter);
+      std::swap(_immediate, o._immediate);
     }
 
     //! Returns the current log level
@@ -550,6 +553,10 @@ namespace ringbuffer_log
     }
     //! Returns the maximum number of items in the log
     size_type max_size() const noexcept { return max_items ? max_items : _store.size(); }
+    //! Returns any `std::ostream` immediately printed to when a new log entry is added
+    std::ostream *immediate() const noexcept { return _immediate; }
+    //! Set any `std::ostream` immediately printed to when a new log entry is added
+    void immediate(std::ostream *s) noexcept { _immediate = s; }
 
     //! Used to tag an index as being an absolute lookup of a unique counter value returned by push_back/emplace_back.
     struct unique_id
@@ -695,6 +702,8 @@ namespace ringbuffer_log
     {
       if(static_cast<level>(v.level) <= _level)
       {
+        if(_immediate)
+          *_immediate << v << std::endl;
         size_type thisitem = _counter++;
         v.counter = thisitem;
         _store[counter_to_idx(thisitem)] = std::move(v);
@@ -708,6 +717,8 @@ namespace ringbuffer_log
       if(__level <= _level)
       {
         value_type v(__level, std::forward<Args>(args)...);
+        if(_immediate)
+          *_immediate << v << std::endl;
         size_type thisitem = _counter++;
         v.counter = thisitem;
         _store[counter_to_idx(thisitem)] = std::move(v);
