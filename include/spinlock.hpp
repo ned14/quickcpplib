@@ -125,15 +125,19 @@ namespace configurable_spinlock
     BOOST_CXX14_CONSTEXPR spinlockbase() noexcept : v(0)
     {
       BOOSTLITE_ANNOTATE_RWLOCK_CREATE(this);
-      // v.store(0, memory_order_release);
+#if BOOSTLITE_IN_THREAD_SANITIZER
+      v.store(0, memory_order_release);
+#endif
     }
     spinlockbase(const spinlockbase &) = delete;
     //! Atomically move constructs
     BOOST_CXX14_CONSTEXPR spinlockbase(spinlockbase &&) noexcept : v(0)
     {
       BOOSTLITE_ANNOTATE_RWLOCK_CREATE(this);
-      // v.store(o.v.exchange(0, memory_order_acq_rel));
-      // v.store(0, memory_order_release);
+// v.store(o.v.exchange(0, memory_order_acq_rel));
+#if BOOSTLITE_IN_THREAD_SANITIZER
+      v.store(0, memory_order_release);
+#endif
     }
     ~spinlockbase()
     {
@@ -406,15 +410,19 @@ namespace configurable_spinlock
     BOOST_CXX14_CONSTEXPR shared_spinlockbase() noexcept : _v(0)
     {
       BOOSTLITE_ANNOTATE_RWLOCK_CREATE(this);
-      // v.store(0, memory_order_release);
+#if BOOSTLITE_IN_THREAD_SANITIZER
+      v.store(0, memory_order_release);
+#endif
     }
     shared_spinlockbase(const shared_spinlockbase &) = delete;
     //! Atomically move constructs
     shared_spinlockbase(shared_spinlockbase &&) noexcept : _v(0)
     {
       BOOSTLITE_ANNOTATE_RWLOCK_CREATE(this);
-      // v.store(o.v.exchange(0, memory_order_acq_rel));
-      // v.store(0, memory_order_release);
+// v.store(o.v.exchange(0, memory_order_acq_rel));
+#if BOOSTLITE_IN_THREAD_SANITIZER
+      v.store(0, memory_order_release);
+#endif
     }
     ~shared_spinlockbase()
     {
