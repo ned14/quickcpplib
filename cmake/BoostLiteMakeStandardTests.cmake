@@ -43,6 +43,7 @@ if(NOT PROJECT_IS_DEPENDENCY)
               target_link_libraries(${target_name} ${target})
               set_target_properties(${target_name} PROPERTIES
                 RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+                POSITION_INDEPENDENT_CODE ON
               )
               if(special STREQUAL "")
                 # FIXME: Cannot assume tests are using CATCH like this

@@ -155,6 +155,8 @@ else()
   all_compile_definitions(PUBLIC $<$<CONFIG:Debug>:BOOSTLITE_ENABLE_VALGRIND=1>)
 endif()
 
+all_target_properties(PROPERTIES POSITION_INDEPENDENT_CODE ON)
+
 if(WIN32)
   all_compile_definitions(PUBLIC _UNICODE UNICODE)                          # Unicode support
 endif()
