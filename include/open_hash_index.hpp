@@ -313,10 +313,10 @@ namespace open_hash_index
     {
       const value_type *_v;
       int _locked_type;
-      constexpr explicit const_pointer(const value_type *v = nullptr, bool exclusive_locked = false) noexcept : _v(v), _locked_type(exclusive_locked ? 2 : 1) {}
+      explicit const_pointer(const value_type *v = nullptr, bool exclusive_locked = false) noexcept : _v(v), _locked_type(exclusive_locked ? 2 : 1) { assert(!v || is_lockable_locked(v->lock)); }
       BOOST_CXX14_CONSTEXPR const_pointer(const_pointer &&o) noexcept : _v(o._v), _locked_type(o._locked_type) { o._v = nullptr; }
       const_pointer(const const_pointer &) = delete;
-      ~const_pointer()
+      void reset() noexcept
       {
         if(_v)
         {
@@ -327,6 +327,7 @@ namespace open_hash_index
           _locked_type = 0;
         }
       }
+      ~const_pointer() { reset(); }
       BOOST_CXX14_CONSTEXPR const_pointer &operator=(const_pointer &&o) noexcept
       {
         this->~const_pointer();
@@ -356,7 +357,7 @@ namespace open_hash_index
     };
     struct pointer : public const_pointer
     {
-      constexpr explicit pointer(value_type *v = nullptr) noexcept : const_pointer(v, true) {}
+      explicit pointer(value_type *v = nullptr) noexcept : const_pointer(v, true) {}
       BOOST_CXX14_CONSTEXPR pointer(pointer &&o) noexcept : const_pointer(std::move(o)) {}
       BOOST_CXX14_CONSTEXPR pointer &operator=(pointer &&o) noexcept
       {
@@ -464,7 +465,10 @@ namespace open_hash_index
         if(v->_inuse.compare_exchange_strong(expected, 2, std::memory_order_acquire, std::memory_order_relaxed))
         {
           ret = value_type(std::move(v->first), std::move(v->second));
-          v.~pointer();                                   // unlocks the item
+          assert(is_lockable_locked(v->lock));
+          VALGRIND_PRINTF("erase() 1 sees _p = %p locked=%d\n", v._v, v._locked_type);
+          v.reset();  // unlocks the item
+          VALGRIND_PRINTF("erase() 2 sees _p = %p locked=%d\n", v._v, v._locked_type);
           v->_inuse.store(0, std::memory_order_release);  // mark as unused
           return std::make_pair(std::move(ret), true);
         }
@@ -556,7 +560,7 @@ namespace open_hash_index
 
       iterator_ &_inc() noexcept
       {
-        if(_parent && _p <= &_parent->_store.back())
+        if(_parent && _p >= &_parent->_store.front() && _p <= &_parent->_store.back())
         {
           underlying_pointer_type p(_p);
           do
