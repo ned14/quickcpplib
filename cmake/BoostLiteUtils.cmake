@@ -197,6 +197,27 @@ function(UpdateRevisionHppFromGit hppfile)
   endif()
 endfunction()
 
+# Apply OpenMP to a given target. Add REQUIRED to make it mandatory.
+function(target_uses_openmp target)
+  find_package(OpenMP)
+  if(OPENMP_FOUND)
+    if(MSVC AND CLANG)
+      # Currently doesn't work
+    elseif(MSVC)
+      target_compile_options(${target} PRIVATE ${OpenMP_CXX_FLAGS})
+      return()
+    else()
+      target_compile_options(${target} PRIVATE ${OpenMP_CXX_FLAGS})
+      set_target_properties(${target} PROPERTIES LINK_FLAGS -fopenmp)
+      return()
+    endif()
+  endif()
+  list(FIND ARGN "REQUIRED" required_idx)
+  if(${required_idx} GREATER -1)
+    indented_message(FATAL_ERROR "FATAL: Target ${target} requires OpenMP")
+  endif()
+endfunction()
+
 # Finds a Boostish library
 #
 # Boostish libraries can be located via these means in order of preference:

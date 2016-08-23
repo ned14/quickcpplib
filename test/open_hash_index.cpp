@@ -246,7 +246,7 @@ template <class MapType> void do_insert_erase_performance(MapType &cont, const c
     ++i;
   } while(std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - begin).count() < 3);
   auto end = std::chrono::high_resolution_clock::now();
-  std::cout << "   Map " << desc << " performed " << (unsigned long long) (i * ITEMS * 1000000.0 / std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - begin).count()) << "/sec" << std::endl;
+  std::cout << "   Map " << desc << " performed " << (unsigned long long) (i * ITEMS * 1000000.0 / std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count()) << "/sec" << std::endl;
 }
 
 template <class MapType> void do_find_performance(const MapType &cont, const char *desc)
@@ -264,7 +264,7 @@ template <class MapType> void do_find_performance(const MapType &cont, const cha
     ++i;
   } while(std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - begin).count() < 3);
   auto end = std::chrono::high_resolution_clock::now();
-  std::cout << "   Map " << desc << " performed " << (unsigned long long) (i * ITEMS * 1000000.0 / std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - begin).count()) << "/sec. Items were found " << (100.0 * found / (i * ITEMS)) << "% of the time." << std::endl;
+  std::cout << "   Map " << desc << " performed " << (unsigned long long) (i * ITEMS * 1000000.0 / std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count()) << "/sec. Items were found " << (100.0 * found / (i * ITEMS)) << "% of the time." << std::endl;
 }
 
 BOOST_AUTO_TEST_CASE(open_hash_index / linear_memory_policy / performance, "Tests that the open_hash_index<linear_memory_policy> is fast")

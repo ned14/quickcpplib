@@ -603,8 +603,8 @@ namespace open_hash_index
       BOOST_CXX14_CONSTEXPR iterator_ &operator=(const iterator_ &) = default;
       BOOST_CXX14_CONSTEXPR iterator_ &operator=(iterator_ &&) noexcept = default;
       // Non-const to const iterator
-      template <class Parent, class Pointer, class Reference, typename = typename std::enable_if<std::is_same<Parent, Parent>::value && is_const, Parent>::type> constexpr iterator_(const iterator_<false, Parent, Pointer, Reference> &o) noexcept : _parent(o._parent), _p(o._p) {}
-      template <class Parent, class Pointer, class Reference, typename = typename std::enable_if<std::is_same<Parent, Parent>::value && is_const, Parent>::type> constexpr iterator_(iterator_<false, Parent, Pointer, Reference> &&o) noexcept : _parent(std::move(o._parent)), _p(std::move(o._p)) {}
+      template <class _Parent, class _Pointer, class _Reference, typename = typename std::enable_if<std::is_same<_Parent, _Parent>::value && is_const, _Parent>::type> constexpr iterator_(const iterator_<false, _Parent, _Pointer, _Reference> &o) noexcept : _parent(o._parent), _p(o._p) {}
+      template <class _Parent, class _Pointer, class _Reference, typename = typename std::enable_if<std::is_same<_Parent, _Parent>::value && is_const, _Parent>::type> constexpr iterator_(iterator_<false, _Parent, _Pointer, _Reference> &&o) noexcept : _parent(std::move(o._parent)), _p(std::move(o._p)) {}
       void swap(iterator_ &o) noexcept
       {
         std::swap(_parent, o._parent);

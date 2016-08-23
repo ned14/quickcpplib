@@ -2,6 +2,10 @@
 
 # Bring in CTest support
 include(CTest)
+# Bring in threads, this is after all the 21st century
+find_package(Threads)
+link_libraries(${CMAKE_THREAD_LIBS_INIT})
+
 # Scan this directory for library source code
 include(BoostLiteDeduceLibrarySources)
 
