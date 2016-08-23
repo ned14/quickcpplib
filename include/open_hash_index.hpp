@@ -324,6 +324,7 @@ namespace open_hash_index
             _v->lock.unlock();
           else if(1 == _locked_type)
             detail::unlock_shared_if<lock_type_is_shared>(_v->lock);
+          // IMPORTANT: DO NOT RESET _v TO NULLPTR!
           _locked_type = 0;
         }
       }
@@ -466,9 +467,7 @@ namespace open_hash_index
         {
           ret = value_type(std::move(v->first), std::move(v->second));
           assert(is_lockable_locked(v->lock));
-          VALGRIND_PRINTF("erase() 1 sees _p = %p locked=%d\n", v._v, v._locked_type);
-          v.reset();  // unlocks the item
-          VALGRIND_PRINTF("erase() 2 sees _p = %p locked=%d\n", v._v, v._locked_type);
+          v.reset();                                      // unlocks the item and makes the pointer no longer unlock on destruct
           v->_inuse.store(0, std::memory_order_release);  // mark as unused
           return std::make_pair(std::move(ret), true);
         }

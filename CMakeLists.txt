@@ -8,6 +8,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(BoostLiteRequireOutOfSourceBuild)
 include(BoostLiteUtils)
 include(BoostLitePolicies)
+indented_message(STATUS "CMAKE_BUILD_TYPE = ${CMAKE_BUILD_TYPE}")
 
 # Sets the usual PROJECT_NAME etc
 project(boost-lite VERSION 0.1.0.0 LANGUAGES CXX)
@@ -40,8 +41,8 @@ list_filter(boost-lite_TESTS EXCLUDE REGEX "test_.*\\.cpp|bind.cpp")
 include(BoostLiteMakeStandardTests)
 
 # The spinlock_tribool test needs OpenMP
-if(TARGET boost-lite_hl-spinlock_tribool)
-  target_uses_openmp(boost-lite_hl-spinlock_tribool)
+if(TARGET boost-lite_hl--spinlock_tribool)
+  target_uses_openmp(boost-lite_hl--spinlock_tribool)
 endif()
 
 # Make available this library for install and export
