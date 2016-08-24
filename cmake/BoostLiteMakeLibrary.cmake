@@ -38,6 +38,9 @@ add_library(${PROJECT_NAME}_sl STATIC ${${PROJECT_NAME}_HEADERS} ${${PROJECT_NAM
 list(APPEND ${PROJECT_NAME}_TARGETS ${PROJECT_NAME}_sl)
 foreach(special ${SPECIAL_BUILDS})
   add_library(${PROJECT_NAME}_sl-${special} STATIC EXCLUDE_FROM_ALL ${${PROJECT_NAME}_HEADERS} ${${PROJECT_NAME}_SOURCES})
+  set_target_properties(${PROJECT_NAME}_sl-${special} PROPERTIES
+    EXCLUDE_FROM_DEFAULT_BUILD ON
+  )
   target_compile_options(${PROJECT_NAME}_sl-${special} PRIVATE ${${special}_COMPILE_FLAGS})
   list(APPEND ${PROJECT_NAME}_${special}_TARGETS ${PROJECT_NAME}_sl-${special})
 endforeach()
@@ -56,7 +59,10 @@ add_library(${PROJECT_NAME}_dl SHARED ${${PROJECT_NAME}_HEADERS} ${${PROJECT_NAM
 list(APPEND ${PROJECT_NAME}_TARGETS ${PROJECT_NAME}_dl)
 foreach(special ${SPECIAL_BUILDS})
   add_library(${PROJECT_NAME}_dl-${special} SHARED EXCLUDE_FROM_ALL ${${PROJECT_NAME}_HEADERS} ${${PROJECT_NAME}_SOURCES})
-  set_target_properties(${target_name} PROPERTIES LINK_FLAGS ${${special}_COMPILE_FLAGS})
+  set_target_properties(${PROJECT_NAME}_dl-${special} PROPERTIES
+    EXCLUDE_FROM_DEFAULT_BUILD ON
+    LINK_FLAGS ${${special}_COMPILE_FLAGS}
+  )
   target_compile_options(${PROJECT_NAME}_dl-${special} PRIVATE ${${special}_COMPILE_FLAGS})
   list(APPEND ${PROJECT_NAME}_${special}_TARGETS ${PROJECT_NAME}_dl-${special})
 endforeach()

@@ -24,10 +24,17 @@ if(NOT DEFINED GCC)
 endif()
 #message(STATUS "CMAKE_CXX_COMPILER_ID=${CMAKE_CXX_COMPILER_ID} MSVC=${MSVC} CLANG=${CLANG} GCC=${GCC}")
 
+set(SPECIAL_BUILDS)  ## Used to add optional build targets for every build target
+
+# Configure the static analyser build
+if(MSVC AND NOT CLANG)
+  list(APPEND SPECIAL_BUILDS sa)
+    set(sa_COMPILE_FLAGS /analyze)
+endif()
+
 if(GCC OR CLANG)
   # Does this compiler have the santisers?
   include(CheckCXXSourceCompiles)
-  set(SPECIAL_BUILDS)  ## Used to add optional build targets for every build target
   set(CMAKE_REQUIRED_FLAGS "-fsanitize=address")
   check_cxx_source_compiles("int main() { return 0; }" COMPILER_HAS_ASAN)
   if(COMPILER_HAS_ASAN)

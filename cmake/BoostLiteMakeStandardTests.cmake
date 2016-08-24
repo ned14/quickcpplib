@@ -54,6 +54,7 @@ if(NOT PROJECT_IS_DEPENDENCY)
                 add_test(NAME ${target_name} COMMAND $<TARGET_FILE:${target_name}> CONFIGURATIONS ${special})
                 set_target_properties(${target_name} PROPERTIES
                   EXCLUDE_FROM_ALL ON
+                  EXCLUDE_FROM_DEFAULT_BUILD ON
                   LINK_FLAGS ${${special}_COMPILE_FLAGS}
                 )
                 target_compile_options(${target_name} PRIVATE ${${special}_COMPILE_FLAGS})
