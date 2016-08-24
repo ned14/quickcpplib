@@ -40,29 +40,6 @@ BOOSTLITE_NAMESPACE_BEGIN
 
 namespace open_hash_index
 {
-  //! \brief A STL compatible hash based on the high quality FNV1 hash algorith,
-  template <class T> struct fnv1a_hash
-  {
-    size_t operator()(T v) const
-    {
-#if defined(__x86_64__) || defined(_M_X64) || defined(__aarch64__) || defined(__ia64__) || defined(_M_IA64) || defined(__ppc64__)
-      static constexpr size_t basis = 14695981039346656037ULL, prime = 1099511628211ULL;
-      static_assert(sizeof(size_t) == 8, "size_t is not 64 bit");
-#else
-      static constexpr size_t basis = 2166136261U, prime = 16777619U;
-      static_assert(sizeof(size_t) == 4, "size_t is not 32 bit");
-#endif
-      const unsigned char *_v = (const unsigned char *) &v;
-      size_t ret = basis;
-      for(size_t n = 0; n < sizeof(T); n++)
-      {
-        ret ^= (size_t) _v[n];
-        ret *= prime;
-      }
-      return ret;
-    }
-  };
-
   namespace detail
   {
     template <size_t limit, class Container, class U> auto linear_find(Container &c, size_t hint, U &&pred) -> decltype(&c[0])
