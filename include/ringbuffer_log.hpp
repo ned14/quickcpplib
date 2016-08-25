@@ -89,6 +89,12 @@ namespace ringbuffer_log
     all
   };
 
+  //! Returns a const char * no more than 190 chars from its end
+  template <class T> inline const char *last190(const T &v)
+  {
+    size_t size = v.size();
+    return size <= 190 ? v.data() : v.data() + (size - 190);
+  }
   namespace simple_ringbuffer_log_policy_detail
   {
     using level_ = level;

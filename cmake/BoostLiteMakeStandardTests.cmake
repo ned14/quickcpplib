@@ -28,8 +28,9 @@ if(NOT PROJECT_IS_DEPENDENCY)
               list(APPEND thistestsources ${testnonsource})
             endif()
           endforeach()
-          foreach(target ${${PROJECT_NAME}_TARGETS})
+          foreach(_target ${${PROJECT_NAME}_TARGETS})
             foreach(special ${SPECIAL_BUILDS} "")
+              set(target ${_target})
               if(special STREQUAL "")
                 set(target_name "${target}--${testname}")
               else()
@@ -55,8 +56,12 @@ if(NOT PROJECT_IS_DEPENDENCY)
                 set_target_properties(${target_name} PROPERTIES
                   EXCLUDE_FROM_ALL ON
                   EXCLUDE_FROM_DEFAULT_BUILD ON
-                  LINK_FLAGS ${${special}_COMPILE_FLAGS}
                 )
+                if(DEFINED ${special}_LINK_FLAGS)
+                  set_target_properties(${target_name} PROPERTIES
+                    LINK_FLAGS ${${special}_LINK_FLAGS}
+                  )
+                endif()
                 target_compile_options(${target_name} PRIVATE ${${special}_COMPILE_FLAGS})
                 list(APPEND ${PROJECT_NAME}_${special}_TARGETS ${target_name})
               endif()
