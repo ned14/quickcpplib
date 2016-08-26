@@ -39,7 +39,13 @@ namespace algorithm
 {
   namespace hash
   {
-    //! \brief A STL compatible hash based on the high quality FNV1 hash algorith,
+    //! \brief A STL compatible hash which passes through its input
+    template <class T> struct passthru_hash
+    {
+      size_t operator()(T v) const { return static_cast<size_t>(v); }
+    };
+
+    //! \brief A STL compatible hash based on the high quality FNV1 hash algorithm
     template <class T> struct fnv1a_hash
     {
       size_t operator()(T v) const
