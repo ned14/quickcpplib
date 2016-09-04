@@ -39,7 +39,7 @@ BOOSTLITE_NAMESPACE_BEGIN
 
 namespace bitfield
 {
-  /*! \struct bitfield
+  /*!
   \brief Constexpr typesafe bitwise flags support
 
   Usage:

@@ -72,6 +72,12 @@
 #define BOOSTLITE_IN_THREAD_SANITIZER 0
 #endif
 
+#if BOOSTLITE_IN_THREAD_SANITIZER
+#define BOOSTLITE_DISABLE_THREAD_SANITIZE __attribute__((no_sanitize_thread))
+#else
+#define BOOSTLITE_DISABLE_THREAD_SANITIZE
+#endif
+
 #ifndef BOOSTLITE_THREAD_LOCAL
 #ifdef __cpp_thread_local
 #define BOOSTLITE_THREAD_LOCAL thread_local
