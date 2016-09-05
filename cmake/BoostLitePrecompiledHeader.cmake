@@ -63,6 +63,9 @@ function(add_precompiled_header outvar headerpath)
     set_source_files_properties(${sources} PROPERTIES
       LANGUAGE CXX
     )
+    set_target_properties(${outvar}_pch PROPERTIES
+      POSITION_INDEPENDENT_CODE ON
+    )
     if(CLANG)
       if(MSVC)
         target_compile_options(${outvar} INTERFACE -Winvalid-pch -include-pch ${CMAKE_CURRENT_BINARY_DIR}/${outvar}_pch.dir/$<CONFIG>/${header_noext}.obj)
