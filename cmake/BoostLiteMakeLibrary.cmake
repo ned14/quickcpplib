@@ -14,6 +14,14 @@ if(NOT DEFINED ${PROJECT_NAME}_SOURCES)
                       "Perhaps you meant BoostLiteMakeHeaderOnlyLibrary?")
 endif()
 
+# Create a custom target, if one does not yet exist, for all _sl and _dl
+if(NOT TARGET _sl)
+  add_custom_target(_sl COMMENT "Building all static library based code ...")
+endif()
+if(NOT TARGET _dl)
+  add_custom_target(_dl COMMENT "Building all dynamic library based code ...")
+endif()
+
 if(WIN32)
   function(check_if_cmake_incomplete target md5 path)
     string(REPLACE "/" "\\" TEMPFILE "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}\\boostlite_cmake_tempfile_${target}.txt")
@@ -35,12 +43,13 @@ else()
 endif()
 
 add_library(${PROJECT_NAME}_sl STATIC ${${PROJECT_NAME}_HEADERS} ${${PROJECT_NAME}_SOURCES})
+##if(PROJECT_IS_DEPENDENCY)
+  set_target_properties(${PROJECT_NAME}_sl PROPERTIES EXCLUDE_FROM_ALL ON)
+##endif()
+add_dependencies(_sl ${PROJECT_NAME}_sl)
 list(APPEND ${PROJECT_NAME}_TARGETS ${PROJECT_NAME}_sl)
 foreach(special ${SPECIAL_BUILDS})
   add_library(${PROJECT_NAME}_sl-${special} STATIC EXCLUDE_FROM_ALL ${${PROJECT_NAME}_HEADERS} ${${PROJECT_NAME}_SOURCES})
-  set_target_properties(${PROJECT_NAME}_sl-${special} PROPERTIES
-    EXCLUDE_FROM_DEFAULT_BUILD ON
-  )
   target_compile_options(${PROJECT_NAME}_sl-${special} PRIVATE ${${special}_COMPILE_FLAGS})
   list(APPEND ${PROJECT_NAME}_${special}_TARGETS ${PROJECT_NAME}_sl-${special})
 endforeach()
@@ -56,12 +65,13 @@ else()
 endif()
 
 add_library(${PROJECT_NAME}_dl SHARED ${${PROJECT_NAME}_HEADERS} ${${PROJECT_NAME}_SOURCES})
+##if(PROJECT_IS_DEPENDENCY)
+  set_target_properties(${PROJECT_NAME}_dl PROPERTIES EXCLUDE_FROM_ALL ON)
+##endif()
+add_dependencies(_dl ${PROJECT_NAME}_dl)
 list(APPEND ${PROJECT_NAME}_TARGETS ${PROJECT_NAME}_dl)
 foreach(special ${SPECIAL_BUILDS})
   add_library(${PROJECT_NAME}_dl-${special} SHARED EXCLUDE_FROM_ALL ${${PROJECT_NAME}_HEADERS} ${${PROJECT_NAME}_SOURCES})
-  set_target_properties(${PROJECT_NAME}_dl-${special} PROPERTIES
-    EXCLUDE_FROM_DEFAULT_BUILD ON
-  )
   if(DEFINED ${special}_LINK_FLAGS)
     set_target_properties(${PROJECT_NAME}_dl-${special} PROPERTIES
       LINK_FLAGS ${${special}_LINK_FLAGS}

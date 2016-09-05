@@ -9,6 +9,10 @@ if(NOT DEFINED ${PROJECT_NAME}_HEADERS)
 endif()
 include(BoostLitePrecompiledHeader)
 
+if(NOT TARGET _hl)
+  add_custom_target(_hl COMMENT "Building all header-only library based code ...")
+endif()
+
 function(target_append_header_only_sources tgt)
   set(sources)
   foreach(header ${${PROJECT_NAME}_HEADERS})
