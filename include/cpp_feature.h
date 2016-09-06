@@ -32,11 +32,195 @@ DEALINGS IN THE SOFTWARE.
 #ifndef BOOSTLITE_HAS_FEATURE_H
 #define BOOSTLITE_HAS_FEATURE_H
 
+#if __cplusplus >= 201103L
+
+#if !defined(__cpp_alias_templates)
+#define __cpp_alias_templates 190000
+#endif
+
+#if !defined(__cpp_alignas)
+#define __cpp_alignas 190000
+#endif
+
+#if !defined(__cpp_attributes)
+#define __cpp_attributes 190000
+#endif
+
+#if !defined(__cpp_constexpr)
+#define __cpp_constexpr 190000
+#endif
+
+#if !defined(__cpp_decltype)
+#define __cpp_decltype 190000
+#endif
+
+#if !defined(__cpp_default_function_template_args)
+#define __cpp_default_function_template_args 190000
+#endif
+
+#if !defined(__cpp_defaulted_functions)
+#define __cpp_defaulted_functions 190000
+#endif
+
+#if !defined(__cpp_delegating_constructors)
+#define __cpp_delegating_constructors 190000
+#endif
+
+#if !defined(__cpp_deleted_functions)
+#define __cpp_deleted_functions 190000
+#endif
+
+#if !defined(__cpp_explicit_conversions)
+#define __cpp_explicit_conversions 190000
+#endif
+
+#if !defined(__cpp_generalized_initializers)
+#define __cpp_generalized_initializers 190000
+#endif
+
+#if !defined(__cpp_implicit_moves)
+#define __cpp_implicit_moves 190000
+#endif
+
+#if !defined(__cpp_inheriting_constructors)
+#define __cpp_inheriting_constructors 190000
+#endif
+
+#if !defined(__cpp_inline_namespaces)
+#define __cpp_inline_namespaces 190000
+#endif
+
+#if !defined(__cpp_lambdas)
+#define __cpp_lambdas 190000
+#endif
+
+#if !defined(__cpp_local_type_template_args)
+#define __cpp_local_type_template_args 190000
+#endif
+
+#if !defined(__cpp_noexcept)
+#define __cpp_noexcept 190000
+#endif
+
+#if !defined(__cpp_nonstatic_member_init)
+#define __cpp_nonstatic_member_init 190000
+#endif
+
+#if !defined(__cpp_nullptr)
+#define __cpp_nullptr 190000
+#endif
+
+#if !defined(__cpp_override_control)
+#define __cpp_override_control 190000
+#endif
+
+#if !defined(__cpp_reference_qualified_functions)
+#define __cpp_reference_qualified_functions 190000
+#endif
+
+#if !defined(__cpp_range_for)
+#define __cpp_range_for 190000
+#endif
+
+#if !defined(__cpp_raw_strings)
+#define __cpp_raw_strings 190000
+#endif
+
+#if !defined(__cpp_rvalue_references)
+#define __cpp_rvalue_references 190000
+#endif
+
+#if !defined(__cpp_static_assert)
+#define __cpp_static_assert 190000
+#endif
+
+#if !defined(__cpp_thread_local)
+#define __cpp_thread_local 190000
+#endif
+
+#if !defined(__cpp_auto_type)
+#define __cpp_auto_type 190000
+#endif
+
+#if !defined(__cpp_strong_enums)
+#define __cpp_strong_enums 190000
+#endif
+
+#if !defined(__cpp_trailing_return)
+#define __cpp_trailing_return 190000
+#endif
+
+#if !defined(__cpp_unicode_literals)
+#define __cpp_unicode_literals 190000
+#endif
+
+#if !defined(__cpp_unrestricted_unions)
+#define __cpp_unrestricted_unions 190000
+#endif
+
+#if !defined(__cpp_user_defined_literals)
+#define __cpp_user_defined_literals 190000
+#endif
+
+#if !defined(__cpp_variadic_templates)
+#define __cpp_variadic_templates 190000
+#endif
+
+#endif
+
+#if __cplusplus >= 201402L
+
+#if !defined(__cpp_binary_literals)
+#define __cpp_binary_literals 190000
+#endif
+
+#if !defined(__cpp_contextual_conversions)
+#define __cpp_contextual_conversions 190000
+#endif
+
+#if !defined(__cpp_decltype_auto)
+#define __cpp_decltype_auto 190000
+#endif
+
+#if !defined(__cpp_aggregate_nsdmi)
+#define __cpp_aggregate_nsdmi 190000
+#endif
+
+#if !defined(__cpp_digit_separators)
+#define __cpp_digit_separators 190000
+#endif
+
+#if !defined(__cpp_init_captures)
+#define __cpp_init_captures 190000
+#endif
+
+#if !defined(__cpp_generic_lambdas)
+#define __cpp_generic_lambdas 190000
+#endif
+
+#if !defined(__cpp_relaxed_constexpr)
+#define __cpp_relaxed_constexpr 190000
+#endif
+
+#if !defined(__cpp_return_type_deduction)
+#define __cpp_return_type_deduction 190000
+#endif
+
+//#if !defined(__cpp_runtime_arrays)
+//# define __cpp_runtime_arrays 190000
+//#endif
+
+#if !defined(__cpp_variable_templates)
+#define __cpp_variable_templates 190000
+#endif
+
+#endif
+
 // VS2010: _MSC_VER=1600
 // VS2012: _MSC_VER=1700
 // VS2013: _MSC_VER=1800
 // VS2015: _MSC_VER=1900
-#ifdef _MSC_VER
+#if defined(_MSC_VER) && !defined(__clang__)
 
 #if !defined(__cpp_exceptions) && defined(_CPPUNWIND)
 #define __cpp_exceptions 190000
@@ -445,11 +629,11 @@ DEALINGS IN THE SOFTWARE.
 
 #define BOOSTLITE_CLANG (__clang_major__ * 10000 + __clang_minor__ * 100 + __clang_patchlevel__)
 
-#if !defined(__cpp_exceptions) && defined(__EXCEPTIONS)
+#if !defined(__cpp_exceptions) && (defined(__EXCEPTIONS) || defined(_CPPUNWIND))
 #define __cpp_exceptions 190000
 #endif
 
-#if !defined(__cpp_rtti) && defined(__GXX_RTTI)
+#if !defined(__cpp_rtti) && (defined(__GXX_RTTI) || defined(_CPPRTTI))
 #define __cpp_rtti 190000
 #endif
 
