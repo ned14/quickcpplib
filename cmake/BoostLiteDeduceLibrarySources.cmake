@@ -43,16 +43,19 @@ else()
   include(BoostLiteUtils)
   indented_message(STATUS "Cached scan of project ${PROJECT_NAME} not found! Starting scan ...")
   # TODO: Is this the same as ${PROJECT_NAME}_SOURCE_DIR and therefore is redundant?
-  set(${PROJECT_NAME}_PATH ${CMAKE_CURRENT_SOURCE_DIR}
+  set(${PROJECT_NAME}_PATH "${CMAKE_CURRENT_SOURCE_DIR}"
     CACHE PATH "The path to the base of the ${PROJECT_NAME} project")
   if(NOT ${PROJECT_NAME}_INTERFACE_DISABLED)
-    set(${PROJECT_NAME}_INTERFACE ${PROJECT_DIR}/${PROJECT_NAME}.hpp)
+    set(${PROJECT_NAME}_INTERFACE "${PROJECT_DIR}/${PROJECT_NAME}.hpp")
     if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/include/${${PROJECT_NAME}_INTERFACE}")
       indented_message(FATAL_ERROR "FATAL: No master interface header file found at include/${${PROJECT_NAME}_INTERFACE}. "
                           "You need a master interface header file at that location if you are to make available "
                           "your library as a C++ Module or as a precompiled header. If your library can never "
                           "support a master interface header file, set ${PROJECT_NAME}_INTERFACE_DISABLED to ON."
       )
+    endif()
+    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/${PROJECT_NAME}.ixx")
+      set(${PROJECT_NAME}_INTERFACE_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/${PROJECT_NAME}.ixx")
     endif()
   endif()
   indented_message(STATUS "  Recursively scanning ${CMAKE_CURRENT_SOURCE_DIR}/include for header files ...")
@@ -173,6 +176,10 @@ else()
   if(DEFINED ${PROJECT_NAME}_INTERFACE)
     set(${PROJECT_NAME}_INTERFACE ${${PROJECT_NAME}_INTERFACE}
       CACHE FILEPATH "The path to the precompilable master header file for the ${PROJECT_NAME} project")
+  endif()
+  if(DEFINED ${PROJECT_NAME}_INTERFACE_SOURCE)
+    set(${PROJECT_NAME}_INTERFACE_SOURCE ${${PROJECT_NAME}_INTERFACE_SOURCE}
+      CACHE FILEPATH "The path to the master C++ Module source file for the ${PROJECT_NAME} project")
   endif()
   set(${PROJECT_NAME}_HEADERS ${${PROJECT_NAME}_HEADERS}
     CACHE PATH "The path to the header files for the ${PROJECT_NAME} project")

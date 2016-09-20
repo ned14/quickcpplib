@@ -45,24 +45,32 @@ function(default_header_only_interface_library reason)
   endif()
 endfunction()
 
+# Do we have C++ Modules support on this compiler?
+if(NOT DEFINED ENABLE_CXX_MODULES)
+  if(MSVC_VERSION VERSION_GREATER 1999)  # VS2017
+    option(ENABLE_CXX_MODULES "Enable C++ Modules support in this build (defaults to ON on a sufficiently recent MSVC)" ON)
+  else()
+    option(ENABLE_CXX_MODULES "Enable C++ Modules support in this build (defaults to ON on a sufficiently recent MSVC)" OFF)
+  endif()
+endif()
 if(${PROJECT_NAME}_INTERFACE_DISABLED)
   default_header_only_interface_library("this project not providing a master interface header file")
 elseif(CMAKE_VERSION VERSION_LESS 3.3)
   default_header_only_interface_library("using a cmake before v3.3")
-elseif(MSVC)
-  if(NOT CLANG)
-    if(MSVC_VERSION VERSION_GREATER 1999) # VS2017
-      # Add a C++ Module for the PCH header file
-      add_cxx_module(${PROJECT_NAME}_hl ${${PROJECT_NAME}_INTERFACE})
-    else()
-      # MSVC can't share precompiled headers between targets
-      # so fall back onto an interface library
-      default_header_only_interface_library("this MSVC does not sufficiently support C++ Modules, and MSVC cannot share precompiled headers between targets")
-    endif()
+elseif(ENABLE_CXX_MODULES AND DEFINED ${PROJECT_NAME}_INTERFACE_SOURCE)  # This library provides a C++ Module source file
+  # Add a C++ Module for the PCH header file
+  indented_message(STATUS "Compiling ${${PROJECT_NAME}_INTERFACE_SOURCE} into a C++ Module for the ${PROJECT_NAME}_hl target")
+  add_cxx_module(${PROJECT_NAME}_hl ${${PROJECT_NAME}_INTERFACE_SOURCE})
+elseif(MSVC AND NOT CLANG)
+  # MSVC can't share precompiled headers between targets so fall back onto an interface library
+  if(DEFINED ${PROJECT_NAME}_INTERFACE_SOURCE)
+    default_header_only_interface_library("this MSVC does not sufficiently support C++ Modules, and MSVC cannot share precompiled headers between targets")
   else()
-    # C2 clang has broken precompiled headers currently
-    default_header_only_interface_library("this winclang has broken precompiled headers support")
+    default_header_only_interface_library("this project not providing a C++ Module source file, and MSVC cannot share precompiled headers between targets")
   endif()
+elseif(MSVC AND CLANG)
+  # C2 clang has broken precompiled headers currently
+  default_header_only_interface_library("this winclang has broken precompiled headers support")
 elseif(NOT PROJECT_IS_DEPENDENCY)
   # Add a precompiled header for the PCH header file
   add_precompiled_header(${PROJECT_NAME}_hl ${${PROJECT_NAME}_INTERFACE})

@@ -97,37 +97,29 @@ endfunction()
 # Adds an object library target which generates a C++ Module,
 # storing into outvar an interface library with the appropriate markup
 # to use the C++ Module
-function(add_cxx_module outvar headerpath)
+function(add_cxx_module outvar ixxpath)
   # cmake 3.3 is needed for this function to work (adding dependencies to an INTERFACE target)
   if(CMAKE_VERSION VERSION_LESS 3.3)
     indented_message(FATAL_ERROR "cmake v3.3 is required to use the add_cxx_module() function")
   endif()
-  get_filename_component(header "${headerpath}" NAME)
-  set(sources "include/${headerpath}")
-  if(MSVC AND NOT CLANG)
-    # MSVC C++ Module generation requires a source file to include the header
-    # so we'll need to generate one
-    file(WRITE "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${header}_cxx_module_gen.cpp"
-      "#include \"${headerpath}\"\n")
-    list(APPEND sources "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${header}_cxx_module_gen.cpp")
-  endif()
-  add_library(${outvar}_cxx_module OBJECT ${sources})
+  add_library(${outvar}_ixx OBJECT "${ixxpath}")
+  set_source_files_properties("${ixxpath}" PROPERTIES
+      LANGUAGE CXX
+  )
   add_library(${outvar} INTERFACE)
   # This bit needs >= cmake 3.3
-  add_dependencies(${outvar} ${outvar}_cxx_module)
+  add_dependencies(${outvar} ${outvar}_ixx)
   # Whatever interface properties are set onto ${outvar} must also be set onto the C++ Module
-  set_target_properties(${outvar}_cxx_module PROPERTIES
+  set_target_properties(${outvar}_ixx PROPERTIES
     COMPILE_DEFINITIONS $<TARGET_PROPERTY:${outvar},INTERFACE_COMPILE_DEFINITIONS>
     COMPILE_FEATURES $<TARGET_PROPERTY:${outvar},INTERFACE_COMPILE_FEATURES>
     # Can't propagate options else the include of myself into dependencies gets propagated too :(
     #COMPILE_OPTIONS $<TARGET_PROPERTY:${outvar},INTERFACE_COMPILE_OPTIONS>
-    INCLUDE_DIRECTORIES $<TARGET_PROPERTY:${outvar},INTERFACE_INCLUDE_DIRECTORIES>
+    #INCLUDE_DIRECTORIES $<TARGET_PROPERTY:${outvar},INTERFACE_INCLUDE_DIRECTORIES>
   )
   if(MSVC AND NOT CLANG)
-    NativisePath(ifcpath ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_v${PROJECT_VERSION_MAJOR}_${PROJECT_VERSION_MINOR})
-    target_compile_options(${outvar}_cxx_module PUBLIC /experimental:module /D__cpp_modules=1)
-    target_compile_options(${outvar}_cxx_module PRIVATE /DGENERATING_CXX_MODULE_INTERFACE /module:name ${ifcpath} /module:export ${CMAKE_CURRENT_SOURCE_DIR}/include/${headerpath})
-    target_compile_options(${outvar} INTERFACE /experimental:module /D__cpp_modules=1)
+    target_compile_options(${outvar}_ixx PRIVATE /experimental:module /D__cpp_modules=1)
+    target_compile_options(${outvar} INTERFACE /experimental:module /D__cpp_modules=1 /module:search ${CMAKE_CURRENT_BINARY_DIR}/${outvar}_ixx.dir/$<CONFIG>)
   else()
     indented_message(FATAL_ERROR "FATAL: C++ Modules not implemented for compilers other than MSVC yet")
   endif()
