@@ -1,5 +1,5 @@
+#include "../include/algorithm/open_hash_index.hpp"
 #include "../include/boost/test/unit_test.hpp"
-#include "../include/open_hash_index.hpp"
 
 #include <array>
 #include <random>
@@ -137,19 +137,19 @@ template <class T> using array8192 = std::array<T, 8192>;
 void test_traits()
 {
   using namespace boost_lite::configurable_spinlock;
-  static_assert(!boost_lite::open_hash_index::detail::is_shared_mutex<spinlock<bool>>::value, "");
-  static_assert(boost_lite::open_hash_index::detail::is_shared_mutex<shared_spinlock<bool>>::value, "");
+  static_assert(!boost_lite::algorithm::open_hash_index::detail::is_shared_mutex<spinlock<bool>>::value, "");
+  static_assert(boost_lite::algorithm::open_hash_index::detail::is_shared_mutex<shared_spinlock<bool>>::value, "");
 }
 
 BOOST_AUTO_TEST_CASE(open_hash_index / linear_memory_policy / works, "Tests that the open_hash_index<linear_memory_policy> works as advertised")
 {
-  using namespace boost_lite::open_hash_index;
+  using namespace boost_lite::algorithm::open_hash_index;
   do_test<basic_open_hash_index<linear_memory_policy<size_t, int, 5, arithmetic_modulus<size_t>, std::equal_to<unsigned>>, array5>>();
 }
 
 BOOST_AUTO_TEST_CASE(open_hash_index / atomic_linear_memory_policy / works / single, "Tests that the open_hash_index<atomic_linear_memory_policy> works as advertised")
 {
-  using namespace boost_lite::open_hash_index;
+  using namespace boost_lite::algorithm::open_hash_index;
   do_test<basic_open_hash_index<atomic_linear_memory_policy<size_t, int, 5, boost_lite::configurable_spinlock::spinlock<uint32_t>, arithmetic_modulus<size_t>, std::equal_to<unsigned>>, array5, true>>();
 }
 
@@ -210,7 +210,7 @@ template <class OpenHashIndex> void do_threaded_test(const char *desc)
 
 BOOST_AUTO_TEST_CASE(open_hash_index / atomic_linear_memory_policy / works / concurrent / exclusive, "Tests that the open_hash_index<atomic_linear_memory_policy> works as advertised")
 {
-  using namespace boost_lite::open_hash_index;
+  using namespace boost_lite::algorithm::open_hash_index;
   std::mt19937 randomness;
   std::cout << "\nPreparing randomness ..." << std::endl;
   for(size_t n = 0; n < input.size(); n++)
@@ -220,7 +220,7 @@ BOOST_AUTO_TEST_CASE(open_hash_index / atomic_linear_memory_policy / works / con
 
 BOOST_AUTO_TEST_CASE(open_hash_index / atomic_linear_memory_policy / works / concurrent / shared, "Tests that the open_hash_index<atomic_linear_memory_policy> works as advertised")
 {
-  using namespace boost_lite::open_hash_index;
+  using namespace boost_lite::algorithm::open_hash_index;
   do_threaded_test<basic_open_hash_index<atomic_linear_memory_policy<unsigned, unsigned, 1, boost_lite::configurable_spinlock::shared_spinlock<uint32_t>>, array8192>>("basic_open_hash_index<atomic_linear_memory_policy, shared_spinlock>");
 }
 
@@ -269,7 +269,7 @@ template <class MapType> void do_find_performance(const MapType &cont, const cha
 
 BOOST_AUTO_TEST_CASE(open_hash_index / linear_memory_policy / performance, "Tests that the open_hash_index<linear_memory_policy> is fast")
 {
-  using namespace boost_lite::open_hash_index;
+  using namespace boost_lite::algorithm::open_hash_index;
   {
     std::unordered_map<unsigned, unsigned> cont;
     do_insert_erase_performance(cont, "unordered_map");

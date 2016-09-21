@@ -48,7 +48,6 @@ BOOSTLITE_NAMESPACE_BEGIN
 namespace configurable_spinlock
 {
   template <class T> using atomic = std::atomic<T>;
-  template <class T> using lock_guard = std::lock_guard<T>;
   namespace chrono = std::chrono;
   namespace this_thread = std::this_thread;
   using std::memory_order;
@@ -58,6 +57,23 @@ namespace configurable_spinlock
   using std::memory_order_release;
   using std::memory_order_acq_rel;
   using std::memory_order_seq_cst;
+
+  template <class T> class lock_guard
+  {
+    T *_m;
+
+  public:
+    using mutex_type = T;
+    explicit lock_guard(mutex_type &m) noexcept : _m(&m) { _m->lock(); }
+    explicit lock_guard(mutex_type &&m) noexcept : _m(&m) { _m->lock(); }
+    lock_guard(const lock_guard &) = delete;
+    lock_guard(lock_guard &&o) noexcept : _m(std::move(o._m)) { o._m = nullptr; }
+    ~lock_guard()
+    {
+      if(_m)
+        _m->unlock();
+    }
+  };
 
   namespace detail
   {
@@ -218,7 +234,7 @@ namespace configurable_spinlock
     //! Sets the atomic to zero
     void unlock() noexcept
     {
-      assert(v == 1);
+      // assert(v == 1);
       BOOSTLITE_ANNOTATE_RWLOCK_RELEASED(this, true);
       v.store(0, memory_order_release);
     }
@@ -284,7 +300,7 @@ namespace configurable_spinlock
         size_t n;
       } value;
       value.v = v.load(memory_order_relaxed);
-      assert(value.n & 1);
+      // assert(value.n & 1);
       value.n &= ~(size_t) 1;
       v.store(value.v, memory_order_release);
     }
@@ -464,7 +480,7 @@ namespace configurable_spinlock
     //! Releases the lock from exclusive access
     void unlock() noexcept
     {
-      assert(_v == 1);
+      // assert(_v == 1);
       BOOSTLITE_ANNOTATE_RWLOCK_RELEASED(this, true);
       _v.store(0, memory_order_release);
     }
@@ -490,7 +506,7 @@ namespace configurable_spinlock
       for(size_t n = 0;; n++)
       {
         i = _v.fetch_or(1, memory_order_acquire);
-        assert(i > 1);
+        // assert(i > 1);
         if(!(i & 1))
           break;
         // For very heavily contended locks, stop thrashing the cache line
