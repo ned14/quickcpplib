@@ -14,14 +14,6 @@ if(NOT DEFINED ${PROJECT_NAME}_SOURCES)
                       "Perhaps you meant BoostLiteMakeHeaderOnlyLibrary?")
 endif()
 
-# Create a custom target, if one does not yet exist, for all _sl and _dl
-if(NOT TARGET _sl)
-  add_custom_target(_sl COMMENT "Building all static library based code ...")
-endif()
-if(NOT TARGET _dl)
-  add_custom_target(_dl COMMENT "Building all dynamic library based code ...")
-endif()
-
 if(WIN32)
   function(check_if_cmake_incomplete target md5 path)
     string(REPLACE "/" "\\" TEMPFILE "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}\\boostlite_cmake_tempfile_${target}.txt")

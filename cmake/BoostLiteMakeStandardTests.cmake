@@ -43,7 +43,7 @@ if(NOT PROJECT_IS_DEPENDENCY)
               if(special STREQUAL "")
                 set(target_name "${target}--${testname}")
               else()
-                unset(group)
+                set(group _${special})
                 set(target_name "${target}-${special}-${testname}")
                 if(NOT target MATCHES "_hl$")
                   set(target "${target}-${special}")
@@ -94,12 +94,9 @@ if(NOT PROJECT_IS_DEPENDENCY)
 
   # For all special builds, create custom "all" target for each of those so one can build "everything with asan" etc
   foreach(special ${SPECIAL_BUILDS})
-    if(NOT TARGET ${special})
-      add_custom_target(${special} COMMENT "Building special build ${special} ...")
-    endif()
     indented_message(STATUS "Creating non-default all target for special build ${PROJECT_NAME}-${special}")
     add_custom_target(${PROJECT_NAME}-${special} DEPENDS ${${PROJECT_NAME}_${special}_TARGETS})
-    add_dependencies(${special} ${PROJECT_NAME}-${special})
+    add_dependencies(_${special} ${PROJECT_NAME}-${special})
   endforeach()
   
   # We need to now decide on some default build target group. Prefer static libraries

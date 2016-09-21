@@ -25,6 +25,7 @@ else()
       COMMENT "Regenerating documentation ..."
       SOURCES "Doxyfile"
     )
+    add_dependencies(_docs ${tgt})
   endfunction()
   BoostLiteMakeDoxygen(${PROJECT_NAME}_docs)
 endif()
