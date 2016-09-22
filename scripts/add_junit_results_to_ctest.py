@@ -55,7 +55,7 @@ def main(argv):
       results = ET.Element('Results')
       results.append(NamedMeasurement('Execution Time', 'numeric/double', testcase.get('time')))
       results.append(NamedMeasurement('Completion Status', 'text/string', 'JUnit'))
-      error = testcase.find('error')
+      error = testcase.find('failure')
       skipped = testcase.find('skipped')
       if error is not None:
         test.set('Status', 'failed')
@@ -80,6 +80,6 @@ def main(argv):
   #ET.dump(testing)
   ctesttree.write(argv[1])
 
-#main(['foo', 'Test.xml', 'merged_junit_results.xml'])
+#main(['foo', 'Test.xml', 'junit.xml'])
 if __name__ == '__main__':
   main(sys.argv)

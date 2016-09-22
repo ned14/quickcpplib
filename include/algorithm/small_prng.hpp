@@ -1,6 +1,6 @@
-/* String algorithms
+/* Small PRNG
 (C) 2016 Niall Douglas http://www.nedprod.com/
-File Created: Jun 2016
+File Created: Sept 2016
 
 
 Boost Software License - Version 1.0 - August 17th, 2003
@@ -28,10 +28,13 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef BOOSTLITE_ALGORITHM_SECDEC_ECC_HPP
-#define BOOSTLITE_ALGORITHM_SECDEC_ECC_HPP
+#ifndef BOOSTLITE_ALGORITHM_SMALL_PRNG_HPP
+#define BOOSTLITE_ALGORITHM_SMALL_PRNG_HPP
 
-#include "../config.hpp"
+#include "../utils/thread.hpp"
+
+#include <cstdint>
+#include <iterator>
 
 BOOSTLITE_NAMESPACE_BEGIN
 
@@ -39,34 +42,52 @@ namespace algorithm
 {
   namespace small_prng
   {
-    // From http://burtleburtle.net/bob/rand/smallprng.html
-    typedef unsigned int u4;
-    typedef struct ranctx
+    /*! \class small_prng
+    \brief From http://burtleburtle.net/bob/rand/smallprng.html
+    */
+    class small_prng
     {
-      u4 a;
-      u4 b;
-      u4 c;
-      u4 d;
-    } ranctx;
+      uint32_t a;
+      uint32_t b;
+      uint32_t c;
+      uint32_t d;
 
-#define rot(x, k) (((x) << (k)) | ((x) >> (32 - (k))))
-    static u4 ranval(ranctx *x)
+      static inline uint32_t rot(uint32_t x, uint32_t k) noexcept { return (((x) << (k)) | ((x) >> (32 - (k)))); }
+    public:
+      explicit small_prng(uint32_t seed = 0xdeadbeef) noexcept
+      {
+        a = 0xf1ea5eed;
+        b = c = d = seed;
+        for(size_t i = 0; i < 20; ++i)
+          (*this)();
+      }
+
+      inline uint32_t operator()() noexcept
+      {
+        uint32_t e = a - rot(b, 27);
+        a = b ^ rot(c, 17);
+        b = c + d;
+        c = d + e;
+        d = e + a;
+        return d;
+      }
+    };
+
+    //! \brief A thread safe small prng seeded with the thread id
+    inline small_prng &thread_local_prng()
     {
-      u4 e = x->a - rot(x->b, 27);
-      x->a = x->b ^ rot(x->c, 17);
-      x->b = x->c + x->d;
-      x->c = x->d + e;
-      x->d = e + x->a;
-      return x->d;
+      static thread_local small_prng v(utils::thread::this_thread_id());
+      return v;
     }
 
-    static void raninit(ranctx *x, u4 seed)
+    template <class RandomIt> void random_shuffle(RandomIt first, RandomIt last, small_prng &r = thread_local_prng())
     {
-      u4 i;
-      x->a = 0xf1ea5eed, x->b = x->c = x->d = seed;
-      for(i = 0; i < 20; ++i)
+      typename std::iterator_traits<RandomIt>::difference_type i, n;
+      n = last - first;
+      for(i = n - 1; i > 0; --i)
       {
-        (void) ranval(x);
+        using std::swap;
+        swap(first[i], first[r() % (i + 1)]);
       }
     }
   }
