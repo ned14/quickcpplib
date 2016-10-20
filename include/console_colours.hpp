@@ -34,6 +34,13 @@ DEALINGS IN THE SOFTWARE.
 
 #include "config.hpp"
 
+#ifdef _WIN32
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <windows.h>
+#endif
+
 BOOSTLITE_NAMESPACE_BEGIN
 
 namespace console_colours
