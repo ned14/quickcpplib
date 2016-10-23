@@ -38,6 +38,7 @@ DEALINGS IN THE SOFTWARE.
 #include "timing.h"
 
 #include <algorithm>
+#include <mutex>  // for lock_guard
 #include <stdio.h>
 
 #ifdef _MSC_VER

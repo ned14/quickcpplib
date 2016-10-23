@@ -34,6 +34,7 @@ DEALINGS IN THE SOFTWARE.
 
 #include "../spinlock.hpp"
 
+#include <cstddef>  // for ptrdiff_t etc
 #include <cstdint>  // for uint32_t etc
 
 BOOSTLITE_NAMESPACE_BEGIN

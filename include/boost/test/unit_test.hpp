@@ -34,6 +34,42 @@ DEALINGS IN THE SOFTWARE.
 
 #include "../config.hpp"
 
+/*! \defgroup unittesting Unit test suites
+
+Boost-lite comes with a minimal emulation of Boost.Test based on one of two
+underlying unit test engines:
+
+<dl>
+<dt>`BOOSTLITE_BOOST_UNIT_TEST_IMPL` = 0 (the default)</dt>
+<dd>An internal extremely lightweight engine which works well with exceptions and
+RTTI disabled. It works fine with multithreaded test cases, and can write results
+to a JUnit XML file for consumption by Jenkins etc. Its implementation is less than
+two hundred lines of C++, so it isn't particularly configurable nor flexible. In
+particular it maintains no history of checks, no stdio redirection, no trapping of
+signals, no interception of failed asserts etc. If a check
+fails it simply prints immediately what failed to stderr and increments a fail counter.
+Despite its simplicity you'll probably find it works plenty well for most use cases
+and it has almost zero overhead either at compile or runtime.
+
+\warning A requirement failure is handled by throwing a magic exception type to
+abort the test case and prevent execution of later code, unwinding the stack and
+releasing any resources allocated up to that point. If exceptions are disabled,
+`longjmp()` is used instead and therefore stack unwinding does not occur, leaking
+any stack based resources.
+
+\note Almost all the macros used by this internal engine can be redefined before
+including the header file. It's been deliberately made highly customisable.
+</dd>
+
+<dt>`BOOSTLITE_BOOST_UNIT_TEST_IMPL` = 1</dt>
+<dd>Use Phil Nash's CATCH (https://github.com/philsquared/Catch) header only test
+engine. The Boost.Test macros simply call CATCH equivalents. The CATCH used is
+actually a fork of Phil's with a giant mutex poked in so multiple threads can
+do checks concurrently.</dd>
+</dl>
+*/
+//! @{
+
 #ifndef BOOSTLITE_BOOST_UNIT_TEST_IMPL
 #define BOOSTLITE_BOOST_UNIT_TEST_IMPL 0  // default to lightweight
 #endif
@@ -58,11 +94,11 @@ DEALINGS IN THE SOFTWARE.
 #include <vector>
 
 #include "../../console_colours.hpp"
-#ifdef _WIN32
-#include "../../execinfo_win64.h"
-#else
-#include <execinfo.h>
-#endif
+//#ifdef _WIN32
+//#include "../../execinfo_win64.h"
+//#else
+//#include <execinfo.h>
+//#endif
 #ifndef __cpp_exceptions
 #include <setjmp.h>
 #endif
@@ -92,6 +128,7 @@ namespace unit_test
         : name(_name)
         , desc(_desc)
         , func(_func)
+        , duration()
         , passes(0)
         , fails(0)
         , skipped(false)
@@ -116,14 +153,35 @@ namespace unit_test
     static test_case *v;
     return v;
   }
-  static inline int run(int argc, char *argv[])
+  static inline int run(int argc, const char *const argv[])
   {
     std::regex enabled(".*"), disabled;
+    bool list_tests = false;
+    std::string output_xml;
     for(int n = 1; n < argc; n++)
     {
       // Double -- means it's a flag
       if(argv[n][0] == '-' && argv[n][1] == '-')
       {
+        if(strstr(argv[n] + 2, "help"))
+        {
+          std::cout << "\nBoost-lite minimal unit test framework\n\n"                                                                       //
+                    << "Usage: " << argv[0] << " [options] [<regex for tests to run, defaults to .*>] [-<regex for tests to not run>]\n\n"  //
+                    << "  --help           : Prints this help\n"                                                                            //
+                    << "  --list-tests     : List matching tests\n"                                                                         //
+                    << "  --out <filename> : Write JUnit XML test report to filename\n"                                                     //
+                    << std::endl;
+          return 0;
+        }
+        else if(strstr(argv[n] + 2, "list-tests"))
+        {
+          list_tests = true;
+        }
+        else if(strstr(argv[n] + 2, "out"))
+        {
+          if(n + 1 < argc)
+            output_xml = argv[n + 1];
+        }
       }
       else
       {
@@ -133,6 +191,25 @@ namespace unit_test
         else
           enabled.assign(argv[n]);
       }
+    }
+    if(list_tests)
+    {
+      size_t maxname = 0;
+      for(const auto &i : test_cases())
+      {
+        if(strlen(i.name) > maxname)
+          maxname = strlen(i.name);
+      }
+      for(const auto &i : test_cases())
+      {
+        if(std::regex_match(i.name, enabled) && !std::regex_match(i.name, disabled))
+        {
+          std::string padding(maxname - strlen(i.name), ' ');
+          std::cout << i.name << padding << " (" << i.desc << ")\n";
+        }
+      }
+      std::cout << std::endl;
+      return 0;
     }
     for(auto &i : test_cases())
     {
@@ -462,7 +539,7 @@ static void                                                                     
 #pragma warning(push)
 #pragma warning(disable : 4008)  // inline on main
 #endif
-BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS int main(int argc, char *const argv[])
+BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS int main(int argc, const char *const argv[])
 {
   int result = BOOSTLITE_BOOST_UNIT_TEST_RUN_TESTS(argc, argv);
   return result;
@@ -471,5 +548,7 @@ BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS int main(int argc, char *const argv[])
 #pragma warning(pop)
 #endif
 #endif
+
+//! @}
 
 #endif
