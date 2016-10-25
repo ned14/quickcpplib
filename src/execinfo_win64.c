@@ -121,57 +121,59 @@ _Check_return_ _Ret_writes_maybenull_(len) char **backtrace_symbols(_In_reads_(l
       {
         // Keep offset till later
         ret[n] = (char *) ((char *) p - (char *) ret);
-        if(SymGetLineFromAddr64 && SymGetLineFromAddr64(GetCurrentProcess(), (size_t) bt[n], &displ, &ihl))
+        if(!SymGetLineFromAddr64 || !SymGetLineFromAddr64(GetCurrentProcess(), (size_t) bt[n], &displ, &ihl))
         {
-        retry:
-          if(please_realloc)
+          if(n == 0)
           {
-            char **temp = (char **) realloc(ret, bytes + 256);
-            if(!temp)
-            {
-              free(ret);
-              return NULL;
-            }
-            p = (char *) temp + (p - (char *) ret);
-            ret = temp;
-            bytes += 256;
-            end = (char *) ret + bytes;
+            free(ret);
+            return NULL;
           }
-          if(ihl.FileName && ihl.FileName[0])
+          ihl.FileName = L"unknown";
+          ihl.LineNumber = 0;
+        }
+      retry:
+        if(please_realloc)
+        {
+          char **temp = (char **) realloc(ret, bytes + 256);
+          if(!temp)
           {
-            int plen = WideCharToMultiByte(CP_UTF8, 0, ihl.FileName, -1, p, (int) (end - p), NULL, NULL);
-            if(!plen)
-            {
-              please_realloc = 1;
-              goto retry;
-            }
-            p[plen - 1] = 0;
-            p += plen - 1;
+            free(ret);
+            return NULL;
           }
-          else
+          p = (char *) temp + (p - (char *) ret);
+          ret = temp;
+          bytes += 256;
+          end = (char *) ret + bytes;
+        }
+        if(ihl.FileName && ihl.FileName[0])
+        {
+          int plen = WideCharToMultiByte(CP_UTF8, 0, ihl.FileName, -1, p, (int) (end - p), NULL, NULL);
+          if(!plen)
           {
-            if(end - p < 16)
-            {
-              please_realloc = 1;
-              goto retry;
-            }
-            _ui64toa_s((size_t) bt[n], p, end - p, 16);
-            p = strchr(p, 0);
+            please_realloc = 1;
+            goto retry;
           }
+          p[plen - 1] = 0;
+          p += plen - 1;
+        }
+        else
+        {
           if(end - p < 16)
           {
             please_realloc = 1;
             goto retry;
           }
-          *p++ = ':';
-          _itoa_s(ihl.LineNumber, p, end - p, 10);
-          p = strchr(p, 0) + 1;
+          _ui64toa_s((size_t) bt[n], p, end - p, 16);
+          p = strchr(p, 0);
         }
-        else
+        if(end - p < 16)
         {
-          free(ret);
-          return NULL;
+          please_realloc = 1;
+          goto retry;
         }
+        *p++ = ':';
+        _itoa_s(ihl.LineNumber, p, end - p, 10);
+        p = strchr(p, 0) + 1;
       }
     }
     for(n = 0; n < len; n++)
