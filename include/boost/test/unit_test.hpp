@@ -89,6 +89,7 @@ do checks concurrently.</dd>
 #if BOOSTLITE_BOOST_UNIT_TEST_IMPL == 0  // std::terminate
 #include <atomic>
 #include <chrono>
+#include <fstream>
 #include <iostream>
 #include <regex>
 #include <vector>
@@ -143,9 +144,23 @@ namespace unit_test
       return *this;
     }
   };
-  static inline std::vector<test_case> &test_cases()
+  struct test_suite
   {
-    static std::vector<test_case> v;
+    const char *name;
+    std::vector<test_case> test_cases;
+    test_suite(const char *_name)
+        : name(_name)
+    {
+    }
+  };
+  static inline std::vector<test_suite> &test_suites()
+  {
+    static std::vector<test_suite> v;
+    return v;
+  }
+  static inline test_suite *&current_test_suite()
+  {
+    static test_suite *v;
     return v;
   }
   static inline test_case *&current_test_case()
@@ -167,9 +182,10 @@ namespace unit_test
         {
           std::cout << "\nBoost-lite minimal unit test framework\n\n"                                                                       //
                     << "Usage: " << argv[0] << " [options] [<regex for tests to run, defaults to .*>] [-<regex for tests to not run>]\n\n"  //
-                    << "  --help           : Prints this help\n"                                                                            //
-                    << "  --list-tests     : List matching tests\n"                                                                         //
-                    << "  --out <filename> : Write JUnit XML test report to filename\n"                                                     //
+                    << "  --help              : Prints this help\n"                                                                         //
+                    << "  --list-tests        : List matching tests\n"                                                                      //
+                    << "  --reporter <format> : Reporter to use, only format possible is junit\n"                                           //
+                    << "  --out <filename>    : Write JUnit XML test report to filename\n"                                                  //
                     << std::endl;
           return 0;
         }
@@ -177,10 +193,24 @@ namespace unit_test
         {
           list_tests = true;
         }
+        else if(strstr(argv[n] + 2, "reporter"))
+        {
+          if(n + 1 >= argc || strcmp(argv[n + 1], "junit"))
+          {
+            std::cerr << "--reporter must be followed by 'junit'" << std::endl;
+            return 1;
+          }
+          n++;
+        }
         else if(strstr(argv[n] + 2, "out"))
         {
-          if(n + 1 < argc)
-            output_xml = argv[n + 1];
+          if(n + 1 >= argc)
+          {
+            std::cerr << "--out must be followed by the output filename" << std::endl;
+            return 1;
+          }
+          output_xml = argv[n + 1];
+          n++;
         }
       }
       else
@@ -195,97 +225,169 @@ namespace unit_test
     if(list_tests)
     {
       size_t maxname = 0;
-      for(const auto &i : test_cases())
+      for(const auto &j : test_suites())
       {
-        if(strlen(i.name) > maxname)
-          maxname = strlen(i.name);
-      }
-      for(const auto &i : test_cases())
-      {
-        if(std::regex_match(i.name, enabled) && !std::regex_match(i.name, disabled))
+        for(const auto &i : j.test_cases)
         {
-          std::string padding(maxname - strlen(i.name), ' ');
-          std::cout << i.name << padding << " (" << i.desc << ")\n";
+          if(strlen(i.name) > maxname)
+            maxname = strlen(i.name);
+        }
+      }
+      for(const auto &j : test_suites())
+      {
+        std::cout << "\n" << j.name << ":\n";
+        for(const auto &i : j.test_cases)
+        {
+          if(std::regex_match(i.name, enabled) && !std::regex_match(i.name, disabled))
+          {
+            std::string padding(maxname - strlen(i.name), ' ');
+            std::cout << "  " << i.name << padding << " (" << i.desc << ")\n";
+          }
         }
       }
       std::cout << std::endl;
       return 0;
     }
-    for(auto &i : test_cases())
+    for(auto &j : test_suites())
     {
-      if(std::regex_match(i.name, enabled) && !std::regex_match(i.name, disabled))
+      for(auto &i : j.test_cases)
       {
-        current_test_case() = &i;
-        std::cout << std::endl << bold << blue << i.name << white << " : " << i.desc << normal << std::endl;
-        std::chrono::steady_clock::time_point begin, end;
-        try
+        if(std::regex_match(i.name, enabled) && !std::regex_match(i.name, disabled))
         {
-#ifndef __cpp_exceptions
-          if(setjmp(test_case_failed()))
+          current_test_case() = &i;
+          std::cout << std::endl << bold << blue << i.name << white << " : " << i.desc << normal << std::endl;
+          std::chrono::steady_clock::time_point begin, end;
+          try
           {
+#ifndef __cpp_exceptions
+            if(setjmp(test_case_failed()))
+            {
+              i.requirement_failed = true;
+            }
+            else
+#endif
+            {
+              begin = std::chrono::steady_clock::now();
+              i.func();
+              end = std::chrono::steady_clock::now();
+            }
+          }
+          catch(const requirement_failed &)
+          {
+            end = std::chrono::steady_clock::now();
             i.requirement_failed = true;
           }
-          else
-#endif
+          catch(const std::exception &e)
           {
-            begin = std::chrono::steady_clock::now();
-            i.func();
             end = std::chrono::steady_clock::now();
+            ++i.fails;
+            std::cerr << red << "FAILURE: std::exception '" << e.what() << "' thrown out of test case" << normal << std::endl;
           }
+          catch(...)
+          {
+            end = std::chrono::steady_clock::now();
+            ++i.fails;
+            std::cerr << red << "FAILURE: Exception thrown out of test case" << normal << std::endl;
+          }
+          i.duration = end - begin;
+          if(i.passes)
+            std::cout << green << i.passes << " checks passed  ";
+          if(i.fails)
+            std::cout << red << i.fails << " checks failed  ";
+          std::cout << normal << "duration " << std::chrono::duration_cast<std::chrono::milliseconds>(i.duration).count() << " ms" << std::endl;
         }
-        catch(const requirement_failed &)
-        {
-          end = std::chrono::steady_clock::now();
-          i.requirement_failed = true;
-        }
-        catch(const std::exception &e)
-        {
-          end = std::chrono::steady_clock::now();
-          ++i.fails;
-          std::cerr << red << "FAILURE: std::exception '" << e.what() << "' thrown out of test case" << normal << std::endl;
-        }
-        catch(...)
-        {
-          end = std::chrono::steady_clock::now();
-          ++i.fails;
-          std::cerr << red << "FAILURE: Exception thrown out of test case" << normal << std::endl;
-        }
-        i.duration = end - begin;
-        if(i.passes)
-          std::cout << green << i.passes << " checks passed  ";
-        if(i.fails)
-          std::cout << red << i.fails << " checks failed  ";
-        std::cout << normal << "duration " << std::chrono::duration_cast<std::chrono::milliseconds>(i.duration).count() << " ms" << std::endl;
+        else
+          i.skipped = true;
       }
-      else
-        i.skipped = true;
     }
     current_test_case() = nullptr;
-    size_t passed = 0, failed = 0, skipped = 0;
-    for(const auto &i : test_cases())
+    std::ofstream oh;
+    if(!output_xml.empty())
     {
-      if(i.skipped)
-        ++skipped;
-      else if(i.fails)
-        ++failed;
-      else
-        ++passed;
+      oh.open(output_xml);
+      oh << R"(<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+)";
     }
-    std::cout << bold << white << "\n\nTest case summary: " << green << passed << " passed " << red << failed << " failed " << yellow << skipped << " skipped" << normal << std::endl;
-    return failed > 0;
+    size_t totalpassed = 0, totalfailed = 0, totalskipped = 0;
+    double totaltime = 0;
+    for(const auto &j : test_suites())
+    {
+      size_t passed = 0, failed = 0, skipped = 0;
+      double time = 0;
+      for(const auto &i : j.test_cases)
+      {
+        if(i.skipped)
+          ++skipped;
+        else if(i.fails)
+          ++failed;
+        else
+          ++passed;
+        time += std::chrono::duration_cast<std::chrono::duration<double>>(i.duration).count();
+      }
+      if(!output_xml.empty())
+      {
+        oh << "  <testsuite name=\"" << j.name << "\" errors=\"" << 0 << "\" failures=\"" << failed << "\" skipped=\"" << skipped << "\" tests=\"" << j.test_cases.size() << "\" hostname=\"\" time=\"" << time << "\" timestamp=\"\">\n";
+        for(const auto &i : j.test_cases)
+        {
+          oh << "    <testcase classname=\"\" name=\"" << i.name << "\" time=\"" << std::chrono::duration_cast<std::chrono::duration<double>>(i.duration).count() << "\">";
+          if(i.skipped)
+            oh << "<skipped/>";
+          else if(i.fails)
+            oh << "<failure/>";
+          oh << "</testcase>\n";
+        }
+        oh << "  </testsuite>\n";
+      }
+      totalpassed += passed;
+      totalfailed += failed;
+      totalskipped += skipped;
+      totaltime += time;
+    }
+    if(!output_xml.empty())
+    {
+      oh << R"(</testsuites>
+)";
+    }
+    std::cout << bold << white << "\n\nTest case summary: " << green << totalpassed << " passed " << red << totalfailed << " failed " << yellow << totalskipped << " skipped" << normal << std::endl;
+    return totalfailed > 0;
   }
+  struct test_suite_registration
+  {
+    const char *name;
+    test_suite_registration(const char *_name)
+        : name(_name)
+    {
+      auto it = std::find_if(test_suites().begin(), test_suites().end(), [this](const test_suite &i) { return !strcmp(i.name, name); });
+      if(it == test_suites().end())
+      {
+        test_suites().push_back(test_suite(name));
+        it = --test_suites().end();
+      }
+      current_test_suite() = &(*it);
+    }
+  };
   struct test_case_registration
   {
+    size_t suite_idx;
     void (*func)();
     test_case_registration(const char *name, const char *desc, void (*_func)())
         : func(_func)
     {
-      test_cases().push_back(test_case(name, desc, func));
+      if(test_suites().empty())
+      {
+        // No BOOST_AUTO_TEST_SUITE() has been declared yet, so fake one
+        test_suite_registration("unset_testsuite");
+      }
+      suite_idx = current_test_suite() - test_suites().data();
+      test_suite *suite = test_suites().data() + suite_idx;
+      suite->test_cases.push_back(test_case(name, desc, func));
     }
     test_case_registration()
     {
+      test_suite *suite = test_suites().data() + suite_idx;
       // Static deinit is exactly opposite in order to init
-      test_cases().erase(std::remove_if(test_cases().rbegin(), test_cases().rend(), [this](const test_case &i) { return i.func == func; }).base());
+      suite->test_cases.erase(std::remove_if(suite->test_cases.rbegin(), suite->test_cases.rend(), [this](const test_case &i) { return i.func == func; }).base());
     }
   };
 }
@@ -449,7 +551,8 @@ catch(const BOOSTLITE_NAMESPACE::unit_test::requirement_failed &)               
 #define BOOST_AUTO_TEST_SUITE2(a, b) BOOST_AUTO_TEST_SUITE3(a, b)
 #define BOOST_AUTO_TEST_SUITE(name)                                                                                                                                                                                                                                                                                            \
   namespace BOOST_AUTO_TEST_SUITE2(boostlite_auto_test_suite, __COUNTER__)                                                                                                                                                                                                                                                     \
-  {
+  {                                                                                                                                                                                                                                                                                                                            \
+    static BOOSTLITE_NAMESPACE::unit_test::test_suite_registration boostlite_auto_test_suite_registration(#name);
 //
 #define BOOST_AUTO_TEST_SUITE_END() }
 
