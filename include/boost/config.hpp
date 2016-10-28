@@ -136,6 +136,18 @@ extern "C" void _mm_pause();
 #endif
 #endif
 
+#if !defined(BOOST_NORETURN)
+#ifdef __cpp_attributes
+#define BOOST_NORETURN [[noreturn]]
+#elif defined(_MSC_VER)
+#define BOOST_NORETURN __declspec(noreturn)
+#elif defined(__GNUC__)
+#define BOOST_NORETURN __attribute__((__noreturn__))
+#else
+#define BOOST_NORETURN
+#endif
+#endif
+
 #ifndef BOOST_SYMBOL_VISIBLE
 #if defined(_MSC_VER)
 #define BOOST_SYMBOL_VISIBLE

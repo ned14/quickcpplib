@@ -260,20 +260,23 @@ namespace unit_test
           current_test_case() = &i;
           std::cout << std::endl << bold << blue << i.name << white << " : " << i.desc << normal << std::endl;
           std::chrono::steady_clock::time_point begin, end;
+#ifdef __cpp_exceptions
           try
           {
-#ifndef __cpp_exceptions
-            if(setjmp(test_case_failed()))
-            {
-              i.requirement_failed = true;
-            }
-            else
+#else
+          if(setjmp(test_case_failed()))
+          {
+            end = std::chrono::steady_clock::now();
+            i.requirement_failed = true;
+          }
+          else
 #endif
             {
               begin = std::chrono::steady_clock::now();
               i.func();
               end = std::chrono::steady_clock::now();
             }
+#ifdef __cpp_exceptions
           }
           catch(const requirement_failed &)
           {
@@ -292,6 +295,7 @@ namespace unit_test
             ++i.fails;
             std::cerr << red << "FAILURE: Exception thrown out of test case" << normal << std::endl;
           }
+#endif
           i.duration = end - begin;
           if(i.passes)
             std::cout << green << i.passes << " checks passed  ";
