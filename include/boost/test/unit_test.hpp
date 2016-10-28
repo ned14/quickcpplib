@@ -51,6 +51,9 @@ fails it simply prints immediately what failed to stderr and increments a fail c
 Despite its simplicity you'll probably find it works plenty well for most use cases
 and it has almost zero overhead either at compile or runtime.
 
+Note that if exceptions are disabled, those checks and requires testing that things
+throw are implement as no ops for obvious reasons.
+
 \warning A requirement failure is handled by throwing a magic exception type to
 abort the test case and prevent execution of later code, unwinding the stack and
 releasing any resources allocated up to that point. If exceptions are disabled,
@@ -439,6 +442,7 @@ else                                                                            
   {                                                                                                                                                                                                                                                                                                                            \
     BOOSTLITE_BOOST_UNIT_CHECK_PASS(, expr);                                                                                                                                                                                                                                                                                   \
   }
+#ifdef __cpp_exceptions
 #define BOOST_CHECK_THROWS(expr)                                                                                                                                                                                                                                                                                               \
   try                                                                                                                                                                                                                                                                                                                          \
   \
@@ -488,6 +492,11 @@ catch(const BOOSTLITE_NAMESPACE::unit_test::requirement_failed &)               
     throw;                                                                                                                                                                                                                                                                                                                     \
   }                                                                                                                                                                                                                                                                                                                            \
   catch(...) { BOOSTLITE_BOOST_UNIT_CHECK_FAIL("NO THROW ", expr); }
+#else
+#define BOOST_CHECK_THROWS(expr)
+#define BOOST_CHECK_THROW(expr, type)
+#define BOOST_CHECK_NO_THROW(expr) expr
+#endif
 
 #define BOOST_REQUIRE(expr)                                                                                                                                                                                                                                                                                                    \
   if(!(expr))                                                                                                                                                                                                                                                                                                                  \
@@ -501,6 +510,7 @@ else                                                                            
     BOOSTLITE_BOOST_UNIT_REQUIRE_PASS(, expr);                                                                                                                                                                                                                                                                                 \
   \
 }
+#ifdef __cpp_exceptions
 #define BOOST_REQUIRE_THROWS(expr)                                                                                                                                                                                                                                                                                             \
   try                                                                                                                                                                                                                                                                                                                          \
   \
@@ -546,6 +556,11 @@ catch(const BOOSTLITE_NAMESPACE::unit_test::requirement_failed &)               
     throw;                                                                                                                                                                                                                                                                                                                     \
   }                                                                                                                                                                                                                                                                                                                            \
   catch(...) { BOOSTLITE_BOOST_UNIT_REQUIRE_FAIL("NO THROW ", expr); }
+#else
+#define BOOST_REQUIRE_THROWS(expr)
+#define BOOST_CHECK_REQUIRE(expr, type)
+#define BOOST_REQUIRE_NO_THROW(expr) expr
+#endif
 
 #define BOOST_AUTO_TEST_SUITE3(a, b) a##b
 #define BOOST_AUTO_TEST_SUITE2(a, b) BOOST_AUTO_TEST_SUITE3(a, b)
