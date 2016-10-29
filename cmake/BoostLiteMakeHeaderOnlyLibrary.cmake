@@ -67,11 +67,12 @@ elseif(MSVC AND NOT CLANG)
 elseif(MSVC AND CLANG)
   # C2 clang has broken precompiled headers currently
   default_header_only_interface_library("this winclang has broken precompiled headers support")
-elseif(NOT PROJECT_IS_DEPENDENCY)
-  # Add a precompiled header for the PCH header file
-  add_precompiled_header(${PROJECT_NAME}_hl ${${PROJECT_NAME}_INTERFACE})
-  # Include all my headers into the sources of anything consuming me
-  target_append_header_only_sources(${PROJECT_NAME}_hl)
+## Works on anything not Bash for Windows, but that's mostly what I'm testing with
+##elseif(NOT PROJECT_IS_DEPENDENCY)
+##  # Add a precompiled header for the PCH header file
+##  add_precompiled_header(${PROJECT_NAME}_hl ${${PROJECT_NAME}_INTERFACE})
+##  # Include all my headers into the sources of anything consuming me
+##  target_append_header_only_sources(${PROJECT_NAME}_hl)
 else()
   default_header_only_interface_library("this project being a dependency of a higher level project")
 endif()
