@@ -4,6 +4,15 @@
 # Sets ${PROJECT_NAME}_TEST_TARGETS to the test targets generated
 
 if(NOT PROJECT_IS_DEPENDENCY)
+  unset(CLANG_TIDY_EXECUTABLE)
+  if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.clang-tidy")
+    find_program(CLANG_TIDY_EXECUTABLE "clang-tidy" DOC "Path to clang-tidy executable")
+    if(CLANG_TIDY_EXECUTABLE MATCHES "CLANG_TIDY_EXECUTABLE")
+      unset(CLANG_TIDY_EXECUTABLE)
+      indented_message(WARNING "WARNING: .clang-tidy file found for project ${PROJECT_NAME}, yet clang-tidy not on PATH so disabling lint pass")
+    endif()
+  endif()
+  
   if(DEFINED ${PROJECT_NAME}_TESTS)
     enable_testing()
     function(generate_tests)
@@ -50,7 +59,14 @@ if(NOT PROJECT_IS_DEPENDENCY)
                 endif()
               endif()
               add_executable(${target_name} ${thistestsources})
-              set_target_properties(${target_name} PROPERTIES EXCLUDE_FROM_ALL ON)
+              set_target_properties(${target_name} PROPERTIES
+                EXCLUDE_FROM_ALL ON
+              )
+              if(DEFINED CLANG_TIDY_EXECUTABLE)
+                set_target_properties(${target_name} PROPERTIES
+                  CXX_CLANG_TIDY clang-tidy
+                )
+              endif()
               if(DEFINED group)
                 add_dependencies(${group} ${target_name})
               endif()

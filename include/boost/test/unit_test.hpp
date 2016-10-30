@@ -362,8 +362,7 @@ namespace unit_test
   struct test_suite_registration
   {
     const char *name;
-    test_suite_registration(const char *_name)
-        : name(_name)
+    test_suite_registration(const char *_name) noexcept : name(_name)
     {
       auto it = std::find_if(test_suites().begin(), test_suites().end(), [this](const test_suite &i) { return !strcmp(i.name, name); });
       if(it == test_suites().end())
@@ -378,8 +377,7 @@ namespace unit_test
   {
     size_t suite_idx;
     void (*func)();
-    test_case_registration(const char *name, const char *desc, void (*_func)())
-        : func(_func)
+    test_case_registration(const char *name, const char *desc, void (*_func)()) noexcept : func(_func)
     {
       if(test_suites().empty())
       {
@@ -584,7 +582,7 @@ catch(const BOOSTLITE_NAMESPACE::unit_test::requirement_failed &)               
 static void                                                                                                                                                                                                                                                                                                                    \
   func_name();                                                                                                                                                                                                                                                                                                                 \
   \
-static BOOSTLITE_NAMESPACE::unit_test::test_case_registration BOOST_AUTO_TEST_SUITE2(func_name, _registration)((test_name), (desc), func_name);                                                                                                                                                                                \
+static BOOSTLITE_NAMESPACE::unit_test::test_case_registration BOOST_AUTO_TEST_SUITE2(func_name, _registration)(static_cast<const char *>(test_name), static_cast<const char *>(desc), func_name);                                                                                                                              \
   \
 static void                                                                                                                                                                                                                                                                                                                    \
   func_name()
