@@ -5,6 +5,7 @@ foreach(header ${${PROJECT_NAME}_HEADERS})
     DESTINATION "${dir}"
   )
 endforeach()
+# TODO FIXME: Need to install all headers from all dependencies too
 if(TARGET ${PROJECT_NAME}_sl)
   install(FILES ${${PROJECT_NAME}_sl}
     DESTINATION "lib"
