@@ -63,9 +63,16 @@ if(NOT PROJECT_IS_DEPENDENCY)
                 EXCLUDE_FROM_ALL ON
               )
               if(DEFINED CLANG_TIDY_EXECUTABLE)
-                set_target_properties(${target_name} PROPERTIES
-                  CXX_CLANG_TIDY clang-tidy
-                )
+                if(MSVC)
+                  # Tell clang-tidy to interpret these parameters as clang-cl would
+                  set_target_properties(${target_name} PROPERTIES
+                    CXX_CLANG_TIDY clang-tidy;-fms-extensions;-fms-compatibility-version=19;-D_M_AMD64=100;
+                  )
+                else()
+                  set_target_properties(${target_name} PROPERTIES
+                    CXX_CLANG_TIDY clang-tidy
+                  )
+                endif()
               endif()
               if(DEFINED group)
                 add_dependencies(${group} ${target_name})
