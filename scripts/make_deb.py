@@ -3,6 +3,8 @@
 #
 # (C) 2016 Niall Douglas http://www.nedproductions.biz/
 # File created: Nov 2016
+#
+# TODO FIXME: Can only package up header-only libraries right now
 
 from __future__ import print_function
 import os, sys, subprocess, shutil, tarfile
@@ -27,10 +29,21 @@ if gitrepodir.endswith('.git'):
 
 if not os.path.exists(gitrepodir):
   print("Cloning", githttpurl, "into", gitrepodir)
-  if subprocess.run(['git', 'clone', '--recursive-submodules', githttpurl]).returncode!=0:
+  if subprocess.call(['git', 'clone', '--recurse-submodules', githttpurl])!=0:
     print("Git clone of", githttpurl ,"failed", file=sys.stderr)
     sys.exit(1)
-# Directory debuild -us -uc uses must be named same as Source:
+else:
+  print("Pulling", githttpurl, "into", gitrepodir)
+  os.chdir(gitrepodir)
+  if subprocess.call(['git', 'pull'])!=0:
+    print("Git pull of", githttpurl ,"failed", file=sys.stderr)
+    sys.exit(1)
+  if subprocess.call(['git', 'submodule', 'update'])!=0:
+    print("Git pull of", githttpurl ,"failed", file=sys.stderr)
+    sys.exit(1)
+  os.chdir('..')
+
+# Directory debuild uses must be named same as Source:
 controlpath=os.path.join(gitrepodir, "debian", "control")
 changelogpath=os.path.join(gitrepodir, "debian", "changelog")
 if not os.path.exists(controlpath) or not os.path.exists(changelogpath):
@@ -60,14 +73,59 @@ print("Cleaning debuild directory", sourcedir)
 while os.path.exists(sourcedir):
   shutil.rmtree(sourcedir)
 os.mkdir(sourcedir)
-# Copy the debian metadata
-shutil.copytree(os.path.join(gitrepodir, "debian"), os.path.join(sourcedir, "debian"))
-# Tar up the git clone into a tarball
+# Copy the include, src and debian metadata
+# shutils.copytree() ignore facility appears to be bugged, so ...
+ignored=[]
+for dirpath, dirnames, filenames in os.walk(gitrepodir):
+  skip=False
+  for n in ignored:
+    if n in dirpath:
+      skip=True
+      break
+  if skip:
+    continue
+#  if '.git' in filenames or '.git' in dirnames:
+#    for dirname in dirnames:
+#      if dirname != 'include' and dirname != 'src' and dirname != 'cmake':
+#        ignored.append(os.path.join(dirpath, dirname))
+#    continue
+  if ".git" in dirnames:
+    ignored.append(os.path.join(dirpath, ".git"))
+  if "doc" in dirnames:
+    ignored.append(os.path.join(dirpath, "doc"))
+  if "test" in dirnames:
+    ignored.append(os.path.join(dirpath, "test"))
+  os.makedirs(sourcedir+dirpath[len(gitrepodir):], exist_ok=True)
+  for filename in filenames:
+    if filename.startswith(".git"):
+      continue
+    path1=os.path.join(dirpath, filename)
+    path2=sourcedir+path1[len(gitrepodir):]
+    print(path1)
+    shutil.copy2(path1, path2)
+#shutil.copytree(os.path.join(gitrepodir, "debian"), os.path.join(sourcedir, "debian"))
+#shutil.copy2(os.path.join(gitrepodir, "CMakeLists.txt"), os.path.join(sourcedir, "CMakeLists.txt"))
+# Tar up the git clone into an original tarball
 print("Tarballing", sourcedir, "into", tarballname)
-with tarfile.open(os.path.join(sourcedir, tarballname), 'w:xz') as oh:
-  for dirpath, dirnames, filenames in os.walk(gitrepodir):
-    if '.git' not in dirpath:
-      for filename in filenames:
-        path=os.path.join(dirpath, filename)
-        path2=os.path.join(sourcedir, path[len(gitrepodir):])
-        oh.add(path, path2)
+install_file=[]
+with tarfile.open(tarballname, 'w:xz') as oh:
+  for dirpath, dirnames, filenames in os.walk(sourcedir):
+    for filename in filenames:
+      path=os.path.join(dirpath, filename)
+      oh.add(path)
+      installpath=path[len(sourcedir)+1:]
+      if not installpath.startswith("debian"):
+        install_file+=[installpath+' /usr/'+installpath+'\n']
+print("Running debuild ...")
+os.chdir(sourcedir)
+#with open("debian/install", "wt") as oh:
+#  oh.writelines(install_file)
+#print("The following files will be installed by the .deb:")
+#for line in install_file:
+#  print(line, end='')
+if subprocess.call(['debuild', '-S', '-sa'])!=0:
+  print("Debuild failed", file=sys.stderr)
+  sys.exit(1)
+# TODO Need to clean upd/* of deb generated stuff
+# dput boost.outcome upd/boost-outcome_1.0-2_source.changes
+
