@@ -18,6 +18,16 @@ function(NativisePath outvar)
   set(${outvar} ${new} PARENT_SCOPE)
 endfunction()
 
+# Simulate a target_link_options as cmake is missing such a think
+function(_target_link_options target)
+  # Convert args to a string
+  string(REPLACE ";" " " props "${ARGN}")
+  get_target_property(oldprops ${target_name} LINK_FLAGS)
+  set_target_properties(${target_name} PROPERTIES
+    LINK_FLAGS "${oldprops} ${props}"
+  )
+endfunction()
+
 # Add generator expressions to appendvar expanding at build time any remaining parameters
 # if the <condition> is true at build time
 function(expand_at_build_if condition appendvar)

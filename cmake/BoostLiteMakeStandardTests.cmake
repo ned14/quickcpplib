@@ -91,9 +91,7 @@ if(NOT PROJECT_IS_DEPENDENCY)
               else()
                 add_test(NAME ${target_name} COMMAND $<TARGET_FILE:${target_name}> CONFIGURATIONS ${special})
                 if(DEFINED ${special}_LINK_FLAGS)
-                  set_target_properties(${target_name} PROPERTIES
-                    LINK_FLAGS ${${special}_LINK_FLAGS}
-                  )
+                  _target_link_options(${target_name} ${${special}_LINK_FLAGS})
                 endif()
                 target_compile_options(${target_name} PRIVATE ${${special}_COMPILE_FLAGS})
                 list(APPEND ${PROJECT_NAME}_${special}_TARGETS ${target_name})
