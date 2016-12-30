@@ -587,6 +587,7 @@ namespace ringbuffer_log
     reference front() noexcept { return _store[counter_to_idx(_counter.load(std::memory_order_relaxed) - 1)]; }
     //! Returns the front of the ringbuffer. Be careful of races with concurrent modifies.
     const_reference front() const noexcept { return _store[counter_to_idx(_counter.load(std::memory_order_relaxed) - 1)]; }
+#ifdef __cpp_exceptions
     //! Returns a reference to the specified element. Be careful of races with concurrent modifies.
     reference at(size_type pos)
     {
@@ -615,6 +616,7 @@ namespace ringbuffer_log
         throw std::out_of_range("index exceeds size");
       return _store[counter_to_idx(id.value)];
     }
+#endif
     //! Returns a reference to the specified element. Be careful of races with concurrent modifies.
     reference operator[](size_type pos) noexcept { return _store[counter_to_idx(_counter.load(std::memory_order_relaxed) - 1 - pos)]; }
     //! Returns a reference to the specified element.

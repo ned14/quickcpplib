@@ -7,8 +7,7 @@ if(NOT PROJECT_IS_DEPENDENCY)
   unset(CLANG_TIDY_EXECUTABLE)
   if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.clang-tidy")
     find_program(CLANG_TIDY_EXECUTABLE "clang-tidy" DOC "Path to clang-tidy executable")
-    if(CLANG_TIDY_EXECUTABLE MATCHES "CLANG_TIDY_EXECUTABLE")
-      unset(CLANG_TIDY_EXECUTABLE)
+    if(CLANG_TIDY_EXECUTABLE MATCHES "CLANG_TIDY_EXECUTABLE-NOTFOUND")
       indented_message(WARNING "WARNING: .clang-tidy file found for project ${PROJECT_NAME}, yet clang-tidy not on PATH so disabling lint pass")
     endif()
   endif()
@@ -62,7 +61,7 @@ if(NOT PROJECT_IS_DEPENDENCY)
               set_target_properties(${target_name} PROPERTIES
                 EXCLUDE_FROM_ALL ON
               )
-              if(DEFINED CLANG_TIDY_EXECUTABLE)
+              if(DEFINED CLANG_TIDY_EXECUTABLE AND NOT CLANG_TIDY_EXECUTABLE MATCHES "CLANG_TIDY_EXECUTABLE-NOTFOUND")
                 if(MSVC)
                   # Tell clang-tidy to interpret these parameters as clang-cl would
                   set_target_properties(${target_name} PROPERTIES
