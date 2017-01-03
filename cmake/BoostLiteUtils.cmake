@@ -316,6 +316,7 @@ function(find_boostish_library libraryname path version)
         )
         checked_execute_process("git update-index"
           COMMAND "${GIT_EXECUTABLE}" update-index --cacheinfo 160000 ${GITSHA} ${path}/${libraryname}
+		  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
         )
       endif()
     endif()
