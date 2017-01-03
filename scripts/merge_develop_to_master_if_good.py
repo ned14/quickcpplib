@@ -64,7 +64,7 @@ for develop_sha in develop_shas.splitlines():
     print('\nMerging develop branch ...')
     indented_print(subprocess.check_output(['git', 'merge', 'develop', '--no-ff', '-m', 'Merged from develop branch as CDash reports all green']))
     print('\nPushing master branch ...')
-    pushoutput = subprocess.check_output(['git', 'push'])
+    pushoutput = subprocess.check_output(['git', 'push'], stderr=subprocess.STDOUT)
     indented_print(pushoutput)
     if '->' in pushoutput:
         sys.exit(0)
