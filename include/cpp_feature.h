@@ -222,6 +222,7 @@ DEALINGS IN THE SOFTWARE.
 
 #endif
 
+
 // VS2010: _MSC_VER=1600
 // VS2012: _MSC_VER=1700
 // VS2013: _MSC_VER=1800
@@ -239,23 +240,16 @@ DEALINGS IN THE SOFTWARE.
 
 
 // C++ 11
-//#if !defined(__cpp_access_control_sfinae)
-//# define __cpp_access_control_sfinae 190000
-//#endif
 
 #if !defined(__cpp_alias_templates) && _MSC_VER >= 1800
 #define __cpp_alias_templates 190000
-#endif
-
-#if !defined(__cpp_alignas) && _MSC_VER >= 1900
-#define __cpp_alignas 190000
 #endif
 
 #if !defined(__cpp_attributes)
 #define __cpp_attributes 190000
 #endif
 
-#if !defined(__cpp_constexpr) && _MSC_FULL_VER >= 190023506
+#if !defined(__cpp_constexpr) && _MSC_FULL_VER >= 190023506 /* VS2015 */
 #define __cpp_constexpr 190000
 #endif
 
@@ -263,76 +257,40 @@ DEALINGS IN THE SOFTWARE.
 #define __cpp_decltype 190000
 #endif
 
-#if !defined(__cpp_default_function_template_args) && _MSC_VER >= 1800
-#define __cpp_default_function_template_args 190000
-#endif
-
-#if !defined(__cpp_defaulted_functions) && _MSC_VER >= 1800
-#define __cpp_defaulted_functions 190000
-#endif
-
 #if !defined(__cpp_delegating_constructors) && _MSC_VER >= 1800
 #define __cpp_delegating_constructors 190000
 #endif
 
-#if !defined(__cpp_deleted_functions) && _MSC_VER >= 1800
-#define __cpp_deleted_functions 190000
-#endif
-
-#if !defined(__cpp_explicit_conversions) && _MSC_VER >= 1800
-#define __cpp_explicit_conversions 190000
-#endif
-
-#if !defined(__cpp_generalized_initializers) && _MSC_VER >= 1800
-#define __cpp_generalized_initializers 190000
-#endif
-
-#if !defined(__cpp_implicit_moves) && _MSC_VER >= 1900
-#define __cpp_implicit_moves 190000
+#if !defined(__cpp_explicit_conversion) && _MSC_VER >= 1800
+#define __cpp_explicit_conversion 190000
 #endif
 
 #if !defined(__cpp_inheriting_constructors) && _MSC_VER >= 1900
 #define __cpp_inheriting_constructors 190000
 #endif
 
-#if !defined(__cpp_inline_namespaces) && _MSC_VER >= 1900
-#define __cpp_inline_namespaces 190000
+#if !defined(__cpp_initializer_lists) && _MSC_VER >= 1900
+#define __cpp_initializer_lists 190000
 #endif
 
 #if !defined(__cpp_lambdas) && _MSC_VER >= 1600
 #define __cpp_lambdas 190000
 #endif
 
-#if !defined(__cpp_local_type_template_args) && _MSC_VER >= 1600
-#define __cpp_local_type_template_args 190000
+#if !defined(__cpp_nsdmi) && _MSC_VER >= 1900
+#define __cpp_nsdmi 190000
 #endif
 
-#if !defined(__cpp_noexcept) && _MSC_VER >= 1900
-#define __cpp_noexcept 190000
-#endif
-
-#if !defined(__cpp_nonstatic_member_init) && _MSC_VER >= 1800
-#define __cpp_nonstatic_member_init 190000
-#endif
-
-#if !defined(__cpp_nullptr) && _MSC_VER >= 1600
-#define __cpp_nullptr 190000
-#endif
-
-#if !defined(__cpp_override_control) && _MSC_VER >= 1700
-#define __cpp_override_control 190000
-#endif
-
-#if !defined(__cpp_reference_qualified_functions) && _MSC_VER >= 1900
-#define __cpp_reference_qualified_functions 190000
-#endif
-
-#if !defined(__cpp_range_for) && _MSC_VER >= 1700
-#define __cpp_range_for 190000
+#if !defined(__cpp_range_based_for) && _MSC_VER >= 1700
+#define __cpp_range_based_for 190000
 #endif
 
 #if !defined(__cpp_raw_strings) && _MSC_VER >= 1800
 #define __cpp_raw_strings 190000
+#endif
+
+#if !defined(__cpp_ref_qualifiers) && _MSC_VER >= 1900
+#define __cpp_ref_qualifiers 190000
 #endif
 
 #if !defined(__cpp_rvalue_references) && _MSC_VER >= 1600
@@ -343,29 +301,9 @@ DEALINGS IN THE SOFTWARE.
 #define __cpp_static_assert 190000
 #endif
 
-#if !defined(__cpp_thread_local) && _MSC_VER >= 1900
-#define __cpp_thread_local 190000
-#endif
-
-#if !defined(__cpp_auto_type) && _MSC_VER >= 1600
-#define __cpp_auto_type 190000
-#endif
-
-#if !defined(__cpp_strong_enums) && _MSC_VER >= 1700
-#define __cpp_strong_enums 190000
-#endif
-
-#if !defined(__cpp_trailing_return) && _MSC_VER >= 1600
-#define __cpp_trailing_return 190000
-#endif
-
 //#if !defined(__cpp_unicode_literals)
 //# define __cpp_unicode_literals 190000
 //#endif
-
-#if !defined(__cpp_unrestricted_unions) && _MSC_VER >= 1900
-#define __cpp_unrestricted_unions 190000
-#endif
 
 #if !defined(__cpp_user_defined_literals) && _MSC_VER >= 1900
 #define __cpp_user_defined_literals 190000
@@ -377,45 +315,34 @@ DEALINGS IN THE SOFTWARE.
 
 
 // C++ 14
+
+//#if !defined(__cpp_aggregate_nsdmi)
+//#define __cpp_aggregate_nsdmi 190000
+//#endif
+
 #if !defined(__cpp_binary_literals) && _MSC_VER >= 1900
 #define __cpp_binary_literals 190000
-#endif
-
-#if !defined(__cpp_contextual_conversions) && _MSC_VER >= 1800
-#define __cpp_contextual_conversions 190000
 #endif
 
 #if !defined(__cpp_decltype_auto) && _MSC_VER >= 1900
 #define __cpp_decltype_auto 190000
 #endif
 
-//#if !defined(__cpp_aggregate_nsdmi) && _MSC_VER >= 1900
-//# define __cpp_aggregate_nsdmi 190000
-//#endif
-
-#if !defined(__cpp_digit_separators) && _MSC_VER >= 1900
-#define __cpp_digit_separators 190000
+#if !defined(__cpp_generic_lambdas) && _MSC_VER >= 1900
+#define __cpp_generic_lambdas 190000
 #endif
 
 #if !defined(__cpp_init_captures) && _MSC_VER >= 1900
 #define __cpp_init_captures 190000
 #endif
 
-#if !defined(__cpp_generic_lambdas) && _MSC_VER >= 1900
-#define __cpp_generic_lambdas 190000
-#endif
-
-//#if !defined(__cpp_relaxed_constexpr)
-//# define __cpp_relaxed_constexpr 190000
-//#endif
-
 #if !defined(__cpp_return_type_deduction) && _MSC_VER >= 1900
 #define __cpp_return_type_deduction 190000
 #endif
 
-//#if !defined(__cpp_runtime_arrays)
-//# define __cpp_runtime_arrays 190000
-//#endif
+#if !defined(__cpp_sized_deallocation) && _MSC_VER >= 1900
+#define __cpp_sized_deallocation 190000
+#endif
 
 #if !defined(__cpp_variable_templates) && _MSC_FULL_VER >= 190023506
 #define __cpp_variable_templates 190000
@@ -441,16 +368,8 @@ DEALINGS IN THE SOFTWARE.
 // C++ 11
 #if defined(__GXX_EXPERIMENTAL_CXX0X__)
 
-#if !defined(__cpp_access_control_sfinae) && (BOOSTLITE_GCC >= 40400)
-#define __cpp_access_control_sfinae 190000
-#endif
-
 #if !defined(__cpp_alias_templates) && (BOOSTLITE_GCC >= 40700)
 #define __cpp_alias_templates 190000
-#endif
-
-#if !defined(__cpp_alignas) && (BOOSTLITE_GCC >= 40800)
-#define __cpp_alignas 190000
 #endif
 
 #if !defined(__cpp_attributes) && (BOOSTLITE_GCC >= 40800)
@@ -465,76 +384,40 @@ DEALINGS IN THE SOFTWARE.
 #define __cpp_decltype 190000
 #endif
 
-#if !defined(__cpp_default_function_template_args) && (BOOSTLITE_GCC >= 40300)
-#define __cpp_default_function_template_args 190000
-#endif
-
-#if !defined(__cpp_defaulted_functions) && (BOOSTLITE_GCC >= 40400)
-#define __cpp_defaulted_functions 190000
-#endif
-
 #if !defined(__cpp_delegating_constructors) && (BOOSTLITE_GCC >= 40700)
 #define __cpp_delegating_constructors 190000
 #endif
 
-#if !defined(__cpp_deleted_functions) && (BOOSTLITE_GCC >= 40400)
-#define __cpp_deleted_functions 190000
-#endif
-
-#if !defined(__cpp_explicit_conversions) && (BOOSTLITE_GCC >= 40500)
-#define __cpp_explicit_conversions 190000
-#endif
-
-#if !defined(__cpp_generalized_initializers) && (BOOSTLITE_GCC >= 40600)
-#define __cpp_generalized_initializers 190000
-#endif
-
-#if !defined(__cpp_implicit_moves) && (BOOSTLITE_GCC >= 40600)
-#define __cpp_implicit_moves 190000
+#if !defined(__cpp_explicit_conversion) && (BOOSTLITE_GCC >= 40500)
+#define __cpp_explicit_conversion 190000
 #endif
 
 #if !defined(__cpp_inheriting_constructors) && (BOOSTLITE_GCC >= 40800)
 #define __cpp_inheriting_constructors 190000
 #endif
 
-#if !defined(__cpp_inline_namespaces) && (BOOSTLITE_GCC >= 40400)
-#define __cpp_inline_namespaces 190000
+#if !defined(__cpp_initializer_lists) && (BOOSTLITE_GCC >= 40800)
+#define __cpp_initializer_lists 190000
 #endif
 
 #if !defined(__cpp_lambdas) && (BOOSTLITE_GCC >= 40500)
 #define __cpp_lambdas 190000
 #endif
 
-#if !defined(__cpp_local_type_template_args) && (BOOSTLITE_GCC >= 40500)
-#define __cpp_local_type_template_args 190000
+#if !defined(__cpp_nsdmi) && (BOOSTLITE_GCC >= 40700)
+#define __cpp_nsdmi 190000
 #endif
 
-#if !defined(__cpp_noexcept) && (BOOSTLITE_GCC >= 40600)
-#define __cpp_noexcept 190000
-#endif
-
-#if !defined(__cpp_nonstatic_member_init) && (BOOSTLITE_GCC >= 40700)
-#define __cpp_nonstatic_member_init 190000
-#endif
-
-#if !defined(__cpp_nullptr) && (BOOSTLITE_GCC >= 40600)
-#define __cpp_nullptr 190000
-#endif
-
-#if !defined(__cpp_override_control) && (BOOSTLITE_GCC >= 40700)
-#define __cpp_override_control 190000
-#endif
-
-#if !defined(__cpp_reference_qualified_functions) && (BOOSTLITE_GCC >= 40801)
-#define __cpp_reference_qualified_functions 190000
-#endif
-
-#if !defined(__cpp_range_for) && (BOOSTLITE_GCC >= 40600)
-#define __cpp_range_for 190000
+#if !defined(__cpp_range_based_for) && (BOOSTLITE_GCC >= 40600)
+#define __cpp_range_based_for 190000
 #endif
 
 #if !defined(__cpp_raw_strings) && (BOOSTLITE_GCC >= 40500)
 #define __cpp_raw_strings 190000
+#endif
+
+#if !defined(__cpp_ref_qualifiers) && (BOOSTLITE_GCC >= 40801)
+#define __cpp_ref_qualifiers 190000
 #endif
 
 // __cpp_rvalue_reference deviation
@@ -546,28 +429,12 @@ DEALINGS IN THE SOFTWARE.
 #define __cpp_static_assert 190000
 #endif
 
-#if !defined(__cpp_thread_local) && (BOOSTLITE_GCC >= 40800)
-#define __cpp_thread_local 190000
-#endif
-
-#if !defined(__cpp_auto_type) && (BOOSTLITE_GCC >= 40400)
-#define __cpp_auto_type 190000
-#endif
-
-#if !defined(__cpp_strong_enums) && (BOOSTLITE_GCC >= 40400)
-#define __cpp_strong_enums 190000
-#endif
-
-#if !defined(__cpp_trailing_return) && (BOOSTLITE_GCC >= 40500)
-#define __cpp_trailing_return 190000
+#if !defined(__cpp_unicode_characters) && (BOOSTLITE_GCC >= 40500)
+#define __cpp_unicode_characters 190000
 #endif
 
 #if !defined(__cpp_unicode_literals) && (BOOSTLITE_GCC >= 40500)
 #define __cpp_unicode_literals 190000
-#endif
-
-#if !defined(__cpp_unrestricted_unions) && (BOOSTLITE_GCC >= 40600)
-#define __cpp_unrestricted_unions 190000
 #endif
 
 #if !defined(__cpp_user_defined_literals) && (BOOSTLITE_GCC >= 40700)
@@ -580,50 +447,7 @@ DEALINGS IN THE SOFTWARE.
 
 
 // C++ 14
-////#if !defined(__cpp_binary_literals)
-////# define __cpp_binary_literals 190000
-////#endif
-
-// Strangely missing!
-#if !defined(__cpp_contextual_conversions) && (BOOSTLITE_GCC >= 40900)
-#define __cpp_contextual_conversions 190000
-#endif
-
-////#if !defined(__cpp_decltype_auto)
-////# define __cpp_decltype_auto 190000
-////#endif
-
-//#if !defined(__cpp_aggregate_nsdmi)
-//# define __cpp_aggregate_nsdmi 190000
-//#endif
-
-////#if !defined(__cpp_digit_separators)
-////# define __cpp_digit_separators 190000
-////#endif
-
-////#if !defined(__cpp_init_captures)
-////# define __cpp_init_captures 190000
-////#endif
-
-////#if !defined(__cpp_generic_lambdas)
-////# define __cpp_generic_lambdas 190000
-////#endif
-
-//#if !defined(__cpp_relaxed_constexpr)
-//# define __cpp_relaxed_constexpr 190000
-//#endif
-
-//#if !defined(__cpp_return_type_deduction)
-//# define __cpp_return_type_deduction 190000
-//#endif
-
-////#if !defined(__cpp_runtime_arrays)
-////# define __cpp_runtime_arrays 190000
-////#endif
-
-//#if !defined(__cpp_variable_templates)
-//# define __cpp_variable_templates 190000
-//#endif
+// Every C++ 14 supporting GCC does the right thing here
 
 #endif  // __GXX_EXPERIMENTAL_CXX0X__
 
@@ -648,16 +472,8 @@ DEALINGS IN THE SOFTWARE.
 // C++ 11
 #if defined(__GXX_EXPERIMENTAL_CXX0X__)
 
-#if !defined(__cpp_access_control_sfinae) && (BOOSTLITE_CLANG >= 20900)
-#define __cpp_access_control_sfinae 190000
-#endif
-
 #if !defined(__cpp_alias_templates) && (BOOSTLITE_CLANG >= 30000)
 #define __cpp_alias_templates 190000
-#endif
-
-#if !defined(__cpp_alignas) && (BOOSTLITE_CLANG >= 30300)
-#define __cpp_alignas 190000
 #endif
 
 #if !defined(__cpp_attributes) && (BOOSTLITE_CLANG >= 30300)
@@ -672,72 +488,32 @@ DEALINGS IN THE SOFTWARE.
 #define __cpp_decltype 190000
 #endif
 
-#if !defined(__cpp_default_function_template_args) && (BOOSTLITE_CLANG >= 20900)
-#define __cpp_default_function_template_args 190000
-#endif
-
-#if !defined(__cpp_defaulted_functions) && (BOOSTLITE_CLANG >= 30000)
-#define __cpp_defaulted_functions 190000
-#endif
-
 #if !defined(__cpp_delegating_constructors) && (BOOSTLITE_CLANG >= 30000)
 #define __cpp_delegating_constructors 190000
 #endif
 
-#if !defined(__cpp_deleted_functions) && (BOOSTLITE_CLANG >= 20900)
-#define __cpp_deleted_functions 190000
-#endif
-
-#if !defined(__cpp_explicit_conversions) && (BOOSTLITE_CLANG >= 30000)
-#define __cpp_explicit_conversions 190000
-#endif
-
-#if !defined(__cpp_generalized_initializers) && (BOOSTLITE_CLANG >= 30000)
-#define __cpp_generalized_initializers 190000
-#endif
-
-#if !defined(__cpp_implicit_moves) && (BOOSTLITE_CLANG >= 20900)
-#define __cpp_implicit_moves 190000
+#if !defined(__cpp_explicit_conversion) && (BOOSTLITE_CLANG >= 30000)
+#define __cpp_explicit_conversion 190000
 #endif
 
 #if !defined(__cpp_inheriting_constructors) && (BOOSTLITE_CLANG >= 30300)
 #define __cpp_inheriting_constructors 190000
 #endif
 
-#if !defined(__cpp_inline_namespaces) && (BOOSTLITE_CLANG >= 20900)
-#define __cpp_inline_namespaces 190000
+#if !defined(__cpp_initializer_lists) && (BOOSTLITE_CLANG >= 30100)
+#define __cpp_initializer_lists 190000
 #endif
 
 #if !defined(__cpp_lambdas) && (BOOSTLITE_CLANG >= 30100)
 #define __cpp_lambdas 190000
 #endif
 
-#if !defined(__cpp_local_type_template_args) && (BOOSTLITE_CLANG >= 20900)
-#define __cpp_local_type_template_args 190000
+#if !defined(__cpp_nsdmi) && (BOOSTLITE_CLANG >= 30000)
+#define __cpp_nsdmi 190000
 #endif
 
-#if !defined(__cpp_noexcept) && (BOOSTLITE_CLANG >= 30000)
-#define __cpp_noexcept 190000
-#endif
-
-#if !defined(__cpp_nonstatic_member_init) && (BOOSTLITE_CLANG >= 30000)
-#define __cpp_nonstatic_member_init 190000
-#endif
-
-#if !defined(__cpp_nullptr) && (BOOSTLITE_CLANG >= 30000)
-#define __cpp_nullptr 190000
-#endif
-
-#if !defined(__cpp_override_control) && (BOOSTLITE_CLANG >= 30000)
-#define __cpp_override_control 190000
-#endif
-
-#if !defined(__cpp_reference_qualified_functions) && (BOOSTLITE_CLANG >= 20900)
-#define __cpp_reference_qualified_functions 190000
-#endif
-
-#if !defined(__cpp_range_for) && (BOOSTLITE_CLANG >= 30000)
-#define __cpp_range_for 190000
+#if !defined(__cpp_range_based_for) && (BOOSTLITE_CLANG >= 30000)
+#define __cpp_range_based_for 190000
 #endif
 
 // __cpp_raw_string_literals deviation
@@ -748,6 +524,9 @@ DEALINGS IN THE SOFTWARE.
 #define __cpp_raw_strings 190000
 #endif
 
+#if !defined(__cpp_ref_qualifiers) && (BOOSTLITE_CLANG >= 20900)
+#define __cpp_ref_qualifiers 190000
+#endif
 
 // __cpp_rvalue_reference deviation
 #if !defined(__cpp_rvalue_references) && defined(__cpp_rvalue_reference)
@@ -761,28 +540,12 @@ DEALINGS IN THE SOFTWARE.
 #define __cpp_static_assert 190000
 #endif
 
-#if !defined(__cpp_thread_local) && (BOOSTLITE_CLANG >= 30300)
-#define __cpp_thread_local 190000
-#endif
-
-#if !defined(__cpp_auto_type) && (BOOSTLITE_CLANG >= 20900)
-#define __cpp_auto_type 190000
-#endif
-
-#if !defined(__cpp_strong_enums) && (BOOSTLITE_CLANG >= 20900)
-#define __cpp_strong_enums 190000
-#endif
-
-#if !defined(__cpp_trailing_return) && (BOOSTLITE_CLANG >= 20900)
-#define __cpp_trailing_return 190000
+#if !defined(__cpp_unicode_characters) && (BOOSTLITE_CLANG >= 30000)
+#define __cpp_unicode_characters 190000
 #endif
 
 #if !defined(__cpp_unicode_literals) && (BOOSTLITE_CLANG >= 30000)
 #define __cpp_unicode_literals 190000
-#endif
-
-#if !defined(__cpp_unrestricted_unions) && (BOOSTLITE_CLANG >= 30100)
-#define __cpp_unrestricted_unions 190000
 #endif
 
 // __cpp_user_literals deviation
@@ -799,50 +562,7 @@ DEALINGS IN THE SOFTWARE.
 
 
 // C++ 14
-////#if !defined(__cpp_binary_literals)
-////# define __cpp_binary_literals 190000
-////#endif
-
-////#if !defined(__cpp_contextual_conversions)
-////# define __cpp_contextual_conversions 190000
-////#endif
-
-////#if !defined(__cpp_decltype_auto)
-////# define __cpp_decltype_auto 190000
-////#endif
-
-////#if !defined(__cpp_aggregate_nsdmi)
-////# define __cpp_aggregate_nsdmi 190000
-////#endif
-
-////#if !defined(__cpp_digit_separators)
-////# define __cpp_digit_separators 190000
-////#endif
-
-////#if !defined(__cpp_init_captures)
-////# define __cpp_init_captures 190000
-////#endif
-
-////#if !defined(__cpp_generic_lambdas)
-////# define __cpp_generic_lambdas 190000
-////#endif
-
-////#if !defined(__cpp_relaxed_constexpr)
-////# define __cpp_relaxed_constexpr 190000
-////#endif
-
-////#if !defined(__cpp_return_type_deduction)
-////# define __cpp_return_type_deduction 190000
-////#endif
-
-// __cpp_runtime_array deviation
-#if !defined(__cpp_runtime_arrays) && defined(__cpp_runtime_array)
-#define __cpp_runtime_arrays __cpp_runtime_array
-#endif
-
-////#if !defined(__cpp_variable_templates)
-////# define __cpp_variable_templates 190000
-////#endif
+// Every C++ 14 supporting clang does the right thing here
 
 #endif  // __GXX_EXPERIMENTAL_CXX0X__
 

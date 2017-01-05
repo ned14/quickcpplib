@@ -2,6 +2,7 @@
 #define BOOSTLITE_CONFIG_HPP
 
 #include "revision.hpp"
+#include "cpp_feature.h"
 
 #define BOOSTLITE_VERSION_GLUE2(a, b) a##b
 #define BOOSTLITE_VERSION_GLUE(a, b) BOOSTLITE_VERSION_GLUE2(a, b)
@@ -78,8 +79,114 @@
 #define BOOSTLITE_DISABLE_THREAD_SANITIZE
 #endif
 
+#ifndef BOOSTLITE_SMT_PAUSE
+#if !defined(__clang__) && defined(_MSC_VER) && _MSC_VER >= 1310 && (defined(_M_IX86) || defined(_M_X64))
+extern "C" void _mm_pause();
+#pragma intrinsic(_mm_pause)
+#define BOOSTLITE_SMT_PAUSE _mm_pause();
+#elif !defined(__c2__) && defined(__GNUC__) && (defined(__i386__) || defined(__x86_64__))
+#define BOOSTLITE_SMT_PAUSE __asm__ __volatile__("rep; nop" : : : "memory");
+#endif
+#endif
+
+// TO BE REMOVED SOON: C++ 14 constexpr macro
+#ifndef BOOSTLITE_CONSTEXPR
+#ifdef __cpp_constexpr >= 201304
+#define BOOSTLITE_CONSTEXPR constexpr
+#endif
+#endif
+#ifndef BOOSTLITE_CONSTEXPR
+#define BOOSTLITE_CONSTEXPR
+#endif
+
+#ifndef BOOSTLITE_FORCEINLINE
+#if defined(_MSC_VER)
+#define BOOSTLITE_FORCEINLINE __forceinline
+#elif defined(__GNUC__)
+#define BOOSTLITE_FORCEINLINE __attribute__((always_inline))
+#else
+#define BOOSTLITE_FORCEINLINE
+#endif
+#endif
+
+#ifndef BOOSTLITE_NOINLINE
+#if defined(_MSC_VER)
+#define BOOSTLITE_NOINLINE __declspec(noinline)
+#elif defined(__GNUC__)
+#define BOOSTLITE_NOINLINE __attribute__((noinline))
+#else
+#define BOOSTLITE_NOINLINE
+#endif
+#endif
+
+#if !defined(BOOSTLITE_NORETURN)
+#ifdef __cpp_attributes
+#define BOOSTLITE_NORETURN [[noreturn]]
+#elif defined(_MSC_VER)
+#define BOOSTLITE_NORETURN __declspec(noreturn)
+#elif defined(__GNUC__)
+#define BOOSTLITE_NORETURN __attribute__((__noreturn__))
+#else
+#define BOOSTLITE_NORETURN
+#endif
+#endif
+
+#ifndef BOOSTLITE_NODISCARD
+#ifdef __has_cpp_attribute
+#if __has_cpp_attribute(nodiscard)
+#define BOOSTLITE_NODISCARD [[nodiscard]]
+#endif
+#elif defined(__clang__)
+#define BOOSTLITE_NODISCARD __attribute__((warn_unused_result))
+#elif defined(_MSC_VER)
+// _Must_inspect_result_ expands into this
+#define BOOSTLITE_NODISCARD                                                                                                                                                                                                                                                                                                  \
+  __declspec("SAL_name"                                                                                                                                                                                                                                                                                                        \
+             "("                                                                                                                                                                                                                                                                                                               \
+             "\"_Must_inspect_result_\""                                                                                                                                                                                                                                                                                       \
+             ","                                                                                                                                                                                                                                                                                                               \
+             "\"\""                                                                                                                                                                                                                                                                                                            \
+             ","                                                                                                                                                                                                                                                                                                               \
+             "\"2\""                                                                                                                                                                                                                                                                                                           \
+             ")") __declspec("SAL_begin") __declspec("SAL_post") __declspec("SAL_mustInspect") __declspec("SAL_post") __declspec("SAL_checkReturn") __declspec("SAL_end")
+#endif
+#endif
+#ifndef BOOSTLITE_NODISCARD
+#define BOOSTLITE_NODISCARD
+#endif
+
+#ifndef BOOSTLITE_SYMBOL_VISIBLE
+#if defined(_MSC_VER)
+#define BOOSTLITE_SYMBOL_VISIBLE
+#elif defined(__GNUC__)
+#define BOOSTLITE_SYMBOL_VISIBLE __attribute__((visibility("default")))
+#else
+#define BOOSTLITE_SYMBOL_VISIBLE
+#endif
+#endif
+
+#ifndef BOOSTLITE_SYMBOL_EXPORT
+#if defined(_MSC_VER)
+#define BOOSTLITE_SYMBOL_EXPORT __declspec(dllexport)
+#elif defined(__GNUC__)
+#define BOOSTLITE_SYMBOL_EXPORT __attribute__((visibility("default")))
+#else
+#define BOOSTLITE_SYMBOL_EXPORT
+#endif
+#endif
+
+#ifndef BOOSTLITE_SYMBOL_IMPORT
+#if defined(_MSC_VER)
+#define BOOSTLITE_SYMBOL_IMPORT __declspec(dllimport)
+#elif defined(__GNUC__)
+#define BOOSTLITE_SYMBOL_IMPORT
+#else
+#define BOOSTLITE_SYMBOL_IMPORT
+#endif
+#endif
+
 #ifndef BOOSTLITE_THREAD_LOCAL
-#ifdef __cpp_thread_local
+#if __cplusplus >= 201103L
 #define BOOSTLITE_THREAD_LOCAL thread_local
 #elif defined(_MSC_VER)
 #define BOOSTLITE_THREAD_LOCAL __declspec(thread)
