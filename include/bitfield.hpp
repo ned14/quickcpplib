@@ -106,13 +106,13 @@ namespace bitfield
     //! Performs a bitwise AND
     constexpr bitfield operator&(enum_type o) const noexcept { return bitfield(_value & o); }
     //! Performs a bitwise AND
-    BOOST_CXX14_CONSTEXPR bitfield &operator&=(bitfield o) noexcept
+    BOOSTLITE_CONSTEXPR bitfield &operator&=(bitfield o) noexcept
     {
       _value &= o._value;
       return *this;
     }
     //! Performs a bitwise AND
-    BOOST_CXX14_CONSTEXPR bitfield &operator&=(enum_type o) noexcept
+    BOOSTLITE_CONSTEXPR bitfield &operator&=(enum_type o) noexcept
     {
       _value &= o;
       return *this;
@@ -126,13 +126,13 @@ namespace bitfield
     //! Performs a bitwise OR
     constexpr bitfield operator|(enum_type o) const noexcept { return bitfield(_value | o); }
     //! Performs a bitwise OR
-    BOOST_CXX14_CONSTEXPR bitfield &operator|=(bitfield o) noexcept
+    BOOSTLITE_CONSTEXPR bitfield &operator|=(bitfield o) noexcept
     {
       _value |= o._value;
       return *this;
     }
     //! Performs a bitwise OR
-    BOOST_CXX14_CONSTEXPR bitfield &operator|=(enum_type o) noexcept
+    BOOSTLITE_CONSTEXPR bitfield &operator|=(enum_type o) noexcept
     {
       _value |= o;
       return *this;
@@ -142,13 +142,13 @@ namespace bitfield
     //! Performs a bitwise XOR
     constexpr bitfield operator^(enum_type o) const noexcept { return bitfield(_value ^ o); }
     //! Performs a bitwise XOR
-    BOOST_CXX14_CONSTEXPR bitfield &operator^=(bitfield o) noexcept
+    BOOSTLITE_CONSTEXPR bitfield &operator^=(bitfield o) noexcept
     {
       _value ^= o._value;
       return *this;
     }
     //! Performs a bitwise XOR
-    BOOST_CXX14_CONSTEXPR bitfield &operator^=(enum_type o) noexcept
+    BOOSTLITE_CONSTEXPR bitfield &operator^=(enum_type o) noexcept
     {
       _value ^= o;
       return *this;

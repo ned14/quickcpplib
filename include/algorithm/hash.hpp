@@ -71,7 +71,7 @@ namespace algorithm
     /*! \class fast_hash
     \brief Fast very collision resistant uint128 hash. Currently SpookyHash @ 0.3 cycles/byte.
     */
-    class BOOST_AFIO_DECL fast_hash
+    class fast_hash
     {
       using uint8 = unsigned char;
       using uint64 = unsigned long long;
@@ -127,8 +127,8 @@ namespace algorithm
       using uint128 = integers128::uint128;
       static constexpr bool ALLOW_UNALIGNED_READS = true;
 
-      static inline BOOST_FORCEINLINE uint64 Rot64(uint64 x, int k) { return (x << k) | (x >> (64 - k)); }
-      static inline BOOST_FORCEINLINE void Mix(const uint64 *data, uint64 &s0, uint64 &s1, uint64 &s2, uint64 &s3, uint64 &s4, uint64 &s5, uint64 &s6, uint64 &s7, uint64 &s8, uint64 &s9, uint64 &s10, uint64 &s11)
+      static inline BOOSTLITE_FORCEINLINE uint64 Rot64(uint64 x, int k) { return (x << k) | (x >> (64 - k)); }
+      static inline BOOSTLITE_FORCEINLINE void Mix(const uint64 *data, uint64 &s0, uint64 &s1, uint64 &s2, uint64 &s3, uint64 &s4, uint64 &s5, uint64 &s6, uint64 &s7, uint64 &s8, uint64 &s9, uint64 &s10, uint64 &s11)
       {
         s0 += data[0];
         s2 ^= s10;
@@ -191,7 +191,7 @@ namespace algorithm
         s11 = Rot64(s11, 46);
         s10 += s0;
       }
-      static inline BOOST_FORCEINLINE void EndPartial(uint64 &h0, uint64 &h1, uint64 &h2, uint64 &h3, uint64 &h4, uint64 &h5, uint64 &h6, uint64 &h7, uint64 &h8, uint64 &h9, uint64 &h10, uint64 &h11)
+      static inline BOOSTLITE_FORCEINLINE void EndPartial(uint64 &h0, uint64 &h1, uint64 &h2, uint64 &h3, uint64 &h4, uint64 &h5, uint64 &h6, uint64 &h7, uint64 &h8, uint64 &h9, uint64 &h10, uint64 &h11)
       {
         h11 += h1;
         h2 ^= h11;
@@ -231,7 +231,7 @@ namespace algorithm
         h0 = Rot64(h0, 54);
       }
 
-      static inline BOOST_FORCEINLINE void End(const uint64 *data, uint64 &h0, uint64 &h1, uint64 &h2, uint64 &h3, uint64 &h4, uint64 &h5, uint64 &h6, uint64 &h7, uint64 &h8, uint64 &h9, uint64 &h10, uint64 &h11)
+      static inline BOOSTLITE_FORCEINLINE void End(const uint64 *data, uint64 &h0, uint64 &h1, uint64 &h2, uint64 &h3, uint64 &h4, uint64 &h5, uint64 &h6, uint64 &h7, uint64 &h8, uint64 &h9, uint64 &h10, uint64 &h11)
       {
         h0 += data[0];
         h1 += data[1];
@@ -250,7 +250,7 @@ namespace algorithm
         EndPartial(h0, h1, h2, h3, h4, h5, h6, h7, h8, h9, h10, h11);
       }
 
-      static inline BOOST_FORCEINLINE void ShortMix(uint64 &h0, uint64 &h1, uint64 &h2, uint64 &h3)
+      static inline BOOSTLITE_FORCEINLINE void ShortMix(uint64 &h0, uint64 &h1, uint64 &h2, uint64 &h3)
       {
         h2 = Rot64(h2, 50);
         h2 += h3;
@@ -290,7 +290,7 @@ namespace algorithm
         h3 ^= h1;
       }
 
-      static inline BOOST_FORCEINLINE void ShortEnd(uint64 &h0, uint64 &h1, uint64 &h2, uint64 &h3)
+      static inline BOOSTLITE_FORCEINLINE void ShortEnd(uint64 &h0, uint64 &h1, uint64 &h2, uint64 &h3)
       {
         h3 ^= h2;
         h2 = Rot64(h2, 15);

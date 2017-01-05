@@ -36,7 +36,6 @@ DEALINGS IN THE SOFTWARE.
 #ifndef BOOSTLITE_SPINLOCK_H
 #define BOOSTLITE_SPINLOCK_H
 
-#include "boost/config.hpp"
 #include "config.hpp"
 
 #include <atomic>
@@ -138,7 +137,7 @@ namespace configurable_spinlock
 
   public:
     typedef T value_type;
-    BOOST_CXX14_CONSTEXPR spinlockbase() noexcept : v(0)
+    BOOSTLITE_CONSTEXPR spinlockbase() noexcept : v(0)
     {
       BOOSTLITE_ANNOTATE_RWLOCK_CREATE(this);
 #if BOOSTLITE_IN_THREAD_SANITIZER
@@ -147,7 +146,7 @@ namespace configurable_spinlock
     }
     spinlockbase(const spinlockbase &) = delete;
     //! Atomically move constructs
-    BOOST_CXX14_CONSTEXPR spinlockbase(spinlockbase &&) noexcept : v(0)
+    BOOSTLITE_CONSTEXPR spinlockbase(spinlockbase &&) noexcept : v(0)
     {
       BOOSTLITE_ANNOTATE_RWLOCK_CREATE(this);
 // v.store(o.v.exchange(0, memory_order_acq_rel));
@@ -238,7 +237,7 @@ namespace configurable_spinlock
       BOOSTLITE_ANNOTATE_RWLOCK_RELEASED(this, true);
       v.store(0, memory_order_release);
     }
-    BOOST_CXX14_CONSTEXPR bool int_yield(size_t) noexcept { return false; }
+    BOOSTLITE_CONSTEXPR bool int_yield(size_t) noexcept { return false; }
   };
   template <typename T> struct spinlockbase<lockable_ptr<T>>
   {
@@ -304,7 +303,7 @@ namespace configurable_spinlock
       value.n &= ~(size_t) 1;
       v.store(value.v, memory_order_release);
     }
-    BOOST_CXX14_CONSTEXPR bool int_yield(size_t) noexcept { return false; }
+    BOOSTLITE_CONSTEXPR bool int_yield(size_t) noexcept { return false; }
   };
   template <typename T> struct ordered_spinlockbase
   {
@@ -333,7 +332,7 @@ namespace configurable_spinlock
 #endif
 
   public:
-    BOOST_CXX14_CONSTEXPR ordered_spinlockbase() noexcept : _v(0)
+    BOOSTLITE_CONSTEXPR ordered_spinlockbase() noexcept : _v(0)
     {
       BOOSTLITE_ANNOTATE_RWLOCK_CREATE(this);
       // v.store(0, memory_order_release);
@@ -423,7 +422,7 @@ namespace configurable_spinlock
     atomic<value_type> _v;
 
   public:
-    BOOST_CXX14_CONSTEXPR shared_spinlockbase() noexcept : _v(0)
+    BOOSTLITE_CONSTEXPR shared_spinlockbase() noexcept : _v(0)
     {
       BOOSTLITE_ANNOTATE_RWLOCK_CREATE(this);
 #if BOOSTLITE_IN_THREAD_SANITIZER
@@ -544,8 +543,8 @@ namespace configurable_spinlock
     template <bool use_pause> inline void smt_pause() noexcept {};
     template <> inline void smt_pause<true>() noexcept
     {
-#ifdef BOOST_SMT_PAUSE
-      BOOST_SMT_PAUSE;
+#ifdef BOOSTLITE_SMT_PAUSE
+      BOOSTLITE_SMT_PAUSE;
 #endif
     };
   }
@@ -558,7 +557,7 @@ namespace configurable_spinlock
       constexpr policy() {}
       policy(const policy &) = delete;
       constexpr policy(policy &&o) noexcept : parenttype(std::move(o)) {}
-      BOOST_CXX14_CONSTEXPR inline bool int_yield(size_t n) noexcept
+      BOOSTLITE_CONSTEXPR inline bool int_yield(size_t n) noexcept
       {
         if(parenttype::int_yield(n))
           return true;
@@ -578,7 +577,7 @@ namespace configurable_spinlock
       constexpr policy() {}
       policy(const policy &) = delete;
       constexpr policy(policy &&o) noexcept : parenttype(std::move(o)) {}
-      BOOST_CXX14_CONSTEXPR bool int_yield(size_t n) noexcept
+      BOOSTLITE_CONSTEXPR bool int_yield(size_t n) noexcept
       {
         if(parenttype::int_yield(n))
           return true;
@@ -597,7 +596,7 @@ namespace configurable_spinlock
       constexpr policy() {}
       policy(const policy &) = delete;
       constexpr policy(policy &&o) noexcept : parenttype(std::move(o)) {}
-      BOOST_CXX14_CONSTEXPR bool int_yield(size_t n) noexcept
+      BOOSTLITE_CONSTEXPR bool int_yield(size_t n) noexcept
       {
         if(parenttype::int_yield(n))
           return true;
