@@ -32,7 +32,7 @@ DEALINGS IN THE SOFTWARE.
 #ifndef BOOSTLITE_BOOST_UNIT_TEST_HPP
 #define BOOSTLITE_BOOST_UNIT_TEST_HPP
 
-#include "../config.hpp"
+#include "../../config.hpp"
 
 /*! \defgroup unittesting Unit test suites
 

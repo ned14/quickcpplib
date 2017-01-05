@@ -91,7 +91,7 @@ extern "C" void _mm_pause();
 
 // TO BE REMOVED SOON: C++ 14 constexpr macro
 #ifndef BOOSTLITE_CONSTEXPR
-#ifdef __cpp_constexpr >= 201304
+#if __cpp_constexpr >= 201304
 #define BOOSTLITE_CONSTEXPR constexpr
 #endif
 #endif
