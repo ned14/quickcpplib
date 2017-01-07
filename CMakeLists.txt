@@ -31,7 +31,7 @@ all_compile_features(PUBLIC
   cxx_variadic_templates
   cxx_noexcept
   cxx_constexpr
-  cxx_thread_local
+#  cxx_thread_local          ## Technically a requirement, but not enforced due to Xcode 7
   cxx_lambda_init_captures
   cxx_generic_lambdas
 )
