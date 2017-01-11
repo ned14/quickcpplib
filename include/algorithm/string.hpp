@@ -144,7 +144,7 @@ This lets one pack one byte of input into two bytes of output.
           return c - 'a' + 10;
         if(c >= 'A' && c <= 'F')
           return c - 'A' + 10;
-        BOOST_AFIO_THROW(std::invalid_argument("Input is not hexadecimal."));
+        throw std::invalid_argument("Input is not hexadecimal.");
 #endif
       };
       for(size_t n = 0; n < inlen / 2; n += 4)

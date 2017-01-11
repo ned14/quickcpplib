@@ -295,7 +295,7 @@ namespace algorithm
         const value_type *_v;
         int _locked_type;
         explicit const_pointer(const value_type *v = nullptr, bool exclusive_locked = false) noexcept : _v(v), _locked_type(exclusive_locked ? 2 : 1) { /*assert(!v || is_lockable_locked(v->lock));*/}
-        BOOST_CXX14_CONSTEXPR const_pointer(const_pointer &&o) noexcept : _v(o._v), _locked_type(o._locked_type) { o._v = nullptr; }
+        BOOSTLITE_CONSTEXPR const_pointer(const_pointer &&o) noexcept : _v(o._v), _locked_type(o._locked_type) { o._v = nullptr; }
         const_pointer(const const_pointer &) = delete;
         void reset() noexcept
         {
@@ -310,7 +310,7 @@ namespace algorithm
           }
         }
         ~const_pointer() { reset(); }
-        BOOST_CXX14_CONSTEXPR const_pointer &operator=(const_pointer &&o) noexcept
+        BOOSTLITE_CONSTEXPR const_pointer &operator=(const_pointer &&o) noexcept
         {
           this->~const_pointer();
           new(this) const_pointer(std::move(o));
@@ -340,18 +340,18 @@ namespace algorithm
       struct pointer : public const_pointer
       {
         explicit pointer(value_type *v = nullptr) noexcept : const_pointer(v, true) {}
-        BOOST_CXX14_CONSTEXPR pointer(pointer &&o) noexcept : const_pointer(std::move(o)) {}
-        BOOST_CXX14_CONSTEXPR pointer &operator=(pointer &&o) noexcept
+        BOOSTLITE_CONSTEXPR pointer(pointer &&o) noexcept : const_pointer(std::move(o)) {}
+        BOOSTLITE_CONSTEXPR pointer &operator=(pointer &&o) noexcept
         {
           this->~pointer();
           new(this) pointer(std::move(o));
           return *this;
         }
-        BOOST_CXX14_CONSTEXPR value_type *operator->() noexcept { return const_cast<value_type *>(this->_v); }
+        BOOSTLITE_CONSTEXPR value_type *operator->() noexcept { return const_cast<value_type *>(this->_v); }
         constexpr const value_type *operator->() const noexcept { return this->_v; }
-        BOOST_CXX14_CONSTEXPR value_type &operator*() noexcept { return *const_cast<value_type *>(this->_v); }
+        BOOSTLITE_CONSTEXPR value_type &operator*() noexcept { return *const_cast<value_type *>(this->_v); }
         constexpr const value_type &operator*() const noexcept { return *this->_v; }
-        BOOST_CXX14_CONSTEXPR explicit operator value_type *() noexcept { return const_cast<value_type *>(this->_v); }
+        BOOSTLITE_CONSTEXPR explicit operator value_type *() noexcept { return const_cast<value_type *>(this->_v); }
         constexpr explicit operator const value_type *() const noexcept { return this->_v; }
       };
       struct items_count_type
@@ -582,10 +582,10 @@ namespace algorithm
 
       public:
         constexpr iterator_() noexcept : _parent(nullptr), _p(nullptr) {}
-        BOOST_CXX14_CONSTEXPR iterator_(const iterator_ &) = default;
-        BOOST_CXX14_CONSTEXPR iterator_(iterator_ &&) noexcept = default;
-        BOOST_CXX14_CONSTEXPR iterator_ &operator=(const iterator_ &) = default;
-        BOOST_CXX14_CONSTEXPR iterator_ &operator=(iterator_ &&) noexcept = default;
+        BOOSTLITE_CONSTEXPR iterator_(const iterator_ &) = default;
+        BOOSTLITE_CONSTEXPR iterator_(iterator_ &&) noexcept = default;
+        BOOSTLITE_CONSTEXPR iterator_ &operator=(const iterator_ &) = default;
+        BOOSTLITE_CONSTEXPR iterator_ &operator=(iterator_ &&) noexcept = default;
         // Non-const to const iterator
         template <class _Parent, class _Pointer, class _Reference, typename = typename std::enable_if<std::is_same<_Parent, _Parent>::value && is_const, _Parent>::type> constexpr iterator_(const iterator_<false, _Parent, _Pointer, _Reference> &o) noexcept : _parent(o._parent), _p(o._p) {}
         template <class _Parent, class _Pointer, class _Reference, typename = typename std::enable_if<std::is_same<_Parent, _Parent>::value && is_const, _Parent>::type> constexpr iterator_(iterator_<false, _Parent, _Pointer, _Reference> &&o) noexcept : _parent(std::move(o._parent)), _p(std::move(o._p)) {}

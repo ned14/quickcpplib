@@ -124,8 +124,8 @@ function(all_sources)
   endif()
 endfunction()
 
-# Apply these target properties to all library targets
-function(all_target_properties)
+# Apply these target properties to all library targets with real outputs
+function(all_target_output_properties)
   if(TARGET ${PROJECT_NAME}_sl)
     set_target_properties(${PROJECT_NAME}_sl ${ARGV})
     foreach(special ${SPECIAL_BUILDS})
@@ -136,6 +136,17 @@ function(all_target_properties)
     set_target_properties(${PROJECT_NAME}_dl ${ARGV})
     foreach(special ${SPECIAL_BUILDS})
       set_target_properties(${PROJECT_NAME}_dl-${special} ${ARGV})
+    endforeach()
+  endif()
+endfunction()
+
+# Apply these target properties to all library targets
+function(all_target_properties)
+  all_target_output_properties(${ARGV})
+  if(TARGET ${PROJECT_NAME}_hl)
+    set_target_properties(${PROJECT_NAME}_hl ${ARGV})
+    foreach(special ${SPECIAL_BUILDS})
+      set_target_properties(${PROJECT_NAME}_hl-${special} ${ARGV})
     endforeach()
   endif()
 endfunction()
@@ -170,7 +181,7 @@ if(NOT PROJECT_IS_DEPENDENCY AND CMAKE_GENERATOR MATCHES "Visual Studio")
   endforeach()
 endif()
 
-all_target_properties(PROPERTIES
+all_target_output_properties(PROPERTIES
   # Place all libraries into the lib directory
   ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
   LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
@@ -197,7 +208,9 @@ else()
   all_compile_definitions(PUBLIC $<$<CONFIG:Debug>:BOOSTLITE_ENABLE_VALGRIND=1>)
 endif()
 
-all_target_properties(PROPERTIES POSITION_INDEPENDENT_CODE ON)
+all_target_output_properties(PROPERTIES
+  POSITION_INDEPENDENT_CODE ON
+)
 
 if(WIN32)
   all_compile_definitions(PUBLIC _UNICODE UNICODE)                          # Unicode support
