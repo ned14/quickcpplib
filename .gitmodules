@@ -4,3 +4,4 @@
 	branch = master
 	fetchRecurseSubmodules = true
 	ignore = untracked
+	shallow = true
