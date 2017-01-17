@@ -139,6 +139,9 @@ function(git_revision_from_path path outsha outtimestamp)
     file(READ "${gitdir}" pathtogitdir)
     # This will have the form:
     # gitdir: ../../../../.git/modules/include/boost/afio/boost-lite
+    if(NOT "${pathtogitdir}" MATCHES "\.\./")
+      message(FATAL_ERROR "FATAL: The .git file at '${gitdir}' contains weird content I don't understand")
+    endif()
     string(SUBSTRING "${pathtogitdir}" 8 -1 pathtogitdir)
     string(STRIP "${pathtogitdir}" pathtogitdir)
     set(gitdir "${path}/${pathtogitdir}")
