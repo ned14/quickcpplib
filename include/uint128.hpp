@@ -45,11 +45,9 @@ namespace integers128
     unsigned short as_shorts[8];
     unsigned int as_ints[4];
     unsigned long long as_longlongs[2];
-#if defined(__i386__) || defined(_M_IX86) || defined(__x86_64__) || defined(_M_X64)
 #if defined(__x86_64__) || defined(_M_X64) || defined(__SSE2__) || (defined(_M_IX86_FP) && _M_IX86_FP >= 2)
     // Strongly hint to the compiler what to do here
     __m128i as_m128i;
-#endif
 #endif
     //! Default constructor, no bits set
     uint128() noexcept {}

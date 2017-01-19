@@ -33,6 +33,8 @@ DEALINGS IN THE SOFTWARE.
 
 #include "../uint128.hpp"
 
+#include <string.h>  // for memcpy
+
 BOOSTLITE_NAMESPACE_BEGIN
 
 namespace algorithm
@@ -116,7 +118,7 @@ namespace algorithm
       static inline uint128 hash(const char *data, size_t bytes, const uint128 &seed = uint128(nullptr)) noexcept;
 
       //! Single shot hash of a span
-      template <typename T> static inline uint128 hash(const span::span<T> &str) noexcept { return hash((char *) str.data(), str.size() * sizeof(T)); }
+//      template <typename T> static inline uint128 hash(const span::span<T> &str) noexcept { return hash((char *) str.data(), str.size() * sizeof(T)); }
     };
 
     namespace fash_hash_detail
