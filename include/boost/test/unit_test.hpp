@@ -444,6 +444,7 @@ else                                                                            
   {                                                                                                                                                                                                                                                                                                                            \
     BOOSTLITE_BOOST_UNIT_CHECK_PASS(, expr);                                                                                                                                                                                                                                                                                   \
   }
+#define BOOST_CHECK_EQ(expr1, expr2) BOOST_CHECK((expr1) == (expr2))                                                                                                                                                                                                                                                                                                      
 #ifdef __cpp_exceptions
 #define BOOST_CHECK_THROWS(expr)                                                                                                                                                                                                                                                                                               \
   try                                                                                                                                                                                                                                                                                                                          \
@@ -617,6 +618,7 @@ static void                                                                     
   CATCH_INFO(msg)
 
 #define BOOST_CHECK(expr) CATCH_CHECK(expr)
+#define BOOST_CHECK_EQ(expr1, expr2) BOOST_CHECK((expr1) == (expr2))                                                                                                                                                                                                                                                                                                      
 #define BOOST_CHECK_THROWS(expr) CATCH_CHECK_THROWS(expr)
 #define BOOST_CHECK_THROW(expr, type) CATCH_CHECK_THROWS_AS(expr, type)
 #define BOOST_CHECK_NO_THROW(expr) CATCH_CHECK_NOTHROW(expr)

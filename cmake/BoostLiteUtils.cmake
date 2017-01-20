@@ -139,12 +139,14 @@ function(git_revision_from_path path outsha outtimestamp)
     file(READ "${gitdir}" pathtogitdir)
     # This will have the form:
     # gitdir: ../../../../.git/modules/include/boost/afio/boost-lite
-    if(NOT "${pathtogitdir}" MATCHES "\.\./")
-      message(FATAL_ERROR "FATAL: The .git file at '${gitdir}' contains weird content I don't understand")
-    endif()
+    # gitdir: /home/paul/tmp/cget/cget/build/tmp-48d80d9e2c734b86800806772ac60260/boost.outcome/include/boost/outcome/boost-lite/.git
     string(SUBSTRING "${pathtogitdir}" 8 -1 pathtogitdir)
     string(STRIP "${pathtogitdir}" pathtogitdir)
-    set(gitdir "${path}/${pathtogitdir}")
+    if("${pathtogitdir}" MATCHES "\.\./")
+      set(gitdir "${path}/${pathtogitdir}")
+    else()
+      set(gitdir "${pathtogitdir}")
+    endif()
   endif()
   # Read .git/HEAD and the SHA and timestamp
   #indented_message(STATUS "gitdir is ${gitdir}")
