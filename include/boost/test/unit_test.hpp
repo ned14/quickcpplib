@@ -168,7 +168,8 @@ namespace unit_test
   }
   static inline test_case *&current_test_case()
   {
-    static test_case *v;
+    static test_case default_test_case("unnamed", "Default test case for unit test which don't declare test cases", nullptr);
+    static test_case *v = &default_test_case;
     return v;
   }
   static inline int run(int argc, const char *const argv[])
