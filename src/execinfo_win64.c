@@ -128,7 +128,7 @@ _Check_return_ _Ret_writes_maybenull_(len) char **backtrace_symbols(_In_reads_(l
             free(ret);
             return NULL;
           }
-          ihl.FileName = L"unknown";
+          ihl.FileName = (wchar_t *) L"unknown";
           ihl.LineNumber = 0;
         }
       retry:
