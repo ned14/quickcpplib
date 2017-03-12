@@ -2,6 +2,7 @@ if(BoostLiteUtilsIncluded)
   return()
 endif()
 set(BoostLiteUtilsIncluded ON)
+set(BoostLiteCMakePath "${CMAKE_CURRENT_LIST_DIR}")
 include(FindGit)
 if(NOT GIT_FOUND)
   message(FATAL_ERROR "FATAL: The Boost-lite infrastructure is very tightly integrated with git"

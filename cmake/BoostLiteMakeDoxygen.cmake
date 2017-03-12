@@ -42,10 +42,10 @@ else()
       COMMAND ${shell_check_warnings_file_size}
       COMMAND ${CMAKE_COMMAND} -E chdir "doc" "${GIT_EXECUTABLE}" add -A .
       COMMAND ${CMAKE_COMMAND} -E chdir "doc/html" "${GIT_EXECUTABLE}" add -A .
-      DEPENDS ${example_bins}
+      DEPENDS ${example_bins} ${${PROJECT_NAME}_DOXYGEN_DEPENDS}
       WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
       COMMENT "Regenerating documentation ..."
-      SOURCES "Doxyfile"
+      SOURCES "Doxyfile" ${${PROJECT_NAME}_DOXYGEN_SOURCES}
     )
     add_dependencies(_docs ${tgt})
     set(${PROJECT_NAME}_EXAMPLE_TARGETS ${example_bins} PARENT_SCOPE)
