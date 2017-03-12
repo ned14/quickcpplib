@@ -189,7 +189,7 @@ endfunction()
 #   #define BOOST_AFIO_PREVIOUS_COMMIT_UNIQUE x
 # Lines 2, 3 and 4 need their ending rewritten
 function(UpdateRevisionHppFromGit hppfile)
-  set(temphppfile "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${PROJECT_NAME}_revision.hpp")
+  #set(temphppfile "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${PROJECT_NAME}_revision.hpp")
   git_revision_from_path("${CMAKE_CURRENT_SOURCE_DIR}" HEADSHA HEADSTAMP)
   if(DEFINED HEADSHA)
     string(SUBSTRING "${HEADSHA}" 0 8 HEADUNIQUE)
@@ -202,13 +202,10 @@ function(UpdateRevisionHppFromGit hppfile)
     set(txt3 "${CMAKE_MATCH_5}")
     set(OLDUNIQUE "${CMAKE_MATCH_6}")
     set(txt4 "${CMAKE_MATCH_7}")
-    set(HPPFILE "${txt1}${HEADSHA}${txt2}${HEADSTAMP}${txt3}${HEADUNIQUE}${txt4}")
-    file(WRITE "${temphppfile}" "${HPPFILE}")
-    add_custom_target(${PROJECT_NAME}_update_revision_hpp
-      COMMAND ${CMAKE_COMMAND} -E copy_if_different ${temphppfile} ${hppfile}
-      COMMENT "Updating ${hppfile} ..."
-      SOURCES "${hppfile}"
-    )
+    set(HPPFILE2 "${txt1}${HEADSHA}${txt2}${HEADSTAMP}${txt3}${HEADUNIQUE}${txt4}")
+    if(NOT "${HPPFILE}" STREQUAL "${HPPFILE2}")
+      file(WRITE "${hppfile}" "${HPPFILE2}")
+    endif()
   endif()
 endfunction()
 
@@ -231,6 +228,15 @@ function(target_uses_openmp target)
   if(${required_idx} GREATER -1)
     indented_message(FATAL_ERROR "FATAL: Target ${target} requires OpenMP")
   endif()
+endfunction()
+
+# Preprocess a target's interface file
+function(target_preprocess_interface dependency outfile)
+    add_custom_command(OUTPUT "${outfile}"
+      COMMAND ${CMAKE_CXX_COMPILER} -E -o "${outfile}" "${CMAKE_CURRENT_SOURCE_DIR}/include/${${PROJECT_NAME}_INTERFACE}" -DUSE_BOOSTISH_SIBLINGS $<TARGET_PROPERTY:${dependency},INCLUDE_DIRECTORIES>
+      COMMENT "Preprocessing ${${PROJECT_NAME}_INTERFACE} ..."
+    )
+    target_sources(${dependency} INTERFACE "${outfile}")
 endfunction()
 
 # Finds a Boostish library

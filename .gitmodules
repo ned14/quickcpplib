@@ -4,4 +4,8 @@
 	branch = master
 	fetchRecurseSubmodules = true
 	ignore = untracked
-	shallow = true
+[submodule "pcpp"]
+	path = pcpp
+	url = https://github.com/ned14/pcpp.git
+	branch = master
+	fetchRecurseSubmodules = true
