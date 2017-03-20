@@ -32,7 +32,6 @@ DEALINGS IN THE SOFTWARE.
 #ifndef BOOSTLITE_BITFIELD_HPP
 #define BOOSTLITE_BITFIELD_HPP
 
-#include "boost/config.hpp"
 #include "config.hpp"
 
 BOOSTLITE_NAMESPACE_BEGIN
