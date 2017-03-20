@@ -231,13 +231,14 @@ function(target_uses_openmp target)
   endif()
 endfunction()
 
-# Preprocess a target's interface file
-function(target_preprocess_interface dependency outfile)
-    add_custom_command(OUTPUT "${outfile}"
-      COMMAND ${CMAKE_CXX_COMPILER} -E -o "${outfile}" "${CMAKE_CURRENT_SOURCE_DIR}/include/${${PROJECT_NAME}_INTERFACE}" -DUSE_BOOSTISH_SIBLINGS $<TARGET_PROPERTY:${dependency},INCLUDE_DIRECTORIES>
-      COMMENT "Preprocessing ${${PROJECT_NAME}_INTERFACE} ..."
-    )
-    target_sources(${dependency} INTERFACE "${outfile}")
+# Preprocess a file
+function(add_partial_preprocess target outfile infile)
+  add_custom_target(${target} 
+    ${PYTHON_EXECUTABLE} ${BoostLiteCMakePath}/../pcpp/pcpp/cmd.py
+    -o "${outfile}" "${infile}"
+    ${ARGN}
+    COMMENT "Preprocessing ${infile} into ${outfile} ..."
+  )
 endfunction()
 
 # Finds a Boostish library

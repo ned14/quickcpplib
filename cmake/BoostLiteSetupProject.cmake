@@ -5,6 +5,8 @@ include(CTest)
 # Bring in threads, this is after all the 21st century
 find_package(Threads)
 link_libraries(${CMAKE_THREAD_LIBS_INIT})
+# Find a python installation, if we have one we can do preprocessing
+include(FindPythonInterp)
 
 # On MSVC very annoyingly cmake puts /EHsc and /MD(d) into the global flags which means you
 # get a warning when you try to disable exceptions or use the static CRT. I hate to use this
