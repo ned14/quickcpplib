@@ -31,36 +31,32 @@ DEALINGS IN THE SOFTWARE.
 
 #include "../include/execinfo_win64.h"
 
-// To avoid including windows.h, this source has been macro expanded
+// To avoid including windows.h, this source has been macro expanded and win32 function shimmed for C++ only
+#ifdef __cplusplus
+namespace win32
+{
+  extern "C" __declspec(dllimport) _Ret_maybenull_ void *__stdcall LoadLibraryA(_In_ const char *lpLibFileName);
+  typedef int(__stdcall *GetProcAddress_returntype)();
+  extern "C" GetProcAddress_returntype __stdcall GetProcAddress(_In_ void *hModule, _In_ const char *lpProcName);
+  extern "C" __declspec(dllimport) _Success_(return != 0) unsigned short __stdcall RtlCaptureStackBackTrace(_In_ unsigned long FramesToSkip, _In_ unsigned long FramesToCapture, _Out_writes_to_(FramesToCapture, return ) void **BackTrace, _Out_opt_ unsigned long *BackTraceHash);
+  extern "C" __declspec(dllimport) _Success_(return != 0)
+  _When_((cchWideChar == -1) && (cbMultiByte != 0), _Post_equal_to_(_String_length_(lpMultiByteStr) + 1)) int __stdcall WideCharToMultiByte(_In_ unsigned int CodePage, _In_ unsigned long dwFlags, const wchar_t *lpWideCharStr, _In_ int cchWideChar, _Out_writes_bytes_to_opt_(cbMultiByte, return ) char *lpMultiByteStr,
+                                                                                                                                            _In_ int cbMultiByte, _In_opt_ const char *lpDefaultChar, _Out_opt_ int *lpUsedDefaultChar);
+}
+#else
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <Windows.h>
+#endif
 
 #ifdef __cplusplus
 namespace
 {
 #endif
-
-  extern
-#ifdef __cplusplus
-  "C"
-#endif
-  __declspec(dllimport) _Ret_maybenull_ void *__stdcall LoadLibraryA(_In_ const char *lpLibFileName);
-  typedef int(__stdcall *GetProcAddress_returntype)();
-  extern
-#ifdef __cplusplus
-  "C"
-#endif
-  GetProcAddress_returntype __stdcall GetProcAddress(_In_ void *hModule, _In_ const char *lpProcName);
-  extern
-#ifdef __cplusplus
-  "C"
-#endif
-  __declspec(dllimport) _Success_(return != 0) unsigned short __stdcall RtlCaptureStackBackTrace(_In_ unsigned long FramesToSkip, _In_ unsigned long FramesToCapture, _Out_writes_to_(FramesToCapture, return ) void **BackTrace, _Out_opt_ unsigned long *BackTraceHash);
-  extern
-#ifdef __cplusplus
-  "C"
-#endif
-  __declspec(dllimport) _Success_(return != 0)
-  _When_((cchWideChar == -1) && (cbMultiByte != 0), _Post_equal_to_(_String_length_(lpMultiByteStr) + 1)) int __stdcall WideCharToMultiByte(_In_ unsigned int CodePage, _In_ unsigned long dwFlags, const wchar_t *lpWideCharStr, _In_ int cchWideChar, _Out_writes_bytes_to_opt_(cbMultiByte, return ) char *lpMultiByteStr,
-                                                                                                                                            _In_ int cbMultiByte, _In_opt_ const char *lpDefaultChar, _Out_opt_ int *lpUsedDefaultChar);
 
   typedef struct _IMAGEHLP_LINE64
   {
@@ -81,6 +77,9 @@ namespace
 
   static void load_dbghelp()
   {
+#ifdef __cplusplus
+    using namespace win32;
+#endif
     if(dbghelp)
       return;
     dbghelp = LoadLibraryA("DBGHELP.DLL");
@@ -107,6 +106,9 @@ extern "C" {
 
 _Check_return_ size_t backtrace(_Out_writes_(len) void **bt, _In_ size_t len)
 {
+#ifdef __cplusplus
+  using namespace win32;
+#endif
   return RtlCaptureStackBackTrace(1, (unsigned long) len, bt, NULL);
 }
 
@@ -116,6 +118,9 @@ _Check_return_ size_t backtrace(_Out_writes_(len) void **bt, _In_ size_t len)
 #endif
 _Check_return_ _Ret_writes_maybenull_(len) char **backtrace_symbols(_In_reads_(len) void *const *bt, _In_ size_t len)
 {
+#ifdef __cplusplus
+  using namespace win32;
+#endif
   size_t bytes = (len + 1) * sizeof(void *) + 256, n;
   if(!len)
     return NULL;
