@@ -31,29 +31,51 @@ DEALINGS IN THE SOFTWARE.
 
 #include "../include/execinfo_win64.h"
 
-#ifndef NOMINMAX
-#define NOMINMAX
-#endif
-#include "windows.h"
+// To avoid including windows.h, this source has been macro expanded
 
 #ifdef __cplusplus
 namespace
 {
 #endif
+
+  extern
+#ifdef __cplusplus
+  "C"
+#endif
+  __declspec(dllimport) _Ret_maybenull_ void *__stdcall LoadLibraryA(_In_ const char *lpLibFileName);
+  typedef int(__stdcall *GetProcAddress_returntype)();
+  extern
+#ifdef __cplusplus
+  "C"
+#endif
+  GetProcAddress_returntype __stdcall GetProcAddress(_In_ void *hModule, _In_ const char *lpProcName);
+  extern
+#ifdef __cplusplus
+  "C"
+#endif
+  __declspec(dllimport) _Success_(return != 0) unsigned short __stdcall RtlCaptureStackBackTrace(_In_ unsigned long FramesToSkip, _In_ unsigned long FramesToCapture, _Out_writes_to_(FramesToCapture, return ) void **BackTrace, _Out_opt_ unsigned long *BackTraceHash);
+  extern
+#ifdef __cplusplus
+  "C"
+#endif
+  __declspec(dllimport) _Success_(return != 0)
+  _When_((cchWideChar == -1) && (cbMultiByte != 0), _Post_equal_to_(_String_length_(lpMultiByteStr) + 1)) int __stdcall WideCharToMultiByte(_In_ unsigned int CodePage, _In_ unsigned long dwFlags, const wchar_t *lpWideCharStr, _In_ int cchWideChar, _Out_writes_bytes_to_opt_(cbMultiByte, return ) char *lpMultiByteStr,
+                                                                                                                                            _In_ int cbMultiByte, _In_opt_ const char *lpDefaultChar, _Out_opt_ int *lpUsedDefaultChar);
+
   typedef struct _IMAGEHLP_LINE64
   {
-    DWORD SizeOfStruct;
-    PVOID Key;
-    DWORD LineNumber;
-    PTSTR FileName;
-    DWORD64 Address;
+    unsigned long SizeOfStruct;
+    void *Key;
+    unsigned long LineNumber;
+    wchar_t *FileName;
+    unsigned long long int Address;
   } IMAGEHLP_LINE64, *PIMAGEHLP_LINE64;
 
-  typedef BOOL(WINAPI *SymInitialize_t)(_In_ HANDLE hProcess, _In_opt_ PCTSTR UserSearchPath, _In_ BOOL fInvadeProcess);
+  typedef int(__stdcall *SymInitialize_t)(_In_ void *hProcess, _In_opt_ const wchar_t *UserSearchPath, _In_ int fInvadeProcess);
 
-  typedef BOOL(WINAPI *SymGetLineFromAddr64_t)(_In_ HANDLE hProcess, _In_ DWORD64 dwAddr, _Out_ PDWORD pdwDisplacement, _Out_ PIMAGEHLP_LINE64 Line);
+  typedef int(__stdcall *SymGetLineFromAddr64_t)(_In_ void *hProcess, _In_ unsigned long long int dwAddr, _Out_ unsigned long *pdwDisplacement, _Out_ PIMAGEHLP_LINE64 Line);
 
-  static HMODULE dbghelp;
+  static void *dbghelp;
   static SymInitialize_t SymInitialize;
   static SymGetLineFromAddr64_t SymGetLineFromAddr64;
 
@@ -67,7 +89,7 @@ namespace
       SymInitialize = (SymInitialize_t) GetProcAddress(dbghelp, "SymInitializeW");
       if(!SymInitialize)
         abort();
-      if(!SymInitialize(GetCurrentProcess(), NULL, TRUE))
+      if(!SymInitialize((void *) (size_t) -1 /*GetCurrentProcess()*/, NULL, 1))
         abort();
       SymGetLineFromAddr64 = (SymGetLineFromAddr64_t) GetProcAddress(dbghelp, "SymGetLineFromAddrW64");
       if(!SymGetLineFromAddr64)
@@ -85,7 +107,7 @@ extern "C" {
 
 _Check_return_ size_t backtrace(_Out_writes_(len) void **bt, _In_ size_t len)
 {
-  return RtlCaptureStackBackTrace(1, (DWORD) len, bt, NULL);
+  return RtlCaptureStackBackTrace(1, (unsigned long) len, bt, NULL);
 }
 
 #ifdef _MSC_VER
@@ -108,7 +130,7 @@ _Check_return_ _Ret_writes_maybenull_(len) char **backtrace_symbols(_In_reads_(l
     load_dbghelp();
     for(n = 0; n < len; n++)
     {
-      DWORD displ;
+      unsigned long displ;
       IMAGEHLP_LINE64 ihl;
       memset(&ihl, 0, sizeof(ihl));
       ihl.SizeOfStruct = sizeof(IMAGEHLP_LINE64);
@@ -121,7 +143,7 @@ _Check_return_ _Ret_writes_maybenull_(len) char **backtrace_symbols(_In_reads_(l
       {
         // Keep offset till later
         ret[n] = (char *) ((char *) p - (char *) ret);
-        if(!SymGetLineFromAddr64 || !SymGetLineFromAddr64(GetCurrentProcess(), (size_t) bt[n], &displ, &ihl))
+        if(!SymGetLineFromAddr64 || !SymGetLineFromAddr64((void *) (size_t) -1 /*GetCurrentProcess()*/, (size_t) bt[n], &displ, &ihl))
         {
           if(n == 0)
           {
@@ -147,7 +169,7 @@ _Check_return_ _Ret_writes_maybenull_(len) char **backtrace_symbols(_In_reads_(l
         }
         if(ihl.FileName && ihl.FileName[0])
         {
-          int plen = WideCharToMultiByte(CP_UTF8, 0, ihl.FileName, -1, p, (int) (end - p), NULL, NULL);
+          int plen = WideCharToMultiByte(65001 /*CP_UTF8*/, 0, ihl.FileName, -1, p, (int) (end - p), NULL, NULL);
           if(!plen)
           {
             please_realloc = 1;
