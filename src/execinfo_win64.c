@@ -78,7 +78,8 @@ namespace
   static void load_dbghelp()
   {
 #ifdef __cplusplus
-    using namespace win32;
+    using win32::LoadLibraryA;
+    using win32::GetProcAddress;
 #endif
     if(dbghelp)
       return;
@@ -107,7 +108,7 @@ extern "C" {
 _Check_return_ size_t backtrace(_Out_writes_(len) void **bt, _In_ size_t len)
 {
 #ifdef __cplusplus
-  using namespace win32;
+  using win32::RtlCaptureStackBackTrace;
 #endif
   return RtlCaptureStackBackTrace(1, (unsigned long) len, bt, NULL);
 }
@@ -119,7 +120,7 @@ _Check_return_ size_t backtrace(_Out_writes_(len) void **bt, _In_ size_t len)
 _Check_return_ _Ret_writes_maybenull_(len) char **backtrace_symbols(_In_reads_(len) void *const *bt, _In_ size_t len)
 {
 #ifdef __cplusplus
-  using namespace win32;
+  using win32::WideCharToMultiByte;
 #endif
   size_t bytes = (len + 1) * sizeof(void *) + 256, n;
   if(!len)
