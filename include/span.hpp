@@ -42,7 +42,6 @@ BOOSTLITE_NAMESPACE_BEGIN
 namespace span
 {
   template <class T> using span = gsl::span<T>;
-  using gsl::as_span;
 }
 
 BOOSTLITE_NAMESPACE_END

@@ -20,7 +20,7 @@ function(NativisePath outvar)
 endfunction()
 
 # Simulate a target_link_options as cmake is missing such a think
-function(_target_link_options target)
+function(_target_link_options target_name)
   # Convert args to a string
   string(REPLACE ";" " " props "${ARGN}")
   get_target_property(oldprops ${target_name} LINK_FLAGS)
