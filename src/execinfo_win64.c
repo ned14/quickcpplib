@@ -32,15 +32,15 @@ DEALINGS IN THE SOFTWARE.
 #include "../include/execinfo_win64.h"
 
 // To avoid including windows.h, this source has been macro expanded and win32 function shimmed for C++ only
-#ifdef __cplusplus
+#if defined(__cplusplus) && !defined(__clang__)
 namespace win32
 {
-  extern "C" __declspec(dllimport) _Ret_maybenull_ void *__stdcall _LoadLibraryA(_In_ const char *lpLibFileName);
+  extern "C" __declspec(dllimport) _Ret_maybenull_ void *__stdcall LoadLibraryA(_In_ const char *lpLibFileName);
   typedef int(__stdcall *GetProcAddress_returntype)();
-  extern "C" GetProcAddress_returntype __stdcall _GetProcAddress(_In_ void *hModule, _In_ const char *lpProcName);
-  extern "C" __declspec(dllimport) _Success_(return != 0) unsigned short __stdcall _RtlCaptureStackBackTrace(_In_ unsigned long FramesToSkip, _In_ unsigned long FramesToCapture, _Out_writes_to_(FramesToCapture, return ) void **BackTrace, _Out_opt_ unsigned long *BackTraceHash);
+  extern "C" GetProcAddress_returntype __stdcall GetProcAddress(_In_ void *hModule, _In_ const char *lpProcName);
+  extern "C" __declspec(dllimport) _Success_(return != 0) unsigned short __stdcall RtlCaptureStackBackTrace(_In_ unsigned long FramesToSkip, _In_ unsigned long FramesToCapture, _Out_writes_to_(FramesToCapture, return ) void **BackTrace, _Out_opt_ unsigned long *BackTraceHash);
   extern "C" __declspec(dllimport) _Success_(return != 0)
-  _When_((cchWideChar == -1) && (cbMultiByte != 0), _Post_equal_to_(_String_length_(lpMultiByteStr) + 1)) int __stdcall _WideCharToMultiByte(_In_ unsigned int CodePage, _In_ unsigned long dwFlags, const wchar_t *lpWideCharStr, _In_ int cchWideChar, _Out_writes_bytes_to_opt_(cbMultiByte, return ) char *lpMultiByteStr,
+  _When_((cchWideChar == -1) && (cbMultiByte != 0), _Post_equal_to_(_String_length_(lpMultiByteStr) + 1)) int __stdcall WideCharToMultiByte(_In_ unsigned int CodePage, _In_ unsigned long dwFlags, const wchar_t *lpWideCharStr, _In_ int cchWideChar, _Out_writes_bytes_to_opt_(cbMultiByte, return ) char *lpMultiByteStr,
                                                                                                                                             _In_ int cbMultiByte, _In_opt_ const char *lpDefaultChar, _Out_opt_ int *lpUsedDefaultChar);
 }
 #else
@@ -78,20 +78,20 @@ namespace
   static void load_dbghelp()
   {
 #ifdef __cplusplus
-    using win32::_LoadLibraryA;
-    using win32::_GetProcAddress;
+    using win32::LoadLibraryA;
+    using win32::GetProcAddress;
 #endif
     if(dbghelp)
       return;
-    dbghelp = _LoadLibraryA("DBGHELP.DLL");
+    dbghelp = LoadLibraryA("DBGHELP.DLL");
     if(dbghelp)
     {
-      SymInitialize = (SymInitialize_t) _GetProcAddress(dbghelp, "SymInitializeW");
+      SymInitialize = (SymInitialize_t) GetProcAddress(dbghelp, "SymInitializeW");
       if(!SymInitialize)
         abort();
       if(!SymInitialize((void *) (size_t) -1 /*GetCurrentProcess()*/, NULL, 1))
         abort();
-      SymGetLineFromAddr64 = (SymGetLineFromAddr64_t) _GetProcAddress(dbghelp, "SymGetLineFromAddrW64");
+      SymGetLineFromAddr64 = (SymGetLineFromAddr64_t) GetProcAddress(dbghelp, "SymGetLineFromAddrW64");
       if(!SymGetLineFromAddr64)
         abort();
     }
@@ -108,9 +108,9 @@ extern "C" {
 _Check_return_ size_t backtrace(_Out_writes_(len) void **bt, _In_ size_t len)
 {
 #ifdef __cplusplus
-  using win32::_RtlCaptureStackBackTrace;
+  using win32::RtlCaptureStackBackTrace;
 #endif
-  return _RtlCaptureStackBackTrace(1, (unsigned long) len, bt, NULL);
+  return RtlCaptureStackBackTrace(1, (unsigned long) len, bt, NULL);
 }
 
 #ifdef _MSC_VER
@@ -120,7 +120,7 @@ _Check_return_ size_t backtrace(_Out_writes_(len) void **bt, _In_ size_t len)
 _Check_return_ _Ret_writes_maybenull_(len) char **backtrace_symbols(_In_reads_(len) void *const *bt, _In_ size_t len)
 {
 #ifdef __cplusplus
-  using win32::_WideCharToMultiByte;
+  using win32::WideCharToMultiByte;
 #endif
   size_t bytes = (len + 1) * sizeof(void *) + 256, n;
   if(!len)
@@ -175,7 +175,7 @@ _Check_return_ _Ret_writes_maybenull_(len) char **backtrace_symbols(_In_reads_(l
         }
         if(ihl.FileName && ihl.FileName[0])
         {
-          int plen = _WideCharToMultiByte(65001 /*CP_UTF8*/, 0, ihl.FileName, -1, p, (int) (end - p), NULL, NULL);
+          int plen = WideCharToMultiByte(65001 /*CP_UTF8*/, 0, ihl.FileName, -1, p, (int) (end - p), NULL, NULL);
           if(!plen)
           {
             please_realloc = 1;
