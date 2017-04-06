@@ -71,13 +71,17 @@ namespace
 
   typedef int(__stdcall *SymGetLineFromAddr64_t)(_In_ void *hProcess, _In_ unsigned long long int dwAddr, _Out_ unsigned long *pdwDisplacement, _Out_ PIMAGEHLP_LINE64 Line);
 
+#if defined(__cplusplus) && !defined(__clang__)
   static void *dbghelp;
+#else
+  static HMODULE dbghelp;
+#endif
   static SymInitialize_t SymInitialize;
   static SymGetLineFromAddr64_t SymGetLineFromAddr64;
 
   static void load_dbghelp()
   {
-#ifdef __cplusplus
+#if defined(__cplusplus) && !defined(__clang__)
     using win32::LoadLibraryA;
     using win32::GetProcAddress;
 #endif
@@ -107,7 +111,7 @@ extern "C" {
 
 _Check_return_ size_t backtrace(_Out_writes_(len) void **bt, _In_ size_t len)
 {
-#ifdef __cplusplus
+#if defined(__cplusplus) && !defined(__clang__)
   using win32::RtlCaptureStackBackTrace;
 #endif
   return RtlCaptureStackBackTrace(1, (unsigned long) len, bt, NULL);
@@ -119,7 +123,7 @@ _Check_return_ size_t backtrace(_Out_writes_(len) void **bt, _In_ size_t len)
 #endif
 _Check_return_ _Ret_writes_maybenull_(len) char **backtrace_symbols(_In_reads_(len) void *const *bt, _In_ size_t len)
 {
-#ifdef __cplusplus
+#if defined(__cplusplus) && !defined(__clang__)
   using win32::WideCharToMultiByte;
 #endif
   size_t bytes = (len + 1) * sizeof(void *) + 256, n;
