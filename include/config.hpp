@@ -8,9 +8,23 @@
 #define BOOSTLITE_VERSION_GLUE(a, b) BOOSTLITE_VERSION_GLUE2(a, b)
 
 // clang-format off
+#ifdef DOXYGEN_IS_IN_THE_HOUSE
+//! \brief The boost-lite namespace
+namespace boost_lite
+{
+  //! \brief Per commit unique inline namespace
+  inline namespace _xxx
+  {
+  }
+}
+#define BOOSTLITE_NAMESPACE boost_lite::_xxx
+#define BOOSTLITE_NAMESPACE_BEGIN namespace boost_lite { inline namespace _xxx {
+#define BOOSTLITE_NAMESPACE_END } }
+#else
 #define BOOSTLITE_NAMESPACE boost_lite::BOOSTLITE_VERSION_GLUE(_, BOOSTLITE_PREVIOUS_COMMIT_UNIQUE)
 #define BOOSTLITE_NAMESPACE_BEGIN namespace boost_lite { inline namespace BOOSTLITE_VERSION_GLUE(_, BOOSTLITE_PREVIOUS_COMMIT_UNIQUE) {
 #define BOOSTLITE_NAMESPACE_END } }
+#endif
 // clang-format on
 
 #ifdef _MSC_VER

@@ -57,6 +57,8 @@ if(MSVC AND NOT CLANG)
   )
 else()
   add_compile_options(
+    $<$<STREQUAL:$<TARGET_PROPERTY:CXX_EXCEPTIONS>,ON>:-fexceptions>
+    $<$<STREQUAL:$<TARGET_PROPERTY:CXX_RTTI>,ON>:-frtti>
     $<$<STREQUAL:$<TARGET_PROPERTY:CXX_EXCEPTIONS>,OFF>:-fno-exceptions>
     $<$<STREQUAL:$<TARGET_PROPERTY:CXX_RTTI>,OFF>:-fno-rtti>
 #    $<$<STREQUAL:$<TARGET_PROPERTY:CXX_STATIC_RUNTIME>,ON>:-static>
