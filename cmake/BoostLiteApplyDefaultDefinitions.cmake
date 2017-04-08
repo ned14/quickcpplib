@@ -227,10 +227,4 @@ else()
       -fcomment-block-commands=raceguarantees,complexity,exceptionmodel
     )
   endif()
-  if(MSVC AND CLANG)
-    # MSVCRT doesn't provide what it should with __STDC__ on
-    all_compile_options(PUBLIC -U__STDC__)
-    # C2 clang defaults to exceptions off, RTTI off and strict aliasing disabled
-    all_compile_options(PUBLIC -fexceptions -frtti -fstrict-aliasing)
-  endif()
 endif()

@@ -34,7 +34,7 @@ endforeach()
 set_property(GLOBAL PROPERTY CXX_EXCEPTIONS ON)
 set_property(GLOBAL PROPERTY CXX_RTTI ON)
 set_property(GLOBAL PROPERTY CXX_STATIC_RUNTIME OFF)
-if(MSVC)
+if(MSVC AND NOT CLANG)
   # Purge unconditional use of /MDd, /MD and /EHsc.
   foreach(flag
           CMAKE_C_FLAGS                CMAKE_CXX_FLAGS

@@ -5,6 +5,13 @@
 #include <boost/system/system_error.hpp>
 namespace boost_lite { namespace bind { namespace boost { namespace system_error {
 extern const char *boost_bindlib_in;
+// begin errc
+#ifdef BOOST_STL11_SYSTEM_ERROR_MAP_NO_ERRC
+#undef BOOST_STL11_SYSTEM_ERROR_MAP_NO_ERRC
+#else
+using errc = ::boost::system::errc;
+#endif
+// end errc
 // begin system_error
 #ifdef BOOST_STL11_SYSTEM_ERROR_MAP_NO_SYSTEM_ERROR
 #undef BOOST_STL11_SYSTEM_ERROR_MAP_NO_SYSTEM_ERROR

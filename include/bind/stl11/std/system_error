@@ -12,6 +12,13 @@ extern const char *boost_bindlib_in;
 template<class _Tp> using is_error_condition_enum = ::std::is_error_condition_enum<_Tp>;
 #endif
 // end is_error_condition_enum
+// begin errc
+#ifdef BOOST_STL11_SYSTEM_ERROR_MAP_NO_ERRC
+#undef BOOST_STL11_SYSTEM_ERROR_MAP_NO_ERRC
+#else
+using errc = ::std::errc;
+#endif
+// end errc
 // begin system_error
 #ifdef BOOST_STL11_SYSTEM_ERROR_MAP_NO_SYSTEM_ERROR
 #undef BOOST_STL11_SYSTEM_ERROR_MAP_NO_SYSTEM_ERROR
