@@ -33,6 +33,10 @@ DEALINGS IN THE SOFTWARE.
 
 #include "config.hpp"
 
+#if defined(_M_X64) || (defined(_M_IX86_FP) && _M_IX86_FP >= 2)
+#include <emmintrin.h>  // for __m128i on VS2017
+#endif
+
 BOOSTLITE_NAMESPACE_BEGIN
 
 namespace integers128
@@ -45,9 +49,13 @@ namespace integers128
     unsigned short as_shorts[8];
     unsigned int as_ints[4];
     unsigned long long as_longlongs[2];
-#if defined(__x86_64__) || defined(_M_X64) || defined(__SSE2__) || (defined(_M_IX86_FP) && _M_IX86_FP >= 2)
     // Strongly hint to the compiler what to do here
+#if defined(_M_X64) || (defined(_M_IX86_FP) && _M_IX86_FP >= 2)
     __m128i as_m128i;
+#endif
+#if defined(__GNUC__) || defined(__clang__)
+    typedef unsigned uint32_4_t __attribute__ ((vector_size (16)));
+    uint32_4_t as_uint32_4;
 #endif
     //! Default constructor, no bits set
     uint128() noexcept {}
