@@ -28,7 +28,7 @@ if(WIN32)
 else()
   function(check_if_cmake_incomplete target md5 path)
     add_custom_command(TARGET ${target} PRE_BUILD
-      COMMAND echo Checking if files have been added to ${target} since cmake last auto globbed the source tree ... ; find . -type f -printf \"%t\\t%s\\t%p\\n\" > \"${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/boostlite_cmake_tempfile_${target}.txt\" ; MD5=$(\"${CMAKE_COMMAND}\" -E md5sum \"${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/boostlite_cmake_tempfile_${target}.txt\" | cut -d " " -f1) ; if [ \"$MD5\" != \"${md5}\" ] ; then echo WARNING cmake needs to be rerun! $MD5 != ${md5} ; touch \"${CMAKE_CURRENT_BINARY_DIR}/CMakeCache.txt\" ; fi
+      COMMAND echo Checking if files have been added to ${target} since cmake last auto globbed the source tree ... $<SEMICOLON> find . -type f -printf \"%t\\t%s\\t%p\\n\" > \"${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/boostlite_cmake_tempfile_${target}.txt\" $<SEMICOLON> MD5=`\"${CMAKE_COMMAND}\" -E md5sum \"${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/boostlite_cmake_tempfile_${target}.txt\" | cut -d " " -f1` $<SEMICOLON> if [ \"$$MD5\" != \"${md5}\" ] $<SEMICOLON> then echo WARNING cmake needs to be rerun! $$MD5 != ${md5} $<SEMICOLON> touch \"${CMAKE_CURRENT_BINARY_DIR}/CMakeCache.txt\" $<SEMICOLON> fi
       WORKING_DIRECTORY "${path}"
     )
   endfunction()
@@ -50,9 +50,13 @@ if(CMAKE_GENERATOR MATCHES "Visual Studio")
   set_target_properties(${PROJECT_NAME}_sl PROPERTIES
     OUTPUT_NAME "${PROJECT_NAME}_sl-${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}-$<PLATFORM_ID>-$(Platform)-$<CONFIG>"
   )
-else()
+elseif(CMAKE_GENERATOR MATCHES "Xcode")
   set_target_properties(${PROJECT_NAME}_sl PROPERTIES
     OUTPUT_NAME "${PROJECT_NAME}_sl-${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}-$<PLATFORM_ID>-${CMAKE_SYSTEM_PROCESSOR}-$<CONFIG>"
+  )
+else()
+  set_target_properties(${PROJECT_NAME}_sl PROPERTIES
+    OUTPUT_NAME "${PROJECT_NAME}_sl-${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}-${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR}-${CMAKE_BUILD_TYPE}"
   )
 endif()
 
@@ -75,9 +79,13 @@ if(CMAKE_GENERATOR MATCHES "Visual Studio")
   set_target_properties(${PROJECT_NAME}_dl PROPERTIES
     OUTPUT_NAME "${PROJECT_NAME}_dl-${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}-$<PLATFORM_ID>-$(Platform)-$<CONFIG>"
   )
-else()
+elseif(CMAKE_GENERATOR MATCHES "Xcode")
   set_target_properties(${PROJECT_NAME}_dl PROPERTIES
     OUTPUT_NAME "${PROJECT_NAME}_dl-${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}-$<PLATFORM_ID>-${CMAKE_SYSTEM_PROCESSOR}-$<CONFIG>"
+  )
+else()
+  set_target_properties(${PROJECT_NAME}_dl PROPERTIES
+    OUTPUT_NAME "${PROJECT_NAME}_dl-${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}-${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR}-${CMAKE_BUILD_TYPE}"
   )
 endif()
 

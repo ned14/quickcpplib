@@ -32,7 +32,8 @@ DEALINGS IN THE SOFTWARE.
 #define BOOSTLITE_UTILS_THREAD_HPP
 
 #ifdef __linux__
-#include <sys/syscall.h>  // for gettid()
+#include <unistd.h>  // for syscall()
+#include <sys/syscall.h>  // for SYS_gettid
 #endif
 
 namespace boost_lite
