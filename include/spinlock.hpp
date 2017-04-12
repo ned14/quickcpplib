@@ -137,7 +137,11 @@ namespace configurable_spinlock
 
   public:
     typedef T value_type;
-    BOOSTLITE_CONSTEXPR spinlockbase() noexcept : v(0)
+
+#ifndef BOOSTLITE_ENABLE_VALGRIND
+    BOOSTLITE_CONSTEXPR
+#endif
+      spinlockbase() noexcept : v(0)
     {
       BOOSTLITE_ANNOTATE_RWLOCK_CREATE(this);
 #if BOOSTLITE_IN_THREAD_SANITIZER
@@ -146,7 +150,10 @@ namespace configurable_spinlock
     }
     spinlockbase(const spinlockbase &) = delete;
     //! Atomically move constructs
-    BOOSTLITE_CONSTEXPR spinlockbase(spinlockbase &&) noexcept : v(0)
+#ifndef BOOSTLITE_ENABLE_VALGRIND
+    BOOSTLITE_CONSTEXPR
+#endif
+      spinlockbase(spinlockbase &&) noexcept : v(0)
     {
       BOOSTLITE_ANNOTATE_RWLOCK_CREATE(this);
 // v.store(o.v.exchange(0, memory_order_acq_rel));
@@ -332,7 +339,10 @@ namespace configurable_spinlock
 #endif
 
   public:
-    BOOSTLITE_CONSTEXPR ordered_spinlockbase() noexcept : _v(0)
+#ifndef BOOSTLITE_ENABLE_VALGRIND
+    BOOSTLITE_CONSTEXPR
+#endif
+      ordered_spinlockbase() noexcept : _v(0)
     {
       BOOSTLITE_ANNOTATE_RWLOCK_CREATE(this);
       // v.store(0, memory_order_release);
@@ -422,7 +432,10 @@ namespace configurable_spinlock
     atomic<value_type> _v;
 
   public:
-    BOOSTLITE_CONSTEXPR shared_spinlockbase() noexcept : _v(0)
+#ifndef BOOSTLITE_ENABLE_VALGRIND
+    BOOSTLITE_CONSTEXPR
+#endif
+      shared_spinlockbase() noexcept : _v(0)
     {
       BOOSTLITE_ANNOTATE_RWLOCK_CREATE(this);
 #if BOOSTLITE_IN_THREAD_SANITIZER
