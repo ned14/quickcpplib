@@ -23,22 +23,22 @@ endfunction()
 function(default_header_only_interface_library reason)
   indented_message(STATUS "NOTE: NOT compiling header only library for ${PROJECT_NAME} into a C++ Module nor a precompiled header due to ${reason}")
   add_library(${PROJECT_NAME}_hl INTERFACE)
-  if(DEFINED ${PROJECT_NAME}_INTERFACE)
-    foreach(source ${${PROJECT_NAME}_INTERFACE})
-      # Cause my master header to appear in the sources of anything consuming me
-      if(NOT EXISTS "${${PROJECT_NAME}_PATH}/${source}")
-        set(source "include/${source}")
-      endif()
-      #indented_message(STATUS "*** ${source}")
-      target_sources(${PROJECT_NAME}_hl INTERFACE
-        "$<BUILD_INTERFACE:${${PROJECT_NAME}_PATH}/${source}>"
-        "$<INSTALL_INTERFACE:${source}>"
-      )
-    endforeach()
-  else()
+#  if(DEFINED ${PROJECT_NAME}_INTERFACE)
+#    foreach(source ${${PROJECT_NAME}_INTERFACE})
+#      # Cause my master header to appear in the sources of anything consuming me
+#      if(NOT EXISTS "${${PROJECT_NAME}_PATH}/${source}")
+#        set(source "include/${source}")
+#      endif()
+#      #indented_message(STATUS "*** ${source}")
+#      target_sources(${PROJECT_NAME}_hl INTERFACE
+#        "$<BUILD_INTERFACE:${${PROJECT_NAME}_PATH}/${source}>"
+#        "$<INSTALL_INTERFACE:${source}>"
+#      )
+#    endforeach()
+#  else()
     # Include all my headers into the sources of anything consuming me
     target_append_header_only_sources(${PROJECT_NAME}_hl)
-  endif()
+#  endif()
 endfunction()
 
 # Do we have C++ Modules support on this compiler?
@@ -67,12 +67,13 @@ elseif(MSVC AND NOT CLANG)
 elseif(MSVC AND CLANG)
   # C2 clang has broken precompiled headers currently
   default_header_only_interface_library("this winclang has broken precompiled headers support")
+elseif(NOT PROJECT_IS_DEPENDENCY)
 ## Works on anything not Bash for Windows, but that's mostly what I'm testing with
-##elseif(NOT PROJECT_IS_DEPENDENCY)
 ##  # Add a precompiled header for the PCH header file
 ##  add_precompiled_header(${PROJECT_NAME}_hl ${${PROJECT_NAME}_INTERFACE})
 ##  # Include all my headers into the sources of anything consuming me
 ##  target_append_header_only_sources(${PROJECT_NAME}_hl)
+  default_header_only_interface_library("Niall temporarily disabling precompiled headers support pending diagnosis")
 else()
   default_header_only_interface_library("this project being a dependency of a higher level project")
 endif()
