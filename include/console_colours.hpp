@@ -122,24 +122,43 @@ namespace console_colours
     return white(s);
   }
 #else
+  namespace detail
+  {
+    extern "C" int isatty(int fd);
+    inline std::ostream &color_if_term(std::ostream &s, const char seq[])
+    {
+      if((&s == &std::cout && isatty(1 /*STDOUT_FILENO*/)) || (&s == &std::cerr && isatty(2 /*STDERR_FILENO*/)))
+        s << seq;
+      return s;
+    }
+    constexpr const char red[] = {0x1b, '[', '3', '1', 'm', 0};
+    constexpr const char green[] = {0x1b, '[', '3', '2', 'm', 0};
+    constexpr const char blue[] = {0x1b, '[', '3', '4', 'm', 0};
+    constexpr const char yellow[] = {0x1b, '[', '3', '3', 'm', 0};
+    constexpr const char magenta[] = {0x1b, '[', '3', '5', 'm', 0};
+    constexpr const char cyan[] = {0x1b, '[', '3', '6', 'm', 0};
+    constexpr const char white[] = {0x1b, '[', '3', '7', 'm', 0};
+    constexpr const char bold[] = {0x1b, '[', '1', 'm', 0};
+    constexpr const char normal[] = {0x1b, '[', '0', 'm', 0};
+  }
   //! Makes the text on the console red
-  constexpr const char red[] = {0x1b, '[', '3', '1', 'm', 0};
+  inline std::ostream &red(std::ostream &s) { return detail::color_if_term(s, detail::red); }
   //! Makes the text on the console green
-  constexpr const char green[] = {0x1b, '[', '3', '2', 'm', 0};
+  inline std::ostream &green(std::ostream &s) { return detail::color_if_term(s, detail::green); }
   //! Makes the text on the console blue
-  constexpr const char blue[] = {0x1b, '[', '3', '4', 'm', 0};
+  inline std::ostream &blue(std::ostream &s) { return detail::color_if_term(s, detail::blue); }
   //! Makes the text on the console yellow
-  constexpr const char yellow[] = {0x1b, '[', '3', '3', 'm', 0};
+  inline std::ostream &yellow(std::ostream &s) { return detail::color_if_term(s, detail::yellow); }
   //! Makes the text on the console magenta
-  constexpr const char magenta[] = {0x1b, '[', '3', '5', 'm', 0};
+  inline std::ostream &magenta(std::ostream &s) { return detail::color_if_term(s, detail::magenta); }
   //! Makes the text on the console cyan
-  constexpr const char cyan[] = {0x1b, '[', '3', '6', 'm', 0};
+  inline std::ostream &cyan(std::ostream &s) { return detail::color_if_term(s, detail::cyan); }
   //! Makes the text on the console white
-  constexpr const char white[] = {0x1b, '[', '3', '7', 'm', 0};
+  inline std::ostream &white(std::ostream &s) { return detail::color_if_term(s, detail::white); }
   //! Makes the text on the console bold
-  constexpr const char bold[] = {0x1b, '[', '1', 'm', 0};
+  inline std::ostream &bold(std::ostream &s) { return detail::color_if_term(s, detail::bold); }
   //! Makes the text on the console non-bold and white
-  constexpr const char normal[] = {0x1b, '[', '0', 'm', 0};
+  inline std::ostream &normal(std::ostream &s) { return detail::color_if_term(s, detail::normal); }
 #endif
 }
 
