@@ -439,7 +439,7 @@ namespace configurable_spinlock
     {
       BOOSTLITE_ANNOTATE_RWLOCK_CREATE(this);
 #if BOOSTLITE_IN_THREAD_SANITIZER
-      v.store(0, memory_order_release);
+      _v.store(0, memory_order_release);
 #endif
     }
     shared_spinlockbase(const shared_spinlockbase &) = delete;
@@ -449,7 +449,7 @@ namespace configurable_spinlock
       BOOSTLITE_ANNOTATE_RWLOCK_CREATE(this);
 // v.store(o.v.exchange(0, memory_order_acq_rel));
 #if BOOSTLITE_IN_THREAD_SANITIZER
-      v.store(0, memory_order_release);
+      _v.store(0, memory_order_release);
 #endif
     }
     ~shared_spinlockbase()

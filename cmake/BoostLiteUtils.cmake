@@ -19,11 +19,14 @@ function(NativisePath outvar)
   set(${outvar} ${new} PARENT_SCOPE)
 endfunction()
 
-# Simulate a target_link_options as cmake is missing such a think
+# Simulate a target_link_options as cmake is missing such a thing
 function(_target_link_options target_name)
   # Convert args to a string
   string(REPLACE ";" " " props "${ARGN}")
   get_target_property(oldprops ${target_name} LINK_FLAGS)
+  if(oldprops MATCHES "NOTFOUND")
+    set(oldprops)
+  endif()
   set_target_properties(${target_name} PROPERTIES
     LINK_FLAGS "${oldprops} ${props}"
   )
