@@ -88,12 +88,12 @@ namespace algorithm
     //! Performs k % divisor which is up to 40 CPU cycles depending on architecture
     template <class KeyType> struct arithmetic_modulus
     {
-      size_t operator()(const KeyType &k, size_t divisor) const noexcept { return k % divisor; }
+      size_t operator()(const KeyType &k, size_t divisor) const noexcept { return divisor ? (k % divisor) : 0; }
     };
     //! Performs k & (divisor-1) which is typically one or two CPU cycles. Suitable if divisor is always going to be a two's power.
     template <class KeyType> struct twos_power_modulus
     {
-      size_t operator()(const KeyType &k, size_t divisor) const noexcept { return k & (divisor - 1); }
+      size_t operator()(const KeyType &k, size_t divisor) const noexcept { return divisor ? (k & (divisor - 1)) : 0; }
     };
 
     /*! \struct linear_memory_policy
@@ -175,12 +175,18 @@ namespace algorithm
       // Looks up a key in the contiguous container returning a value_type_ptr to any value_type found
       template <class Container> static pointer find_exclusive(Container &c, const key_type &k) noexcept
       {
-        return detail::linear_find<LinearSearchLimit>(c, KeyModulus()(k, c.size()), [&k](const_reference v) { return v._inuse && KeyCompare()(k, v.first); });
+        auto count = c.size();
+        if(!count)
+          return nullptr;
+        return detail::linear_find<LinearSearchLimit>(c, KeyModulus()(k, count), [&k](const_reference v) { return v._inuse && KeyCompare()(k, v.first); });
       }
       // Looks up a key in the contiguous container returning a value_type_ptr to any value_type found
       template <class Container> static const_pointer find_shared(const Container &c, const key_type &k) noexcept
       {
-        return detail::linear_find<LinearSearchLimit>(c, KeyModulus()(k, c.size()), [&k](const_reference v) { return v._inuse && KeyCompare()(k, v.first); });
+        auto count = c.size();
+        if(!count)
+          return nullptr;
+        return detail::linear_find<LinearSearchLimit>(c, KeyModulus()(k, count), [&k](const_reference v) { return v._inuse && KeyCompare()(k, v.first); });
       }
       // Inserts an item into the contiguous container returning a value_type_ptr to any value_type found
       template <class Container> static pointer insert(Container &c, value_type &&newv) noexcept
@@ -782,7 +788,9 @@ namespace algorithm
       void clear() noexcept
       {
         _count = typename Policy::items_count_type(0);
+        auto oldsize = _store.size();
         _store.clear();
+        _store.resize(oldsize);
       }
       //! Inserts a new item, returning an iterator to the new item if the bool is true, else an iterator to existing item. If the returned iterator is invalid, there is no more space.
       std::pair<iterator, bool> insert(value_type &&v) noexcept
