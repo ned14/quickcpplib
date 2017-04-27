@@ -7,10 +7,6 @@
 if(NOT DEFINED ${PROJECT_NAME}_HEADERS)
   message(FATAL_ERROR "FATAL: BoostLiteSetupProject has not been included yet.")
 endif()
-if(CMAKE_GENERATOR MATCHES "Unix Makefiles")
-  indented_message(WARNING "WARNING: Unix Makefiles do not rebuild changes made to header only libraries correctly. "
-  "Consider using the Ninja generator (-G Ninja) or a non-header only edition of this library.")
-endif()
 include(BoostLitePrecompiledHeader)
 
 function(target_append_header_only_sources tgt)
@@ -19,7 +15,8 @@ function(target_append_header_only_sources tgt)
     list(APPEND sources
     "$<BUILD_INTERFACE:${${PROJECT_NAME}_PATH}/${header}>"
     "$<INSTALL_INTERFACE:${header}>"
-  )
+    )
+    #indented_message(STATUS "${header}")
   endforeach()
   target_sources(${tgt} INTERFACE ${sources})
 endfunction()
