@@ -1,11 +1,20 @@
 # Firstly, to install the library into /usr/local or whatever
+# Note that this only installs this library, not any boost-lite imported
+# dependencies, and so is actually quite useless.
+#
+# The showstopper question, which we also need to answer for cmake package
+# support, is how best to implement cmake package dependencies.
 foreach(header ${${PROJECT_NAME}_HEADERS})
   get_filename_component(dir ${header} DIRECTORY)
+  # If not a boost library, install into a library named after the library
+  if(NOT dir MATCHES "include/boost/")
+    string(REGEX REPLACE "include/?(.*)" "include/${PROJECT_NAME}/\\1" dir "${dir}")
+  endif()
+  #indented_message(STATUS "*** Would install ${header} => ${dir}")
   install(FILES ${header}
     DESTINATION "${dir}"
   )
 endforeach()
-# TODO FIXME: Need to install all headers from all dependencies too
 if(TARGET ${PROJECT_NAME}_sl)
   install(FILES ${${PROJECT_NAME}_sl}
     DESTINATION "lib"
@@ -27,9 +36,4 @@ endif()
 #  ARCHIVE DESTINATION "lib"
 #  LIBRARY DESTINATION "lib"
 #  INCLUDES DESTINATION "include/${PROJECT_DIR}"
-#)
-#install(EXPORT ${PROJECT_NAMESPACE}${PROJECT_NAME}
-#  DESTINATION lib/${PROJECT_NAME}${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-#  CONFIGURATIONS Release
-#  NAMESPACE ${PROJECT_NAMESPACE}
 #)

@@ -80,3 +80,5 @@ else()
 endif()
 list(APPEND ${PROJECT_NAME}_TARGETS ${PROJECT_NAME}_hl)
 add_dependencies(_hl ${PROJECT_NAME}_hl)
+# Set up the "nicer" target aliases
+add_library(${PROJECT_NAMESPACE}${PROJECT_NAME}::hl ALIAS ${PROJECT_NAME}_hl)

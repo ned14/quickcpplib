@@ -11,9 +11,11 @@ include(BoostLitePolicies)
 indented_message(STATUS "CMAKE_BUILD_TYPE = ${CMAKE_BUILD_TYPE}")
 
 # Sets the usual PROJECT_NAME etc
-project(boost-lite VERSION 0.1.0.0 LANGUAGES CXX)
+project(boost-lite VERSION 0.1.0.0 LANGUAGES C CXX)
 # boost-lite does not provide a master header file
 set(boost-lite_INTERFACE_DISABLED ON)
+# Also set a *cmake* namespace for this project
+unset(PROJECT_NAMESPACE)
 # Setup this cmake environment for this project
 include(BoostLiteSetupProject)
 if(NOT PROJECT_IS_DEPENDENCY)
