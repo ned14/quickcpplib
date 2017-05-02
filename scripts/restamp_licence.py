@@ -17,7 +17,7 @@ from __future__ import print_function
 
 import os, sys, re, datetime, subprocess
 
-path = sys.argv[1] if len(sys.argv)>1 else '..'
+path = sys.argv[1] if len(sys.argv)>1 else '.'
 extensions = ['.cpp', '.hpp', '.ipp', '.c', '.h']
 
 licence = '''Licensed under the Apache License, Version 2.0 (the "License");
