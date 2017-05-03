@@ -56,7 +56,7 @@ BOOST_AUTO_TEST_CASE(ringbuffer_log / simple / works, "Tests that the simple_rin
     BOOST_CHECK(!strcmp(v.message, "test message"));
     BOOST_CHECK(v.code32[0] == 1);
     BOOST_CHECK(v.code32[1] == 2);
-    BOOST_CHECK(!strcmp(v.function, "test_function:15"));
+    BOOST_CHECK(!strcmp(v.function, "test_function:38"));
   }
 
   test_function(true);
