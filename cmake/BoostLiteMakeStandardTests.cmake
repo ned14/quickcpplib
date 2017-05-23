@@ -5,7 +5,7 @@
 
 if(NOT PROJECT_IS_DEPENDENCY)
   unset(CLANG_TIDY_EXECUTABLE)
-  if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.clang-tidy")
+  if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.clang-tidy" AND NOT DISABLE_CLANG_TIDY)
     find_program(CLANG_TIDY_EXECUTABLE "clang-tidy" DOC "Path to clang-tidy executable")
     if(CLANG_TIDY_EXECUTABLE MATCHES "CLANG_TIDY_EXECUTABLE-NOTFOUND")
       indented_message(WARNING "WARNING: .clang-tidy file found for project ${PROJECT_NAME}, yet clang-tidy not on PATH so disabling lint pass")

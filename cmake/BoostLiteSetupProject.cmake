@@ -149,7 +149,7 @@ if(GCC OR CLANG)
   # This fellow probably should just always be turned on period
   set(CMAKE_REQUIRED_FLAGS "-fstack-protector-strong")
   check_cxx_source_compiles("int main() { return 0; }" COMPILER_HAS_STACK_PROTECTOR)
-  if(COMPILER_HAS_STACK_PROTECTOR)
+  if(COMPILER_HAS_STACK_PROTECTOR AND NOT MINGW)
     set(STACK_PROTECTOR_COMPILE_FLAGS -fstack-protector-strong)
   endif()
   add_compile_options(${STACK_PROTECTOR_COMPILE_FLAGS})  ## everything gets this flag
