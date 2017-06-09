@@ -42,7 +42,7 @@ all_compile_features(PUBLIC
 
 # For all possible configurations of this library, add each test
 list_filter(quickcpplib_TESTS EXCLUDE REGEX "test_.*\\.cpp|bind.cpp")
-include(BoostLiteMakeStandardTests)
+include(QuickCppLibMakeStandardTests)
 
 # The spinlock_tribool test needs OpenMP
 if(TARGET quickcpplib_hl--spinlock_tribool)

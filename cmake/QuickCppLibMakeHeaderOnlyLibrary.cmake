@@ -7,7 +7,7 @@
 if(NOT DEFINED ${PROJECT_NAME}_HEADERS)
   message(FATAL_ERROR "FATAL: BoostLiteSetupProject has not been included yet.")
 endif()
-include(BoostLitePrecompiledHeader)
+include(QuickCppLibPrecompiledHeader)
 
 function(target_append_header_only_sources tgt)
   set(sources)

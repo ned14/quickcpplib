@@ -40,7 +40,7 @@ endif()
 if(${PROJECT_NAME}_HEADERS)
   indented_message(STATUS "Reusing cached scan of project ${PROJECT_NAME} ...")
 else()
-  include(BoostLiteUtils)
+  include(QuickCppLibUtils)
   indented_message(STATUS "Cached scan of project ${PROJECT_NAME} not found! Starting scan ...")
   # TODO: Is this the same as ${PROJECT_NAME}_SOURCE_DIR and therefore is redundant?
   set(${PROJECT_NAME}_PATH "${CMAKE_CURRENT_SOURCE_DIR}"

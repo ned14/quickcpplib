@@ -66,7 +66,7 @@ else()
 endif()
 
 # Scan this directory for library source code
-include(BoostLiteDeduceLibrarySources)
+include(QuickCppLibDeduceLibrarySources)
 
 # Configure an if(CLANG) and if(GCC) like if(MSVC)
 if(NOT DEFINED CLANG)

@@ -1,4 +1,4 @@
-include(BoostLiteUtils)
+include(QuickCppLibUtils)
 
 # Adds a custom command which generates a precompiled header
 function(target_precompiled_header target headerpath)
