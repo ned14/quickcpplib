@@ -1,34 +1,34 @@
 cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
-# If necessary bring in the Boost lite cmake tooling
-list(FIND CMAKE_MODULE_PATH "boost-lite" boost_lite_idx)
-if(${boost_lite_idx} GREATER -1)
+# If necessary bring in the quickcpplib cmake tooling
+list(FIND CMAKE_MODULE_PATH "quickcpplib" quickcpplib_idx)
+if(${quickcpplib_idx} GREATER -1)
   return()
 endif()
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-include(BoostLiteRequireOutOfSourceBuild)
-include(BoostLiteUtils)
-include(BoostLitePolicies)
+include(QuickCppLibRequireOutOfSourceBuild)
+include(QuickCppLibUtils)
+include(QuickCppLibPolicies)
 indented_message(STATUS "CMAKE_BUILD_TYPE = ${CMAKE_BUILD_TYPE}")
 
 # Sets the usual PROJECT_NAME etc
-project(boost-lite VERSION 0.1.0.0 LANGUAGES C CXX)
-# boost-lite does not provide a master header file
-set(boost-lite_INTERFACE_DISABLED ON)
+project(quickcpplib VERSION 0.1.0.0 LANGUAGES C CXX)
+# quickcpplib does not provide a master header file
+set(quickcpplib_INTERFACE_DISABLED ON)
 # Also set a *cmake* namespace for this project
 unset(PROJECT_NAMESPACE)
 # Setup this cmake environment for this project
-include(BoostLiteSetupProject)
+include(QuickCppLibSetupProject)
 if(NOT PROJECT_IS_DEPENDENCY)
   # This file should be updated with the last git SHA next commit
   UpdateRevisionHppFromGit("${CMAKE_CURRENT_SOURCE_DIR}/include/revision.hpp")
 endif()
 # Exclude any embedded CATCH
-list_filter(boost-lite_HEADERS EXCLUDE REGEX "include/CATCH")
+list_filter(quickcpplib_HEADERS EXCLUDE REGEX "include/CATCH")
 # Make an interface only library so dependent CMakeLists can bring in this header-only library
-include(BoostLiteMakeHeaderOnlyLibrary)
+include(QuickCppLibMakeHeaderOnlyLibrary)
 
 # Set the standard definitions for these libraries and bring in the all_* helper functions
-include(BoostLiteApplyDefaultDefinitions)
+include(QuickCppLibApplyDefaultDefinitions)
 # Set the C++ features this library requires
 all_compile_features(PUBLIC
   cxx_alias_templates
@@ -41,14 +41,14 @@ all_compile_features(PUBLIC
 )
 
 # For all possible configurations of this library, add each test
-list_filter(boost-lite_TESTS EXCLUDE REGEX "test_.*\\.cpp|bind.cpp")
+list_filter(quickcpplib_TESTS EXCLUDE REGEX "test_.*\\.cpp|bind.cpp")
 include(BoostLiteMakeStandardTests)
 
 # The spinlock_tribool test needs OpenMP
-if(TARGET boost-lite_hl--spinlock_tribool)
-  target_uses_openmp(boost-lite_hl--spinlock_tribool)
+if(TARGET quickcpplib_hl--spinlock_tribool)
+  target_uses_openmp(quickcpplib_hl--spinlock_tribool)
 endif()
 
 # Make available this library for install and export
-include(BoostLiteMakeInstall)
-include(BoostLiteMakeExport)
+include(QuickCppLibMakeInstall)
+include(QuickCppLibMakeExport)
