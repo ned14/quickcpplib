@@ -22,15 +22,15 @@ Distributed under the Boost Software License, Version 1.0.
           http://www.boost.org/LICENSE_1_0.txt)
 */
 
-#ifndef BOOSTLITE_ALGORITHM_SMALL_PRNG_HPP
-#define BOOSTLITE_ALGORITHM_SMALL_PRNG_HPP
+#ifndef QUICKCPPLIB_ALGORITHM_SMALL_PRNG_HPP
+#define QUICKCPPLIB_ALGORITHM_SMALL_PRNG_HPP
 
 #include "../utils/thread.hpp"
 
 #include <cstdint>
 #include <iterator>
 
-BOOSTLITE_NAMESPACE_BEGIN
+QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace algorithm
 {
@@ -87,6 +87,6 @@ namespace algorithm
   }
 }
 
-BOOSTLITE_NAMESPACE_END
+QUICKCPPLIB_NAMESPACE_END
 
 #endif

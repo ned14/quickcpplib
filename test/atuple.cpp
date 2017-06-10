@@ -31,7 +31,7 @@ template <class T> struct print_type;
 
 BOOST_AUTO_TEST_CASE(atuple / simple / works, "Tests that the atuple works as advertised")
 {
-  using namespace boost_lite::aggregate_tuple;
+  using namespace QUICKCPPLIB_NAMESPACE::aggregate_tuple;
   // Constexpr test
   constexpr tuple<int, double, const char *> ct1 = {1, 1.0, "1"};
   constexpr auto ct2 = make_tuple(1, 1.0, "1");

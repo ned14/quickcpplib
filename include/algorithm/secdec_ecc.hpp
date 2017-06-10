@@ -22,26 +22,26 @@ Distributed under the Boost Software License, Version 1.0.
           http://www.boost.org/LICENSE_1_0.txt)
 */
 
-#ifndef BOOSTLITE_ALGORITHM_SECDEC_ECC_HPP
-#define BOOSTLITE_ALGORITHM_SECDEC_ECC_HPP
+#ifndef QUICKCPPLIB_ALGORITHM_SECDEC_ECC_HPP
+#define QUICKCPPLIB_ALGORITHM_SECDEC_ECC_HPP
 
 #include "../config.hpp"
 
-BOOSTLITE_NAMESPACE_BEGIN
+QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace algorithm
 {
   namespace secdec_ecc
   {
-#ifndef BOOSTLITE_SECDEC_INTRINSICS
+#ifndef QUICKCPPLIB_SECDEC_INTRINSICS
 #if defined(__GCC__) || defined(__clang__)
-#define BOOSTLITE_SECDEC_INTRINSICS 1
+#define QUICKCPPLIB_SECDEC_INTRINSICS 1
 #elif defined(_MSC_VER) && (defined(_M_X64) || _M_IX86_FP == 1)
-#define BOOSTLITE_SECDEC_INTRINSICS 1
+#define QUICKCPPLIB_SECDEC_INTRINSICS 1
 #endif
 #endif
-#ifndef BOOSTLITE_SECDEC_INTRINSICS
-#define BOOSTLITE_SECDEC_INTRINSICS 0
+#ifndef QUICKCPPLIB_SECDEC_INTRINSICS
+#define QUICKCPPLIB_SECDEC_INTRINSICS 0
 #endif
     /*! \class secded_ecc
     \brief Calculates the single error correcting double error detecting (SECDED) Hamming Error Correcting Code for a \em blocksize block of bytes. For example, a secdec_ecc<8> would be the very common 72,64 Hamming code used in ECC RAM, or secdec_ecc<4096> would be for a 32784,32768 Hamming code.
@@ -130,7 +130,7 @@ namespace algorithm
 
     public:
       //! Constructs an instance, configuring the necessary lookup tables
-      BOOSTLITE_CONSTEXPR secded_ecc()
+      QUICKCPPLIB_CONSTEXPR secded_ecc()
       {
         for(size_t n = 0; n < sizeof(result_type) * bits_per_byte; n++)
           ecc_twospowers[n] = ((result_type) 1 << n);
@@ -148,7 +148,7 @@ namespace algorithm
         {
           // Make a code bit
           result_type b = i + 1;
-#if BOOSTLITE_SECDEC_INTRINSICS && 0  // let constexpr do its thing
+#if QUICKCPPLIB_SECDEC_INTRINSICS && 0  // let constexpr do its thing
 #ifdef _MSC_VER
           unsigned long _topbit;
           _BitScanReverse(&_topbit, b);
@@ -189,7 +189,7 @@ namespace algorithm
           };
           result_type prefetch[8];
           v = *(unsigned long long *) (&_buffer[0 + i / sizeof(unit_type)]);  // min 1 cycle
-#define BOOSTLITE_SECDEC_ROUND(n)                                                                                                                                                                                                                                                                                              \
+#define QUICKCPPLIB_SECDEC_ROUND(n)                                                                                                                                                                                                                                                                                              \
   prefetch[0] = ecc_table[(i + 0) * 8 + n];                                                                                                                                                                                                                                                                                    \
   prefetch[1] = ecc_table[(i + 1) * 8 + n];                                                                                                                                                                                                                                                                                    \
   prefetch[2] = ecc_table[(i + 2) * 8 + n];                                                                                                                                                                                                                                                                                    \
@@ -214,15 +214,15 @@ namespace algorithm
     ecc ^= prefetch[6];                                                                                                                                                                                                                                                                                                        \
   if(c[7] & ((unit_type) 1 << n))                                                                                                                                                                                                                                                                                              \
     ecc ^= prefetch[7];
-          BOOSTLITE_SECDEC_ROUND(0)  // prefetch = min 8, bit test and xor = min 16, total = 24
-          BOOSTLITE_SECDEC_ROUND(1)
-          BOOSTLITE_SECDEC_ROUND(2)
-          BOOSTLITE_SECDEC_ROUND(3)
-          BOOSTLITE_SECDEC_ROUND(4)
-          BOOSTLITE_SECDEC_ROUND(5)
-          BOOSTLITE_SECDEC_ROUND(6)
-          BOOSTLITE_SECDEC_ROUND(7)
-#undef BOOSTLITE_SECDEC_ROUND  // total should be 1+(8*24/3)=65
+          QUICKCPPLIB_SECDEC_ROUND(0)  // prefetch = min 8, bit test and xor = min 16, total = 24
+          QUICKCPPLIB_SECDEC_ROUND(1)
+          QUICKCPPLIB_SECDEC_ROUND(2)
+          QUICKCPPLIB_SECDEC_ROUND(3)
+          QUICKCPPLIB_SECDEC_ROUND(4)
+          QUICKCPPLIB_SECDEC_ROUND(5)
+          QUICKCPPLIB_SECDEC_ROUND(6)
+          QUICKCPPLIB_SECDEC_ROUND(7)
+#undef QUICKCPPLIB_SECDEC_ROUND  // total should be 1+(8*24/3)=65
         }
         return ecc;
       }
@@ -300,6 +300,6 @@ namespace algorithm
   }
 }
 
-BOOSTLITE_NAMESPACE_END
+QUICKCPPLIB_NAMESPACE_END
 
 #endif

@@ -33,7 +33,7 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include <istream>
 
-BOOSTLITE_NAMESPACE_BEGIN
+QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace tribool
 {
@@ -87,20 +87,20 @@ namespace tribool
   //! \brief Return true if tribool is other/indeterminate/unknown. \ingroup tribool
   constexpr inline bool unknown(tribool a) noexcept { return a == tribool::indeterminate; }
 }
-BOOSTLITE_NAMESPACE_END
+QUICKCPPLIB_NAMESPACE_END
 
 namespace std
 {
-  inline istream &operator>>(istream &s, BOOSTLITE_NAMESPACE::tribool::tribool &a)
+  inline istream &operator>>(istream &s, QUICKCPPLIB_NAMESPACE::tribool::tribool &a)
   {
     char c;
     s >> c;
-    a = (c == '1') ? BOOSTLITE_NAMESPACE::tribool::tribool::true_ : (c == '0') ? BOOSTLITE_NAMESPACE::tribool::tribool::false_ : BOOSTLITE_NAMESPACE::tribool::tribool::other;
+    a = (c == '1') ? QUICKCPPLIB_NAMESPACE::tribool::tribool::true_ : (c == '0') ? QUICKCPPLIB_NAMESPACE::tribool::tribool::false_ : QUICKCPPLIB_NAMESPACE::tribool::tribool::other;
     return s;
   }
-  inline ostream &operator<<(ostream &s, BOOSTLITE_NAMESPACE::tribool::tribool a)
+  inline ostream &operator<<(ostream &s, QUICKCPPLIB_NAMESPACE::tribool::tribool a)
   {
-    char c = (a == BOOSTLITE_NAMESPACE::tribool::tribool::true_) ? '1' : (a == BOOSTLITE_NAMESPACE::tribool::tribool::false_) ? '0' : '?';
+    char c = (a == QUICKCPPLIB_NAMESPACE::tribool::tribool::true_) ? '1' : (a == QUICKCPPLIB_NAMESPACE::tribool::tribool::false_) ? '0' : '?';
     return s << c;
   }
 }

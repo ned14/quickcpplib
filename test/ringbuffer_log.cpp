@@ -26,16 +26,16 @@ Distributed under the Boost Software License, Version 1.0.
 
 BOOST_AUTO_TEST_SUITE(ringbuffer_log)
 
-using namespace boost_lite::ringbuffer_log;
+using namespace QUICKCPPLIB_NAMESPACE::ringbuffer_log;
 
 static simple_ringbuffer_log<> simple(level::all);
 
 extern "C" void test_function(bool backtrace)
 {
   if(backtrace)
-    BOOSTLITE_RINGBUFFERLOG_ITEM_BACKTRACE(simple, level::warn, "test message", 3, 4);
+    QUICKCPPLIB_RINGBUFFERLOG_ITEM_BACKTRACE(simple, level::warn, "test message", 3, 4);
   else
-    BOOSTLITE_RINGBUFFERLOG_ITEM_FUNCTION(simple, level::fatal, "test message", 1, 2);
+    QUICKCPPLIB_RINGBUFFERLOG_ITEM_FUNCTION(simple, level::fatal, "test message", 1, 2);
 }
 
 BOOST_AUTO_TEST_CASE(ringbuffer_log / simple / works, "Tests that the simple_ringbuffer_log works as advertised")

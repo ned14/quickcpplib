@@ -42,7 +42,7 @@ BOOST_AUTO_TEST_SUITE(all)
 
 BOOST_AUTO_TEST_CASE(works / spinlock / binary, "Tests that the spinlock works as intended")
 {
-  boost_lite::configurable_spinlock::spinlock<bool> lock;
+  QUICKCPPLIB_NAMESPACE::configurable_spinlock::spinlock<bool> lock;
   BOOST_REQUIRE(lock.try_lock());
   BOOST_REQUIRE(!lock.try_lock());
   lock.unlock();
@@ -87,7 +87,7 @@ BOOST_AUTO_TEST_CASE(works / spinlock / ordered, "Tests that the ordered spinloc
 
 BOOST_AUTO_TEST_CASE(works / spinlock / shared, "Tests that the shared spinlock works as intended")
 {
-  boost_lite::configurable_spinlock::shared_spinlock<> lock;
+  QUICKCPPLIB_NAMESPACE::configurable_spinlock::shared_spinlock<> lock;
   BOOST_REQUIRE(lock.try_lock());
   BOOST_REQUIRE(!lock.try_lock());
   BOOST_REQUIRE(!lock.try_lock_shared());
@@ -112,10 +112,10 @@ BOOST_AUTO_TEST_CASE(works / spinlock / shared, "Tests that the shared spinlock 
 template <class locktype> void TestLockCorrectness(const char *desc)
 {
   locktype lock;
-  boost_lite::configurable_spinlock::atomic<size_t> writers(0);
-  boost_lite::configurable_spinlock::atomic<size_t> exclusives(0);
+  QUICKCPPLIB_NAMESPACE::configurable_spinlock::atomic<size_t> writers(0);
+  QUICKCPPLIB_NAMESPACE::configurable_spinlock::atomic<size_t> exclusives(0);
   std::vector<std::thread> threads;
-  boost_lite::configurable_spinlock::atomic<size_t> done(std::thread::hardware_concurrency() + 1);
+  QUICKCPPLIB_NAMESPACE::configurable_spinlock::atomic<size_t> done(std::thread::hardware_concurrency() + 1);
   for(size_t n = 0; n < std::thread::hardware_concurrency(); n++)
   {
     threads.push_back(std::thread([&, n] {
@@ -156,10 +156,10 @@ template <class locktype> void TestLockCorrectness(const char *desc)
 template <class locktype, size_t testreaders> void TestSharedLockCorrectness(const char *desc)
 {
   locktype lock;
-  boost_lite::configurable_spinlock::atomic<size_t> writers(0), readers(0), maxreaders(0);
-  boost_lite::configurable_spinlock::atomic<size_t> exclusives(0), shared(0);
+  QUICKCPPLIB_NAMESPACE::configurable_spinlock::atomic<size_t> writers(0), readers(0), maxreaders(0);
+  QUICKCPPLIB_NAMESPACE::configurable_spinlock::atomic<size_t> exclusives(0), shared(0);
   std::vector<std::thread> threads;
-  boost_lite::configurable_spinlock::atomic<size_t> done(std::thread::hardware_concurrency() + 1);
+  QUICKCPPLIB_NAMESPACE::configurable_spinlock::atomic<size_t> done(std::thread::hardware_concurrency() + 1);
   for(size_t n = 0; n < std::thread::hardware_concurrency(); n++)
   {
     threads.push_back(std::thread([&, n] {
@@ -225,7 +225,7 @@ template <class locktype, size_t testreaders> void TestSharedLockCorrectness(con
 
 BOOST_AUTO_TEST_CASE(works / spinlock / threaded / binary, "Tests that the binary spinlock works as intended under threads")
 {
-  TestLockCorrectness<boost_lite::configurable_spinlock::spinlock<uintptr_t>>("binary spinlock correctness testing");
+  TestLockCorrectness<QUICKCPPLIB_NAMESPACE::configurable_spinlock::spinlock<uintptr_t>>("binary spinlock correctness testing");
 }
 #if 0
 BOOST_AUTO_TEST_CASE(works / spinlock / threaded / ordered, "Tests that the ordered spinlock works as intended under threads")
@@ -235,23 +235,23 @@ BOOST_AUTO_TEST_CASE(works / spinlock / threaded / ordered, "Tests that the orde
 #endif
 BOOST_AUTO_TEST_CASE(works / spinlock / threaded / shared / exclusive, "Tests that the shared spinlock works as intended under threads")
 {
-  TestLockCorrectness<boost_lite::configurable_spinlock::shared_spinlock<>>("exclusive shared spinlock correctness testing");
+  TestLockCorrectness<QUICKCPPLIB_NAMESPACE::configurable_spinlock::shared_spinlock<>>("exclusive shared spinlock correctness testing");
 }
 BOOST_AUTO_TEST_CASE(works / spinlock / threaded / shared / shared, "Tests that the shared spinlock works as intended under threads")
 {
-  TestSharedLockCorrectness<boost_lite::configurable_spinlock::shared_spinlock<>, 999>("shared shared spinlock correctness testing");
+  TestSharedLockCorrectness<QUICKCPPLIB_NAMESPACE::configurable_spinlock::shared_spinlock<>, 999>("shared shared spinlock correctness testing");
 }
 BOOST_AUTO_TEST_CASE(works / spinlock / threaded / shared / 1reader, "Tests that the shared spinlock works as intended under threads")
 {
-  TestSharedLockCorrectness<boost_lite::configurable_spinlock::shared_spinlock<>, 1>("single reader shared spinlock correctness testing");
+  TestSharedLockCorrectness<QUICKCPPLIB_NAMESPACE::configurable_spinlock::shared_spinlock<>, 1>("single reader shared spinlock correctness testing");
 }
 BOOST_AUTO_TEST_CASE(works / spinlock / threaded / shared / 2reader, "Tests that the shared spinlock works as intended under threads")
 {
-  TestSharedLockCorrectness<boost_lite::configurable_spinlock::shared_spinlock<>, 2>("dual reader shared spinlock correctness testing");
+  TestSharedLockCorrectness<QUICKCPPLIB_NAMESPACE::configurable_spinlock::shared_spinlock<>, 2>("dual reader shared spinlock correctness testing");
 }
 BOOST_AUTO_TEST_CASE(works / spinlock / threaded / shared / 3reader, "Tests that the shared spinlock works as intended under threads")
 {
-  TestSharedLockCorrectness<boost_lite::configurable_spinlock::shared_spinlock<>, 3>("triple reader shared spinlock correctness testing");
+  TestSharedLockCorrectness<QUICKCPPLIB_NAMESPACE::configurable_spinlock::shared_spinlock<>, 3>("triple reader shared spinlock correctness testing");
 }
 
 
@@ -271,10 +271,10 @@ template <class T> struct do_lock_shared
 {
   do_lock_shared(T &) {}
 };
-template <class T> struct do_lock_shared<boost_lite::configurable_spinlock::shared_spinlock<T>>
+template <class T> struct do_lock_shared<QUICKCPPLIB_NAMESPACE::configurable_spinlock::shared_spinlock<T>>
 {
-  boost_lite::configurable_spinlock::shared_spinlock<T> &_lock;
-  do_lock_shared(boost_lite::configurable_spinlock::shared_spinlock<T> &lock)
+  QUICKCPPLIB_NAMESPACE::configurable_spinlock::shared_spinlock<T> &_lock;
+  do_lock_shared(QUICKCPPLIB_NAMESPACE::configurable_spinlock::shared_spinlock<T> &lock)
       : _lock(lock)
   {
     _lock.lock_shared();
@@ -285,7 +285,7 @@ template <class T> struct do_lock_shared<boost_lite::configurable_spinlock::shar
 template <class locktype> double CalculatePerformance(int use_transact)
 {
   locktype lock;
-  boost_lite::configurable_spinlock::atomic<size_t> gate(0);
+  QUICKCPPLIB_NAMESPACE::configurable_spinlock::atomic<size_t> gate(0);
   struct
   {
     size_t value;
@@ -344,7 +344,7 @@ template <class locktype> double CalculatePerformance(int use_transact)
 BOOST_AUTO_TEST_CASE(performance / spinlock / binary, "Tests the performance of binary spinlocks")
 {
   printf("\n=== Binary spinlock performance ===\n");
-  typedef boost_lite::configurable_spinlock::spinlock<uintptr_t> locktype;
+  typedef QUICKCPPLIB_NAMESPACE::configurable_spinlock::spinlock<uintptr_t> locktype;
   printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
   printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
   printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
@@ -364,7 +364,7 @@ BOOST_AUTO_TEST_CASE(performance / spinlock / binary / transaction, "Tests the p
 BOOST_AUTO_TEST_CASE(performance / spinlock / tristate, "Tests the performance of tristate spinlocks")
 {
   printf("\n=== Tristate spinlock performance ===\n");
-  typedef boost_lite::configurable_spinlock::spinlock<int> locktype;
+  typedef QUICKCPPLIB_NAMESPACE::configurable_spinlock::spinlock<int> locktype;
   printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
   printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
   printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
@@ -384,7 +384,7 @@ BOOST_AUTO_TEST_CASE(performance / spinlock / tristate / transaction, "Tests the
 BOOST_AUTO_TEST_CASE(performance / spinlock / pointer, "Tests the performance of pointer spinlocks")
 {
   printf("\n=== Pointer spinlock performance ===\n");
-  typedef boost_lite::configurable_spinlock::spinlock<boost_lite::configurable_spinlock::lockable_ptr<int>> locktype;
+  typedef QUICKCPPLIB_NAMESPACE::configurable_spinlock::spinlock<QUICKCPPLIB_NAMESPACE::configurable_spinlock::lockable_ptr<int>> locktype;
   printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
   printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
   printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
@@ -394,7 +394,7 @@ BOOST_AUTO_TEST_CASE(performance / spinlock / pointer, "Tests the performance of
 BOOST_AUTO_TEST_CASE(performance / spinlock / pointer / transaction, "Tests the performance of pointer spinlock transactions")
 {
   printf("\n=== Transacted pointer spinlock performance ===\n");
-  typedef boost_lite::configurable_spinlock::spinlock<boost_lite::configurable_spinlock::lockable_ptr<int>> locktype;
+  typedef QUICKCPPLIB_NAMESPACE::configurable_spinlock::spinlock<boost_lite::configurable_spinlock::lockable_ptr<int>> locktype;
   printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(true));
   printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(true));
   printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(true));
@@ -405,7 +405,7 @@ BOOST_AUTO_TEST_CASE(performance / spinlock / pointer / transaction, "Tests the 
 BOOST_AUTO_TEST_CASE(performance / spinlock / ordered, "Tests the performance of ordered spinlocks")
 {
   printf("\n=== Ordered spinlock performance ===\n");
-  typedef boost_lite::configurable_spinlock::ordered_spinlock<> locktype;
+  typedef QUICKCPPLIB_NAMESPACE::configurable_spinlock::ordered_spinlock<> locktype;
   printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
   printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
   printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
@@ -415,7 +415,7 @@ BOOST_AUTO_TEST_CASE(performance / spinlock / ordered, "Tests the performance of
 BOOST_AUTO_TEST_CASE(performance / spinlock / shared / exclusive, "Tests the performance of shared exclusive spinlocks")
 {
   printf("\n=== Shared exclusive spinlock performance ===\n");
-  typedef boost_lite::configurable_spinlock::shared_spinlock<> locktype;
+  typedef QUICKCPPLIB_NAMESPACE::configurable_spinlock::shared_spinlock<> locktype;
   printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
   printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
   printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
@@ -424,7 +424,7 @@ BOOST_AUTO_TEST_CASE(performance / spinlock / shared / exclusive, "Tests the per
 BOOST_AUTO_TEST_CASE(performance / spinlock / shared / shared, "Tests the performance of shared exclusive spinlocks")
 {
   printf("\n=== Shared shared spinlock performance ===\n");
-  typedef boost_lite::configurable_spinlock::shared_spinlock<> locktype;
+  typedef QUICKCPPLIB_NAMESPACE::configurable_spinlock::shared_spinlock<> locktype;
   printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(2));
   printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(2));
   printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(2));
@@ -434,8 +434,8 @@ BOOST_AUTO_TEST_CASE(performance / spinlock / shared / shared, "Tests the perfor
 #if 0
 static double CalculateMallocPerformance(size_t size, bool use_transact)
 {
-  boost_lite::configurable_spinlock::spinlock<bool> lock;
-  boost_lite::configurable_spinlock::atomic<size_t> gate(0);
+  QUICKCPPLIB_NAMESPACE::configurable_spinlock::spinlock<bool> lock;
+  QUICKCPPLIB_NAMESPACE::configurable_spinlock::atomic<size_t> gate(0);
   usCount start, end;
 #pragma omp parallel
   {
@@ -495,7 +495,7 @@ BOOST_AUTO_TEST_CASE(performance / malloc / transact / large, "Tests the transac
 
 BOOST_AUTO_TEST_CASE(works / tribool, "Tests that the tribool works as intended")
 {
-  using boost_lite::tribool::tribool;
+  using QUICKCPPLIB_NAMESPACE::tribool::tribool;
   auto t(tribool::true_), f(tribool::false_), o(tribool::other), u(tribool::unknown);
   BOOST_CHECK(true_(t));
   BOOST_CHECK(false_(f));

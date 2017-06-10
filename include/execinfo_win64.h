@@ -57,10 +57,10 @@ EXECINFO_DECL _Check_return_ _Ret_writes_maybenull_(len) char **backtrace_symbol
 #ifdef __cplusplus
 }
 
-#if(!defined(BOOSTLITE_HEADERS_ONLY) || BOOSTLITE_HEADERS_ONLY == 1) && !defined(DOXYGEN_SHOULD_SKIP_THIS)
-#define BOOSTLITE_INCLUDED_BY_HEADER 1
+#if(!defined(QUICKCPPLIB_HEADERS_ONLY) || QUICKCPPLIB_HEADERS_ONLY == 1) && !defined(DOXYGEN_SHOULD_SKIP_THIS)
+#define QUICKCPPLIB_INCLUDED_BY_HEADER 1
 #include "../src/execinfo_win64.c"
-#undef BOOSTLITE_INCLUDED_BY_HEADER
+#undef QUICKCPPLIB_INCLUDED_BY_HEADER
 #endif
 
 #endif

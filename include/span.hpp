@@ -22,8 +22,8 @@ Distributed under the Boost Software License, Version 1.0.
           http://www.boost.org/LICENSE_1_0.txt)
 */
 
-#ifndef BOOSTLITE_SPAN_HPP
-#define BOOSTLITE_SPAN_HPP
+#ifndef QUICKCPPLIB_SPAN_HPP
+#define QUICKCPPLIB_SPAN_HPP
 
 #include "config.hpp"
 
@@ -31,14 +31,14 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "gsl-lite/include/gsl.h"
 
-BOOSTLITE_NAMESPACE_BEGIN
+QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace span
 {
   template <class T> using span = gsl::span<T>;
 }
 
-BOOSTLITE_NAMESPACE_END
+QUICKCPPLIB_NAMESPACE_END
 
 #endif
 

@@ -22,18 +22,18 @@ Distributed under the Boost Software License, Version 1.0.
           http://www.boost.org/LICENSE_1_0.txt)
 */
 
-#ifndef BOOSTLITE_BOOST_UNIT_TEST_HPP
-#define BOOSTLITE_BOOST_UNIT_TEST_HPP
+#ifndef QUICKCPPLIB_BOOST_UNIT_TEST_HPP
+#define QUICKCPPLIB_BOOST_UNIT_TEST_HPP
 
 #include "../../config.hpp"
 
 /*! \defgroup unittesting Unit test suites
 
-Boost-lite comes with a minimal emulation of Boost.Test based on one of two
+QuickCppLib comes with a minimal emulation of Boost.Test based on one of two
 underlying unit test engines:
 
 <dl>
-<dt>`BOOSTLITE_BOOST_UNIT_TEST_IMPL` = 0 (the default)</dt>
+<dt>`QUICKCPPLIB_BOOST_UNIT_TEST_IMPL` = 0 (the default)</dt>
 <dd>An internal extremely lightweight engine which works well with exceptions and
 RTTI disabled. It works fine with multithreaded test cases, and can write results
 to a JUnit XML file for consumption by Jenkins etc. Its implementation is less than
@@ -57,7 +57,7 @@ any stack based resources.
 including the header file. It's been deliberately made highly customisable.
 </dd>
 
-<dt>`BOOSTLITE_BOOST_UNIT_TEST_IMPL` = 1</dt>
+<dt>`QUICKCPPLIB_BOOST_UNIT_TEST_IMPL` = 1</dt>
 <dd>Use Phil Nash's CATCH (https://github.com/philsquared/Catch) header only test
 engine. The Boost.Test macros simply call CATCH equivalents. The CATCH used is
 actually a fork of Phil's with a giant mutex poked in so multiple threads can
@@ -66,11 +66,11 @@ do checks concurrently.</dd>
 */
 //! @{
 
-#ifndef BOOSTLITE_BOOST_UNIT_TEST_IMPL
-#define BOOSTLITE_BOOST_UNIT_TEST_IMPL 0  // default to lightweight
+#ifndef QUICKCPPLIB_BOOST_UNIT_TEST_IMPL
+#define QUICKCPPLIB_BOOST_UNIT_TEST_IMPL 0  // default to lightweight
 #endif
 
-#if BOOSTLITE_BOOST_UNIT_TEST_IMPL == 1  // CATCH
+#if QUICKCPPLIB_BOOST_UNIT_TEST_IMPL == 1  // CATCH
 #ifdef __has_include
 #if !__has_include("../../CATCH/single_include/catch.hpp")
 #error Cannot find the CATCH git submodule. Did you do git submodule update --init --recursive?
@@ -82,7 +82,7 @@ do checks concurrently.</dd>
 #endif
 
 // If we are to use our own noexcept capable implementation as the underlying unit test engine
-#if BOOSTLITE_BOOST_UNIT_TEST_IMPL == 0  // std::terminate
+#if QUICKCPPLIB_BOOST_UNIT_TEST_IMPL == 0  // std::terminate
 #include <atomic>
 #include <chrono>
 #include <fstream>
@@ -100,7 +100,7 @@ do checks concurrently.</dd>
 #include <setjmp.h>
 #endif
 
-BOOSTLITE_NAMESPACE_BEGIN
+QUICKCPPLIB_NAMESPACE_BEGIN
 namespace unit_test
 {
   using namespace console_colours;
@@ -177,7 +177,7 @@ namespace unit_test
       {
         if(strstr(argv[n] + 2, "help"))
         {
-          std::cout << "\nBoost-lite minimal unit test framework\n\n"                                                                       //
+          std::cout << "\nQuickCppLib minimal unit test framework\n\n"                                                                      //
                     << "Usage: " << argv[0] << " [options] [<regex for tests to run, defaults to .*>] [-<regex for tests to not run>]\n\n"  //
                     << "  --help              : Prints this help\n"                                                                         //
                     << "  --list-tests        : List matching tests\n"                                                                      //
@@ -390,40 +390,40 @@ namespace unit_test
     }
   };
 }
-BOOSTLITE_NAMESPACE_END
+QUICKCPPLIB_NAMESPACE_END
 
-#ifndef BOOSTLITE_BOOST_UNIT_TEST_FAIL
+#ifndef QUICKCPPLIB_BOOST_UNIT_TEST_FAIL
 #ifdef __cpp_exceptions
-#define BOOSTLITE_BOOST_UNIT_TEST_FAIL throw BOOSTLITE_NAMESPACE::unit_test::requirement_failed()
+#define QUICKCPPLIB_BOOST_UNIT_TEST_FAIL throw QUICKCPPLIB_NAMESPACE::unit_test::requirement_failed()
 #else
-#define BOOSTLITE_BOOST_UNIT_TEST_FAIL longjmp(BOOSTLITE_NAMESPACE::unit_test::test_case_failed(), 1)
+#define QUICKCPPLIB_BOOST_UNIT_TEST_FAIL longjmp(QUICKCPPLIB_NAMESPACE::unit_test::test_case_failed(), 1)
 #endif
 #endif
-#ifndef BOOSTLITE_BOOST_UNIT_CHECK_FAIL
-#define BOOSTLITE_BOOST_UNIT_CHECK_FAIL(type, expr)                                                                                                                                                                                                                                                                            \
-  ++BOOSTLITE_NAMESPACE::unit_test::current_test_case()->fails;                                                                                                                                                                                                                                                                \
-  std::cerr << BOOSTLITE_NAMESPACE::unit_test::yellow << "CHECK " type "(" #expr ") FAILED" << BOOSTLITE_NAMESPACE::unit_test::white << " at " << __FILE__ << ":" << __LINE__ << std::endl
+#ifndef QUICKCPPLIB_BOOST_UNIT_CHECK_FAIL
+#define QUICKCPPLIB_BOOST_UNIT_CHECK_FAIL(type, expr)                                                                                                                                                                                                                                                                          \
+  ++QUICKCPPLIB_NAMESPACE::unit_test::current_test_case()->fails;                                                                                                                                                                                                                                                              \
+  std::cerr << QUICKCPPLIB_NAMESPACE::unit_test::yellow << "CHECK " type "(" #expr ") FAILED" << QUICKCPPLIB_NAMESPACE::unit_test::white << " at " << __FILE__ << ":" << __LINE__ << std::endl
 #endif
-#ifndef BOOSTLITE_BOOST_UNIT_CHECK_PASS
-#define BOOSTLITE_BOOST_UNIT_CHECK_PASS(type, expr) ++BOOSTLITE_NAMESPACE::unit_test::current_test_case()->passes
+#ifndef QUICKCPPLIB_BOOST_UNIT_CHECK_PASS
+#define QUICKCPPLIB_BOOST_UNIT_CHECK_PASS(type, expr) ++QUICKCPPLIB_NAMESPACE::unit_test::current_test_case()->passes
 #endif
-#ifndef BOOSTLITE_BOOST_UNIT_REQUIRE_FAIL
-#define BOOSTLITE_BOOST_UNIT_REQUIRE_FAIL(type, expr)                                                                                                                                                                                                                                                                          \
-  ++BOOSTLITE_NAMESPACE::unit_test::current_test_case()->fails;                                                                                                                                                                                                                                                                \
-  std::cerr << BOOSTLITE_NAMESPACE::unit_test::red << "REQUIRE " type "(" #expr ") FAILED" << BOOSTLITE_NAMESPACE::unit_test::white << " at " << __FILE__ << ":" << __LINE__ << std::endl;                                                                                                                                     \
-  BOOSTLITE_BOOST_UNIT_TEST_FAIL
+#ifndef QUICKCPPLIB_BOOST_UNIT_REQUIRE_FAIL
+#define QUICKCPPLIB_BOOST_UNIT_REQUIRE_FAIL(type, expr)                                                                                                                                                                                                                                                                        \
+  ++QUICKCPPLIB_NAMESPACE::unit_test::current_test_case()->fails;                                                                                                                                                                                                                                                              \
+  std::cerr << QUICKCPPLIB_NAMESPACE::unit_test::red << "REQUIRE " type "(" #expr ") FAILED" << QUICKCPPLIB_NAMESPACE::unit_test::white << " at " << __FILE__ << ":" << __LINE__ << std::endl;                                                                                                                                 \
+  QUICKCPPLIB_BOOST_UNIT_TEST_FAIL
 #endif
-#ifndef BOOSTLITE_BOOST_UNIT_REQUIRE_PASS
-#define BOOSTLITE_BOOST_UNIT_REQUIRE_PASS(type, expr) ++BOOSTLITE_NAMESPACE::unit_test::current_test_case()->passes
+#ifndef QUICKCPPLIB_BOOST_UNIT_REQUIRE_PASS
+#define QUICKCPPLIB_BOOST_UNIT_REQUIRE_PASS(type, expr) ++QUICKCPPLIB_NAMESPACE::unit_test::current_test_case()->passes
 #endif
 
 #define BOOST_TEST_MESSAGE(msg) std::cout << "INFO: " << msg << std::endl
 #define BOOST_WARN_MESSAGE(pred, msg)                                                                                                                                                                                                                                                                                          \
   if(!(pred))                                                                                                                                                                                                                                                                                                                  \
-  std::cerr << BOOSTLITE_NAMESPACE::unit_test::yellow << "WARNING: " << msg << BOOSTLITE_NAMESPACE::unit_test::normal << std::endl
+  std::cerr << QUICKCPPLIB_NAMESPACE::unit_test::yellow << "WARNING: " << msg << QUICKCPPLIB_NAMESPACE::unit_test::normal << std::endl
 #define BOOST_FAIL(msg)                                                                                                                                                                                                                                                                                                        \
-  std::cerr << BOOSTLITE_NAMESPACE::unit_test::red << "FAILURE: " << msg << BOOSTLITE_NAMESPACE::unit_test::normal << std::endl;                                                                                                                                                                                               \
-  BOOSTLITE_BOOST_UNIT_TEST_FAIL
+  std::cerr << QUICKCPPLIB_NAMESPACE::unit_test::red << "FAILURE: " << msg << QUICKCPPLIB_NAMESPACE::unit_test::normal << std::endl;                                                                                                                                                                                           \
+  QUICKCPPLIB_BOOST_UNIT_TEST_FAIL
 #define BOOST_CHECK_MESSAGE(pred, msg)                                                                                                                                                                                                                                                                                         \
   if(!(pred))                                                                                                                                                                                                                                                                                                                  \
   std::cout << "INFO: " << msg << std::endl
@@ -431,25 +431,25 @@ BOOSTLITE_NAMESPACE_END
 #define BOOST_CHECK(expr)                                                                                                                                                                                                                                                                                                      \
   if(!(expr))                                                                                                                                                                                                                                                                                                                  \
   {                                                                                                                                                                                                                                                                                                                            \
-    BOOSTLITE_BOOST_UNIT_CHECK_FAIL(, expr);                                                                                                                                                                                                                                                                                   \
+    QUICKCPPLIB_BOOST_UNIT_CHECK_FAIL(, expr);                                                                                                                                                                                                                                                                                 \
   }                                                                                                                                                                                                                                                                                                                            \
   \
 else                                                                                                                                                                                                                                                                                                                      \
   {                                                                                                                                                                                                                                                                                                                            \
-    BOOSTLITE_BOOST_UNIT_CHECK_PASS(, expr);                                                                                                                                                                                                                                                                                   \
+    QUICKCPPLIB_BOOST_UNIT_CHECK_PASS(, expr);                                                                                                                                                                                                                                                                                 \
   }
-#define BOOST_CHECK_EQ(expr1, expr2) BOOST_CHECK((expr1) == (expr2))                                                                                                                                                                                                                                                                                                      
+#define BOOST_CHECK_EQ(expr1, expr2) BOOST_CHECK((expr1) == (expr2))
 #ifdef __cpp_exceptions
 #define BOOST_CHECK_THROWS(expr)                                                                                                                                                                                                                                                                                               \
   try                                                                                                                                                                                                                                                                                                                          \
   \
 {                                                                                                                                                                                                                                                                                                                         \
     (expr);                                                                                                                                                                                                                                                                                                                    \
-    BOOSTLITE_BOOST_UNIT_CHECK_FAIL("THROWS ", expr);                                                                                                                                                                                                                                                                          \
+    QUICKCPPLIB_BOOST_UNIT_CHECK_FAIL("THROWS ", expr);                                                                                                                                                                                                                                                                        \
   \
 }                                                                                                                                                                                                                                                                                                                         \
   \
-catch(const BOOSTLITE_NAMESPACE::unit_test::requirement_failed &)                                                                                                                                                                                                                                                              \
+catch(const QUICKCPPLIB_NAMESPACE::unit_test::requirement_failed &)                                                                                                                                                                                                                                                            \
   {                                                                                                                                                                                                                                                                                                                            \
     throw;                                                                                                                                                                                                                                                                                                                     \
   }                                                                                                                                                                                                                                                                                                                            \
@@ -457,38 +457,38 @@ catch(const BOOSTLITE_NAMESPACE::unit_test::requirement_failed &)               
 catch(...)                                                                                                                                                                                                                                                                                                                     \
   \
 {                                                                                                                                                                                                                                                                                                                         \
-    BOOSTLITE_BOOST_UNIT_CHECK_PASS("THROWS ", expr);                                                                                                                                                                                                                                                                          \
+    QUICKCPPLIB_BOOST_UNIT_CHECK_PASS("THROWS ", expr);                                                                                                                                                                                                                                                                        \
   \
 }
 #define BOOST_CHECK_THROW(expr, type)                                                                                                                                                                                                                                                                                          \
   try                                                                                                                                                                                                                                                                                                                          \
   {                                                                                                                                                                                                                                                                                                                            \
     (expr);                                                                                                                                                                                                                                                                                                                    \
-    BOOSTLITE_BOOST_UNIT_CHECK_FAIL("THROW " #type " ", expr);                                                                                                                                                                                                                                                                 \
+    QUICKCPPLIB_BOOST_UNIT_CHECK_FAIL("THROW " #type " ", expr);                                                                                                                                                                                                                                                               \
   }                                                                                                                                                                                                                                                                                                                            \
   \
-catch(const BOOSTLITE_NAMESPACE::unit_test::requirement_failed &)                                                                                                                                                                                                                                                              \
+catch(const QUICKCPPLIB_NAMESPACE::unit_test::requirement_failed &)                                                                                                                                                                                                                                                            \
   {                                                                                                                                                                                                                                                                                                                            \
     throw;                                                                                                                                                                                                                                                                                                                     \
   }                                                                                                                                                                                                                                                                                                                            \
   \
 catch(type)                                                                                                                                                                                                                                                                                                                    \
   {                                                                                                                                                                                                                                                                                                                            \
-    BOOSTLITE_BOOST_UNIT_CHECK_PASS("THROW " #type " ", expr);                                                                                                                                                                                                                                                                 \
+    QUICKCPPLIB_BOOST_UNIT_CHECK_PASS("THROW " #type " ", expr);                                                                                                                                                                                                                                                               \
   }                                                                                                                                                                                                                                                                                                                            \
-  catch(...) { BOOSTLITE_BOOST_UNIT_CHECK_FAIL("THROW " #type " ", expr); }
+  catch(...) { QUICKCPPLIB_BOOST_UNIT_CHECK_FAIL("THROW " #type " ", expr); }
 #define BOOST_CHECK_NO_THROW(expr)                                                                                                                                                                                                                                                                                             \
   try                                                                                                                                                                                                                                                                                                                          \
   {                                                                                                                                                                                                                                                                                                                            \
     (expr);                                                                                                                                                                                                                                                                                                                    \
-    BOOSTLITE_BOOST_UNIT_CHECK_PASS("NO THROW ", expr);                                                                                                                                                                                                                                                                        \
+    QUICKCPPLIB_BOOST_UNIT_CHECK_PASS("NO THROW ", expr);                                                                                                                                                                                                                                                                      \
   }                                                                                                                                                                                                                                                                                                                            \
   \
-catch(const BOOSTLITE_NAMESPACE::unit_test::requirement_failed &)                                                                                                                                                                                                                                                              \
+catch(const QUICKCPPLIB_NAMESPACE::unit_test::requirement_failed &)                                                                                                                                                                                                                                                            \
   {                                                                                                                                                                                                                                                                                                                            \
     throw;                                                                                                                                                                                                                                                                                                                     \
   }                                                                                                                                                                                                                                                                                                                            \
-  catch(...) { BOOSTLITE_BOOST_UNIT_CHECK_FAIL("NO THROW ", expr); }
+  catch(...) { QUICKCPPLIB_BOOST_UNIT_CHECK_FAIL("NO THROW ", expr); }
 #else
 #define BOOST_CHECK_THROWS(expr)
 #define BOOST_CHECK_THROW(expr, type)
@@ -498,13 +498,13 @@ catch(const BOOSTLITE_NAMESPACE::unit_test::requirement_failed &)               
 #define BOOST_REQUIRE(expr)                                                                                                                                                                                                                                                                                                    \
   if(!(expr))                                                                                                                                                                                                                                                                                                                  \
   {                                                                                                                                                                                                                                                                                                                            \
-    BOOSTLITE_BOOST_UNIT_REQUIRE_FAIL(, expr);                                                                                                                                                                                                                                                                                 \
+    QUICKCPPLIB_BOOST_UNIT_REQUIRE_FAIL(, expr);                                                                                                                                                                                                                                                                               \
   }                                                                                                                                                                                                                                                                                                                            \
   \
 else                                                                                                                                                                                                                                                                                                                      \
   \
 {                                                                                                                                                                                                                                                                                                                         \
-    BOOSTLITE_BOOST_UNIT_REQUIRE_PASS(, expr);                                                                                                                                                                                                                                                                                 \
+    QUICKCPPLIB_BOOST_UNIT_REQUIRE_PASS(, expr);                                                                                                                                                                                                                                                                               \
   \
 }
 #ifdef __cpp_exceptions
@@ -513,11 +513,11 @@ else                                                                            
   \
 {                                                                                                                                                                                                                                                                                                                         \
     (expr);                                                                                                                                                                                                                                                                                                                    \
-    BOOSTLITE_BOOST_UNIT_REQUIRE_FAIL("THROWS ", expr);                                                                                                                                                                                                                                                                        \
+    QUICKCPPLIB_BOOST_UNIT_REQUIRE_FAIL("THROWS ", expr);                                                                                                                                                                                                                                                                      \
   \
 }                                                                                                                                                                                                                                                                                                                         \
   \
-catch(const BOOSTLITE_NAMESPACE::unit_test::requirement_failed &)                                                                                                                                                                                                                                                              \
+catch(const QUICKCPPLIB_NAMESPACE::unit_test::requirement_failed &)                                                                                                                                                                                                                                                            \
   {                                                                                                                                                                                                                                                                                                                            \
     throw;                                                                                                                                                                                                                                                                                                                     \
   }                                                                                                                                                                                                                                                                                                                            \
@@ -525,34 +525,34 @@ catch(const BOOSTLITE_NAMESPACE::unit_test::requirement_failed &)               
 catch(...)                                                                                                                                                                                                                                                                                                                     \
   \
 {                                                                                                                                                                                                                                                                                                                         \
-    BOOSTLITE_BOOST_UNIT_REQUIRE_PASS("THROWS ", expr);                                                                                                                                                                                                                                                                        \
+    QUICKCPPLIB_BOOST_UNIT_REQUIRE_PASS("THROWS ", expr);                                                                                                                                                                                                                                                                      \
   \
 }
 #define BOOST_CHECK_REQUIRE(expr, type)                                                                                                                                                                                                                                                                                        \
   try                                                                                                                                                                                                                                                                                                                          \
   {                                                                                                                                                                                                                                                                                                                            \
     (expr);                                                                                                                                                                                                                                                                                                                    \
-    BOOSTLITE_BOOST_UNIT_REQUIRE_FAIL("THROW " #type " ", expr);                                                                                                                                                                                                                                                               \
+    QUICKCPPLIB_BOOST_UNIT_REQUIRE_FAIL("THROW " #type " ", expr);                                                                                                                                                                                                                                                             \
   }                                                                                                                                                                                                                                                                                                                            \
   \
-catch(const BOOSTLITE_NAMESPACE::unit_test::requirement_failed &)                                                                                                                                                                                                                                                              \
+catch(const QUICKCPPLIB_NAMESPACE::unit_test::requirement_failed &)                                                                                                                                                                                                                                                            \
   {                                                                                                                                                                                                                                                                                                                            \
     throw;                                                                                                                                                                                                                                                                                                                     \
   }                                                                                                                                                                                                                                                                                                                            \
-  catch(type) { BOOSTLITE_BOOST_UNIT_REQUIRE_PASS("THROW " #type " ", expr); }                                                                                                                                                                                                                                                 \
-  catch(...) { BOOSTLITE_BOOST_UNIT_REQUIRE_FAIL("THROW " #type " ", expr); }
+  catch(type) { QUICKCPPLIB_BOOST_UNIT_REQUIRE_PASS("THROW " #type " ", expr); }                                                                                                                                                                                                                                               \
+  catch(...) { QUICKCPPLIB_BOOST_UNIT_REQUIRE_FAIL("THROW " #type " ", expr); }
 #define BOOST_REQUIRE_NO_THROW(expr)                                                                                                                                                                                                                                                                                           \
   try                                                                                                                                                                                                                                                                                                                          \
   {                                                                                                                                                                                                                                                                                                                            \
     (expr);                                                                                                                                                                                                                                                                                                                    \
-    BOOSTLITE_BOOST_UNIT_REQUIRE_PASS("NO THROW ", expr);                                                                                                                                                                                                                                                                      \
+    QUICKCPPLIB_BOOST_UNIT_REQUIRE_PASS("NO THROW ", expr);                                                                                                                                                                                                                                                                    \
   }                                                                                                                                                                                                                                                                                                                            \
   \
-catch(const BOOSTLITE_NAMESPACE::unit_test::requirement_failed &)                                                                                                                                                                                                                                                              \
+catch(const QUICKCPPLIB_NAMESPACE::unit_test::requirement_failed &)                                                                                                                                                                                                                                                            \
   {                                                                                                                                                                                                                                                                                                                            \
     throw;                                                                                                                                                                                                                                                                                                                     \
   }                                                                                                                                                                                                                                                                                                                            \
-  catch(...) { BOOSTLITE_BOOST_UNIT_REQUIRE_FAIL("NO THROW ", expr); }
+  catch(...) { QUICKCPPLIB_BOOST_UNIT_REQUIRE_FAIL("NO THROW ", expr); }
 #else
 #define BOOST_REQUIRE_THROWS(expr)
 #define BOOST_CHECK_REQUIRE(expr, type)
@@ -564,31 +564,31 @@ catch(const BOOSTLITE_NAMESPACE::unit_test::requirement_failed &)               
 #define BOOST_AUTO_TEST_SUITE(name)                                                                                                                                                                                                                                                                                            \
   namespace BOOST_AUTO_TEST_SUITE2(boostlite_auto_test_suite, __COUNTER__)                                                                                                                                                                                                                                                     \
   {                                                                                                                                                                                                                                                                                                                            \
-    static BOOSTLITE_NAMESPACE::unit_test::test_suite_registration boostlite_auto_test_suite_registration(#name);
+    static QUICKCPPLIB_NAMESPACE::unit_test::test_suite_registration boostlite_auto_test_suite_registration(#name);
 //
 #define BOOST_AUTO_TEST_SUITE_END() }
 
-#ifndef BOOSTLITE_BOOST_UNIT_TEST_CASE_NAME
-#define BOOSTLITE_BOOST_UNIT_TEST_CASE_NAME(name) #name
+#ifndef QUICKCPPLIB_BOOST_UNIT_TEST_CASE_NAME
+#define QUICKCPPLIB_BOOST_UNIT_TEST_CASE_NAME(name) #name
 #endif
-#define BOOSTLITE_BOOST_UNIT_TEST_CASE_UNIQUE(prefix) BOOST_AUTO_TEST_SUITE2(prefix, __COUNTER__)
+#define QUICKCPPLIB_BOOST_UNIT_TEST_CASE_UNIQUE(prefix) BOOST_AUTO_TEST_SUITE2(prefix, __COUNTER__)
 #define BOOST_AUTO_TEST_CASE2(test_name, desc, func_name)                                                                                                                                                                                                                                                                      \
   \
 static void                                                                                                                                                                                                                                                                                                                    \
   func_name();                                                                                                                                                                                                                                                                                                                 \
   \
-static BOOSTLITE_NAMESPACE::unit_test::test_case_registration BOOST_AUTO_TEST_SUITE2(func_name, _registration)(static_cast<const char *>(test_name), static_cast<const char *>(desc), func_name);                                                                                                                              \
+static QUICKCPPLIB_NAMESPACE::unit_test::test_case_registration BOOST_AUTO_TEST_SUITE2(func_name, _registration)(static_cast<const char *>(test_name), static_cast<const char *>(desc), func_name);                                                                                                                            \
   \
 static void                                                                                                                                                                                                                                                                                                                    \
   func_name()
-#define BOOST_AUTO_TEST_CASE(test_name, desc) BOOST_AUTO_TEST_CASE2(BOOSTLITE_BOOST_UNIT_TEST_CASE_NAME(test_name), desc, BOOSTLITE_BOOST_UNIT_TEST_CASE_UNIQUE(boostlite_auto_test_case))
+#define BOOST_AUTO_TEST_CASE(test_name, desc) BOOST_AUTO_TEST_CASE2(QUICKCPPLIB_BOOST_UNIT_TEST_CASE_NAME(test_name), desc, QUICKCPPLIB_BOOST_UNIT_TEST_CASE_UNIQUE(boostlite_auto_test_case))
 
-#define BOOSTLITE_BOOST_UNIT_TEST_RUN_TESTS(argc, argv) BOOSTLITE_NAMESPACE::unit_test::run(argc, argv)
+#define QUICKCPPLIB_BOOST_UNIT_TEST_RUN_TESTS(argc, argv) QUICKCPPLIB_NAMESPACE::unit_test::run(argc, argv)
 #endif
 
 
 // If we are to use threadsafe CATCH as the underlying unit test engine
-#if BOOSTLITE_BOOST_UNIT_TEST_IMPL == 1
+#if QUICKCPPLIB_BOOST_UNIT_TEST_IMPL == 1
 #include <atomic>
 #include <mutex>
 #define CATCH_CONFIG_PREFIX_ALL
@@ -612,7 +612,7 @@ static void                                                                     
   CATCH_INFO(msg)
 
 #define BOOST_CHECK(expr) CATCH_CHECK(expr)
-#define BOOST_CHECK_EQ(expr1, expr2) BOOST_CHECK((expr1) == (expr2))                                                                                                                                                                                                                                                                                                      
+#define BOOST_CHECK_EQ(expr1, expr2) BOOST_CHECK((expr1) == (expr2))
 #define BOOST_CHECK_THROWS(expr) CATCH_CHECK_THROWS(expr)
 #define BOOST_CHECK_THROW(expr, type) CATCH_CHECK_THROWS_AS(expr, type)
 #define BOOST_CHECK_NO_THROW(expr) CATCH_CHECK_NOTHROW(expr)
@@ -629,12 +629,12 @@ static void                                                                     
   {
 //
 #define BOOST_AUTO_TEST_SUITE_END() }
-#ifndef BOOSTLITE_BOOST_UNIT_TEST_CASE_NAME
-#define BOOSTLITE_BOOST_UNIT_TEST_CASE_NAME(name) #name
+#ifndef QUICKCPPLIB_BOOST_UNIT_TEST_CASE_NAME
+#define QUICKCPPLIB_BOOST_UNIT_TEST_CASE_NAME(name) #name
 #endif
-#define BOOST_AUTO_TEST_CASE(test_name, desc) CATCH_TEST_CASE(BOOSTLITE_BOOST_UNIT_TEST_CASE_NAME(test_name), desc)
+#define BOOST_AUTO_TEST_CASE(test_name, desc) CATCH_TEST_CASE(QUICKCPPLIB_BOOST_UNIT_TEST_CASE_NAME(test_name), desc)
 
-#define BOOSTLITE_BOOST_UNIT_TEST_RUN_TESTS(argc, argv) Catch::Session().run(argc, argv)
+#define QUICKCPPLIB_BOOST_UNIT_TEST_RUN_TESTS(argc, argv) Catch::Session().run(argc, argv)
 
 #endif
 
@@ -650,14 +650,14 @@ static void                                                                     
 #define BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS inline
 #endif
 
-#ifndef BOOSTLITE_BOOST_UNIT_TEST_CUSTOM_MAIN_DEFINED
+#ifndef QUICKCPPLIB_BOOST_UNIT_TEST_CUSTOM_MAIN_DEFINED
 #ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable : 4008)  // inline on main
 #endif
 BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS int main(int argc, const char *const argv[])
 {
-  int result = BOOSTLITE_BOOST_UNIT_TEST_RUN_TESTS(argc, argv);
+  int result = QUICKCPPLIB_BOOST_UNIT_TEST_RUN_TESTS(argc, argv);
   return result;
 }
 #ifdef _MSC_VER

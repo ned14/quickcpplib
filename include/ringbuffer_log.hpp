@@ -22,21 +22,21 @@ Distributed under the Boost Software License, Version 1.0.
           http://www.boost.org/LICENSE_1_0.txt)
 */
 
-#ifndef BOOSTLITE_RINGBUFFER_LOG_HPP
-#define BOOSTLITE_RINGBUFFER_LOG_HPP
+#ifndef QUICKCPPLIB_RINGBUFFER_LOG_HPP
+#define QUICKCPPLIB_RINGBUFFER_LOG_HPP
 
-#ifndef BOOSTLITE_RINGBUFFER_LOG_DEFAULT_ENTRIES_DEBUG
-#define BOOSTLITE_RINGBUFFER_LOG_DEFAULT_ENTRIES_DEBUG 4096
+#ifndef QUICKCPPLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES_DEBUG
+#define QUICKCPPLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES_DEBUG 4096
 #endif
 
-#ifndef BOOSTLITE_RINGBUFFER_LOG_DEFAULT_ENTRIES_NDEBUG
-#define BOOSTLITE_RINGBUFFER_LOG_DEFAULT_ENTRIES_NDEBUG 256
+#ifndef QUICKCPPLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES_NDEBUG
+#define QUICKCPPLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES_NDEBUG 256
 #endif
 
 #ifdef NDEBUG
-#define BOOSTLITE_RINGBUFFER_LOG_DEFAULT_ENTRIES BOOSTLITE_RINGBUFFER_LOG_DEFAULT_ENTRIES_NDEBUG
+#define QUICKCPPLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES QUICKCPPLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES_NDEBUG
 #else
-#define BOOSTLITE_RINGBUFFER_LOG_DEFAULT_ENTRIES BOOSTLITE_RINGBUFFER_LOG_DEFAULT_ENTRIES_DEBUG
+#define QUICKCPPLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES QUICKCPPLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES_DEBUG
 #endif
 
 // If I'm on winclang, I can't stop the deprecation warnings from MSVCRT unless I do this
@@ -65,7 +65,7 @@ Distributed under the Boost Software License, Version 1.0.
 #include <execinfo.h>
 #endif
 
-BOOSTLITE_NAMESPACE_BEGIN
+QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace ringbuffer_log
 {
@@ -283,14 +283,14 @@ namespace ringbuffer_log
 
   /*! \tparam Bytes The size of the ring buffer
   \brief A ring buffer log stored in a fixed
-  BOOSTLITE_RINGBUFFER_LOG_DEFAULT_ENTRIES_NDEBUG/BOOSTLITE_RINGBUFFER_LOG_DEFAULT_ENTRIES_DEBUG
+  QUICKCPPLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES_NDEBUG/QUICKCPPLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES_DEBUG
   std::array recording
   monotonic counter (8 bytes), high resolution clock time stamp (8 bytes),
   stack backtrace or __func__ (40 bytes), level (1 byte), 191 bytes of
   char message. Each record is 256 bytes, therefore the ring buffer
   wraps after 256/4096 entries by default.
   */
-  template <size_t Bytes = BOOSTLITE_RINGBUFFER_LOG_DEFAULT_ENTRIES * 256> struct simple_ringbuffer_log_policy
+  template <size_t Bytes = QUICKCPPLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES * 256> struct simple_ringbuffer_log_policy
   {
     //! Item logged in this log
     using value_type = simple_ringbuffer_log_policy_detail::value_type;
@@ -306,7 +306,7 @@ namespace ringbuffer_log
   Works on the basis of an always incrementing atomic<size_t> which writes
   into the ring buffer at modulus of the ring buffer size. Items stored per
   log entry are defined by the Policy class' value_type. To log an item,
-  call the BOOSTLITE_RINGBUFFERLOG_ITEM_* family of macros.
+  call the QUICKCPPLIB_RINGBUFFERLOG_ITEM_* family of macros.
 
   Be aware iteration, indexing etc. is most recent first, so log[0] is
   the most recently logged item. Use the reversed iterators if you don't
@@ -753,83 +753,83 @@ namespace ringbuffer_log
   }
 
   //! Alias for a simple ringbuffer log
-  template <size_t Bytes = BOOSTLITE_RINGBUFFER_LOG_DEFAULT_ENTRIES * 256> using simple_ringbuffer_log = ringbuffer_log<simple_ringbuffer_log_policy<Bytes>>;
+  template <size_t Bytes = QUICKCPPLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES * 256> using simple_ringbuffer_log = ringbuffer_log<simple_ringbuffer_log_policy<Bytes>>;
 }
 
-BOOSTLITE_NAMESPACE_END
+QUICKCPPLIB_NAMESPACE_END
 
 
 //! Logs an item to the log with calling function name
-#define BOOSTLITE_RINGBUFFERLOG_ITEM_FUNCTION(log, level, message, code1, code2) (log).emplace_back((level), (message), (code1), (code2), __func__, __LINE__)
+#define QUICKCPPLIB_RINGBUFFERLOG_ITEM_FUNCTION(log, level, message, code1, code2) (log).emplace_back((level), (message), (code1), (code2), __func__, __LINE__)
 //! Logs an item to the log with stack backtrace
-#define BOOSTLITE_RINGBUFFERLOG_ITEM_BACKTRACE(log, level, message, code1, code2) (log).emplace_back((level), (message), (code1), (code2), nullptr)
+#define QUICKCPPLIB_RINGBUFFERLOG_ITEM_BACKTRACE(log, level, message, code1, code2) (log).emplace_back((level), (message), (code1), (code2), nullptr)
 
-#ifndef BOOSTLITE_RINGBUFFERLOG_LEVEL
+#ifndef QUICKCPPLIB_RINGBUFFERLOG_LEVEL
 #if defined(_DEBUG) || defined(DEBUG)
-#define BOOSTLITE_RINGBUFFERLOG_LEVEL 5  // debug
+#define QUICKCPPLIB_RINGBUFFERLOG_LEVEL 5  // debug
 #else
-#define BOOSTLITE_RINGBUFFERLOG_LEVEL 2  // error
+#define QUICKCPPLIB_RINGBUFFERLOG_LEVEL 2  // error
 #endif
 #endif
 
-#if BOOSTLITE_RINGBUFFERLOG_LEVEL >= 1
+#if QUICKCPPLIB_RINGBUFFERLOG_LEVEL >= 1
 //! Logs an item to the log at fatal level with calling function name
-#define BOOSTLITE_RINGBUFFERLOG_FATAL_FUNCTION(log, message, code1, code2) BOOSTLITE_RINGBUFFERLOG_ITEM_FUNCTION((log), ringbuffer_log::level::fatal, (message), (code1), (code2))
+#define QUICKCPPLIB_RINGBUFFERLOG_FATAL_FUNCTION(log, message, code1, code2) QUICKCPPLIB_RINGBUFFERLOG_ITEM_FUNCTION((log), ringbuffer_log::level::fatal, (message), (code1), (code2))
 //! Logs an item to the log at fatal level with stack backtrace
-#define BOOSTLITE_RINGBUFFERLOG_FATAL_BACKTRACE(log, message, code1, code2) BOOSTLITE_RINGBUFFERLOG_ITEM_BACKTRACE((log), ringbuffer_log::level::fatal, (message), (code1), (code2))
+#define QUICKCPPLIB_RINGBUFFERLOG_FATAL_BACKTRACE(log, message, code1, code2) QUICKCPPLIB_RINGBUFFERLOG_ITEM_BACKTRACE((log), ringbuffer_log::level::fatal, (message), (code1), (code2))
 #else
-#define BOOSTLITE_RINGBUFFERLOG_FATAL_FUNCTION(log, message, code1, code2)
-#define BOOSTLITE_RINGBUFFERLOG_FATAL_BACKTRACE(log, message, code1, code2)
+#define QUICKCPPLIB_RINGBUFFERLOG_FATAL_FUNCTION(log, message, code1, code2)
+#define QUICKCPPLIB_RINGBUFFERLOG_FATAL_BACKTRACE(log, message, code1, code2)
 #endif
 
-#if BOOSTLITE_RINGBUFFERLOG_LEVEL >= 2
+#if QUICKCPPLIB_RINGBUFFERLOG_LEVEL >= 2
 //! Logs an item to the log at error level with calling function name
-#define BOOSTLITE_RINGBUFFERLOG_ERROR_FUNCTION(log, message, code1, code2) BOOSTLITE_RINGBUFFERLOG_ITEM_FUNCTION((log), ringbuffer_log::level::error, (message), (code1), (code2))
+#define QUICKCPPLIB_RINGBUFFERLOG_ERROR_FUNCTION(log, message, code1, code2) QUICKCPPLIB_RINGBUFFERLOG_ITEM_FUNCTION((log), ringbuffer_log::level::error, (message), (code1), (code2))
 //! Logs an item to the log at error level with stack backtrace
-#define BOOSTLITE_RINGBUFFERLOG_ERROR_BACKTRACE(log, message, code1, code2) BOOSTLITE_RINGBUFFERLOG_ITEM_BACKTRACE((log), ringbuffer_log::level::error, (message), (code1), (code2))
+#define QUICKCPPLIB_RINGBUFFERLOG_ERROR_BACKTRACE(log, message, code1, code2) QUICKCPPLIB_RINGBUFFERLOG_ITEM_BACKTRACE((log), ringbuffer_log::level::error, (message), (code1), (code2))
 #else
-#define BOOSTLITE_RINGBUFFERLOG_ERROR_FUNCTION(log, message, code1, code2)
-#define BOOSTLITE_RINGBUFFERLOG_ERROR_BACKTRACE(log, message, code1, code2)
+#define QUICKCPPLIB_RINGBUFFERLOG_ERROR_FUNCTION(log, message, code1, code2)
+#define QUICKCPPLIB_RINGBUFFERLOG_ERROR_BACKTRACE(log, message, code1, code2)
 #endif
 
-#if BOOSTLITE_RINGBUFFERLOG_LEVEL >= 3
+#if QUICKCPPLIB_RINGBUFFERLOG_LEVEL >= 3
 //! Logs an item to the log at warn level with calling function name
-#define BOOSTLITE_RINGBUFFERLOG_WARN_FUNCTION(log, message, code1, code2) BOOSTLITE_RINGBUFFERLOG_ITEM_FUNCTION((log), ringbuffer_log::level::warn, (message), (code1), (code2))
+#define QUICKCPPLIB_RINGBUFFERLOG_WARN_FUNCTION(log, message, code1, code2) QUICKCPPLIB_RINGBUFFERLOG_ITEM_FUNCTION((log), ringbuffer_log::level::warn, (message), (code1), (code2))
 //! Logs an item to the log at warn level with stack backtrace
-#define BOOSTLITE_RINGBUFFERLOG_WARN_BACKTRACE(log, message, code1, code2) BOOSTLITE_RINGBUFFERLOG_ITEM_BACKTRACE((log), ringbuffer_log::level::warn, (message), (code1), (code2))
+#define QUICKCPPLIB_RINGBUFFERLOG_WARN_BACKTRACE(log, message, code1, code2) QUICKCPPLIB_RINGBUFFERLOG_ITEM_BACKTRACE((log), ringbuffer_log::level::warn, (message), (code1), (code2))
 #else
-#define BOOSTLITE_RINGBUFFERLOG_WARN_FUNCTION(log, message, code1, code2)
-#define BOOSTLITE_RINGBUFFERLOG_WARN_BACKTRACE(log, message, code1, code2)
+#define QUICKCPPLIB_RINGBUFFERLOG_WARN_FUNCTION(log, message, code1, code2)
+#define QUICKCPPLIB_RINGBUFFERLOG_WARN_BACKTRACE(log, message, code1, code2)
 #endif
 
-#if BOOSTLITE_RINGBUFFERLOG_LEVEL >= 4
+#if QUICKCPPLIB_RINGBUFFERLOG_LEVEL >= 4
 //! Logs an item to the log at info level with calling function name
-#define BOOSTLITE_RINGBUFFERLOG_INFO_FUNCTION(log, message, code1, code2) BOOSTLITE_RINGBUFFERLOG_ITEM_FUNCTION((log), ringbuffer_log::level::info, (message), (code1), (code2))
+#define QUICKCPPLIB_RINGBUFFERLOG_INFO_FUNCTION(log, message, code1, code2) QUICKCPPLIB_RINGBUFFERLOG_ITEM_FUNCTION((log), ringbuffer_log::level::info, (message), (code1), (code2))
 //! Logs an item to the log at info level with stack backtrace
-#define BOOSTLITE_RINGBUFFERLOG_INFO_BACKTRACE(log, message, code1, code2) BOOSTLITE_RINGBUFFERLOG_ITEM_BACKTRACE((log), ringbuffer_log::level::info, (message), (code1), (code2))
+#define QUICKCPPLIB_RINGBUFFERLOG_INFO_BACKTRACE(log, message, code1, code2) QUICKCPPLIB_RINGBUFFERLOG_ITEM_BACKTRACE((log), ringbuffer_log::level::info, (message), (code1), (code2))
 #else
-#define BOOSTLITE_RINGBUFFERLOG_INFO_FUNCTION(log, message, code1, code2)
-#define BOOSTLITE_RINGBUFFERLOG_INFO_BACKTRACE(log, message, code1, code2)
+#define QUICKCPPLIB_RINGBUFFERLOG_INFO_FUNCTION(log, message, code1, code2)
+#define QUICKCPPLIB_RINGBUFFERLOG_INFO_BACKTRACE(log, message, code1, code2)
 #endif
 
-#if BOOSTLITE_RINGBUFFERLOG_LEVEL >= 5
+#if QUICKCPPLIB_RINGBUFFERLOG_LEVEL >= 5
 //! Logs an item to the log at debug level with calling function name
-#define BOOSTLITE_RINGBUFFERLOG_DEBUG_FUNCTION(log, message, code1, code2) BOOSTLITE_RINGBUFFERLOG_ITEM_FUNCTION((log), ringbuffer_log::level::debug, (message), (code1), (code2))
+#define QUICKCPPLIB_RINGBUFFERLOG_DEBUG_FUNCTION(log, message, code1, code2) QUICKCPPLIB_RINGBUFFERLOG_ITEM_FUNCTION((log), ringbuffer_log::level::debug, (message), (code1), (code2))
 //! Logs an item to the log at debug level with stack backtrace
-#define BOOSTLITE_RINGBUFFERLOG_DEBUG_BACKTRACE(log, message, code1, code2) BOOSTLITE_RINGBUFFERLOG_ITEM_BACKTRACE((log), ringbuffer_log::level::debug, (message), (code1), (code2))
+#define QUICKCPPLIB_RINGBUFFERLOG_DEBUG_BACKTRACE(log, message, code1, code2) QUICKCPPLIB_RINGBUFFERLOG_ITEM_BACKTRACE((log), ringbuffer_log::level::debug, (message), (code1), (code2))
 #else
-#define BOOSTLITE_RINGBUFFERLOG_DEBUG_FUNCTION(log, message, code1, code2)
-#define BOOSTLITE_RINGBUFFERLOG_DEBUG_BACKTRACE(log, message, code1, code2)
+#define QUICKCPPLIB_RINGBUFFERLOG_DEBUG_FUNCTION(log, message, code1, code2)
+#define QUICKCPPLIB_RINGBUFFERLOG_DEBUG_BACKTRACE(log, message, code1, code2)
 #endif
 
-#if BOOSTLITE_RINGBUFFERLOG_LEVEL >= 6
+#if QUICKCPPLIB_RINGBUFFERLOG_LEVEL >= 6
 //! Logs an item to the log at all level with calling function name
-#define BOOSTLITE_RINGBUFFERLOG_ALL_FUNCTION(log, message, code1, code2) BOOSTLITE_RINGBUFFERLOG_ITEM_FUNCTION((log), ringbuffer_log::level::all, (message), (code1), (code2))
+#define QUICKCPPLIB_RINGBUFFERLOG_ALL_FUNCTION(log, message, code1, code2) QUICKCPPLIB_RINGBUFFERLOG_ITEM_FUNCTION((log), ringbuffer_log::level::all, (message), (code1), (code2))
 //! Logs an item to the log at all level with stack backtrace
-#define BOOSTLITE_RINGBUFFERLOG_ALL_BACKTRACE(log, message, code1, code2) BOOSTLITE_RINGBUFFERLOG_ITEM_BACKTRACE((log), ringbuffer_log::level::all, (message), (code1), (code2))
+#define QUICKCPPLIB_RINGBUFFERLOG_ALL_BACKTRACE(log, message, code1, code2) QUICKCPPLIB_RINGBUFFERLOG_ITEM_BACKTRACE((log), ringbuffer_log::level::all, (message), (code1), (code2))
 #else
-#define BOOSTLITE_RINGBUFFERLOG_ALL_FUNCTION(log, message, code1, code2)
-#define BOOSTLITE_RINGBUFFERLOG_ALL_BACKTRACE(log, message, code1, code2)
+#define QUICKCPPLIB_RINGBUFFERLOG_ALL_FUNCTION(log, message, code1, code2)
+#define QUICKCPPLIB_RINGBUFFERLOG_ALL_BACKTRACE(log, message, code1, code2)
 #endif
 
 #endif

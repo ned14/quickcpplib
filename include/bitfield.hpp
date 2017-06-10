@@ -22,12 +22,12 @@ Distributed under the Boost Software License, Version 1.0.
           http://www.boost.org/LICENSE_1_0.txt)
 */
 
-#ifndef BOOSTLITE_BITFIELD_HPP
-#define BOOSTLITE_BITFIELD_HPP
+#ifndef QUICKCPPLIB_BITFIELD_HPP
+#define QUICKCPPLIB_BITFIELD_HPP
 
 #include "config.hpp"
 
-BOOSTLITE_NAMESPACE_BEGIN
+QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace bitfield
 {
@@ -36,13 +36,13 @@ namespace bitfield
 
   Usage:
   \code
-  BOOSTLITE_BITFIELD_BEGIN(flag)
+  QUICKCPPLIB_BITFIELD_BEGIN(flag)
   {
     flag1 = 1 << 0,
     flag2 = 1 << 1,
     ...
   }
-  BOOSTLITE_BITFIELD_END(flag)
+  QUICKCPPLIB_BITFIELD_END(flag)
   ...
   flag myflags = flag::flag1|flag::flag2;
   if(myflags & flag::flag1) ...
@@ -98,13 +98,13 @@ namespace bitfield
     //! Performs a bitwise AND
     constexpr bitfield operator&(enum_type o) const noexcept { return bitfield(_value & o); }
     //! Performs a bitwise AND
-    BOOSTLITE_CONSTEXPR bitfield &operator&=(bitfield o) noexcept
+    QUICKCPPLIB_CONSTEXPR bitfield &operator&=(bitfield o) noexcept
     {
       _value &= o._value;
       return *this;
     }
     //! Performs a bitwise AND
-    BOOSTLITE_CONSTEXPR bitfield &operator&=(enum_type o) noexcept
+    QUICKCPPLIB_CONSTEXPR bitfield &operator&=(enum_type o) noexcept
     {
       _value &= o;
       return *this;
@@ -118,13 +118,13 @@ namespace bitfield
     //! Performs a bitwise OR
     constexpr bitfield operator|(enum_type o) const noexcept { return bitfield(_value | o); }
     //! Performs a bitwise OR
-    BOOSTLITE_CONSTEXPR bitfield &operator|=(bitfield o) noexcept
+    QUICKCPPLIB_CONSTEXPR bitfield &operator|=(bitfield o) noexcept
     {
       _value |= o._value;
       return *this;
     }
     //! Performs a bitwise OR
-    BOOSTLITE_CONSTEXPR bitfield &operator|=(enum_type o) noexcept
+    QUICKCPPLIB_CONSTEXPR bitfield &operator|=(enum_type o) noexcept
     {
       _value |= o;
       return *this;
@@ -134,13 +134,13 @@ namespace bitfield
     //! Performs a bitwise XOR
     constexpr bitfield operator^(enum_type o) const noexcept { return bitfield(_value ^ o); }
     //! Performs a bitwise XOR
-    BOOSTLITE_CONSTEXPR bitfield &operator^=(bitfield o) noexcept
+    QUICKCPPLIB_CONSTEXPR bitfield &operator^=(bitfield o) noexcept
     {
       _value ^= o._value;
       return *this;
     }
     //! Performs a bitwise XOR
-    BOOSTLITE_CONSTEXPR bitfield &operator^=(enum_type o) noexcept
+    QUICKCPPLIB_CONSTEXPR bitfield &operator^=(enum_type o) noexcept
     {
       _value ^= o;
       return *this;
@@ -148,7 +148,7 @@ namespace bitfield
   };
 
 //! Begins a typesafe bitfield
-#define BOOSTLITE_BITFIELD_BEGIN(type)                                                                                                                                                                                                                                                                                         \
+#define QUICKCPPLIB_BITFIELD_BEGIN(type)                                                                                                                                                                                                                                                                                         \
   \
 struct type##_base                                                                                                                                                                                                                                                                                                             \
   \
@@ -156,14 +156,14 @@ struct type##_base                                                              
   enum enum_type : unsigned
 
 //! Ends a typesafe bitfield
-#define BOOSTLITE_BITFIELD_END(type)                                                                                                                                                                                                                                                                                           \
+#define QUICKCPPLIB_BITFIELD_END(type)                                                                                                                                                                                                                                                                                           \
   \
 ;                                                                                                                                                                                                                                                                                                                         \
   }                                                                                                                                                                                                                                                                                                                            \
   ;                                                                                                                                                                                                                                                                                                                            \
   \
-using type = BOOSTLITE_NAMESPACE::bitfield::bitfield<type##_base>;
+using type = QUICKCPPLIB_NAMESPACE::bitfield::bitfield<type##_base>;
 }
 
-BOOSTLITE_NAMESPACE_END
+QUICKCPPLIB_NAMESPACE_END
 #endif

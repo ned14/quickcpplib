@@ -22,15 +22,15 @@ Distributed under the Boost Software License, Version 1.0.
           http://www.boost.org/LICENSE_1_0.txt)
 */
 
-#ifndef BOOSTLITE_ALGORITHM_STRING_HPP
-#define BOOSTLITE_ALGORITHM_STRING_HPP
+#ifndef QUICKCPPLIB_ALGORITHM_STRING_HPP
+#define QUICKCPPLIB_ALGORITHM_STRING_HPP
 
 #include "../span.hpp"
 
 #include <locale>
 #include <string>
 
-BOOSTLITE_NAMESPACE_BEGIN
+QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace algorithm
 {
@@ -169,6 +169,6 @@ This lets one pack one byte of input into two bytes of output.
   }
 }
 
-BOOSTLITE_NAMESPACE_END
+QUICKCPPLIB_NAMESPACE_END
 
 #endif

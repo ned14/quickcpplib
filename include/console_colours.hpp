@@ -22,8 +22,8 @@ Distributed under the Boost Software License, Version 1.0.
           http://www.boost.org/LICENSE_1_0.txt)
 */
 
-#ifndef BOOSTLITE_CONSOLE_COLOURS_HPP
-#define BOOSTLITE_CONSOLE_COLOURS_HPP
+#ifndef QUICKCPPLIB_CONSOLE_COLOURS_HPP
+#define QUICKCPPLIB_CONSOLE_COLOURS_HPP
 
 #include "config.hpp"
 
@@ -34,7 +34,7 @@ Distributed under the Boost Software License, Version 1.0.
 #include <windows.h>
 #endif
 
-BOOSTLITE_NAMESPACE_BEGIN
+QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace console_colours
 {
@@ -155,6 +155,6 @@ namespace console_colours
 #endif
 }
 
-BOOSTLITE_NAMESPACE_END
+QUICKCPPLIB_NAMESPACE_END
 
 #endif

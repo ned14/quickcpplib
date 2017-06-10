@@ -22,8 +22,8 @@ Distributed under the Boost Software License, Version 1.0.
           http://www.boost.org/LICENSE_1_0.txt)
 */
 
-#ifndef BOOSTLITE_HAS_FEATURE_H
-#define BOOSTLITE_HAS_FEATURE_H
+#ifndef QUICKCPPLIB_HAS_FEATURE_H
+#define QUICKCPPLIB_HAS_FEATURE_H
 
 #if __cplusplus >= 201103L
 
@@ -347,7 +347,7 @@ Distributed under the Boost Software License, Version 1.0.
 // Much to my surprise, GCC's support of these is actually incomplete, so fill in the gaps
 #if(defined(__GNUC__) && !defined(__clang__))
 
-#define BOOSTLITE_GCC (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
+#define QUICKCPPLIB_GCC (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
 
 #if !defined(__cpp_exceptions) && defined(__EXCEPTIONS)
 #define __cpp_exceptions 190000
@@ -361,55 +361,55 @@ Distributed under the Boost Software License, Version 1.0.
 // C++ 11
 #if defined(__GXX_EXPERIMENTAL_CXX0X__)
 
-#if !defined(__cpp_alias_templates) && (BOOSTLITE_GCC >= 40700)
+#if !defined(__cpp_alias_templates) && (QUICKCPPLIB_GCC >= 40700)
 #define __cpp_alias_templates 190000
 #endif
 
-#if !defined(__cpp_attributes) && (BOOSTLITE_GCC >= 40800)
+#if !defined(__cpp_attributes) && (QUICKCPPLIB_GCC >= 40800)
 #define __cpp_attributes 190000
 #endif
 
-#if !defined(__cpp_constexpr) && (BOOSTLITE_GCC >= 40600)
+#if !defined(__cpp_constexpr) && (QUICKCPPLIB_GCC >= 40600)
 #define __cpp_constexpr 190000
 #endif
 
-#if !defined(__cpp_decltype) && (BOOSTLITE_GCC >= 40300)
+#if !defined(__cpp_decltype) && (QUICKCPPLIB_GCC >= 40300)
 #define __cpp_decltype 190000
 #endif
 
-#if !defined(__cpp_delegating_constructors) && (BOOSTLITE_GCC >= 40700)
+#if !defined(__cpp_delegating_constructors) && (QUICKCPPLIB_GCC >= 40700)
 #define __cpp_delegating_constructors 190000
 #endif
 
-#if !defined(__cpp_explicit_conversion) && (BOOSTLITE_GCC >= 40500)
+#if !defined(__cpp_explicit_conversion) && (QUICKCPPLIB_GCC >= 40500)
 #define __cpp_explicit_conversion 190000
 #endif
 
-#if !defined(__cpp_inheriting_constructors) && (BOOSTLITE_GCC >= 40800)
+#if !defined(__cpp_inheriting_constructors) && (QUICKCPPLIB_GCC >= 40800)
 #define __cpp_inheriting_constructors 190000
 #endif
 
-#if !defined(__cpp_initializer_lists) && (BOOSTLITE_GCC >= 40800)
+#if !defined(__cpp_initializer_lists) && (QUICKCPPLIB_GCC >= 40800)
 #define __cpp_initializer_lists 190000
 #endif
 
-#if !defined(__cpp_lambdas) && (BOOSTLITE_GCC >= 40500)
+#if !defined(__cpp_lambdas) && (QUICKCPPLIB_GCC >= 40500)
 #define __cpp_lambdas 190000
 #endif
 
-#if !defined(__cpp_nsdmi) && (BOOSTLITE_GCC >= 40700)
+#if !defined(__cpp_nsdmi) && (QUICKCPPLIB_GCC >= 40700)
 #define __cpp_nsdmi 190000
 #endif
 
-#if !defined(__cpp_range_based_for) && (BOOSTLITE_GCC >= 40600)
+#if !defined(__cpp_range_based_for) && (QUICKCPPLIB_GCC >= 40600)
 #define __cpp_range_based_for 190000
 #endif
 
-#if !defined(__cpp_raw_strings) && (BOOSTLITE_GCC >= 40500)
+#if !defined(__cpp_raw_strings) && (QUICKCPPLIB_GCC >= 40500)
 #define __cpp_raw_strings 190000
 #endif
 
-#if !defined(__cpp_ref_qualifiers) && (BOOSTLITE_GCC >= 40801)
+#if !defined(__cpp_ref_qualifiers) && (QUICKCPPLIB_GCC >= 40801)
 #define __cpp_ref_qualifiers 190000
 #endif
 
@@ -418,23 +418,23 @@ Distributed under the Boost Software License, Version 1.0.
 #define __cpp_rvalue_references __cpp_rvalue_reference
 #endif
 
-#if !defined(__cpp_static_assert) && (BOOSTLITE_GCC >= 40300)
+#if !defined(__cpp_static_assert) && (QUICKCPPLIB_GCC >= 40300)
 #define __cpp_static_assert 190000
 #endif
 
-#if !defined(__cpp_unicode_characters) && (BOOSTLITE_GCC >= 40500)
+#if !defined(__cpp_unicode_characters) && (QUICKCPPLIB_GCC >= 40500)
 #define __cpp_unicode_characters 190000
 #endif
 
-#if !defined(__cpp_unicode_literals) && (BOOSTLITE_GCC >= 40500)
+#if !defined(__cpp_unicode_literals) && (QUICKCPPLIB_GCC >= 40500)
 #define __cpp_unicode_literals 190000
 #endif
 
-#if !defined(__cpp_user_defined_literals) && (BOOSTLITE_GCC >= 40700)
+#if !defined(__cpp_user_defined_literals) && (QUICKCPPLIB_GCC >= 40700)
 #define __cpp_user_defined_literals 190000
 #endif
 
-#if !defined(__cpp_variadic_templates) && (BOOSTLITE_GCC >= 40400)
+#if !defined(__cpp_variadic_templates) && (QUICKCPPLIB_GCC >= 40400)
 #define __cpp_variadic_templates 190000
 #endif
 
@@ -451,7 +451,7 @@ Distributed under the Boost Software License, Version 1.0.
 // clangs are quite incomplete
 #if defined(__clang__)
 
-#define BOOSTLITE_CLANG (__clang_major__ * 10000 + __clang_minor__ * 100 + __clang_patchlevel__)
+#define QUICKCPPLIB_CLANG (__clang_major__ * 10000 + __clang_minor__ * 100 + __clang_patchlevel__)
 
 #if !defined(__cpp_exceptions) && (defined(__EXCEPTIONS) || defined(_CPPUNWIND))
 #define __cpp_exceptions 190000
@@ -465,47 +465,47 @@ Distributed under the Boost Software License, Version 1.0.
 // C++ 11
 #if defined(__GXX_EXPERIMENTAL_CXX0X__)
 
-#if !defined(__cpp_alias_templates) && (BOOSTLITE_CLANG >= 30000)
+#if !defined(__cpp_alias_templates) && (QUICKCPPLIB_CLANG >= 30000)
 #define __cpp_alias_templates 190000
 #endif
 
-#if !defined(__cpp_attributes) && (BOOSTLITE_CLANG >= 30300)
+#if !defined(__cpp_attributes) && (QUICKCPPLIB_CLANG >= 30300)
 #define __cpp_attributes 190000
 #endif
 
-#if !defined(__cpp_constexpr) && (BOOSTLITE_CLANG >= 30100)
+#if !defined(__cpp_constexpr) && (QUICKCPPLIB_CLANG >= 30100)
 #define __cpp_constexpr 190000
 #endif
 
-#if !defined(__cpp_decltype) && (BOOSTLITE_CLANG >= 20900)
+#if !defined(__cpp_decltype) && (QUICKCPPLIB_CLANG >= 20900)
 #define __cpp_decltype 190000
 #endif
 
-#if !defined(__cpp_delegating_constructors) && (BOOSTLITE_CLANG >= 30000)
+#if !defined(__cpp_delegating_constructors) && (QUICKCPPLIB_CLANG >= 30000)
 #define __cpp_delegating_constructors 190000
 #endif
 
-#if !defined(__cpp_explicit_conversion) && (BOOSTLITE_CLANG >= 30000)
+#if !defined(__cpp_explicit_conversion) && (QUICKCPPLIB_CLANG >= 30000)
 #define __cpp_explicit_conversion 190000
 #endif
 
-#if !defined(__cpp_inheriting_constructors) && (BOOSTLITE_CLANG >= 30300)
+#if !defined(__cpp_inheriting_constructors) && (QUICKCPPLIB_CLANG >= 30300)
 #define __cpp_inheriting_constructors 190000
 #endif
 
-#if !defined(__cpp_initializer_lists) && (BOOSTLITE_CLANG >= 30100)
+#if !defined(__cpp_initializer_lists) && (QUICKCPPLIB_CLANG >= 30100)
 #define __cpp_initializer_lists 190000
 #endif
 
-#if !defined(__cpp_lambdas) && (BOOSTLITE_CLANG >= 30100)
+#if !defined(__cpp_lambdas) && (QUICKCPPLIB_CLANG >= 30100)
 #define __cpp_lambdas 190000
 #endif
 
-#if !defined(__cpp_nsdmi) && (BOOSTLITE_CLANG >= 30000)
+#if !defined(__cpp_nsdmi) && (QUICKCPPLIB_CLANG >= 30000)
 #define __cpp_nsdmi 190000
 #endif
 
-#if !defined(__cpp_range_based_for) && (BOOSTLITE_CLANG >= 30000)
+#if !defined(__cpp_range_based_for) && (QUICKCPPLIB_CLANG >= 30000)
 #define __cpp_range_based_for 190000
 #endif
 
@@ -513,11 +513,11 @@ Distributed under the Boost Software License, Version 1.0.
 #if !defined(__cpp_raw_strings) && defined(__cpp_raw_string_literals)
 #define __cpp_raw_strings __cpp_raw_string_literals
 #endif
-#if !defined(__cpp_raw_strings) && (BOOSTLITE_CLANG >= 30000)
+#if !defined(__cpp_raw_strings) && (QUICKCPPLIB_CLANG >= 30000)
 #define __cpp_raw_strings 190000
 #endif
 
-#if !defined(__cpp_ref_qualifiers) && (BOOSTLITE_CLANG >= 20900)
+#if !defined(__cpp_ref_qualifiers) && (QUICKCPPLIB_CLANG >= 20900)
 #define __cpp_ref_qualifiers 190000
 #endif
 
@@ -525,19 +525,19 @@ Distributed under the Boost Software License, Version 1.0.
 #if !defined(__cpp_rvalue_references) && defined(__cpp_rvalue_reference)
 #define __cpp_rvalue_references __cpp_rvalue_reference
 #endif
-#if !defined(__cpp_rvalue_references) && (BOOSTLITE_CLANG >= 20900)
+#if !defined(__cpp_rvalue_references) && (QUICKCPPLIB_CLANG >= 20900)
 #define __cpp_rvalue_references 190000
 #endif
 
-#if !defined(__cpp_static_assert) && (BOOSTLITE_CLANG >= 20900)
+#if !defined(__cpp_static_assert) && (QUICKCPPLIB_CLANG >= 20900)
 #define __cpp_static_assert 190000
 #endif
 
-#if !defined(__cpp_unicode_characters) && (BOOSTLITE_CLANG >= 30000)
+#if !defined(__cpp_unicode_characters) && (QUICKCPPLIB_CLANG >= 30000)
 #define __cpp_unicode_characters 190000
 #endif
 
-#if !defined(__cpp_unicode_literals) && (BOOSTLITE_CLANG >= 30000)
+#if !defined(__cpp_unicode_literals) && (QUICKCPPLIB_CLANG >= 30000)
 #define __cpp_unicode_literals 190000
 #endif
 
@@ -545,11 +545,11 @@ Distributed under the Boost Software License, Version 1.0.
 #if !defined(__cpp_user_defined_literals) && defined(__cpp_user_literals)
 #define __cpp_user_defined_literals __cpp_user_literals
 #endif
-#if !defined(__cpp_user_defined_literals) && (BOOSTLITE_CLANG >= 30100)
+#if !defined(__cpp_user_defined_literals) && (QUICKCPPLIB_CLANG >= 30100)
 #define __cpp_user_defined_literals 190000
 #endif
 
-#if !defined(__cpp_variadic_templates) && (BOOSTLITE_CLANG >= 20900)
+#if !defined(__cpp_variadic_templates) && (QUICKCPPLIB_CLANG >= 20900)
 #define __cpp_variadic_templates 190000
 #endif
 

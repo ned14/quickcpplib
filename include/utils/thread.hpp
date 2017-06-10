@@ -22,8 +22,8 @@ Distributed under the Boost Software License, Version 1.0.
           http://www.boost.org/LICENSE_1_0.txt)
 */
 
-#ifndef BOOSTLITE_UTILS_THREAD_HPP
-#define BOOSTLITE_UTILS_THREAD_HPP
+#ifndef QUICKCPPLIB_UTILS_THREAD_HPP
+#define QUICKCPPLIB_UTILS_THREAD_HPP
 
 #ifdef __linux__
 #include <unistd.h>  // for syscall()

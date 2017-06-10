@@ -22,14 +22,14 @@ Distributed under the Boost Software License, Version 1.0.
           http://www.boost.org/LICENSE_1_0.txt)
 */
 
-#ifndef BOOSTLITE_TYPE_TRAITS_HPP
-#define BOOSTLITE_TYPE_TRAITS_HPP
+#ifndef QUICKCPPLIB_TYPE_TRAITS_HPP
+#define QUICKCPPLIB_TYPE_TRAITS_HPP
 
 #include "config.hpp"
 
 #include <type_traits>
 
-BOOSTLITE_NAMESPACE_BEGIN
+QUICKCPPLIB_NAMESPACE_BEGIN
 //! Gets the compiler to error out printing a type
 template <class T> struct print_type
 {
@@ -146,6 +146,6 @@ namespace type_traits
 #endif
 #endif
 }
-BOOSTLITE_NAMESPACE_END
+QUICKCPPLIB_NAMESPACE_END
 
 #endif

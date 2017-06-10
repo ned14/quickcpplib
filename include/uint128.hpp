@@ -22,8 +22,8 @@ Distributed under the Boost Software License, Version 1.0.
           http://www.boost.org/LICENSE_1_0.txt)
 */
 
-#ifndef BOOSTLITE_UINT128_HPP
-#define BOOSTLITE_UINT128_HPP
+#ifndef QUICKCPPLIB_UINT128_HPP
+#define QUICKCPPLIB_UINT128_HPP
 
 #include "config.hpp"
 
@@ -31,7 +31,7 @@ Distributed under the Boost Software License, Version 1.0.
 #include <emmintrin.h>  // for __m128i on VS2017
 #endif
 
-BOOSTLITE_NAMESPACE_BEGIN
+QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace integers128
 {
@@ -76,6 +76,6 @@ namespace integers128
   static_assert(alignof(uint128) == 16, "uint128 is not aligned to 16 byte multiples!");
 }
 
-BOOSTLITE_NAMESPACE_END
+QUICKCPPLIB_NAMESPACE_END
 
 #endif

@@ -22,12 +22,12 @@ Distributed under the Boost Software License, Version 1.0.
           http://www.boost.org/LICENSE_1_0.txt)
 */
 
-#ifndef BOOSTLITE_SCOPED_UNDO_HPP
-#define BOOSTLITE_SCOPED_UNDO_HPP
+#ifndef QUICKCPPLIB_SCOPED_UNDO_HPP
+#define QUICKCPPLIB_SCOPED_UNDO_HPP
 
 #include "config.hpp"
 
-BOOSTLITE_NAMESPACE_BEGIN
+QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace scoped_undo
 {
@@ -113,6 +113,6 @@ namespace scoped_undo
   }
 }
 
-BOOSTLITE_NAMESPACE_END
+QUICKCPPLIB_NAMESPACE_END
 
 #endif

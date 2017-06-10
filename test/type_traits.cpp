@@ -32,7 +32,7 @@ BOOST_AUTO_TEST_SUITE(all)
 
 BOOST_AUTO_TEST_CASE(works / type_traits, "Tests that the type traits work as intended")
 {
-  using namespace boost_lite::type_traits;
+  using namespace QUICKCPPLIB_NAMESPACE::type_traits;
   static_assert(!is_sequence<char>::value, "");
   static_assert(!is_sequence<void>::value, "");
   static_assert(is_sequence<std::array<char, 2>>::value, "");

@@ -26,8 +26,8 @@ Distributed under the Boost Software License, Version 1.0.
 \brief Provides a Lockable policy driven spinlock
 */
 
-#ifndef BOOSTLITE_SPINLOCK_H
-#define BOOSTLITE_SPINLOCK_H
+#ifndef QUICKCPPLIB_SPINLOCK_H
+#define QUICKCPPLIB_SPINLOCK_H
 
 #include "config.hpp"
 
@@ -35,7 +35,7 @@ Distributed under the Boost Software License, Version 1.0.
 #include <chrono>
 #include <thread>
 
-BOOSTLITE_NAMESPACE_BEGIN
+QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace configurable_spinlock
 {
@@ -131,38 +131,38 @@ namespace configurable_spinlock
   public:
     typedef T value_type;
 
-#ifndef BOOSTLITE_ENABLE_VALGRIND
-    BOOSTLITE_CONSTEXPR
+#ifndef QUICKCPPLIB_ENABLE_VALGRIND
+    QUICKCPPLIB_CONSTEXPR
 #endif
       spinlockbase() noexcept : v(0)
     {
-      BOOSTLITE_ANNOTATE_RWLOCK_CREATE(this);
-#if BOOSTLITE_IN_THREAD_SANITIZER
+      QUICKCPPLIB_ANNOTATE_RWLOCK_CREATE(this);
+#if QUICKCPPLIB_IN_THREAD_SANITIZER
       v.store(0, memory_order_release);
 #endif
     }
     spinlockbase(const spinlockbase &) = delete;
     //! Atomically move constructs
-#ifndef BOOSTLITE_ENABLE_VALGRIND
-    BOOSTLITE_CONSTEXPR
+#ifndef QUICKCPPLIB_ENABLE_VALGRIND
+    QUICKCPPLIB_CONSTEXPR
 #endif
       spinlockbase(spinlockbase &&) noexcept : v(0)
     {
-      BOOSTLITE_ANNOTATE_RWLOCK_CREATE(this);
+      QUICKCPPLIB_ANNOTATE_RWLOCK_CREATE(this);
 // v.store(o.v.exchange(0, memory_order_acq_rel));
-#if BOOSTLITE_IN_THREAD_SANITIZER
+#if QUICKCPPLIB_IN_THREAD_SANITIZER
       v.store(0, memory_order_release);
 #endif
     }
     ~spinlockbase()
     {
-#ifdef BOOSTLITE_ENABLE_VALGRIND
+#ifdef QUICKCPPLIB_ENABLE_VALGRIND
       if(v.load(memory_order_acquire))
       {
-        BOOSTLITE_ANNOTATE_RWLOCK_RELEASED(this, true);
+        QUICKCPPLIB_ANNOTATE_RWLOCK_RELEASED(this, true);
       }
 #endif
-      BOOSTLITE_ANNOTATE_RWLOCK_DESTROY(this);
+      QUICKCPPLIB_ANNOTATE_RWLOCK_DESTROY(this);
     }
     spinlockbase &operator=(const spinlockbase &) = delete;
     spinlockbase &operator=(spinlockbase &&) = delete;
@@ -173,8 +173,8 @@ namespace configurable_spinlock
     //! If atomic is zero, sets to 1 and returns true, else false.
     bool try_lock() noexcept
     {
-#if !BOOSTLITE_IN_THREAD_SANITIZER  // no early outs for the sanitizer
-#ifdef BOOSTLITE_USE_VOLATILE_READ_FOR_AVOIDING_CMPXCHG
+#if !QUICKCPPLIB_IN_THREAD_SANITIZER  // no early outs for the sanitizer
+#ifdef QUICKCPPLIB_USE_VOLATILE_READ_FOR_AVOIDING_CMPXCHG
       // MSVC's atomics always seq_cst, so use volatile read to create a true acquire
       volatile T *_v = (volatile T *) &v;
       if(*_v)  // Avoid unnecessary cache line invalidation traffic
@@ -194,7 +194,7 @@ namespace configurable_spinlock
       if(ret)
 #endif
       {
-        BOOSTLITE_ANNOTATE_RWLOCK_ACQUIRED(this, true);
+        QUICKCPPLIB_ANNOTATE_RWLOCK_ACQUIRED(this, true);
         return true;
       }
       else return false;
@@ -207,8 +207,8 @@ namespace configurable_spinlock
     bool try_lock(T &expected) noexcept
     {
       T t(0);
-#if !BOOSTLITE_IN_THREAD_SANITIZER  // no early outs for the sanitizer
-#ifdef BOOSTLITE_USE_VOLATILE_READ_FOR_AVOIDING_CMPXCHG
+#if !QUICKCPPLIB_IN_THREAD_SANITIZER  // no early outs for the sanitizer
+#ifdef QUICKCPPLIB_USE_VOLATILE_READ_FOR_AVOIDING_CMPXCHG
       // MSVC's atomics always seq_cst, so use volatile read to create a true acquire
       volatile T *_v = (volatile T *) &v;
       if((t = *_v))  // Avoid unnecessary cache line invalidation traffic
@@ -224,7 +224,7 @@ namespace configurable_spinlock
       bool ret = v.compare_exchange_weak(expected, 1, memory_order_acquire, memory_order_relaxed);
       if(ret)
       {
-        BOOSTLITE_ANNOTATE_RWLOCK_ACQUIRED(this, true);
+        QUICKCPPLIB_ANNOTATE_RWLOCK_ACQUIRED(this, true);
         return true;
       }
       else
@@ -234,10 +234,10 @@ namespace configurable_spinlock
     void unlock() noexcept
     {
       // assert(v == 1);
-      BOOSTLITE_ANNOTATE_RWLOCK_RELEASED(this, true);
+      QUICKCPPLIB_ANNOTATE_RWLOCK_RELEASED(this, true);
       v.store(0, memory_order_release);
     }
-    BOOSTLITE_CONSTEXPR bool int_yield(size_t) noexcept { return false; }
+    QUICKCPPLIB_CONSTEXPR bool int_yield(size_t) noexcept { return false; }
   };
   template <typename T> struct spinlockbase<lockable_ptr<T>>
   {
@@ -303,7 +303,7 @@ namespace configurable_spinlock
       value.n &= ~(size_t) 1;
       v.store(value.v, memory_order_release);
     }
-    BOOSTLITE_CONSTEXPR bool int_yield(size_t) noexcept { return false; }
+    QUICKCPPLIB_CONSTEXPR bool int_yield(size_t) noexcept { return false; }
   };
   template <typename T> struct ordered_spinlockbase
   {
@@ -332,32 +332,32 @@ namespace configurable_spinlock
 #endif
 
   public:
-#ifndef BOOSTLITE_ENABLE_VALGRIND
-    BOOSTLITE_CONSTEXPR
+#ifndef QUICKCPPLIB_ENABLE_VALGRIND
+    QUICKCPPLIB_CONSTEXPR
 #endif
       ordered_spinlockbase() noexcept : _v(0)
     {
-      BOOSTLITE_ANNOTATE_RWLOCK_CREATE(this);
+      QUICKCPPLIB_ANNOTATE_RWLOCK_CREATE(this);
       // v.store(0, memory_order_release);
     }
     ordered_spinlockbase(const ordered_spinlockbase &) = delete;
     //! Atomically move constructs
     ordered_spinlockbase(ordered_spinlockbase &&) noexcept : _v(0)
     {
-      BOOSTLITE_ANNOTATE_RWLOCK_CREATE(this);
+      QUICKCPPLIB_ANNOTATE_RWLOCK_CREATE(this);
       // v.store(o.v.exchange(0, memory_order_acq_rel));
       // v.store(0, memory_order_release);
     }
     ~ordered_spinlockbase()
     {
-#ifdef BOOSTLITE_ENABLE_VALGRIND
+#ifdef QUICKCPPLIB_ENABLE_VALGRIND
       _internals i = {_v.load(memory_order_relaxed)};
       if(i.entry != i.exit)
       {
-        BOOSTLITE_ANNOTATE_RWLOCK_RELEASED(this, true);
+        QUICKCPPLIB_ANNOTATE_RWLOCK_RELEASED(this, true);
       }
 #endif
-      BOOSTLITE_ANNOTATE_RWLOCK_DESTROY(this);
+      QUICKCPPLIB_ANNOTATE_RWLOCK_DESTROY(this);
     }
     ordered_spinlockbase &operator=(const ordered_spinlockbase &) = delete;
     ordered_spinlockbase &operator=(ordered_spinlockbase &&) = delete;
@@ -376,7 +376,7 @@ namespace configurable_spinlock
       o.entry++;
       if(_v.compare_exchange_weak(i.uint, o.uint, memory_order_acquire, memory_order_relaxed))
       {
-        BOOSTLITE_ANNOTATE_RWLOCK_ACQUIRED(this, true);
+        QUICKCPPLIB_ANNOTATE_RWLOCK_ACQUIRED(this, true);
         return true;
       }
       return false;
@@ -391,7 +391,7 @@ namespace configurable_spinlock
       o.entry++;
       if(_v.compare_exchange_weak(i.uint, o.uint, memory_order_acquire, memory_order_relaxed))
       {
-        BOOSTLITE_ANNOTATE_RWLOCK_ACQUIRED(this, true);
+        QUICKCPPLIB_ANNOTATE_RWLOCK_ACQUIRED(this, true);
         return true;
       }
       state = i.uint;
@@ -402,7 +402,7 @@ namespace configurable_spinlock
     //! Releases the lock
     void unlock() noexcept
     {
-      BOOSTLITE_ANNOTATE_RWLOCK_RELEASED(this, true);
+      QUICKCPPLIB_ANNOTATE_RWLOCK_RELEASED(this, true);
       _internals i = {_v.load(memory_order_relaxed)}, o;
       for(;;)
       {
@@ -425,13 +425,13 @@ namespace configurable_spinlock
     atomic<value_type> _v;
 
   public:
-#ifndef BOOSTLITE_ENABLE_VALGRIND
-    BOOSTLITE_CONSTEXPR
+#ifndef QUICKCPPLIB_ENABLE_VALGRIND
+    QUICKCPPLIB_CONSTEXPR
 #endif
       shared_spinlockbase() noexcept : _v(0)
     {
-      BOOSTLITE_ANNOTATE_RWLOCK_CREATE(this);
-#if BOOSTLITE_IN_THREAD_SANITIZER
+      QUICKCPPLIB_ANNOTATE_RWLOCK_CREATE(this);
+#if QUICKCPPLIB_IN_THREAD_SANITIZER
       _v.store(0, memory_order_release);
 #endif
     }
@@ -439,26 +439,26 @@ namespace configurable_spinlock
     //! Atomically move constructs
     shared_spinlockbase(shared_spinlockbase &&) noexcept : _v(0)
     {
-      BOOSTLITE_ANNOTATE_RWLOCK_CREATE(this);
+      QUICKCPPLIB_ANNOTATE_RWLOCK_CREATE(this);
 // v.store(o.v.exchange(0, memory_order_acq_rel));
-#if BOOSTLITE_IN_THREAD_SANITIZER
+#if QUICKCPPLIB_IN_THREAD_SANITIZER
       _v.store(0, memory_order_release);
 #endif
     }
     ~shared_spinlockbase()
     {
-#ifdef BOOSTLITE_ENABLE_VALGRIND
+#ifdef QUICKCPPLIB_ENABLE_VALGRIND
       value_type i = _v.load(memory_order_relaxed);
       if(i == 1)
       {
-        BOOSTLITE_ANNOTATE_RWLOCK_RELEASED(this, true);
+        QUICKCPPLIB_ANNOTATE_RWLOCK_RELEASED(this, true);
       }
       else if(i != 0)
       {
-        BOOSTLITE_ANNOTATE_RWLOCK_RELEASED(this, false);
+        QUICKCPPLIB_ANNOTATE_RWLOCK_RELEASED(this, false);
       }
 #endif
-      BOOSTLITE_ANNOTATE_RWLOCK_DESTROY(this);
+      QUICKCPPLIB_ANNOTATE_RWLOCK_DESTROY(this);
     }
     shared_spinlockbase &operator=(const shared_spinlockbase &) = delete;
     shared_spinlockbase &operator=(shared_spinlockbase &&) = delete;
@@ -477,7 +477,7 @@ namespace configurable_spinlock
       o = 1;
       if(_v.compare_exchange_weak(i, o, memory_order_acquire, memory_order_relaxed))
       {
-        BOOSTLITE_ANNOTATE_RWLOCK_ACQUIRED(this, true);
+        QUICKCPPLIB_ANNOTATE_RWLOCK_ACQUIRED(this, true);
         return true;
       }
       return false;
@@ -486,7 +486,7 @@ namespace configurable_spinlock
     void unlock() noexcept
     {
       // assert(_v == 1);
-      BOOSTLITE_ANNOTATE_RWLOCK_RELEASED(this, true);
+      QUICKCPPLIB_ANNOTATE_RWLOCK_RELEASED(this, true);
       _v.store(0, memory_order_release);
     }
 
@@ -501,7 +501,7 @@ namespace configurable_spinlock
       i += 2;
       i &= ~1;
       _v.store(i, memory_order_release);
-      BOOSTLITE_ANNOTATE_RWLOCK_ACQUIRED(this, false);
+      QUICKCPPLIB_ANNOTATE_RWLOCK_ACQUIRED(this, false);
       return true;
     }
     //! Releases the lock from shared access
@@ -521,7 +521,7 @@ namespace configurable_spinlock
             ;
         }
       }
-      BOOSTLITE_ANNOTATE_RWLOCK_RELEASED(this, false);
+      QUICKCPPLIB_ANNOTATE_RWLOCK_RELEASED(this, false);
       i -= 2;
       i &= ~1;
       _v.store(i, memory_order_release);
@@ -549,8 +549,8 @@ namespace configurable_spinlock
     template <bool use_pause> inline void smt_pause() noexcept {};
     template <> inline void smt_pause<true>() noexcept
     {
-#ifdef BOOSTLITE_SMT_PAUSE
-      BOOSTLITE_SMT_PAUSE;
+#ifdef QUICKCPPLIB_SMT_PAUSE
+      QUICKCPPLIB_SMT_PAUSE;
 #endif
     };
   }
@@ -563,7 +563,7 @@ namespace configurable_spinlock
       constexpr policy() {}
       policy(const policy &) = delete;
       constexpr policy(policy &&o) noexcept : parenttype(std::move(o)) {}
-      BOOSTLITE_CONSTEXPR inline bool int_yield(size_t n) noexcept
+      QUICKCPPLIB_CONSTEXPR inline bool int_yield(size_t n) noexcept
       {
         if(parenttype::int_yield(n))
           return true;
@@ -583,7 +583,7 @@ namespace configurable_spinlock
       constexpr policy() {}
       policy(const policy &) = delete;
       constexpr policy(policy &&o) noexcept : parenttype(std::move(o)) {}
-      BOOSTLITE_CONSTEXPR bool int_yield(size_t n) noexcept
+      QUICKCPPLIB_CONSTEXPR bool int_yield(size_t n) noexcept
       {
         if(parenttype::int_yield(n))
           return true;
@@ -602,7 +602,7 @@ namespace configurable_spinlock
       constexpr policy() {}
       policy(const policy &) = delete;
       constexpr policy(policy &&o) noexcept : parenttype(std::move(o)) {}
-      BOOSTLITE_CONSTEXPR bool int_yield(size_t n) noexcept
+      QUICKCPPLIB_CONSTEXPR bool int_yield(size_t n) noexcept
       {
         if(parenttype::int_yield(n))
           return true;
@@ -836,12 +836,12 @@ namespace configurable_spinlock
 #define BOOST_BEGIN_TRANSACT_LOCK(lockable)                                                                                                                                                                                                                                                                                    \
   __transaction_relaxed                                                                                                                                                                                                                                                                                                        \
   {                                                                                                                                                                                                                                                                                                                            \
-    (void) BOOSTLITE_NAMESPACE::is_lockable_locked(lockable);                                                                                                                                                                                                                                                                  \
+    (void) QUICKCPPLIB_NAMESPACE::is_lockable_locked(lockable);                                                                                                                                                                                                                                                                  \
     {
 #define BOOST_BEGIN_TRANSACT_LOCK_ONLY_IF_NOT(lockable, only_if_not_this)                                                                                                                                                                                                                                                      \
   __transaction_relaxed                                                                                                                                                                                                                                                                                                        \
   {                                                                                                                                                                                                                                                                                                                            \
-    if((only_if_not_this) != BOOSTLITE_NAMESPACE::is_lockable_locked(lockable))                                                                                                                                                                                                                                                \
+    if((only_if_not_this) != QUICKCPPLIB_NAMESPACE::is_lockable_locked(lockable))                                                                                                                                                                                                                                                \
     {
 #define BOOST_END_TRANSACT_LOCK(lockable)                                                                                                                                                                                                                                                                                      \
   }                                                                                                                                                                                                                                                                                                                            \
@@ -854,17 +854,17 @@ namespace configurable_spinlock
 #ifndef BOOST_BEGIN_TRANSACT_LOCK
 #define BOOST_BEGIN_TRANSACT_LOCK(lockable)                                                                                                                                                                                                                                                                                    \
   {                                                                                                                                                                                                                                                                                                                            \
-    BOOSTLITE_NAMESPACE::configurable_spinlock::lock_guard<decltype(lockable)> __tsx_transaction(lockable);
+    QUICKCPPLIB_NAMESPACE::configurable_spinlock::lock_guard<decltype(lockable)> __tsx_transaction(lockable);
 #define BOOST_BEGIN_TRANSACT_LOCK_ONLY_IF_NOT(lockable, only_if_not_this)                                                                                                                                                                                                                                                      \
   if(lockable.lock(only_if_not_this))                                                                                                                                                                                                                                                                                          \
   {                                                                                                                                                                                                                                                                                                                            \
-    BOOSTLITE_NAMESPACE::configurable_spinlock::lock_guard<decltype(lockable)> __tsx_transaction(lockable, BOOSTLITE_NAMESPACE::adopt_lock_t());
+    QUICKCPPLIB_NAMESPACE::configurable_spinlock::lock_guard<decltype(lockable)> __tsx_transaction(lockable, QUICKCPPLIB_NAMESPACE::adopt_lock_t());
 #define BOOST_END_TRANSACT_LOCK(lockable) }
 #define BOOST_BEGIN_NESTED_TRANSACT_LOCK(N)
 #define BOOST_END_NESTED_TRANSACT_LOCK(N)
 #endif  // BOOST_BEGIN_TRANSACT_LOCK
 }
 
-BOOSTLITE_NAMESPACE_END
+QUICKCPPLIB_NAMESPACE_END
 
-#endif  // BOOSTLITE_HPP
+#endif  // QUICKCPPLIB_HPP
