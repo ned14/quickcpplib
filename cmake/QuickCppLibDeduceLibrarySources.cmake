@@ -8,7 +8,7 @@
 #    * src
 #    * test
 #    Files matched are *.h, *.hpp, *.ipp, *.c, *.cpp *.cxx
-#    Files excluded are anything with a .boostish file in its root
+#    Files excluded are anything with a .quickcpplib file in its root
 # 
 # Outputs:
 #  *                   PROJECT_DIR: PROJECT_NAMESPACE with any :: replaced with a / followed by PROJECT_NAME
@@ -62,7 +62,7 @@ else()
   # cmake glob is unfortunately very slow on deep directory hierarchies, so we glob
   # recursively everything we need at once and extract out from that giant list what we need
   file(GLOB_RECURSE ${PROJECT_NAME}_HEADERS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
-       "${CMAKE_CURRENT_SOURCE_DIR}/include/.boostish"
+       "${CMAKE_CURRENT_SOURCE_DIR}/include/.quickcpplib"
        "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h"
        "${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp"
        "${CMAKE_CURRENT_SOURCE_DIR}/include/*.ipp"
@@ -70,13 +70,13 @@ else()
        )
   set(${PROJECT_NAME}_INTERFACE_SOURCES ${${PROJECT_NAME}_HEADERS})
   set(${PROJECT_NAME}_HEADERS_FILTER ${${PROJECT_NAME}_HEADERS})
-  list_filter(${PROJECT_NAME}_HEADERS EXCLUDE REGEX "\\.boostish$")
+  list_filter(${PROJECT_NAME}_HEADERS EXCLUDE REGEX "\\.quickcpplib$")
   list_filter(${PROJECT_NAME}_INTERFACE_SOURCES INCLUDE REGEX "\\.natvis$")
-  list_filter(${PROJECT_NAME}_HEADERS_FILTER INCLUDE REGEX "\\.boostish$")  
+  list_filter(${PROJECT_NAME}_HEADERS_FILTER INCLUDE REGEX "\\.quickcpplib$")  
   if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/src)
     indented_message(STATUS "  Recursively scanning ${CMAKE_CURRENT_SOURCE_DIR}/src for header and source files ...")
     file(GLOB_RECURSE ${PROJECT_NAME}_SOURCES RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
-         "${CMAKE_CURRENT_SOURCE_DIR}/src/.boostish"
+         "${CMAKE_CURRENT_SOURCE_DIR}/src/.quickcpplib"
          "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h"
          "${CMAKE_CURRENT_SOURCE_DIR}/src/*.hpp"
          "${CMAKE_CURRENT_SOURCE_DIR}/src/*.c"
@@ -85,13 +85,13 @@ else()
          "${CMAKE_CURRENT_SOURCE_DIR}/src/*.ipp"
          )
     set(${PROJECT_NAME}_SOURCES_FILTER ${${PROJECT_NAME}_SOURCES})
-    list_filter(${PROJECT_NAME}_SOURCES EXCLUDE REGEX "\\.boostish$")
-    list_filter(${PROJECT_NAME}_SOURCES_FILTER INCLUDE REGEX "\\.boostish$")
+    list_filter(${PROJECT_NAME}_SOURCES EXCLUDE REGEX "\\.quickcpplib$")
+    list_filter(${PROJECT_NAME}_SOURCES_FILTER INCLUDE REGEX "\\.quickcpplib$")
   endif()
   if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/test)
     indented_message(STATUS "  Recursively scanning ${CMAKE_CURRENT_SOURCE_DIR}/test for header and source files ...")
     file(GLOB_RECURSE ${PROJECT_NAME}_TESTS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
-         "${CMAKE_CURRENT_SOURCE_DIR}/test/.boostish"
+         "${CMAKE_CURRENT_SOURCE_DIR}/test/.quickcpplib"
          "${CMAKE_CURRENT_SOURCE_DIR}/test/*.h"
          "${CMAKE_CURRENT_SOURCE_DIR}/test/*.hpp"
          "${CMAKE_CURRENT_SOURCE_DIR}/test/*.c"
@@ -100,12 +100,12 @@ else()
          "${CMAKE_CURRENT_SOURCE_DIR}/test/*.ipp"
          )
     set(${PROJECT_NAME}_TESTS_FILTER ${${PROJECT_NAME}_TESTS})
-    list_filter(${PROJECT_NAME}_TESTS EXCLUDE REGEX "\\.boostish$")
-    list_filter(${PROJECT_NAME}_TESTS_FILTER INCLUDE REGEX "\\.boostish$")
+    list_filter(${PROJECT_NAME}_TESTS EXCLUDE REGEX "\\.quickcpplib$")
+    list_filter(${PROJECT_NAME}_TESTS_FILTER INCLUDE REGEX "\\.quickcpplib$")
   endif()
 
-  # Prune any items with a .boostish in their root directory
-  function(prune_boostish_libraries boostishlist fileslist)
+  # Prune any items with a .quickcpplib in their root directory
+  function(prune_quickcpplib_libraries boostishlist fileslist)
     if(${boostishlist})
       # As an optimisation for deep nested trees of boostish libraries,
       # use the boostishlist to prune itself first
@@ -129,10 +129,10 @@ else()
     endif()
   endfunction()
   indented_message(STATUS "  Pruning globbed source file list of files not related to ${PROJECT_NAME} ...")
-  prune_boostish_libraries(${PROJECT_NAME}_HEADERS_FILTER ${PROJECT_NAME}_HEADERS)
-  prune_boostish_libraries(${PROJECT_NAME}_HEADERS_FILTER ${PROJECT_NAME}_INTERFACE_SOURCES)
-  prune_boostish_libraries(${PROJECT_NAME}_SOURCES_FILTER ${PROJECT_NAME}_SOURCES)
-  prune_boostish_libraries(${PROJECT_NAME}_TESTS_FILTER ${PROJECT_NAME}_TESTS)
+  prune_quickcpplib_libraries(${PROJECT_NAME}_HEADERS_FILTER ${PROJECT_NAME}_HEADERS)
+  prune_quickcpplib_libraries(${PROJECT_NAME}_HEADERS_FILTER ${PROJECT_NAME}_INTERFACE_SOURCES)
+  prune_quickcpplib_libraries(${PROJECT_NAME}_SOURCES_FILTER ${PROJECT_NAME}_SOURCES)
+  prune_quickcpplib_libraries(${PROJECT_NAME}_TESTS_FILTER ${PROJECT_NAME}_TESTS)
   # MSVC has a cool feature where .natvis files tell the debugger how to display a type
   # We append this to the main interface header because we want all .natvis in all the
   # dependencies brought into anything we link
@@ -155,17 +155,17 @@ else()
   if(WIN32)
     function(md5_source_tree path outvar)
       execute_process(COMMAND CMD /c dir /b /a-d /s
-          OUTPUT_FILE "${CMAKE_CURRENT_BINARY_DIR}\\boostlite_cmake_tempfile.txt"
+          OUTPUT_FILE "${CMAKE_CURRENT_BINARY_DIR}\\quickcpplib_cmake_tempfile.txt"
           WORKING_DIRECTORY "${path}")
-      file(MD5 "${CMAKE_CURRENT_BINARY_DIR}/boostlite_cmake_tempfile.txt" MD5)
+      file(MD5 "${CMAKE_CURRENT_BINARY_DIR}/quickcpplib_cmake_tempfile.txt" MD5)
       set(${outvar} ${MD5} PARENT_SCOPE)
     endfunction()
   else()
     function(md5_source_tree path outvar)
       execute_process(COMMAND find . -type f -printf "%t\t%s\t%p\n"
-          OUTPUT_FILE "${CMAKE_CURRENT_BINARY_DIR}/boostlite_cmake_tempfile.txt"
+          OUTPUT_FILE "${CMAKE_CURRENT_BINARY_DIR}/quickcpplib_cmake_tempfile.txt"
           WORKING_DIRECTORY "${path}")
-      file(MD5 "${CMAKE_CURRENT_BINARY_DIR}/boostlite_cmake_tempfile.txt" MD5)
+      file(MD5 "${CMAKE_CURRENT_BINARY_DIR}/quickcpplib_cmake_tempfile.txt" MD5)
       set(${outvar} ${MD5} PARENT_SCOPE)
     endfunction()
   endif()

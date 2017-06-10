@@ -31,8 +31,8 @@ Distributed under the Boost Software License, Version 1.0.
 #include "timing.h"
 
 #include <algorithm>
+#include <cstdio>
 #include <mutex>  // for lock_guard
-#include <stdio.h>
 
 #ifdef _MSC_VER
 #pragma warning(disable : 4127)  // conditional expression is constant
@@ -118,10 +118,12 @@ template <class locktype> void TestLockCorrectness(const char *desc)
   QUICKCPPLIB_NAMESPACE::configurable_spinlock::atomic<size_t> done(std::thread::hardware_concurrency() + 1);
   for(size_t n = 0; n < std::thread::hardware_concurrency(); n++)
   {
-    threads.push_back(std::thread([&, n] {
+    threads.push_back(std::thread([&] {
       --done;
       while(done)
+      {
         std::this_thread::yield();
+      }
       while(!done)
       {
         lock.lock();
@@ -139,18 +141,24 @@ template <class locktype> void TestLockCorrectness(const char *desc)
   }
   printf("Running %s ...\n", desc);
   while(done != 1)
+  {
     std::this_thread::yield();
+  }
   auto start = std::chrono::high_resolution_clock::now();
   --done;
   std::this_thread::sleep_for(std::chrono::seconds(5));
   printf("   Stopping test ...\n");
   ++done;
   while(done != std::thread::hardware_concurrency() + 1)
+  {
     std::this_thread::yield();
+  }
   auto end = std::chrono::high_resolution_clock::now();
   for(auto &i : threads)
+  {
     i.join();
-  printf("   Achieved %u exclusive ops/sec\n\n", (unsigned) (exclusives / std::chrono::duration_cast<std::chrono::seconds>(end - start).count()));
+  }
+  printf("   Achieved %u exclusive ops/sec\n\n", (unsigned) (exclusives / std::chrono::duration_cast<std::chrono::seconds>(end - start).count()));  // NOLINT
 }
 
 template <class locktype, size_t testreaders> void TestSharedLockCorrectness(const char *desc)
@@ -165,7 +173,9 @@ template <class locktype, size_t testreaders> void TestSharedLockCorrectness(con
     threads.push_back(std::thread([&, n] {
       --done;
       while(done)
+      {
         std::this_thread::yield();
+      }
       if(n < testreaders)
       {
         while(!done)
@@ -173,7 +183,9 @@ template <class locktype, size_t testreaders> void TestSharedLockCorrectness(con
           lock.lock_shared();
           size_t _ = ++readers;
           if(_ > maxreaders)
+          {
             maxreaders = _;
+          }
           size_t _writers = writers;
           if(_writers > 0)
           {
@@ -209,18 +221,24 @@ template <class locktype, size_t testreaders> void TestSharedLockCorrectness(con
   }
   printf("Running %s ...\n", desc);
   while(done != 1)
+  {
     std::this_thread::yield();
+  }
   auto start = std::chrono::high_resolution_clock::now();
   --done;
   std::this_thread::sleep_for(std::chrono::seconds(5));
   printf("   Stopping test ...\n");
   ++done;
   while(done != std::thread::hardware_concurrency() + 1)
+  {
     std::this_thread::yield();
+  }
   auto end = std::chrono::high_resolution_clock::now();
   for(auto &i : threads)
+  {
     i.join();
-  printf("   Achieved %u exclusive ops/sec and %u shared ops/sec, maxreaders=%u\n\n", (unsigned) (exclusives / std::chrono::duration_cast<std::chrono::seconds>(end - start).count()), (unsigned) (shared / std::chrono::duration_cast<std::chrono::seconds>(end - start).count()), (unsigned) maxreaders);
+  }
+  printf("   Achieved %u exclusive ops/sec and %u shared ops/sec, maxreaders=%u\n\n", (unsigned) (exclusives / std::chrono::duration_cast<std::chrono::seconds>(end - start).count()), (unsigned) (shared / std::chrono::duration_cast<std::chrono::seconds>(end - start).count()), (unsigned) maxreaders);  // NOLINT
 }
 
 BOOST_AUTO_TEST_CASE(works / spinlock / threaded / binary, "Tests that the binary spinlock works as intended under threads")
@@ -269,12 +287,12 @@ template <class T> struct do_lock<true, T>
 };
 template <class T> struct do_lock_shared
 {
-  do_lock_shared(T &) {}
+  explicit do_lock_shared(T & /*unused*/) {}
 };
-template <class T> struct do_lock_shared<QUICKCPPLIB_NAMESPACE::configurable_spinlock::shared_spinlock<T>>
+template <class T> struct do_lock_shared<QUICKCPPLIB_NAMESPACE::configurable_spinlock::shared_spinlock<T>>  // NOLINT
 {
   QUICKCPPLIB_NAMESPACE::configurable_spinlock::shared_spinlock<T> &_lock;
-  do_lock_shared(QUICKCPPLIB_NAMESPACE::configurable_spinlock::shared_spinlock<T> &lock)
+  explicit do_lock_shared(QUICKCPPLIB_NAMESPACE::configurable_spinlock::shared_spinlock<T> &lock)
       : _lock(lock)
   {
     _lock.lock_shared();
@@ -310,7 +328,8 @@ template <class locktype> double CalculatePerformance(int use_transact)
   {
     --gate;
     while(gate)
-      ;
+    {
+    }
     for(size_t n = 0; n < 10000000; n++)
     {
       if(use_transact == 1)
@@ -344,60 +363,60 @@ template <class locktype> double CalculatePerformance(int use_transact)
 BOOST_AUTO_TEST_CASE(performance / spinlock / binary, "Tests the performance of binary spinlocks")
 {
   printf("\n=== Binary spinlock performance ===\n");
-  typedef QUICKCPPLIB_NAMESPACE::configurable_spinlock::spinlock<uintptr_t> locktype;
-  printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
-  printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
-  printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
+  using locktype = QUICKCPPLIB_NAMESPACE::configurable_spinlock::spinlock<uintptr_t>;
+  printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(0));
+  printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(0));
+  printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(0));
 }
 
 #if 0
 BOOST_AUTO_TEST_CASE(performance / spinlock / binary / transaction, "Tests the performance of binary spinlock transactions")
 {
   printf("\n=== Transacted binary spinlock performance ===\n");
-  typedef boost_lite::configurable_spinlock::spinlock<uintptr_t> locktype;
-  printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(true));
-  printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(true));
-  printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(true));
+  using locktype = boost_lite::configurable_spinlock::spinlock<uintptr_t>;
+  printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(1));
+  printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(1));
+  printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(1));
 }
 #endif
 
 BOOST_AUTO_TEST_CASE(performance / spinlock / tristate, "Tests the performance of tristate spinlocks")
 {
   printf("\n=== Tristate spinlock performance ===\n");
-  typedef QUICKCPPLIB_NAMESPACE::configurable_spinlock::spinlock<int> locktype;
-  printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
-  printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
-  printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
+  using locktype = QUICKCPPLIB_NAMESPACE::configurable_spinlock::spinlock<int>;
+  printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(0));
+  printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(0));
+  printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(0));
 }
 
 #if 0
 BOOST_AUTO_TEST_CASE(performance / spinlock / tristate / transaction, "Tests the performance of tristate spinlock transactions")
 {
   printf("\n=== Transacted tristate spinlock performance ===\n");
-  typedef boost_lite::configurable_spinlock::spinlock<int> locktype;
-  printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(true));
-  printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(true));
-  printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(true));
+  using locktype = boost_lite::configurable_spinlock::spinlock<int>;
+  printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(1));
+  printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(1));
+  printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(1));
 }
 #endif
 
 BOOST_AUTO_TEST_CASE(performance / spinlock / pointer, "Tests the performance of pointer spinlocks")
 {
   printf("\n=== Pointer spinlock performance ===\n");
-  typedef QUICKCPPLIB_NAMESPACE::configurable_spinlock::spinlock<QUICKCPPLIB_NAMESPACE::configurable_spinlock::lockable_ptr<int>> locktype;
-  printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
-  printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
-  printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
+  using locktype = QUICKCPPLIB_NAMESPACE::configurable_spinlock::spinlock<QUICKCPPLIB_NAMESPACE::configurable_spinlock::lockable_ptr<int>>;
+  printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(0));
+  printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(0));
+  printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(0));
 }
 
 #if 0
 BOOST_AUTO_TEST_CASE(performance / spinlock / pointer / transaction, "Tests the performance of pointer spinlock transactions")
 {
   printf("\n=== Transacted pointer spinlock performance ===\n");
-  typedef QUICKCPPLIB_NAMESPACE::configurable_spinlock::spinlock<boost_lite::configurable_spinlock::lockable_ptr<int>> locktype;
-  printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(true));
-  printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(true));
-  printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(true));
+  using locktype = QUICKCPPLIB_NAMESPACE::configurable_spinlock::spinlock<boost_lite::configurable_spinlock::lockable_ptr<int>>;
+  printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(1));
+  printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(1));
+  printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(1));
 }
 #endif
 
@@ -405,26 +424,26 @@ BOOST_AUTO_TEST_CASE(performance / spinlock / pointer / transaction, "Tests the 
 BOOST_AUTO_TEST_CASE(performance / spinlock / ordered, "Tests the performance of ordered spinlocks")
 {
   printf("\n=== Ordered spinlock performance ===\n");
-  typedef QUICKCPPLIB_NAMESPACE::configurable_spinlock::ordered_spinlock<> locktype;
-  printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
-  printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
-  printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
+  using locktype = QUICKCPPLIB_NAMESPACE::configurable_spinlock::ordered_spinlock<>;
+  printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(0));
+  printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(0));
+  printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(0));
 }
 #endif
 
 BOOST_AUTO_TEST_CASE(performance / spinlock / shared / exclusive, "Tests the performance of shared exclusive spinlocks")
 {
   printf("\n=== Shared exclusive spinlock performance ===\n");
-  typedef QUICKCPPLIB_NAMESPACE::configurable_spinlock::shared_spinlock<> locktype;
-  printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
-  printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
-  printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(false));
+  using locktype = QUICKCPPLIB_NAMESPACE::configurable_spinlock::shared_spinlock<>;
+  printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(0));
+  printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(0));
+  printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(0));
 }
 
 BOOST_AUTO_TEST_CASE(performance / spinlock / shared / shared, "Tests the performance of shared exclusive spinlocks")
 {
   printf("\n=== Shared shared spinlock performance ===\n");
-  typedef QUICKCPPLIB_NAMESPACE::configurable_spinlock::shared_spinlock<> locktype;
+  using locktype = QUICKCPPLIB_NAMESPACE::configurable_spinlock::shared_spinlock<>;
   printf("1. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(2));
   printf("2. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(2));
   printf("3. Achieved %lf transactions per second\n", CalculatePerformance<locktype>(2));

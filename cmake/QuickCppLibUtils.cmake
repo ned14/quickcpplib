@@ -244,10 +244,10 @@ function(add_partial_preprocess target outfile infile)
   )
 endfunction()
 
-# Finds a Boostish library
+# Finds a quickcpplib library
 #
-# Boostish libraries can be located via these means in order of preference:
-# Only if "../.use_boostish_siblings" exists:
+# quickcpplib libraries can be located via these means in order of preference:
+# Only if "../.quickcpplib_use_siblings" exists:
 #   1) "../${library}"                         (e.g. ../outcome)
 # Otherwise:
 #   2) "${path}/${library}"   (e.g. include/boost/afio/outcome)
@@ -256,19 +256,19 @@ endfunction()
 # If we use a sibling edition, we update the current git index to point at the 
 # git SHA of the sibling edition. That way when we git commit, we need not arse
 # around with manually updating the embedded submodules.
-function(find_boostish_library libraryname path version)
+function(find_quickcpplib_library libraryname path version)
   if(NOT PROJECT_NAME)
-    message(FATAL_ERROR "find_boostish_library() must only be called after a project()")
+    message(FATAL_ERROR "find_quickcpplib_library() must only be called after a project()")
   endif()
   get_filename_component(boostishdir "${CMAKE_CURRENT_SOURCE_DIR}/.." ABSOLUTE)
-  if(IS_DIRECTORY "${boostishdir}/.use_boostish_siblings")
+  if(IS_DIRECTORY "${boostishdir}/.quickcpplib_use_siblings")
     set(siblingenabled ON)
   else()
     set(siblingenabled OFF)
   endif()
   if(NOT DEFINED ${libraryname}_FOUND)
     # Prefer sibling editions of dependencies to embedded editions
-    if(siblingenabled AND EXISTS "${boostishdir}/${libraryname}/.boostish")
+    if(siblingenabled AND EXISTS "${boostishdir}/${libraryname}/.quickcpplib")
       set(GITREPO "${boostishdir}/${libraryname}")
       git_revision_from_path("${GITREPO}" GITSHA GITTS)
       indented_message(STATUS "Found ${libraryname} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} at sibling ../${libraryname} git revision ${GITSHA} last commit ${GITTS}")
@@ -280,10 +280,10 @@ function(find_boostish_library libraryname path version)
       # One of the only uses of a non-target specific cmake command anywhere,
       # but this is local to the calling CMakeLists.txt and is the correct
       # thing to use.
-      include_directories(SYSTEM "${boostishdir}/.use_boostish_siblings")
+      include_directories(SYSTEM "${boostishdir}/.quickcpplib_use_siblings")
       set(${libraryname}_PATH "${GITREPO}")
       set(${libraryname}_FOUND TRUE)
-    elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${path}/${libraryname}/.boostish")
+    elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${path}/${libraryname}/.quickcpplib")
       indented_message(STATUS "Found ${libraryname} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} at embedded ${path}/${libraryname}")
       set(MESSAGE_INDENT "${MESSAGE_INDENT}  ")
       add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/${path}/${libraryname}"
@@ -345,19 +345,19 @@ function(find_boostish_library libraryname path version)
   else()
     list(FIND ARGN "QUIET" quiet_idx)
     if(${quiet_idx} EQUAL -1)
-      indented_message(WARNING "WARNING: Boostish library ${libraryname} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} not found")
+      indented_message(WARNING "WARNING: quickcpplib library ${libraryname} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} not found")
       indented_message(STATUS "Tried: ")
       if(siblingenabled)
         indented_message(STATUS "  ${boostishdir}/${libraryname}/.boostish")
       endif()
       indented_message(STATUS "  ${CMAKE_CURRENT_SOURCE_DIR}/${path}/${libraryname}/.boostish")
       if(NOT siblingenabled)
-        indented_message(STATUS "  (sibling library use disabled due to lack of ${boostishdir}/.use_boostish_siblings)")
+        indented_message(STATUS "  (sibling library use disabled due to lack of ${boostishdir}/.quickcpplib_use_siblings)")
       endif()
     endif()
     list(FIND ARGN "REQUIRED" required_idx)
     if(${required_idx} GREATER -1)
-      indented_message(FATAL_ERROR "FATAL: Boostish library ${libraryname} required by ${PROJECT_NAMESPACE}${PROJECT_NAME} not found")
+      indented_message(FATAL_ERROR "FATAL: quickcpplib library ${libraryname} required by ${PROJECT_NAMESPACE}${PROJECT_NAME} not found")
     endif()
   endif()
 endfunction()
