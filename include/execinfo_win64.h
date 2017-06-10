@@ -35,7 +35,7 @@ Distributed under the Boost Software License, Version 1.0.
 #ifdef BINDLIB_EXPORTS
 #define EXECINFO_DECL extern __declspec(dllexport)
 #else
-#if defined(__cplusplus) && (!defined(BOOST_BINDLIB_HEADERS_ONLY) || BOOST_BINDLIB_HEADERS_ONLY == 1) && !defined(DOXYGEN_SHOULD_SKIP_THIS)
+#if defined(__cplusplus) && (!defined(QUICKCPPLIB_HEADERS_ONLY) || QUICKCPPLIB_HEADERS_ONLY == 1) && !defined(DOXYGEN_SHOULD_SKIP_THIS)
 #define EXECINFO_DECL inline
 #else
 #define EXECINFO_DECL extern __declspec(dllimport)

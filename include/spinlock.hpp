@@ -134,7 +134,7 @@ namespace configurable_spinlock
 #ifndef QUICKCPPLIB_ENABLE_VALGRIND
     QUICKCPPLIB_CONSTEXPR
 #endif
-      spinlockbase() noexcept : v(0)
+    spinlockbase() noexcept : v(0)
     {
       QUICKCPPLIB_ANNOTATE_RWLOCK_CREATE(this);
 #if QUICKCPPLIB_IN_THREAD_SANITIZER
@@ -142,11 +142,11 @@ namespace configurable_spinlock
 #endif
     }
     spinlockbase(const spinlockbase &) = delete;
-    //! Atomically move constructs
+//! Atomically move constructs
 #ifndef QUICKCPPLIB_ENABLE_VALGRIND
     QUICKCPPLIB_CONSTEXPR
 #endif
-      spinlockbase(spinlockbase &&) noexcept : v(0)
+    spinlockbase(spinlockbase &&) noexcept : v(0)
     {
       QUICKCPPLIB_ANNOTATE_RWLOCK_CREATE(this);
 // v.store(o.v.exchange(0, memory_order_acq_rel));
@@ -335,7 +335,7 @@ namespace configurable_spinlock
 #ifndef QUICKCPPLIB_ENABLE_VALGRIND
     QUICKCPPLIB_CONSTEXPR
 #endif
-      ordered_spinlockbase() noexcept : _v(0)
+    ordered_spinlockbase() noexcept : _v(0)
     {
       QUICKCPPLIB_ANNOTATE_RWLOCK_CREATE(this);
       // v.store(0, memory_order_release);
@@ -428,7 +428,7 @@ namespace configurable_spinlock
 #ifndef QUICKCPPLIB_ENABLE_VALGRIND
     QUICKCPPLIB_CONSTEXPR
 #endif
-      shared_spinlockbase() noexcept : _v(0)
+    shared_spinlockbase() noexcept : _v(0)
     {
       QUICKCPPLIB_ANNOTATE_RWLOCK_CREATE(this);
 #if QUICKCPPLIB_IN_THREAD_SANITIZER
@@ -779,7 +779,7 @@ namespace configurable_spinlock
   // For when used with a spinlock
   template <class T, template <class> class spinpolicy2, template <class> class spinpolicy3, template <class> class spinpolicy4> constexpr inline T is_lockable_locked(spinlock<T, spinpolicy2, spinpolicy3, spinpolicy4> &lockable) noexcept
   {
-#ifdef BOOST_HAVE_TRANSACTIONAL_MEMORY_COMPILER
+#ifdef QUICKCPPLIB_HAVE_TRANSACTIONAL_MEMORY_COMPILER
     // Annoyingly the atomic ops are marked as unsafe for atomic transactions, so ...
     return *((volatile T *) &lockable);
 #else
@@ -789,7 +789,7 @@ namespace configurable_spinlock
   // For when used with a spinlock
   template <class T, template <class> class spinpolicy2, template <class> class spinpolicy3, template <class> class spinpolicy4> constexpr inline T is_lockable_locked(const spinlock<T, spinpolicy2, spinpolicy3, spinpolicy4> &lockable) noexcept
   {
-#ifdef BOOST_HAVE_TRANSACTIONAL_MEMORY_COMPILER
+#ifdef QUICKCPPLIB_HAVE_TRANSACTIONAL_MEMORY_COMPILER
     // Annoyingly the atomic ops are marked as unsafe for atomic transactions, so ...
     return *((volatile T *) &lockable);
 #else
@@ -810,7 +810,7 @@ namespace configurable_spinlock
         halfT entry, exit;
       };
     };
-#ifdef BOOST_HAVE_TRANSACTIONAL_MEMORY_COMPILER
+#ifdef QUICKCPPLIB_HAVE_TRANSACTIONAL_MEMORY_COMPILER
     // Annoyingly the atomic ops are marked as unsafe for atomic transactions, so ...
     v = *((volatile T *) &lockable);
 #else
@@ -822,7 +822,7 @@ namespace configurable_spinlock
   // For when used with a shared spinlock
   template <class T, template <class> class spinpolicy2, template <class> class spinpolicy3, template <class> class spinpolicy4> constexpr inline T is_lockable_locked(shared_spinlock<T, spinpolicy2, spinpolicy3, spinpolicy4> &lockable) noexcept
   {
-#ifdef BOOST_HAVE_TRANSACTIONAL_MEMORY_COMPILER
+#ifdef QUICKCPPLIB_HAVE_TRANSACTIONAL_MEMORY_COMPILER
     // Annoyingly the atomic ops are marked as unsafe for atomic transactions, so ...
     return *((volatile T *) &lockable);
 #else
@@ -830,39 +830,39 @@ namespace configurable_spinlock
 #endif
   }
 
-#ifndef BOOST_BEGIN_TRANSACT_LOCK
-#ifdef BOOST_HAVE_TRANSACTIONAL_MEMORY_COMPILER
-#undef BOOST_USING_INTEL_TSX
-#define BOOST_BEGIN_TRANSACT_LOCK(lockable)                                                                                                                                                                                                                                                                                    \
+#ifndef QUICKCPPLIB_BEGIN_TRANSACT_LOCK
+#ifdef QUICKCPPLIB_HAVE_TRANSACTIONAL_MEMORY_COMPILER
+#undef QUICKCPPLIB_USING_INTEL_TSX
+#define QUICKCPPLIB_BEGIN_TRANSACT_LOCK(lockable)                                                                                                                                                                                                                                                                              \
   __transaction_relaxed                                                                                                                                                                                                                                                                                                        \
   {                                                                                                                                                                                                                                                                                                                            \
-    (void) QUICKCPPLIB_NAMESPACE::is_lockable_locked(lockable);                                                                                                                                                                                                                                                                  \
+    (void) QUICKCPPLIB_NAMESPACE::is_lockable_locked(lockable);                                                                                                                                                                                                                                                                \
     {
-#define BOOST_BEGIN_TRANSACT_LOCK_ONLY_IF_NOT(lockable, only_if_not_this)                                                                                                                                                                                                                                                      \
+#define QUICKCPPLIB_BEGIN_TRANSACT_LOCK_ONLY_IF_NOT(lockable, only_if_not_this)                                                                                                                                                                                                                                                \
   __transaction_relaxed                                                                                                                                                                                                                                                                                                        \
   {                                                                                                                                                                                                                                                                                                                            \
-    if((only_if_not_this) != QUICKCPPLIB_NAMESPACE::is_lockable_locked(lockable))                                                                                                                                                                                                                                                \
+    if((only_if_not_this) != QUICKCPPLIB_NAMESPACE::is_lockable_locked(lockable))                                                                                                                                                                                                                                              \
     {
-#define BOOST_END_TRANSACT_LOCK(lockable)                                                                                                                                                                                                                                                                                      \
+#define QUICKCPPLIB_END_TRANSACT_LOCK(lockable)                                                                                                                                                                                                                                                                                \
   }                                                                                                                                                                                                                                                                                                                            \
   }
-#define BOOST_BEGIN_NESTED_TRANSACT_LOCK(N) __transaction_relaxed
-#define BOOST_END_NESTED_TRANSACT_LOCK(N)
-#endif  // BOOST_BEGIN_TRANSACT_LOCK
+#define QUICKCPPLIB_BEGIN_NESTED_TRANSACT_LOCK(N) __transaction_relaxed
+#define QUICKCPPLIB_END_NESTED_TRANSACT_LOCK(N)
+#endif  // QUICKCPPLIB_BEGIN_TRANSACT_LOCK
 #endif
 
-#ifndef BOOST_BEGIN_TRANSACT_LOCK
-#define BOOST_BEGIN_TRANSACT_LOCK(lockable)                                                                                                                                                                                                                                                                                    \
+#ifndef QUICKCPPLIB_BEGIN_TRANSACT_LOCK
+#define QUICKCPPLIB_BEGIN_TRANSACT_LOCK(lockable)                                                                                                                                                                                                                                                                              \
   {                                                                                                                                                                                                                                                                                                                            \
     QUICKCPPLIB_NAMESPACE::configurable_spinlock::lock_guard<decltype(lockable)> __tsx_transaction(lockable);
-#define BOOST_BEGIN_TRANSACT_LOCK_ONLY_IF_NOT(lockable, only_if_not_this)                                                                                                                                                                                                                                                      \
+#define QUICKCPPLIB_BEGIN_TRANSACT_LOCK_ONLY_IF_NOT(lockable, only_if_not_this)                                                                                                                                                                                                                                                \
   if(lockable.lock(only_if_not_this))                                                                                                                                                                                                                                                                                          \
   {                                                                                                                                                                                                                                                                                                                            \
     QUICKCPPLIB_NAMESPACE::configurable_spinlock::lock_guard<decltype(lockable)> __tsx_transaction(lockable, QUICKCPPLIB_NAMESPACE::adopt_lock_t());
-#define BOOST_END_TRANSACT_LOCK(lockable) }
-#define BOOST_BEGIN_NESTED_TRANSACT_LOCK(N)
-#define BOOST_END_NESTED_TRANSACT_LOCK(N)
-#endif  // BOOST_BEGIN_TRANSACT_LOCK
+#define QUICKCPPLIB_END_TRANSACT_LOCK(lockable) }
+#define QUICKCPPLIB_BEGIN_NESTED_TRANSACT_LOCK(N)
+#define QUICKCPPLIB_END_NESTED_TRANSACT_LOCK(N)
+#endif  // QUICKCPPLIB_BEGIN_TRANSACT_LOCK
 }
 
 QUICKCPPLIB_NAMESPACE_END

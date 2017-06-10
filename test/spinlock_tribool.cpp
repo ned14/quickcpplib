@@ -315,8 +315,8 @@ template <class locktype> double CalculatePerformance(int use_transact)
     {
       if(use_transact == 1)
       {
-        BOOST_BEGIN_TRANSACT_LOCK(lock) { ++count[thread].value; }
-        BOOST_END_TRANSACT_LOCK(lock)
+        QUICKCPPLIB_BEGIN_TRANSACT_LOCK(lock) { ++count[thread].value; }
+        QUICKCPPLIB_END_TRANSACT_LOCK(lock)
       }
       else if(use_transact == 2)
       {

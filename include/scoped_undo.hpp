@@ -49,12 +49,7 @@ namespace scoped_undo
         bool operator()(T) const noexcept { return false; }
       };
     }
-//! Compile-time safe detector of if \em v is nullptr (can cope with non-pointer convertibles)
-#if defined(__GNUC__) && (BOOST_GCC < 41000 || defined(__MINGW32__))
-    template <typename T> bool is_nullptr(T v) noexcept { return _detail::is_nullptr<T, std::is_constructible<bool, T>::value>()(std::forward<T>(v)); }
-#else
     template <typename T> bool is_nullptr(T v) noexcept { return _detail::is_nullptr<T, std::is_trivially_constructible<bool, T>::value>()(std::forward<T>(v)); }
-#endif
 
     template <typename callable> class undo_impl
     {
