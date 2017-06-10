@@ -25,6 +25,7 @@ Distributed under the Boost Software License, Version 1.0.
 #ifndef QUICKCPPLIB_ALGORITHM_SMALL_PRNG_HPP
 #define QUICKCPPLIB_ALGORITHM_SMALL_PRNG_HPP
 
+#include "../config.hpp"
 #include "../utils/thread.hpp"
 
 #include <cstdint>

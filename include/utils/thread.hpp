@@ -25,36 +25,40 @@ Distributed under the Boost Software License, Version 1.0.
 #ifndef QUICKCPPLIB_UTILS_THREAD_HPP
 #define QUICKCPPLIB_UTILS_THREAD_HPP
 
+#include "../config.hpp"
+
 #ifdef __linux__
-#include <unistd.h>  // for syscall()
 #include <sys/syscall.h>  // for SYS_gettid
+#include <unistd.h>       // for syscall()
 #endif
 
-namespace boost_lite
+QUICKCPPLIB_NAMESPACE_BEGIN
+
+namespace utils
 {
-  namespace utils
+  namespace thread
   {
-    namespace thread
+#ifdef _WIN32
+    namespace win32
+    {
+      extern "C" __declspec(dllimport) unsigned long __stdcall GetCurrentThreadId(void);
+    }
+#endif
+    //! The thread id of the calling thread
+    inline unsigned this_thread_id() noexcept
     {
 #ifdef _WIN32
-      namespace win32
-      {
-        extern "C" __declspec(dllimport) unsigned long __stdcall GetCurrentThreadId(void);
-      }
-#endif
-      //! The thread id of the calling thread
-      inline unsigned this_thread_id() noexcept
-      {
-#ifdef _WIN32
-        return (unsigned) win32::GetCurrentThreadId();
+      return (unsigned) win32::GetCurrentThreadId();
 #elif defined(__linux__)
-        return (unsigned) syscall(SYS_gettid);
+      return (unsigned) syscall(SYS_gettid);
 #else
-        return (unsigned) pthread_getthreadid_np();
+      return (unsigned) pthread_getthreadid_np();
 #endif
-      }
     }
   }
 }
+
+QUICKCPPLIB_NAMESPACE_END
+
 
 #endif

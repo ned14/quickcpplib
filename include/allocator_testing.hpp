@@ -22,65 +22,68 @@ Distributed under the Boost Software License, Version 1.0.
           http://www.boost.org/LICENSE_1_0.txt)
 */
 
-#ifndef BOOST_ALLOCATOR_TESTING_HPP
-#define BOOST_ALLOCATOR_TESTING_HPP
+#ifndef QUICKCPPLIB_ALLOCATOR_TESTING_HPP
+#define QUICKCPPLIB_ALLOCATOR_TESTING_HPP
+
+#include "config.hpp"
 
 #include <atomic>
 
-namespace boost
+QUICKCPPLIB_NAMESPACE_BEGIN
+
+namespace allocator_testing
 {
-  namespace allocator_testing
+
+  struct config
   {
-
-    struct config
+    std::atomic<size_t> count, fail_from, fail_at;
+    config()
+        : count(0)
+        , fail_from((size_t) -1)
+        , fail_at((size_t) -1)
     {
-      std::atomic<size_t> count, fail_from, fail_at;
-      config()
-          : count(0)
-          , fail_from((size_t) -1)
-          , fail_at((size_t) -1)
-      {
-      }
-    };
-
-    static inline config &get_config(bool reset = false)
-    {
-      static config c;
-      if(reset)
-      {
-        c.count = 0;
-        c.fail_from = (size_t) -1;
-        c.fail_at = (size_t) -1;
-      }
-      return c;
     }
+  };
 
-    template <class T, class A = std::allocator<T>> struct allocator : public A
+  static inline config &get_config(bool reset = false)
+  {
+    static config c;
+    if(reset)
     {
-      template <class U> struct rebind
-      {
-        typedef allocator<U> other;
-      };
-      allocator() {}
-      allocator(const allocator &o)
-          : A(o)
-      {
-      }
-      template <class U>
-      allocator(const allocator<U> &o)
-          : A(o)
-      {
-      }
-      typename A::pointer allocate(typename A::size_type n, typename std::allocator<void>::const_pointer hint = 0)
-      {
-        config &c = get_config();
-        size_t count = ++c.count;
-        if(count >= c.fail_from || count == c.fail_at)
-          throw std::bad_alloc();
-        return A::allocate(n, hint);
-      }
-    };
+      c.count = 0;
+      c.fail_from = (size_t) -1;
+      c.fail_at = (size_t) -1;
+    }
+    return c;
   }
-}  // namespaces
+
+  template <class T, class A = std::allocator<T>> struct allocator : public A
+  {
+    template <class U> struct rebind
+    {
+      typedef allocator<U> other;
+    };
+    allocator() {}
+    allocator(const allocator &o)
+        : A(o)
+    {
+    }
+    template <class U>
+    allocator(const allocator<U> &o)
+        : A(o)
+    {
+    }
+    typename A::pointer allocate(typename A::size_type n, typename std::allocator<void>::const_pointer hint = 0)
+    {
+      config &c = get_config();
+      size_t count = ++c.count;
+      if(count >= c.fail_from || count == c.fail_at)
+        throw std::bad_alloc();
+      return A::allocate(n, hint);
+    }
+  };
+}
+
+QUICKCPPLIB_NAMESPACE_END
 
 #endif

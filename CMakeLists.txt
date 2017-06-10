@@ -8,7 +8,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(QuickCppLibRequireOutOfSourceBuild)
 include(QuickCppLibUtils)
 include(QuickCppLibPolicies)
-indented_message(STATUS "CMAKE_BUILD_TYPE = ${CMAKE_BUILD_TYPE}")
+indented_message(STATUS "NOTE: CMAKE_BUILD_TYPE = ${CMAKE_BUILD_TYPE}")
 
 # Sets the usual PROJECT_NAME etc
 project(quickcpplib VERSION 0.1.0.0 LANGUAGES C CXX)
@@ -41,7 +41,7 @@ all_compile_features(PUBLIC
 )
 
 # For all possible configurations of this library, add each test
-list_filter(quickcpplib_TESTS EXCLUDE REGEX "test_.*\\.cpp|bind.cpp")
+list_filter(quickcpplib_TESTS EXCLUDE REGEX "test_.*\\.cpp")
 include(QuickCppLibMakeStandardTests)
 
 # The spinlock_tribool test needs OpenMP
