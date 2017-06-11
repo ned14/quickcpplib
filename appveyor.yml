@@ -13,30 +13,21 @@ os: Visual Studio 2015
 init:
   - git config --global core.longpaths true
 
-clone_folder: c:\boost.bindlib
+clone_folder: c:\quickcpplib
 platform: x64 
 configuration: Release
 
 before_build:
   - git submodule update --init --recursive
-  - cd test
-  - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
 build_script:
-#  - cl /EHsc /O2 /D_UNICODE /DUNICODE /DNDEBUG atuple.cpp
-  - cl /EHsc /O2 /Oy- /Z7 /D_UNICODE /DUNICODE /DNDEBUG ringbuffer_log.cpp
-  - cl /EHsc /O2 /D_UNICODE /DUNICODE /DNDEBUG spinlock_tribool.cpp
+  - ctest -S .ci.cmake -V
 after_build:
 
 before_test:
 test_script:
-#  - atuple.exe --reporter junit --out results0.xml
-  - ringbuffer_log.exe --reporter junit --out results1.xml
-  - spinlock_tribool.exe --reporter junit --out results2.xml
 after_test:
 
 on_success:
 on_failure:
 on_finish:
-#  - ps: (new-object net.webclient).UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\results0.xml))
-  - ps: (new-object net.webclient).UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\results1.xml))
-  - ps: (new-object net.webclient).UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\results2.xml))
+  - ps: (new-object net.webclient).UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path cmake_ci\merged_junit_results.xml))
