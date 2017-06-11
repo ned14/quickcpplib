@@ -46,6 +46,11 @@ all_compile_features(PUBLIC
 list_filter(quickcpplib_TESTS EXCLUDE REGEX "test_.*\\.cpp")
 include(QuickCppLibMakeStandardTests)
 
+# On MSVC the ringbuffer_log test needs to emit debug info to work
+if(TARGET quickcpplib_hl--ringbuffer_log AND MSVC AND NOT CLANG)
+  target_compile_options(quickcpplib_hl--ringbuffer_log PRIVATE /Oy- /Z7)
+  _target_link_options(quickcpplib_hl--ringbuffer_log /DEBUG)
+endif()
 # The spinlock_tribool test needs OpenMP
 if(TARGET quickcpplib_hl--spinlock_tribool)
   target_uses_openmp(quickcpplib_hl--spinlock_tribool)

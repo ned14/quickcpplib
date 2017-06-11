@@ -167,13 +167,13 @@ void test_traits()
 BOOST_AUTO_TEST_CASE(open_hash_index / linear_memory_policy / works, "Tests that the open_hash_index<linear_memory_policy> works as advertised")
 {
   using namespace QUICKCPPLIB_NAMESPACE::algorithm::open_hash_index;
-  do_test<basic_open_hash_index<linear_memory_policy<size_t, int, 5, arithmetic_modulus<size_t>, std::equal_to<unsigned>>, array5>>();
+  do_test<basic_open_hash_index<linear_memory_policy<size_t, int, 5>, array5>>();
 }
 
 BOOST_AUTO_TEST_CASE(open_hash_index / atomic_linear_memory_policy / works / single, "Tests that the open_hash_index<atomic_linear_memory_policy> works as advertised")
 {
   using namespace QUICKCPPLIB_NAMESPACE::algorithm::open_hash_index;
-  do_test<basic_open_hash_index<atomic_linear_memory_policy<size_t, int, 5, QUICKCPPLIB_NAMESPACE::configurable_spinlock::spinlock<uint32_t>, arithmetic_modulus<size_t>, std::equal_to<unsigned>>, array5, true>>();
+  do_test<basic_open_hash_index<atomic_linear_memory_policy<size_t, int, 5>, array5, true>>();
 }
 
 static constexpr size_t ITEMS = 0x4000000;
@@ -238,13 +238,13 @@ BOOST_AUTO_TEST_CASE(open_hash_index / atomic_linear_memory_policy / works / con
   std::cout << "\nPreparing randomness ..." << std::endl;
   for(size_t n = 0; n < input.size(); n++)
     input[n] = randomness() & 8191;
-  do_threaded_test<basic_open_hash_index<atomic_linear_memory_policy<unsigned, unsigned, 1, QUICKCPPLIB_NAMESPACE::configurable_spinlock::spinlock<uint32_t>>, array8192>>("basic_open_hash_index<atomic_linear_memory_policy, spinlock>");
+  do_threaded_test<basic_open_hash_index<atomic_linear_memory_policy<unsigned, unsigned>, array8192>>("basic_open_hash_index<atomic_linear_memory_policy, spinlock>");
 }
 
 BOOST_AUTO_TEST_CASE(open_hash_index / atomic_linear_memory_policy / works / concurrent / shared, "Tests that the open_hash_index<atomic_linear_memory_policy> works as advertised")
 {
   using namespace QUICKCPPLIB_NAMESPACE::algorithm::open_hash_index;
-  do_threaded_test<basic_open_hash_index<atomic_linear_memory_policy<unsigned, unsigned, 1, QUICKCPPLIB_NAMESPACE::configurable_spinlock::shared_spinlock<uint32_t>>, array8192>>("basic_open_hash_index<atomic_linear_memory_policy, shared_spinlock>");
+  do_threaded_test<basic_open_hash_index<atomic_linear_memory_policy<unsigned, unsigned>, array8192>>("basic_open_hash_index<atomic_linear_memory_policy, shared_spinlock>");
 }
 
 
