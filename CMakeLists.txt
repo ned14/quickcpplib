@@ -26,6 +26,8 @@ endif()
 list_filter(quickcpplib_HEADERS EXCLUDE REGEX "include/CATCH")
 # Make an interface only library so dependent CMakeLists can bring in this header-only library
 include(QuickCppLibMakeHeaderOnlyLibrary)
+# Make a docs target
+include(QuickCppLibMakeDoxygen)
 
 # Set the standard definitions for these libraries and bring in the all_* helper functions
 include(QuickCppLibApplyDefaultDefinitions)
