@@ -38,7 +38,7 @@ matrix:
  
 before_install:
  - git submodule update --init --recursive
- - if [ "$CXX" = "g++" ]; then export CXX=g++-5; fi
+ - if [ "$CXX" = "g++" ] && [ "$__" != "cmake tests osx" ]; then export CXX=g++-5; fi
 
 script:
  -
