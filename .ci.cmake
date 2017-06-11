@@ -1,11 +1,11 @@
 # CTest script for a CI to submit to CDash a run of configuration,
 # building and testing
 cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
-list(FIND CMAKE_MODULE_PATH "quickcpplib" quickcpplib_idx)
+list(FIND CMAKE_MODULE_PATH "quickcpplib/cmake" quickcpplib_idx)
 if(${quickcpplib_idx} EQUAL -1)
   set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 endif()
-include(BoostLiteUtils)
+include(QuickCppLibUtils)
 
 
 CONFIGURE_CTEST_SCRIPT_FOR_CDASH("outcome" "cmake_ci")
