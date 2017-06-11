@@ -15,7 +15,7 @@ init:
 
 clone_folder: c:\quickcpplib
 platform: x64 
-configuration: Release
+configuration: RelWithDebInfo
 
 before_build:
   - git submodule update --init --recursive

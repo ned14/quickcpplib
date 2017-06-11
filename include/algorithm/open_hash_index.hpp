@@ -29,6 +29,7 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include <cstddef>  // for ptrdiff_t etc
 #include <cstdint>  // for uint32_t etc
+#include <cstdlib>  // for abort()
 
 QUICKCPPLIB_NAMESPACE_BEGIN
 
