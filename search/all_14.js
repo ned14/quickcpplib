@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['uint128',['uint128',['../unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html',1,'quickcpplib::_xxx::integers128::uint128'],['../unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a3b8ed15ba9800464547a170c0a29c2fb',1,'quickcpplib::_xxx::integers128::uint128::uint128() noexcept'],['../unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#aaae65ffeb8bc463b8cf22c92d59af9bd',1,'quickcpplib::_xxx::integers128::uint128::uint128(std::nullptr_t) noexcept']]],
+  ['uint128',['uint128',['../unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html',1,'quickcpplib::_xxx::integers128']]],
+  ['uint128',['uint128',['../unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a3b8ed15ba9800464547a170c0a29c2fb',1,'quickcpplib::_xxx::integers128::uint128::uint128() noexcept'],['../unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#aaae65ffeb8bc463b8cf22c92d59af9bd',1,'quickcpplib::_xxx::integers128::uint128::uint128(std::nullptr_t) noexcept']]],
   ['underlying_5ftype',['underlying_type',['../structquickcpplib_1_1__xxx_1_1bitfield_1_1bitfield.html#a87c7c65bc5bff1c062a4117022130db5',1,'quickcpplib::_xxx::bitfield::bitfield']]],
   ['unique_5fid',['unique_id',['../structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1unique__id.html',1,'quickcpplib::_xxx::ringbuffer_log::ringbuffer_log']]],
   ['unit_20test_20suites',['Unit test suites',['../group__unittesting.html',1,'']]],

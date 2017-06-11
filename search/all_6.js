@@ -2,7 +2,8 @@ var searchData=
 [
   ['fail_5ffast',['fail_fast',['../structgsl_1_1fail__fast.html',1,'gsl']]],
   ['false_5f',['false_',['../group__tribool.html#ga3a27f51c49cf7e53e07eadee5317aa0d',1,'quickcpplib::_xxx::tribool::false_(tribool a) noexcept'],['../group__tribool.html#ggafe26d2adc55c3e981fc0164e20ebeb9aab1b5574e03193aa8d5307455b036c2d1',1,'quickcpplib::_xxx::tribool::false_()']]],
-  ['fast_5fhash',['fast_hash',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1fast__hash.html',1,'quickcpplib::_xxx::algorithm::hash::fast_hash'],['../classquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1fast__hash.html#a0eb91a82cf7c83d22d598046460b9054',1,'quickcpplib::_xxx::algorithm::hash::fast_hash::fast_hash()']]],
+  ['fast_5fhash',['fast_hash',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1fast__hash.html',1,'quickcpplib::_xxx::algorithm::hash']]],
+  ['fast_5fhash',['fast_hash',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1fast__hash.html#a0eb91a82cf7c83d22d598046460b9054',1,'quickcpplib::_xxx::algorithm::hash::fast_hash']]],
   ['final_5fact',['final_act',['../classgsl_1_1final__act.html',1,'gsl']]],
   ['finalise',['finalise',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1fast__hash.html#abe5ba251384461814f3ee58f09688dc8',1,'quickcpplib::_xxx::algorithm::hash::fast_hash']]],
   ['find',['find',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a79ae2c315999dc8b7c49d194388df7aa',1,'quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::find(const key_type &amp;k) noexcept'],['../classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a8a6b30019a2b9ae8e1f0a5e8ff3fd43d',1,'quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::find(const key_type &amp;k) const noexcept']]],
