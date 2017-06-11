@@ -1,4 +1,3 @@
-<center>
 # Quick C++ Libraries
 
 Eliminate all the tedious hassle when making state-of-the-art C++ 14 or 17 libraries!
@@ -21,15 +20,22 @@ Then this is the library you've been looking for! Designed for use as an **embed
 
 **WARNING: This library is in a highly alpha code state. As much as it has been written to a very high quality and has been tested quite extensively in use by other libraries, it remains in substantial flux and is as such a shifting foundation. You have been warned!**
 
+## Requirements:
+- GCC 5 or later (Linux)
+- clang 3.5 or later (Linux, OS X, BSD, Android)
+- Visual Studio 2015 Update 2 or later (Windows)
+- cmake 3.1 or later
+
 ## Todo:
 
-- [ ] Get docs auto updating per commit
-- [ ] Raise CDash dashboard
+- [x] Get docs auto updating per commit
+- [x] Raise CDash dashboard
 - [ ] Write `class packed_backtrace`. Add testing.
 - [ ] Write script which can generate a Boost library from a quickcpplib library, copying just
 the parts needed.
 
 ## Commits and tags in this git repository can be verified using:
+<center>
 <pre>
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 Version: GnuPG v2
@@ -43,5 +49,4 @@ V8SjvX4r/deKniWctvCi5JccgfUwXkVzFAk=
 =puFk
 -----END PGP PUBLIC KEY BLOCK-----
 </pre>
-
 </center>
