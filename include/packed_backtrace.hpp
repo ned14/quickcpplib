@@ -38,12 +38,17 @@ namespace packed_backtrace
   namespace detail
   {
     template <class FramePtrType, size_t FrameTypeSize> class packed_backtrace
+#ifndef DOXYGEN_IS_IN_THE_HOUSE
     {
       using storage_type = span::span<FramePtrType>;
       storage_type _storage;
 
     protected:
       explicit packed_backtrace(span::span<char> storage)
+          : _storage(reinterpret_cast<FramePtrType *>(storage.data()), storage.size() / sizeof(FramePtrType))
+      {
+      }
+      explicit packed_backtrace(span::span<char> storage, std::nullptr_t)
           : _storage(reinterpret_cast<FramePtrType *>(storage.data()), storage.size() / sizeof(FramePtrType))
       {
       }
@@ -93,42 +98,374 @@ namespace packed_backtrace
       //! Returns the specified element, unchecked.
       value_type operator[](size_type idx) const noexcept { return _storage[idx]; }
       //! Returns the specified element, checked.
-      value_type at(size_type idx) const noexcept { return _storage.at(idx); }
+      value_type at(size_type idx) const { return _storage.at(idx); }
       //! Swaps with another instance
       void swap(packed_backtrace &o) noexcept { _storage.swap(o._storage); }
 
       //! Assigns a raw stack backtrace to the packed storage
       void assign(span::span<value_type> input) noexcept { memcpy(_storage.data(), input.data(), _storage.size_bytes()); }
     };
-    /*
-    template <template <class> class Container, class FramePtrType> class packed_backtrace<Container, FramePtrType, 8>
+    template <class FramePtrType> class packed_backtrace<FramePtrType, 8>
+#endif
     {
+      using storage_type = span::span<uint8_t>;
+      static constexpr uintptr_t bits63_43 = ~((1ULL << 43) - 1);
+      static constexpr uintptr_t bits20_0 = ((1ULL << 21) - 1);
+      static constexpr uintptr_t bits42_21 = ~(bits63_43 | bits20_0);
+      static constexpr uintptr_t bits42_0 = ((1ULL << 43) - 1);
+
+      storage_type _storage;
+      size_t _count;  // number of decoded items
+
+      template <size_t signbit> static intptr_t _sign_extend(uintptr_t x) noexcept
+      {
+        uintptr_t m = 1ULL << signbit;
+        uintptr_t y = (x ^ m) - m;
+        return static_cast<intptr_t>(y);
+      }
+      bool _decode(uintptr_t &out, size_t &idx) const noexcept
+      {
+        for(;;)
+        {
+          if(idx >= _storage.size())
+            return false;
+          uint8_t t = _storage[idx++];
+          switch(t >> 6)
+          {
+          case 3:
+          {
+            if(idx > _storage.size() - 3)  // 22 bit payload
+              return false;
+            // Replace bits 63-43, keeping bits 42-0
+            out &= bits42_0;
+            out |= ((uintptr_t)(t & 0x3f) << 59);
+            out |= (uintptr_t) _storage[idx++] << 51;
+            out |= (uintptr_t) _storage[idx++] << 43;
+            break;
+          }
+          case 2:
+          {
+            if(idx > _storage.size() - 3)  // 22 bit payload
+              return false;
+            // Replace bits 42-21, zeroing 20-0, keeping bits 63-43
+            out &= bits63_43;
+            out |= ((uintptr_t)(t & 0x3f) << 37);
+            out |= (uintptr_t) _storage[idx++] << 29;
+            out |= (uintptr_t) _storage[idx++] << 21;
+            break;
+          }
+          case 1:
+          {
+            if(idx > _storage.size() - 3)  // 22 bit payload
+              return false;
+            // Offset bits 21-0
+            uintptr_t offset = ((uintptr_t)(t & 0x3f) << 16);
+            offset |= (uintptr_t) _storage[idx++] << 8;
+            offset |= (uintptr_t) _storage[idx++] << 0;
+            out += _sign_extend<21>(offset);
+            return true;
+          }
+          case 0:
+          {
+            if(idx > _storage.size() - 2)  // 14 bit payload
+              return false;
+            if(!t)
+            {
+              // If he's all bits zero from now until end of storage, we are done
+              bool done = true;
+              for(size_t _idx = idx; _idx < _storage.size(); ++_idx)
+              {
+                if(_storage[_idx] != 0)
+                {
+                  done = false;
+                  break;
+                }
+              }
+              if(done)
+                return false;
+            }
+            // Offset bits 13-0
+            uintptr_t offset = ((uintptr_t)(t & 0x3f) << 8);
+            offset |= (uintptr_t) _storage[idx++] << 0;
+            out += _sign_extend<13>(offset);
+            return true;
+          }
+          }
+        }
+      }
+      size_t _decode_count() const noexcept
+      {
+        uintptr_t out = 0;
+        size_t idx = 0, ret = 0;
+        while(_decode(out, idx))
+        {
+          ++ret;
+        }
+        return ret;
+      }
+
     protected:
-      Container<uint8_t> _storage;
+      explicit packed_backtrace(span::span<char> storage)
+          : _storage(reinterpret_cast<uint8_t *>(storage.data()), storage.size())
+          , _count(_decode_count())
+      {
+      }
+      explicit packed_backtrace(span::span<char> storage, std::nullptr_t)
+          : _storage(reinterpret_cast<uint8_t *>(storage.data()), storage.size())
+          , _count(0)
+      {
+      }
+
+    public:
+      //! The type stored in the container
+      using value_type = FramePtrType;
+      //! The size type
+      using size_type = size_t;
+      //! The difference type
+      using difference_type = ptrdiff_t;
+      //! The reference type
+      using reference = FramePtrType;
+      //! The const reference type
+      using const_reference = const FramePtrType;
+      //! The pointer type
+      using pointer = FramePtrType *;
+      //! The const pointer type
+      using const_pointer = const FramePtrType *;
+      //! The iterator type
+      class iterator : public std::iterator<std::forward_iterator_tag, value_type, difference_type, pointer, reference>
+      {
+        friend class packed_backtrace;
+        packed_backtrace *_parent;
+        size_t _idx;
+        value_type _v;
+
+        iterator &_inc() noexcept
+        {
+          if(_parent)
+          {
+            uintptr_t v = reinterpret_cast<uintptr_t>(_v);
+            if(_parent->_decode(v, _idx))
+              _v = reinterpret_cast<value_type>(v);
+            else
+            {
+              _parent = nullptr;
+              _idx = (size_t) -1;
+              _v = nullptr;
+            }
+          }
+          return *this;
+        }
+
+        iterator(packed_backtrace *parent) noexcept : _parent(parent), _idx(0), _v(nullptr) { _inc(); }
+
+      public:
+        constexpr iterator() noexcept : _parent(nullptr), _idx((size_t) -1), _v(nullptr) {}
+        iterator(const iterator &) = default;
+        iterator(iterator &&) noexcept = default;
+        iterator &operator=(const iterator &) = default;
+        iterator &operator=(iterator &&) noexcept = default;
+        void swap(iterator &o) noexcept
+        {
+          std::swap(_parent, o._parent);
+          std::swap(_idx, o._idx);
+          std::swap(_v, o._v);
+        }
+
+        bool operator==(const iterator &o) const noexcept { return _parent == o._parent && _idx == o._idx; }
+        bool operator!=(const iterator &o) const noexcept { return _parent != o._parent || _idx != o._idx; }
+        value_type operator*() noexcept
+        {
+          if(!_parent)
+          {
+            abort();
+          }
+          return _v;
+        }
+        const value_type operator*() const noexcept
+        {
+          if(!_parent)
+          {
+            abort();
+          }
+          return _v;
+        }
+        iterator &operator++() noexcept { return _inc(); }
+        iterator operator++(int) noexcept
+        {
+          iterator ret(*this);
+          ++*this;
+          return ret;
+        }
+        bool operator<(const iterator &o) const noexcept
+        {
+          if(!_parent && !o._parent)
+            return false;
+          if(!_parent && o._parent)
+            return true;
+          if(_parent && !o._parent)
+            return false;
+          return _idx < o._idx;
+        }
+        bool operator>(const iterator &o) const noexcept
+        {
+          if(!_parent && !o._parent)
+            return false;
+          if(!_parent && o._parent)
+            return false;
+          if(_parent && !o._parent)
+            return true;
+          return _idx > o._idx;
+        }
+        bool operator<=(const iterator &o) const noexcept { return !(o > *this); }
+        bool operator>=(const iterator &o) const noexcept { return !(o < *this); }
+      };
+      friend class iterator;
+      //! The const iterator type
+      using const_iterator = iterator;
+      //! The reverse iterator type
+      using reverse_iterator = std::reverse_iterator<iterator>;
+      //! The const reverse iterator type
+      using const_reverse_iterator = std::reverse_iterator<const_iterator>;
+
+      //! Returns true if the index is empty
+      bool empty() const noexcept { return _storage.empty(); }
+      //! Returns the number of items in the backtrace
+      size_type size() const noexcept { return _count; }
+      //! Returns the maximum number of items in the backtrace
+      size_type max_size() const noexcept { return _count; }
+      //! Returns an iterator to the first item in the backtrace.
+      iterator begin() noexcept { return iterator(this); }
+      //! Returns an iterator to the first item in the backtrace.
+      const_iterator begin() const noexcept { return iterator(this); }
+      //! Returns an iterator to the first item in the backtrace.
+      const_iterator cbegin() const noexcept { return iterator(this); }
+      //! Returns an iterator to the item after the last in the backtrace.
+      iterator end() noexcept { return iterator(); }
+      //! Returns an iterator to the item after the last in the backtrace.
+      const_iterator end() const noexcept { return iterator(); }
+      //! Returns an iterator to the item after the last in the backtrace.
+      const_iterator cend() const noexcept { return iterator(); }
+      //! Returns the specified element, unchecked.
+      value_type operator[](size_type i) const noexcept
+      {
+        uintptr_t out = 0;
+        size_t idx = 0;
+        for(size_type n = 0; n <= i; n++)
+        {
+          if(!_decode(out, idx))
+            return nullptr;
+        }
+        return reinterpret_cast<value_type>(out);
+      }
+      //! Returns the specified element, checked.
+      value_type at(size_type idx) const
+      {
+        uintptr_t out = 0;
+        size_t idx = 0;
+        for(size_type n = 0; n <= i; n++)
+        {
+          if(!_decode(out, idx))
+            throw std::out_of_range("packed_backtrace: out of range");
+        }
+        return reinterpret_cast<value_type>(out);
+      }
+      //! Swaps with another instance
+      void swap(packed_backtrace &o) noexcept
+      {
+        _storage.swap(o._storage);
+        std::swap(_count, o._count);
+      }
+
+      //! Assigns a raw stack backtrace to the packed storage
+      void assign(span::span<value_type> input) noexcept
+      {
+        uintptr_t out = 0;
+        size_t idx = 0;
+        memset(_storage.data(), 0, _storage.size());
+        _count = 0;
+        for(const auto &_i : input)
+        {
+          size_t startidx = idx;
+          uintptr_t i = reinterpret_cast<uintptr_t>(_i);
+          uintptr_t delta = i & bits63_43;
+          if((out & bits63_43) != delta)
+          {
+            if(idx > _storage.size() - 3)
+              return;
+            // std::cout << "For entry " << _i << " encoding bits 63-43: " << (void *) delta << std::endl;
+            _storage[idx++] = 0xc0 | ((delta >> 59) & 0x3f);
+            _storage[idx++] = (delta >> 51) & 0xff;
+            _storage[idx++] = (delta >> 43) & 0xff;
+            out &= bits42_0;
+            out |= delta;
+          }
+          delta = i & bits42_21;
+          if((out & bits42_21) != delta)
+          {
+            if(idx > _storage.size() - 3)
+            {
+              memset(_storage.data() + startidx, 0, idx - startidx);
+              return;
+            }
+            // std::cout << "For entry " << _i << " encoding bits 42-21: " << (void *) delta << std::endl;
+            _storage[idx++] = 0x80 | ((delta >> 37) & 0x3f);
+            _storage[idx++] = (delta >> 29) & 0xff;
+            _storage[idx++] = (delta >> 21) & 0xff;
+            out &= bits63_43;
+            out |= delta;
+          }
+          if(i - out >= (1 << 14) && out - i >= (1 << 14))
+          {
+            if(idx > _storage.size() - 3)
+            {
+              memset(_storage.data() + startidx, 0, idx - startidx);
+              return;
+            }
+            delta = static_cast<uintptr_t>(i - out);
+            // std::cout << "For entry " << _i << " with diff " << (intptr_t) delta << " encoding three byte delta: " << (void *) delta << std::endl;
+            _storage[idx++] = 0x40 | ((delta >> 16) & 0x3f);
+            _storage[idx++] = (delta >> 8) & 0xff;
+            _storage[idx++] = (delta >> 0) & 0xff;
+            out = i;
+          }
+          if(i != out)
+          {
+            if(idx > _storage.size() - 2)
+            {
+              memset(_storage.data() + startidx, 0, idx - startidx);
+              return;
+            }
+            delta = static_cast<uintptr_t>(i - out);
+            // std::cout << "For entry " << _i << " with diff " << (intptr_t) delta << " encoding two byte delta: " << (void *) delta << std::endl;
+            _storage[idx++] = (delta >> 8) & 0x3f;
+            _storage[idx++] = (delta >> 0) & 0xff;
+            out = i;
+          }
+          _count++;
+        }
+      }
     };
-    */
   }
   /*! \class packed_backtrace
   \brief A space packed stack backtrace letting you store twice or more
   stack frames in the same space.
-  \tparam ContiguousContainerType Some STL container meeting the `ContiguousContainer` concept. `std::array<>` and `std::vector` are
-  two of the most commonly used.
   \tparam FramePtrType The type each stack backtrace frame ought to be represented as.
+  \addtogroup packed_backtrace
 
   64 bit address stack backtraces tend to waste a lot of storage which can be a problem
   when storing lengthy backtraces. Most 64 bit architectures only use the first 43 bits
   of address space wasting 2.5 bytes per entry, plus stack backtraces tend to be within
   a few megabytes and even kilobytes from one another. Intelligently packing the bits
   based on this knowledge can double or more the number of items you can store for a
-  given number of bytes at virtually no runtime overhead, unlike compression.
+  given number of bytes with virtually no runtime overhead, unlike compression.
 
   On 32 bit architectures this class simply stores the stack normally, but otherwise
   works the same.
 
   The 64-bit coding scheme is quite straightforward:
 
-  * Top bits are 11 when it's bits 63-41 of a 64 bit absolute address (3 bytes)
-  * Top bits are 10 when it's bits 43-21 of a 64 bit absolute address (3 bytes)
+  * Top bits are 11 when it's bits 63-43 of a 64 bit absolute address (3 bytes)
+  * Top bits are 10 when it's bits 42-21 of a 64 bit absolute address (3 bytes)
   * Top bits are 01 when it's a 22 bit offset from previous (3 bytes) (+- 0x40`0000, 4Mb)
   * Top bits are 00 when it's a 14 bit offset from previous (2 bytes) (+- 0x4000, 16Kb)
   * Potential improvement: 12 to 18 items in 40 bytes instead of 5 items
@@ -154,14 +491,19 @@ namespace packed_backtrace
   0000003d06e1ffe0 - 6 bytes
   00000000004009f9 - 6 bytes (26 bytes, 5 items, usually 40 bytes, 35% reduction)
   */
-  template <class FramePtrType> class packed_backtrace : public detail::packed_backtrace<FramePtrType, sizeof(FramePtrType)>
+  template <class FramePtrType = const void *> class packed_backtrace : public detail::packed_backtrace<FramePtrType, sizeof(FramePtrType)>
   {
     using base = detail::packed_backtrace<FramePtrType, sizeof(FramePtrType)>;
 
   public:
-    //! \brief Default constructor
+    //! \brief Construct a packed backtrace view, parsing the given byte storage
     explicit packed_backtrace(span::span<char> storage)
         : base(storage)
+    {
+    }
+    //! \brief Construct a packed backtrace view, not parsing the given byte storage
+    explicit packed_backtrace(span::span<char> storage, std::nullptr_t)
+        : base(storage, nullptr)
     {
     }
     //! \brief Default copy constructor
@@ -174,10 +516,10 @@ namespace packed_backtrace
     packed_backtrace &operator=(packed_backtrace &&) = default;
   };
 
-  //! \brief
+  //! \brief Pack a stack backtrace into byte storage \addtogroup packed_backtrace
   inline packed_backtrace<const void *> make_packed_backtrace(span::span<char> output, span::span<const void *> input)
   {
-    packed_backtrace<const void *> ret(output);
+    packed_backtrace<const void *> ret(output, nullptr);
     ret.assign(input);
     return ret;
   }
