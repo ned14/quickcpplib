@@ -35,7 +35,6 @@ Then this is the library you've been looking for! Designed for use as an **embed
 the parts needed.
 
 ## Commits and tags in this git repository can be verified using:
-<center>
 <pre>
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 Version: GnuPG v2
@@ -49,4 +48,3 @@ V8SjvX4r/deKniWctvCi5JccgfUwXkVzFAk=
 =puFk
 -----END PGP PUBLIC KEY BLOCK-----
 </pre>
-</center>
