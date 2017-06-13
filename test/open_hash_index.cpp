@@ -39,7 +39,7 @@ template <class OpenHashIndex> void do_test()
   OpenHashIndex cont;
   typename OpenHashIndex::iterator dit;
   BOOST_CHECK(cont.empty());
-  BOOST_CHECK(cont.size() == 0);
+  BOOST_CHECK(cont.size() == 0);  // NOLINT
   BOOST_CHECK(cont.begin() == cont.end());
   {
     auto it = cont.insert(std::make_pair(1, 78));
@@ -150,7 +150,7 @@ template <class OpenHashIndex> void do_test()
   {
     cont.erase(5);
     BOOST_CHECK(cont.empty());
-    BOOST_CHECK(cont.size() == 0);
+    BOOST_CHECK(cont.size() == 0);  // NOLINT
   }
 }
 
@@ -184,7 +184,9 @@ template <class OpenHashIndex> void do_threaded_test(const char *desc)
   OpenHashIndex cont;
   std::cout << "\nTesting " << desc << " under concurrency ..." << std::endl;
   for(size_t n = 0; n < 4096; n++)
+  {
     cont.insert(std::make_pair(input[n] >> 1, input[n]));
+  }
 
   std::vector<std::thread> threads;
   std::atomic<int> done(-int(std::thread::hardware_concurrency() + 1)), updates(0), finds(0);
@@ -193,7 +195,9 @@ template <class OpenHashIndex> void do_threaded_test(const char *desc)
     threads.push_back(std::thread([&, i] {
       ++done;
       while(done)
+      {
         std::this_thread::yield();
+      }
       while(!done)
       {
         for(size_t n = 0; n < ITEMS; n++)
@@ -201,15 +205,21 @@ template <class OpenHashIndex> void do_threaded_test(const char *desc)
           if(!i)
           {
             if(!(input[n] & 3))
+            {
               cont.erase(input[n] >> 1);
+            }
             else
+            {
               cont.insert(std::make_pair(input[n] >> 1, input[n]));
+            }
             ++updates;
           }
           else
           {
             if(cont.find(input[n] >> 1))
+            {
               ++finds;
+            }
           }
         }
       }
@@ -217,18 +227,24 @@ template <class OpenHashIndex> void do_threaded_test(const char *desc)
     }));
   }
   while(done < -1)
+  {
     std::this_thread::yield();
+  }
   ++done;
   auto begin = std::chrono::high_resolution_clock::now();
   std::this_thread::sleep_for(std::chrono::seconds(5));
   ++done;
   while(done < int(std::thread::hardware_concurrency() + 1))
+  {
     std::this_thread::yield();
+  }
   auto end = std::chrono::high_resolution_clock::now();
   auto diff = std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() / 1000000.0;
   for(auto &i : threads)
+  {
     i.join();
-  std::cout << "   I saw " << (unsigned long) (updates / diff) << " updates/sec and " << (unsigned long) (finds / diff) << " finds/sec" << std::endl;
+  }
+  std::cout << "   I saw " << (unsigned long) (updates / diff) << " updates/sec and " << (unsigned long) (finds / diff) << " finds/sec" << std::endl;  // NOLINT
 }
 
 BOOST_AUTO_TEST_CASE(open_hash_index / atomic_linear_memory_policy / works / concurrent / exclusive, "Tests that the open_hash_index<atomic_linear_memory_policy> works as advertised")
@@ -236,8 +252,10 @@ BOOST_AUTO_TEST_CASE(open_hash_index / atomic_linear_memory_policy / works / con
   using namespace QUICKCPPLIB_NAMESPACE::algorithm::open_hash_index;
   std::mt19937 randomness;
   std::cout << "\nPreparing randomness ..." << std::endl;
-  for(size_t n = 0; n < input.size(); n++)
-    input[n] = randomness() & 8191;
+  for(auto &i : input)
+  {
+    i = randomness() & 8191;
+  }
   do_threaded_test<basic_open_hash_index<atomic_linear_memory_policy<unsigned, unsigned>, array8192>>("basic_open_hash_index<atomic_linear_memory_policy, spinlock>");
 }
 
@@ -253,7 +271,9 @@ template <class MapType> void do_insert_erase_performance(MapType &cont, const c
   std::cout << "\nTesting map " << desc << " for single threaded insert/erase ..." << std::endl;
   // Fill a bit
   for(size_t n = 0; n < 4096; n++)
+  {
     cont.insert(std::make_pair(input[n] >> 1, input[n]));
+  }
   // Randomly add and remove values
   auto begin = std::chrono::high_resolution_clock::now();
   size_t i = 0;
@@ -262,14 +282,18 @@ template <class MapType> void do_insert_erase_performance(MapType &cont, const c
     for(size_t n = 0; n < ITEMS; n++)
     {
       if(input[n] & 1)
+      {
         cont.insert(std::make_pair(input[n] >> 1, input[n]));
+      }
       else
+      {
         cont.erase(input[n] >> 1);
+      }
     }
     ++i;
   } while(std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - begin).count() < 3);
   auto end = std::chrono::high_resolution_clock::now();
-  std::cout << "   Map " << desc << " performed " << (unsigned long long) (i * ITEMS * 1000000.0 / std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count()) << "/sec" << std::endl;
+  std::cout << "   Map " << desc << " performed " << (unsigned long long) (i * ITEMS * 1000000.0 / std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count()) << "/sec" << std::endl;  // NOLINT
 }
 
 template <class MapType> void do_find_performance(const MapType &cont, const char *desc)
@@ -282,12 +306,14 @@ template <class MapType> void do_find_performance(const MapType &cont, const cha
     for(size_t n = 0; n < ITEMS; n++)
     {
       if(cont.end() != cont.find(input[n] >> 1))
+      {
         ++found;
+      }
     }
     ++i;
   } while(std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - begin).count() < 3);
   auto end = std::chrono::high_resolution_clock::now();
-  std::cout << "   Map " << desc << " performed " << (unsigned long long) (i * ITEMS * 1000000.0 / std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count()) << "/sec. Items were found " << (100.0 * found / (i * ITEMS)) << "% of the time." << std::endl;
+  std::cout << "   Map " << desc << " performed " << (unsigned long long) (i * ITEMS * 1000000.0 / std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count()) << "/sec. Items were found " << (100.0 * found / (i * ITEMS)) << "% of the time." << std::endl;  // NOLINT
 }
 
 BOOST_AUTO_TEST_CASE(open_hash_index / linear_memory_policy / performance, "Tests that the open_hash_index<linear_memory_policy> is fast")

@@ -33,15 +33,19 @@ static simple_ringbuffer_log<> simple(level::all);
 extern "C" void test_function(bool backtrace)
 {
   if(backtrace)
+  {
     QUICKCPPLIB_RINGBUFFERLOG_ITEM_BACKTRACE(simple, level::warn, "test message", 3, 4);
+  }
   else
+  {
     QUICKCPPLIB_RINGBUFFERLOG_ITEM_FUNCTION(simple, level::fatal, "test message", 1, 2);
+  }
 }
 
 BOOST_AUTO_TEST_CASE(ringbuffer_log / simple / works, "Tests that the simple_ringbuffer_log works as advertised")
 {
   BOOST_CHECK(simple.empty());
-  BOOST_CHECK(simple.size() == 0);
+  BOOST_CHECK(simple.size() == 0);  // NOLINT
 
   test_function(false);
   BOOST_CHECK(!simple.empty());
@@ -72,15 +76,15 @@ BOOST_AUTO_TEST_CASE(ringbuffer_log / simple / works, "Tests that the simple_rin
     BOOST_CHECK(!strcmp(v.message, "test message"));
     BOOST_CHECK(v.code32[0] == 3);
     BOOST_CHECK(v.code32[1] == 4);
-    char **symbols = backtrace_symbols((void **) v.backtrace, sizeof(v.backtrace) / sizeof(v.backtrace[0]));
-    BOOST_REQUIRE(symbols);
-    BOOST_CHECK(symbols[0]);
+    char **symbols = backtrace_symbols((void **) v.backtrace, sizeof(v.backtrace) / sizeof(v.backtrace[0]));  // NOLINT
+    BOOST_REQUIRE(symbols != nullptr);                                                                        // NOLINT
+    BOOST_CHECK(symbols[0] != nullptr);                                                                       // NOLINT
     for(size_t n = 0; n < sizeof(v.backtrace) / sizeof(v.backtrace[0]); n++)
     {
-      if(symbols[n])
+      if(symbols[n] != nullptr)  // NOLINT
       {
-        BOOST_TEST_MESSAGE(symbols[n]);
-        std::cout << symbols[n] << std::endl;
+        BOOST_TEST_MESSAGE(symbols[n]);        // NOLINT
+        std::cout << symbols[n] << std::endl;  // NOLINT
       }
       else
       {
@@ -88,7 +92,7 @@ BOOST_AUTO_TEST_CASE(ringbuffer_log / simple / works, "Tests that the simple_rin
         std::cout << "null" << std::endl;
       }
     }
-    free(symbols);
+    free(symbols);  // NOLINT
   }
 
   std::cout << "\nDump of log:\n" << simple << std::endl;

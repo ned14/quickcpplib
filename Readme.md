@@ -30,7 +30,7 @@ Then this is the library you've been looking for! Designed for use as an **embed
 
 - [x] Get docs auto updating per commit
 - [x] Raise CDash dashboard
-- [ ] Write `class packed_backtrace`. Add testing.
+- [x] Write `class packed_backtrace`. Add testing.
 - [ ] Write script which can generate a Boost library from a quickcpplib library, copying just
 the parts needed.
 

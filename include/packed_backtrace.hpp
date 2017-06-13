@@ -35,7 +35,7 @@ QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace packed_backtrace
 {
-  namespace detail
+  namespace impl
   {
     template <class FramePtrType, size_t FrameTypeSize> class packed_backtrace
 #ifndef DOXYGEN_IS_IN_THE_HOUSE
@@ -110,6 +110,7 @@ namespace packed_backtrace
     {
       using storage_type = span::span<uint8_t>;
       static constexpr uintptr_t bits63_43 = ~((1ULL << 43) - 1);
+      static constexpr uintptr_t bit20 = (1ULL << 20);
       static constexpr uintptr_t bits20_0 = ((1ULL << 21) - 1);
       static constexpr uintptr_t bits42_21 = ~(bits63_43 | bits20_0);
       static constexpr uintptr_t bits42_0 = ((1ULL << 43) - 1);
@@ -119,12 +120,19 @@ namespace packed_backtrace
 
       template <size_t signbit> static intptr_t _sign_extend(uintptr_t x) noexcept
       {
+#if 1
+        const size_t m = (63 - signbit);
+        intptr_t v = static_cast<intptr_t>(x << m);
+        return v >> m;
+#else
         uintptr_t m = 1ULL << signbit;
         uintptr_t y = (x ^ m) - m;
         return static_cast<intptr_t>(y);
+#endif
       }
       bool _decode(uintptr_t &out, size_t &idx) const noexcept
       {
+        bool first = true;
         for(;;)
         {
           if(idx >= _storage.size())
@@ -147,8 +155,9 @@ namespace packed_backtrace
           {
             if(idx > _storage.size() - 3)  // 22 bit payload
               return false;
-            // Replace bits 42-21, zeroing 20-0, keeping bits 63-43
+            // Replace bits 42-21, setting bit 20, zeroing 19-0, keeping bits 63-43
             out &= bits63_43;
+            out |= bit20;
             out |= ((uintptr_t)(t & 0x3f) << 37);
             out |= (uintptr_t) _storage[idx++] << 29;
             out |= (uintptr_t) _storage[idx++] << 21;
@@ -169,7 +178,7 @@ namespace packed_backtrace
           {
             if(idx > _storage.size() - 2)  // 14 bit payload
               return false;
-            if(!t)
+            if(first && !t)
             {
               // If he's all bits zero from now until end of storage, we are done
               bool done = true;
@@ -191,6 +200,7 @@ namespace packed_backtrace
             return true;
           }
           }
+          first = false;
         }
       }
       size_t _decode_count() const noexcept
@@ -358,7 +368,7 @@ namespace packed_backtrace
         return reinterpret_cast<value_type>(out);
       }
       //! Returns the specified element, checked.
-      value_type at(size_type idx) const
+      value_type at(size_type i) const
       {
         uintptr_t out = 0;
         size_t idx = 0;
@@ -412,9 +422,10 @@ namespace packed_backtrace
             _storage[idx++] = (delta >> 29) & 0xff;
             _storage[idx++] = (delta >> 21) & 0xff;
             out &= bits63_43;
+            out |= bit20;
             out |= delta;
           }
-          if(i - out >= (1 << 14) && out - i >= (1 << 14))
+          if(i - out >= (1 << 13) && out - i >= (1 << 13))
           {
             if(idx > _storage.size() - 3)
             {
@@ -428,7 +439,7 @@ namespace packed_backtrace
             _storage[idx++] = (delta >> 0) & 0xff;
             out = i;
           }
-          if(i != out)
+          else
           {
             if(idx > _storage.size() - 2)
             {
@@ -462,15 +473,21 @@ namespace packed_backtrace
   On 32 bit architectures this class simply stores the stack normally, but otherwise
   works the same.
 
+  Performance:
+  - GCC 7.1 on x64 3.1Ghz Skylake: Can construct and read 106188139 packed stacktraces/sec
+  -  VS2017 on x64 3.1Ghz Skylake: Can construct and read  79755133 packed stacktraces/sec
+
   The 64-bit coding scheme is quite straightforward:
 
-  * Top bits are 11 when it's bits 63-43 of a 64 bit absolute address (3 bytes)
-  * Top bits are 10 when it's bits 42-21 of a 64 bit absolute address (3 bytes)
-  * Top bits are 01 when it's a 22 bit offset from previous (3 bytes) (+- 0x40`0000, 4Mb)
-  * Top bits are 00 when it's a 14 bit offset from previous (2 bytes) (+- 0x4000, 16Kb)
-  * Potential improvement: 12 to 18 items in 40 bytes instead of 5 items
+  - Top bits are 11 when it's bits 63-43 of a 64 bit absolute address (3 bytes)
+  - Top bits are 10 when it's bits 42-21 of a 64 bit absolute address (3 bytes)
+    - Note that this resets bits 20-0 to 0x100000 (bit 20 set, bits 19-0 cleared)
+  - Top bits are 01 when it's a 22 bit offset from previous (3 bytes) (+- 0x40`0000, 4Mb)
+  - Top bits are 00 when it's a 14 bit offset from previous (2 bytes) (+- 0x4000, 16Kb)
+  - Potential improvement: 12 to 18 items in 40 bytes instead of 5 items
 
   Sample 1:
+  ~~~
   0000`07fe`fd4e`10ac - 6 bytes
   0000`07fe`f48b`ffc7 - 3 bytes
   0000`07fe`f48b`ff70 - 2 bytes
@@ -483,17 +500,20 @@ namespace packed_backtrace
   0000`07fe`f071`11b5 - 2 bytes
   0000`07ff`0015`0acf - 6 bytes
   0000`07ff`0015`098c - 2 bytes (40 bytes, 12 items, usually 96 bytes, 58% reduction)
+  ~~~
 
   Sample 2:
+  ~~~
   0000003d06e34950 - 6 bytes
   0000000000400bcd - 6 bytes
   0000000000400bf5 - 2 bytes
   0000003d06e1ffe0 - 6 bytes
   00000000004009f9 - 6 bytes (26 bytes, 5 items, usually 40 bytes, 35% reduction)
+  ~~~
   */
-  template <class FramePtrType = const void *> class packed_backtrace : public detail::packed_backtrace<FramePtrType, sizeof(FramePtrType)>
+  template <class FramePtrType = const void *> class packed_backtrace : public impl::packed_backtrace<FramePtrType, sizeof(FramePtrType)>
   {
-    using base = detail::packed_backtrace<FramePtrType, sizeof(FramePtrType)>;
+    using base = impl::packed_backtrace<FramePtrType, sizeof(FramePtrType)>;
 
   public:
     //! \brief Construct a packed backtrace view, parsing the given byte storage

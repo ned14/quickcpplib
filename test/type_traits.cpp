@@ -38,12 +38,12 @@ BOOST_AUTO_TEST_CASE(works / type_traits, "Tests that the type traits work as in
   static_assert(is_sequence<std::array<char, 2>>::value, "");
   static_assert(is_sequence<std::initializer_list<char>>::value, "");
   static_assert(is_sequence<std::vector<char>>::value, "");
-  struct Foo
+  struct Foo  // NOLINT
   {
     Foo() = delete;
-    Foo(int) {}
-    Foo(const Foo &) = delete;
-    Foo(Foo &&) {}
+    explicit Foo(int /*unused*/) {}
+    Foo(const Foo & /*unused*/) = delete;
+    Foo(Foo && /*unused*/) noexcept {}
   };
   static_assert(!is_sequence<Foo>::value, "");
   static_assert(is_sequence<std::vector<Foo>>::value, "");

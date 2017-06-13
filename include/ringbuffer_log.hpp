@@ -116,7 +116,7 @@ namespace ringbuffer_log
       }
 
     public:
-      value_type() { memset(this, 0, sizeof(*this)); }
+      value_type() noexcept { memset(this, 0, sizeof(*this)); }
       value_type(level_ _level, const char *_message, uint32_t _code1, uint32_t _code2, const char *_function = nullptr, unsigned lineno = 0)
           : counter((size_t) -1)
           , timestamp(std::chrono::duration_cast<std::chrono::nanoseconds>((_first_item(), std::chrono::high_resolution_clock::now() - _first_item())).count())
@@ -511,7 +511,7 @@ namespace ringbuffer_log
   public:
     //! Default construction, passes through args to container_type
     template <class... Args>
-    ringbuffer_log(level starting_level, Args &&... args)
+    explicit ringbuffer_log(level starting_level, Args &&... args) noexcept(noexcept(container_type(std::forward<Args>(args)...)))
         : _store(std::forward<Args>(args)...)
         , _level(starting_level)
         , _counter(0)
