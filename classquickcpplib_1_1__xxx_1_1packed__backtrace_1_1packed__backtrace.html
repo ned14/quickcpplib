@@ -259,11 +259,49 @@ class quickcpplib::_xxx::packed_backtrace::packed_backtrace&lt; FramePtrType &gt
 <p>A space packed stack backtrace letting you store twice or more stack frames in the same space. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">FramePtrType</td><td>The type each stack backtrace frame ought to be represented as. </td></tr>
+    <tr><td class="paramname">FramePtrType</td><td>The type each stack backtrace frame ought to be represented as.</td></tr>
   </table>
   </dd>
 </dl>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
+<dl class="section note"><dt>Note</dt><dd>Use <code>make_packed_backtrace()</code> to create one of these from a raw backtrace. Construct an instance on a byte span to load in the packed data so you can parse it.</dd></dl>
+<p>64 bit address stack backtraces tend to waste a lot of storage which can be a problem when storing lengthy backtraces. Most 64 bit architectures only use the first 43 bits of address space wasting 2.5 bytes per entry, plus stack backtraces tend to be within a few megabytes and even kilobytes from one another. Intelligently packing the bits based on this knowledge can double or more the number of items you can store for a given number of bytes with virtually no runtime overhead, unlike compression.</p>
+<p>On 32 bit architectures this class simply stores the stack normally, but otherwise works the same.</p>
+<p>Performance:</p>
+<ul>
+<li>GCC 7.1 on x64 3.1Ghz Skylake: Can construct and read 106188139 packed stacktraces/sec</li>
+<li>VS2017 on x64 3.1Ghz Skylake: Can construct and read 79755133 packed stacktraces/sec</li>
+</ul>
+<p>The 64-bit coding scheme is quite straightforward:</p>
+<ul>
+<li>Top bits are 11 when it's bits 63-43 of a 64 bit absolute address (3 bytes)</li>
+<li>Top bits are 10 when it's bits 42-21 of a 64 bit absolute address (3 bytes)<ul>
+<li>Note that this resets bits 20-0 to 0x100000 (bit 20 set, bits 19-0 cleared)</li>
+</ul>
+</li>
+<li>Top bits are 01 when it's a 22 bit offset from previous (3 bytes) (+- 0x40`0000, 4Mb)</li>
+<li>Top bits are 00 when it's a 14 bit offset from previous (2 bytes) (+- 0x4000, 16Kb)</li>
+<li>Potential improvement: 12 to 18 items in 40 bytes instead of 5 items</li>
+</ul>
+<p>Sample 1: </p>
+<div class="fragment"><div class="line">0000`07fe`fd4e`10ac - 6 bytes</div>
+<div class="line">0000`07fe`f48b`ffc7 - 3 bytes</div>
+<div class="line">0000`07fe`f48b`ff70 - 2 bytes</div>
+<div class="line">0000`07fe`f48b`fe23 - 2 bytes</div>
+<div class="line">0000`07fe`f48d`51d8 - 3 bytes</div>
+<div class="line">0000`07fe`f499`5249 - 3 bytes</div>
+<div class="line">0000`07fe`f48a`ef28 - 3 bytes</div>
+<div class="line">0000`07fe`f48a`ecc9 - 2 bytes</div>
+<div class="line">0000`07fe`f071`244c - 6 bytes</div>
+<div class="line">0000`07fe`f071`11b5 - 2 bytes</div>
+<div class="line">0000`07ff`0015`0acf - 6 bytes</div>
+<div class="line">0000`07ff`0015`098c - 2 bytes (40 bytes, 12 items, usually 96 bytes, 58% reduction)</div>
+</div><!-- fragment --><p>Sample 2: </p>
+<div class="fragment"><div class="line">0000003d06e34950 - 6 bytes</div>
+<div class="line">0000000000400bcd - 6 bytes</div>
+<div class="line">0000000000400bf5 - 2 bytes</div>
+<div class="line">0000003d06e1ffe0 - 6 bytes</div>
+<div class="line">00000000004009f9 - 6 bytes (26 bytes, 5 items, usually 40 bytes, 35% reduction)</div>
+</div><!-- fragment --> </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/packed_backtrace.hpp</li>
 </ul>
 </div><!-- contents -->

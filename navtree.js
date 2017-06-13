@@ -30,7 +30,7 @@ var NAVTREEINDEX =
 ".html",
 "classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_1_1iterator__.html#ac7a12598998b0aa9cb19164f5b315a24",
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html#aef1876b671b3ff262fa295ddf13a8a95",
-"structquickcpplib_1_1__xxx_1_1bitfield_1_1bitfield.html#ad0a36ad5caa5d1087ed3a6bfc89f143c"
+"structquickcpplib_1_1__xxx_1_1bitfield_1_1bitfield.html#af55d7145f3655da1f570c718bc0b2836"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

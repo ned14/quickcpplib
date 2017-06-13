@@ -11,7 +11,6 @@ var NAVTREEINDEX2 =
 "functions_func.html":[3,3,1],
 "functions_type.html":[3,3,3],
 "functions_vars.html":[3,3,2],
-"group__packed__backtrace.html":[1,2],
 "group__tribool.html":[1,0],
 "group__tribool.html#ga133f2e8532508c1bca4fdb8d5a7a8043":[1,0,1],
 "group__tribool.html#ga3a27f51c49cf7e53e07eadee5317aa0d":[1,0,8],
@@ -36,8 +35,8 @@ var NAVTREEINDEX2 =
 "modules.html":[1],
 "namespacequickcpplib.html":[2,0,0],
 "namespacequickcpplib.html":[3,0,1],
-"namespacequickcpplib_1_1__xxx.html":[2,0,0,0],
 "namespacequickcpplib_1_1__xxx.html":[3,0,1,0],
+"namespacequickcpplib_1_1__xxx.html":[2,0,0,0],
 "namespaces.html":[2,0],
 "pages.html":[],
 "spinlock_8hpp.html":[4,0,0,0],
@@ -249,5 +248,6 @@ var NAVTREEINDEX2 =
 "structquickcpplib_1_1__xxx_1_1bitfield_1_1bitfield.html#aaf5c8180d562b48bdb4f5f2b566e20d7":[3,0,1,0,3,0,5],
 "structquickcpplib_1_1__xxx_1_1bitfield_1_1bitfield.html#ab8e86701e721d60c2f427daa71fb77c0":[3,0,1,0,3,0,15],
 "structquickcpplib_1_1__xxx_1_1bitfield_1_1bitfield.html#abcfb05ee6142eb1095bc86a68c3c3923":[3,0,1,0,3,0,8],
-"structquickcpplib_1_1__xxx_1_1bitfield_1_1bitfield.html#abda6133b33b8bdcb1cb33e0a4262185b":[3,0,1,0,3,0,19]
+"structquickcpplib_1_1__xxx_1_1bitfield_1_1bitfield.html#abda6133b33b8bdcb1cb33e0a4262185b":[3,0,1,0,3,0,19],
+"structquickcpplib_1_1__xxx_1_1bitfield_1_1bitfield.html#ad0a36ad5caa5d1087ed3a6bfc89f143c":[3,0,1,0,3,0,24]
 };

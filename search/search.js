@@ -16,7 +16,7 @@ var indexSectionsWithContent =
   6: "cdeikmprstuv",
   7: "tv",
   8: "cfhiotu",
-  9: "cpu",
+  9: "cu",
   10: "t"
 };
 
