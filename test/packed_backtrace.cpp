@@ -85,7 +85,7 @@ BOOST_AUTO_TEST_CASE(packed_backtrace / random, "Tests that the packed_backtrace
       _bt[n] = rand();  // NOLINT
     }
     test_sample(QUICKCPPLIB_NAMESPACE::packed_backtrace::make_packed_backtrace(buffer, bt), bt);
-  } while(std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now() - begin).count() < 60);
+  } while(std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now() - begin).count() < 5);
 }
 
 BOOST_AUTO_TEST_CASE(packed_backtrace / benchmark, "Tests that the packed_backtrace has reasonable performance")

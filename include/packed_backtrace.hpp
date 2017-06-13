@@ -461,7 +461,9 @@ namespace packed_backtrace
   \brief A space packed stack backtrace letting you store twice or more
   stack frames in the same space.
   \tparam FramePtrType The type each stack backtrace frame ought to be represented as.
-  \addtogroup packed_backtrace
+
+  \note Use `make_packed_backtrace()` to create one of these from a raw backtrace.
+  Construct an instance on a byte span to load in the packed data so you can parse it.
 
   64 bit address stack backtraces tend to waste a lot of storage which can be a problem
   when storing lengthy backtraces. Most 64 bit architectures only use the first 43 bits
@@ -536,7 +538,7 @@ namespace packed_backtrace
     packed_backtrace &operator=(packed_backtrace &&) = default;
   };
 
-  //! \brief Pack a stack backtrace into byte storage \addtogroup packed_backtrace
+  //! \brief Pack a stack backtrace into byte storage
   inline packed_backtrace<const void *> make_packed_backtrace(span::span<char> output, span::span<const void *> input)
   {
     packed_backtrace<const void *> ret(output, nullptr);
