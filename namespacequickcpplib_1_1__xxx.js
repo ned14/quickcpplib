@@ -29,6 +29,9 @@ var namespacequickcpplib_1_1__xxx =
       [ "bitfield", "structquickcpplib_1_1__xxx_1_1bitfield_1_1bitfield.html", "structquickcpplib_1_1__xxx_1_1bitfield_1_1bitfield" ]
     ] ],
     [ "packed_backtrace", null, [
+      [ "impl", null, [
+        [ "packed_backtrace", "classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html", "classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace" ]
+      ] ],
       [ "packed_backtrace", "classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace.html", "classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace" ]
     ] ],
     [ "ringbuffer_log", null, [

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>QuickCppLib: quickcpplib::_xxx::packed_backtrace::packed_backtrace&lt; FramePtrType &gt; Class Template Reference</title>
+<title>QuickCppLib: quickcpplib::_xxx::packed_backtrace::impl::packed_backtrace&lt; FramePtrType, FrameTypeSize &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -89,7 +89,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace.html','');});
+$(document).ready(function(){initNavTree('classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -108,28 +108,23 @@ $(document).ready(function(){initNavTree('classquickcpplib_1_1__xxx_1_1packed__b
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace-members.html">List of all members</a>  </div>
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
+<a href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">quickcpplib::_xxx::packed_backtrace::packed_backtrace&lt; FramePtrType &gt; Class Template Reference</div>  </div>
+<div class="title">quickcpplib::_xxx::packed_backtrace::impl::packed_backtrace&lt; FramePtrType, FrameTypeSize &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>A space packed stack backtrace letting you store twice or more stack frames in the same space.  
- <a href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace.html#details">More...</a></p>
-
-<p><code>#include &quot;packed_backtrace.hpp&quot;</code></p>
-<div class="dynheader">
-Inheritance diagram for quickcpplib::_xxx::packed_backtrace::packed_backtrace&lt; FramePtrType &gt;:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace.png" usemap="#quickcpplib::_xxx::packed_backtrace::packed_backtrace&lt; FramePtrType &gt;_map" alt=""/>
-  <map id="quickcpplib::_xxx::packed_backtrace::packed_backtrace&lt; FramePtrType &gt;_map" name="quickcpplib::_xxx::packed_backtrace::packed_backtrace&lt; FramePtrType &gt;_map">
-<area href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html" alt="quickcpplib::_xxx::packed_backtrace::impl::packed_backtrace&lt; FramePtrType, sizeof(FramePtrType)&gt;" shape="rect" coords="0,0,583,24"/>
-</map>
- </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace_1_1iterator.html">iterator</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The iterator type.  <a href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace_1_1iterator.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:a925cf98dd0b49a8a964bbf020d13a6ec"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a925cf98dd0b49a8a964bbf020d13a6ec"></a>
@@ -161,11 +156,11 @@ using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
 <tr class="memdesc:ad2272f8f7643637144b4057bcd509368"><td class="mdescLeft">&#160;</td><td class="mdescRight">The const pointer type. <br/></td></tr>
 <tr class="separator:ad2272f8f7643637144b4057bcd509368"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f2f2c76e509c296862481dac426c8a0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4f2f2c76e509c296862481dac426c8a0"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a4f2f2c76e509c296862481dac426c8a0">const_iterator</a> = iterator</td></tr>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a4f2f2c76e509c296862481dac426c8a0">const_iterator</a> = <a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace_1_1iterator.html">iterator</a></td></tr>
 <tr class="memdesc:a4f2f2c76e509c296862481dac426c8a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The const iterator type. <br/></td></tr>
 <tr class="separator:a4f2f2c76e509c296862481dac426c8a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c1d812072644eed41b0b38af0180148"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6c1d812072644eed41b0b38af0180148"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a6c1d812072644eed41b0b38af0180148">reverse_iterator</a> = std::reverse_iterator&lt; iterator &gt;</td></tr>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a6c1d812072644eed41b0b38af0180148">reverse_iterator</a> = std::reverse_iterator&lt; <a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace_1_1iterator.html">iterator</a> &gt;</td></tr>
 <tr class="memdesc:a6c1d812072644eed41b0b38af0180148"><td class="mdescLeft">&#160;</td><td class="mdescRight">The reverse iterator type. <br/></td></tr>
 <tr class="separator:a6c1d812072644eed41b0b38af0180148"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a766ebd4c0aa2c6c74f858da5c7039423"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a766ebd4c0aa2c6c74f858da5c7039423"></a>
@@ -175,30 +170,6 @@ using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad5b026331766b5b2b4ca78fc165b2c26"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad5b026331766b5b2b4ca78fc165b2c26"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace.html#ad5b026331766b5b2b4ca78fc165b2c26">packed_backtrace</a> (<a class="el" href="classgsl_1_1span.html">span::span</a>&lt; char &gt; storage)</td></tr>
-<tr class="memdesc:ad5b026331766b5b2b4ca78fc165b2c26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a packed backtrace view, parsing the given byte storage. <br/></td></tr>
-<tr class="separator:ad5b026331766b5b2b4ca78fc165b2c26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b79ff6424f8a5bedb53c7b0fd5665b0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6b79ff6424f8a5bedb53c7b0fd5665b0"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace.html#a6b79ff6424f8a5bedb53c7b0fd5665b0">packed_backtrace</a> (<a class="el" href="classgsl_1_1span.html">span::span</a>&lt; char &gt; storage, std::nullptr_t)</td></tr>
-<tr class="memdesc:a6b79ff6424f8a5bedb53c7b0fd5665b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a packed backtrace view, not parsing the given byte storage. <br/></td></tr>
-<tr class="separator:a6b79ff6424f8a5bedb53c7b0fd5665b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c8fccb9e863fc57b0fc73d296c222b7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9c8fccb9e863fc57b0fc73d296c222b7"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace.html#a9c8fccb9e863fc57b0fc73d296c222b7">packed_backtrace</a> (const <a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace.html">packed_backtrace</a> &amp;)=default</td></tr>
-<tr class="memdesc:a9c8fccb9e863fc57b0fc73d296c222b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default copy constructor. <br/></td></tr>
-<tr class="separator:a9c8fccb9e863fc57b0fc73d296c222b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4d66da5ee642f87b0f40d7f98bdb671"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab4d66da5ee642f87b0f40d7f98bdb671"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace.html#ab4d66da5ee642f87b0f40d7f98bdb671">packed_backtrace</a> (<a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace.html">packed_backtrace</a> &amp;&amp;)=default</td></tr>
-<tr class="memdesc:ab4d66da5ee642f87b0f40d7f98bdb671"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default move constructor. <br/></td></tr>
-<tr class="separator:ab4d66da5ee642f87b0f40d7f98bdb671"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1eb6c0cff506608df6ee0f2f5bb3d21c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1eb6c0cff506608df6ee0f2f5bb3d21c"></a>
-<a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace.html">packed_backtrace</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace.html#a1eb6c0cff506608df6ee0f2f5bb3d21c">operator=</a> (const <a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace.html">packed_backtrace</a> &amp;)=default</td></tr>
-<tr class="memdesc:a1eb6c0cff506608df6ee0f2f5bb3d21c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default copy assignment. <br/></td></tr>
-<tr class="separator:a1eb6c0cff506608df6ee0f2f5bb3d21c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc9b6ace98b1486e9cc8924e57f64c4c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abc9b6ace98b1486e9cc8924e57f64c4c"></a>
-<a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace.html">packed_backtrace</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace.html#abc9b6ace98b1486e9cc8924e57f64c4c">operator=</a> (<a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace.html">packed_backtrace</a> &amp;&amp;)=default</td></tr>
-<tr class="memdesc:abc9b6ace98b1486e9cc8924e57f64c4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default move assignment. <br/></td></tr>
-<tr class="separator:abc9b6ace98b1486e9cc8924e57f64c4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a303f286cb8c0ab0c383c67f8fc83ff38"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a303f286cb8c0ab0c383c67f8fc83ff38"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a303f286cb8c0ab0c383c67f8fc83ff38">empty</a> () const noexcept</td></tr>
 <tr class="memdesc:a303f286cb8c0ab0c383c67f8fc83ff38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the index is empty. <br/></td></tr>
@@ -212,7 +183,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memdesc:a83ae7be04f5f555addf1b0f204c4f87d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the maximum number of items in the backtrace. <br/></td></tr>
 <tr class="separator:a83ae7be04f5f555addf1b0f204c4f87d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae2132c848add43f3d845b7dc020c181c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae2132c848add43f3d845b7dc020c181c"></a>
-iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#ae2132c848add43f3d845b7dc020c181c">begin</a> () noexcept</td></tr>
+<a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#ae2132c848add43f3d845b7dc020c181c">begin</a> () noexcept</td></tr>
 <tr class="memdesc:ae2132c848add43f3d845b7dc020c181c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an iterator to the first item in the backtrace. <br/></td></tr>
 <tr class="separator:ae2132c848add43f3d845b7dc020c181c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f6b6b9f29c2ed1d1e0156a4e4ceaa2d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8f6b6b9f29c2ed1d1e0156a4e4ceaa2d"></a>
@@ -224,7 +195,7 @@ iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 <tr class="memdesc:ad01afeb57e0889112f45e5a4748d181f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an iterator to the first item in the backtrace. <br/></td></tr>
 <tr class="separator:ad01afeb57e0889112f45e5a4748d181f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adcd39768c8ed13b5d6aef9dbde860539"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adcd39768c8ed13b5d6aef9dbde860539"></a>
-iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#adcd39768c8ed13b5d6aef9dbde860539">end</a> () noexcept</td></tr>
+<a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#adcd39768c8ed13b5d6aef9dbde860539">end</a> () noexcept</td></tr>
 <tr class="memdesc:adcd39768c8ed13b5d6aef9dbde860539"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an iterator to the item after the last in the backtrace. <br/></td></tr>
 <tr class="separator:adcd39768c8ed13b5d6aef9dbde860539"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4dbee8593d307d3c62e22c99157ec61b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4dbee8593d307d3c62e22c99157ec61b"></a>
@@ -240,30 +211,34 @@ iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 <tr class="memdesc:a780215ba3b55f9945d800fe4eb641c2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the specified element, unchecked. <br/></td></tr>
 <tr class="separator:a780215ba3b55f9945d800fe4eb641c2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb471505f5cd7b79d304f245ddb6839e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adb471505f5cd7b79d304f245ddb6839e"></a>
-<a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a925cf98dd0b49a8a964bbf020d13a6ec">value_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#adb471505f5cd7b79d304f245ddb6839e">at</a> (<a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a0991d598e0e0336d330af370eabfe592">size_type</a> i) const</td></tr>
+<a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a925cf98dd0b49a8a964bbf020d13a6ec">value_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#adb471505f5cd7b79d304f245ddb6839e">at</a> (<a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a0991d598e0e0336d330af370eabfe592">size_type</a> i) const </td></tr>
 <tr class="memdesc:adb471505f5cd7b79d304f245ddb6839e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the specified element, checked. <br/></td></tr>
 <tr class="separator:adb471505f5cd7b79d304f245ddb6839e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c0435c485ba2a3d9b8beb10d9661a24"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2c0435c485ba2a3d9b8beb10d9661a24"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a2c0435c485ba2a3d9b8beb10d9661a24">swap</a> (<a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace.html">packed_backtrace</a> &amp;o) noexcept</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a2c0435c485ba2a3d9b8beb10d9661a24">swap</a> (<a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html">packed_backtrace</a> &amp;o) noexcept</td></tr>
 <tr class="memdesc:a2c0435c485ba2a3d9b8beb10d9661a24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swaps with another instance. <br/></td></tr>
 <tr class="separator:a2c0435c485ba2a3d9b8beb10d9661a24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d8f76798fb4041651d097363ce68f63"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0d8f76798fb4041651d097363ce68f63"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a0d8f76798fb4041651d097363ce68f63">assign</a> (<a class="el" href="classgsl_1_1span.html">span::span</a>&lt; <a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a925cf98dd0b49a8a964bbf020d13a6ec">value_type</a> &gt; input) noexcept</td></tr>
 <tr class="memdesc:a0d8f76798fb4041651d097363ce68f63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns a raw stack backtrace to the packed storage. <br/></td></tr>
 <tr class="separator:a0d8f76798fb4041651d097363ce68f63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a515b1b7703c4f5adf20931705803ba94"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a515b1b7703c4f5adf20931705803ba94"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>packed_backtrace</b> (<a class="el" href="classgsl_1_1span.html">span::span</a>&lt; char &gt; storage)</td></tr>
+<tr class="separator:a515b1b7703c4f5adf20931705803ba94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44ac0a2959fb3c4373719b784c928568"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a44ac0a2959fb3c4373719b784c928568"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>packed_backtrace</b> (<a class="el" href="classgsl_1_1span.html">span::span</a>&lt; char &gt; storage, std::nullptr_t)</td></tr>
+<tr class="separator:a44ac0a2959fb3c4373719b784c928568"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a67171474c4da6cc8efe0c7fafefd2b2d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a67171474c4da6cc8efe0c7fafefd2b2d"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>iterator</b></td></tr>
+<tr class="separator:a67171474c4da6cc8efe0c7fafefd2b2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;class FramePtrType = const void *&gt;<br/>
-class quickcpplib::_xxx::packed_backtrace::packed_backtrace&lt; FramePtrType &gt;</h3>
-
-<p>A space packed stack backtrace letting you store twice or more stack frames in the same space. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">FramePtrType</td><td>The type each stack backtrace frame ought to be represented as. </td></tr>
-  </table>
-  </dd>
-</dl>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/packed_backtrace.hpp</li>
 </ul>
 </div><!-- contents -->
@@ -271,7 +246,7 @@ class quickcpplib::_xxx::packed_backtrace::packed_backtrace&lt; FramePtrType &gt
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespacequickcpplib.html">quickcpplib</a></li><li class="navelem"><a class="el" href="namespacequickcpplib_1_1__xxx.html">_xxx</a></li><li class="navelem"><b>packed_backtrace</b></li><li class="navelem"><a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace.html">packed_backtrace</a></li>
+    <li class="navelem"><a class="el" href="namespacequickcpplib.html">quickcpplib</a></li><li class="navelem"><a class="el" href="namespacequickcpplib_1_1__xxx.html">_xxx</a></li><li class="navelem"><b>packed_backtrace</b></li><li class="navelem"><b>impl</b></li><li class="navelem"><a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html">packed_backtrace</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>

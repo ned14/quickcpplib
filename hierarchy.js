@@ -40,6 +40,7 @@ var hierarchy =
     [ "quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy< KeyType, T, LinearSearchLimit, LockType, KeyModulus, KeyCompare >::items_count_type", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1items__count__type.html", null ],
     [ "iterator", null, [
       [ "quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index< Policy, ContiguousContainerType, disable_existing_key_check >::iterator_< is_const, Parent, Pointer, Reference >", "classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_1_1iterator__.html", null ],
+      [ "quickcpplib::_xxx::packed_backtrace::impl::packed_backtrace< FramePtrType, FrameTypeSize >::iterator", "classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace_1_1iterator.html", null ],
       [ "quickcpplib::_xxx::ringbuffer_log::ringbuffer_log< Policy >::iterator_< Parent, Pointer, Reference >", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html", null ]
     ] ],
     [ "quickcpplib::_xxx::algorithm::open_hash_index::linear_memory_policy< KeyType, T, LinearSearchLimit, KeyModulus, KeyCompare >", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy.html", null ],
@@ -49,7 +50,8 @@ var hierarchy =
     [ "quickcpplib::_xxx::configurable_spinlock::null_spin_policy", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1null__spin__policy.html", null ],
     [ "quickcpplib::_xxx::configurable_spinlock::ordered_spinlockbase< T >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase.html", null ],
     [ "gsl::owner< T >", "structgsl_1_1owner.html", null ],
-    [ "quickcpplib::_xxx::packed_backtrace::detail::packed_backtrace< FramePtrType, sizeof(FramePtrType)>", null, [
+    [ "quickcpplib::_xxx::packed_backtrace::impl::packed_backtrace< FramePtrType, FrameTypeSize >", "classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html", null ],
+    [ "quickcpplib::_xxx::packed_backtrace::impl::packed_backtrace< FramePtrType, sizeof(FramePtrType)>", "classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html", [
       [ "quickcpplib::_xxx::packed_backtrace::packed_backtrace< FramePtrType >", "classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace.html", null ]
     ] ],
     [ "parenttype", null, [
@@ -61,8 +63,8 @@ var hierarchy =
     [ "quickcpplib::_xxx::algorithm::hash::passthru_hash< T >", "structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1passthru__hash.html", null ],
     [ "quickcpplib::_xxx::print_type< T >", "structquickcpplib_1_1__xxx_1_1print__type.html", null ],
     [ "quickcpplib::_xxx::aligned_allocator::aligned_allocator< T, Align, initialize >::rebind< U >", "structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_1_1rebind.html", null ],
-    [ "quickcpplib::_xxx::aligned_allocator::aligned_allocator< const T, Align, initialize >::rebind< U >", "structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_alig38b3ce2fde59753f89f79b36dfe20c65.html", null ],
     [ "quickcpplib::_xxx::allocator_testing::allocator< T, A >::rebind< U >", "structquickcpplib_1_1__xxx_1_1allocator__testing_1_1allocator_1_1rebind.html", null ],
+    [ "quickcpplib::_xxx::aligned_allocator::aligned_allocator< const T, Align, initialize >::rebind< U >", "structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_alig38b3ce2fde59753f89f79b36dfe20c65.html", null ],
     [ "quickcpplib::_xxx::unit_test::requirement_failed", "structquickcpplib_1_1__xxx_1_1unit__test_1_1requirement__failed.html", null ],
     [ "quickcpplib::_xxx::ringbuffer_log::ringbuffer_log< Policy >", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html", null ],
     [ "quickcpplib::_xxx::algorithm::secdec_ecc::secded_ecc< blocksize >", "classquickcpplib_1_1__xxx_1_1algorithm_1_1secdec__ecc_1_1secded__ecc.html", null ],
@@ -70,6 +72,7 @@ var hierarchy =
     [ "quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy< Bytes >", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy.html", null ],
     [ "quickcpplib::_xxx::algorithm::small_prng::small_prng", "classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html", null ],
     [ "gsl::span< T >", "classgsl_1_1span.html", null ],
+    [ "gsl::span< uint8_t >", "classgsl_1_1span.html", null ],
     [ "quickcpplib::_xxx::configurable_spinlock::spinlockbase< T >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase.html", null ],
     [ "quickcpplib::_xxx::configurable_spinlock::spinlockbase< lockable_ptr< T > >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4.html", null ],
     [ "spinpolicy4", null, [
@@ -98,14 +101,14 @@ var hierarchy =
       [ "quickcpplib::_xxx::aggregate_tuple::tuple_element< N, std::tuple< Args...> >", "structquickcpplib_1_1__xxx_1_1aggregate__tuple_1_1tuple__element_3_01_n_00_01std_1_1tuple_3_01_args_8_8_8_4_01_4.html", null ],
       [ "quickcpplib::_xxx::aggregate_tuple::tuple_element< N, tuple< Args...> >", "structquickcpplib_1_1__xxx_1_1aggregate__tuple_1_1tuple__element_3_01_n_00_01tuple_3_01_args_8_8_8_4_01_4.html", null ]
     ] ],
-    [ "tuple_size", null, [
-      [ "quickcpplib::_xxx::aggregate_tuple::tuple_size< std::tuple< Args...> >", "structquickcpplib_1_1__xxx_1_1aggregate__tuple_1_1tuple__size_3_01std_1_1tuple_3_01_args_8_8_8_4_01_4.html", null ],
-      [ "quickcpplib::_xxx::aggregate_tuple::tuple_size< tuple< Args...> >", "structquickcpplib_1_1__xxx_1_1aggregate__tuple_1_1tuple__size_3_01tuple_3_01_args_8_8_8_4_01_4.html", null ]
-    ] ],
     [ "quickcpplib::_xxx::aggregate_tuple::tuple_size< T >", "structquickcpplib_1_1__xxx_1_1aggregate__tuple_1_1tuple__size.html", [
       [ "quickcpplib::_xxx::aggregate_tuple::tuple_size< const T >", "structquickcpplib_1_1__xxx_1_1aggregate__tuple_1_1tuple__size_3_01const_01_t_01_4.html", null ],
       [ "quickcpplib::_xxx::aggregate_tuple::tuple_size< const volatile T >", "structquickcpplib_1_1__xxx_1_1aggregate__tuple_1_1tuple__size_3_01const_01volatile_01_t_01_4.html", null ],
       [ "quickcpplib::_xxx::aggregate_tuple::tuple_size< volatile T >", "structquickcpplib_1_1__xxx_1_1aggregate__tuple_1_1tuple__size_3_01volatile_01_t_01_4.html", null ]
+    ] ],
+    [ "tuple_size", null, [
+      [ "quickcpplib::_xxx::aggregate_tuple::tuple_size< std::tuple< Args...> >", "structquickcpplib_1_1__xxx_1_1aggregate__tuple_1_1tuple__size_3_01std_1_1tuple_3_01_args_8_8_8_4_01_4.html", null ],
+      [ "quickcpplib::_xxx::aggregate_tuple::tuple_size< tuple< Args...> >", "structquickcpplib_1_1__xxx_1_1aggregate__tuple_1_1tuple__size_3_01tuple_3_01_args_8_8_8_4_01_4.html", null ]
     ] ],
     [ "quickcpplib::_xxx::algorithm::open_hash_index::twos_power_modulus< KeyType >", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1twos__power__modulus.html", null ],
     [ "quickcpplib::_xxx::integers128::uint128", "unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html", null ],

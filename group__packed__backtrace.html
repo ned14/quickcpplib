@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>QuickCppLib: Modules</title>
+<title>QuickCppLib: Packed_backtrace</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -47,7 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
-      <li class="current"><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -81,7 +81,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('modules.html','');});
+$(document).ready(function(){initNavTree('group__packed__backtrace.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -100,17 +100,51 @@ $(document).ready(function(){initNavTree('modules.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">Modules</div>  </div>
+<div class="title">Packed_backtrace</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock">Here is a list of all modules:</div><div class="directory">
-<table class="directory">
-<tr id="row_0_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a class="el" href="group__tribool.html" target="_self">Constexpr C++ 11 tribool</a></td><td class="desc"></td></tr>
-<tr id="row_1_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a class="el" href="group__unittesting.html" target="_self">Unit test suites</a></td><td class="desc"></td></tr>
-<tr id="row_2_" class="even"><td class="entry"><img src="ftv2lastnode.png" alt="\" width="16" height="22" /><a class="el" href="group__packed__backtrace.html" target="_self">Packed_backtrace</a></td><td class="desc">Pack a stack backtrace into byte storage </td></tr>
-</table>
-</div><!-- directory -->
-</div><!-- contents -->
+
+<p>Pack a stack backtrace into byte storage.  
+<a href="#details">More...</a></p>
+<p>Pack a stack backtrace into byte storage. </p>
+<p>64 bit address stack backtraces tend to waste a lot of storage which can be a problem when storing lengthy backtraces. Most 64 bit architectures only use the first 43 bits of address space wasting 2.5 bytes per entry, plus stack backtraces tend to be within a few megabytes and even kilobytes from one another. Intelligently packing the bits based on this knowledge can double or more the number of items you can store for a given number of bytes with virtually no runtime overhead, unlike compression.</p>
+<p>On 32 bit architectures this class simply stores the stack normally, but otherwise works the same.</p>
+<p>Performance:</p>
+<ul>
+<li>GCC 7.1 on x64 3.1Ghz Skylake: Can construct and read 106188139 packed stacktraces/sec</li>
+<li>VS2017 on x64 3.1Ghz Skylake: Can construct and read 79755133 packed stacktraces/sec</li>
+</ul>
+<p>The 64-bit coding scheme is quite straightforward:</p>
+<ul>
+<li>Top bits are 11 when it's bits 63-43 of a 64 bit absolute address (3 bytes)</li>
+<li>Top bits are 10 when it's bits 42-21 of a 64 bit absolute address (3 bytes)<ul>
+<li>Note that this resets bits 20-0 to 0x100000 (bit 20 set, bits 19-0 cleared)</li>
+</ul>
+</li>
+<li>Top bits are 01 when it's a 22 bit offset from previous (3 bytes) (+- 0x40`0000, 4Mb)</li>
+<li>Top bits are 00 when it's a 14 bit offset from previous (2 bytes) (+- 0x4000, 16Kb)</li>
+<li>Potential improvement: 12 to 18 items in 40 bytes instead of 5 items</li>
+</ul>
+<p>Sample 1: </p>
+<div class="fragment"><div class="line">0000`07fe`fd4e`10ac - 6 bytes</div>
+<div class="line">0000`07fe`f48b`ffc7 - 3 bytes</div>
+<div class="line">0000`07fe`f48b`ff70 - 2 bytes</div>
+<div class="line">0000`07fe`f48b`fe23 - 2 bytes</div>
+<div class="line">0000`07fe`f48d`51d8 - 3 bytes</div>
+<div class="line">0000`07fe`f499`5249 - 3 bytes</div>
+<div class="line">0000`07fe`f48a`ef28 - 3 bytes</div>
+<div class="line">0000`07fe`f48a`ecc9 - 2 bytes</div>
+<div class="line">0000`07fe`f071`244c - 6 bytes</div>
+<div class="line">0000`07fe`f071`11b5 - 2 bytes</div>
+<div class="line">0000`07ff`0015`0acf - 6 bytes</div>
+<div class="line">0000`07ff`0015`098c - 2 bytes (40 bytes, 12 items, usually 96 bytes, 58% reduction)</div>
+</div><!-- fragment --><p>Sample 2: </p>
+<div class="fragment"><div class="line">0000003d06e34950 - 6 bytes</div>
+<div class="line">0000000000400bcd - 6 bytes</div>
+<div class="line">0000000000400bf5 - 2 bytes</div>
+<div class="line">0000003d06e1ffe0 - 6 bytes</div>
+<div class="line">00000000004009f9 - 6 bytes (26 bytes, 5 items, usually 40 bytes, 35% reduction)</div>
+</div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

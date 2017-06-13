@@ -1,6 +1,6 @@
 var structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type =
 [
-    [ "value_type", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#adbf5e38b8da2019a58b80a64c602fb9b", null ],
+    [ "value_type", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#adb4b2c81d6fc1df27a42aeaa2345bb6c", null ],
     [ "value_type", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a8386be171f21e9cc54a39ad967a32164", null ],
     [ "operator==", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a5411a2661bb0a19f83347e99f975aef9", null ],
     [ "operator!=", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#aff54b0a0e8bed5e2ffc4c2cfa67a1d41", null ],

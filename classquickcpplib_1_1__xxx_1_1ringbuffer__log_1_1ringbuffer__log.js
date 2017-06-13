@@ -14,7 +14,7 @@ var classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log =
     [ "const_iterator", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ae72ff06f0e070d205d4bdc6e171e4f63", null ],
     [ "reverse_iterator", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ace9d34c155c11de0d7e0b9bc4b249e6f", null ],
     [ "const_reverse_iterator", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a9e3ab4330f9c3a16fb1f533ff6cf6717", null ],
-    [ "ringbuffer_log", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a19fb833bace4c345c98ca6c7d77d85e0", null ],
+    [ "ringbuffer_log", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a37f2283fa883b5e6e7fb5ca60f7c9c75", null ],
     [ "ringbuffer_log", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a67c54d0722ebf563e9c9af0c665ccc9f", null ],
     [ "ringbuffer_log", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a81c52bc73f0c491d41e7fd2f3dfb176e", null ],
     [ "counter_to_idx", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#aab19b5291043c979f3d5bbf7d85fdeec", null ],
