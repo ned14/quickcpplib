@@ -1,8 +1,8 @@
-if(BoostLiteUtilsIncluded)
+if(QuickCppLibUtilsIncluded)
   return()
 endif()
-set(BoostLiteUtilsIncluded ON)
-set(BoostLiteCMakePath "${CMAKE_CURRENT_LIST_DIR}")
+set(QuickCppLibUtilsIncluded ON)
+set(QuickCppLibCMakePath "${CMAKE_CURRENT_LIST_DIR}")
 include(FindGit)
 if(NOT GIT_FOUND)
   message(FATAL_ERROR "FATAL: The Boost-lite infrastructure is very tightly integrated with git"
@@ -237,7 +237,7 @@ endfunction()
 # Preprocess a file
 function(add_partial_preprocess target outfile infile)
   add_custom_target(${target} 
-    ${PYTHON_EXECUTABLE} ${BoostLiteCMakePath}/../pcpp/pcpp/cmd.py
+    ${PYTHON_EXECUTABLE} ${QuickCppLibCMakePath}/../pcpp/pcpp/cmd.py
     -o "${outfile}" "${infile}"
     ${ARGN}
     COMMENT "Preprocessing ${infile} into ${outfile} ..."
@@ -249,16 +249,14 @@ endfunction()
 # quickcpplib libraries can be located via these means in order of preference:
 # Only if "../.quickcpplib_use_siblings" exists:
 #   1) "../${library}"                         (e.g. ../outcome)
-# Otherwise:
-#   2) "${path}/${library}"   (e.g. include/boost/afio/outcome)
-#### 4) <${library-dir}/${library-name}>
+# Otherwise it looks up ${library} in .gitmodules
 #
 # If we use a sibling edition, we update the current git index to point at the 
 # git SHA of the sibling edition. That way when we git commit, we need not arse
 # around with manually updating the embedded submodules.
-function(find_quickcpplib_library libraryname path version)
+function(find_quickcpplib_library libraryname version)
   if(NOT PROJECT_NAME)
-    message(FATAL_ERROR "find_quickcpplib_library() must only be called after a project()")
+    message(FATAL_ERROR "FATAL: find_quickcpplib_library() must only be called after a project()")
   endif()
   get_filename_component(boostishdir "${CMAKE_CURRENT_SOURCE_DIR}/.." ABSOLUTE)
   if(IS_DIRECTORY "${boostishdir}/.quickcpplib_use_siblings")
@@ -267,6 +265,17 @@ function(find_quickcpplib_library libraryname path version)
     set(siblingenabled OFF)
   endif()
   if(NOT DEFINED ${libraryname}_FOUND)
+    unset(gitsubmodulepath)
+    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.gitmodules")
+      # Read in .gitmodules and look for the dependency
+      file(READ "${CMAKE_CURRENT_SOURCE_DIR}/.gitmodules" GITMODULESCONTENTS)
+      if(GITMODULESCONTENTS MATCHES ".*\\n?\\[submodule \"([^\"]+\\/${libraryname})\"\\]")
+        set(gitsubmodulepath "${CMAKE_MATCH_1}")
+      endif()
+    endif()
+    if(NOT DEFINED gitsubmodulepath)
+      message(FATAL_ERROR "FATAL: Dependent library ${libraryname} not found in .gitmodules")
+    endif()
     # Prefer sibling editions of dependencies to embedded editions
     if(siblingenabled AND EXISTS "${boostishdir}/${libraryname}/.quickcpplib")
       set(GITREPO "${boostishdir}/${libraryname}")
@@ -283,41 +292,41 @@ function(find_quickcpplib_library libraryname path version)
       include_directories(SYSTEM "${boostishdir}/.quickcpplib_use_siblings")
       set(${libraryname}_PATH "${GITREPO}")
       set(${libraryname}_FOUND TRUE)
-    elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${path}/${libraryname}/.quickcpplib")
-      indented_message(STATUS "Found ${libraryname} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} at embedded ${path}/${libraryname}")
+    elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${gitsubmodulepath}/.quickcpplib")
+      indented_message(STATUS "Found ${libraryname} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} at embedded ${gitsubmodulepath}")
       set(MESSAGE_INDENT "${MESSAGE_INDENT}  ")
-      add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/${path}/${libraryname}"
+      add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/${gitsubmodulepath}"
         EXCLUDE_FROM_ALL
       )
       # If we are using an embedded dependency, for any unit tests make the
       # dependencies appear as if at the same location as for the headers
-      include_directories(SYSTEM "${CMAKE_CURRENT_SOURCE_DIR}/${path}/${libraryname}")
-      set(${libraryname}_PATH "${CMAKE_CURRENT_SOURCE_DIR}/${path}/${libraryname}")
+      include_directories(SYSTEM "${CMAKE_CURRENT_SOURCE_DIR}/${gitsubmodulepath}")
+      set(${libraryname}_PATH "${CMAKE_CURRENT_SOURCE_DIR}/${gitsubmodulepath}")
       set(${libraryname}_FOUND TRUE)
     else()
       set(${libraryname}_FOUND FALSE)
     endif()
     # Reset policies after using add_subdirectory() which usually means a cmake_minimum_required()
     # was called which resets policies to default
-    include(BoostLitePolicies)
+    include(QuickCppLibPolicies)
     # I may need to update git submodule SHAs in the index to those of the sibling repo
     if(DEFINED GITSHA)
       # Get the SHA used by our repo for the subrepo
-      git_repo_get_entry_sha("${CMAKE_CURRENT_SOURCE_DIR}" "${path}/${libraryname}" subreposha)
+      git_repo_get_entry_sha("${CMAKE_CURRENT_SOURCE_DIR}" "${gitsubmodulepath}" subreposha)
       if(NOT DEFINED subreposha)
-        message(FATAL_ERROR "FATAL: Failed to get a SHA for the subrepo '${path}/${libraryname}'")
+        message(FATAL_ERROR "FATAL: Failed to get a SHA for the subrepo '${gitsubmodulepath}'")
       endif()
-      if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${path}/${libraryname}/.git")
-        # We need to delete any files inside the "${path}/${libraryname}"
+      if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${gitsubmodulepath}/.git")
+        # We need to delete any files inside the "${gitsubmodulepath}"
         # to prevent the submodule SHA restamp confusing git
-        git_repo_changed("${CMAKE_CURRENT_SOURCE_DIR}/${path}/${libraryname}" subrepoochanged)
+        git_repo_changed("${CMAKE_CURRENT_SOURCE_DIR}/${gitsubmodulepath}" subrepoochanged)
         if(subrepoochanged)
-          message(FATAL_ERROR "FATAL: About to replace embedded subrepo '${path}/${libraryname}'"
+          message(FATAL_ERROR "FATAL: About to replace embedded subrepo '${gitsubmodulepath}'"
                               " with sibling subrepo '${GITREPO}' but git says that embedded subrepo has been"
                               " changed. Please save any changes and hard reset the embedded subrepo.")
         endif()
-        file(REMOVE_RECURSE "${path}/${libraryname}")
-        file(MAKE_DIRECTORY "${path}/${libraryname}")
+        file(REMOVE_RECURSE "${gitsubmodulepath}")
+        file(MAKE_DIRECTORY "${gitsubmodulepath}")
       endif()
       # Git uses the magic cacheinfo of 160000 for subrepos for some reason as can be evidenced by:
       # ned@LYTA:~/windocs/boostish/afio$ git ls-files -s | grep -e ^160000
@@ -327,12 +336,12 @@ function(find_quickcpplib_library libraryname path version)
       #   160000 7fb9617c21cae96e04f3a9afa54310a08ad87a57 0       include/boost/afio/outcome
       #   160000 7f583ce7cc36d2a8baefd3c09445457503614cb8 0       test/kerneltest
       if(NOT GITSHA STREQUAL subreposha)
-        indented_message(STATUS "Sibling repo for embedded subrepo '${path}/${libraryname}' has"
+        indented_message(STATUS "Sibling repo for embedded subrepo '${gitsubmodulepath}' has"
                                 " SHA ${GITSHA} but our index uses SHA ${subreposha}, updating our index"
         )
         checked_execute_process("git update-index"
-          COMMAND "${GIT_EXECUTABLE}" update-index --cacheinfo 160000 ${GITSHA} ${path}/${libraryname}
-		  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+          COMMAND "${GIT_EXECUTABLE}" update-index --cacheinfo 160000 ${GITSHA} ${gitsubmodulepath}
+          WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
         )
       endif()
     endif()
@@ -348,9 +357,9 @@ function(find_quickcpplib_library libraryname path version)
       indented_message(WARNING "WARNING: quickcpplib library ${libraryname} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} not found")
       indented_message(STATUS "Tried: ")
       if(siblingenabled)
-        indented_message(STATUS "  ${boostishdir}/${libraryname}/.boostish")
+        indented_message(STATUS "  ${boostishdir}/${libraryname}/.quickcpplib")
       endif()
-      indented_message(STATUS "  ${CMAKE_CURRENT_SOURCE_DIR}/${path}/${libraryname}/.boostish")
+      indented_message(STATUS "  ${CMAKE_CURRENT_SOURCE_DIR}/${gitsubmodulepath}/.quickcpplib")
       if(NOT siblingenabled)
         indented_message(STATUS "  (sibling library use disabled due to lack of ${boostishdir}/.quickcpplib_use_siblings)")
       endif()
