@@ -404,7 +404,7 @@ function(merge_junit_results_into_ctest_xml)
     message(FATAL_ERROR "Please call the macro CONFIGURE_CTEST_SCRIPT_FOR_CDASH() to configure the ctest environment first")
   endif()
   # Merge all the junit XML files from the testing into one junit XML file
-  execute_process(COMMAND "${CTEST_PYTHON_COMMAND}" "${CTEST_BOOSTLITE_SCRIPTS}/merge_junit_results.py" "${CTEST_BINARY_DIRECTORY}/merged_junit_results.xml" "${CTEST_CMAKE_CI_BIN_DIR}/*.junit.xml"
+  execute_process(COMMAND "${CTEST_PYTHON_COMMAND}" "${CTEST_QUICKCPPLIB_SCRIPTS}/merge_junit_results.py" "${CTEST_BINARY_DIRECTORY}/merged_junit_results.xml" "${CTEST_CMAKE_CI_BIN_DIR}/*.junit.xml"
     RESULT_VARIABLE result
   )
   message(STATUS "Merging junit XML results into a single junit XML returned with status ${result}")
@@ -413,7 +413,7 @@ function(merge_junit_results_into_ctest_xml)
   string(REGEX MATCH "[^\n]*" xml_dir "${tag_file}")
   set(CTEST_XML_DIR "${CTEST_BINARY_DIRECTORY}/Testing/${xml_dir}")
   # Add the combined junit XML file into our Test.xml
-  execute_process(COMMAND "${CTEST_PYTHON_COMMAND}" "${CTEST_BOOSTLITE_SCRIPTS}/add_junit_results_to_ctest.py" "${CTEST_XML_DIR}/Test.xml" "${CTEST_BINARY_DIRECTORY}/merged_junit_results.xml"
+  execute_process(COMMAND "${CTEST_PYTHON_COMMAND}" "${CTEST_QUICKCPPLIB_SCRIPTS}/add_junit_results_to_ctest.py" "${CTEST_XML_DIR}/Test.xml" "${CTEST_BINARY_DIRECTORY}/merged_junit_results.xml"
     RESULT_VARIABLE result
   )
   message(STATUS "Merging junit XML results into the CTest XML returned with status ${result}")
