@@ -66,7 +66,7 @@ else()
 endif()
 
 # Scan this directory for library source code
-include(QuickCppLibDeduceLibrarySources)
+include(QuickCppLibParseLibrarySources)
 
 # Configure an if(CLANG) and if(GCC) like if(MSVC)
 if(NOT DEFINED CLANG)
