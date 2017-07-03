@@ -14,25 +14,6 @@ if(NOT DEFINED ${PROJECT_NAME}_SOURCES)
                       "Perhaps you meant BoostLiteMakeHeaderOnlyLibrary?")
 endif()
 
-if(WIN32)
-  function(check_if_cmake_incomplete target md5 path)
-    string(REPLACE "/" "\\" TEMPFILE "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}\\quickcpplib_cmake_tempfile_${target}.txt")
-    #string(REPLACE "/" "\\" CMAKE "\"${CMAKE_COMMAND}\")
-    set(CMAKE "cmake")
-    string(REPLACE "/" "\\" CMAKECACHE "${CMAKE_CURRENT_BINARY_DIR}\\CMakeCache.txt")
-    add_custom_command(TARGET ${target} PRE_BUILD
-      COMMAND echo Checking if files have been added to ${target} since cmake last auto globbed the source tree ... & cd \"${path}\" & dir /b /a-d /s > \"${TEMPFILE}\" & for /f \"delims=\" %%a in ('${CMAKE} -E md5sum \"${TEMPFILE}\"') do @set MD5=%%a & for /f \"tokens=1\" %%G IN (\"%MD5%\") DO set MD5=%%G & if NOT \"%MD5%\" == \"${md5} \" (echo WARNING cmake needs to be rerun! %MD5% != ${md5} & copy /b \"${CMAKECACHE}\" +,,)
-    )
-  endfunction()
-else()
-  function(check_if_cmake_incomplete target md5 path)
-    add_custom_command(TARGET ${target} PRE_BUILD
-      COMMAND echo Checking if files have been added to ${target} since cmake last auto globbed the source tree ... $<SEMICOLON> find . -type f -printf \"%t\\t%s\\t%p\\n\" > \"${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/quickcpplib_cmake_tempfile_${target}.txt\" $<SEMICOLON> MD5=`\"${CMAKE_COMMAND}\" -E md5sum \"${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/boostlite_cmake_tempfile_${target}.txt\" | cut -d " " -f1` $<SEMICOLON> if [ \"$$MD5\" != \"${md5}\" ] $<SEMICOLON> then echo WARNING cmake needs to be rerun! $$MD5 != ${md5} $<SEMICOLON> touch \"${CMAKE_CURRENT_BINARY_DIR}/CMakeCache.txt\" $<SEMICOLON> fi
-      WORKING_DIRECTORY "${path}"
-    )
-  endfunction()
-endif()
-
 add_library(${PROJECT_NAME}_sl STATIC ${${PROJECT_NAME}_HEADERS} ${${PROJECT_NAME}_SOURCES})
 ##if(PROJECT_IS_DEPENDENCY)
   set_target_properties(${PROJECT_NAME}_sl PROPERTIES EXCLUDE_FROM_ALL ON)
@@ -44,7 +25,6 @@ foreach(special ${SPECIAL_BUILDS})
   target_compile_options(${PROJECT_NAME}_sl-${special} PRIVATE ${${special}_COMPILE_FLAGS})
   list(APPEND ${PROJECT_NAME}_${special}_TARGETS ${PROJECT_NAME}_sl-${special})
 endforeach()
-check_if_cmake_incomplete(${PROJECT_NAME}_sl ${${PROJECT_NAME}_HEADERS_MD5} "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}")
 if(CMAKE_GENERATOR MATCHES "Visual Studio")
   set_target_properties(${PROJECT_NAME}_sl PROPERTIES
     OUTPUT_NAME "${PROJECT_NAME}_sl-${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}-$<PLATFORM_ID>-$(Platform)-$<CONFIG>"

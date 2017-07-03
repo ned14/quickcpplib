@@ -13,7 +13,7 @@ function(target_append_header_only_sources tgt)
   set(sources)
   foreach(header ${${PROJECT_NAME}_HEADERS})
     list(APPEND sources
-    "$<BUILD_INTERFACE:${${PROJECT_NAME}_PATH}/${header}>"
+    "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${header}>"
     "$<INSTALL_INTERFACE:${header}>"
     )
     #indented_message(STATUS "${header}")

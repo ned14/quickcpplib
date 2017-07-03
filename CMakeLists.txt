@@ -4,7 +4,7 @@ list(FIND CMAKE_MODULE_PATH "quickcpplib" quickcpplib_idx)
 if(${quickcpplib_idx} GREATER -1)
   return()
 endif()
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmakelib")
 include(QuickCppLibRequireOutOfSourceBuild)
 include(QuickCppLibUtils)
 include(QuickCppLibPolicies)
@@ -55,6 +55,9 @@ endif()
 if(TARGET quickcpplib_hl--spinlock_tribool)
   target_uses_openmp(quickcpplib_hl--spinlock_tribool)
 endif()
+
+# Cache this library's auto scanned sources for later reuse
+include(QuickCppLibCacheLibrarySources)
 
 # Make available this library for install and export
 include(QuickCppLibMakeInstall)
