@@ -24,6 +24,7 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "../include/execinfo_win64.h"
 
+#include <stdlib.h>  // for abort
 #include <string.h>
 
 // To avoid including windows.h, this source has been macro expanded and win32 function shimmed for C++ only
