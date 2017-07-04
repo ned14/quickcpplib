@@ -15,11 +15,12 @@
 #  *         PROJECT_IS_DEPENDENCY: ON if this this project is a dependency of a higher level project
 #
 # Cached outputs:
-#  *          ${PROJECT_NAME}_PATH: ${CMAKE_CURRENT_SOURCE_DIR}
-#  *     ${PROJECT_NAME}_INTERFACE: The master interface PCHable header file ${PROJECT_DIR}/${PROJECT_NAME}.hpp, plus any sources which need to be compiled into any consumers
-#  *       ${PROJECT_NAME}_HEADERS: Any header files found in include
-#  *       ${PROJECT_NAME}_SOURCES: Any source files found in src
-#  *         ${PROJECT_NAME}_TESTS: Any source files found in test
+#  *               ${PROJECT_NAME}_PATH: ${CMAKE_CURRENT_SOURCE_DIR}
+#  *          ${PROJECT_NAME}_INTERFACE: The master interface PCHable header file ${PROJECT_DIR}/${PROJECT_NAME}.hpp, plus any sources which need to be compiled into any consumers
+#  *            ${PROJECT_NAME}_HEADERS: Any header files found in include
+#  *            ${PROJECT_NAME}_SOURCES: Any source files found in src
+#  *              ${PROJECT_NAME}_TESTS: Any source files found in test not in a special category
+#  * ${PROJECT_NAME}_COMPILE_FAIL_TESTS: Any source files found in test which must fail to compile
 
 if(DEFINED PROJECT_NAMESPACE)
   string(REPLACE "::" "/" PROJECT_DIR ${PROJECT_NAMESPACE})
@@ -60,26 +61,24 @@ endfunction()
 
 # Check a cached scan file's directory timestamps,
 # if any are stale then delete the cached scan file
-function(delete_stale_cached_scan_file path var)
+function(delete_stale_cached_scan_file path)
   if(EXISTS "${path}.cache")
     include("${path}.cache")
-    if(${var}_DIRECTORIES)
-      set(plsdelete FALSE)
-    else()
-      set(plsdelete TRUE)
-    endif()
+    set(plsdelete FALSE)
     set(idx 0)
-    foreach(dir ${${var}_DIRECTORIES})
-      if(NOT idx)
-        set(dirts1 "${dir}")
-        set(idx 1)
-      else()
-        file(TIMESTAMP "${CMAKE_CURRENT_SOURCE_DIR}/${dir}" dirts2)
-        if(NOT dirts1 STREQUAL dirts2)
-          set(plsdelete TRUE)
+    foreach(var ${ARGN})
+      foreach(dir ${${var}_DIRECTORIES})
+        if(NOT idx)
+          set(dirts1 "${dir}")
+          set(idx 1)
+        else()
+          file(TIMESTAMP "${CMAKE_CURRENT_SOURCE_DIR}/${dir}" dirts2)
+          if(NOT dirts1 STREQUAL dirts2)
+            set(plsdelete TRUE)
+          endif()
+          set(idx 0)
         endif()
-        set(idx 0)
-      endif()
+      endforeach()
     endforeach()
     if(plsdelete)
       indented_message(STATUS "${path} is stale, deleting")
@@ -161,7 +160,7 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/src")
 endif()
 
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/test")
-  delete_stale_cached_scan_file("${CMAKE_CURRENT_SOURCE_DIR}/cmake/tests.cmake" "${PROJECT_NAME}_TESTS")
+  delete_stale_cached_scan_file("${CMAKE_CURRENT_SOURCE_DIR}/cmake/tests.cmake" "${PROJECT_NAME}_TESTS" "${PROJECT_NAME}_COMPILE_FAIL_TESTS")
   if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/cmake/tests.cmake")
     indented_message(STATUS "Using cached scan of project ${PROJECT_NAME} tests ...")
     include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/tests.cmake")
@@ -180,5 +179,9 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/test")
     list_filter(${PROJECT_NAME}_TESTS_FILTER INCLUDE REGEX "\\.quickcpplib$")
     prune_quickcpplib_libraries(${PROJECT_NAME}_TESTS_FILTER ${PROJECT_NAME}_TESTS)
     unset(${PROJECT_NAME}_TESTS_FILTER)
+    
+    set(${PROJECT_NAME}_COMPILE_FAIL_TESTS ${${PROJECT_NAME}_TESTS})
+    list_filter(${PROJECT_NAME}_COMPILE_FAIL_TESTS INCLUDE REGEX "/compile-fail/")
+    list_filter(${PROJECT_NAME}_TESTS EXCLUDE REGEX "/compile-fail/")
   endif()
 endif()
