@@ -20,6 +20,7 @@
 #  *            ${PROJECT_NAME}_HEADERS: Any header files found in include
 #  *            ${PROJECT_NAME}_SOURCES: Any source files found in src
 #  *              ${PROJECT_NAME}_TESTS: Any source files found in test not in a special category
+#  *      ${PROJECT_NAME}_COMPILE_TESTS: Any source files found in test or example which must compile
 #  * ${PROJECT_NAME}_COMPILE_FAIL_TESTS: Any source files found in test which must fail to compile
 
 if(DEFINED PROJECT_NAMESPACE)
@@ -160,7 +161,7 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/src")
 endif()
 
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/test")
-  delete_stale_cached_scan_file("${CMAKE_CURRENT_SOURCE_DIR}/cmake/tests.cmake" "${PROJECT_NAME}_TESTS" "${PROJECT_NAME}_COMPILE_FAIL_TESTS")
+  delete_stale_cached_scan_file("${CMAKE_CURRENT_SOURCE_DIR}/cmake/tests.cmake" "${PROJECT_NAME}_TESTS" "${PROJECT_NAME}_COMPILE_TESTS" "${PROJECT_NAME}_COMPILE_FAIL_TESTS")
   if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/cmake/tests.cmake")
     indented_message(STATUS "Using cached scan of project ${PROJECT_NAME} tests ...")
     include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/tests.cmake")
@@ -183,5 +184,24 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/test")
     set(${PROJECT_NAME}_COMPILE_FAIL_TESTS ${${PROJECT_NAME}_TESTS})
     list_filter(${PROJECT_NAME}_COMPILE_FAIL_TESTS INCLUDE REGEX "/compile-fail/")
     list_filter(${PROJECT_NAME}_TESTS EXCLUDE REGEX "/compile-fail/")
+    
+    file(GLOB_RECURSE ${PROJECT_NAME}_COMPILE_TESTS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
+         "${CMAKE_CURRENT_SOURCE_DIR}/example/.quickcpplib"
+         "${CMAKE_CURRENT_SOURCE_DIR}/example/*.h"
+         "${CMAKE_CURRENT_SOURCE_DIR}/example/*.hpp"
+         "${CMAKE_CURRENT_SOURCE_DIR}/example/*.c"
+         "${CMAKE_CURRENT_SOURCE_DIR}/example/*.cpp"
+         "${CMAKE_CURRENT_SOURCE_DIR}/example/*.cxx"
+         "${CMAKE_CURRENT_SOURCE_DIR}/example/*.ipp"
+         )
+    set(${PROJECT_NAME}_TESTS_FILTER ${${PROJECT_NAME}_COMPILE_TESTS})
+    list_filter(${PROJECT_NAME}_TESTS_FILTER INCLUDE REGEX "\\.quickcpplib$")
+    prune_quickcpplib_libraries(${PROJECT_NAME}_TESTS_FILTER ${PROJECT_NAME}_COMPILE_TESTS)
+    unset(${PROJECT_NAME}_TESTS_FILTER)
+    set(${PROJECT_NAME}_COMPILE_TESTS2 ${${PROJECT_NAME}_TESTS})
+    list_filter(${PROJECT_NAME}_COMPILE_TESTS2 INCLUDE REGEX "/compile-success/")
+    list_filter(${PROJECT_NAME}_TESTS EXCLUDE REGEX "/compile-success/")
+    list(APPEND ${PROJECT_NAME}_COMPILE_TESTS ${${PROJECT_NAME}_COMPILE_TESTS2})
+    unset(${PROJECT_NAME}_COMPILE_TESTS2)
   endif()
 endif()

@@ -21,7 +21,7 @@ if(NOT PROJECT_IS_DEPENDENCY)
           list(APPEND testnonsources ${testsource})
         endif()
       endforeach()
-      function(do_add_test outtarget testsource special)
+      function(do_add_test outtarget testsource special nogroup)
         if(testsource MATCHES ".+/(.+)[.](c|cpp|cxx)$")
           # We'll assume the test name is the source file name
           set(testname ${CMAKE_MATCH_1})
@@ -37,7 +37,9 @@ if(NOT PROJECT_IS_DEPENDENCY)
           endforeach()
           foreach(_target ${${PROJECT_NAME}_TARGETS})
             set(target ${_target})
-            if(target MATCHES "_hl$")
+            if(nogroup)
+              unset(group)
+            elseif(target MATCHES "_hl$")
               set(group _hl)
             elseif(target MATCHES "_sl$")
               set(group _sl)
@@ -93,7 +95,7 @@ if(NOT PROJECT_IS_DEPENDENCY)
       set(testtargets)
       foreach(testsource ${${PROJECT_NAME}_TESTS})
         foreach(special ${SPECIAL_BUILDS} "")
-          do_add_test(target_name "${testsource}" "${special}")
+          do_add_test(target_name "${testsource}" "${special}" OFF)
           # This is a normal test target run for success
           list(APPEND testtargets "${target_name}")
           if(special STREQUAL "")
@@ -116,13 +118,19 @@ if(NOT PROJECT_IS_DEPENDENCY)
         set(${PROJECT_NAME}_${special}_TARGETS ${${PROJECT_NAME}_${special}_TARGETS} PARENT_SCOPE)
       endforeach()
 
+      # Deal with tests which require the compilation to succeed
+      foreach(testsource ${${PROJECT_NAME}_COMPILE_TESTS})
+        do_add_test(target_name "${testsource}" "" OFF)
+      endforeach()
+
       # Deal with tests which require the compilation to fail in an exact way
       foreach(testsource ${${PROJECT_NAME}_COMPILE_FAIL_TESTS})
-        do_add_test(target_name "${testsource}" "")
+        do_add_test(target_name "${testsource}" "" ON)
         # Do not build these normally, only on request
         set_target_properties(${target_name} PROPERTIES
           EXCLUDE_FROM_ALL ON
           EXCLUDE_FROM_DEFAULT_BUILD ON
+          CXX_CLANG_TIDY ""
         )
         # This test tries to build this test expecting failure
         add_test(NAME ${target_name}
