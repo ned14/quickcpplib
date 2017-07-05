@@ -4,6 +4,7 @@ cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
 list(FIND CMAKE_MODULE_PATH "quickcpplib/cmakelib" quickcpplib_idx)
 if(${quickcpplib_idx} EQUAL -1)
   set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmakelib")
+  set(CTEST_QUICKCPPLIB_SCRIPTS "${CMAKE_CURRENT_SOURCE_DIR}/scripts")
 endif()
 include(QuickCppLibUtils)
 
