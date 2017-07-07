@@ -234,4 +234,32 @@ extern "C" void _mm_pause();
 #endif
 #endif
 
+#ifdef __cpp_concepts
+#include "detail/preprocessor_macro_overload.h"
+#define QUICKCPPLIB_TREQUIRES_EXPAND8(a, b, c, d, e, f, g, h) a &&QUICKCPPLIB_TREQUIRES_EXPAND7(b, c, d, e, f, g, h)
+#define QUICKCPPLIB_TREQUIRES_EXPAND7(a, b, c, d, e, f, g) a &&QUICKCPPLIB_TREQUIRES_EXPAND6(b, c, d, e, f, g)
+#define QUICKCPPLIB_TREQUIRES_EXPAND6(a, b, c, d, e, f) a &&QUICKCPPLIB_TREQUIRES_EXPAND5(b, c, d, e, f)
+#define QUICKCPPLIB_TREQUIRES_EXPAND5(a, b, c, d, e) a &&QUICKCPPLIB_TREQUIRES_EXPAND4(b, c, d, e)
+#define QUICKCPPLIB_TREQUIRES_EXPAND4(a, b, c, d) a &&QUICKCPPLIB_TREQUIRES_EXPAND3(b, c, d)
+#define QUICKCPPLIB_TREQUIRES_EXPAND3(a, b, c) a &&QUICKCPPLIB_TREQUIRES_EXPAND2(b, c)
+#define QUICKCPPLIB_TREQUIRES_EXPAND2(a, b) a &&QUICKCPPLIB_TREQUIRES_EXPAND1(b)
+#define QUICKCPPLIB_TREQUIRES_EXPAND1(a) a
+
+//! Expands into a && b && c && ...
+#define QUICKCPPLIB_TREQUIRES(...) requires QUICKCPPLIB_CALL_OVERLOAD(QUICKCPPLIB_TREQUIRES_EXPAND, __VA_ARGS__)
+
+#define QUICKCPPLIB_TEMPLATE(...) template <__VA_ARGS__>
+#define QUICKCPPLIB_TEXPR(...)                                                                                                                                                                                                                                                                                                 \
+  requires { __VA_ARGS__; }
+#define QUICKCPPLIB_TPRED(...) (__VA_ARGS__)
+#define QUICKCPPLIB_REQUIRES(...) requires __VA_ARGS__
+#else
+#define QUICKCPPLIB_TEMPLATE(...) template <__VA_ARGS__
+#define QUICKCPPLIB_TREQUIRES(...) , __VA_ARGS__ >
+#define QUICKCPPLIB_TEXPR(...) typename = decltype(__VA_ARGS__)
+#define QUICKCPPLIB_TPRED(...) typename = std::enable_if_t<__VA_ARGS__>
+#define QUICKCPPLIB_REQUIRES(...)
+#endif
+
+
 #endif
