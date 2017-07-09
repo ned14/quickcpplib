@@ -250,7 +250,7 @@ extern "C" void _mm_pause();
 
 #define QUICKCPPLIB_TEMPLATE(...) template <__VA_ARGS__>
 #define QUICKCPPLIB_TEXPR(...)                                                                                                                                                                                                                                                                                                 \
-  requires { __VA_ARGS__; }
+  requires { (__VA_ARGS__); }
 #define QUICKCPPLIB_TPRED(...) (__VA_ARGS__)
 #define QUICKCPPLIB_REQUIRES(...) requires __VA_ARGS__
 #else
