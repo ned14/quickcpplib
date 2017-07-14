@@ -16,3 +16,9 @@
 	branch = master
 	fetchRecurseSubmodules = true
 	ignore = untracked
+[submodule "include/optional"]
+	path = include/optional
+	url = https://github.com/akrzemi1/Optional.git
+	branch = master
+	fetchRecurseSubmodules = true
+	ignore = untracked
