@@ -54,7 +54,6 @@ foreach(special ${SPECIAL_BUILDS})
   target_compile_options(${PROJECT_NAME}_dl-${special} PRIVATE ${${special}_COMPILE_FLAGS})
   list(APPEND ${PROJECT_NAME}_${special}_TARGETS ${PROJECT_NAME}_dl-${special})
 endforeach()
-check_if_cmake_incomplete(${PROJECT_NAME}_dl ${${PROJECT_NAME}_HEADERS_MD5} "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}")
 if(CMAKE_GENERATOR MATCHES "Visual Studio")
   set_target_properties(${PROJECT_NAME}_dl PROPERTIES
     OUTPUT_NAME "${PROJECT_NAME}_dl-${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}-$<PLATFORM_ID>-$(Platform)-$<CONFIG>"
@@ -76,7 +75,7 @@ if(MSVC AND MSVC_VERSION VERSION_GREATER 1900)  # VS2015
   # todo
 endif()
 
-include(BoostLitePrecompiledHeader)
+include(QuickCppLibPrecompiledHeader)
 # Now the config is ready, generate a private precompiled header for
 # ${PROJECT_NAME}_INTERFACE and have the sources in ${PROJECT_NAME}_SOURCES
 # use the precompiled header UNLESS there is only one source file
