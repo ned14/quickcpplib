@@ -21,6 +21,8 @@ set(quickcpplib_HEADERS
   "include/config.hpp"
   "include/console_colours.hpp"
   "include/gsl-lite/test/lest_cpp03.hpp"
+  "include/optional.hpp"
+  "include/optional/optional.hpp"
   "include/packed_backtrace.hpp"
   "include/revision.hpp"
   "include/ringbuffer_log.hpp"
