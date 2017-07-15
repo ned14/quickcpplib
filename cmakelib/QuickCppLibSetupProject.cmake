@@ -91,7 +91,7 @@ if(MSVC)
     string(REPLACE "-O0"  "/O0" ${flag} "${${flag}}")
     string(REPLACE "-O1"  "/O1" ${flag} "${${flag}}")
     string(REPLACE "-O2"  "/O2" ${flag} "${${flag}}")
-    message(STATUS "${flag} = ${${flag}}")
+    #message(STATUS "${flag} = ${${flag}}")
   endforeach()
   # Restore those same, but now selected by the properties
   add_compile_options(
