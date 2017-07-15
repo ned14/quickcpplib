@@ -58,16 +58,13 @@ elseif(ENABLE_CXX_MODULES AND DEFINED ${PROJECT_NAME}_INTERFACE_SOURCE)  # This 
   # Add a C++ Module for the PCH header file
   indented_message(STATUS "Compiling ${${PROJECT_NAME}_INTERFACE_SOURCE} into a C++ Module for the ${PROJECT_NAME}_hl target")
   add_cxx_module(${PROJECT_NAME}_hl ${${PROJECT_NAME}_INTERFACE_SOURCE})
-elseif(MSVC AND NOT CLANG)
+elseif(MSVC)
   # MSVC can't share precompiled headers between targets so fall back onto an interface library
   if(DEFINED ${PROJECT_NAME}_INTERFACE_SOURCE)
     default_header_only_interface_library("this MSVC does not sufficiently support C++ Modules, and MSVC cannot share precompiled headers between targets")
   else()
     default_header_only_interface_library("this project not providing a C++ Module source file, and MSVC cannot share precompiled headers between targets")
   endif()
-elseif(MSVC AND CLANG)
-  # C2 clang has broken precompiled headers currently
-  default_header_only_interface_library("this winclang has broken precompiled headers support")
 elseif(NOT PROJECT_IS_DEPENDENCY)
 ## Works on anything not Bash for Windows, but that's mostly what I'm testing with
 ##  # Add a precompiled header for the PCH header file

@@ -83,7 +83,7 @@ if(NOT PROJECT_IS_DEPENDENCY)
               RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
               POSITION_INDEPENDENT_CODE ON
             )
-            if(MSVC AND NOT CLANG)
+            if(MSVC)
               target_compile_options(${target_name} PRIVATE /W4)                                          # Stronger warnings
             else()
               target_compile_options(${target_name} PRIVATE -Wall -Wextra)                                # Stronger warnings

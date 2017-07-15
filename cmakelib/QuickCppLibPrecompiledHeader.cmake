@@ -23,7 +23,7 @@ function(add_precompiled_header outvar headerpath)
   get_filename_component(header_noext "${headerpath}" NAME_WE)
   get_filename_component(headerdir "${headerpath}" DIRECTORY)
   set(sources "include/${headerpath}")
-  if(MSVC AND NOT CLANG)
+  if(MSVC)
     # MSVC PCH generation requires a source file to include the header
     # so we'll need to generate one
     file(WRITE "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${header}_pch_gen.cpp"
@@ -44,7 +44,7 @@ function(add_precompiled_header outvar headerpath)
     #INCLUDE_DIRECTORIES $<TARGET_PROPERTY:${outvar},INTERFACE_INCLUDE_DIRECTORIES>
     #SYSTEM_INCLUDE_DIRECTORIES $<TARGET_PROPERTY:${outvar},INTERFACE_SYSTEM_INCLUDE_DIRECTORIES>
   )
-  if(MSVC AND NOT CLANG)
+  if(MSVC)
     # Visual Studio generator outputs PCH to /Fp"afio_hl_pch.dir\Debug\afio_hl.pch"
     #
     # cmake converts /Fp<something> into the native .vcxproj stanza <PrecompiledHeaderOutputFile>
@@ -117,7 +117,7 @@ function(add_cxx_module outvar ixxpath)
     #COMPILE_OPTIONS $<TARGET_PROPERTY:${outvar},INTERFACE_COMPILE_OPTIONS>
     #INCLUDE_DIRECTORIES $<TARGET_PROPERTY:${outvar},INTERFACE_INCLUDE_DIRECTORIES>
   )
-  if(MSVC AND NOT CLANG)
+  if(MSVC)
     target_compile_options(${outvar}_ixx PRIVATE /experimental:module /D__cpp_modules=1)
     target_compile_options(${outvar} INTERFACE /experimental:module /D__cpp_modules=1 /module:search ${CMAKE_CURRENT_BINARY_DIR}/${outvar}_ixx.dir/$<CONFIG>)
   else()

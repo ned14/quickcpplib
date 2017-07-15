@@ -47,7 +47,7 @@ list_filter(quickcpplib_TESTS EXCLUDE REGEX "test_.*\\.cpp")
 include(QuickCppLibMakeStandardTests)
 
 # On MSVC the ringbuffer_log test needs to emit debug info to work
-if(TARGET quickcpplib_hl--ringbuffer_log AND MSVC AND NOT CLANG)
+if(TARGET quickcpplib_hl--ringbuffer_log AND MSVC)
   target_compile_options(quickcpplib_hl--ringbuffer_log PRIVATE /Oy- /Z7)
   _target_link_options(quickcpplib_hl--ringbuffer_log /DEBUG)
 endif()

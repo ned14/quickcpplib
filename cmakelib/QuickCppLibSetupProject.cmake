@@ -8,6 +8,32 @@ link_libraries(${CMAKE_THREAD_LIBS_INIT})
 # Find a python installation, if we have one we can do preprocessing
 include(FindPythonInterp)
 
+# Configure an if(CLANG) and if(GCC) like if(MSVC)
+if(NOT DEFINED CLANG)
+  if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    set(CLANG 1)
+  endif()
+endif()
+if(NOT DEFINED GCC)
+  if(CMAKE_COMPILER_IS_GNUCXX)
+    set(GCC 1)
+  elseif(NOT MSVC AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    set(GCC 1)
+  endif()
+endif()
+#message(STATUS "CMAKE_CXX_COMPILER_ID=${CMAKE_CXX_COMPILER_ID} MSVC=${MSVC} CLANG=${CLANG} GCC=${GCC}")
+
+# Are we running winclang in MSVC-ish mode or in GCC-ish mode? Unfortunately the MSVC flag
+# has the totally wrong setting, it should be on when winclang is in MSVC-ish mode, off otherwise.
+if(CMAKE_GENERATOR_TOOLSET MATCHES "LLVM-vs.*" AND NOT MSVC)
+  indented_message(WARNING "WARNING: Detected the LLVM toolset in MSVC-ish mode, forcing it to claim to be MSVC")
+  set(MSVC 1)
+endif()
+if(CMAKE_GENERATOR_TOOLSET MATCHES ".*_clang_c2" AND MSVC)
+  indented_message(WARNING "WARNING: Detected the clang C2 toolset in GCC-ish mode, stopping it claiming to be MSVC")
+  unset(MSVC)
+endif()
+
 # On MSVC very annoyingly cmake puts /EHsc and /MD(d) into the global flags which means you
 # get a warning when you try to disable exceptions or use the static CRT. I hate to use this
 # globally imposed solution, but we are going to hack the global flags to use properties to
@@ -34,8 +60,24 @@ endforeach()
 set_property(GLOBAL PROPERTY CXX_EXCEPTIONS ON)
 set_property(GLOBAL PROPERTY CXX_RTTI ON)
 set_property(GLOBAL PROPERTY CXX_STATIC_RUNTIME OFF)
-if(MSVC AND NOT CLANG)
-  # Purge unconditional use of /MDd, /MD and /EHsc.
+if(MSVC)
+  # Purge unconditional use of these flags and remove all the ignored
+  # cruft which cmake adds for the LLVM-vs* toolset.
+  set(purgelist
+    "/MDd"
+    "/MD"
+    "/EHsc"
+    "/GR"
+    "/Gm-"
+    "-fms-extensions"
+    "-fms-compatibility"
+    #"-Wall"
+    "-frtti"
+    "-fexceptions"
+    "-gline-tables-only"
+    "-fno-inline"
+    #"-O0"
+  )
   foreach(flag
           CMAKE_C_FLAGS                CMAKE_CXX_FLAGS
           CMAKE_C_FLAGS_DEBUG          CMAKE_CXX_FLAGS_DEBUG
@@ -43,10 +85,13 @@ if(MSVC AND NOT CLANG)
           CMAKE_C_FLAGS_MINSIZEREL     CMAKE_CXX_FLAGS_MINSIZEREL
           CMAKE_C_FLAGS_RELWITHDEBINFO CMAKE_CXX_FLAGS_RELWITHDEBINFO
           )
-    string(REPLACE "/MDd"  "" ${flag} "${${flag}}")
-    string(REPLACE "/MD"   "" ${flag} "${${flag}}")
-    string(REPLACE "/EHsc" "" ${flag} "${${flag}}")
-    string(REPLACE "/GR" "" ${flag} "${${flag}}")
+    foreach(item ${purgelist})
+      string(REPLACE "${item}"  "" ${flag} "${${flag}}")
+    endforeach()
+    string(REPLACE "-O0"  "/O0" ${flag} "${${flag}}")
+    string(REPLACE "-O1"  "/O1" ${flag} "${${flag}}")
+    string(REPLACE "-O2"  "/O2" ${flag} "${${flag}}")
+    message(STATUS "${flag} = ${${flag}}")
   endforeach()
   # Restore those same, but now selected by the properties
   add_compile_options(
@@ -68,25 +113,10 @@ endif()
 # Scan this directory for library source code
 include(QuickCppLibParseLibrarySources)
 
-# Configure an if(CLANG) and if(GCC) like if(MSVC)
-if(NOT DEFINED CLANG)
-  if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    set(CLANG 1)
-  endif()
-endif()
-if(NOT DEFINED GCC)
-  if(CMAKE_COMPILER_IS_GNUCXX)
-    set(GCC 1)
-  elseif(NOT MSVC AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    set(GCC 1)
-  endif()
-endif()
-#message(STATUS "CMAKE_CXX_COMPILER_ID=${CMAKE_CXX_COMPILER_ID} MSVC=${MSVC} CLANG=${CLANG} GCC=${GCC}")
-
 set(SPECIAL_BUILDS)  ## Used to add optional build targets for every build target
 
 # Configure the static analyser build
-if(MSVC AND NOT CLANG)
+if(MSVC)
   list(APPEND SPECIAL_BUILDS sa)
   set(sa_COMPILE_FLAGS /analyze /analyze:stacksize 262144)  ## Chosen because OS X enforces this limit on stack usage
   #set(sa_LINK_FLAGS)
@@ -98,7 +128,7 @@ if(CLANG AND ENABLE_CLANG_STATIC_ANALYZER)
   #set(sa_LINK_FLAGS)
 endif()
 
-if(GCC OR CLANG)
+if(NOT MSVC)
   # Does this compiler have the santisers?
   include(CheckCXXSourceCompiles)
   set(CMAKE_REQUIRED_FLAGS "-fsanitize=undefined")
