@@ -83,6 +83,9 @@ if(NOT PROJECT_IS_DEPENDENCY)
               RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
               POSITION_INDEPENDENT_CODE ON
             )
+            if(WIN32)
+              target_compile_definitions(${target_name} PRIVATE _CRT_NONSTDC_NO_WARNINGS)                 # Shut up about using POSIX functions
+            endif()
             if(MSVC)
               target_compile_options(${target_name} PRIVATE /W4)                                          # Stronger warnings
             else()
