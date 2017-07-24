@@ -29,6 +29,7 @@ set(quickcpplib_HEADERS
   "include/scoped_undo.hpp"
   "include/span.hpp"
   "include/spinlock.hpp"
+  "include/string_view.hpp"
   "include/tribool.hpp"
   "include/type_traits.hpp"
   "include/uint128.hpp"

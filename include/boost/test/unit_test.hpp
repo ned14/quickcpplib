@@ -501,8 +501,6 @@ catch(const QUICKCPPLIB_NAMESPACE::unit_test::requirement_failed &)             
     QUICKCPPLIB_BOOST_UNIT_REQUIRE_FAIL(, expr);                                                                                                                                                                                                                                                                               \
   }                                                                                                                                                                                                                                                                                                                            \
   \
-else                                                                                                                                                                                                                                                                                                                      \
-  \
 {                                                                                                                                                                                                                                                                                                                         \
     QUICKCPPLIB_BOOST_UNIT_REQUIRE_PASS(, expr);                                                                                                                                                                                                                                                                               \
   \
