@@ -128,7 +128,7 @@ extern "C" void _mm_pause();
 
 // TO BE REMOVED SOON: C++ 14 constexpr macro
 #ifndef QUICKCPPLIB_CONSTEXPR
-#if __cpp_constexpr >= 201304
+#if __cpp_constexpr >= 201304 || _MSC_VER >= 1910
 #define QUICKCPPLIB_CONSTEXPR constexpr
 #endif
 #endif
@@ -225,6 +225,7 @@ extern "C" void _mm_pause();
 #ifndef QUICKCPPLIB_THREAD_LOCAL
 #if __cplusplus >= 201103L
 #define QUICKCPPLIB_THREAD_LOCAL thread_local
+#define QUICKCPPLIB_THREAD_LOCAL_IS_CXX11 1
 #elif defined(_MSC_VER)
 #define QUICKCPPLIB_THREAD_LOCAL __declspec(thread)
 #elif defined(__GNUC__)
