@@ -71,8 +71,15 @@ namespace algorithm
     //! \brief A thread safe small prng seeded with the thread id
     inline small_prng &thread_local_prng()
     {
+#ifdef QUICKCPPLIB_THREAD_LOCAL_IS_CXX11
       static thread_local small_prng v(utils::thread::this_thread_id());
       return v;
+#else
+      static QUICKCPPLIB_THREAD_LOCAL small_prng *v;
+      if(!v)
+        v = new small_prng(utils::thread::this_thread_id());  // leaks memory
+      return *v;
+#endif
     }
 
     template <class RandomIt> void random_shuffle(RandomIt first, RandomIt last, small_prng &r = thread_local_prng())

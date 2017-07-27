@@ -223,15 +223,26 @@ extern "C" void _mm_pause();
 #endif
 
 #ifndef QUICKCPPLIB_THREAD_LOCAL
-#if __cplusplus >= 201103L
-#define QUICKCPPLIB_THREAD_LOCAL thread_local
+#if _MSC_VER >= 1800
 #define QUICKCPPLIB_THREAD_LOCAL_IS_CXX11 1
-#elif defined(_MSC_VER)
+#elif __cplusplus >= 201103L
+#if defined(__has_feature)
+#if __has_feature(cxx_thread_local)
+#define QUICKCPPLIB_THREAD_LOCAL_IS_CXX11 1
+#endif
+#endif
+#endif
+#ifdef QUICKCPPLIB_THREAD_LOCAL_IS_CXX11
+#define QUICKCPPLIB_THREAD_LOCAL thread_local
+#endif
+#ifndef QUICKCPPLIB_THREAD_LOCAL
+#if defined(_MSC_VER)
 #define QUICKCPPLIB_THREAD_LOCAL __declspec(thread)
 #elif defined(__GNUC__)
 #define QUICKCPPLIB_THREAD_LOCAL __thread
 #else
 #error Unknown compiler, cannot set QUICKCPPLIB_THREAD_LOCAL
+#endif
 #endif
 #endif
 

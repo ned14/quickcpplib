@@ -32,6 +32,11 @@ Distributed under the Boost Software License, Version 1.0.
 #include <unistd.h>       // for syscall()
 #endif
 
+#if defined(__APPLE__)
+#include <mach/mach_init.h>  // for mach_thread_self
+#include <mach/mach_port.h>  // for mach_port_deallocate
+#endif
+
 QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace utils
@@ -51,6 +56,10 @@ namespace utils
       return (unsigned) win32::GetCurrentThreadId();
 #elif defined(__linux__)
       return (unsigned) syscall(SYS_gettid);
+#elif defined(__APPLE__)
+      thread_port_t tid = mach_thread_self();
+      mach_port_deallocate(mach_task_self(), tid);
+      return (unsigned) tid;
 #else
       return (unsigned) pthread_getthreadid_np();
 #endif
