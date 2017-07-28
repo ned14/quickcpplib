@@ -27,6 +27,9 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "config.hpp"
 
+#include <type_traits>
+#include <utility>
+
 QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace scoped_undo
