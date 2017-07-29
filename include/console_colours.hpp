@@ -32,6 +32,8 @@ Distributed under the Boost Software License, Version 1.0.
 #define NOMINMAX
 #endif
 #include <windows.h>
+#else
+#include <unistd.h>
 #endif
 
 QUICKCPPLIB_NAMESPACE_BEGIN
@@ -117,7 +119,6 @@ namespace console_colours
 #else
   namespace detail
   {
-    extern "C" int isatty(int fd);
     inline std::ostream &color_if_term(std::ostream &s, const char seq[])
     {
       if((&s == &std::cout && isatty(1 /*STDOUT_FILENO*/)) || (&s == &std::cerr && isatty(2 /*STDERR_FILENO*/)))
