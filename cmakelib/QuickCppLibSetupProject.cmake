@@ -109,6 +109,11 @@ else()
 #    $<$<STREQUAL:$<TARGET_PROPERTY:CXX_STATIC_RUNTIME>,ON>:-static>
   )
 endif()
+# Looks like cmake's toolset for LLVM-vs* has some serious problems
+if(CMAKE_GENERATOR_TOOLSET MATCHES "LLVM-vs.*")
+  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Od /Zi")
+  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /Z7")
+endif()
 
 # Scan this directory for library source code
 include(QuickCppLibParseLibrarySources)
