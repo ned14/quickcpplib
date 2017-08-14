@@ -175,7 +175,7 @@ namespace string_view
     // modifiers
     void clear() noexcept { len_ = 0; }  // Boost extension
 
-    QUICKCPPLIB_CONSTEXPR void remove_prefix(size_type n)
+    constexpr void remove_prefix(size_type n)
     {
       if(n > len_)
         n = len_;
@@ -183,14 +183,14 @@ namespace string_view
       len_ -= n;
     }
 
-    QUICKCPPLIB_CONSTEXPR void remove_suffix(size_type n)
+    constexpr void remove_suffix(size_type n)
     {
       if(n > len_)
         n = len_;
       len_ -= n;
     }
 
-    QUICKCPPLIB_CONSTEXPR void swap(basic_string_view &s) noexcept
+    constexpr void swap(basic_string_view &s) noexcept
     {
       std::swap(ptr_, s.ptr_);
       std::swap(len_, s.len_);
@@ -210,28 +210,28 @@ namespace string_view
       return rlen;
     }
 
-    QUICKCPPLIB_CONSTEXPR basic_string_view substr(size_type pos, size_type n = npos) const
+    constexpr basic_string_view substr(size_type pos, size_type n = npos) const
     {
       if(pos > size())
         throw std::out_of_range("string_view::substr");
       return basic_string_view(data() + pos, (std::min)(size() - pos, n));
     }
 
-    QUICKCPPLIB_CONSTEXPR int compare(basic_string_view x) const noexcept
+    constexpr int compare(basic_string_view x) const noexcept
     {
       const int cmp = traits::compare(ptr_, x.ptr_, (std::min)(len_, x.len_));
       return cmp != 0 ? cmp : (len_ == x.len_ ? 0 : len_ < x.len_ ? -1 : 1);
     }
 
-    QUICKCPPLIB_CONSTEXPR int compare(size_type pos1, size_type n1, basic_string_view x) const noexcept { return substr(pos1, n1).compare(x); }
+    constexpr int compare(size_type pos1, size_type n1, basic_string_view x) const noexcept { return substr(pos1, n1).compare(x); }
 
-    QUICKCPPLIB_CONSTEXPR int compare(size_type pos1, size_type n1, basic_string_view x, size_type pos2, size_type n2) const { return substr(pos1, n1).compare(x.substr(pos2, n2)); }
+    constexpr int compare(size_type pos1, size_type n1, basic_string_view x, size_type pos2, size_type n2) const { return substr(pos1, n1).compare(x.substr(pos2, n2)); }
 
-    QUICKCPPLIB_CONSTEXPR int compare(const charT *x) const { return compare(basic_string_view(x)); }
+    constexpr int compare(const charT *x) const { return compare(basic_string_view(x)); }
 
-    QUICKCPPLIB_CONSTEXPR int compare(size_type pos1, size_type n1, const charT *x) const { return substr(pos1, n1).compare(basic_string_view(x)); }
+    constexpr int compare(size_type pos1, size_type n1, const charT *x) const { return substr(pos1, n1).compare(basic_string_view(x)); }
 
-    QUICKCPPLIB_CONSTEXPR int compare(size_type pos1, size_type n1, const charT *x, size_type n2) const { return substr(pos1, n1).compare(basic_string_view(x, n2)); }
+    constexpr int compare(size_type pos1, size_type n1, const charT *x, size_type n2) const { return substr(pos1, n1).compare(basic_string_view(x, n2)); }
 
     //  Searches
     constexpr bool starts_with(charT c) const noexcept
@@ -255,7 +255,7 @@ namespace string_view
     }
 
     //  find
-    QUICKCPPLIB_CONSTEXPR size_type find(basic_string_view s, size_type pos = 0) const noexcept
+    constexpr size_type find(basic_string_view s, size_type pos = 0) const noexcept
     {
       if(pos > size())
         return npos;
@@ -264,12 +264,12 @@ namespace string_view
       const_iterator iter = std::search(this->cbegin() + pos, this->cend(), s.cbegin(), s.cend(), traits::eq);
       return iter == this->cend() ? npos : std::distance(this->cbegin(), iter);
     }
-    QUICKCPPLIB_CONSTEXPR size_type find(charT c, size_type pos = 0) const noexcept { return find(basic_string_view(&c, 1), pos); }
-    QUICKCPPLIB_CONSTEXPR size_type find(const charT *s, size_type pos, size_type n) const noexcept { return find(basic_string_view(s, n), pos); }
-    QUICKCPPLIB_CONSTEXPR size_type find(const charT *s, size_type pos = 0) const noexcept { return find(basic_string_view(s), pos); }
+    constexpr size_type find(charT c, size_type pos = 0) const noexcept { return find(basic_string_view(&c, 1), pos); }
+    constexpr size_type find(const charT *s, size_type pos, size_type n) const noexcept { return find(basic_string_view(s, n), pos); }
+    constexpr size_type find(const charT *s, size_type pos = 0) const noexcept { return find(basic_string_view(s), pos); }
 
     //  rfind
-    QUICKCPPLIB_CONSTEXPR size_type rfind(basic_string_view s, size_type pos = npos) const noexcept
+    constexpr size_type rfind(basic_string_view s, size_type pos = npos) const noexcept
     {
       if(len_ < s.len_)
         return npos;
@@ -285,24 +285,24 @@ namespace string_view
           return npos;
       };
     }
-    QUICKCPPLIB_CONSTEXPR size_type rfind(charT c, size_type pos = npos) const noexcept { return rfind(basic_string_view(&c, 1), pos); }
-    QUICKCPPLIB_CONSTEXPR size_type rfind(const charT *s, size_type pos, size_type n) const noexcept { return rfind(basic_string_view(s, n), pos); }
-    QUICKCPPLIB_CONSTEXPR size_type rfind(const charT *s, size_type pos = npos) const noexcept { return rfind(basic_string_view(s), pos); }
+    constexpr size_type rfind(charT c, size_type pos = npos) const noexcept { return rfind(basic_string_view(&c, 1), pos); }
+    constexpr size_type rfind(const charT *s, size_type pos, size_type n) const noexcept { return rfind(basic_string_view(s, n), pos); }
+    constexpr size_type rfind(const charT *s, size_type pos = npos) const noexcept { return rfind(basic_string_view(s), pos); }
 
     //  find_first_of
-    QUICKCPPLIB_CONSTEXPR size_type find_first_of(basic_string_view s, size_type pos = 0) const noexcept
+    constexpr size_type find_first_of(basic_string_view s, size_type pos = 0) const noexcept
     {
       if(pos >= len_ || s.len_ == 0)
         return npos;
       const_iterator iter = std::find_first_of(this->cbegin() + pos, this->cend(), s.cbegin(), s.cend(), traits::eq);
       return iter == this->cend() ? npos : std::distance(this->cbegin(), iter);
     }
-    QUICKCPPLIB_CONSTEXPR size_type find_first_of(charT c, size_type pos = 0) const noexcept { return find_first_of(basic_string_view(&c, 1), pos); }
-    QUICKCPPLIB_CONSTEXPR size_type find_first_of(const charT *s, size_type pos, size_type n) const noexcept { return find_first_of(basic_string_view(s, n), pos); }
-    QUICKCPPLIB_CONSTEXPR size_type find_first_of(const charT *s, size_type pos = 0) const noexcept { return find_first_of(basic_string_view(s), pos); }
+    constexpr size_type find_first_of(charT c, size_type pos = 0) const noexcept { return find_first_of(basic_string_view(&c, 1), pos); }
+    constexpr size_type find_first_of(const charT *s, size_type pos, size_type n) const noexcept { return find_first_of(basic_string_view(s, n), pos); }
+    constexpr size_type find_first_of(const charT *s, size_type pos = 0) const noexcept { return find_first_of(basic_string_view(s), pos); }
 
     //  find_last_of
-    QUICKCPPLIB_CONSTEXPR size_type find_last_of(basic_string_view s, size_type pos = npos) const noexcept
+    constexpr size_type find_last_of(basic_string_view s, size_type pos = npos) const noexcept
     {
       if(s.len_ == 0u)
         return npos;
@@ -313,12 +313,12 @@ namespace string_view
       const_reverse_iterator iter = std::find_first_of(this->crbegin() + pos, this->crend(), s.cbegin(), s.cend(), traits::eq);
       return iter == this->crend() ? npos : reverse_distance(this->crbegin(), iter);
     }
-    QUICKCPPLIB_CONSTEXPR size_type find_last_of(charT c, size_type pos = npos) const noexcept { return find_last_of(basic_string_view(&c, 1), pos); }
-    QUICKCPPLIB_CONSTEXPR size_type find_last_of(const charT *s, size_type pos, size_type n) const noexcept { return find_last_of(basic_string_view(s, n), pos); }
-    QUICKCPPLIB_CONSTEXPR size_type find_last_of(const charT *s, size_type pos = npos) const noexcept { return find_last_of(basic_string_view(s), pos); }
+    constexpr size_type find_last_of(charT c, size_type pos = npos) const noexcept { return find_last_of(basic_string_view(&c, 1), pos); }
+    constexpr size_type find_last_of(const charT *s, size_type pos, size_type n) const noexcept { return find_last_of(basic_string_view(s, n), pos); }
+    constexpr size_type find_last_of(const charT *s, size_type pos = npos) const noexcept { return find_last_of(basic_string_view(s), pos); }
 
     //  find_first_not_of
-    QUICKCPPLIB_CONSTEXPR size_type find_first_not_of(basic_string_view s, size_type pos = 0) const noexcept
+    constexpr size_type find_first_not_of(basic_string_view s, size_type pos = 0) const noexcept
     {
       if(pos >= len_)
         return npos;
@@ -327,12 +327,12 @@ namespace string_view
       const_iterator iter = find_not_of(this->cbegin() + pos, this->cend(), s);
       return iter == this->cend() ? npos : std::distance(this->cbegin(), iter);
     }
-    QUICKCPPLIB_CONSTEXPR size_type find_first_not_of(charT c, size_type pos = 0) const noexcept { return find_first_not_of(basic_string_view(&c, 1), pos); }
-    QUICKCPPLIB_CONSTEXPR size_type find_first_not_of(const charT *s, size_type pos, size_type n) const noexcept { return find_first_not_of(basic_string_view(s, n), pos); }
-    QUICKCPPLIB_CONSTEXPR size_type find_first_not_of(const charT *s, size_type pos = 0) const noexcept { return find_first_not_of(basic_string_view(s), pos); }
+    constexpr size_type find_first_not_of(charT c, size_type pos = 0) const noexcept { return find_first_not_of(basic_string_view(&c, 1), pos); }
+    constexpr size_type find_first_not_of(const charT *s, size_type pos, size_type n) const noexcept { return find_first_not_of(basic_string_view(s, n), pos); }
+    constexpr size_type find_first_not_of(const charT *s, size_type pos = 0) const noexcept { return find_first_not_of(basic_string_view(s), pos); }
 
     //  find_last_not_of
-    QUICKCPPLIB_CONSTEXPR size_type find_last_not_of(basic_string_view s, size_type pos = npos) const noexcept
+    constexpr size_type find_last_not_of(basic_string_view s, size_type pos = npos) const noexcept
     {
       if(pos >= len_)
         pos = len_ - 1;
@@ -342,9 +342,9 @@ namespace string_view
       const_reverse_iterator iter = find_not_of(this->crbegin() + pos, this->crend(), s);
       return iter == this->crend() ? npos : reverse_distance(this->crbegin(), iter);
     }
-    QUICKCPPLIB_CONSTEXPR size_type find_last_not_of(charT c, size_type pos = npos) const noexcept { return find_last_not_of(basic_string_view(&c, 1), pos); }
-    QUICKCPPLIB_CONSTEXPR size_type find_last_not_of(const charT *s, size_type pos, size_type n) const noexcept { return find_last_not_of(basic_string_view(s, n), pos); }
-    QUICKCPPLIB_CONSTEXPR size_type find_last_not_of(const charT *s, size_type pos = npos) const noexcept { return find_last_not_of(basic_string_view(s), pos); }
+    constexpr size_type find_last_not_of(charT c, size_type pos = npos) const noexcept { return find_last_not_of(basic_string_view(&c, 1), pos); }
+    constexpr size_type find_last_not_of(const charT *s, size_type pos, size_type n) const noexcept { return find_last_not_of(basic_string_view(s, n), pos); }
+    constexpr size_type find_last_not_of(const charT *s, size_type pos = npos) const noexcept { return find_last_not_of(basic_string_view(s), pos); }
 
   private:
     template <typename r_iter> size_type reverse_distance(r_iter first, r_iter last) const noexcept
@@ -368,7 +368,7 @@ namespace string_view
 
   //  Comparison operators
   //  Equality
-  template <typename charT, typename traits> inline QUICKCPPLIB_CONSTEXPR bool operator==(basic_string_view<charT, traits> x, basic_string_view<charT, traits> y) noexcept
+  template <typename charT, typename traits> inline constexpr bool operator==(basic_string_view<charT, traits> x, basic_string_view<charT, traits> y) noexcept
   {
     if(x.size() != y.size())
       return false;
@@ -376,7 +376,7 @@ namespace string_view
   }
 
   //  Inequality
-  template <typename charT, typename traits> inline QUICKCPPLIB_CONSTEXPR bool operator!=(basic_string_view<charT, traits> x, basic_string_view<charT, traits> y) noexcept
+  template <typename charT, typename traits> inline constexpr bool operator!=(basic_string_view<charT, traits> x, basic_string_view<charT, traits> y) noexcept
   {
     if(x.size() != y.size())
       return true;
@@ -384,65 +384,65 @@ namespace string_view
   }
 
   //  Less than
-  template <typename charT, typename traits> inline QUICKCPPLIB_CONSTEXPR bool operator<(basic_string_view<charT, traits> x, basic_string_view<charT, traits> y) noexcept { return x.compare(y) < 0; }
+  template <typename charT, typename traits> inline constexpr bool operator<(basic_string_view<charT, traits> x, basic_string_view<charT, traits> y) noexcept { return x.compare(y) < 0; }
 
   //  Greater than
-  template <typename charT, typename traits> inline QUICKCPPLIB_CONSTEXPR bool operator>(basic_string_view<charT, traits> x, basic_string_view<charT, traits> y) noexcept { return x.compare(y) > 0; }
+  template <typename charT, typename traits> inline constexpr bool operator>(basic_string_view<charT, traits> x, basic_string_view<charT, traits> y) noexcept { return x.compare(y) > 0; }
 
   //  Less than or equal to
-  template <typename charT, typename traits> inline QUICKCPPLIB_CONSTEXPR bool operator<=(basic_string_view<charT, traits> x, basic_string_view<charT, traits> y) noexcept { return x.compare(y) <= 0; }
+  template <typename charT, typename traits> inline constexpr bool operator<=(basic_string_view<charT, traits> x, basic_string_view<charT, traits> y) noexcept { return x.compare(y) <= 0; }
 
   //  Greater than or equal to
-  template <typename charT, typename traits> inline QUICKCPPLIB_CONSTEXPR bool operator>=(basic_string_view<charT, traits> x, basic_string_view<charT, traits> y) noexcept { return x.compare(y) >= 0; }
+  template <typename charT, typename traits> inline constexpr bool operator>=(basic_string_view<charT, traits> x, basic_string_view<charT, traits> y) noexcept { return x.compare(y) >= 0; }
 
   // "sufficient additional overloads of comparison functions"
-  template <typename charT, typename traits, typename Allocator> inline QUICKCPPLIB_CONSTEXPR bool operator==(basic_string_view<charT, traits> x, const std::basic_string<charT, traits, Allocator> &y) noexcept { return x == basic_string_view<charT, traits>(y); }
+  template <typename charT, typename traits, typename Allocator> inline constexpr bool operator==(basic_string_view<charT, traits> x, const std::basic_string<charT, traits, Allocator> &y) noexcept { return x == basic_string_view<charT, traits>(y); }
 
-  template <typename charT, typename traits, typename Allocator> inline QUICKCPPLIB_CONSTEXPR bool operator==(const std::basic_string<charT, traits, Allocator> &x, basic_string_view<charT, traits> y) noexcept { return basic_string_view<charT, traits>(x) == y; }
+  template <typename charT, typename traits, typename Allocator> inline constexpr bool operator==(const std::basic_string<charT, traits, Allocator> &x, basic_string_view<charT, traits> y) noexcept { return basic_string_view<charT, traits>(x) == y; }
 
-  template <typename charT, typename traits> inline QUICKCPPLIB_CONSTEXPR bool operator==(basic_string_view<charT, traits> x, const charT *y) noexcept { return x == basic_string_view<charT, traits>(y); }
+  template <typename charT, typename traits> inline constexpr bool operator==(basic_string_view<charT, traits> x, const charT *y) noexcept { return x == basic_string_view<charT, traits>(y); }
 
-  template <typename charT, typename traits> inline QUICKCPPLIB_CONSTEXPR bool operator==(const charT *x, basic_string_view<charT, traits> y) noexcept { return basic_string_view<charT, traits>(x) == y; }
+  template <typename charT, typename traits> inline constexpr bool operator==(const charT *x, basic_string_view<charT, traits> y) noexcept { return basic_string_view<charT, traits>(x) == y; }
 
-  template <typename charT, typename traits, typename Allocator> inline QUICKCPPLIB_CONSTEXPR bool operator!=(basic_string_view<charT, traits> x, const std::basic_string<charT, traits, Allocator> &y) noexcept { return x != basic_string_view<charT, traits>(y); }
+  template <typename charT, typename traits, typename Allocator> inline constexpr bool operator!=(basic_string_view<charT, traits> x, const std::basic_string<charT, traits, Allocator> &y) noexcept { return x != basic_string_view<charT, traits>(y); }
 
-  template <typename charT, typename traits, typename Allocator> inline QUICKCPPLIB_CONSTEXPR bool operator!=(const std::basic_string<charT, traits, Allocator> &x, basic_string_view<charT, traits> y) noexcept { return basic_string_view<charT, traits>(x) != y; }
+  template <typename charT, typename traits, typename Allocator> inline constexpr bool operator!=(const std::basic_string<charT, traits, Allocator> &x, basic_string_view<charT, traits> y) noexcept { return basic_string_view<charT, traits>(x) != y; }
 
-  template <typename charT, typename traits> inline QUICKCPPLIB_CONSTEXPR bool operator!=(basic_string_view<charT, traits> x, const charT *y) noexcept { return x != basic_string_view<charT, traits>(y); }
+  template <typename charT, typename traits> inline constexpr bool operator!=(basic_string_view<charT, traits> x, const charT *y) noexcept { return x != basic_string_view<charT, traits>(y); }
 
-  template <typename charT, typename traits> inline QUICKCPPLIB_CONSTEXPR bool operator!=(const charT *x, basic_string_view<charT, traits> y) noexcept { return basic_string_view<charT, traits>(x) != y; }
+  template <typename charT, typename traits> inline constexpr bool operator!=(const charT *x, basic_string_view<charT, traits> y) noexcept { return basic_string_view<charT, traits>(x) != y; }
 
-  template <typename charT, typename traits, typename Allocator> inline QUICKCPPLIB_CONSTEXPR bool operator<(basic_string_view<charT, traits> x, const std::basic_string<charT, traits, Allocator> &y) noexcept { return x < basic_string_view<charT, traits>(y); }
+  template <typename charT, typename traits, typename Allocator> inline constexpr bool operator<(basic_string_view<charT, traits> x, const std::basic_string<charT, traits, Allocator> &y) noexcept { return x < basic_string_view<charT, traits>(y); }
 
-  template <typename charT, typename traits, typename Allocator> inline QUICKCPPLIB_CONSTEXPR bool operator<(const std::basic_string<charT, traits, Allocator> &x, basic_string_view<charT, traits> y) noexcept { return basic_string_view<charT, traits>(x) < y; }
+  template <typename charT, typename traits, typename Allocator> inline constexpr bool operator<(const std::basic_string<charT, traits, Allocator> &x, basic_string_view<charT, traits> y) noexcept { return basic_string_view<charT, traits>(x) < y; }
 
-  template <typename charT, typename traits> inline QUICKCPPLIB_CONSTEXPR bool operator<(basic_string_view<charT, traits> x, const charT *y) noexcept { return x < basic_string_view<charT, traits>(y); }
+  template <typename charT, typename traits> inline constexpr bool operator<(basic_string_view<charT, traits> x, const charT *y) noexcept { return x < basic_string_view<charT, traits>(y); }
 
-  template <typename charT, typename traits> inline QUICKCPPLIB_CONSTEXPR bool operator<(const charT *x, basic_string_view<charT, traits> y) noexcept { return basic_string_view<charT, traits>(x) < y; }
+  template <typename charT, typename traits> inline constexpr bool operator<(const charT *x, basic_string_view<charT, traits> y) noexcept { return basic_string_view<charT, traits>(x) < y; }
 
-  template <typename charT, typename traits, typename Allocator> inline QUICKCPPLIB_CONSTEXPR bool operator>(basic_string_view<charT, traits> x, const std::basic_string<charT, traits, Allocator> &y) noexcept { return x > basic_string_view<charT, traits>(y); }
+  template <typename charT, typename traits, typename Allocator> inline constexpr bool operator>(basic_string_view<charT, traits> x, const std::basic_string<charT, traits, Allocator> &y) noexcept { return x > basic_string_view<charT, traits>(y); }
 
-  template <typename charT, typename traits, typename Allocator> inline QUICKCPPLIB_CONSTEXPR bool operator>(const std::basic_string<charT, traits, Allocator> &x, basic_string_view<charT, traits> y) noexcept { return basic_string_view<charT, traits>(x) > y; }
+  template <typename charT, typename traits, typename Allocator> inline constexpr bool operator>(const std::basic_string<charT, traits, Allocator> &x, basic_string_view<charT, traits> y) noexcept { return basic_string_view<charT, traits>(x) > y; }
 
-  template <typename charT, typename traits> inline QUICKCPPLIB_CONSTEXPR bool operator>(basic_string_view<charT, traits> x, const charT *y) noexcept { return x > basic_string_view<charT, traits>(y); }
+  template <typename charT, typename traits> inline constexpr bool operator>(basic_string_view<charT, traits> x, const charT *y) noexcept { return x > basic_string_view<charT, traits>(y); }
 
-  template <typename charT, typename traits> inline QUICKCPPLIB_CONSTEXPR bool operator>(const charT *x, basic_string_view<charT, traits> y) noexcept { return basic_string_view<charT, traits>(x) > y; }
+  template <typename charT, typename traits> inline constexpr bool operator>(const charT *x, basic_string_view<charT, traits> y) noexcept { return basic_string_view<charT, traits>(x) > y; }
 
-  template <typename charT, typename traits, typename Allocator> inline QUICKCPPLIB_CONSTEXPR bool operator<=(basic_string_view<charT, traits> x, const std::basic_string<charT, traits, Allocator> &y) noexcept { return x <= basic_string_view<charT, traits>(y); }
+  template <typename charT, typename traits, typename Allocator> inline constexpr bool operator<=(basic_string_view<charT, traits> x, const std::basic_string<charT, traits, Allocator> &y) noexcept { return x <= basic_string_view<charT, traits>(y); }
 
-  template <typename charT, typename traits, typename Allocator> inline QUICKCPPLIB_CONSTEXPR bool operator<=(const std::basic_string<charT, traits, Allocator> &x, basic_string_view<charT, traits> y) noexcept { return basic_string_view<charT, traits>(x) <= y; }
+  template <typename charT, typename traits, typename Allocator> inline constexpr bool operator<=(const std::basic_string<charT, traits, Allocator> &x, basic_string_view<charT, traits> y) noexcept { return basic_string_view<charT, traits>(x) <= y; }
 
-  template <typename charT, typename traits> inline QUICKCPPLIB_CONSTEXPR bool operator<=(basic_string_view<charT, traits> x, const charT *y) noexcept { return x <= basic_string_view<charT, traits>(y); }
+  template <typename charT, typename traits> inline constexpr bool operator<=(basic_string_view<charT, traits> x, const charT *y) noexcept { return x <= basic_string_view<charT, traits>(y); }
 
-  template <typename charT, typename traits> inline QUICKCPPLIB_CONSTEXPR bool operator<=(const charT *x, basic_string_view<charT, traits> y) noexcept { return basic_string_view<charT, traits>(x) <= y; }
+  template <typename charT, typename traits> inline constexpr bool operator<=(const charT *x, basic_string_view<charT, traits> y) noexcept { return basic_string_view<charT, traits>(x) <= y; }
 
-  template <typename charT, typename traits, typename Allocator> inline QUICKCPPLIB_CONSTEXPR bool operator>=(basic_string_view<charT, traits> x, const std::basic_string<charT, traits, Allocator> &y) noexcept { return x >= basic_string_view<charT, traits>(y); }
+  template <typename charT, typename traits, typename Allocator> inline constexpr bool operator>=(basic_string_view<charT, traits> x, const std::basic_string<charT, traits, Allocator> &y) noexcept { return x >= basic_string_view<charT, traits>(y); }
 
-  template <typename charT, typename traits, typename Allocator> inline QUICKCPPLIB_CONSTEXPR bool operator>=(const std::basic_string<charT, traits, Allocator> &x, basic_string_view<charT, traits> y) noexcept { return basic_string_view<charT, traits>(x) >= y; }
+  template <typename charT, typename traits, typename Allocator> inline constexpr bool operator>=(const std::basic_string<charT, traits, Allocator> &x, basic_string_view<charT, traits> y) noexcept { return basic_string_view<charT, traits>(x) >= y; }
 
-  template <typename charT, typename traits> inline QUICKCPPLIB_CONSTEXPR bool operator>=(basic_string_view<charT, traits> x, const charT *y) noexcept { return x >= basic_string_view<charT, traits>(y); }
+  template <typename charT, typename traits> inline constexpr bool operator>=(basic_string_view<charT, traits> x, const charT *y) noexcept { return x >= basic_string_view<charT, traits>(y); }
 
-  template <typename charT, typename traits> inline QUICKCPPLIB_CONSTEXPR bool operator>=(const charT *x, basic_string_view<charT, traits> y) noexcept { return basic_string_view<charT, traits>(x) >= y; }
+  template <typename charT, typename traits> inline constexpr bool operator>=(const charT *x, basic_string_view<charT, traits> y) noexcept { return basic_string_view<charT, traits>(x) >= y; }
 
   namespace detail
   {

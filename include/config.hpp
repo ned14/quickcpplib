@@ -126,16 +126,6 @@ extern "C" void _mm_pause();
 #endif
 #endif
 
-// TO BE REMOVED SOON: C++ 14 constexpr macro
-#ifndef QUICKCPPLIB_CONSTEXPR
-#if __cpp_constexpr >= 201304 || _MSC_VER >= 1910
-#define QUICKCPPLIB_CONSTEXPR constexpr
-#endif
-#endif
-#ifndef QUICKCPPLIB_CONSTEXPR
-#define QUICKCPPLIB_CONSTEXPR
-#endif
-
 #ifndef QUICKCPPLIB_FORCEINLINE
 #if defined(_MSC_VER)
 #define QUICKCPPLIB_FORCEINLINE __forceinline

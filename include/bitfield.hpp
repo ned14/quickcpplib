@@ -98,13 +98,13 @@ namespace bitfield
     //! Performs a bitwise AND
     constexpr bitfield operator&(enum_type o) const noexcept { return bitfield(_value & o); }
     //! Performs a bitwise AND
-    QUICKCPPLIB_CONSTEXPR bitfield &operator&=(bitfield o) noexcept
+    constexpr bitfield &operator&=(bitfield o) noexcept
     {
       _value &= o._value;
       return *this;
     }
     //! Performs a bitwise AND
-    QUICKCPPLIB_CONSTEXPR bitfield &operator&=(enum_type o) noexcept
+    constexpr bitfield &operator&=(enum_type o) noexcept
     {
       _value &= o;
       return *this;
@@ -118,13 +118,13 @@ namespace bitfield
     //! Performs a bitwise OR
     constexpr bitfield operator|(enum_type o) const noexcept { return bitfield(_value | o); }
     //! Performs a bitwise OR
-    QUICKCPPLIB_CONSTEXPR bitfield &operator|=(bitfield o) noexcept
+    constexpr bitfield &operator|=(bitfield o) noexcept
     {
       _value |= o._value;
       return *this;
     }
     //! Performs a bitwise OR
-    QUICKCPPLIB_CONSTEXPR bitfield &operator|=(enum_type o) noexcept
+    constexpr bitfield &operator|=(enum_type o) noexcept
     {
       _value |= o;
       return *this;
@@ -134,13 +134,13 @@ namespace bitfield
     //! Performs a bitwise XOR
     constexpr bitfield operator^(enum_type o) const noexcept { return bitfield(_value ^ o); }
     //! Performs a bitwise XOR
-    QUICKCPPLIB_CONSTEXPR bitfield &operator^=(bitfield o) noexcept
+    constexpr bitfield &operator^=(bitfield o) noexcept
     {
       _value ^= o._value;
       return *this;
     }
     //! Performs a bitwise XOR
-    QUICKCPPLIB_CONSTEXPR bitfield &operator^=(enum_type o) noexcept
+    constexpr bitfield &operator^=(enum_type o) noexcept
     {
       _value ^= o;
       return *this;
@@ -148,7 +148,7 @@ namespace bitfield
   };
 
 //! Begins a typesafe bitfield
-#define QUICKCPPLIB_BITFIELD_BEGIN(type)                                                                                                                                                                                                                                                                                         \
+#define QUICKCPPLIB_BITFIELD_BEGIN(type)                                                                                                                                                                                                                                                                                       \
   \
 struct type##_base                                                                                                                                                                                                                                                                                                             \
   \
@@ -156,7 +156,7 @@ struct type##_base                                                              
   enum enum_type : unsigned
 
 //! Ends a typesafe bitfield
-#define QUICKCPPLIB_BITFIELD_END(type)                                                                                                                                                                                                                                                                                           \
+#define QUICKCPPLIB_BITFIELD_END(type)                                                                                                                                                                                                                                                                                         \
   \
 ;                                                                                                                                                                                                                                                                                                                         \
   }                                                                                                                                                                                                                                                                                                                            \

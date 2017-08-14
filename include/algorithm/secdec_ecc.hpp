@@ -130,7 +130,7 @@ namespace algorithm
 
     public:
       //! Constructs an instance, configuring the necessary lookup tables
-      QUICKCPPLIB_CONSTEXPR secded_ecc()
+      constexpr secded_ecc()
       {
         for(size_t n = 0; n < sizeof(result_type) * bits_per_byte; n++)
           ecc_twospowers[n] = ((result_type) 1 << n);

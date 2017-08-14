@@ -132,7 +132,7 @@ namespace configurable_spinlock
     typedef T value_type;
 
 #ifndef QUICKCPPLIB_ENABLE_VALGRIND
-    QUICKCPPLIB_CONSTEXPR
+    constexpr
 #endif
     spinlockbase() noexcept : v(0)
     {
@@ -144,7 +144,7 @@ namespace configurable_spinlock
     spinlockbase(const spinlockbase &) = delete;
 //! Atomically move constructs
 #ifndef QUICKCPPLIB_ENABLE_VALGRIND
-    QUICKCPPLIB_CONSTEXPR
+    constexpr
 #endif
     spinlockbase(spinlockbase &&) noexcept : v(0)
     {
@@ -237,7 +237,7 @@ namespace configurable_spinlock
       QUICKCPPLIB_ANNOTATE_RWLOCK_RELEASED(this, true);
       v.store(0, memory_order_release);
     }
-    QUICKCPPLIB_CONSTEXPR bool int_yield(size_t) noexcept { return false; }
+    constexpr bool int_yield(size_t) noexcept { return false; }
   };
   template <typename T> struct spinlockbase<lockable_ptr<T>>
   {
@@ -303,7 +303,7 @@ namespace configurable_spinlock
       value.n &= ~(size_t) 1;
       v.store(value.v, memory_order_release);
     }
-    QUICKCPPLIB_CONSTEXPR bool int_yield(size_t) noexcept { return false; }
+    constexpr bool int_yield(size_t) noexcept { return false; }
   };
   template <typename T> struct ordered_spinlockbase
   {
@@ -333,7 +333,7 @@ namespace configurable_spinlock
 
   public:
 #ifndef QUICKCPPLIB_ENABLE_VALGRIND
-    QUICKCPPLIB_CONSTEXPR
+    constexpr
 #endif
     ordered_spinlockbase() noexcept : _v(0)
     {
@@ -426,7 +426,7 @@ namespace configurable_spinlock
 
   public:
 #ifndef QUICKCPPLIB_ENABLE_VALGRIND
-    QUICKCPPLIB_CONSTEXPR
+    constexpr
 #endif
     shared_spinlockbase() noexcept : _v(0)
     {
@@ -563,7 +563,7 @@ namespace configurable_spinlock
       constexpr policy() {}
       policy(const policy &) = delete;
       constexpr policy(policy &&o) noexcept : parenttype(std::move(o)) {}
-      QUICKCPPLIB_CONSTEXPR inline bool int_yield(size_t n) noexcept
+      constexpr inline bool int_yield(size_t n) noexcept
       {
         if(parenttype::int_yield(n))
           return true;
@@ -583,7 +583,7 @@ namespace configurable_spinlock
       constexpr policy() {}
       policy(const policy &) = delete;
       constexpr policy(policy &&o) noexcept : parenttype(std::move(o)) {}
-      QUICKCPPLIB_CONSTEXPR bool int_yield(size_t n) noexcept
+      constexpr bool int_yield(size_t n) noexcept
       {
         if(parenttype::int_yield(n))
           return true;
@@ -602,7 +602,7 @@ namespace configurable_spinlock
       constexpr policy() {}
       policy(const policy &) = delete;
       constexpr policy(policy &&o) noexcept : parenttype(std::move(o)) {}
-      QUICKCPPLIB_CONSTEXPR bool int_yield(size_t n) noexcept
+      constexpr bool int_yield(size_t n) noexcept
       {
         if(parenttype::int_yield(n))
           return true;
