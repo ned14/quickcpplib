@@ -15,7 +15,6 @@ set(quickcpplib_HEADERS
   "include/algorithm/string.hpp"
   "include/aligned_allocator.hpp"
   "include/allocator_testing.hpp"
-  "include/atuple.hpp"
   "include/bitfield.hpp"
   "include/boost/test/unit_test.hpp"
   "include/config.hpp"

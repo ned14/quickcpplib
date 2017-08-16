@@ -78,7 +78,7 @@ if(NOT PROJECT_IS_DEPENDENCY)
             if(DEFINED group)
               add_dependencies(${group} ${target_name})
             endif()
-            target_link_libraries(${target_name} ${target})
+            target_link_libraries(${target_name} PRIVATE ${target})
             set_target_properties(${target_name} PROPERTIES
               RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
               POSITION_INDEPENDENT_CODE ON

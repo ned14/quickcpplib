@@ -27,7 +27,7 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "config.hpp"
 
-#if _HAS_CXX17 || __cplusplus >= 201700
+#if(_HAS_CXX17 || __cplusplus >= 201700) && (!defined(__GLIBCXX__) || __GLIBCXX__ > 20170519)  // libstdc++'s string_view is missing constexpr
 
 #include <string_view>
 
@@ -579,10 +579,10 @@ namespace string_view
     template<> struct hash<boost::wstring_view>;
   }
 #endif
-
-#endif
 }
 
 QUICKCPPLIB_NAMESPACE_END
+
+#endif
 
 #endif
