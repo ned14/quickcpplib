@@ -68,7 +68,7 @@ endfunction()
 
 # Escape a string into a regex matching that string
 function(escape_string_into_regex outvar)
-  string(REGEX REPLACE "(\\^|\\$|\\.|\\[|\\]|\\*|\\+|\\?|\\(|\\)|\\\\)" "\\\\1" out ${ARGN})
+  string(REGEX REPLACE "(\\^|\\$|\\.|\\[|\\]|\\*|\\+|\\?|\\(|\\)|\\\\)" "\\\\\\1" out ${ARGN})
   set(${outvar} ${out} PARENT_SCOPE)
 endfunction()
 
