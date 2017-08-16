@@ -289,7 +289,10 @@ function(find_quickcpplib_library libraryname version)
       # One of the only uses of a non-target specific cmake command anywhere,
       # but this is local to the calling CMakeLists.txt and is the correct
       # thing to use.
+      include_directories(SYSTEM "${boostishdir}/.quickcpplib_use_siblings/a/a")
+      include_directories(SYSTEM "${boostishdir}/.quickcpplib_use_siblings/a")
       include_directories(SYSTEM "${boostishdir}/.quickcpplib_use_siblings")
+      include_directories(SYSTEM "${boostishdir}")
       set(${libraryname}_PATH "${GITREPO}")
       set(${libraryname}_FOUND TRUE)
     elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${gitsubmodulepath}/.quickcpplib")
@@ -300,7 +303,7 @@ function(find_quickcpplib_library libraryname version)
       )
       # If we are using an embedded dependency, for any unit tests make the
       # dependencies appear as if at the same location as for the headers
-      include_directories(SYSTEM "${CMAKE_CURRENT_SOURCE_DIR}/${gitsubmodulepath}")
+      include_directories(SYSTEM "${CMAKE_CURRENT_SOURCE_DIR}/${gitsubmodulepath}/..")
       set(${libraryname}_PATH "${CMAKE_CURRENT_SOURCE_DIR}/${gitsubmodulepath}")
       set(${libraryname}_FOUND TRUE)
     else()
