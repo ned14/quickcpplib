@@ -108,37 +108,37 @@ namespace algorithm
       {
         using first_type = key_type;
         using second_type = mapped_type;
-        bool _inuse;
         key_type first;
+        bool _inuse;
         mapped_type second;
         constexpr value_type()
-            : _inuse(false)
-            , first()
+            : first()
+            , _inuse(false)
             , second()
         {
         }
         template <class U, class V>
         explicit constexpr value_type(U &&f, V &&s)
-            : _inuse(false)
-            , first(std::forward<U>(f))
+            : first(std::forward<U>(f))
+            , _inuse(false)
             , second(std::forward<V>(s))
         {
         }
         template <class U, class V>
         constexpr value_type(const std::pair<U, V> &v)
-            : _inuse(false)
-            , first(v.first)
+            : first(v.first)
+            , _inuse(false)
             , second(v.second)
         {
         }
         template <class U, class V>
         constexpr value_type(std::pair<U, V> &&v)
-            : _inuse(false)
-            , first(std::move(v.first))
+            : first(std::move(v.first))
+            , _inuse(false)
             , second(std::move(v.second))
         {
         }
-        value_type(value_type &&o) noexcept : _inuse(o._inuse), first(std::move(o.first)), second(std::move(o.second)) {}
+        value_type(value_type &&o) noexcept : first(std::move(o.first)), _inuse(o._inuse), second(std::move(o.second)) {}
         value_type &operator=(value_type &&o) noexcept
         {
           this->~value_type();
