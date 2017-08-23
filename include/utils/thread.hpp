@@ -37,6 +37,10 @@ Distributed under the Boost Software License, Version 1.0.
 #include <mach/mach_port.h>  // for mach_port_deallocate
 #endif
 
+#ifdef __FreeBSD__
+#include <pthread_np.h>  // for pthread_getthreadid_np
+#endif
+
 QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace utils

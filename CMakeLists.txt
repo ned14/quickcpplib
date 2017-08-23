@@ -41,6 +41,10 @@ all_compile_features(PUBLIC
   cxx_lambda_init_captures
   cxx_generic_lambdas
 )
+# On FreeBSD, things using me must link to libexecinfo
+if(CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
+  all_link_libraries(PUBLIC execinfo)
+endif()
 
 # For all possible configurations of this library, add each test
 list_filter(quickcpplib_TESTS EXCLUDE REGEX "test_.*\\.cpp")
