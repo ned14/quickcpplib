@@ -216,7 +216,9 @@ extern "C" void _mm_pause();
 #if _MSC_VER >= 1800
 #define QUICKCPPLIB_THREAD_LOCAL_IS_CXX11 1
 #elif __cplusplus >= 201103L
-#if defined(__has_feature)
+#if __GNUC__ >= 5 && !defined(__clang__)
+#define QUICKCPPLIB_THREAD_LOCAL_IS_CXX11 1
+#elif defined(__has_feature)
 #if __has_feature(cxx_thread_local)
 #define QUICKCPPLIB_THREAD_LOCAL_IS_CXX11 1
 #endif
