@@ -230,7 +230,7 @@ namespace ringbuffer_log
           s << "BACKTRACE FAILED!";
         else
         {
-          for(size_t n = 0; n < sizeof(v.backtrace) / sizeof(v.backtrace[0]); n++)
+          for(size_t n = 0; n < len; n++)
           {
             if(symbols[n])
             {
