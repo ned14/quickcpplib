@@ -44,8 +44,7 @@ Distributed under the Boost Software License, Version 1.0.
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 #endif
 
-#include "config.hpp"
-#include "cpp_feature.h"
+#include "packed_backtrace.hpp"
 
 #include <array>
 #include <atomic>
@@ -100,7 +99,7 @@ namespace ringbuffer_log
         uint64_t code64;
       };
       union {
-        uint64_t backtrace[5];
+        char backtrace[40];  // packed_backtrace
         char function[40];
       };
       uint8_t level : 4;
@@ -154,11 +153,10 @@ namespace ringbuffer_log
         }
         else
         {
-          constexpr size_t items = 1 + sizeof(backtrace) / sizeof(backtrace[0]);
-          void *temp[items];
+          void *temp[16];
           memset(temp, 0, sizeof(temp));
-          (void) ::backtrace(temp, items);
-          memcpy(backtrace, temp + 1, sizeof(backtrace));
+          (void) ::backtrace(temp, 16);
+          packed_backtrace::make_packed_backtrace(backtrace, temp);
         }
 #ifdef _MSC_VER
 #pragma warning(pop)
@@ -214,7 +212,20 @@ namespace ringbuffer_log
       s << temp << " @ ";
       if(v.using_backtrace)
       {
-        char **symbols = backtrace_symbols((void **) v.backtrace, sizeof(v.backtrace) / sizeof(v.backtrace[0]));
+        void *backtrace[16];
+        memset(backtrace, 0, sizeof(backtrace));
+        size_t len = 0;
+        {
+          packed_backtrace::packed_backtrace<> pb(v.backtrace);
+          for(const auto &i : pb)
+          {
+            backtrace[len] = i;
+            len++;
+            if(len == sizeof(backtrace) / sizeof(backtrace[0]))
+              break;
+          }
+        }
+        char **symbols = backtrace_symbols(backtrace, len);
         if(!symbols)
           s << "BACKTRACE FAILED!";
         else

@@ -44,8 +44,8 @@ namespace packed_backtrace
       storage_type _storage;
 
     protected:
-      explicit packed_backtrace(span::span<char> storage)
-          : _storage(reinterpret_cast<FramePtrType *>(storage.data()), storage.size() / sizeof(FramePtrType))
+      explicit packed_backtrace(span::span<const char> storage)
+          : _storage(reinterpret_cast<FramePtrType *>(const_cast<char *>(storage.data())), storage.size() / sizeof(FramePtrType))
       {
       }
       explicit packed_backtrace(span::span<char> storage, std::nullptr_t)
@@ -215,8 +215,8 @@ namespace packed_backtrace
       }
 
     protected:
-      explicit packed_backtrace(span::span<char> storage)
-          : _storage(reinterpret_cast<uint8_t *>(storage.data()), storage.size())
+      explicit packed_backtrace(span::span<const char> storage)
+          : _storage(reinterpret_cast<uint8_t *>(const_cast<char *>(storage.data())), storage.size())
           , _count(_decode_count())
       {
       }
@@ -513,13 +513,13 @@ namespace packed_backtrace
   00000000004009f9 - 6 bytes (26 bytes, 5 items, usually 40 bytes, 35% reduction)
   ~~~
   */
-  template <class FramePtrType = const void *> class packed_backtrace : public impl::packed_backtrace<FramePtrType, sizeof(FramePtrType)>
+  template <class FramePtrType = void *> class packed_backtrace : public impl::packed_backtrace<FramePtrType, sizeof(FramePtrType)>
   {
     using base = impl::packed_backtrace<FramePtrType, sizeof(FramePtrType)>;
 
   public:
     //! \brief Construct a packed backtrace view, parsing the given byte storage
-    explicit packed_backtrace(span::span<char> storage)
+    explicit packed_backtrace(span::span<const char> storage)
         : base(storage)
     {
     }
@@ -539,9 +539,9 @@ namespace packed_backtrace
   };
 
   //! \brief Pack a stack backtrace into byte storage
-  inline packed_backtrace<const void *> make_packed_backtrace(span::span<char> output, span::span<const void *> input)
+  inline packed_backtrace<void *> make_packed_backtrace(span::span<char> output, span::span<void *> input)
   {
-    packed_backtrace<const void *> ret(output, nullptr);
+    packed_backtrace<void *> ret(output, nullptr);
     ret.assign(input);
     return ret;
   }
