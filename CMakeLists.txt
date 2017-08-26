@@ -41,6 +41,10 @@ all_compile_features(PUBLIC
   cxx_lambda_init_captures
   cxx_generic_lambdas
 )
+# On Linux, things using me must link to libdl
+if(CMAKE_SYSTEM_NAME MATCHES "Linux")
+  all_link_libraries(PUBLIC dl)
+endif()
 # On FreeBSD, things using me must link to libexecinfo
 if(CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
   all_link_libraries(PUBLIC execinfo)

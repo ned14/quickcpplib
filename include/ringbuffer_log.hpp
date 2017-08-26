@@ -45,6 +45,7 @@ Distributed under the Boost Software License, Version 1.0.
 #endif
 
 #include "packed_backtrace.hpp"
+#include "scoped_undo.hpp"
 
 #include <array>
 #include <atomic>
@@ -61,7 +62,17 @@ Distributed under the Boost Software License, Version 1.0.
 #ifdef _WIN32
 #include "execinfo_win64.h"
 #else
+#include <dlfcn.h>
 #include <execinfo.h>
+#include <fcntl.h>
+#include <limits.h>
+#include <signal.h>  // for siginfo_t
+#include <spawn.h>
+#include <sys/wait.h>
+#include <unistd.h>
+#ifdef __FreeBSD__
+extern "C" char **environ;
+#endif
 #endif
 
 QUICKCPPLIB_NAMESPACE_BEGIN
@@ -225,21 +236,148 @@ namespace ringbuffer_log
               break;
           }
         }
-        char **symbols = backtrace_symbols(backtrace, len);
-        if(!symbols)
-          s << "BACKTRACE FAILED!";
-        else
+#ifndef _WIN32
+        bool done = false;
+        // Try llvm-symbolizer for nicer backtraces
+        int temp[2];
+        struct _h
         {
-          for(size_t n = 0; n < len; n++)
+          int fd;
+        } childreadh, childwriteh, readh, writeh;
+        if(-1 != ::pipe(temp))
+        {
+          using namespace scoped_undo;
+          childreadh.fd = temp[0];
+          readh.fd = temp[1];
+          if(-1 != ::pipe(temp))
           {
-            if(symbols[n])
+            writeh.fd = temp[0];
+            childwriteh.fd = temp[1];
+            auto unmypipes = undoer([&] {
+              ::close(readh.fd);
+              ::close(writeh.fd);
+            });
+            auto unhispipes = undoer([&] {
+              ::close(childreadh.fd);
+              ::close(childwriteh.fd);
+            });
+            ::fcntl(readh.fd, F_SETFD, FD_CLOEXEC);
+            ::fcntl(writeh.fd, F_SETFD, FD_CLOEXEC);
+
+            posix_spawn_file_actions_t child_fd_actions;
+            if(!::posix_spawn_file_actions_init(&child_fd_actions))
             {
-              if(n)
-                s << ", ";
-              s << symbols[n];
+              auto unactions = undoer([&] { ::posix_spawn_file_actions_destroy(&child_fd_actions); });
+              if(!::posix_spawn_file_actions_adddup2(&child_fd_actions, childreadh.fd, STDIN_FILENO))
+              {
+                if(!::posix_spawn_file_actions_addclose(&child_fd_actions, childreadh.fd))
+                {
+                  if(!::posix_spawn_file_actions_adddup2(&child_fd_actions, childwriteh.fd, STDOUT_FILENO))
+                  {
+                    if(!::posix_spawn_file_actions_addclose(&child_fd_actions, childwriteh.fd))
+                    {
+                      pid_t pid;
+                      std::vector<const char *> argptrs(2);
+                      argptrs[0] = "llvm-symbolizer";
+                      if(!::posix_spawnp(&pid, "llvm-symbolizer", &child_fd_actions, nullptr, (char **) argptrs.data(), environ))
+                      {
+                        ::close(childreadh.fd);
+                        ::close(childwriteh.fd);
+                        std::string addrs;
+                        addrs.reserve(1024);
+                        for(size_t n = 0; n < len; n++)
+                        {
+                          Dl_info info;
+                          memset(&info, 0, sizeof(info));
+                          ::dladdr(backtrace[n], &info);
+                          if(info.dli_fname == nullptr)
+                          {
+                            break;
+                          }
+                          addrs.append(info.dli_fname);
+                          addrs.append(" 0x");
+                          const char *end = strrchr(info.dli_fname, '/');
+                          if(end != nullptr && strstr(end, ".so") != nullptr)
+                          {
+                            ssize_t diff = (char *) backtrace[n] - (char *) info.dli_fbase;
+                            char buffer[32];
+                            sprintf(buffer, "%zx", diff);
+                            addrs.append(buffer);
+                          }
+                          else
+                          {
+                            char buffer[32];
+                            sprintf(buffer, "%zx", (uintptr_t) backtrace[n]);
+                            addrs.append(buffer);
+                          }
+                          addrs.push_back('\n');
+                        }
+                        ::write(readh.fd, addrs.data(), addrs.size());
+                        ::close(readh.fd);
+                        char buffer[1024];
+                        addrs.clear();
+                        for(;;)
+                        {
+                          auto bytes = ::read(writeh.fd, buffer, sizeof(buffer));
+                          if(bytes < 1)
+                            break;
+                          addrs.append(buffer, bytes);
+                        }
+                        ::close(writeh.fd);
+                        unmypipes.dismiss();
+                        unhispipes.dismiss();
+                        // std::cerr << "\n\n---\n" << addrs << "---\n\n" << std::endl;
+                        // reap child
+                        siginfo_t info;
+                        memset(&info, 0, sizeof(info));
+                        int options = WEXITED | WSTOPPED;
+                        if(-1 == ::waitid(P_PID, pid, &info, options))
+                          abort();
+                        if(!addrs.empty())
+                        {
+                          // We want the second line from every section separated by a double newline
+                          size_t n = 0;
+                          auto printitem = [&](size_t idx) {
+                            if(n)
+                              s << ", ";
+                            auto idx2 = addrs.find(10, idx), idx3 = addrs.find(10, idx2 + 1);
+                            s.write(addrs.data() + idx2 + 1, idx3 - idx2 - 1);
+                            n++;
+                          };
+                          size_t oldidx = 0;
+                          for(size_t idx = addrs.find("\n\n"); idx != std::string::npos; oldidx = idx + 2, idx = addrs.find("\n\n", idx + 1))
+                          {
+                            printitem(oldidx);
+                          }
+                          done = true;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
-          free(symbols);
+        }
+        if(!done)
+#endif
+        {
+          char **symbols = backtrace_symbols(backtrace, len);
+          if(!symbols)
+            s << "BACKTRACE FAILED!";
+          else
+          {
+            for(size_t n = 0; n < len; n++)
+            {
+              if(symbols[n])
+              {
+                if(n)
+                  s << ", ";
+                s << symbols[n];
+              }
+            }
+            free(symbols);
+          }
         }
       }
       else
