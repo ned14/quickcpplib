@@ -254,15 +254,15 @@ namespace ringbuffer_log
             writeh.fd = temp[0];
             childwriteh.fd = temp[1];
             auto unmypipes = undoer([&] {
-              ::close(readh.fd);
-              ::close(writeh.fd);
+              (void) ::close(readh.fd);
+              (void) ::close(writeh.fd);
             });
             auto unhispipes = undoer([&] {
-              ::close(childreadh.fd);
-              ::close(childwriteh.fd);
+              (void) ::close(childreadh.fd);
+              (void) ::close(childwriteh.fd);
             });
-            ::fcntl(readh.fd, F_SETFD, FD_CLOEXEC);
-            ::fcntl(writeh.fd, F_SETFD, FD_CLOEXEC);
+            (void) ::fcntl(readh.fd, F_SETFD, FD_CLOEXEC);
+            (void) ::fcntl(writeh.fd, F_SETFD, FD_CLOEXEC);
 
             posix_spawn_file_actions_t child_fd_actions;
             if(!::posix_spawn_file_actions_init(&child_fd_actions))
@@ -281,8 +281,8 @@ namespace ringbuffer_log
                       argptrs[0] = "llvm-symbolizer";
                       if(!::posix_spawnp(&pid, "llvm-symbolizer", &child_fd_actions, nullptr, (char **) argptrs.data(), environ))
                       {
-                        ::close(childreadh.fd);
-                        ::close(childwriteh.fd);
+                        (void) ::close(childreadh.fd);
+                        (void) ::close(childwriteh.fd);
                         std::string addrs;
                         addrs.reserve(1024);
                         for(size_t n = 0; n < len; n++)
@@ -312,8 +312,8 @@ namespace ringbuffer_log
                           }
                           addrs.push_back('\n');
                         }
-                        ::write(readh.fd, addrs.data(), addrs.size());
-                        ::close(readh.fd);
+                        (void) ::write(readh.fd, addrs.data(), addrs.size());
+                        (void) ::close(readh.fd);
                         char buffer[1024];
                         addrs.clear();
                         for(;;)
@@ -323,7 +323,7 @@ namespace ringbuffer_log
                             break;
                           addrs.append(buffer, bytes);
                         }
-                        ::close(writeh.fd);
+                        (void) ::close(writeh.fd);
                         unmypipes.dismiss();
                         unhispipes.dismiss();
                         // std::cerr << "\n\n---\n" << addrs << "---\n\n" << std::endl;
