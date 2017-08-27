@@ -164,9 +164,9 @@ namespace ringbuffer_log
         }
         else
         {
-          void *temp[16];
+          const void *temp[16];
           memset(temp, 0, sizeof(temp));
-          (void) ::backtrace(temp, 16);
+          (void) ::backtrace((void **) temp, 16);
           packed_backtrace::make_packed_backtrace(backtrace, temp);
         }
 #ifdef _MSC_VER

@@ -35,6 +35,17 @@ QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace packed_backtrace
 {
+  namespace detail
+  {
+    template <class T> struct constify
+    {
+      using type = const T;
+    };
+    template <class T> struct constify<T *>
+    {
+      using type = const T *;
+    };
+  }
   namespace impl
   {
     template <class FramePtrType, size_t FrameTypeSize> class packed_backtrace
@@ -56,6 +67,8 @@ namespace packed_backtrace
     public:
       //! The type stored in the container
       using value_type = typename storage_type::element_type;
+      //! The const type stored in the container
+      using const_value_type = typename detail::constify<typename storage_type::element_type>::type;
       //! The size type
       using size_type = size_t;
       //! The difference type
@@ -103,7 +116,7 @@ namespace packed_backtrace
       void swap(packed_backtrace &o) noexcept { _storage.swap(o._storage); }
 
       //! Assigns a raw stack backtrace to the packed storage
-      void assign(span::span<value_type> input) noexcept { memcpy(_storage.data(), input.data(), _storage.size_bytes()); }
+      void assign(span::span<const_value_type> input) noexcept { memcpy(_storage.data(), input.data(), _storage.size_bytes()); }
     };
     template <class FramePtrType> class packed_backtrace<FramePtrType, 8>
 #endif
@@ -229,6 +242,8 @@ namespace packed_backtrace
     public:
       //! The type stored in the container
       using value_type = FramePtrType;
+      //! The const type stored in the container
+      using const_value_type = typename detail::constify<FramePtrType>::type;
       //! The size type
       using size_type = size_t;
       //! The difference type
@@ -387,7 +402,7 @@ namespace packed_backtrace
       }
 
       //! Assigns a raw stack backtrace to the packed storage
-      void assign(span::span<value_type> input) noexcept
+      void assign(span::span<const_value_type> input) noexcept
       {
         uintptr_t out = 0;
         size_t idx = 0;
@@ -539,7 +554,7 @@ namespace packed_backtrace
   };
 
   //! \brief Pack a stack backtrace into byte storage
-  inline packed_backtrace<void *> make_packed_backtrace(span::span<char> output, span::span<void *> input)
+  inline packed_backtrace<void *> make_packed_backtrace(span::span<char> output, span::span<const void *> input)
   {
     packed_backtrace<void *> ret(output, nullptr);
     ret.assign(input);
