@@ -70,7 +70,7 @@ Distributed under the Boost Software License, Version 1.0.
 #include <spawn.h>
 #include <sys/wait.h>
 #include <unistd.h>
-#ifdef __FreeBSD__
+#if defined(__FreeBSD__) || defined(__APPLE__)
 extern "C" char **environ;
 #endif
 #endif
