@@ -43,12 +43,12 @@ namespace integers128
     unsigned short as_shorts[8];
     unsigned int as_ints[4];
     unsigned long long as_longlongs[2];
-    // Strongly hint to the compiler what to do here
+// Strongly hint to the compiler what to do here
 #if defined(_M_X64) || (defined(_M_IX86_FP) && _M_IX86_FP >= 2)
     __m128i as_m128i;
 #endif
 #if defined(__GNUC__) || defined(__clang__)
-    typedef unsigned uint32_4_t __attribute__ ((vector_size (16)));
+    typedef unsigned uint32_4_t __attribute__((vector_size(16)));
     uint32_4_t as_uint32_4;
 #endif
     //! Default constructor, no bits set
@@ -74,6 +74,11 @@ namespace integers128
   };
   static_assert(sizeof(uint128) == 16, "uint128 is not 16 bytes long!");
   static_assert(alignof(uint128) == 16, "uint128 is not aligned to 16 byte multiples!");
+  //! \brief Hashes a uint128
+  struct uint128_hasher
+  {
+    size_t operator()(const uint128 &v) const { return (size_t)(v.as_longlongs[0] ^ v.as_longlongs[1]); }
+  };
 }
 
 QUICKCPPLIB_NAMESPACE_END
