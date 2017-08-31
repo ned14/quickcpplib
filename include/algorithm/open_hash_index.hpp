@@ -82,12 +82,12 @@ namespace algorithm
     //! Performs k % divisor which is up to 40 CPU cycles depending on architecture
     template <class KeyType> struct arithmetic_modulus
     {
-      size_t operator()(const KeyType &k, size_t divisor) const noexcept { return divisor ? (k % divisor) : 0; }
+      size_t operator()(const KeyType &k, size_t divisor) const noexcept { return divisor ? static_cast<size_t>(k % divisor) : 0; }
     };
     //! Performs k & (divisor-1) which is typically one or two CPU cycles. Suitable if divisor is always going to be a two's power.
     template <class KeyType> struct twos_power_modulus
     {
-      size_t operator()(const KeyType &k, size_t divisor) const noexcept { return divisor ? (k & (divisor - 1)) : 0; }
+      size_t operator()(const KeyType &k, size_t divisor) const noexcept { return divisor ? static_cast<size_t>(k & (divisor - 1)) : 0; }
     };
 
     /*! \struct linear_memory_policy
