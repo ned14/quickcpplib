@@ -540,18 +540,18 @@ namespace algorithm
 
         iterator_ &_inc() noexcept
         {
-          if(_parent && _p >= &_parent->_store.front() && _p <= &_parent->_store.back())
+          if(_parent && _p >= _parent->_store.data() && _p < (_parent->_store.data() + _parent->_store.size()))
           {
             underlying_pointer_type p(_p);
             do
             {
               ++p;
-              if(p <= &_parent->_store.back())
+              if(p < (_parent->_store.data() + _parent->_store.size()))
                 _p = Policy::if_inuse_to_pointer(p);
               else
                 break;
             } while(!_p);
-            if(p > &_parent->_store.back())
+            if(p >= (_parent->_store.data() + _parent->_store.size()))
               _p = Pointer(nullptr);
           }
           return *this;
@@ -561,17 +561,17 @@ namespace algorithm
           if(_parent)
           {
             underlying_pointer_type p(_p);
-            if(p < &_parent->_store.front())
-              p = &_parent->_store.back() + 1;
+            if(p < _parent->_store.data())
+              p = (_parent->_store.data() + _parent->_store.size());
             do
             {
               --p;
-              if(p >= &_parent->_store.front())
+              if(p >= _parent->_store.data())
                 _p = Policy::if_inuse_to_pointer(p);
               else
                 break;
             } while(!_p);
-            if(p < &_parent->_store.front())
+            if(p < _parent->_store.data())
               _p = Pointer(nullptr);
           }
           return *this;
@@ -599,13 +599,13 @@ namespace algorithm
         bool operator!() const noexcept { return !_parent || !_p; }
         underlying_pointer_type operator->() noexcept
         {
-          if(!_parent || !_p || _p < &_parent->_store.front() || _p > &_parent->_store.back())
+          if(!_parent || !_p || _p < _parent->_store.data() || _p >= (_parent->_store.data() + _parent->_store.size()))
             return nullptr;
           return underlying_pointer_type(_p);
         }
         const_underlying_pointer_type operator->() const noexcept
         {
-          if(!_parent || !_p || _p < &_parent->_store.front() || _p > &_parent->_store.back())
+          if(!_parent || !_p || _p < _parent->_store.data() || _p >= (_parent->_store.data() + _parent->_store.size()))
             return nullptr;
           return const_underlying_pointer_type(_p);
         }
@@ -613,7 +613,7 @@ namespace algorithm
         bool operator!=(const iterator_ &o) const noexcept { return _parent != o._parent || _p != o._p; }
         Reference operator*() noexcept
         {
-          if(!_parent || !_p || _p < &_parent->_store.front() || _p > &_parent->_store.back())
+          if(!_parent || !_p || _p < _parent->_store.data() || _p >= (_parent->_store.data() + _parent->_store.size()))
           {
             abort();
           }
@@ -621,7 +621,7 @@ namespace algorithm
         }
         const Reference operator*() const noexcept
         {
-          if(!_parent || !_p || _p < &_parent->_store.front() || _p > &_parent->_store.back())
+          if(!_parent || !_p || _p < _parent->_store.data() || _p >= (_parent->_store.data() + _parent->_store.size()))
           {
             abort();
           }
@@ -703,6 +703,10 @@ namespace algorithm
       size_type size() const noexcept { return size_type(_count); }
       //! Returns the maximum number of items in the index
       size_type max_size() const noexcept { return _store.size(); }
+      //! Returns the STL container backing the store of this index
+      const container_type &container() const noexcept { return _store; }
+      //! Returns the STL container backing the store of this index
+      container_type &container() noexcept { return _store; }
 
       //! Returns the front of the index.
       reference front() noexcept
