@@ -118,7 +118,7 @@ namespace algorithm
         {
         }
         template <class U, class V>
-        explicit constexpr value_type(U &&f, V &&s)
+        constexpr value_type(U &&f, V &&s)
             : first(std::forward<U>(f))
             , _inuse(false)
             , second(std::forward<V>(s))
@@ -251,7 +251,7 @@ namespace algorithm
         {
         }
         template <class U, class V>
-        explicit constexpr value_type(U &&f, V &&s)
+        constexpr value_type(U &&f, V &&s)
             : _inuse(0)
             , first(std::forward<U>(f))
             , second(std::forward<V>(s))
