@@ -312,20 +312,34 @@ namespace ringbuffer_log
                           }
                           addrs.push_back('\n');
                         }
-                        (void) ::write(readh.fd, addrs.data(), addrs.size());
+                        // Suppress SIGPIPE
+                        sigset_t toblock, oldset;
+                        sigemptyset(&toblock);
+                        sigaddset(&toblock, SIGPIPE);
+                        pthread_sigmask(SIG_BLOCK, &toblock, &oldset);
+                        auto unsigmask = undoer([&toblock, &oldset]{ 
+                          struct timespec ts = {0,0};
+                          sigtimedwait(&toblock, 0, &ts);
+                          pthread_sigmask(SIG_SETMASK, &oldset, nullptr);
+                        });
+                        (void) unsigmask;
+                        ssize_t written = ::write(readh.fd, addrs.data(), addrs.size());
                         (void) ::close(readh.fd);
-                        char buffer[1024];
                         addrs.clear();
-                        for(;;)
+                        if(written!=-1)
                         {
-                          auto bytes = ::read(writeh.fd, buffer, sizeof(buffer));
-                          if(bytes < 1)
-                            break;
-                          addrs.append(buffer, bytes);
+                          char buffer[1024];
+                          for(;;)
+                          {
+                            auto bytes = ::read(writeh.fd, buffer, sizeof(buffer));
+                            if(bytes < 1)
+                              break;
+                            addrs.append(buffer, bytes);
+                          }
+                          (void) ::close(writeh.fd);
+                          unmypipes.dismiss();
+                          unhispipes.dismiss();
                         }
-                        (void) ::close(writeh.fd);
-                        unmypipes.dismiss();
-                        unhispipes.dismiss();
                         // std::cerr << "\n\n---\n" << addrs << "---\n\n" << std::endl;
                         // reap child
                         siginfo_t info;
