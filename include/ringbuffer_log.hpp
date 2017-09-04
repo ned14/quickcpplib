@@ -320,7 +320,7 @@ namespace ringbuffer_log
                         auto unsigmask = undoer([&toblock, &oldset]{ 
 #ifdef __APPLE__
                           pthread_kill(pthread_self(), SIGPIPE);
-                          sigset_t cleared;
+                          int cleared = 0;
                           sigwait(&toblock, &cleared);
 #else
                           struct timespec ts = {0,0};
