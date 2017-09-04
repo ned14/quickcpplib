@@ -318,8 +318,14 @@ namespace ringbuffer_log
                         sigaddset(&toblock, SIGPIPE);
                         pthread_sigmask(SIG_BLOCK, &toblock, &oldset);
                         auto unsigmask = undoer([&toblock, &oldset]{ 
+#ifdef __APPLE__
+                          pthread_kill(pthread_self(), SIGPIPE);
+                          sigset_t cleared;
+                          sigwait(&toblock, &cleared);
+#else
                           struct timespec ts = {0,0};
                           sigtimedwait(&toblock, 0, &ts);
+#endif
                           pthread_sigmask(SIG_SETMASK, &oldset, nullptr);
                         });
                         (void) unsigmask;
