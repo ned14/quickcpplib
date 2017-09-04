@@ -212,8 +212,9 @@ namespace algorithm
     \brief Like `linear_memory_policy`, but threadsafe for key finding, insertion and removal.
 
     \warning Anything returning an iterator is threadsafe because any iterator holds the lock on the item until it is destructed, but
-    anything returning a reference is NOT THREADSAFE. Additionally, all finds which traverse a locked item must necessarily spin on
-    that lock even if that item isn't actually the right one, so be ESPECIALLY careful of using an excellent distribution hash function.
+    anything returning a reference is NOT THREADSAFE. Additionally, all finds which traverse a locked item if `LinearSearchLimit` is not
+    zero must necessarily spin on that lock even if that item isn't actually the right one, so if you set `LinearSearchLimit` to
+    anything but zero, then you can only ever safely take one exclusive lock at a time ever, otherwise there is a chance of deadlock.
 
     \note If you use a `SharedMutex` instead of a `Mutex` as the LockType (detected via Expression SFINAE), const operations returning
     a `const_iterator` will take a shared lock instead of an exclusive lock. That makes concurrent read-only usage non-blocking.
@@ -230,7 +231,7 @@ namespace algorithm
     size will always be a power of two, use `twos_power_modulus` instead of `arithmetic_modulus`.
     \tparam KeyCompare A callable which compares two KeyTypes.
     */
-    template <class KeyType, class T, size_t LinearSearchLimit = 1, class LockType = configurable_spinlock::spinlock<uint32_t>, class KeyModulus = arithmetic_modulus<KeyType>, class KeyCompare = std::equal_to<KeyType>> struct atomic_linear_memory_policy
+    template <class KeyType, class T, size_t LinearSearchLimit = 0, class LockType = configurable_spinlock::spinlock<uint32_t>, class KeyModulus = arithmetic_modulus<KeyType>, class KeyCompare = std::equal_to<KeyType>> struct atomic_linear_memory_policy
     {
       using key_type = typename std::add_const<KeyType>::type;
       using mapped_type = T;
