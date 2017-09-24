@@ -42,13 +42,14 @@ def merge_junits(outxmlfile, xmlfiles):
     testsuites = tree.getroot()
     xmlfilebase = os.path.basename(xmlfile)
     xmlfilebase = xmlfilebase[:xmlfilebase.rfind('.junit.xml')]
-    testsuite = testsuites[0]
-    testsuite.set('name', xmlfilebase)
-    testsuite.set('hostname', hostname)
-    testsuite.set('timestamp', timestamp)
-    testsuite.insert(0, properties)
-    #ET.dump(testsuite)
-    outxml.getroot().append(testsuite)
+    if len(testsuites) > 0:
+      testsuite = testsuites[0]
+      testsuite.set('name', xmlfilebase)
+      testsuite.set('hostname', hostname)
+      testsuite.set('timestamp', timestamp)
+      testsuite.insert(0, properties)
+      #ET.dump(testsuite)
+      outxml.getroot().append(testsuite)
   outxml.write(outxmlfile)
 
 def main(argv):
