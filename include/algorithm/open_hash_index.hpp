@@ -311,7 +311,7 @@ namespace algorithm
           }
         }
         ~const_pointer() { reset(); }
-        constexpr const_pointer &operator=(const_pointer &&o) noexcept
+        const_pointer &operator=(const_pointer &&o) noexcept
         {
           this->~const_pointer();
           new(this) const_pointer(std::move(o));
@@ -342,7 +342,7 @@ namespace algorithm
       {
         explicit pointer(value_type *v = nullptr) noexcept : const_pointer(v, true) {}
         constexpr pointer(pointer &&o) noexcept : const_pointer(std::move(o)) {}
-        constexpr pointer &operator=(pointer &&o) noexcept
+        pointer &operator=(pointer &&o) noexcept
         {
           this->~pointer();
           new(this) pointer(std::move(o));
