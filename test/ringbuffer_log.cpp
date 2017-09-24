@@ -76,10 +76,17 @@ BOOST_AUTO_TEST_CASE(ringbuffer_log / simple / works, "Tests that the simple_rin
     BOOST_CHECK(!strcmp(v.message, "test message"));
     BOOST_CHECK(v.code32[0] == 3);
     BOOST_CHECK(v.code32[1] == 4);
-    char **symbols = backtrace_symbols((void **) v.backtrace, sizeof(v.backtrace) / sizeof(v.backtrace[0]));  // NOLINT
-    BOOST_REQUIRE(symbols != nullptr);                                                                        // NOLINT
-    BOOST_CHECK(symbols[0] != nullptr);                                                                       // NOLINT
-    for(size_t n = 0; n < sizeof(v.backtrace) / sizeof(v.backtrace[0]); n++)
+    void *bt[16];
+    QUICKCPPLIB_NAMESPACE::packed_backtrace::packed_backtrace<> btv(v.backtrace);
+    size_t btlen = 0;
+    for(auto it = btv.begin(); it != btv.end() && btlen < 16; btlen++, ++it)
+    {
+      bt[btlen] = *it;
+    }
+    char **symbols = backtrace_symbols(bt, btlen);  // NOLINT
+    BOOST_REQUIRE(symbols != nullptr);              // NOLINT
+    BOOST_CHECK(symbols[0] != nullptr);             // NOLINT
+    for(size_t n = 0; n < btlen; n++)
     {
       if(symbols[n] != nullptr)  // NOLINT
       {
