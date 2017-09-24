@@ -19,13 +19,8 @@ configuration: Release
 before_build:
   - git checkout master
   - git submodule update --init --recursive
-#  - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
 build_script:
-  - mkdir build
-  - cd build
-  - cmake .. -G"Visual Studio 15 2017 Win64"
-  - cmake --build .
-#  - ctest -S .ci.cmake -V
+  - ctest -S .ci.cmake -V
 after_build:
 
 before_test:
