@@ -438,7 +438,7 @@ else                                                                            
   {                                                                                                                                                                                                                                                                                                                            \
     QUICKCPPLIB_BOOST_UNIT_CHECK_PASS(, expr);                                                                                                                                                                                                                                                                                 \
   }
-#define BOOST_CHECK_EQ(expr1, expr2) BOOST_CHECK((expr1) == (expr2))
+#define BOOST_CHECK_EQUAL(expr1, expr2) BOOST_CHECK((expr1) == (expr2))
 #ifdef __cpp_exceptions
 #define BOOST_CHECK_THROWS(expr)                                                                                                                                                                                                                                                                                               \
   try                                                                                                                                                                                                                                                                                                                          \
@@ -472,7 +472,7 @@ catch(const QUICKCPPLIB_NAMESPACE::unit_test::requirement_failed &)             
     throw;                                                                                                                                                                                                                                                                                                                     \
   }                                                                                                                                                                                                                                                                                                                            \
   \
-catch(type)                                                                                                                                                                                                                                                                                                                    \
+catch(const type &)                                                                                                                                                                                                                                                                                                            \
   {                                                                                                                                                                                                                                                                                                                            \
     QUICKCPPLIB_BOOST_UNIT_CHECK_PASS("THROW " #type " ", expr);                                                                                                                                                                                                                                                               \
   }                                                                                                                                                                                                                                                                                                                            \
@@ -537,7 +537,7 @@ catch(const QUICKCPPLIB_NAMESPACE::unit_test::requirement_failed &)             
   {                                                                                                                                                                                                                                                                                                                            \
     throw;                                                                                                                                                                                                                                                                                                                     \
   }                                                                                                                                                                                                                                                                                                                            \
-  catch(type) { QUICKCPPLIB_BOOST_UNIT_REQUIRE_PASS("THROW " #type " ", expr); }                                                                                                                                                                                                                                               \
+  catch(const type &) { QUICKCPPLIB_BOOST_UNIT_REQUIRE_PASS("THROW " #type " ", expr); }                                                                                                                                                                                                                                       \
   catch(...) { QUICKCPPLIB_BOOST_UNIT_REQUIRE_FAIL("THROW " #type " ", expr); }
 #define BOOST_REQUIRE_NO_THROW(expr)                                                                                                                                                                                                                                                                                           \
   try                                                                                                                                                                                                                                                                                                                          \
@@ -610,14 +610,14 @@ static void                                                                     
   CATCH_INFO(msg)
 
 #define BOOST_CHECK(expr) CATCH_CHECK(expr)
-#define BOOST_CHECK_EQ(expr1, expr2) BOOST_CHECK((expr1) == (expr2))
+#define BOOST_CHECK_EQUAL(expr1, expr2) BOOST_CHECK((expr1) == (expr2))
 #define BOOST_CHECK_THROWS(expr) CATCH_CHECK_THROWS(expr)
-#define BOOST_CHECK_THROW(expr, type) CATCH_CHECK_THROWS_AS(expr, type)
+#define BOOST_CHECK_THROW(expr, type) CATCH_CHECK_THROWS_AS(expr, const type &)
 #define BOOST_CHECK_NO_THROW(expr) CATCH_CHECK_NOTHROW(expr)
 
 #define BOOST_REQUIRE(expr) CATCH_REQUIRE(expr)
 #define BOOST_REQUIRE_THROWS(expr) CATCH_REQUIRE_THROWS(expr)
-#define BOOST_CHECK_REQUIRE(expr, type) CATCH_REQUIRE_THROWS_AS(expr, type)
+#define BOOST_CHECK_REQUIRE(expr, type) CATCH_REQUIRE_THROWS_AS(expr, const type &)
 #define BOOST_REQUIRE_NO_THROW(expr) CATCH_REQUIRE_NOTHROW(expr)
 
 #define BOOST_AUTO_TEST_SUITE3(a, b) a##b
