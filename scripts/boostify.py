@@ -9,9 +9,9 @@ import os, sys, re, shutil, time, datetime, subprocess
 
 if len(sys.argv) < 2:
     print(sys.argv[0], " <dest>", file=sys.stderr)
-#    sys.exit(1)
-    os.chdir('../../outcome')
-    destpath = '../boost-outcome'
+    sys.exit(1)
+#    os.chdir('../../outcome')
+#    destpath = '../boost-outcome'
 else:
     destpath = sys.argv[1]
 
