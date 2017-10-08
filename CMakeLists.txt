@@ -12,6 +12,10 @@ indented_message(STATUS "NOTE: CMAKE_BUILD_TYPE = ${CMAKE_BUILD_TYPE}")
 
 # Sets the usual PROJECT_NAME etc
 project(quickcpplib VERSION 0.1.0.0 LANGUAGES C CXX)
+# support generating docs by default
+if(NOT DEFINED ${PROJECT_NAME}_DISABLE_DOC_GEN)
+    set(${PROJECT_NAME}_DISABLE_DOC_GEN OFF)
+endif()
 # quickcpplib does not provide a master header file
 set(quickcpplib_INTERFACE_DISABLED ON)
 # Also set a *cmake* namespace for this project
