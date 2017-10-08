@@ -12,5 +12,5 @@ var structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01loc
     [ "store", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4.html#ab00704fd9dfd51612be919024e6fb196", null ],
     [ "try_lock", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4.html#a5b3af208c60cf1e7614a1faa71cfbcfc", null ],
     [ "unlock", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4.html#a08453787b3aad3be7a9825ee48bf93ff", null ],
-    [ "int_yield", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4.html#a3ac411f842cb37b3140ce5aaf2ecfdef", null ]
+    [ "int_yield", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4.html#af86451cf824f9153c1963fcec1bea74e", null ]
 ];

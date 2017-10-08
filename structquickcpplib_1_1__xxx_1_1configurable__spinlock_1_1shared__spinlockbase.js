@@ -1,7 +1,7 @@
 var structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlockbase =
 [
     [ "value_type", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlockbase.html#a2a4c626d35f26cca16d48a23f28b3601", null ],
-    [ "shared_spinlockbase", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlockbase.html#a090ac141b9c46c92c0e3497f18eb9296", null ],
+    [ "shared_spinlockbase", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlockbase.html#a19e735840e653c6e76c64b71e7574ad7", null ],
     [ "shared_spinlockbase", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlockbase.html#a434962fdf7a6cbcbfa9c0144c79cc1d6", null ],
     [ "shared_spinlockbase", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlockbase.html#aaf3f60a37015a07d071766d64d186676", null ],
     [ "~shared_spinlockbase", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlockbase.html#a9173334ab3934d094fd1b4eeb7844c4b", null ],

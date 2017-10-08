@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['value_5ftype',['value_type',['../structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html',1,'quickcpplib::_xxx::algorithm::open_hash_index::linear_memory_policy']]],
-  ['value_5ftype',['value_type',['../structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type.html',1,'quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy']]],
-  ['value_5ftype',['value_type',['../structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html',1,'quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail']]]
+  ['uint128',['uint128',['../unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html',1,'quickcpplib::_xxx::integers128']]],
+  ['uint128_5fhasher',['uint128_hasher',['../structquickcpplib_1_1__xxx_1_1integers128_1_1uint128__hasher.html',1,'quickcpplib::_xxx::integers128']]],
+  ['unique_5fid',['unique_id',['../structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1unique__id.html',1,'quickcpplib::_xxx::ringbuffer_log::ringbuffer_log']]]
 ];

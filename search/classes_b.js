@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['rebind',['rebind',['../structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_1_1rebind.html',1,'quickcpplib::_xxx::aligned_allocator::aligned_allocator']]],
-  ['rebind',['rebind',['../structquickcpplib_1_1__xxx_1_1allocator__testing_1_1allocator_1_1rebind.html',1,'quickcpplib::_xxx::allocator_testing::allocator']]],
-  ['rebind',['rebind',['../structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_alig38b3ce2fde59753f89f79b36dfe20c65.html',1,'quickcpplib::_xxx::aligned_allocator::aligned_allocator&lt; const T, Align, initialize &gt;']]],
-  ['requirement_5ffailed',['requirement_failed',['../structquickcpplib_1_1__xxx_1_1unit__test_1_1requirement__failed.html',1,'quickcpplib::_xxx::unit_test']]],
-  ['ringbuffer_5flog',['ringbuffer_log',['../classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html',1,'quickcpplib::_xxx::ringbuffer_log']]]
+  ['packed_5fbacktrace',['packed_backtrace',['../classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html',1,'quickcpplib::_xxx::packed_backtrace::impl::packed_backtrace&lt; FramePtrType, FrameTypeSize &gt;'],['../classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace.html',1,'quickcpplib::_xxx::packed_backtrace::packed_backtrace&lt; FramePtrType &gt;']]],
+  ['packed_5fbacktrace_3c_20frameptrtype_2c_20sizeof_28frameptrtype_29_3e',['packed_backtrace&lt; FramePtrType, sizeof(FramePtrType)&gt;',['../classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html',1,'quickcpplib::_xxx::packed_backtrace::impl']]],
+  ['passthru_5fhash',['passthru_hash',['../structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1passthru__hash.html',1,'quickcpplib::_xxx::algorithm::hash']]],
+  ['pointer',['pointer',['../structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1pointer.html',1,'quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy']]],
+  ['policy',['policy',['../structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop_1_1policy.html',1,'quickcpplib::_xxx::configurable_spinlock::spins_to_loop&lt; spins, use_pause &gt;::policy&lt; parenttype &gt;'],['../structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield_1_1policy.html',1,'quickcpplib::_xxx::configurable_spinlock::spins_to_yield&lt; spins &gt;::policy&lt; parenttype &gt;'],['../structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html',1,'quickcpplib::_xxx::configurable_spinlock::spins_to_sleep::policy&lt; parenttype &gt;'],['../structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1null__spin__policy_1_1policy.html',1,'quickcpplib::_xxx::configurable_spinlock::null_spin_policy::policy&lt; parenttype &gt;']]],
+  ['print_5ftype',['print_type',['../structquickcpplib_1_1__xxx_1_1print__type.html',1,'quickcpplib::_xxx']]]
 ];

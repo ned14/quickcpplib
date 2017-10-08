@@ -12,7 +12,7 @@ var structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__po
     [ "timestamp", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a85b165061dfdab2b1e46cdb23d65fc32", null ],
     [ "code32", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a4fd67f4f9693c421afdc933be3dd8053", null ],
     [ "code64", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a3d9bee4048237e5e167175fe5f5786bf", null ],
-    [ "backtrace", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#ad056b4e6b0f97d2b9619cab7b09884d7", null ],
+    [ "backtrace", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a7d9eb0e307a6fc20dd2e0569ea7b2df7", null ],
     [ "function", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a164ef3bd3ceac150211bf8fc2727a9e2", null ],
     [ "level", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a3bf0a4687f916e254f15a013f9b43ca4", null ],
     [ "using_code64", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a12bcd937c3c94031b8f3d9e163c5bda7", null ],

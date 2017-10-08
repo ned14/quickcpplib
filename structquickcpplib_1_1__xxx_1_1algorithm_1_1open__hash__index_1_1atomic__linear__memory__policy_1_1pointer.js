@@ -1,13 +1,13 @@
 var structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1pointer =
 [
     [ "pointer", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1pointer.html#aa33771735881720302b70fe6d689ff07", null ],
-    [ "pointer", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1pointer.html#af394d1a57ffd262f3dfeadd92f1c115a", null ],
-    [ "operator=", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1pointer.html#aa1c40e64294b96015dc3a806a0f97afd", null ],
-    [ "operator->", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1pointer.html#a978de9fc10784cd2034b3c23304606bf", null ],
+    [ "pointer", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1pointer.html#a7f7022302b835560ac73f679be67b7e7", null ],
+    [ "operator=", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1pointer.html#a205e7651e2755534b0d9245e536b0ce2", null ],
+    [ "operator->", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1pointer.html#ae47b2fda1826d1ec2ac21d6fc5d4b2a3", null ],
     [ "operator->", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1pointer.html#a5db4207845b22fef3cb88dfbe38f3b4e", null ],
-    [ "operator*", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1pointer.html#a31211e5705cc0ef08fe33889d8d6c1d4", null ],
+    [ "operator*", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1pointer.html#a18190176ba07abd829949edfd9c53f1f", null ],
     [ "operator*", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1pointer.html#aec94c94651f680056ef89d073985e85c", null ],
-    [ "operator value_type *", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1pointer.html#ab310d3a2b12edfb9849caebb4604babf", null ],
+    [ "operator value_type *", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1pointer.html#abf49afcbcbad66c76fab50bb9c7600bc", null ],
     [ "operator const value_type *", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1pointer.html#a98936c3fe5ecac42e76edb21a5a1574d", null ],
     [ "reset", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1pointer.html#ac1662e5fcfc5e39e5f85791cc6363729", null ],
     [ "operator bool", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1pointer.html#a0eee50ca2c35a305cf2e30702d0461ef", null ],

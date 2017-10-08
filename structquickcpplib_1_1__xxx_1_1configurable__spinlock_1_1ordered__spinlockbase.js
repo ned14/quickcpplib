@@ -3,7 +3,7 @@ var structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbas
     [ "_internals", "unionquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase_1_1__internals.html", "unionquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase_1_1__internals" ],
     [ "value_type", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase.html#abe32aeff272b473e9fe98624f52a234c", null ],
     [ "_halfT", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase.html#a70d65e5f3107cc934412c2901de5c58f", null ],
-    [ "ordered_spinlockbase", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase.html#a1e84e82de0e6f2fef8c6ff1a0aba4ab6", null ],
+    [ "ordered_spinlockbase", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase.html#ad5694c8915b3a624aabaeaeaddfd87cc", null ],
     [ "ordered_spinlockbase", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase.html#ac5e04d5b144af7cd06cd77b3a17b45f2", null ],
     [ "ordered_spinlockbase", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase.html#aee906cfb2dcdab39d8e4a2e73c01830d", null ],
     [ "~ordered_spinlockbase", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase.html#a70a11a2c982176dc8678baf85da2a014", null ],
