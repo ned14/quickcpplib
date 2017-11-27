@@ -182,45 +182,10 @@ namespace ringbuffer_log
     };
     static_assert(sizeof(value_type) == 256, "value_type is not 256 bytes long!");
 
-    //! std::ostream writer for simple_ringbuffer_log_policy's value_type
-    inline std::ostream &operator<<(std::ostream &s, const value_type &v)
+    //! Location generator for simple_ringbuffer_log_policy's value_type
+    inline std::string location(const value_type &v)
     {
-      s << "+" << std::setfill('0') << std::setw(16) << v.timestamp << " " << std::setfill(' ') << std::setw(1);
-      switch(v.level)
-      {
-      case 0:
-        s << "none:  ";
-        break;
-      case 1:
-        s << "fatal: ";
-        break;
-      case 2:
-        s << "error: ";
-        break;
-      case 3:
-        s << "warn:  ";
-        break;
-      case 4:
-        s << "info:  ";
-        break;
-      case 5:
-        s << "debug: ";
-        break;
-      case 6:
-        s << "all:   ";
-        break;
-      default:
-        s << "unknown: ";
-        break;
-      }
-      if(v.using_code64)
-        s << "{ " << v.code64 << " } ";
-      else
-        s << "{ " << v.code32[0] << ", " << v.code32[1] << " } ";
-      char temp[256];
-      memcpy(temp, v.message, sizeof(v.message));
-      temp[sizeof(v.message)] = 0;
-      s << temp << " @ ";
+      std::string ret;
       if(v.using_backtrace)
       {
         void *backtrace[16];
@@ -317,13 +282,13 @@ namespace ringbuffer_log
                         sigemptyset(&toblock);
                         sigaddset(&toblock, SIGPIPE);
                         pthread_sigmask(SIG_BLOCK, &toblock, &oldset);
-                        auto unsigmask = undoer([&toblock, &oldset]{ 
+                        auto unsigmask = undoer([&toblock, &oldset] {
 #ifdef __APPLE__
                           pthread_kill(pthread_self(), SIGPIPE);
                           int cleared = 0;
                           sigwait(&toblock, &cleared);
 #else
-                          struct timespec ts = {0,0};
+                          struct timespec ts = {0, 0};
                           sigtimedwait(&toblock, 0, &ts);
 #endif
                           pthread_sigmask(SIG_SETMASK, &oldset, nullptr);
@@ -332,7 +297,7 @@ namespace ringbuffer_log
                         ssize_t written = ::write(readh.fd, addrs.data(), addrs.size());
                         (void) ::close(readh.fd);
                         addrs.clear();
-                        if(written!=-1)
+                        if(written != -1)
                         {
                           char buffer[1024];
                           for(;;)
@@ -359,9 +324,9 @@ namespace ringbuffer_log
                           size_t n = 0;
                           auto printitem = [&](size_t idx) {
                             if(n)
-                              s << ", ";
+                              ret.append(", ");
                             auto idx2 = addrs.find(10, idx), idx3 = addrs.find(10, idx2 + 1);
-                            s.write(addrs.data() + idx2 + 1, idx3 - idx2 - 1);
+                            ret.append(addrs.data() + idx2 + 1, idx3 - idx2 - 1);
                             n++;
                           };
                           size_t oldidx = 0;
@@ -384,7 +349,7 @@ namespace ringbuffer_log
         {
           char **symbols = backtrace_symbols(backtrace, len);
           if(!symbols)
-            s << "BACKTRACE FAILED!";
+            ret.append("BACKTRACE FAILED!");
           else
           {
             for(size_t n = 0; n < len; n++)
@@ -392,8 +357,8 @@ namespace ringbuffer_log
               if(symbols[n])
               {
                 if(n)
-                  s << ", ";
-                s << symbols[n];
+                  ret.append(", ");
+                ret.append(symbols[n]);
               }
             }
             free(symbols);
@@ -402,10 +367,53 @@ namespace ringbuffer_log
       }
       else
       {
+        char temp[256];
         memcpy(temp, v.function, sizeof(v.function));
         temp[sizeof(v.function)] = 0;
-        s << temp;
+        ret.append(temp);
       }
+      return ret;
+    }
+    //! std::ostream writer for simple_ringbuffer_log_policy's value_type
+    inline std::ostream &operator<<(std::ostream &s, const value_type &v)
+    {
+      s << "+" << std::setfill('0') << std::setw(16) << v.timestamp << " " << std::setfill(' ') << std::setw(1);
+      switch(v.level)
+      {
+      case 0:
+        s << "none:  ";
+        break;
+      case 1:
+        s << "fatal: ";
+        break;
+      case 2:
+        s << "error: ";
+        break;
+      case 3:
+        s << "warn:  ";
+        break;
+      case 4:
+        s << "info:  ";
+        break;
+      case 5:
+        s << "debug: ";
+        break;
+      case 6:
+        s << "all:   ";
+        break;
+      default:
+        s << "unknown: ";
+        break;
+      }
+      if(v.using_code64)
+        s << "{ " << v.code64 << " } ";
+      else
+        s << "{ " << v.code32[0] << ", " << v.code32[1] << " } ";
+      char temp[256];
+      memcpy(temp, v.message, sizeof(v.message));
+      temp[sizeof(v.message)] = 0;
+      s << temp << " @ ";
+      s << location(v);
       return s << "\n";
     }
     //! CSV std::ostream writer for simple_ringbuffer_log_policy's value_type
