@@ -394,7 +394,7 @@ QUICKCPPLIB_NAMESPACE_END
 
 #ifndef QUICKCPPLIB_BOOST_UNIT_TEST_FAIL
 #ifdef __cpp_exceptions
-#define QUICKCPPLIB_BOOST_UNIT_TEST_FAIL throw QUICKCPPLIB_NAMESPACE::unit_test::requirement_failed()
+#define QUICKCPPLIB_BOOST_UNIT_TEST_FAIL throw QUICKCPPLIB_NAMESPACE::unit_test::requirement_failed()  // NOLINT
 #else
 #define QUICKCPPLIB_BOOST_UNIT_TEST_FAIL longjmp(QUICKCPPLIB_NAMESPACE::unit_test::test_case_failed(), 1)
 #endif

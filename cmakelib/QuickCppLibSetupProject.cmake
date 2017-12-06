@@ -199,13 +199,13 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.clang-tidy" AND NOT DISABLE_CLANG_TIDY)
     set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
     if(NOT TARGET ${PROJECT_NAME}_lint)
       add_custom_target(${PROJECT_NAME}_lint
-        "${PYTHON_EXECUTABLE}" "${CTEST_QUICKCPPLIB_SCRIPTS}/run-clang-tidy.py" -clang-tidy-binary="${CLANG_TIDY_EXECUTABLE}" -target-filter="${PROJECT_NAME}_hl--"
+        "${PYTHON_EXECUTABLE}" "${CTEST_QUICKCPPLIB_SCRIPTS}/run-clang-tidy.py" -clang-tidy-binary="${CLANG_TIDY_EXECUTABLE}" -target-filter="${PROJECT_NAME}_hl--" -header-filter=.*
         COMMENT "Running clang-tidy on ${PROJECT_NAME} ..."
       )
     endif()
     if(NOT TARGET ${PROJECT_NAME}_lint-fix)
       add_custom_target(${PROJECT_NAME}_lint-fix
-        "${PYTHON_EXECUTABLE}" "${CTEST_QUICKCPPLIB_SCRIPTS}/run-clang-tidy.py" -clang-tidy-binary="${CLANG_TIDY_EXECUTABLE}" -target-filter="${PROJECT_NAME}_hl--" -fix -format
+        "${PYTHON_EXECUTABLE}" "${CTEST_QUICKCPPLIB_SCRIPTS}/run-clang-tidy.py" -clang-tidy-binary="${CLANG_TIDY_EXECUTABLE}" -target-filter="${PROJECT_NAME}_hl--"  -header-filter=.* -fix -format
         COMMENT "Running clang-tidy -fix -format on ${PROJECT_NAME} ..."
       )
     endif()
