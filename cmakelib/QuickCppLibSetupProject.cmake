@@ -199,7 +199,9 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.clang-tidy" AND NOT DISABLE_CLANG_TIDY)
     set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
     if(NOT TARGET ${PROJECT_NAME}_lint)
       add_custom_target(${PROJECT_NAME}_lint
-        "${PYTHON_EXECUTABLE}" "${CTEST_QUICKCPPLIB_SCRIPTS}/run-clang-tidy.py" -clang-tidy-binary="${CLANG_TIDY_EXECUTABLE}" -target-filter="${PROJECT_NAME}_hl--" -header-filter=.*
+        "${CMAKE_COMMAND}" -E make_directory ${PROJECT_NAME}_fixes
+        COMMAND "${PYTHON_EXECUTABLE}" "${CTEST_QUICKCPPLIB_SCRIPTS}/run-clang-tidy.py" -clang-tidy-binary="${CLANG_TIDY_EXECUTABLE}" -target-filter="${PROJECT_NAME}_hl--" -header-filter=.* -export-fixes=${PROJECT_NAME}_fixes/fixes.yaml
+        COMMAND echo clang-tidy fixes have been written to ${PROJECT_NAME}_fixes, use 'clang-apply-replacements ${PROJECT_NAME}_fixes' to apply.
         COMMENT "Running clang-tidy on ${PROJECT_NAME} ..."
       )
     endif()

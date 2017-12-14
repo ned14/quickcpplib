@@ -121,6 +121,14 @@ def merge_replacement_files(tmpdir, mergefile):
     # is actually never used inside clang-apply-replacements,
     # so we set it to '' here.
     output = { 'MainSourceFile': '', mergekey: merged }
+
+    # Eliminate duplicates
+    diagnostics = output['Diagnostics']
+    cleaned = {}
+    for x in diagnostics:
+        cleaned[(x['FilePath'], x['FileOffset'], x['DiagnosticName'])] = x
+    output['Diagnostics']=[x for x in cleaned.values()]
+
     with open(mergefile, 'w') as out:
       yaml.safe_dump(output, out)
   else:
