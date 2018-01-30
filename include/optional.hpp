@@ -27,7 +27,7 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "config.hpp"
 
-#if _HAS_CXX17 || __cplusplus >= 201700
+#if _HAS_CXX17 || (__cplusplus >= 201700 && (!defined(__APPLE__) || _LIBCPP_VERSION > 7000 /* approx end of 2017 */))
 
 #include <optional>
 
