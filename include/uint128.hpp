@@ -68,8 +68,14 @@ namespace integers128
     constexpr uint128(uint32_t v0, uint32_t v1, uint32_t v2, uint32_t v3) noexcept : as_ints{v0, v1, v2, v3} {}
     //! Construct from input
     constexpr uint128(uint64_t v0, uint64_t v1) noexcept : as_longlongs{v0, v1} {}
-    //! Return the bottom 64 bits of the number
-    explicit operator uint64_t() const noexcept { return as_longlongs[0]; }
+    //! Return the bottom unsigned short bits of the number
+    explicit operator unsigned short() const noexcept { return static_cast<unsigned short>(as_longlongs[0]); }
+    //! Return the bottom unsigned bits of the number
+    explicit operator unsigned() const noexcept { return static_cast<unsigned>(as_longlongs[0]); }
+    //! Return the bottom long bits of the number
+    explicit operator unsigned long() const noexcept { return static_cast<unsigned long>(as_longlongs[0]); }
+    //! Return the bottom long long bits of the number
+    explicit operator unsigned long long() const noexcept { return static_cast<unsigned long long>(as_longlongs[0]); }
   private:
     static const uint128 &_allbitszero()
     {
