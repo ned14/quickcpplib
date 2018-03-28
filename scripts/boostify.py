@@ -65,14 +65,14 @@ def do_transform(srcpath, destpath):
                         break
             if not included:
                 continue
-            print(path, inclusion)
+            print(path, inclusion, destpath2)
             if not os.path.exists(os.path.dirname(destpath2)):
                 os.makedirs(os.path.dirname(destpath2))
-            need_transform = None
+            need_transform = {}
             for transform in transforms:
                 if re.match(transform, path):
-                    need_transform = transforms[transform]
-                    break
+                    print('   | ', transform)
+                    need_transform.update(transforms[transform])
             if need_transform:
                 with open(path, 'rt') as ih:
                     lines = ih.readlines()
@@ -317,3 +317,8 @@ for dirpath, dirnames, filenames in os.walk(destpath):
                     print("No need to update", path)
                     
         
+
+
+#print("\nRunning Hugo to generate docs ...")
+#os.chdir(destpath+"/doc/src")
+#subprocess.check_output(['hugo'], shell = True)
