@@ -10,13 +10,14 @@ var hierarchy =
     [ "quickcpplib::_xxx::aligned_allocator::aligned_allocator< void, Align, initialize >", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01void_00_01_align_00_01initialize_01_4.html", null ],
     [ "quickcpplib::_xxx::algorithm::open_hash_index::arithmetic_modulus< KeyType >", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1arithmetic__modulus.html", null ],
     [ "atomic", null, [
+      [ "quickcpplib::_xxx::persistence::persistent< T >", "classquickcpplib_1_1__xxx_1_1persistence_1_1persistent.html", null ]
+    ] ],
+    [ "atomic", null, [
       [ "quickcpplib::_xxx::configurable_spinlock::lockable_ptr< T >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lockable__ptr.html", null ]
     ] ],
     [ "quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy< KeyType, T, LinearSearchLimit, LockType, KeyModulus, KeyCompare >", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy.html", null ],
     [ "quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index< Policy, ContiguousContainerType, disable_existing_key_check >", "classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html", null ],
-    [ "gsl::basic_string_span< T >", "classgsl_1_1basic__string__span.html", null ],
     [ "quickcpplib::_xxx::string_view::basic_string_view< charT, traits >", "classquickcpplib_1_1__xxx_1_1string__view_1_1basic__string__view.html", null ],
-    [ "gsl::byte", "structgsl_1_1byte.html", null ],
     [ "quickcpplib::_xxx::allocator_testing::config", "structquickcpplib_1_1__xxx_1_1allocator__testing_1_1config.html", null ],
     [ "quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy< KeyType, T, LinearSearchLimit, LockType, KeyModulus, KeyCompare >::const_pointer", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html", [
       [ "quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy< KeyType, T, LinearSearchLimit, LockType, KeyModulus, KeyCompare >::pointer", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1pointer.html", null ]
@@ -26,18 +27,14 @@ var hierarchy =
       [ "quickcpplib::_xxx::bitfield::bitfield< Enum >", "structquickcpplib_1_1__xxx_1_1bitfield_1_1bitfield.html", null ]
     ] ],
     [ "std::exception", null, [
-      [ "gsl::narrowing_error", "structgsl_1_1narrowing__error.html", null ],
-      [ "gsl::narrowing_error", "structgsl_1_1narrowing__error.html", null ],
-      [ "std::logic_error", null, [
-        [ "gsl::fail_fast", "structgsl_1_1fail__fast.html", null ]
-      ] ]
+      [ "gsl::narrowing_error", "structgsl_1_1narrowing__error.html", null ]
     ] ],
     [ "false_type", null, [
       [ "quickcpplib::_xxx::type_traits::is_sequence< T, typename >", "structquickcpplib_1_1__xxx_1_1type__traits_1_1is__sequence.html", null ],
       [ "quickcpplib::_xxx::type_traits::is_sequence< void >", "structquickcpplib_1_1__xxx_1_1type__traits_1_1is__sequence_3_01void_01_4.html", null ]
     ] ],
     [ "quickcpplib::_xxx::algorithm::hash::fast_hash", "classquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1fast__hash.html", null ],
-    [ "gsl::final_act", "classgsl_1_1final__act.html", null ],
+    [ "gsl::final_action", "classgsl_1_1final__action.html", null ],
     [ "quickcpplib::_xxx::algorithm::hash::fnv1a_hash< T >", "structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1fnv1a__hash.html", null ],
     [ "quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy< KeyType, T, LinearSearchLimit, LockType, KeyModulus, KeyCompare >::items_count_type", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1items__count__type.html", null ],
     [ "iterator", null, [
@@ -64,9 +61,9 @@ var hierarchy =
     ] ],
     [ "quickcpplib::_xxx::algorithm::hash::passthru_hash< T >", "structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1passthru__hash.html", null ],
     [ "quickcpplib::_xxx::print_type< T >", "structquickcpplib_1_1__xxx_1_1print__type.html", null ],
-    [ "quickcpplib::_xxx::allocator_testing::allocator< T, A >::rebind< U >", "structquickcpplib_1_1__xxx_1_1allocator__testing_1_1allocator_1_1rebind.html", null ],
-    [ "quickcpplib::_xxx::aligned_allocator::aligned_allocator< const T, Align, initialize >::rebind< U >", "structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_alig38b3ce2fde59753f89f79b36dfe20c65.html", null ],
     [ "quickcpplib::_xxx::aligned_allocator::aligned_allocator< T, Align, initialize >::rebind< U >", "structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_1_1rebind.html", null ],
+    [ "quickcpplib::_xxx::aligned_allocator::aligned_allocator< const T, Align, initialize >::rebind< U >", "structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_alig38b3ce2fde59753f89f79b36dfe20c65.html", null ],
+    [ "quickcpplib::_xxx::allocator_testing::allocator< T, A >::rebind< U >", "structquickcpplib_1_1__xxx_1_1allocator__testing_1_1allocator_1_1rebind.html", null ],
     [ "quickcpplib::_xxx::unit_test::requirement_failed", "structquickcpplib_1_1__xxx_1_1unit__test_1_1requirement__failed.html", null ],
     [ "quickcpplib::_xxx::ringbuffer_log::ringbuffer_log< Policy >", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html", null ],
     [ "quickcpplib::_xxx::algorithm::secdec_ecc::secded_ecc< blocksize >", "classquickcpplib_1_1__xxx_1_1algorithm_1_1secdec__ecc_1_1secded__ecc.html", null ],
@@ -97,6 +94,5 @@ var hierarchy =
     [ "quickcpplib::_xxx::ringbuffer_log::ringbuffer_log< Policy >::unique_id", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1unique__id.html", null ],
     [ "quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy< KeyType, T, LinearSearchLimit, LockType, KeyModulus, KeyCompare >::value_type", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type.html", null ],
     [ "quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html", null ],
-    [ "quickcpplib::_xxx::algorithm::open_hash_index::linear_memory_policy< KeyType, T, LinearSearchLimit, KeyModulus, KeyCompare >::value_type", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html", null ],
-    [ "gsl::with_container_t", "structgsl_1_1with__container__t.html", null ]
+    [ "quickcpplib::_xxx::algorithm::open_hash_index::linear_memory_policy< KeyType, T, LinearSearchLimit, KeyModulus, KeyCompare >::value_type", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html", null ]
 ];
