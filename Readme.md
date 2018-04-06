@@ -2,7 +2,7 @@
 
 Eliminate all the tedious hassle when making state-of-the-art C++ 14 or 17 libraries!
 
-(C) 2014-2017 Niall Douglas http://www.nedproductions.biz/
+(C) 2014-2018 Niall Douglas http://www.nedproductions.biz/
 
 Linux & MacOS: [![Build Status](https://travis-ci.org/ned14/quickcpplib.svg?branch=master)](https://travis-ci.org/ned14/quickcpplib) Windows: [![Build status](https://ci.appveyor.com/api/projects/status/8974h34i4i4233vy/branch/master?svg=true)](https://ci.appveyor.com/project/ned14/quickcpplib/branch/master)
 
@@ -21,7 +21,7 @@ Then this is the library you've been looking for! Designed for use as an **embed
 **WARNING: This library is in a highly alpha code state. As much as it has been written to a very high quality and has been tested quite extensively in use by other libraries, it remains in substantial flux and is as such a shifting foundation. You have been warned!**
 
 ## Requirements:
-- GCC 5 or later (Linux)
+- GCC 6 or later (Linux)
 - clang 3.5 or later (Linux, OS X, BSD, Android)
 - Visual Studio 2015 Update 2 or later (Windows)
 - cmake 3.1 or later
@@ -31,7 +31,7 @@ Then this is the library you've been looking for! Designed for use as an **embed
 - [x] Get docs auto updating per commit
 - [x] Raise CDash dashboard
 - [x] Write `class packed_backtrace`. Add testing.
-- [ ] Write script which can generate a Boost library from a quickcpplib library, copying just
+- [x] Write script which can generate a Boost library from a quickcpplib library, copying just
 the parts needed.
 
 ## Commits and tags in this git repository can be verified using:
