@@ -7,6 +7,7 @@ set(quickcpplib_TESTS
   "test/test_guard2.hpp"
   "test/open_hash_index.cpp"
   "test/packed_backtrace.cpp"
+  "test/persistent.cpp"
   "test/ringbuffer_log.cpp"
   "test/spinlock_tribool.cpp"
   "test/type_traits.cpp"

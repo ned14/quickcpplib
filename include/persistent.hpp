@@ -40,9 +40,12 @@ namespace persistence
   /*! \brief The kinds of cache line flushing which can be performed. */
   enum class memory_flush
   {
+    memory_flush_none,    //!< No memory flushing.
     memory_flush_retain,  //!< Flush modified cache line to memory, but retain as unmodified in cache.
     memory_flush_evict    //!< Flush modified cache line to memory, and evict completely from all caches.
   };
+  //! No memory flushing.
+  constexpr memory_flush memory_flush_none = memory_flush::memory_flush_none;
   //! Flush modified cache line to memory, but retain as unmodified in cache.
   constexpr memory_flush memory_flush_retain = memory_flush::memory_flush_retain;
   //! Flush modified cache line to memory, and evict completely from all caches.
@@ -50,7 +53,7 @@ namespace persistence
 
   namespace detail
   {
-    using flush_impl_type = bool (*)(const void *addr, memory_flush kind);
+    using flush_impl_type = memory_flush (*)(const void *addr, memory_flush kind);
     inline QUICKCPPLIB_NOINLINE flush_impl_type make_flush_impl() noexcept
     {
 #if defined(__i386__) || defined(_M_IX86) || defined(__x86_64__) || defined(_M_X64)
@@ -65,34 +68,46 @@ namespace persistence
       __cpuidex(nBuff, 0x7, 0x0);
       if(nBuff[1] & (1 << 24))  // has CLWB instruction
       {
-        return [](const void *addr, memory_flush kind) -> bool {
+        return [](const void *addr, memory_flush kind) -> memory_flush {
           if(kind == memory_flush_retain)
           {
             _mm_clwb(addr);
             _mm_sfence();
-            return true;
+            return memory_flush_retain;
           }
           _mm_clflushopt(addr);
           _mm_sfence();
-          return true;
+          return memory_flush_evict;
         };
       }
       if(nBuff[1] & (1 << 23))  // has CLFLUSHOPT instruction
       {
-        return [](const void *addr, memory_flush kind) -> bool {
+        return [](const void *addr, memory_flush /*unused*/) -> memory_flush {
           _mm_clflushopt(addr);
           _mm_sfence();
-          return true;
+          return memory_flush_evict;
         };
       }
       else
       {
         // Use CLFLUSH instruction
-        return [](const void *addr, memory_flush kind) -> bool {
+        return [](const void *addr, memory_flush /*unused*/) -> memory_flush {
           _mm_clflush(addr);
-          return true;
+          return memory_flush_evict;
         };
       }
+#elif defined(__aarch64__)
+      return [](const void *addr, memory_flush kind) -> memory_flush {
+        if(kind == memory_flush_retain)
+        {
+          __asm__ __volatile__("dc cvac, %0" : : "r"(addr) : "memory");
+          __asm__ __volatile__("dmb ish" : : : "memory");
+          return memory_flush_retain;
+        }
+        __asm__ __volatile__("dc civac, %0" : : "r"(addr) : "memory");
+        __asm__ __volatile__("dmb ish" : : : "memory");
+        return memory_flush_evict;
+      };
 #else
 #error Unsupported platform
 #endif
@@ -114,20 +129,21 @@ namespace persistence
   dirty cache lines in the CPU's caches to main memory/mapped remote memory. This
   class extends `std::atomic<T>` with a `.flush()` member function which calls
   architecture-specific opcodes to cause the CPU to immediately write the dirty cache
-  line to main memory, marking on completion the cache line as unmodified.
+  line specified to main memory, marking on completion the cache line as unmodified.
   `.store()`, and all the other member functions which can modify state, will
   call `.flush(memory_flush_retain)` on your behalf if the `memory_order` contains release or sequential
   consistent semantics.
 
   Note that calling `.flush()` repeatedly on the same cache line will likely produce
   poor performance. You are advised to use non-release semantics to modify the cache
-  line, then your final modification ought to release. This will release the whole
-  cache line at once, avoiding constant read-modify-write cycles (unless the latter
-  is exactly what you need of course).
+  line, then your final modification to that cache line ought to release. This will
+  release the whole cache line at once, avoiding constant read-modify-write cycles
+  (unless the latter is exactly what you need of course).
 
   \warning On older Intel CPUs, due to lack of hardware support, we always execute
   `memory_flush_evict` even if asked for `memory_flush_retain`. This can produce
-  some very poor performance.
+  some very poor performance. Check the value returned by `.flush()` to see what
+  kind of flush was actually performed.
   */
   template <class T> class persistent : protected std::atomic<T>
   {
@@ -237,10 +253,10 @@ namespace persistence
 
     /*! \brief Flush the cache line containing this object instance to main memory,
     optionally evicting it from all caches entirely.
-    \return True if the cache line was successfully flushed.
+    \return The kind of flush actually performed.
     \param kind What kind of flush to do. See `memory_flush`.
     */
-    bool flush(memory_flush kind = memory_flush_retain) const noexcept { return detail::flush_impl()(this, kind); }
+    memory_flush flush(memory_flush kind = memory_flush_retain) const noexcept { return detail::flush_impl()(this, kind); }
   };
 }
 

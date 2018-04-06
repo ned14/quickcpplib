@@ -25,6 +25,7 @@ set(quickcpplib_HEADERS
   "include/optional.hpp"
   "include/optional/optional.hpp"
   "include/packed_backtrace.hpp"
+  "include/persistent.hpp"
   "include/revision.hpp"
   "include/ringbuffer_log.hpp"
   "include/scoped_undo.hpp"
