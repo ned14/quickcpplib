@@ -22,3 +22,7 @@
 	branch = master
 	fetchRecurseSubmodules = true
 	ignore = untracked
+[submodule "include/byte"]
+	path = include/byte
+	url = https://github.com/martinmoene/byte-lite.git
+	branch = master
