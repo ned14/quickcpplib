@@ -27,7 +27,33 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "config.hpp"
 
-#if 1  // only one implementation of span<T> right now
+#ifdef QUICKCPPLIB_USE_STD_SPAN
+
+#include <span>
+
+QUICKCPPLIB_NAMESPACE_BEGIN
+
+namespace span
+{
+  template <class T> using span = std::span<T>;
+}
+
+QUICKCPPLIB_NAMESPACE_END
+
+#elif _HAS_CXX20 || __cplusplus >= 202000
+
+#include <span>
+
+QUICKCPPLIB_NAMESPACE_BEGIN
+
+namespace span
+{
+  template <class T> using span = std::span<T>;
+}
+
+QUICKCPPLIB_NAMESPACE_END
+
+#else
 
 #include "gsl-lite/include/gsl.hpp"
 

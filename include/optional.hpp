@@ -27,7 +27,20 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "config.hpp"
 
-#if _HAS_CXX17 || (__cplusplus >= 201700 && (!defined(__APPLE__) || _LIBCPP_VERSION > 7000 /* approx end of 2017 */))
+#ifdef QUICKCPPLIB_USE_STD_OPTIONAL
+
+#include <optional>
+
+QUICKCPPLIB_NAMESPACE_BEGIN
+
+namespace optional
+{
+  template <class T> using optional = std::optional<T>;
+}
+
+QUICKCPPLIB_NAMESPACE_END
+
+#elif _HAS_CXX17 || (__cplusplus >= 201700 && (!defined(__APPLE__) || _LIBCPP_VERSION > 7000 /* approx end of 2017 */))
 
 #include <optional>
 

@@ -27,7 +27,21 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "config.hpp"
 
-#if _HAS_CXX20 || __cplusplus >= 202000
+#ifdef QUICKCPPLIB_USE_STD_BYTE
+
+#include <cstddef>
+
+QUICKCPPLIB_NAMESPACE_BEGIN
+
+namespace byte
+{
+  using std::byte;
+  using std::to_byte;
+}
+
+QUICKCPPLIB_NAMESPACE_END
+
+#elif _HAS_CXX20 || __cplusplus >= 202000
 
 #include <cstddef>
 
