@@ -5,6 +5,7 @@ set(quickcpplib_TESTS
   "test/uint128testdata2.h"
   "test/test_guard.hpp"
   "test/test_guard2.hpp"
+  "test/offset_ptr.cpp"
   "test/open_hash_index.cpp"
   "test/packed_backtrace.cpp"
   "test/persistent.cpp"

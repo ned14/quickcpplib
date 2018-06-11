@@ -61,7 +61,7 @@ BOOST_AUTO_TEST_CASE(uint128 / works, "Tests that uint128 works as advertised")
   }
 }
 
-BOOST_AUTO_TEST_CASE(uint128 / works, "Tests that the uint128 has reasonable performance")
+BOOST_AUTO_TEST_CASE(uint128 / performance, "Tests that the uint128 has reasonable performance")
 {
   size_t count = 0;
   std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now(), end;
