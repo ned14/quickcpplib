@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['indeterminate',['indeterminate',['../group__tribool.html#ggafe26d2adc55c3e981fc0164e20ebeb9aa44560d82707cce3b8111a770924cf0e2',1,'quickcpplib::_xxx::tribool']]],
-  ['info',['info',['../namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c',1,'quickcpplib::_xxx::ringbuffer_log']]]
+  ['healed',['healed',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1secdec__ecc_1_1secded__ecc.html#a216b11ac5190e7f13b63a64638c17eafa30c155ff9685a66b694ebaa4743488a6',1,'quickcpplib::_xxx::algorithm::secdec_ecc::secded_ecc']]]
 ];

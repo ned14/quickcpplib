@@ -106,8 +106,6 @@ $(document).ready(function(){initNavTree('bitfield_8hpp.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
 <a href="#define-members">Macros</a>  </div>
   <div class="headertitle">
 <div class="title">bitfield.hpp File Reference</div>  </div>
@@ -115,30 +113,11 @@ $(document).ready(function(){initNavTree('bitfield_8hpp.html','');});
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="config_8hpp.html">config.hpp</a>&quot;</code><br/>
 </div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structquickcpplib_1_1__xxx_1_1bitfield_1_1bitfield.html">quickcpplib::_xxx::bitfield::bitfield&lt; Enum &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constexpr typesafe bitwise flags support.  <a href="structquickcpplib_1_1__xxx_1_1bitfield_1_1bitfield.html#details">More...</a><br/></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:namespacequickcpplib"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib.html">quickcpplib</a></td></tr>
-<tr class="memdesc:namespacequickcpplib"><td class="mdescLeft">&#160;</td><td class="mdescRight">The QuickCppLib namespace. <br/></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacequickcpplib_1_1__xxx"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx.html">quickcpplib::_xxx</a></td></tr>
-<tr class="memdesc:namespacequickcpplib_1_1__xxx"><td class="mdescLeft">&#160;</td><td class="mdescRight">Per commit unique namespace to prevent different git submodule versions clashing. <br/></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacequickcpplib_1_1__xxx_1_1bitfield"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1bitfield.html">quickcpplib::_xxx::bitfield</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a165ed92a83a11d716f08a1ad70e58e9b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bitfield_8hpp.html#a165ed92a83a11d716f08a1ad70e58e9b">QUICKCPPLIB_BITFIELD_BEGIN</a>(type)</td></tr>
-<tr class="memdesc:a165ed92a83a11d716f08a1ad70e58e9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begins a typesafe bitfield.  <a href="#a165ed92a83a11d716f08a1ad70e58e9b">More...</a><br/></td></tr>
+<tr class="memitem:a165ed92a83a11d716f08a1ad70e58e9b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bitfield_8hpp.html#a165ed92a83a11d716f08a1ad70e58e9b">QUICKCPPLIB_BITFIELD_BEGIN</a>(type)&#160;&#160;&#160;enum bitfield__##type : unsigned</td></tr>
 <tr class="separator:a165ed92a83a11d716f08a1ad70e58e9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af73980f3fbafa65e93218ec34754f9a9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bitfield_8hpp.html#af73980f3fbafa65e93218ec34754f9a9">QUICKCPPLIB_BITFIELD_END</a>(type)</td></tr>
-<tr class="memdesc:af73980f3fbafa65e93218ec34754f9a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ends a typesafe bitfield.  <a href="#af73980f3fbafa65e93218ec34754f9a9">More...</a><br/></td></tr>
+<tr class="memitem:af73980f3fbafa65e93218ec34754f9a9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bitfield_8hpp.html#af73980f3fbafa65e93218ec34754f9a9">QUICKCPPLIB_BITFIELD_END</a>(type)&#160;&#160;&#160;;</td></tr>
 <tr class="separator:af73980f3fbafa65e93218ec34754f9a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
@@ -151,17 +130,10 @@ Macros</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">type</td><td>)</td>
-          <td></td>
+          <td>&#160;&#160;&#160;enum bitfield__##type : unsigned</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">\</div>
-<div class="line">struct type##_base                                                                                                                                                                                                                                                                                                             \</div>
-<div class="line">  \</div>
-<div class="line">{                                                                                                                                                                                                                                                                                                                         \</div>
-<div class="line">  enum enum_type : <span class="keywordtype">unsigned</span></div>
-</div><!-- fragment -->
-<p>Begins a typesafe bitfield. </p>
 
 </div>
 </div>
@@ -174,18 +146,10 @@ Macros</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">type</td><td>)</td>
-          <td></td>
+          <td>&#160;&#160;&#160;;</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">\</div>
-<div class="line">;                                                                                                                                                                                                                                                                                                                         \</div>
-<div class="line">  }                                                                                                                                                                                                                                                                                                                            \</div>
-<div class="line">  ;                                                                                                                                                                                                                                                                                                                            \</div>
-<div class="line">  \</div>
-<div class="line">using type = QUICKCPPLIB_NAMESPACE::bitfield::bitfield&lt;type##_base&gt;;</div>
-</div><!-- fragment -->
-<p>Ends a typesafe bitfield. </p>
 
 </div>
 </div>

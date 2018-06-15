@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['termination',['termination',['../namespacequickcpplib_1_1__xxx_1_1signal__guard.html#ad51cebe56c9a0718495f06b43bd71fa3aee1c27bcb8b84bb8614cb4441e2db7f6',1,'quickcpplib::_xxx::signal_guard']]],
   ['test_5fcase',['test_case',['../structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html',1,'quickcpplib::_xxx::unit_test']]],
   ['test_5fcase',['test_case',['../structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#abfe6e980f2b52928443f43eccdef086d',1,'quickcpplib::_xxx::unit_test::test_case::test_case(const char *_name, const char *_desc, void(*_func)())'],['../structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#a726d26f53fb3320138cccbd825a128fd',1,'quickcpplib::_xxx::unit_test::test_case::test_case(test_case &amp;&amp;o) noexcept']]],
   ['test_5fcase_5fregistration',['test_case_registration',['../structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case__registration.html',1,'quickcpplib::_xxx::unit_test']]],

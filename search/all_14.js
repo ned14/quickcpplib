@@ -10,7 +10,7 @@ var searchData=
   ['uint32',['uint32',['../namespacequickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1fash__hash__detail.html#a5e4058cdc8028143e859891fb98d502a',1,'quickcpplib::_xxx::algorithm::hash::fash_hash_detail']]],
   ['uint64',['uint64',['../namespacequickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1fash__hash__detail.html#aba7265cad2a1655202120b12e80c7151',1,'quickcpplib::_xxx::algorithm::hash::fash_hash_detail']]],
   ['uint8',['uint8',['../namespacequickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1fash__hash__detail.html#ab9183446ba1e1d6982f457edc396f132',1,'quickcpplib::_xxx::algorithm::hash::fash_hash_detail']]],
-  ['underlying_5ftype',['underlying_type',['../structquickcpplib_1_1__xxx_1_1bitfield_1_1bitfield.html#a87c7c65bc5bff1c062a4117022130db5',1,'quickcpplib::_xxx::bitfield::bitfield']]],
+  ['undefined_5fmemory_5faccess',['undefined_memory_access',['../namespacequickcpplib_1_1__xxx_1_1signal__guard.html#ad51cebe56c9a0718495f06b43bd71fa3ac12aa7ff3c8bad3b5535299782feb9b9',1,'quickcpplib::_xxx::signal_guard']]],
   ['undoer',['undoer',['../namespacequickcpplib_1_1__xxx_1_1scoped__undo.html#a62993f318b6783401ed8ff8841026c33',1,'quickcpplib::_xxx::scoped_undo']]],
   ['unique_5fid',['unique_id',['../structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1unique__id.html#a19e58cee44eefc9c2d9f0e1b8d4b3b79',1,'quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::unique_id']]],
   ['unique_5fid',['unique_id',['../structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1unique__id.html',1,'quickcpplib::_xxx::ringbuffer_log::ringbuffer_log']]],

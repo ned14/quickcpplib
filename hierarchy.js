@@ -24,9 +24,6 @@ var hierarchy =
       [ "quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy< KeyType, T, LinearSearchLimit, LockType, KeyModulus, KeyCompare >::pointer", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1pointer.html", null ]
     ] ],
     [ "quickcpplib::_xxx::integers128::uint128::empty_type", "structquickcpplib_1_1__xxx_1_1integers128_1_1uint128_1_1empty__type.html", null ],
-    [ "Enum", null, [
-      [ "quickcpplib::_xxx::bitfield::bitfield< Enum >", "structquickcpplib_1_1__xxx_1_1bitfield_1_1bitfield.html", null ]
-    ] ],
     [ "std::exception", null, [
       [ "gsl::narrowing_error", "structgsl_1_1narrowing__error.html", null ],
       [ "quickcpplib::_xxx::signal_guard::signal_raised", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__raised.html", null ]
@@ -97,7 +94,7 @@ var hierarchy =
     [ "quickcpplib::_xxx::integers128::uint128", "unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html", null ],
     [ "quickcpplib::_xxx::integers128::uint128_hasher", "structquickcpplib_1_1__xxx_1_1integers128_1_1uint128__hasher.html", null ],
     [ "quickcpplib::_xxx::ringbuffer_log::ringbuffer_log< Policy >::unique_id", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1unique__id.html", null ],
-    [ "quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy< KeyType, T, LinearSearchLimit, LockType, KeyModulus, KeyCompare >::value_type", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type.html", null ],
+    [ "quickcpplib::_xxx::algorithm::open_hash_index::linear_memory_policy< KeyType, T, LinearSearchLimit, KeyModulus, KeyCompare >::value_type", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html", null ],
     [ "quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html", null ],
-    [ "quickcpplib::_xxx::algorithm::open_hash_index::linear_memory_policy< KeyType, T, LinearSearchLimit, KeyModulus, KeyCompare >::value_type", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html", null ]
+    [ "quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy< KeyType, T, LinearSearchLimit, LockType, KeyModulus, KeyCompare >::value_type", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type.html", null ]
 ];
