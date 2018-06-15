@@ -166,6 +166,11 @@ extern "C" void _mm_pause();
 #endif
 
 #ifndef QUICKCPPLIB_NODISCARD
+#if defined(STANDARDESE_IS_IN_THE_HOUSE) || (_HAS_CXX17 && _MSC_VER >= 1911 /* VS2017.3 */)
+#define QUICKCPPLIB_NODISCARD [[nodiscard]]
+#endif
+#endif
+#ifndef QUICKCPPLIB_NODISCARD
 #ifdef __has_cpp_attribute
 #if __has_cpp_attribute(nodiscard)
 #define QUICKCPPLIB_NODISCARD [[nodiscard]]

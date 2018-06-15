@@ -32,7 +32,7 @@ Distributed under the Boost Software License, Version 1.0.
 #include <sal.h>
 #include <stddef.h>
 
-#ifdef BINDLIB_EXPORTS
+#ifdef QUICKCPPLIB_EXPORTS
 #define EXECINFO_DECL extern __declspec(dllexport)
 #else
 #if defined(__cplusplus) && (!defined(QUICKCPPLIB_HEADERS_ONLY) || QUICKCPPLIB_HEADERS_ONLY == 1) && !defined(DOXYGEN_SHOULD_SKIP_THIS)

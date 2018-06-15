@@ -10,7 +10,7 @@
 #include <intrin.h>
 #include <windows.h>
 typedef unsigned __int64 usCount;
-static usCount GetUsCount()
+inline usCount GetUsCount()
 {
   static LARGE_INTEGER ticksPerSec;
   static double scalefactor;
@@ -30,7 +30,7 @@ static usCount GetUsCount()
 #include <sys/time.h>
 #include <time.h>
 typedef unsigned long long usCount;
-static usCount GetUsCount()
+inline usCount GetUsCount()
 {
 #ifdef CLOCK_MONOTONIC
   struct timespec ts;
@@ -45,7 +45,7 @@ static usCount GetUsCount()
 #endif
 
 
-static uint64_t ticksclock()
+inline uint64_t ticksclock()
 {
 #ifdef _MSC_VER
   auto rdtscp = [] {
@@ -53,9 +53,7 @@ static uint64_t ticksclock()
     return (uint64_t) __rdtscp(&x);
   };
 #else
-#ifdef __rdtscp
-  return (uint64_t) __rdtscp();
-#elif defined(__x86_64__)
+#if defined(__x86_64__)
   auto rdtscp = [] {
     unsigned lo, hi;
     asm volatile("rdtscp" : "=a"(lo), "=d"(hi));
@@ -79,31 +77,29 @@ static uint64_t ticksclock()
   return rdtscp();
 }
 
-static uint64_t nanoclock()
+inline uint64_t nanoclock()
 {
-  static uint16_t ticks_per_sec;
+  static double ticks_per_sec;
   static uint64_t offset;
   if(ticks_per_sec == 0)
   {
     auto end = std::chrono::high_resolution_clock::now(), begin = std::chrono::high_resolution_clock::now();
-    auto diff = std::chrono::duration_cast<std::chrono::seconds>(end - begin);
     uint64_t _begin = ticksclock(), _end;
     do
     {
       end = std::chrono::high_resolution_clock::now();
     } while(std::chrono::duration_cast<std::chrono::seconds>(end - begin).count() < 1);
     _end = ticksclock();
-    uint64_t x = _end - _begin;
-    x /= (1000000000 / 128);
-    ticks_per_sec = (uint16_t) x;
-    volatile uint64_t a = (uint64_t)((128 * ticksclock()) / ticks_per_sec);
-    volatile uint64_t b = (uint64_t)((128 * ticksclock()) / ticks_per_sec);
+    double x = _end - _begin;
+    ticks_per_sec = x / 1000000000.0;
+    volatile uint64_t a = ticksclock();
+    volatile uint64_t b = ticksclock();
     offset = b - a;
 #if 1
-    std::cout << "There are " << (ticks_per_sec / 128.0) << " TSCs in 1 nanosecond and it takes " << offset << " nanoseconds per nanoclock()." << std::endl;
+    std::cout << "There are " << ticks_per_sec << " TSCs in 1 nanosecond and it takes " << offset << " ticks per nanoclock()." << std::endl;
 #endif
   }
-  return (uint64_t)((128 * ticksclock()) / ticks_per_sec) - offset;
+  return (uint64_t)((ticksclock() - offset) / ticks_per_sec);
 }
 
 #endif

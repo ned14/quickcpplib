@@ -34,6 +34,7 @@ set(quickcpplib_HEADERS
   "include/revision.hpp"
   "include/ringbuffer_log.hpp"
   "include/scoped_undo.hpp"
+  "include/signal_guard.hpp"
   "include/span.hpp"
   "include/spinlock.hpp"
   "include/string_view.hpp"
