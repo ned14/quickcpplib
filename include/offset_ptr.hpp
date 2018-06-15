@@ -32,6 +32,7 @@ Distributed under the Boost Software License, Version 1.0.
 
 QUICKCPPLIB_NAMESPACE_BEGIN
 
+//! \brief The namespace for the offset pointer types
 namespace offset_ptr
 {
   namespace detail

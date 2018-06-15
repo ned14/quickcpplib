@@ -29,6 +29,7 @@ Distributed under the Boost Software License, Version 1.0.
 
 QUICKCPPLIB_NAMESPACE_BEGIN
 
+//! \brief The namespace for the bitfield types
 namespace bitfield
 {
   /*!
@@ -147,6 +148,13 @@ namespace bitfield
     }
   };
 
+#ifdef DOXYGEN_IS_IN_THE_HOUSE
+//! Begins a typesafe bitfield
+#define QUICKCPPLIB_BITFIELD_BEGIN(type) enum bitfield__##type : unsigned
+
+//! Ends a typesafe bitfield
+#define QUICKCPPLIB_BITFIELD_END(type) ;
+#else
 //! Begins a typesafe bitfield
 #define QUICKCPPLIB_BITFIELD_BEGIN(type)                                                                                                                                                                                                                                                                                       \
   \
@@ -164,6 +172,7 @@ struct type##_base                                                              
   \
 using type = QUICKCPPLIB_NAMESPACE::bitfield::bitfield<type##_base>;
 }
+#endif
 
-QUICKCPPLIB_NAMESPACE_END
+  QUICKCPPLIB_NAMESPACE_END
 #endif

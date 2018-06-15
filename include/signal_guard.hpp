@@ -163,7 +163,7 @@ namespace signal_guard
 
   1. `c`, which must have the prototype `bool(signalc, const void *, const void *)`, is called with the signal which
   was raised. The two `void *` are the `siginfo_t *` and `void *` from the `sa_sigaction` handler on POSIX;
-  on Windows they are the `PEXCEPTION_RECORD` and `PCONTEXT` from the vectored exception handler. You can fix
+  on Windows they are the `PEXCEPTION_RECORD` and `PCONTEXT` from the exception handler. You can fix
   the cause of the signal and return `true` to continue execution, or else return `false` to halt execution.
   Note that the variety of code you can call in `c` is extremely limited, the same restrictions
   as for signal handlers apply.
@@ -175,7 +175,7 @@ namespace signal_guard
 
   Obviously all state which `f` may have been in the process of doing will be thrown away. You
   should therefore make sure that `f` never causes side effects, including the interruption in the middle
-  of some operatiob,mwhich cannot be fixed by the calling of `h`. The default `h` simply throws a `signal_raised`
+  of some operation, which cannot be fixed by the calling of `h`. The default `h` simply throws a `signal_raised`
   C++ exception.
   */
   QUICKCPPLIB_TEMPLATE(class F, class H, class C, class R = decltype(std::declval<F>()()))
