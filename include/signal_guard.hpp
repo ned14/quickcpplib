@@ -50,6 +50,7 @@ Distributed under the Boost Software License, Version 1.0.
 
 QUICKCPPLIB_NAMESPACE_BEGIN
 
+//! \brief The namespace for signal_guard
 namespace signal_guard
 {
   //! The signals which can be raised
