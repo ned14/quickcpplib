@@ -85,11 +85,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions_type.html"><span>Typedefs</span></a></li>
       <li><a href="functions_enum.html"><span>Enumerations</span></a></li>
       <li><a href="functions_eval.html"><span>Enumerator</span></a></li>
+      <li><a href="functions_rela.html"><span>Related&#160;Functions</span></a></li>
     </ul>
   </div>
   <div id="navrow4" class="tabs3">
     <ul class="tablist">
-      <li><a href="functions.html#index_a"><span>a</span></a></li>
+      <li><a href="functions.html#index__"><span>_</span></a></li>
+      <li><a href="functions_a.html#index_a"><span>a</span></a></li>
       <li><a href="functions_b.html#index_b"><span>b</span></a></li>
       <li><a href="functions_c.html#index_c"><span>c</span></a></li>
       <li class="current"><a href="functions_d.html#index_d"><span>d</span></a></li>
@@ -101,6 +103,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions_k.html#index_k"><span>k</span></a></li>
       <li><a href="functions_l.html#index_l"><span>l</span></a></li>
       <li><a href="functions_m.html#index_m"><span>m</span></a></li>
+      <li><a href="functions_n.html#index_n"><span>n</span></a></li>
       <li><a href="functions_o.html#index_o"><span>o</span></a></li>
       <li><a href="functions_p.html#index_p"><span>p</span></a></li>
       <li><a href="functions_r.html#index_r"><span>r</span></a></li>
@@ -108,6 +111,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions_t.html#index_t"><span>t</span></a></li>
       <li><a href="functions_u.html#index_u"><span>u</span></a></li>
       <li><a href="functions_v.html#index_v"><span>v</span></a></li>
+      <li><a href="functions_w.html#index_w"><span>w</span></a></li>
+      <li><a href="functions_~.html#index_~"><span>~</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -130,7 +135,7 @@ $(document).ready(function(){initNavTree('functions_d.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(12)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -140,13 +145,38 @@ $(document).ready(function(){initNavTree('functions_d.html','');});
 </div>
 
 <div class="contents">
-<div class="textblock">Here is a list of all documented class members with links to the class documentation for each member:</div>
+<div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
 
 <h3><a class="anchor" id="index_d"></a>- d -</h3><ul>
+<li>data()
+: <a class="el" href="classgsl_1_1span.html#a71b0e7033fcbe93d01922deb645c8f9d">gsl::span&lt; T &gt;</a>
+, <a class="el" href="classquickcpplib_1_1__xxx_1_1string__view_1_1basic__string__view.html#aca2147716d7d914028649d5c12f874a7">quickcpplib::_xxx::string_view::basic_string_view&lt; charT, traits &gt;</a>
+</li>
+<li>deallocate()
+: <a class="el" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator.html#a7a0f88ed47f84407abf4dd715a4901ab">quickcpplib::_xxx::aligned_allocator::aligned_allocator&lt; T, Align, initialize &gt;</a>
+, <a class="el" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#af2843799a6615f4c8968c0806cb70ec0">quickcpplib::_xxx::aligned_allocator::aligned_allocator&lt; const T, Align, initialize &gt;</a>
+</li>
+<li>desc
+: <a class="el" href="structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#a860798ae9e3aab25a3713cafa8384728">quickcpplib::_xxx::unit_test::test_case</a>
+</li>
+<li>destroy()
+: <a class="el" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator.html#adbdcb702867788510b794822554902f6">quickcpplib::_xxx::aligned_allocator::aligned_allocator&lt; T, Align, initialize &gt;</a>
+, <a class="el" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#a577007e5f171a31263c1053a83bea39b">quickcpplib::_xxx::aligned_allocator::aligned_allocator&lt; const T, Align, initialize &gt;</a>
+</li>
 <li>difference_type
-: <a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#ac733940cbf3a3b0a04577cf9a680f1d7">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index&lt; Policy, ContiguousContainerType, disable_existing_key_check &gt;</a>
+: <a class="el" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy.html#a91c152b60bbbbec9833e102227caea23">quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy&lt; KeyType, T, LinearSearchLimit, LockType, KeyModulus, KeyCompare &gt;</a>
+, <a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#ac733940cbf3a3b0a04577cf9a680f1d7">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index&lt; Policy, ContiguousContainerType, disable_existing_key_check &gt;</a>
+, <a class="el" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy.html#a162d003e4faff470d859d16adb1f79b3">quickcpplib::_xxx::algorithm::open_hash_index::linear_memory_policy&lt; KeyType, T, LinearSearchLimit, KeyModulus, KeyCompare &gt;</a>
+, <a class="el" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator.html#a322943a08287158dc6d0f062c119afd4">quickcpplib::_xxx::aligned_allocator::aligned_allocator&lt; T, Align, initialize &gt;</a>
+, <a class="el" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#aec7dbb2ba710169b9bf93c340ddfcc61">quickcpplib::_xxx::aligned_allocator::aligned_allocator&lt; const T, Align, initialize &gt;</a>
+, <a class="el" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01void_00_01_align_00_01initialize_01_4.html#acce725e97fd733c9bea8523486730832">quickcpplib::_xxx::aligned_allocator::aligned_allocator&lt; const void, Align, initialize &gt;</a>
+, <a class="el" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01void_00_01_align_00_01initialize_01_4.html#a2d39071afa005fcc3fa124b661e0c967">quickcpplib::_xxx::aligned_allocator::aligned_allocator&lt; void, Align, initialize &gt;</a>
 , <a class="el" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#addb94a4e01ebbd3e62e9e397c6533d12">quickcpplib::_xxx::packed_backtrace::impl::packed_backtrace&lt; FramePtrType, FrameTypeSize &gt;</a>
 , <a class="el" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#aec47077e501fc54ddd4b1fbb5290a869">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log&lt; Policy &gt;</a>
+, <a class="el" href="classquickcpplib_1_1__xxx_1_1string__view_1_1basic__string__view.html#a602de0cc4e1e6279149f6fba97f941e4">quickcpplib::_xxx::string_view::basic_string_view&lt; charT, traits &gt;</a>
+</li>
+<li>duration
+: <a class="el" href="structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#a7aca0d46de8150c7ee7b60ff648b88e0">quickcpplib::_xxx::unit_test::test_case</a>
 </li>
 </ul>
 </div><!-- contents -->

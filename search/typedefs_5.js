@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['mapped_5ftype',['mapped_type',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#af30b6d38bc362d7f448b0e2397c48671',1,'quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index']]]
+  ['element_5ftype',['element_type',['../classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr.html#a4c66af0f66c21c729310eb0d78868b1a',1,'quickcpplib::_xxx::offset_ptr::offset_ptr::element_type()'],['../classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr_3_01const_01_t_01_4.html#aea08828fb3a67419de63bd2dacf4626d',1,'quickcpplib::_xxx::offset_ptr::offset_ptr&lt; const T &gt;::element_type()'],['../classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr.html#aa2faf36c9d839a4043001a70be982511',1,'quickcpplib::_xxx::offset_ptr::atomic_offset_ptr::element_type()']]],
+  ['enum_5ftype',['enum_type',['../structquickcpplib_1_1__xxx_1_1bitfield_1_1bitfield.html#a64dd70d50f5acabe2a4524022bee2a18',1,'quickcpplib::_xxx::bitfield::bitfield']]]
 ];

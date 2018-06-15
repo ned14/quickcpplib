@@ -4,7 +4,15 @@ var NAVTREE =
     [ "Todo List", "todo.html", null ],
     [ "Modules", "modules.html", "modules" ],
     [ "Namespaces", null, [
-      [ "Namespace List", "namespaces.html", "namespaces" ]
+      [ "Namespace List", "namespaces.html", "namespaces" ],
+      [ "Namespace Members", "namespacemembers.html", [
+        [ "All", "namespacemembers.html", null ],
+        [ "Functions", "namespacemembers_func.html", null ],
+        [ "Variables", "namespacemembers_vars.html", null ],
+        [ "Typedefs", "namespacemembers_type.html", null ],
+        [ "Enumerations", "namespacemembers_enum.html", null ],
+        [ "Enumerator", "namespacemembers_eval.html", null ]
+      ] ]
     ] ],
     [ "Classes", null, [
       [ "Class List", "annotated.html", "annotated" ],
@@ -12,25 +20,35 @@ var NAVTREE =
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", "functions_dup" ],
-        [ "Functions", "functions_func.html", null ],
+        [ "Functions", "functions_func.html", "functions_func" ],
         [ "Variables", "functions_vars.html", null ],
         [ "Typedefs", "functions_type.html", null ],
         [ "Enumerations", "functions_enum.html", null ],
-        [ "Enumerator", "functions_eval.html", null ]
+        [ "Enumerator", "functions_eval.html", null ],
+        [ "Related Functions", "functions_rela.html", null ]
       ] ]
     ] ],
     [ "Files", null, [
-      [ "File List", "files.html", "files" ]
+      [ "File List", "files.html", "files" ],
+      [ "File Members", "globals.html", [
+        [ "All", "globals.html", "globals_dup" ],
+        [ "Functions", "globals_func.html", null ],
+        [ "Variables", "globals_vars.html", null ],
+        [ "Macros", "globals_defs.html", "globals_defs" ]
+      ] ]
     ] ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
-".html",
-"classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr.html",
-"classquickcpplib_1_1__xxx_1_1string__view_1_1basic__string__view.html#a6a7c96c9ec4cecb3562cf349d34f69f3",
-"structquickcpplib_1_1__xxx_1_1allocator__testing_1_1config.html"
+"aligned__allocator_8hpp.html",
+"classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr.html#a517c3edebcb12f25a433e726395fdb11",
+"classquickcpplib_1_1__xxx_1_1string__view_1_1basic__string__view.html#a7dced7c7395a104377e766fe834f5286",
+"gsl-lite-vc6_8hpp.html#a5401dc8076387923501aeb475ad15c52",
+"namespacequickcpplib_1_1__xxx_1_1algorithm_1_1small__prng.html",
+"structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#ab515edb6d4aec253cef36bf5ed393050",
+"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a7d9eb0e307a6fc20dd2e0569ea7b2df7"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

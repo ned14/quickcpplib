@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['_5fxxx',['_xxx',['../namespacequickcpplib_1_1__xxx.html',1,'quickcpplib']]],
-  ['quickcpplib',['quickcpplib',['../namespacequickcpplib.html',1,'']]]
+  ['detail',['detail',['../namespacegsl_1_1detail.html',1,'gsl']]],
+  ['gsl',['gsl',['../namespacegsl.html',1,'']]]
 ];

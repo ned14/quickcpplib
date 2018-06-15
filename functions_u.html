@@ -85,11 +85,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions_type.html"><span>Typedefs</span></a></li>
       <li><a href="functions_enum.html"><span>Enumerations</span></a></li>
       <li><a href="functions_eval.html"><span>Enumerator</span></a></li>
+      <li><a href="functions_rela.html"><span>Related&#160;Functions</span></a></li>
     </ul>
   </div>
   <div id="navrow4" class="tabs3">
     <ul class="tablist">
-      <li><a href="functions.html#index_a"><span>a</span></a></li>
+      <li><a href="functions.html#index__"><span>_</span></a></li>
+      <li><a href="functions_a.html#index_a"><span>a</span></a></li>
       <li><a href="functions_b.html#index_b"><span>b</span></a></li>
       <li><a href="functions_c.html#index_c"><span>c</span></a></li>
       <li><a href="functions_d.html#index_d"><span>d</span></a></li>
@@ -101,6 +103,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions_k.html#index_k"><span>k</span></a></li>
       <li><a href="functions_l.html#index_l"><span>l</span></a></li>
       <li><a href="functions_m.html#index_m"><span>m</span></a></li>
+      <li><a href="functions_n.html#index_n"><span>n</span></a></li>
       <li><a href="functions_o.html#index_o"><span>o</span></a></li>
       <li><a href="functions_p.html#index_p"><span>p</span></a></li>
       <li><a href="functions_r.html#index_r"><span>r</span></a></li>
@@ -108,6 +111,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions_t.html#index_t"><span>t</span></a></li>
       <li class="current"><a href="functions_u.html#index_u"><span>u</span></a></li>
       <li><a href="functions_v.html#index_v"><span>v</span></a></li>
+      <li><a href="functions_w.html#index_w"><span>w</span></a></li>
+      <li><a href="functions_~.html#index_~"><span>~</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -130,7 +135,7 @@ $(document).ready(function(){initNavTree('functions_u.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(12)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -140,22 +145,41 @@ $(document).ready(function(){initNavTree('functions_u.html','');});
 </div>
 
 <div class="contents">
-<div class="textblock">Here is a list of all documented class members with links to the class documentation for each member:</div>
+<div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
 
 <h3><a class="anchor" id="index_u"></a>- u -</h3><ul>
+<li>uint
+: <a class="el" href="unionquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase_1_1__internals.html#ada518ac4c8c5ba7473e4ac604dd4a353">quickcpplib::_xxx::configurable_spinlock::ordered_spinlockbase&lt; T &gt;::_internals</a>
+</li>
 <li>uint128()
 : <a class="el" href="unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#acad45553453bc1dfc8f9273d30fa2312">quickcpplib::_xxx::integers128::uint128</a>
 </li>
 <li>underlying_type
 : <a class="el" href="structquickcpplib_1_1__xxx_1_1bitfield_1_1bitfield.html#a87c7c65bc5bff1c062a4117022130db5">quickcpplib::_xxx::bitfield::bitfield&lt; Enum &gt;</a>
 </li>
+<li>unique_id()
+: <a class="el" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1unique__id.html#a19e58cee44eefc9c2d9f0e1b8d4b3b79">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log&lt; Policy &gt;::unique_id</a>
+</li>
 <li>unlock()
 : <a class="el" href="structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase.html#aa3f9f71179aa99136d0ece3181229f0d">quickcpplib::_xxx::configurable_spinlock::ordered_spinlockbase&lt; T &gt;</a>
 , <a class="el" href="structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlockbase.html#a40b6bdda5ab0278bb56bfe0a4113a6ec">quickcpplib::_xxx::configurable_spinlock::shared_spinlockbase&lt; T &gt;</a>
 , <a class="el" href="structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase.html#ab2ccd6d5c30e79bc6f7e92eb580991b9">quickcpplib::_xxx::configurable_spinlock::spinlockbase&lt; T &gt;</a>
+, <a class="el" href="structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4.html#a08453787b3aad3be7a9825ee48bf93ff">quickcpplib::_xxx::configurable_spinlock::spinlockbase&lt; lockable_ptr&lt; T &gt; &gt;</a>
 </li>
 <li>unlock_shared()
 : <a class="el" href="structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlockbase.html#a046fe7296a3e6014c18bfdbbfd0406d1">quickcpplib::_xxx::configurable_spinlock::shared_spinlockbase&lt; T &gt;</a>
+</li>
+<li>used_bytes()
+: <a class="el" href="classgsl_1_1span.html#afb5571e4c1b3a121a4f270ad4f4b534a">gsl::span&lt; T &gt;</a>
+</li>
+<li>used_length()
+: <a class="el" href="classgsl_1_1span.html#a2db76c390051eb4da462078282d454ee">gsl::span&lt; T &gt;</a>
+</li>
+<li>using_backtrace
+: <a class="el" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a0788a27f9786fd6f34dc8ecfeb7b9de7">quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type</a>
+</li>
+<li>using_code64
+: <a class="el" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a12bcd937c3c94031b8f3d9e163c5bda7">quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type</a>
 </li>
 </ul>
 </div><!-- contents -->

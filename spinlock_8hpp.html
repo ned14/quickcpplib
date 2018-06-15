@@ -72,6 +72,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -94,7 +95,7 @@ $(document).ready(function(){initNavTree('spinlock_8hpp.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(12)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -117,7 +118,7 @@ $(document).ready(function(){initNavTree('spinlock_8hpp.html','');});
 
 <p>Provides a Lockable policy driven spinlock.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;config.hpp&quot;</code><br/>
+<div class="textblock"><code>#include &quot;<a class="el" href="config_8hpp.html">config.hpp</a>&quot;</code><br/>
 <code>#include &lt;atomic&gt;</code><br/>
 <code>#include &lt;chrono&gt;</code><br/>
 <code>#include &lt;thread&gt;</code><br/>
@@ -174,60 +175,53 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespacequickcpplib_1_1__xxx"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx.html">quickcpplib::_xxx</a></td></tr>
 <tr class="memdesc:namespacequickcpplib_1_1__xxx"><td class="mdescLeft">&#160;</td><td class="mdescRight">Per commit unique namespace to prevent different git submodule versions clashing. <br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacequickcpplib_1_1__xxx_1_1configurable__spinlock"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1configurable__spinlock.html">quickcpplib::_xxx::configurable_spinlock</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacequickcpplib_1_1__xxx_1_1configurable__spinlock_1_1detail"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1configurable__spinlock_1_1detail.html">quickcpplib::_xxx::configurable_spinlock::detail</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a6e4a705440f9c49fd41e71a4aa45cbff"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>QUICKCPPLIB_BEGIN_TRANSACT_LOCK</b>(lockable)</td></tr>
+<tr class="memitem:a6e4a705440f9c49fd41e71a4aa45cbff"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="spinlock_8hpp.html#a6e4a705440f9c49fd41e71a4aa45cbff">QUICKCPPLIB_BEGIN_TRANSACT_LOCK</a>(lockable)</td></tr>
 <tr class="separator:a6e4a705440f9c49fd41e71a4aa45cbff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b258d826b4fcaaa7f7c0c5b3ffa5a0c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>QUICKCPPLIB_BEGIN_TRANSACT_LOCK_ONLY_IF_NOT</b>(lockable, only_if_not_this)</td></tr>
+<tr class="memitem:a4b258d826b4fcaaa7f7c0c5b3ffa5a0c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="spinlock_8hpp.html#a4b258d826b4fcaaa7f7c0c5b3ffa5a0c">QUICKCPPLIB_BEGIN_TRANSACT_LOCK_ONLY_IF_NOT</a>(lockable, only_if_not_this)</td></tr>
 <tr class="separator:a4b258d826b4fcaaa7f7c0c5b3ffa5a0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10c572932a08be170b60aac4aa577882"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a10c572932a08be170b60aac4aa577882"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>QUICKCPPLIB_END_TRANSACT_LOCK</b>(lockable)&#160;&#160;&#160;}</td></tr>
+<tr class="memitem:a10c572932a08be170b60aac4aa577882"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="spinlock_8hpp.html#a10c572932a08be170b60aac4aa577882">QUICKCPPLIB_END_TRANSACT_LOCK</a>(lockable)&#160;&#160;&#160;}</td></tr>
 <tr class="separator:a10c572932a08be170b60aac4aa577882"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af42217d0bb1ce712c16a73fb25bc4fe7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af42217d0bb1ce712c16a73fb25bc4fe7"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>QUICKCPPLIB_BEGIN_NESTED_TRANSACT_LOCK</b>(N)</td></tr>
+<tr class="memitem:af42217d0bb1ce712c16a73fb25bc4fe7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="spinlock_8hpp.html#af42217d0bb1ce712c16a73fb25bc4fe7">QUICKCPPLIB_BEGIN_NESTED_TRANSACT_LOCK</a>(N)</td></tr>
 <tr class="separator:af42217d0bb1ce712c16a73fb25bc4fe7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7086a549b5810cabcd5c51c1d875c51c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7086a549b5810cabcd5c51c1d875c51c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>QUICKCPPLIB_END_NESTED_TRANSACT_LOCK</b>(N)</td></tr>
+<tr class="memitem:a7086a549b5810cabcd5c51c1d875c51c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="spinlock_8hpp.html#a7086a549b5810cabcd5c51c1d875c51c">QUICKCPPLIB_END_NESTED_TRANSACT_LOCK</a>(N)</td></tr>
 <tr class="separator:a7086a549b5810cabcd5c51c1d875c51c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a283d2a54c3371823054980c76e3cae96"><td class="memTemplParams" colspan="2"><a class="anchor" id="a283d2a54c3371823054980c76e3cae96"></a>
-template&lt;class T &gt; </td></tr>
-<tr class="memitem:a283d2a54c3371823054980c76e3cae96"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><b>quickcpplib::_xxx::configurable_spinlock::atomic</b> = std::atomic&lt; T &gt;</td></tr>
+<tr class="memitem:a283d2a54c3371823054980c76e3cae96"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
+<tr class="memitem:a283d2a54c3371823054980c76e3cae96"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1configurable__spinlock.html#a283d2a54c3371823054980c76e3cae96">quickcpplib::_xxx::configurable_spinlock::atomic</a> = std::atomic&lt; T &gt;</td></tr>
 <tr class="separator:a283d2a54c3371823054980c76e3cae96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ae6f2f43be203fdc8639dbc8ba60b698b"><td class="memTemplParams" colspan="2"><a class="anchor" id="ae6f2f43be203fdc8639dbc8ba60b698b"></a>
-template&lt;bool use_pause&gt; </td></tr>
-<tr class="memitem:ae6f2f43be203fdc8639dbc8ba60b698b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>quickcpplib::_xxx::configurable_spinlock::detail::smt_pause</b> () noexcept</td></tr>
+<tr class="memitem:ae6f2f43be203fdc8639dbc8ba60b698b"><td class="memTemplParams" colspan="2">template&lt;bool use_pause&gt; </td></tr>
+<tr class="memitem:ae6f2f43be203fdc8639dbc8ba60b698b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1configurable__spinlock_1_1detail.html#ae6f2f43be203fdc8639dbc8ba60b698b">quickcpplib::_xxx::configurable_spinlock::detail::smt_pause</a> () noexcept</td></tr>
 <tr class="separator:ae6f2f43be203fdc8639dbc8ba60b698b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a62dc18cd59e37cb0b215367522db8a73"><td class="memTemplParams" colspan="2"><a class="anchor" id="a62dc18cd59e37cb0b215367522db8a73"></a>
-template&lt;&gt; </td></tr>
-<tr class="memitem:a62dc18cd59e37cb0b215367522db8a73"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>quickcpplib::_xxx::configurable_spinlock::detail::smt_pause&lt; true &gt;</b> () noexcept</td></tr>
+<tr class="memitem:a62dc18cd59e37cb0b215367522db8a73"><td class="memTemplParams" colspan="2">template&lt;&gt; </td></tr>
+<tr class="memitem:a62dc18cd59e37cb0b215367522db8a73"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1configurable__spinlock_1_1detail.html#a62dc18cd59e37cb0b215367522db8a73">quickcpplib::_xxx::configurable_spinlock::detail::smt_pause&lt; true &gt;</a> () noexcept</td></tr>
 <tr class="separator:a62dc18cd59e37cb0b215367522db8a73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab45178c42fb15086f1671d05af9afdbf"><td class="memTemplParams" colspan="2"><a class="anchor" id="ab45178c42fb15086f1671d05af9afdbf"></a>
-template&lt;class T &gt; </td></tr>
-<tr class="memitem:ab45178c42fb15086f1671d05af9afdbf"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>quickcpplib::_xxx::configurable_spinlock::is_lockable_locked</b> (T &amp;lockable) noexcept</td></tr>
-<tr class="memdesc:ab45178c42fb15086f1671d05af9afdbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if a lockable is locked. Type specialise this for performance if your lockable allows examination. <br/></td></tr>
+<tr class="memitem:ab45178c42fb15086f1671d05af9afdbf"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
+<tr class="memitem:ab45178c42fb15086f1671d05af9afdbf"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1configurable__spinlock.html#ab45178c42fb15086f1671d05af9afdbf">quickcpplib::_xxx::configurable_spinlock::is_lockable_locked</a> (T &amp;lockable) noexcept</td></tr>
+<tr class="memdesc:ab45178c42fb15086f1671d05af9afdbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if a lockable is locked. Type specialise this for performance if your lockable allows examination.  <a href="#ab45178c42fb15086f1671d05af9afdbf">More...</a><br/></td></tr>
 <tr class="separator:ab45178c42fb15086f1671d05af9afdbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add387b168c5f035ba5ba3b62041a9943"><td class="memTemplParams" colspan="2"><a class="anchor" id="add387b168c5f035ba5ba3b62041a9943"></a>
-template&lt;class T , template&lt; class &gt; class spinpolicy2, template&lt; class &gt; class spinpolicy3, template&lt; class &gt; class spinpolicy4&gt; </td></tr>
-<tr class="memitem:add387b168c5f035ba5ba3b62041a9943"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>quickcpplib::_xxx::configurable_spinlock::is_lockable_locked</b> (spinlock&lt; T, spinpolicy2, spinpolicy3, spinpolicy4 &gt; &amp;lockable) noexcept</td></tr>
+<tr class="memitem:add387b168c5f035ba5ba3b62041a9943"><td class="memTemplParams" colspan="2">template&lt;class T , template&lt; class &gt; class spinpolicy2, template&lt; class &gt; class spinpolicy3, template&lt; class &gt; class spinpolicy4&gt; </td></tr>
+<tr class="memitem:add387b168c5f035ba5ba3b62041a9943"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1configurable__spinlock.html#add387b168c5f035ba5ba3b62041a9943">quickcpplib::_xxx::configurable_spinlock::is_lockable_locked</a> (spinlock&lt; T, spinpolicy2, spinpolicy3, spinpolicy4 &gt; &amp;lockable) noexcept</td></tr>
 <tr class="separator:add387b168c5f035ba5ba3b62041a9943"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab75872334aaa593836ecee74f3e18672"><td class="memTemplParams" colspan="2"><a class="anchor" id="ab75872334aaa593836ecee74f3e18672"></a>
-template&lt;class T , template&lt; class &gt; class spinpolicy2, template&lt; class &gt; class spinpolicy3, template&lt; class &gt; class spinpolicy4&gt; </td></tr>
-<tr class="memitem:ab75872334aaa593836ecee74f3e18672"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>quickcpplib::_xxx::configurable_spinlock::is_lockable_locked</b> (const spinlock&lt; T, spinpolicy2, spinpolicy3, spinpolicy4 &gt; &amp;lockable) noexcept</td></tr>
+<tr class="memitem:ab75872334aaa593836ecee74f3e18672"><td class="memTemplParams" colspan="2">template&lt;class T , template&lt; class &gt; class spinpolicy2, template&lt; class &gt; class spinpolicy3, template&lt; class &gt; class spinpolicy4&gt; </td></tr>
+<tr class="memitem:ab75872334aaa593836ecee74f3e18672"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1configurable__spinlock.html#ab75872334aaa593836ecee74f3e18672">quickcpplib::_xxx::configurable_spinlock::is_lockable_locked</a> (const spinlock&lt; T, spinpolicy2, spinpolicy3, spinpolicy4 &gt; &amp;lockable) noexcept</td></tr>
 <tr class="separator:ab75872334aaa593836ecee74f3e18672"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa07e01213c54d15fd07c2731ca92295c"><td class="memTemplParams" colspan="2"><a class="anchor" id="aa07e01213c54d15fd07c2731ca92295c"></a>
-template&lt;class T , template&lt; class &gt; class spinpolicy2, template&lt; class &gt; class spinpolicy3, template&lt; class &gt; class spinpolicy4&gt; </td></tr>
-<tr class="memitem:aa07e01213c54d15fd07c2731ca92295c"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>quickcpplib::_xxx::configurable_spinlock::is_lockable_locked</b> (spinlock&lt; lockable_ptr&lt; T &gt;, spinpolicy2, spinpolicy3, spinpolicy4 &gt; &amp;lockable) noexcept</td></tr>
+<tr class="memitem:aa07e01213c54d15fd07c2731ca92295c"><td class="memTemplParams" colspan="2">template&lt;class T , template&lt; class &gt; class spinpolicy2, template&lt; class &gt; class spinpolicy3, template&lt; class &gt; class spinpolicy4&gt; </td></tr>
+<tr class="memitem:aa07e01213c54d15fd07c2731ca92295c"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1configurable__spinlock.html#aa07e01213c54d15fd07c2731ca92295c">quickcpplib::_xxx::configurable_spinlock::is_lockable_locked</a> (spinlock&lt; lockable_ptr&lt; T &gt;, spinpolicy2, spinpolicy3, spinpolicy4 &gt; &amp;lockable) noexcept</td></tr>
 <tr class="separator:aa07e01213c54d15fd07c2731ca92295c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac71cc52ae3303c08c6b923576ccaa598"><td class="memTemplParams" colspan="2"><a class="anchor" id="ac71cc52ae3303c08c6b923576ccaa598"></a>
-template&lt;class T , template&lt; class &gt; class spinpolicy2, template&lt; class &gt; class spinpolicy3, template&lt; class &gt; class spinpolicy4&gt; </td></tr>
-<tr class="memitem:ac71cc52ae3303c08c6b923576ccaa598"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>quickcpplib::_xxx::configurable_spinlock::is_lockable_locked</b> (shared_spinlock&lt; T, spinpolicy2, spinpolicy3, spinpolicy4 &gt; &amp;lockable) noexcept</td></tr>
+<tr class="memitem:ac71cc52ae3303c08c6b923576ccaa598"><td class="memTemplParams" colspan="2">template&lt;class T , template&lt; class &gt; class spinpolicy2, template&lt; class &gt; class spinpolicy3, template&lt; class &gt; class spinpolicy4&gt; </td></tr>
+<tr class="memitem:ac71cc52ae3303c08c6b923576ccaa598"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1configurable__spinlock.html#ac71cc52ae3303c08c6b923576ccaa598">quickcpplib::_xxx::configurable_spinlock::is_lockable_locked</a> (shared_spinlock&lt; T, spinpolicy2, spinpolicy3, spinpolicy4 &gt; &amp;lockable) noexcept</td></tr>
 <tr class="separator:ac71cc52ae3303c08c6b923576ccaa598"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -278,6 +272,54 @@ template&lt;class T , template&lt; class &gt; class spinpolicy2, template&lt; cl
 <div class="line">  {                                                                                                                                                                                                                                                                                                                            \</div>
 <div class="line">    QUICKCPPLIB_NAMESPACE::configurable_spinlock::lock_guard&lt;decltype(lockable)&gt; __tsx_transaction(lockable, QUICKCPPLIB_NAMESPACE::adopt_lock_t());</div>
 </div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="a10c572932a08be170b60aac4aa577882"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define QUICKCPPLIB_END_TRANSACT_LOCK</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">lockable</td><td>)</td>
+          <td>&#160;&#160;&#160;}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af42217d0bb1ce712c16a73fb25bc4fe7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define QUICKCPPLIB_BEGIN_NESTED_TRANSACT_LOCK</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">N</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a7086a549b5810cabcd5c51c1d875c51c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define QUICKCPPLIB_END_NESTED_TRANSACT_LOCK</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">N</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
 </div>
 </div>
 </div><!-- contents -->

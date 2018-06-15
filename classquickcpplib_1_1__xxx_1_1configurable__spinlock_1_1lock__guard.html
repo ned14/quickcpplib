@@ -97,7 +97,7 @@ $(document).ready(function(){initNavTree('classquickcpplib_1_1__xxx_1_1configura
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(12)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -115,28 +115,179 @@ $(document).ready(function(){initNavTree('classquickcpplib_1_1__xxx_1_1configura
 <div class="title">quickcpplib::_xxx::configurable_spinlock::lock_guard&lt; T &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &quot;spinlock.hpp&quot;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a511353e3ff7c50dd5710c66ba7196c5c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a511353e3ff7c50dd5710c66ba7196c5c"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>mutex_type</b> = T</td></tr>
+<tr class="memitem:a511353e3ff7c50dd5710c66ba7196c5c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html#a511353e3ff7c50dd5710c66ba7196c5c">mutex_type</a> = T</td></tr>
 <tr class="separator:a511353e3ff7c50dd5710c66ba7196c5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af6ba648db6534f7e204cda9a96d09787"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af6ba648db6534f7e204cda9a96d09787"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>lock_guard</b> (mutex_type &amp;m) noexcept</td></tr>
+<tr class="memitem:af6ba648db6534f7e204cda9a96d09787"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html#af6ba648db6534f7e204cda9a96d09787">lock_guard</a> (<a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html#a511353e3ff7c50dd5710c66ba7196c5c">mutex_type</a> &amp;m) noexcept</td></tr>
 <tr class="separator:af6ba648db6534f7e204cda9a96d09787"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9c4f80b1cb7852020cfeda9dd6f4e8f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa9c4f80b1cb7852020cfeda9dd6f4e8f"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>lock_guard</b> (mutex_type &amp;&amp;m) noexcept</td></tr>
+<tr class="memitem:aa9c4f80b1cb7852020cfeda9dd6f4e8f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html#aa9c4f80b1cb7852020cfeda9dd6f4e8f">lock_guard</a> (<a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html#a511353e3ff7c50dd5710c66ba7196c5c">mutex_type</a> &amp;&amp;m) noexcept</td></tr>
 <tr class="separator:aa9c4f80b1cb7852020cfeda9dd6f4e8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0bded4ef5104df8e415ca81a666ae86a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0bded4ef5104df8e415ca81a666ae86a"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>lock_guard</b> (const <a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html">lock_guard</a> &amp;)=delete</td></tr>
+<tr class="memitem:a0bded4ef5104df8e415ca81a666ae86a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html#a0bded4ef5104df8e415ca81a666ae86a">lock_guard</a> (const <a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html">lock_guard</a> &amp;)=delete</td></tr>
 <tr class="separator:a0bded4ef5104df8e415ca81a666ae86a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aded52272e04ff1feb1c3b0afdbbb106f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aded52272e04ff1feb1c3b0afdbbb106f"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>lock_guard</b> (<a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html">lock_guard</a> &amp;&amp;o) noexcept</td></tr>
+<tr class="memitem:aded52272e04ff1feb1c3b0afdbbb106f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html#aded52272e04ff1feb1c3b0afdbbb106f">lock_guard</a> (<a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html">lock_guard</a> &amp;&amp;o) noexcept</td></tr>
 <tr class="separator:aded52272e04ff1feb1c3b0afdbbb106f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30bc71490fc4c767f53757325fb1bc52"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html#a30bc71490fc4c767f53757325fb1bc52">~lock_guard</a> ()</td></tr>
+<tr class="separator:a30bc71490fc4c767f53757325fb1bc52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Typedef Documentation</h2>
+<a class="anchor" id="a511353e3ff7c50dd5710c66ba7196c5c"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html">quickcpplib::_xxx::configurable_spinlock::lock_guard</a>&lt; T &gt;::<a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html#a511353e3ff7c50dd5710c66ba7196c5c">mutex_type</a> =  T</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="af6ba648db6534f7e204cda9a96d09787"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html">quickcpplib::_xxx::configurable_spinlock::lock_guard</a>&lt; T &gt;::<a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html">lock_guard</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html#a511353e3ff7c50dd5710c66ba7196c5c">mutex_type</a> &amp;&#160;</td>
+          <td class="paramname"><em>m</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;: _m(&amp;m) { _m-&gt;lock(); }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="aa9c4f80b1cb7852020cfeda9dd6f4e8f"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html">quickcpplib::_xxx::configurable_spinlock::lock_guard</a>&lt; T &gt;::<a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html">lock_guard</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html#a511353e3ff7c50dd5710c66ba7196c5c">mutex_type</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>m</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;: _m(&amp;m) { _m-&gt;lock(); }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="a0bded4ef5104df8e415ca81a666ae86a"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html">quickcpplib::_xxx::configurable_spinlock::lock_guard</a>&lt; T &gt;::<a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html">lock_guard</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html">lock_guard</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aded52272e04ff1feb1c3b0afdbbb106f"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html">quickcpplib::_xxx::configurable_spinlock::lock_guard</a>&lt; T &gt;::<a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html">lock_guard</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html">lock_guard</a>&lt; T &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"><em>o</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;: _m(std::move(o._m)) { o._m = <span class="keyword">nullptr</span>; }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="a30bc71490fc4c767f53757325fb1bc52"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html">quickcpplib::_xxx::configurable_spinlock::lock_guard</a>&lt; T &gt;::~<a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html">lock_guard</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      <span class="keywordflow">if</span>(_m)</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        _m-&gt;unlock();</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }</div>
+</div><!-- fragment -->
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/<a class="el" href="spinlock_8hpp.html">spinlock.hpp</a></li>
 </ul>
@@ -145,7 +296,7 @@ Public Member Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespacequickcpplib.html">quickcpplib</a></li><li class="navelem"><a class="el" href="namespacequickcpplib_1_1__xxx.html">_xxx</a></li><li class="navelem"><b>configurable_spinlock</b></li><li class="navelem"><a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html">lock_guard</a></li>
+    <li class="navelem"><a class="el" href="namespacequickcpplib.html">quickcpplib</a></li><li class="navelem"><a class="el" href="namespacequickcpplib_1_1__xxx.html">_xxx</a></li><li class="navelem"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1configurable__spinlock.html">configurable_spinlock</a></li><li class="navelem"><a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html">lock_guard</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
