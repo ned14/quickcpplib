@@ -13,6 +13,11 @@ var namespacequickcpplib_1_1__xxx =
     [ "bitfield", null, [
       [ "bitfield", "structquickcpplib_1_1__xxx_1_1bitfield_1_1bitfield.html", "structquickcpplib_1_1__xxx_1_1bitfield_1_1bitfield" ]
     ] ],
+    [ "offset_ptr", null, [
+      [ "offset_ptr", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr.html", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr" ],
+      [ "offset_ptr< const T >", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr_3_01const_01_t_01_4.html", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr_3_01const_01_t_01_4" ],
+      [ "atomic_offset_ptr", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr.html", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr" ]
+    ] ],
     [ "packed_backtrace", null, [
       [ "impl", null, [
         [ "packed_backtrace", "classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html", "classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace" ]
@@ -28,6 +33,10 @@ var namespacequickcpplib_1_1__xxx =
       ] ],
       [ "ringbuffer_log", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log" ],
       [ "simple_ringbuffer_log_policy", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy.html", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy" ]
+    ] ],
+    [ "signal_guard", null, [
+      [ "signal_guard_install", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__install.html", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__install" ],
+      [ "signal_raised", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__raised.html", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__raised" ]
     ] ],
     [ "configurable_spinlock", null, [
       [ "lock_guard", "classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html", "classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard" ],

@@ -16,6 +16,7 @@ var hierarchy =
       [ "quickcpplib::_xxx::configurable_spinlock::lockable_ptr< T >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lockable__ptr.html", null ]
     ] ],
     [ "quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy< KeyType, T, LinearSearchLimit, LockType, KeyModulus, KeyCompare >", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy.html", null ],
+    [ "quickcpplib::_xxx::offset_ptr::atomic_offset_ptr< T >", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr.html", null ],
     [ "quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index< Policy, ContiguousContainerType, disable_existing_key_check >", "classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html", null ],
     [ "quickcpplib::_xxx::string_view::basic_string_view< charT, traits >", "classquickcpplib_1_1__xxx_1_1string__view_1_1basic__string__view.html", null ],
     [ "quickcpplib::_xxx::allocator_testing::config", "structquickcpplib_1_1__xxx_1_1allocator__testing_1_1config.html", null ],
@@ -27,7 +28,8 @@ var hierarchy =
       [ "quickcpplib::_xxx::bitfield::bitfield< Enum >", "structquickcpplib_1_1__xxx_1_1bitfield_1_1bitfield.html", null ]
     ] ],
     [ "std::exception", null, [
-      [ "gsl::narrowing_error", "structgsl_1_1narrowing__error.html", null ]
+      [ "gsl::narrowing_error", "structgsl_1_1narrowing__error.html", null ],
+      [ "quickcpplib::_xxx::signal_guard::signal_raised", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__raised.html", null ]
     ] ],
     [ "false_type", null, [
       [ "quickcpplib::_xxx::type_traits::is_sequence< T, typename >", "structquickcpplib_1_1__xxx_1_1type__traits_1_1is__sequence.html", null ],
@@ -47,6 +49,8 @@ var hierarchy =
     [ "gsl::span< T >::mk< U >", "structgsl_1_1span_1_1mk.html", null ],
     [ "gsl::not_null< T >", "classgsl_1_1not__null.html", null ],
     [ "quickcpplib::_xxx::configurable_spinlock::null_spin_policy", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1null__spin__policy.html", null ],
+    [ "quickcpplib::_xxx::offset_ptr::offset_ptr< T >", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr.html", null ],
+    [ "quickcpplib::_xxx::offset_ptr::offset_ptr< const T >", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr_3_01const_01_t_01_4.html", null ],
     [ "quickcpplib::_xxx::configurable_spinlock::ordered_spinlockbase< T >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase.html", null ],
     [ "gsl::owner< T >", "structgsl_1_1owner.html", null ],
     [ "quickcpplib::_xxx::packed_backtrace::impl::packed_backtrace< FramePtrType, FrameTypeSize >", "classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html", null ],
@@ -61,13 +65,14 @@ var hierarchy =
     ] ],
     [ "quickcpplib::_xxx::algorithm::hash::passthru_hash< T >", "structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1passthru__hash.html", null ],
     [ "quickcpplib::_xxx::print_type< T >", "structquickcpplib_1_1__xxx_1_1print__type.html", null ],
-    [ "quickcpplib::_xxx::aligned_allocator::aligned_allocator< T, Align, initialize >::rebind< U >", "structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_1_1rebind.html", null ],
     [ "quickcpplib::_xxx::aligned_allocator::aligned_allocator< const T, Align, initialize >::rebind< U >", "structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_alig38b3ce2fde59753f89f79b36dfe20c65.html", null ],
     [ "quickcpplib::_xxx::allocator_testing::allocator< T, A >::rebind< U >", "structquickcpplib_1_1__xxx_1_1allocator__testing_1_1allocator_1_1rebind.html", null ],
+    [ "quickcpplib::_xxx::aligned_allocator::aligned_allocator< T, Align, initialize >::rebind< U >", "structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_1_1rebind.html", null ],
     [ "quickcpplib::_xxx::unit_test::requirement_failed", "structquickcpplib_1_1__xxx_1_1unit__test_1_1requirement__failed.html", null ],
     [ "quickcpplib::_xxx::ringbuffer_log::ringbuffer_log< Policy >", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html", null ],
     [ "quickcpplib::_xxx::algorithm::secdec_ecc::secded_ecc< blocksize >", "classquickcpplib_1_1__xxx_1_1algorithm_1_1secdec__ecc_1_1secded__ecc.html", null ],
     [ "quickcpplib::_xxx::configurable_spinlock::shared_spinlockbase< T >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlockbase.html", null ],
+    [ "quickcpplib::_xxx::signal_guard::signal_guard_install", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__install.html", null ],
     [ "quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy< Bytes >", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy.html", null ],
     [ "quickcpplib::_xxx::algorithm::small_prng::small_prng", "classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html", null ],
     [ "gsl::span< T >", "classgsl_1_1span.html", null ],
