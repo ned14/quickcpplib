@@ -90,7 +90,7 @@ inline uint64_t nanoclock()
       end = std::chrono::high_resolution_clock::now();
     } while(std::chrono::duration_cast<std::chrono::seconds>(end - begin).count() < 1);
     _end = ticksclock();
-    double x = _end - _begin;
+    double x = (double) (_end - _begin);
     ticks_per_sec = x / 1000000000.0;
     volatile uint64_t a = ticksclock();
     volatile uint64_t b = ticksclock();

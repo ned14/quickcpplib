@@ -56,6 +56,13 @@ namespace signal_guard
       static QUICKCPPLIB_THREAD_LOCAL signal_handler_info_base *v;
       return v;
     }
+#ifndef _WIN32
+    SIGNALGUARD_FUNC_DECL signalc &signal_guard_installed() noexcept
+    {
+      static QUICKCPPLIB_THREAD_LOCAL signalc v;
+      return v;
+    }
+#endif
 
     static configurable_spinlock::spinlock<bool> lock;
     static unsigned new_handler_count, terminate_handler_count;
@@ -71,11 +78,7 @@ namespace signal_guard
         {
           if(!shi->call_continuer())
           {
-#ifdef _WIN32
             longjmp(shi->buf, 1);
-#else
-            siglongjmp(shi->buf, 1);
-#endif
           }
         }
       }
@@ -97,11 +100,7 @@ namespace signal_guard
         {
           if(!shi->call_continuer())
           {
-#ifdef _WIN32
             longjmp(shi->buf, 1);
-#else
-            siglongjmp(shi->buf, 1);
-#endif
           }
         }
       }
@@ -211,8 +210,9 @@ namespace signal_guard
       unsigned count;
       struct sigaction former;
     };
-    static installed_signal_handler handler_counts[32];
+    static installed_signal_handler handler_counts[16];
 
+    // Called by POSIX to handle a raised signal
     inline void raw_signal_handler(int signo, siginfo_t *info, void *context)
     {
       auto *shi = current_signal_handler();
@@ -222,11 +222,7 @@ namespace signal_guard
         {
           if(!shi->call_continuer())
           {
-#ifdef _WIN32
             longjmp(shi->buf, 1);
-#else
-            siglongjmp(shi->buf, 1);
-#endif
           }
         }
       }
@@ -251,6 +247,26 @@ namespace signal_guard
           {
             if(h2 != SIG_DFL && h2 != SIG_IGN)
               h2(signo);
+            else if(h2 == SIG_DFL)
+            {
+              // This is unnecessarily painful in POSIX ...
+              // Default action for these is to ignore
+              if(signo == SIGCHLD || signo == SIGURG)
+                return;
+              // We need to invoke the kernel's default action, this is unfortunately highly racy
+              // but the chances are good the default action is to kill the process
+              struct sigaction myformer, def;
+              memset(&def, 0, sizeof(def));
+              def.sa_handler = SIG_DFL;
+              sigaction(signo, &def, &myformer);
+              sigset_t myformer2;
+              sigset_t def2;
+              sigemptyset(&def2);
+              sigaddset(&def2, signo);
+              pthread_sigmask(SIG_UNBLOCK, &def2, &myformer2);
+              pthread_kill(pthread_self(), signo);
+              sigaction(signo, &myformer, nullptr);
+            }
           }
           return;
         }
@@ -264,6 +280,16 @@ namespace signal_guard
       : _guarded(guarded)
   {
 #ifndef _WIN32
+    {
+      signalc alreadyinstalled = detail::signal_guard_installed();
+      if(alreadyinstalled)
+      {
+        if((alreadyinstalled & signalc::early_global_signals) != (guarded & signalc::early_global_signals))
+        {
+          throw std::runtime_error("Cannot install signal guards with differing signalc::early_global_signals");
+        }
+      }
+    }
     sigset_t set;
     sigemptyset(&set);
     for(size_t n = 0; n < 16; n++)
@@ -282,6 +308,10 @@ namespace signal_guard
             memset(&sa, 0, sizeof(sa));
             sa.sa_sigaction = detail::raw_signal_handler;
             sa.sa_flags = SA_SIGINFO;
+            if(guarded & signalc::early_global_signals)
+            {
+              sa.sa_flags |= SA_NODEFER;
+            }
             ret = sigaction(signo, &sa, &detail::handler_counts[n].former);
           }
           detail::lock.unlock();
@@ -293,10 +323,14 @@ namespace signal_guard
         }
       }
     }
-    if(-1 == sigprocmask(SIG_UNBLOCK, &set, &_former))
+    if(guarded & signalc::early_global_signals)
     {
-      throw std::system_error(errno, std::system_category());
+      if(-1 == sigprocmask(SIG_UNBLOCK, &set, &_former))
+      {
+        throw std::system_error(errno, std::system_category());
+      }
     }
+    detail::signal_guard_installed() |= guarded;
 #endif
     if((guarded & signalc::out_of_memory) || (guarded & signalc::termination))
     {
@@ -340,7 +374,11 @@ namespace signal_guard
       detail::lock.unlock();
     }
 #ifndef _WIN32
-    sigprocmask(SIG_SETMASK, &_former, nullptr);
+    if(_guarded & signalc::early_global_signals)
+    {
+      sigprocmask(SIG_SETMASK, &_former, nullptr);
+    }
+    bool deinstalled = true;
     for(size_t n = 0; n < 16; n++)
     {
       if((static_cast<unsigned>(_guarded) & (1 << n)) != 0)
@@ -354,6 +392,10 @@ namespace signal_guard
           {
             ret = sigaction(signo, &detail::handler_counts[n].former, nullptr);
           }
+          else
+          {
+            deinstalled = false;
+          }
           detail::lock.unlock();
           if(ret == -1)
           {
@@ -361,6 +403,22 @@ namespace signal_guard
           }
         }
       }
+    }
+    if(deinstalled)
+    {
+      detail::lock.lock();
+      for(size_t n = 0; n < 16; n++)
+      {
+        if(detail::handler_counts[n].count != 0)
+        {
+          deinstalled = false;
+        }
+      }
+      if(deinstalled)
+      {
+        detail::signal_guard_installed() = signalc::none;
+      }
+      detail::lock.unlock();
     }
 #endif
   }
@@ -373,6 +431,7 @@ namespace signal_guard
       signalc guarded{signalc::none};           // handlers used
 
       signalc signal{signalc::none};  // the signal which occurred
+      intptr_t signo{-1};             // what the signal handler was called with
 #ifdef _WIN32
       _EXCEPTION_RECORD info;  // what the signal handler was called with
       CONTEXT context;
@@ -408,27 +467,73 @@ namespace signal_guard
 
     SIGNALGUARD_MEMFUNC_DECL void erased_signal_handler_info::acquire(signalc guarded)
     {
+#ifndef _WIN32
+      if((guarded & ~(signal_guard_installed() | signalc::early_global_signals)) != 0)
+      {
+        throw std::runtime_error("There is no signal_guard_install instance for at least one of the guarded signals");
+      }
+#endif
       auto *p = reinterpret_cast<signal_handler_info *>(_erased);
       // Set me to current handler
       p->next = current_signal_handler();
       p->guarded = guarded;
       std::atomic_signal_fence(std::memory_order_seq_cst);
       current_signal_handler() = this;
+#ifndef _WIN32
+      if(!(signal_guard_installed() & signalc::early_global_signals))
+      {
+        // Enable my guarded signals for this thread
+        sigset_t set;
+        sigemptyset(&set);
+#if 1
+        for(size_t n = 0; n < 16; n++)
+        {
+          if((static_cast<unsigned>(guarded) & (1 << n)) != 0)
+          {
+            int signo = detail::signo_from_signalc(1 << n);
+            if(signo != -1)
+            {
+              sigaddset(&set, signo);
+            }
+          }
+        }
+#else
+        unsigned g = static_cast<unsigned>(guarded);
+        for(size_t n = __builtin_ffs(g); n != 0; g ^= 1 << (n - 1), n = __builtin_ffs(g))
+        {
+          int signo = detail::signo_from_signalc(1 << (n - 1));
+          if(signo != -1)
+          {
+            sigaddset(&set, signo);
+          }
+        }
+#endif
+        pthread_sigmask(SIG_UNBLOCK, &set, &p->former);
+      }
+#endif
     }
     SIGNALGUARD_MEMFUNC_DECL void erased_signal_handler_info::release(signalc /* unused */)
     {
       auto *p = reinterpret_cast<signal_handler_info *>(_erased);
       current_signal_handler() = p->next;
       std::atomic_signal_fence(std::memory_order_seq_cst);
+#ifndef _WIN32
+      if(!(signal_guard_installed() & signalc::early_global_signals))
+      {
+        // Restore signal mask for this thread to what it was on entry to guarded section
+        pthread_sigmask(SIG_SETMASK, &p->former, nullptr);
+      }
+#endif
       p->~signal_handler_info();
     }
     SIGNALGUARD_MEMFUNC_DECL bool erased_signal_handler_info::set_siginfo(intptr_t signo, void *info, void *context)
     {
       auto *p = reinterpret_cast<signal_handler_info *>(_erased);
+      p->signo = signo;
       if(info == nullptr && context == nullptr)
       {
         // This is a C++ failure handler
-        p->signal = static_cast<signalc>(signo);
+        p->signal = (signalc)(unsigned) signo;
         if((p->guarded & p->signal) == 0)
           return false;  // I am not guarding this signal
         return true;

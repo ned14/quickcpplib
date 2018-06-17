@@ -28,10 +28,10 @@ Distributed under the Boost Software License, Version 1.0.
 
 BOOST_AUTO_TEST_SUITE(signal_guard)
 
-BOOST_AUTO_TEST_CASE(signal_guard / works, "Tests that signal_guard works as advertised")
+BOOST_AUTO_TEST_CASE(signal_guard / works / threadlocal, "Tests that signal_guard works as advertised (thread local)")
 {
   using namespace QUICKCPPLIB_NAMESPACE::signal_guard;
-  signal_guard_install i(signalc::segmentation_fault | signalc::out_of_memory | signalc::termination);
+  signal_guard_install i(signalc::segmentation_fault | signalc::termination);
   {
     int ret = signal_guard(signalc::segmentation_fault,
                            []() -> int {
@@ -49,7 +49,28 @@ BOOST_AUTO_TEST_CASE(signal_guard / works, "Tests that signal_guard works as adv
   }
 }
 
-BOOST_AUTO_TEST_CASE(signal_guard / performance, "Tests that the signal_guard has reasonable performance")
+BOOST_AUTO_TEST_CASE(signal_guard / works / early, "Tests that signal_guard works as advertised (early global)")
+{
+  using namespace QUICKCPPLIB_NAMESPACE::signal_guard;
+  signal_guard_install i(signalc::segmentation_fault | signalc::termination | signalc::early_global_signals);
+  {
+    int ret = signal_guard(signalc::segmentation_fault,
+                           []() -> int {
+                             volatile int *a = nullptr;
+                             return *a;
+                           },
+                           [](signalc, const void *, const void *) -> int { return 78; });
+    BOOST_CHECK(ret == 78);
+    BOOST_CHECK(detail::current_signal_handler() == nullptr);
+  }
+  {
+    int ret = signal_guard(signalc::termination, []() -> int { std::terminate(); }, [](signalc, const void *, const void *) -> int { return 78; });
+    BOOST_CHECK(ret == 78);
+    BOOST_CHECK(detail::current_signal_handler() == nullptr);
+  }
+}
+
+BOOST_AUTO_TEST_CASE(signal_guard / performance / threadlocal, "Tests that the signal_guard has reasonable performance (thread local)")
 {
   using namespace QUICKCPPLIB_NAMESPACE::signal_guard;
   {
@@ -59,7 +80,7 @@ BOOST_AUTO_TEST_CASE(signal_guard / performance, "Tests that the signal_guard ha
   }
   uint64_t overhead = 99999999;
   {
-    for(size_t n = 0; n < 1000; n++)
+    for(size_t n = 0; n < 100; n++)
     {
       volatile uint64_t begin = ticksclock();
       volatile uint64_t end = ticksclock();
@@ -69,6 +90,40 @@ BOOST_AUTO_TEST_CASE(signal_guard / performance, "Tests that the signal_guard ha
   }
   {
     signal_guard_install i(signalc::segmentation_fault);
+    uint64_t ticks = 0;
+    for(size_t n = 0; n < 128; n++)
+    {
+      uint64_t begin = ticksclock();
+      volatile int ret = signal_guard(signalc::segmentation_fault, []() -> int { return 5; }, [](signalc, const void *, const void *) -> int { return 78; });
+      uint64_t end = ticksclock();
+      (void) ret;
+      // std::cout << (end - begin - overhead) << std::endl;
+      ticks += end - begin - overhead;
+    }
+    std::cout << "It takes " << (ticks / 128) << " CPU ticks to execute successful code (overhead was " << overhead << ")" << std::endl;
+  }
+}
+
+BOOST_AUTO_TEST_CASE(signal_guard / performance / early, "Tests that the signal_guard has reasonable performance (early global)")
+{
+  using namespace QUICKCPPLIB_NAMESPACE::signal_guard;
+  {
+    auto begin = nanoclock();
+    while(nanoclock() - begin < 1000000000ULL)
+      ;
+  }
+  uint64_t overhead = 99999999;
+  {
+    for(size_t n = 0; n < 100; n++)
+    {
+      volatile uint64_t begin = ticksclock();
+      volatile uint64_t end = ticksclock();
+      if(end - begin < overhead)
+        overhead = end - begin;
+    }
+  }
+  {
+    signal_guard_install i(signalc::segmentation_fault | signalc::early_global_signals);
     uint64_t ticks = 0;
     for(size_t n = 0; n < 128; n++)
     {

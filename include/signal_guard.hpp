@@ -71,25 +71,52 @@ namespace signal_guard
     // C++ handlers
     out_of_memory = (1 << 16),  //!< A call to operator new failed, and a throw is about to occur
     termination = (1 << 17),    //!< A call to std::terminate() was made
+
+    // Signal install flags
+    early_global_signals = (1 << 28)  //!< CAUTION: Enable signals globally at install time, not at guard time. This is dangerous, see documentation.
   }
   QUICKCPPLIB_BITFIELD_END(signalc)
 
   namespace detail
   {
     SIGNALGUARD_FUNC_DECL const char *signalc_to_string(signalc code) noexcept;
+    SIGNALGUARD_FUNC_DECL signalc &signal_guard_installed() noexcept;
   }
 
-  /*! On platforms where it is necessary, installs, and enables, the global signal handlers for
+  /*! On platforms where it is necessary (POSIX), installs, and potentially enables, the global signal handlers for
   the signals specified by `guarded`. Each signal installed is threadsafe reference
   counted, so this is safe to call from multiple threads or multiple times.
 
   If this call does anything at all, it is not fast, plus it serialises on a global mutex.
+
+  ## POSIX only
+
+  Changing the signal mask for a process involves a kernel transition, which costs perhaps
+  500 CPU cycles. The default implementation enables the guarded signals for the local thread
+  just before executing the guarded section of code, and restores the previous thread local
+  signal mask on exiting the guarded section of code. This, inevitably, adds at least 1,000
+  CPU cycles to each guarded code invocation, but it comes with the big advantage of predictability.
+
+  One can set the `signalc::early_global_signals` flag during signal install which profoundly
+  changes these semantics. When we install the handlers, we use `SA_NODEFER` to prevent the
+  blocking of the raised signal during the execution of the signal handler. We enable the guarded
+  signals immediately, and globally.
+
+  These differences mean that `signal_guard` no longer needs to touch the signal mask during
+  execution, and thus avoid all kernel transitions. Performance is enormously improved. The
+  cost however is that signal handling becomes much less predictable. If the installed signal
+  handlers cause the raising of a signal, an infinite loop occurs. Signal handlers are executed
+  in all threads in the process, not just in the guarded code sections.
+
+  Because of these profound differences, you cannot mix different types of signal install in
+  the same process. An attempt to instantiate a second install with differing `signalc::early_global_signals`
+  will throw an exception.
   */
   class SIGNALGUARD_CLASS_DECL signal_guard_install
   {
     signalc _guarded;
 #ifndef _WIN32
-    sigset_t _former;
+    sigset_t _former;  // used only if signalc::early_global_signals
 #endif
 
   public:
@@ -125,11 +152,7 @@ namespace signal_guard
 #endif
     struct signal_handler_info_base
     {
-#ifdef _WIN32
       jmp_buf buf;
-#else
-      sigjmp_buf buf;
-#endif
       virtual bool set_siginfo(intptr_t, void *, void *) = 0;
       virtual bool call_continuer() const = 0;
     };
@@ -154,16 +177,17 @@ namespace signal_guard
 
   /*! Call a callable `f` with signals `guarded` protected for this thread only, returning whatever `f` returns.
 
-  You must have instantiated a `signal_guard_install` for the guarded signals at least once somewhere in
-  your process if this signal guard is to work.
+  On POSIX you must have instantiated a `signal_guard_install` for the guarded signals at least once somewhere in
+  your process, otherwise an exception is thrown.
 
-  Firstly, how to restore execution to this context is saved, the guarded signals are enabled for the calling
+  Firstly, how to restore execution to this context is saved, if thread locally configured the guarded signals are enabled for the calling
   thread, and `f` is executed, returning whatever `f` returns, and restoring the signal enabled state to what
   it was on entry to this guard before returning. This is mostly inlined code, so it will be relatively fast. No memory
   allocation is performed, though thread local state is allocated on first execution. Approximate overhead on
   an Intel CPU:
 
-  - Linux (safe): 1450 CPU cycles (caused by two syscalls to enable and disable the guarded signals)
+  - Linux (thread local): 1450 CPU cycles (mostly the two syscalls to enable and disable the guarded signals)
+  - Linux (early global): 52 CPU cycles
   - Windows: 85 CPU cycles
 
   If during the execution of `f`, any one of the signals `guarded` is raised:
@@ -207,7 +231,6 @@ namespace signal_guard
     // around a setjmp(), so let's prevent that. This is the weak form affecting the
     // compiler reordering only.
     std::atomic_signal_fence(std::memory_order_seq_cst);
-#ifdef _WIN32
 #ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable : 4611)  // interaction between setjmp() and C++ object destruction is non-portable
@@ -215,9 +238,6 @@ namespace signal_guard
     if(setjmp(guard.buf))
 #ifdef _MSC_VER
 #pragma warning(pop)
-#endif
-#else
-    if(sigsetjmp(guard.buf, 1))
 #endif
     {
       // returning from longjmp, so unset the TLS and call failure handler
@@ -239,7 +259,7 @@ namespace signal_guard
       longjmp(guard.buf, 1);
     }
 #else
-    // Set the TLS
+    // Set the TLS, enable the signals
     guard.acquire(guarded);
     auto release = scoped_undo::undoer([&] { guard.release(guarded); });
     return f();
