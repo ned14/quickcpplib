@@ -133,7 +133,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a56074fd63946190b6b991dcf245db4d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>On platforms where it is necessary, installs the global signal handlers for the signals specified by <code>guarded</code>. Each signal installed is threadsafe reference counted, so this is safe to call from multiple threads or multiple times.</p>
+<div class="textblock"><p>On platforms where it is necessary, installs, and enables, the global signal handlers for the signals specified by <code>guarded</code>. Each signal installed is threadsafe reference counted, so this is safe to call from multiple threads or multiple times.</p>
 <p>If this call does anything at all, it is not fast, plus it serialises on a global mutex. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="af47fe13d053d58ed394d80642340394c"></a>
