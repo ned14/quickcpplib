@@ -79,7 +79,7 @@ namespace signal_guard
     SIGNALGUARD_FUNC_DECL const char *signalc_to_string(signalc code) noexcept;
   }
 
-  /*! On platforms where it is necessary, installs the global signal handlers for
+  /*! On platforms where it is necessary, installs, and enables, the global signal handlers for
   the signals specified by `guarded`. Each signal installed is threadsafe reference
   counted, so this is safe to call from multiple threads or multiple times.
 
@@ -88,6 +88,9 @@ namespace signal_guard
   class SIGNALGUARD_CLASS_DECL signal_guard_install
   {
     signalc _guarded;
+#ifndef _WIN32
+    sigset_t _former;
+#endif
 
   public:
     SIGNALGUARD_MEMFUNC_DECL explicit signal_guard_install(signalc guarded);
@@ -122,7 +125,11 @@ namespace signal_guard
 #endif
     struct signal_handler_info_base
     {
+#ifdef _WIN32
       jmp_buf buf;
+#else
+      sigjmp_buf buf;
+#endif
       virtual bool set_siginfo(intptr_t, void *, void *) = 0;
       virtual bool call_continuer() const = 0;
     };
@@ -154,9 +161,9 @@ namespace signal_guard
   thread, and `f` is executed, returning whatever `f` returns, and restoring the signal enabled state to what
   it was on entry to this guard before returning. This is mostly inlined code, so it will be relatively fast. No memory
   allocation is performed, though thread local state is allocated on first execution. Approximate overhead on
-  an Intel Skylake CPU:
+  an Intel CPU:
 
-  - Linux: 490 CPU cycles
+  - Linux (safe): 1450 CPU cycles (caused by two syscalls to enable and disable the guarded signals)
   - Windows: 85 CPU cycles
 
   If during the execution of `f`, any one of the signals `guarded` is raised:
@@ -200,6 +207,7 @@ namespace signal_guard
     // around a setjmp(), so let's prevent that. This is the weak form affecting the
     // compiler reordering only.
     std::atomic_signal_fence(std::memory_order_seq_cst);
+#ifdef _WIN32
 #ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable : 4611)  // interaction between setjmp() and C++ object destruction is non-portable
@@ -207,6 +215,9 @@ namespace signal_guard
     if(setjmp(guard.buf))
 #ifdef _MSC_VER
 #pragma warning(pop)
+#endif
+#else
+    if(sigsetjmp(guard.buf, 1))
 #endif
     {
       // returning from longjmp, so unset the TLS and call failure handler
@@ -228,7 +239,7 @@ namespace signal_guard
       longjmp(guard.buf, 1);
     }
 #else
-    // Set the TLS, enable the signals
+    // Set the TLS
     guard.acquire(guarded);
     auto release = scoped_undo::undoer([&] { guard.release(guarded); });
     return f();

@@ -71,7 +71,11 @@ namespace signal_guard
         {
           if(!shi->call_continuer())
           {
+#ifdef _WIN32
             longjmp(shi->buf, 1);
+#else
+            siglongjmp(shi->buf, 1);
+#endif
           }
         }
       }
@@ -93,7 +97,11 @@ namespace signal_guard
         {
           if(!shi->call_continuer())
           {
+#ifdef _WIN32
             longjmp(shi->buf, 1);
+#else
+            siglongjmp(shi->buf, 1);
+#endif
           }
         }
       }
@@ -214,7 +222,11 @@ namespace signal_guard
         {
           if(!shi->call_continuer())
           {
+#ifdef _WIN32
             longjmp(shi->buf, 1);
+#else
+            siglongjmp(shi->buf, 1);
+#endif
           }
         }
       }
@@ -252,6 +264,8 @@ namespace signal_guard
       : _guarded(guarded)
   {
 #ifndef _WIN32
+    sigset_t set;
+    sigemptyset(&set);
     for(size_t n = 0; n < 16; n++)
     {
       if((static_cast<unsigned>(guarded) & (1 << n)) != 0)
@@ -275,8 +289,13 @@ namespace signal_guard
           {
             throw std::system_error(errno, std::system_category());
           }
+          sigaddset(&set, signo);
         }
       }
+    }
+    if(-1 == sigprocmask(SIG_UNBLOCK, &set, &_former))
+    {
+      throw std::system_error(errno, std::system_category());
     }
 #endif
     if((guarded & signalc::out_of_memory) || (guarded & signalc::termination))
@@ -321,6 +340,7 @@ namespace signal_guard
       detail::lock.unlock();
     }
 #ifndef _WIN32
+    sigprocmask(SIG_SETMASK, &_former, nullptr);
     for(size_t n = 0; n < 16; n++)
     {
       if((static_cast<unsigned>(_guarded) & (1 << n)) != 0)
@@ -392,45 +412,14 @@ namespace signal_guard
       // Set me to current handler
       p->next = current_signal_handler();
       p->guarded = guarded;
+      std::atomic_signal_fence(std::memory_order_seq_cst);
       current_signal_handler() = this;
-#ifndef _WIN32
-      // Enable my guarded signals for this thread
-      sigset_t set;
-      sigemptyset(&set);
-#if 1
-      for(size_t n = 0; n < 16; n++)
-      {
-        if((static_cast<unsigned>(guarded) & (1 << n)) != 0)
-        {
-          int signo = detail::signo_from_signalc(1 << n);
-          if(signo != -1)
-          {
-            sigaddset(&set, signo);
-          }
-        }
-      }
-#else
-      unsigned g = static_cast<unsigned>(guarded);
-      for(size_t n = __builtin_ffs(g); n != 0; g ^= 1 << (n - 1), n = __builtin_ffs(g))
-      {
-        int signo = detail::signo_from_signalc(1 << (n - 1));
-        if(signo != -1)
-        {
-          sigaddset(&set, signo);
-        }
-      }
-#endif
-      pthread_sigmask(SIG_UNBLOCK, &set, &p->former);
-#endif
     }
     SIGNALGUARD_MEMFUNC_DECL void erased_signal_handler_info::release(signalc /* unused */)
     {
       auto *p = reinterpret_cast<signal_handler_info *>(_erased);
       current_signal_handler() = p->next;
-// On POSIX our signal mask needs to be restored
-#ifndef _WIN32
-      pthread_sigmask(SIG_SETMASK, &p->former, nullptr);
-#endif
+      std::atomic_signal_fence(std::memory_order_seq_cst);
       p->~signal_handler_info();
     }
     SIGNALGUARD_MEMFUNC_DECL bool erased_signal_handler_info::set_siginfo(intptr_t signo, void *info, void *context)
