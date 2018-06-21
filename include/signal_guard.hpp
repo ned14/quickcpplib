@@ -128,6 +128,24 @@ namespace signal_guard
     signal_guard_install &operator=(signal_guard_install &&) = delete;
   };
 
+  /*! Call the currently installed signal handler for a signal (POSIX), or raise a Win32 structured
+  exception (Windows), returning false if no handler was called due to the currently
+  installed handler being `SIG_IGN` (POSIX).
+
+  Note that on POSIX, we fetch the currently installed signal handler and try to call it directly.
+  This allows us to supply custom `info` and `context`, and we do all the things which the signal
+  handler flags tell us to do beforehand [1]. If the current handler has been defaulted, we
+  enable the signal and execute `pthread_kill(pthread_self(), signo)` in order to invoke the
+  default handling.
+
+  Note that on Windows, `context` is ignored as there is no way to override the context thrown
+  with a Win32 structured exception.
+
+  [1]: We currently do not implement alternative stack switching. If a handler requests that, we
+  simply abort the process. Code donations implementing support are welcome.
+  */
+  SIGNALGUARD_FUNC_DECL bool thread_local_raise_signal(signalc signo, void *info = nullptr, void *context = nullptr);
+
 
   //! Thrown by the default signal handler to abort the current operation
   class signal_raised : public std::exception
@@ -175,15 +193,21 @@ namespace signal_guard
     inline bool continue_or_handle(signalc /*unused*/, const void * /*unused*/, const void * /*unused*/) noexcept { return false; }
   }
 
+#ifdef __GNUC__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wclobbered"
+#endif
+
   /*! Call a callable `f` with signals `guarded` protected for this thread only, returning whatever `f` returns.
 
-  On POSIX you must have instantiated a `signal_guard_install` for the guarded signals at least once somewhere in
-  your process, otherwise an exception is thrown.
+  Note that on POSIX, if a `signal_guard_install` is not already instanced, one is temporarily installed, which is
+  not quick. You are therefore very strongly recommended, when on POSIX, to call this function
+  with a `signal_guard_install` already installed.
 
   Firstly, how to restore execution to this context is saved, if thread locally configured the guarded signals are enabled for the calling
   thread, and `f` is executed, returning whatever `f` returns, and restoring the signal enabled state to what
   it was on entry to this guard before returning. This is mostly inlined code, so it will be relatively fast. No memory
-  allocation is performed, though thread local state is allocated on first execution. Approximate overhead on
+  allocation is performed if a `signal_guard_install` is already instanced. Approximate overhead on
   an Intel CPU:
 
   - Linux (thread local): 1450 CPU cycles (mostly the two syscalls to enable and disable the guarded signals)
@@ -202,7 +226,8 @@ namespace signal_guard
   2. If `c` returned `false`, the execution of `f` is halted **immediately** without stack unwind, the thread is returned
   to the state just before the calling of `f`, and the callable `g` is called with the specific signal
   which occurred. `g` must have the prototype `R(signalc, const void *, const void *)` where `R` is the return type of `f`,
-  and the two `void *` are the same as for the calling of `c`.
+  and the two `void *` are the same as for the calling of `c`. `g` is called with this signal guard
+  removed, though a signal guard higher in the call chain may instead be active.
 
   Obviously all state which `f` may have been in the process of doing will be thrown away. You
   should therefore make sure that `f` never causes side effects, including the interruption in the middle
@@ -227,6 +252,15 @@ namespace signal_guard
       virtual bool call_continuer() const override final { return continuer(this->signal(), this->info(), this->context()); }
     };
     signal_handler_info_ guard(static_cast<C &&>(c));
+    signal_guard_install *sgi = nullptr;
+#ifndef _WIN32
+    char _sgi[sizeof(signal_guard_install)];
+    if(detail::signal_guard_installed() == 0)
+    {
+      sgi = reinterpret_cast<signal_guard_install *>(_sgi);
+      new(sgi) signal_guard_install(guarded);
+    }
+#endif
     // Nothing in the C++ standard says that the compiler cannot reorder reads and writes
     // around a setjmp(), so let's prevent that. This is the weak form affecting the
     // compiler reordering only.
@@ -242,6 +276,8 @@ namespace signal_guard
     {
       // returning from longjmp, so unset the TLS and call failure handler
       guard.release(guarded);
+      if(sgi != nullptr)
+        sgi->~signal_guard_install();
       return h(guard.signal(), guard.info(), guard.context());
     }
     std::atomic_signal_fence(std::memory_order_seq_cst);
@@ -261,10 +297,17 @@ namespace signal_guard
 #else
     // Set the TLS, enable the signals
     guard.acquire(guarded);
-    auto release = scoped_undo::undoer([&] { guard.release(guarded); });
+    auto release = scoped_undo::undoer([&] {
+      guard.release(guarded);
+      if(sgi != nullptr)
+        sgi->~signal_guard_install();
+    });
     return f();
 #endif
   }
+#ifdef __GNUC__
+#pragma GCC diagnostic pop
+#endif
   //! \overload
   template <class F, class R = decltype(std::declval<F>()())> inline R signal_guard(signalc guarded, F &&f) { return signal_guard(guarded, static_cast<F &&>(f), detail::throw_signal_raised<R>, detail::continue_or_handle); }
   //! \overload

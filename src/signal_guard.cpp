@@ -115,6 +115,27 @@ namespace signal_guard
     }
 
 #ifdef _WIN32
+    inline DWORD signo_from_signalc(signalc c)
+    {
+      switch(static_cast<unsigned>(c))
+      {
+      case signalc::abort_process:
+        return EXCEPTION_NONCONTINUABLE_EXCEPTION;
+      case signalc::undefined_memory_access:
+        return EXCEPTION_IN_PAGE_ERROR;
+      case signalc::illegal_instruction:
+        return EXCEPTION_ILLEGAL_INSTRUCTION;
+      // case signalc::interrupt:
+      //  return SIGINT;
+      // case signalc::broken_pipe:
+      //  return SIGPIPE;
+      case signalc::segmentation_fault:
+        return EXCEPTION_ACCESS_VIOLATION;
+      case signalc::floating_point_error:
+        return EXCEPTION_FLT_INVALID_OPERATION;
+      }
+      return (DWORD) -1;
+    }
     inline signalc signalc_from_signo(intptr_t c)
     {
       switch(c)
@@ -162,9 +183,9 @@ namespace signal_guard
       return EXCEPTION_CONTINUE_SEARCH;
     }
 #else
-    inline int signo_from_signalc(unsigned c)
+    inline int signo_from_signalc(signalc c)
     {
-      switch(c)
+      switch(static_cast<unsigned>(c))
       {
       case signalc::abort_process:
         return SIGABRT;
@@ -212,10 +233,77 @@ namespace signal_guard
     };
     static installed_signal_handler handler_counts[16];
 
+    // Simulate the raising of a signal
+    inline bool do_raise_signal(int signo, struct sigaction &sa, siginfo_t *info, void *context)
+    {
+      void (*h1)(int signo, siginfo_t *info, void *context) = nullptr;
+      void (*h2)(int signo) = nullptr;
+      // std::cout << "do_raise_signal(" << signo << ", " << (void *) sa.sa_handler << ", " << info << ", " << context << ")" << std::endl;
+      if(sa.sa_handler == SIG_IGN)
+      {
+        // std::cout << "ignore" << std::endl;
+        return false;
+      }
+      else if(sa.sa_handler == SIG_DFL)
+      {
+        // std::cout << "default" << std::endl;
+        // Default action for these is to ignore
+        if(signo == SIGCHLD || signo == SIGURG)
+          return false;
+        // Ok, need to invoke the default handler
+        struct sigaction dfl, myformer;
+        memset(&dfl, 0, sizeof(dfl));
+        dfl.sa_handler = SIG_DFL;
+        sigaction(signo, &dfl, &myformer);
+        sigset_t myformer2;
+        sigset_t def2;
+        sigemptyset(&def2);
+        sigaddset(&def2, signo);
+        pthread_sigmask(SIG_UNBLOCK, &def2, &myformer2);
+        pthread_kill(pthread_self(), signo);  // Very likely never returns
+        sigaction(signo, &myformer, nullptr);
+        return true;
+      }
+      else if(sa.sa_flags & SA_SIGINFO)
+      {
+        h1 = sa.sa_sigaction;
+      }
+      else
+      {
+        h2 = sa.sa_handler;
+      }
+      // std::cout << "handler" << std::endl;
+      if(sa.sa_flags & SA_ONSTACK)
+      {
+        // Not implemented yet
+        abort();
+      }
+      if(sa.sa_flags & SA_RESETHAND)
+      {
+        struct sigaction dfl;
+        memset(&dfl, 0, sizeof(dfl));
+        dfl.sa_handler = SIG_DFL;
+        sigaction(signo, &dfl, nullptr);
+      }
+      if(!(sa.sa_flags & (SA_RESETHAND | SA_NODEFER)))
+      {
+        sigaddset(&sa.sa_mask, signo);
+      }
+      sigset_t oldset;
+      pthread_sigmask(SIG_BLOCK, &sa.sa_mask, &oldset);
+      if(h1 != nullptr)
+        h1(signo, info, context);
+      else
+        h2(signo);
+      pthread_sigmask(SIG_SETMASK, &oldset, nullptr);
+      return true;
+    }
+
     // Called by POSIX to handle a raised signal
     inline void raw_signal_handler(int signo, siginfo_t *info, void *context)
     {
       auto *shi = current_signal_handler();
+      // std::cout << "raw_signal_handler(" << signo << ", " << info << ", " << context << ") shi=" << shi << std::endl;
       if(shi != nullptr)
       {
         if(shi->set_siginfo(signo, info, context))
@@ -231,44 +319,11 @@ namespace signal_guard
       {
         if(i.signo == signo)
         {
-          void (*h1)(int signo, siginfo_t *info, void *context) = nullptr;
-          void (*h2)(int signo) = nullptr;
+          struct sigaction sa;
           lock.lock();
-          if(i.former.sa_flags & SA_SIGINFO)
-          {
-            h1 = i.former.sa_sigaction;
-          }
-          else
-            h2 = i.former.sa_handler;
+          sa = i.former;
           lock.unlock();
-          if(h1)
-            h1(signo, info, context);
-          else if(h2)
-          {
-            if(h2 != SIG_DFL && h2 != SIG_IGN)
-              h2(signo);
-            else if(h2 == SIG_DFL)
-            {
-              // This is unnecessarily painful in POSIX ...
-              // Default action for these is to ignore
-              if(signo == SIGCHLD || signo == SIGURG)
-                return;
-              // We need to invoke the kernel's default action, this is unfortunately highly racy
-              // but the chances are good the default action is to kill the process
-              struct sigaction myformer, def;
-              memset(&def, 0, sizeof(def));
-              def.sa_handler = SIG_DFL;
-              sigaction(signo, &def, &myformer);
-              sigset_t myformer2;
-              sigset_t def2;
-              sigemptyset(&def2);
-              sigaddset(&def2, signo);
-              pthread_sigmask(SIG_UNBLOCK, &def2, &myformer2);
-              pthread_kill(pthread_self(), signo);
-              sigaction(signo, &myformer, nullptr);
-            }
-          }
-          return;
+          do_raise_signal(signo, sa, info, context);
         }
       }
     }
@@ -423,6 +478,50 @@ namespace signal_guard
 #endif
   }
 
+  SIGNALGUARD_FUNC_DECL bool thread_local_raise_signal(signalc _signo, void *_info, void *_context)
+  {
+    if(_signo == signalc::out_of_memory)
+    {
+      if(std::get_new_handler() == nullptr)
+      {
+        std::terminate();
+      }
+      std::get_new_handler()();
+      return true;
+    }
+    else if(_signo == signalc::termination)
+    {
+      std::terminate();
+    }
+    auto signo = detail::signo_from_signalc(_signo);
+#ifdef _WIN32
+    if((DWORD) -1 == signo)
+      throw std::runtime_error("Unknown signal");
+    (void) _context;
+    const auto *info = (const _EXCEPTION_RECORD *) _info;
+    // info->ExceptionInformation[0] = 0=read 1=write 8=DEP
+    // info->ExceptionInformation[1] = causing address
+    // info->ExceptionInformation[2] = NTSTATUS causing exception
+    if(info != nullptr)
+    {
+      RaiseException(signo, info->ExceptionFlags, info->NumberParameters, info->ExceptionInformation);
+    }
+    else
+    {
+      RaiseException(signo, 0, 0, nullptr);
+    }
+    return false;
+#else
+    if(-1 == signo)
+      throw std::runtime_error("Unknown signal");
+    auto *info = (siginfo_t *) _info;
+    // Fetch the current handler, and simulate the raise
+    struct sigaction sa;
+    sigaction(signo, nullptr, &sa);
+    return detail::do_raise_signal(signo, sa, info, _context);
+#endif
+  }
+
   namespace detail
   {
     struct signal_handler_info
@@ -432,6 +531,7 @@ namespace signal_guard
 
       signalc signal{signalc::none};  // the signal which occurred
       intptr_t signo{-1};             // what the signal handler was called with
+      bool have_info{false}, have_context{false};
 #ifdef _WIN32
       _EXCEPTION_RECORD info;  // what the signal handler was called with
       CONTEXT context;
@@ -457,22 +557,16 @@ namespace signal_guard
     SIGNALGUARD_MEMFUNC_DECL const void *erased_signal_handler_info::info() const
     {
       auto *p = reinterpret_cast<const signal_handler_info *>(_erased);
-      return static_cast<const void *>(&p->info);
+      return p->have_info ? static_cast<const void *>(&p->info) : nullptr;
     }
     SIGNALGUARD_MEMFUNC_DECL const void *erased_signal_handler_info::context() const
     {
       auto *p = reinterpret_cast<const signal_handler_info *>(_erased);
-      return static_cast<const void *>(&p->context);
+      return p->have_context ? static_cast<const void *>(&p->context) : nullptr;
     }
 
     SIGNALGUARD_MEMFUNC_DECL void erased_signal_handler_info::acquire(signalc guarded)
     {
-#ifndef _WIN32
-      if((guarded & ~(signal_guard_installed() | signalc::early_global_signals)) != 0)
-      {
-        throw std::runtime_error("There is no signal_guard_install instance for at least one of the guarded signals");
-      }
-#endif
       auto *p = reinterpret_cast<signal_handler_info *>(_erased);
       // Set me to current handler
       p->next = current_signal_handler();
@@ -530,7 +624,7 @@ namespace signal_guard
     {
       auto *p = reinterpret_cast<signal_handler_info *>(_erased);
       p->signo = signo;
-      if(info == nullptr && context == nullptr)
+      if(signo == signalc::out_of_memory || signo == signalc::termination)
       {
         // This is a C++ failure handler
         p->signal = (signalc)(unsigned) signo;
@@ -544,8 +638,17 @@ namespace signal_guard
         return false;  // I don't support this signal
       if((p->guarded & p->signal) == 0)
         return false;  // I am not guarding this signal
-      memcpy(&p->info, info, sizeof(p->info));
-      memcpy(&p->context, context, sizeof(p->context));
+      p->have_info = p->have_context = false;
+      if(info != nullptr)
+      {
+        memcpy(&p->info, info, sizeof(p->info));
+        p->have_info = true;
+      }
+      if(context != nullptr)
+      {
+        memcpy(&p->context, context, sizeof(p->context));
+        p->have_context = true;
+      }
       return true;
     }
   }

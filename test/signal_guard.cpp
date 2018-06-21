@@ -32,6 +32,7 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / threadlocal, "Tests that signal_guar
 {
   using namespace QUICKCPPLIB_NAMESPACE::signal_guard;
   signal_guard_install i(signalc::segmentation_fault | signalc::termination);
+  std::cout << "1" << std::endl;
   {
     int ret = signal_guard(signalc::segmentation_fault,
                            []() -> int {
@@ -42,11 +43,24 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / threadlocal, "Tests that signal_guar
     BOOST_CHECK(ret == 78);
     BOOST_CHECK(detail::current_signal_handler() == nullptr);
   }
+  std::cout << "2" << std::endl;
   {
     int ret = signal_guard(signalc::termination, []() -> int { std::terminate(); }, [](signalc, const void *, const void *) -> int { return 78; });
     BOOST_CHECK(ret == 78);
     BOOST_CHECK(detail::current_signal_handler() == nullptr);
   }
+  std::cout << "3" << std::endl;
+  {
+    int ret = signal_guard(signalc::segmentation_fault,
+                           []() -> int {
+                             thread_local_raise_signal(signalc::segmentation_fault);
+                             return 5;
+                           },
+                           [](signalc, const void *, const void *) -> int { return 78; });
+    BOOST_CHECK(ret == 78);
+    BOOST_CHECK(detail::current_signal_handler() == nullptr);
+  }
+  std::cout << "4" << std::endl;
 }
 
 BOOST_AUTO_TEST_CASE(signal_guard / works / early, "Tests that signal_guard works as advertised (early global)")
@@ -65,6 +79,16 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / early, "Tests that signal_guard work
   }
   {
     int ret = signal_guard(signalc::termination, []() -> int { std::terminate(); }, [](signalc, const void *, const void *) -> int { return 78; });
+    BOOST_CHECK(ret == 78);
+    BOOST_CHECK(detail::current_signal_handler() == nullptr);
+  }
+  {
+    int ret = signal_guard(signalc::segmentation_fault,
+                           []() -> int {
+                             thread_local_raise_signal(signalc::segmentation_fault);
+                             return 5;
+                           },
+                           [](signalc, const void *, const void *) -> int { return 78; });
     BOOST_CHECK(ret == 78);
     BOOST_CHECK(detail::current_signal_handler() == nullptr);
   }
