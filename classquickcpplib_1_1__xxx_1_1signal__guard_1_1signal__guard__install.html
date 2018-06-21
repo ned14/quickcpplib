@@ -133,8 +133,13 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a56074fd63946190b6b991dcf245db4d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>On platforms where it is necessary, installs, and enables, the global signal handlers for the signals specified by <code>guarded</code>. Each signal installed is threadsafe reference counted, so this is safe to call from multiple threads or multiple times.</p>
-<p>If this call does anything at all, it is not fast, plus it serialises on a global mutex. </p>
+<div class="textblock"><p>On platforms where it is necessary (POSIX), installs, and potentially enables, the global signal handlers for the signals specified by <code>guarded</code>. Each signal installed is threadsafe reference counted, so this is safe to call from multiple threads or multiple times.</p>
+<p>If this call does anything at all, it is not fast, plus it serialises on a global mutex.</p>
+<h2>POSIX only</h2>
+<p>Changing the signal mask for a process involves a kernel transition, which costs perhaps 500 CPU cycles. The default implementation enables the guarded signals for the local thread just before executing the guarded section of code, and restores the previous thread local signal mask on exiting the guarded section of code. This, inevitably, adds at least 1,000 CPU cycles to each guarded code invocation, but it comes with the big advantage of predictability.</p>
+<p>One can set the <code>signalc::early_global_signals</code> flag during signal install which profoundly changes these semantics. When we install the handlers, we use <code>SA_NODEFER</code> to prevent the blocking of the raised signal during the execution of the signal handler. We enable the guarded signals immediately, and globally.</p>
+<p>These differences mean that <code>signal_guard</code> no longer needs to touch the signal mask during execution, and thus avoid all kernel transitions. Performance is enormously improved. The cost however is that signal handling becomes much less predictable. If the installed signal handlers cause the raising of a signal, an infinite loop occurs. Signal handlers are executed in all threads in the process, not just in the guarded code sections.</p>
+<p>Because of these profound differences, you cannot mix different types of signal install in the same process. An attempt to instantiate a second install with differing <code>signalc::early_global_signals</code> will throw an exception. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="af47fe13d053d58ed394d80642340394c"></a>
 <div class="memitem">

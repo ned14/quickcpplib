@@ -15,9 +15,12 @@ var signal__guard_8hpp =
       [ "segmentation_fault", "signal__guard_8hpp.html#ad51cebe56c9a0718495f06b43bd71fa3a6f73884c462ca69e0c2df3ae79df80f7", null ],
       [ "floating_point_error", "signal__guard_8hpp.html#ad51cebe56c9a0718495f06b43bd71fa3a1b7561b84beaa502560c52a009195a97", null ],
       [ "out_of_memory", "signal__guard_8hpp.html#ad51cebe56c9a0718495f06b43bd71fa3a995f1a8ff0c0984e5c0613a2e0742950", null ],
-      [ "termination", "signal__guard_8hpp.html#ad51cebe56c9a0718495f06b43bd71fa3aee1c27bcb8b84bb8614cb4441e2db7f6", null ]
+      [ "termination", "signal__guard_8hpp.html#ad51cebe56c9a0718495f06b43bd71fa3aee1c27bcb8b84bb8614cb4441e2db7f6", null ],
+      [ "early_global_signals", "signal__guard_8hpp.html#ad51cebe56c9a0718495f06b43bd71fa3a7d516600bb930c4b047b5f624f288433", null ]
     ] ],
     [ "signalc_to_string", "signal__guard_8hpp.html#a642df706deee4198eeb61b15d31c77fa", null ],
+    [ "signal_guard_installed", "signal__guard_8hpp.html#a34ae92a9448ca48328b758f2a647628d", null ],
+    [ "thread_local_raise_signal", "signal__guard_8hpp.html#a0c2db7ab016b5793b5991812ae683e0e", null ],
     [ "current_signal_handler", "signal__guard_8hpp.html#aa52e49dc17b42546ca53385b91274ad7", null ],
     [ "throw_signal_raised", "signal__guard_8hpp.html#a8e0934c6bc389e2ad2119c7d64bb62f9", null ],
     [ "continue_or_handle", "signal__guard_8hpp.html#a4065b247b882e5b3293e83f208aa3ff5", null ],

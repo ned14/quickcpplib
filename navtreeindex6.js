@@ -1,5 +1,8 @@
 var NAVTREEINDEX6 =
 {
+"structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#a726d26f53fb3320138cccbd825a128fd":[3,0,1,0,18,1,1],
+"structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#a7aca0d46de8150c7ee7b60ff648b88e0":[3,0,1,0,18,1,6],
+"structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#a860798ae9e3aab25a3713cafa8384728":[3,0,1,0,18,1,4],
 "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#abfe6e980f2b52928443f43eccdef086d":[3,0,1,0,18,1,0],
 "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#ae35149e2856793a5919fbc4b9855943e":[3,0,1,0,18,1,10],
 "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#ae4e7951b6bfeeee43ea30280738f7878":[3,0,1,0,18,1,3],

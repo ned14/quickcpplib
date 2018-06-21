@@ -124,6 +124,8 @@ Classes</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:a642df706deee4198eeb61b15d31c77fa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#a642df706deee4198eeb61b15d31c77fa">signalc_to_string</a> (signalc code) noexcept</td></tr>
 <tr class="separator:a642df706deee4198eeb61b15d31c77fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34ae92a9448ca48328b758f2a647628d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> signalc &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#a34ae92a9448ca48328b758f2a647628d">signal_guard_installed</a> () noexcept</td></tr>
+<tr class="separator:a34ae92a9448ca48328b758f2a647628d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa52e49dc17b42546ca53385b91274ad7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> <br class="typebreak"/>
 signal_handler_info_base *&amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#aa52e49dc17b42546ca53385b91274ad7">current_signal_handler</a> () noexcept</td></tr>
 <tr class="separator:aa52e49dc17b42546ca53385b91274ad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -146,6 +148,29 @@ signal_handler_info_base *&amp;&#160;</td><td class="memItemRight" valign="botto
           <td>(</td>
           <td class="paramtype">signalc&#160;</td>
           <td class="paramname"><em>code</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a34ae92a9448ca48328b758f2a647628d"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> signalc&amp; quickcpplib::_xxx::signal_guard::detail::signal_guard_installed </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -220,7 +245,7 @@ template&lt;class R &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;{ <span class="keywordflow">throw</span> signal_raised(code); }</div>
+<div class="fragment"><div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;{ <span class="keywordflow">throw</span> signal_raised(code); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -261,7 +286,7 @@ template&lt;class R &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;{ <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="fragment"><div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;{ <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['early_5fglobal_5fsignals',['early_global_signals',['../namespacequickcpplib_1_1__xxx_1_1signal__guard.html#ad51cebe56c9a0718495f06b43bd71fa3a7d516600bb930c4b047b5f624f288433',1,'quickcpplib::_xxx::signal_guard']]],
   ['element_5ftype',['element_type',['../classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr.html#a4c66af0f66c21c729310eb0d78868b1a',1,'quickcpplib::_xxx::offset_ptr::offset_ptr::element_type()'],['../classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr_3_01const_01_t_01_4.html#aea08828fb3a67419de63bd2dacf4626d',1,'quickcpplib::_xxx::offset_ptr::offset_ptr&lt; const T &gt;::element_type()'],['../classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr.html#aa2faf36c9d839a4043001a70be982511',1,'quickcpplib::_xxx::offset_ptr::atomic_offset_ptr::element_type()']]],
   ['emplace',['emplace',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a84a34a6d941fd3bdc036f129def90be1',1,'quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index']]],
   ['emplace_5fback',['emplace_back',['../classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ac9ce79a15a80d33763998369e638b2d8',1,'quickcpplib::_xxx::ringbuffer_log::ringbuffer_log']]],
