@@ -130,6 +130,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__raised.html">signal_raised</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thrown by the default signal handler to abort the current operation.  <a href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__raised.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1raised__signal__info.html">raised_signal_info</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Portable information about a raised signal.  <a href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1raised__signal__info.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -156,13 +159,13 @@ Enumerations</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:a0c2db7ab016b5793b5991812ae683e0e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a0c2db7ab016b5793b5991812ae683e0e">thread_local_raise_signal</a> (signalc signo, void *info=nullptr, void *context=nullptr)</td></tr>
 <tr class="separator:a0c2db7ab016b5793b5991812ae683e0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46acdfa193a0b615cb29f5b08ba4afdd"><td class="memTemplParams" colspan="2">template&lt;class F , class H , class C , class R  = decltype(std::declval&lt;F&gt;()()), typename  = std::enable_if_t&lt; std::is_constructible&lt;R, decltype(std::declval&lt;H&gt;()(signalc::none, static_cast&lt;const void *&gt;(nullptr), static_cast&lt;const void *&gt;(nullptr)))&gt;::value &gt;, typename  = std::enable_if_t&lt; std::is_constructible&lt;bool, decltype(std::declval&lt;C&gt;()(signalc::none, static_cast&lt;const void *&gt;(nullptr), static_cast&lt;const void *&gt;(nullptr)))&gt;::value &gt;&gt; </td></tr>
+<tr class="memitem:a46acdfa193a0b615cb29f5b08ba4afdd"><td class="memTemplParams" colspan="2">template&lt;class F , class H , class C , class R  = decltype(std::declval&lt;F&gt;()()), typename  = std::enable_if_t&lt; std::is_constructible&lt;R, decltype(std::declval&lt;H&gt;()(std::declval&lt;const raised_signal_info&gt;()))&gt;::value &gt;, typename  = std::enable_if_t&lt; std::is_constructible&lt;bool, decltype(std::declval&lt;C&gt;()(std::declval&lt;const raised_signal_info&gt;()))&gt;::value &gt;&gt; </td></tr>
 <tr class="memitem:a46acdfa193a0b615cb29f5b08ba4afdd"><td class="memTemplItemLeft" align="right" valign="top">R&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a46acdfa193a0b615cb29f5b08ba4afdd">signal_guard</a> (signalc guarded, F &amp;&amp;f, H &amp;&amp;h, C &amp;&amp;c)</td></tr>
 <tr class="separator:a46acdfa193a0b615cb29f5b08ba4afdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a93a123002d5e5710577c26d00f3ba853"><td class="memTemplParams" colspan="2">template&lt;class F , class R  = decltype(std::declval&lt;F&gt;()())&gt; </td></tr>
 <tr class="memitem:a93a123002d5e5710577c26d00f3ba853"><td class="memTemplItemLeft" align="right" valign="top">R&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a93a123002d5e5710577c26d00f3ba853">signal_guard</a> (signalc guarded, F &amp;&amp;f)</td></tr>
 <tr class="separator:a93a123002d5e5710577c26d00f3ba853"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90804da905b562f38d803454e3d26bca"><td class="memTemplParams" colspan="2">template&lt;class F , class H , class R  = decltype(std::declval&lt;F&gt;()()), typename  = std::enable_if_t&lt; std::is_constructible&lt;R, decltype(std::declval&lt;H&gt;()(signalc::none, static_cast&lt;const void *&gt;(nullptr), static_cast&lt;const void *&gt;(nullptr)))&gt;::value &gt;&gt; </td></tr>
+<tr class="memitem:a90804da905b562f38d803454e3d26bca"><td class="memTemplParams" colspan="2">template&lt;class F , class H , class R  = decltype(std::declval&lt;F&gt;()()), typename  = std::enable_if_t&lt; std::is_constructible&lt;R, decltype(std::declval&lt;H&gt;()(std::declval&lt;const raised_signal_info&gt;()))&gt;::value &gt;&gt; </td></tr>
 <tr class="memitem:a90804da905b562f38d803454e3d26bca"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a90804da905b562f38d803454e3d26bca">signal_guard</a> (signalc guarded, F &amp;&amp;f, H &amp;&amp;h)</td></tr>
 <tr class="separator:a90804da905b562f38d803454e3d26bca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -289,7 +292,7 @@ Functions</h2></td></tr>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class F , class H , class C , class R  = decltype(std::declval&lt;F&gt;()()), typename  = std::enable_if_t&lt; std::is_constructible&lt;R, decltype(std::declval&lt;H&gt;()(signalc::none, static_cast&lt;const void *&gt;(nullptr), static_cast&lt;const void *&gt;(nullptr)))&gt;::value &gt;, typename  = std::enable_if_t&lt; std::is_constructible&lt;bool, decltype(std::declval&lt;C&gt;()(signalc::none, static_cast&lt;const void *&gt;(nullptr), static_cast&lt;const void *&gt;(nullptr)))&gt;::value &gt;&gt; </div>
+template&lt;class F , class H , class C , class R  = decltype(std::declval&lt;F&gt;()()), typename  = std::enable_if_t&lt; std::is_constructible&lt;R, decltype(std::declval&lt;H&gt;()(std::declval&lt;const raised_signal_info&gt;()))&gt;::value &gt;, typename  = std::enable_if_t&lt; std::is_constructible&lt;bool, decltype(std::declval&lt;C&gt;()(std::declval&lt;const raised_signal_info&gt;()))&gt;::value &gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -340,78 +343,77 @@ template&lt;class F , class H , class C , class R  = decltype(std::declval&lt;F&
 </ul>
 <p>If during the execution of <code>f</code>, any one of the signals <code>guarded</code> is raised:</p>
 <ol type="1">
-<li><code>c</code>, which must have the prototype <code>bool(signalc, const void *, const void *)</code>, is called with the signal which was raised. The two <code>void *</code> are the <code>siginfo_t *</code> and <code>void *</code> from the <code>sa_sigaction</code> handler on POSIX; on Windows they are the <code>PEXCEPTION_RECORD</code> and <code>PCONTEXT</code> from the exception handler. You can fix the cause of the signal and return <code>true</code> to continue execution, or else return <code>false</code> to halt execution. Note that the variety of code you can call in <code>c</code> is extremely limited, the same restrictions as for signal handlers apply.</li>
-<li>If <code>c</code> returned <code>false</code>, the execution of <code>f</code> is halted <b>immediately</b> without stack unwind, the thread is returned to the state just before the calling of <code>f</code>, and the callable <code>g</code> is called with the specific signal which occurred. <code>g</code> must have the prototype <code>R(signalc, const void *, const void *)</code> where <code>R</code> is the return type of <code>f</code>, and the two <code>void *</code> are the same as for the calling of <code>c</code>. <code>g</code> is called with this signal guard removed, though a signal guard higher in the call chain may instead be active.</li>
+<li><code>c</code>, which must have the prototype <code>bool(const raised_signal_info &amp;)</code>, is called with the signal which was raised. You can fix the cause of the signal and return <code>true</code> to continue execution, or else return <code>false</code> to halt execution. Note that the variety of code you can call in <code>c</code> is extremely limited, the same restrictions as for signal handlers apply.</li>
+<li>If <code>c</code> returned <code>false</code>, the execution of <code>f</code> is halted <b>immediately</b> without stack unwind, the thread is returned to the state just before the calling of <code>f</code>, and the callable <code>g</code> is called with the specific signal which occurred. <code>g</code> must have the prototype <code>R(const raised_signal_info &amp;)</code> where <code>R</code> is the return type of <code>f</code>. <code>g</code> is called with this signal guard removed, though a signal guard higher in the call chain may instead be active.</li>
 </ol>
 <p>Obviously all state which <code>f</code> may have been in the process of doing will be thrown away. You should therefore make sure that <code>f</code> never causes side effects, including the interruption in the middle of some operation, which cannot be fixed by the calling of <code>h</code>. The default <code>h</code> simply throws a <code>signal_raised</code> C++ exception. </p>
-<div class="fragment"><div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;  {</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    <span class="keyword">struct </span>signal_handler_info_ : <span class="keyword">public</span> detail::erased_signal_handler_info</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    {</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;      C continuer;  <span class="comment">// whether to continue or not</span></div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;      signal_handler_info_(C &amp;&amp;c)</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;          : continuer(static_cast&lt;C &amp;&amp;&gt;(c))</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;      {</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;      }</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;      ~signal_handler_info_() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;      <span class="keyword">virtual</span> <span class="keywordtype">bool</span> call_continuer() const override final { <span class="keywordflow">return</span> continuer(this-&gt;signal(), this-&gt;<a class="code" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">info</a>(), this-&gt;context()); }</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    };</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    signal_handler_info_ guard(static_cast&lt;C &amp;&amp;&gt;(c));</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    signal_guard_install *sgi = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;<span class="preprocessor">#ifndef _WIN32</span></div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;<span class="preprocessor"></span>    <span class="keywordtype">char</span> _sgi[<span class="keyword">sizeof</span>(signal_guard_install)];</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    <span class="keywordflow">if</span>(<a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#a34ae92a9448ca48328b758f2a647628d">detail::signal_guard_installed</a>() == 0)</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    {</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;      sgi = <span class="keyword">reinterpret_cast&lt;</span>signal_guard_install *<span class="keyword">&gt;</span>(_sgi);</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;      <span class="keyword">new</span>(sgi) signal_guard_install(guarded);</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    }</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;<span class="preprocessor"></span>    <span class="comment">// Nothing in the C++ standard says that the compiler cannot reorder reads and writes</span></div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    <span class="comment">// around a setjmp(), so let&#39;s prevent that. This is the weak form affecting the</span></div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    <span class="comment">// compiler reordering only.</span></div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    std::atomic_signal_fence(std::memory_order_seq_cst);</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;<span class="preprocessor">#ifdef _MSC_VER</span></div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#pragma warning(push)</span></div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#pragma warning(disable : 4611)  // interaction between setjmp() and C++ object destruction is non-portable</span></div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">if</span>(setjmp(guard.buf))</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;<span class="preprocessor">#ifdef _MSC_VER</span></div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#pragma warning(pop)</span></div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;<span class="preprocessor"></span>    {</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;      <span class="comment">// returning from longjmp, so unset the TLS and call failure handler</span></div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;      guard.release(guarded);</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;      <span class="keywordflow">if</span>(sgi != <span class="keyword">nullptr</span>)</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;        sgi-&gt;~signal_guard_install();</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;      <span class="keywordflow">return</span> h(guard.signal(), guard.info(), guard.context());</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    }</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    std::atomic_signal_fence(std::memory_order_seq_cst);</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;<span class="preprocessor">#ifdef _WIN32</span></div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;<span class="preprocessor"></span>    __try</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    {</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;      <span class="keywordflow">return</span> [&amp;] {</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;        guard.acquire(guarded);</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;        <span class="keyword">auto</span> release = <a class="code" href="namespacequickcpplib_1_1__xxx_1_1scoped__undo.html#a62993f318b6783401ed8ff8841026c33">scoped_undo::undoer</a>([&amp;] { guard.release(guarded); });</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;        <span class="keywordflow">return</span> f();</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;      }();</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    }</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    __except(detail::win32_exception_filter_function(GetExceptionCode(), GetExceptionInformation()))</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    {</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;      longjmp(guard.buf, 1);</div>
+<div class="fragment"><div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;  {</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    <span class="keyword">struct </span>signal_handler_info_ : <span class="keyword">public</span> detail::erased_signal_handler_info</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    {</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;      C continuer;  <span class="comment">// whether to continue or not</span></div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;      signal_handler_info_(C &amp;&amp;c)</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;          : continuer(static_cast&lt;C &amp;&amp;&gt;(c))</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;      {</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;      }</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;      ~signal_handler_info_() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;      <span class="keyword">virtual</span> <span class="keywordtype">bool</span> _call_continuer() const override final { <span class="keywordflow">return</span> continuer(*<span class="keyword">this</span>); }</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    };</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    signal_handler_info_ guard(static_cast&lt;C &amp;&amp;&gt;(c));</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    signal_guard_install *sgi = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;<span class="preprocessor">#ifndef _WIN32</span></div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;<span class="preprocessor"></span>    <span class="keywordtype">char</span> _sgi[<span class="keyword">sizeof</span>(signal_guard_install)];</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    <span class="keywordflow">if</span>(<a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#a34ae92a9448ca48328b758f2a647628d">detail::signal_guard_installed</a>() == 0)</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    {</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;      sgi = <span class="keyword">reinterpret_cast&lt;</span>signal_guard_install *<span class="keyword">&gt;</span>(_sgi);</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;      <span class="keyword">new</span>(sgi) signal_guard_install(guarded);</div>
 <div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    }</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;<span class="preprocessor"></span>    <span class="comment">// Set the TLS, enable the signals</span></div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    guard.acquire(guarded);</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    <span class="keyword">auto</span> release = <a class="code" href="namespacequickcpplib_1_1__xxx_1_1scoped__undo.html#a62993f318b6783401ed8ff8841026c33">scoped_undo::undoer</a>([&amp;] {</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;      guard.release(guarded);</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;      <span class="keywordflow">if</span>(sgi != <span class="keyword">nullptr</span>)</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;        sgi-&gt;~signal_guard_install();</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    });</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    <span class="keywordflow">return</span> f();</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;<span class="preprocessor"></span>  }</div>
-<div class="ttc" id="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log_html_add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">quickcpplib::_xxx::ringbuffer_log::level::info</a></div></div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;<span class="preprocessor"></span>    <span class="comment">// Nothing in the C++ standard says that the compiler cannot reorder reads and writes</span></div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    <span class="comment">// around a setjmp(), so let&#39;s prevent that. This is the weak form affecting the</span></div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    <span class="comment">// compiler reordering only.</span></div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    std::atomic_signal_fence(std::memory_order_seq_cst);</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;<span class="preprocessor">#ifdef _MSC_VER</span></div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#pragma warning(push)</span></div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#pragma warning(disable : 4611)  // interaction between setjmp() and C++ object destruction is non-portable</span></div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">if</span>(setjmp(guard._buf))</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;<span class="preprocessor">#ifdef _MSC_VER</span></div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#pragma warning(pop)</span></div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;<span class="preprocessor"></span>    {</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;      <span class="comment">// returning from longjmp, so unset the TLS and call failure handler</span></div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;      guard.release(guarded);</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;      <span class="keywordflow">if</span>(sgi != <span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;        sgi-&gt;~signal_guard_install();</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;      <span class="keywordflow">return</span> h(guard);</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    }</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    std::atomic_signal_fence(std::memory_order_seq_cst);</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="preprocessor">#ifdef _WIN32</span></div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="preprocessor"></span>    __try</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    {</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;      <span class="keywordflow">return</span> [&amp;] {</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;        guard.acquire(guarded);</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        <span class="keyword">auto</span> release = <a class="code" href="namespacequickcpplib_1_1__xxx_1_1scoped__undo.html#a62993f318b6783401ed8ff8841026c33">scoped_undo::undoer</a>([&amp;] { guard.release(guarded); });</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;        <span class="keywordflow">return</span> f();</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;      }();</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    }</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    __except(detail::win32_exception_filter_function(GetExceptionCode(), GetExceptionInformation()))</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    {</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;      longjmp(guard._buf, 1);</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    }</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;<span class="preprocessor"></span>    <span class="comment">// Set the TLS, enable the signals</span></div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    guard.acquire(guarded);</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    <span class="keyword">auto</span> release = <a class="code" href="namespacequickcpplib_1_1__xxx_1_1scoped__undo.html#a62993f318b6783401ed8ff8841026c33">scoped_undo::undoer</a>([&amp;] {</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;      guard.release(guarded);</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;      <span class="keywordflow">if</span>(sgi != <span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;        sgi-&gt;~signal_guard_install();</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;    });</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;    <span class="keywordflow">return</span> f();</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;<span class="preprocessor"></span>  }</div>
 <div class="ttc" id="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail_html_a34ae92a9448ca48328b758f2a647628d"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#a34ae92a9448ca48328b758f2a647628d">quickcpplib::_xxx::signal_guard::detail::signal_guard_installed</a></div><div class="ttdeci">SIGNALGUARD_FUNC_DECL signalc &amp; signal_guard_installed() noexcept</div></div>
 <div class="ttc" id="namespacequickcpplib_1_1__xxx_1_1scoped__undo_html_a62993f318b6783401ed8ff8841026c33"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1scoped__undo.html#a62993f318b6783401ed8ff8841026c33">quickcpplib::_xxx::scoped_undo::undoer</a></div><div class="ttdeci">detail::undo_impl&lt; callable &gt; undoer(callable c)</div><div class="ttdoc">Alexandrescu style rollbacks, a la C++ 11. </div><div class="ttdef"><b>Definition:</b> scoped_undo.hpp:107</div></div>
 </div><!-- fragment -->
@@ -451,9 +453,9 @@ template&lt;class F , class R  = decltype(std::declval&lt;F&gt;()())&gt; </div>
 </table>
 </div><div class="memdoc">
 <p>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. </p>
-<div class="fragment"><div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a90804da905b562f38d803454e3d26bca">signal_guard</a>(guarded, static_cast&lt;F &amp;&amp;&gt;(f), detail::throw_signal_raised&lt;R&gt;, <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#a4065b247b882e5b3293e83f208aa3ff5">detail::continue_or_handle</a>); }</div>
-<div class="ttc" id="namespacequickcpplib_1_1__xxx_1_1signal__guard_html_a90804da905b562f38d803454e3d26bca"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a90804da905b562f38d803454e3d26bca">quickcpplib::_xxx::signal_guard::signal_guard</a></div><div class="ttdeci">auto signal_guard(signalc guarded, F &amp;&amp;f, H &amp;&amp;h)</div><div class="ttdef"><b>Definition:</b> signal_guard.hpp:316</div></div>
-<div class="ttc" id="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail_html_a4065b247b882e5b3293e83f208aa3ff5"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#a4065b247b882e5b3293e83f208aa3ff5">quickcpplib::_xxx::signal_guard::detail::continue_or_handle</a></div><div class="ttdeci">bool continue_or_handle(signalc, const void *, const void *) noexcept</div><div class="ttdef"><b>Definition:</b> signal_guard.hpp:193</div></div>
+<div class="fragment"><div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a90804da905b562f38d803454e3d26bca">signal_guard</a>(guarded, static_cast&lt;F &amp;&amp;&gt;(f), detail::throw_signal_raised&lt;R&gt;, <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#a7e69db95d5fe44c0ec06c9f9586e7a32">detail::continue_or_handle</a>); }</div>
+<div class="ttc" id="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail_html_a7e69db95d5fe44c0ec06c9f9586e7a32"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#a7e69db95d5fe44c0ec06c9f9586e7a32">quickcpplib::_xxx::signal_guard::detail::continue_or_handle</a></div><div class="ttdeci">bool continue_or_handle(const raised_signal_info &amp;) noexcept</div><div class="ttdef"><b>Definition:</b> signal_guard.hpp:228</div></div>
+<div class="ttc" id="namespacequickcpplib_1_1__xxx_1_1signal__guard_html_a90804da905b562f38d803454e3d26bca"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a90804da905b562f38d803454e3d26bca">quickcpplib::_xxx::signal_guard::signal_guard</a></div><div class="ttdeci">auto signal_guard(signalc guarded, F &amp;&amp;f, H &amp;&amp;h)</div><div class="ttdef"><b>Definition:</b> signal_guard.hpp:350</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -461,7 +463,7 @@ template&lt;class F , class R  = decltype(std::declval&lt;F&gt;()())&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class F , class H , class R  = decltype(std::declval&lt;F&gt;()()), typename  = std::enable_if_t&lt; std::is_constructible&lt;R, decltype(std::declval&lt;H&gt;()(signalc::none, static_cast&lt;const void *&gt;(nullptr), static_cast&lt;const void *&gt;(nullptr)))&gt;::value &gt;&gt; </div>
+template&lt;class F , class H , class R  = decltype(std::declval&lt;F&gt;()()), typename  = std::enable_if_t&lt; std::is_constructible&lt;R, decltype(std::declval&lt;H&gt;()(std::declval&lt;const raised_signal_info&gt;()))&gt;::value &gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -497,9 +499,9 @@ template&lt;class F , class H , class R  = decltype(std::declval&lt;F&gt;()()), 
 </table>
 </div><div class="memdoc">
 <p>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. </p>
-<div class="fragment"><div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a90804da905b562f38d803454e3d26bca">signal_guard</a>(guarded, static_cast&lt;F &amp;&amp;&gt;(f), static_cast&lt;H &amp;&amp;&gt;(h), <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#a4065b247b882e5b3293e83f208aa3ff5">detail::continue_or_handle</a>); }</div>
-<div class="ttc" id="namespacequickcpplib_1_1__xxx_1_1signal__guard_html_a90804da905b562f38d803454e3d26bca"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a90804da905b562f38d803454e3d26bca">quickcpplib::_xxx::signal_guard::signal_guard</a></div><div class="ttdeci">auto signal_guard(signalc guarded, F &amp;&amp;f, H &amp;&amp;h)</div><div class="ttdef"><b>Definition:</b> signal_guard.hpp:316</div></div>
-<div class="ttc" id="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail_html_a4065b247b882e5b3293e83f208aa3ff5"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#a4065b247b882e5b3293e83f208aa3ff5">quickcpplib::_xxx::signal_guard::detail::continue_or_handle</a></div><div class="ttdeci">bool continue_or_handle(signalc, const void *, const void *) noexcept</div><div class="ttdef"><b>Definition:</b> signal_guard.hpp:193</div></div>
+<div class="fragment"><div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a90804da905b562f38d803454e3d26bca">signal_guard</a>(guarded, static_cast&lt;F &amp;&amp;&gt;(f), static_cast&lt;H &amp;&amp;&gt;(h), <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#a7e69db95d5fe44c0ec06c9f9586e7a32">detail::continue_or_handle</a>); }</div>
+<div class="ttc" id="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail_html_a7e69db95d5fe44c0ec06c9f9586e7a32"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#a7e69db95d5fe44c0ec06c9f9586e7a32">quickcpplib::_xxx::signal_guard::detail::continue_or_handle</a></div><div class="ttdeci">bool continue_or_handle(const raised_signal_info &amp;) noexcept</div><div class="ttdef"><b>Definition:</b> signal_guard.hpp:228</div></div>
+<div class="ttc" id="namespacequickcpplib_1_1__xxx_1_1signal__guard_html_a90804da905b562f38d803454e3d26bca"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a90804da905b562f38d803454e3d26bca">quickcpplib::_xxx::signal_guard::signal_guard</a></div><div class="ttdeci">auto signal_guard(signalc guarded, F &amp;&amp;f, H &amp;&amp;h)</div><div class="ttdef"><b>Definition:</b> signal_guard.hpp:350</div></div>
 </div><!-- fragment -->
 </div>
 </div>

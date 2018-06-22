@@ -1,6 +1,9 @@
 var searchData=
 [
+  ['raised_5fsignal_5finfo',['raised_signal_info',['../classquickcpplib_1_1__xxx_1_1signal__guard_1_1raised__signal__info.html#a508228da6bf2a1d0f4ab838bff00fc38',1,'quickcpplib::_xxx::signal_guard::raised_signal_info::raised_signal_info()=default'],['../classquickcpplib_1_1__xxx_1_1signal__guard_1_1raised__signal__info.html#a17f088641ebe3c49859e79c7cbca03f2',1,'quickcpplib::_xxx::signal_guard::raised_signal_info::raised_signal_info(const raised_signal_info &amp;)=delete'],['../classquickcpplib_1_1__xxx_1_1signal__guard_1_1raised__signal__info.html#a34a8b1697a578f6832665589f97064cd',1,'quickcpplib::_xxx::signal_guard::raised_signal_info::raised_signal_info(raised_signal_info &amp;&amp;)=delete']]],
   ['random_5fshuffle',['random_shuffle',['../namespacequickcpplib_1_1__xxx_1_1algorithm_1_1small__prng.html#a3bb97975d35cf80a7915b57477e4c7e6',1,'quickcpplib::_xxx::algorithm::small_prng']]],
+  ['raw_5fcontext',['raw_context',['../classquickcpplib_1_1__xxx_1_1signal__guard_1_1raised__signal__info.html#a059f62f1039b8d2deda546704b9610ba',1,'quickcpplib::_xxx::signal_guard::raised_signal_info']]],
+  ['raw_5finfo',['raw_info',['../classquickcpplib_1_1__xxx_1_1signal__guard_1_1raised__signal__info.html#ac136a93a1fd45f5d0b3063ccfe1943c9',1,'quickcpplib::_xxx::signal_guard::raised_signal_info']]],
   ['rbegin',['rbegin',['../classquickcpplib_1_1__xxx_1_1string__view_1_1basic__string__view.html#a68f3be9acc1dc817f8b123e04d9044a5',1,'quickcpplib::_xxx::string_view::basic_string_view::rbegin()'],['../classgsl_1_1span.html#a3efdd010094ba42fdffabc6c589e64b3',1,'gsl::span::rbegin()']]],
   ['red',['red',['../namespacequickcpplib_1_1__xxx_1_1console__colours.html#a14ecbac6832a186cbf826c7f2122af75',1,'quickcpplib::_xxx::console_colours']]],
   ['remove_5fprefix',['remove_prefix',['../classquickcpplib_1_1__xxx_1_1string__view_1_1basic__string__view.html#a6648159d2deecde3a27e550a397850f5',1,'quickcpplib::_xxx::string_view::basic_string_view']]],
