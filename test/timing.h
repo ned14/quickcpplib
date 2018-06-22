@@ -55,15 +55,15 @@ inline uint64_t ticksclock()
 #else
 #if defined(__x86_64__)
   auto rdtscp = [] {
-    unsigned lo, hi;
-    asm volatile("rdtscp" : "=a"(lo), "=d"(hi));
+    unsigned lo, hi, aux;
+    asm volatile("rdtscp" : "=a"(lo), "=d"(hi), "=c"(aux));
     return (uint64_t) lo | ((uint64_t) hi << 32);
   };
 #elif defined(__i386__)
   auto rdtscp = [] {
-    unsigned count;
-    asm volatile("rdtscp" : "=a"(count));
-    return (uint64_t) count;
+    unsigned lo, hi, aux;
+    asm volatile("rdtscp" : "=a"(lo), "=d"(hi), "=c"(aux));
+    return (uint64_t) lo | ((uint64_t) hi << 32);
   };
 #endif
 #if __ARM_ARCH >= 6

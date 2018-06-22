@@ -61,8 +61,8 @@ BOOST_AUTO_TEST_CASE(offset_ptr / performance, "Tests that the offset_ptr has re
   {
     for(size_t n = 0; n < 1000; n++)
     {
-      uint64_t begin = ticksclock();
-      uint64_t end = ticksclock();
+      volatile uint64_t begin = ticksclock();
+      volatile uint64_t end = ticksclock();
       if(end - begin < overhead)
         overhead = end - begin;
     }
@@ -71,9 +71,9 @@ BOOST_AUTO_TEST_CASE(offset_ptr / performance, "Tests that the offset_ptr has re
     uint64_t ticks = 0;
     for(auto &i : testdata)
     {
-      uint64_t begin = ticksclock();
+      volatile uint64_t begin = ticksclock();
       i.second = i.first;
-      uint64_t end = ticksclock();
+      volatile uint64_t end = ticksclock();
       ticks += end - begin - overhead;
     }
     count = sizeof(testdata) / sizeof(testdata[0]);
@@ -83,9 +83,9 @@ BOOST_AUTO_TEST_CASE(offset_ptr / performance, "Tests that the offset_ptr has re
     uint64_t ticks = 0;
     for(auto &i : testdata)
     {
-      uint64_t begin = ticksclock();
+      volatile uint64_t begin = ticksclock();
       (void) i.second;
-      uint64_t end = ticksclock();
+      volatile uint64_t end = ticksclock();
       ticks += end - begin - overhead;
     }
     count = sizeof(testdata) / sizeof(testdata[0]);
@@ -97,12 +97,12 @@ BOOST_AUTO_TEST_CASE(offset_ptr / performance, "Tests that the offset_ptr has re
       testdata[n].second = testdata[n].first;
     }
     uint64_t ticks = 0;
-    uint64_t begin = ticksclock();
+    volatile uint64_t begin = ticksclock();
     for(size_t n = 0; n < 64; n++)
     {
       testdata[n].second = testdata[n].first;
     }
-    uint64_t end = ticksclock();
+    volatile uint64_t end = ticksclock();
     ticks += end - begin - overhead;
     count = sizeof(testdata) / sizeof(testdata[0]);
     std::cout << "It takes " << (ticks / 64) << " CPU ticks throughput per set" << std::endl;
@@ -113,12 +113,12 @@ BOOST_AUTO_TEST_CASE(offset_ptr / performance, "Tests that the offset_ptr has re
       (void) testdata[n].second;
     }
     uint64_t ticks = 0;
-    uint64_t begin = ticksclock();
+    volatile uint64_t begin = ticksclock();
     for(size_t n = 0; n < 64; n++)
     {
       (void) testdata[n].second;
     }
-    uint64_t end = ticksclock();
+    volatile uint64_t end = ticksclock();
     ticks += end - begin - overhead;
     count = sizeof(testdata) / sizeof(testdata[0]);
     std::cout << "It takes " << (ticks / 64) << " CPU ticks throughput per get" << std::endl;
@@ -142,8 +142,8 @@ BOOST_AUTO_TEST_CASE(atomic_offset_ptr / performance, "Tests that the atomic_off
   {
     for(size_t n = 0; n < 1000; n++)
     {
-      uint64_t begin = ticksclock();
-      uint64_t end = ticksclock();
+      volatile uint64_t begin = ticksclock();
+      volatile uint64_t end = ticksclock();
       if(end - begin < overhead)
         overhead = end - begin;
     }
@@ -152,9 +152,9 @@ BOOST_AUTO_TEST_CASE(atomic_offset_ptr / performance, "Tests that the atomic_off
     uint64_t ticks = 0;
     for(auto &i : testdata)
     {
-      uint64_t begin = ticksclock();
+      volatile uint64_t begin = ticksclock();
       i.second.set(i.first);
-      uint64_t end = ticksclock();
+      volatile uint64_t end = ticksclock();
       ticks += end - begin - overhead;
     }
     count = sizeof(testdata) / sizeof(testdata[0]);
@@ -164,9 +164,9 @@ BOOST_AUTO_TEST_CASE(atomic_offset_ptr / performance, "Tests that the atomic_off
     uint64_t ticks = 0;
     for(auto &i : testdata)
     {
-      uint64_t begin = ticksclock();
+      volatile uint64_t begin = ticksclock();
       (void) i.second.get();
-      uint64_t end = ticksclock();
+      volatile uint64_t end = ticksclock();
       ticks += end - begin - overhead;
     }
     count = sizeof(testdata) / sizeof(testdata[0]);
@@ -178,12 +178,12 @@ BOOST_AUTO_TEST_CASE(atomic_offset_ptr / performance, "Tests that the atomic_off
       testdata[n].second = testdata[n].first;
     }
     uint64_t ticks = 0;
-    uint64_t begin = ticksclock();
+    volatile uint64_t begin = ticksclock();
     for(size_t n = 0; n < 64; n++)
     {
       testdata[n].second.set(testdata[n].first);
     }
-    uint64_t end = ticksclock();
+    volatile uint64_t end = ticksclock();
     ticks += end - begin - overhead;
     count = sizeof(testdata) / sizeof(testdata[0]);
     std::cout << "It takes " << (ticks / 64) << " CPU ticks throughput per set" << std::endl;
@@ -194,12 +194,12 @@ BOOST_AUTO_TEST_CASE(atomic_offset_ptr / performance, "Tests that the atomic_off
       (void) testdata[n].second;
     }
     uint64_t ticks = 0;
-    uint64_t begin = ticksclock();
+    volatile uint64_t begin = ticksclock();
     for(size_t n = 0; n < 64; n++)
     {
       (void) testdata[n].second.get();
     }
-    uint64_t end = ticksclock();
+    volatile uint64_t end = ticksclock();
     ticks += end - begin - overhead;
     count = sizeof(testdata) / sizeof(testdata[0]);
     std::cout << "It takes " << (ticks / 64) << " CPU ticks throughput per get" << std::endl;
