@@ -161,39 +161,74 @@ namespace signal_guard
     virtual const char *what() const noexcept override { return detail::signalc_to_string(_code); }
   };
 
+  /*! \class raised_signal_info
+  \brief Portable information about a raised signal.
+  */
+  class raised_signal_info
+  {
+  protected:
+    raised_signal_info() = default;
+
+  public:
+    jmp_buf _buf;
+
+    raised_signal_info(const raised_signal_info &) = delete;
+    raised_signal_info(raised_signal_info &&) = delete;
+    raised_signal_info &operator=(const raised_signal_info &) = delete;
+    raised_signal_info &operator=(raised_signal_info &&) = delete;
+
+    //! The signal raised
+    virtual signalc signal() const = 0;
+    //! The faulting address for `signalc::undefined_memory_access`, `signalc::segmentation_fault`, `signalc::illegal_instruction` and `signalc::floating_point_error`.
+    virtual void *address() const = 0;
+//! The system specific error code for this signal, the `si_errno` code (POSIX) or `NTSTATUS` code (Windows)
+#ifdef _WIN32
+    virtual long error_code() const = 0;
+#else
+    virtual int error_code() const = 0;
+#endif
+
+    //! The OS specific `siginfo_t *` (POSIX) or `PEXCEPTION_RECORD` (Windows)
+    virtual void *raw_info() = 0;
+    //! The OS specific `ucontext_t` (POSIX) or `PCONTEXT` (Windows)
+    virtual void *raw_context() = 0;
+
+    virtual bool _set_siginfo(intptr_t, void *, void *) = 0;
+    virtual bool _call_continuer() const = 0;
+  };
+
   namespace detail
   {
-    struct signal_handler_info_base;
-    SIGNALGUARD_FUNC_DECL signal_handler_info_base *&current_signal_handler() noexcept;
+    SIGNALGUARD_FUNC_DECL raised_signal_info *&current_signal_handler() noexcept;
 #ifdef _WIN32
     SIGNALGUARD_FUNC_DECL unsigned long win32_exception_filter_function(unsigned long code, _EXCEPTION_POINTERS *pts) noexcept;
 #endif
-    struct signal_handler_info_base
+    struct SIGNALGUARD_CLASS_DECL erased_signal_handler_info : public raised_signal_info
     {
-      jmp_buf buf;
-      virtual bool set_siginfo(intptr_t, void *, void *) = 0;
-      virtual bool call_continuer() const = 0;
-    };
-    struct SIGNALGUARD_CLASS_DECL erased_signal_handler_info : public signal_handler_info_base
-    {
-      SIGNALGUARD_MEMFUNC_DECL explicit erased_signal_handler_info();
+      SIGNALGUARD_MEMFUNC_DECL erased_signal_handler_info();
 
-      SIGNALGUARD_MEMFUNC_DECL signalc signal() const;
-      SIGNALGUARD_MEMFUNC_DECL const void *info() const;
-      SIGNALGUARD_MEMFUNC_DECL const void *context() const;
+      SIGNALGUARD_MEMFUNC_DECL signalc signal() const override final;
+      SIGNALGUARD_MEMFUNC_DECL void *address() const override final;
+#ifdef _WIN32
+      SIGNALGUARD_MEMFUNC_DECL long error_code() const override final;
+#else
+      SIGNALGUARD_MEMFUNC_DECL int error_code() const override final;
+#endif
+      SIGNALGUARD_MEMFUNC_DECL void *raw_info() override final;
+      SIGNALGUARD_MEMFUNC_DECL void *raw_context() override final;
 
       SIGNALGUARD_MEMFUNC_DECL void acquire(signalc guarded);
       SIGNALGUARD_MEMFUNC_DECL void release(signalc guarded);
 
     private:
-      SIGNALGUARD_MEMFUNC_DECL virtual bool set_siginfo(intptr_t, void *, void *) override final;
-      char _erased[1408];
+      SIGNALGUARD_MEMFUNC_DECL virtual bool _set_siginfo(intptr_t, void *, void *) override final;
+      char _erased[1424];
     };
-    template <class R> inline R throw_signal_raised(signalc code, const void * /*unused*/, const void * /*unused*/) { throw signal_raised(code); }
-    inline bool continue_or_handle(signalc /*unused*/, const void * /*unused*/, const void * /*unused*/) noexcept { return false; }
+    template <class R> inline R throw_signal_raised(const raised_signal_info &i) { throw signal_raised(i.signal()); }
+    inline bool continue_or_handle(const raised_signal_info & /*unused*/) noexcept { return false; }
   }
 
-#ifdef __GNUC__
+#if defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 6
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wclobbered"
 #endif
@@ -216,17 +251,16 @@ namespace signal_guard
 
   If during the execution of `f`, any one of the signals `guarded` is raised:
 
-  1. `c`, which must have the prototype `bool(signalc, const void *, const void *)`, is called with the signal which
-  was raised. The two `void *` are the `siginfo_t *` and `void *` from the `sa_sigaction` handler on POSIX;
-  on Windows they are the `PEXCEPTION_RECORD` and `PCONTEXT` from the exception handler. You can fix
+  1. `c`, which must have the prototype `bool(const raised_signal_info &)`, is called with the signal which
+  was raised. You can fix
   the cause of the signal and return `true` to continue execution, or else return `false` to halt execution.
   Note that the variety of code you can call in `c` is extremely limited, the same restrictions
   as for signal handlers apply.
 
   2. If `c` returned `false`, the execution of `f` is halted **immediately** without stack unwind, the thread is returned
   to the state just before the calling of `f`, and the callable `g` is called with the specific signal
-  which occurred. `g` must have the prototype `R(signalc, const void *, const void *)` where `R` is the return type of `f`,
-  and the two `void *` are the same as for the calling of `c`. `g` is called with this signal guard
+  which occurred. `g` must have the prototype `R(const raised_signal_info &)` where `R` is the return type of `f`.
+  `g` is called with this signal guard
   removed, though a signal guard higher in the call chain may instead be active.
 
   Obviously all state which `f` may have been in the process of doing will be thrown away. You
@@ -235,8 +269,8 @@ namespace signal_guard
   C++ exception.
   */
   QUICKCPPLIB_TEMPLATE(class F, class H, class C, class R = decltype(std::declval<F>()()))
-  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(std::is_constructible<R, decltype(std::declval<H>()(signalc::none, static_cast<const void *>(nullptr), static_cast<const void *>(nullptr)))>::value),  //
-                        QUICKCPPLIB_TPRED(std::is_constructible<bool, decltype(std::declval<C>()(signalc::none, static_cast<const void *>(nullptr), static_cast<const void *>(nullptr)))>::value))
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(std::is_constructible<R, decltype(std::declval<H>()(std::declval<const raised_signal_info>()))>::value),  //
+                        QUICKCPPLIB_TPRED(std::is_constructible<bool, decltype(std::declval<C>()(std::declval<const raised_signal_info>()))>::value))
   inline R signal_guard(signalc guarded, F &&f, H &&h, C &&c)
   {
     struct signal_handler_info_ : public detail::erased_signal_handler_info
@@ -249,7 +283,7 @@ namespace signal_guard
       ~signal_handler_info_() = default;
 
     protected:
-      virtual bool call_continuer() const override final { return continuer(this->signal(), this->info(), this->context()); }
+      virtual bool _call_continuer() const override final { return continuer(*this); }
     };
     signal_handler_info_ guard(static_cast<C &&>(c));
     signal_guard_install *sgi = nullptr;
@@ -269,7 +303,7 @@ namespace signal_guard
 #pragma warning(push)
 #pragma warning(disable : 4611)  // interaction between setjmp() and C++ object destruction is non-portable
 #endif
-    if(setjmp(guard.buf))
+    if(setjmp(guard._buf))
 #ifdef _MSC_VER
 #pragma warning(pop)
 #endif
@@ -278,7 +312,7 @@ namespace signal_guard
       guard.release(guarded);
       if(sgi != nullptr)
         sgi->~signal_guard_install();
-      return h(guard.signal(), guard.info(), guard.context());
+      return h(guard);
     }
     std::atomic_signal_fence(std::memory_order_seq_cst);
 #ifdef _WIN32
@@ -292,7 +326,7 @@ namespace signal_guard
     }
     __except(detail::win32_exception_filter_function(GetExceptionCode(), GetExceptionInformation()))
     {
-      longjmp(guard.buf, 1);
+      longjmp(guard._buf, 1);
     }
 #else
     // Set the TLS, enable the signals
@@ -305,14 +339,14 @@ namespace signal_guard
     return f();
 #endif
   }
-#ifdef __GNUC__
+#if defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 6
 #pragma GCC diagnostic pop
 #endif
   //! \overload
   template <class F, class R = decltype(std::declval<F>()())> inline R signal_guard(signalc guarded, F &&f) { return signal_guard(guarded, static_cast<F &&>(f), detail::throw_signal_raised<R>, detail::continue_or_handle); }
   //! \overload
   QUICKCPPLIB_TEMPLATE(class F, class H, class R = decltype(std::declval<F>()()))
-  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(std::is_constructible<R, decltype(std::declval<H>()(signalc::none, static_cast<const void *>(nullptr), static_cast<const void *>(nullptr)))>::value))
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(std::is_constructible<R, decltype(std::declval<H>()(std::declval<const raised_signal_info>()))>::value))
   inline auto signal_guard(signalc guarded, F &&f, H &&h) { return signal_guard(guarded, static_cast<F &&>(f), static_cast<H &&>(h), detail::continue_or_handle); }
 }
 

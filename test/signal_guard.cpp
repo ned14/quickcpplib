@@ -39,13 +39,13 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / threadlocal, "Tests that signal_guar
                              volatile int *a = nullptr;
                              return *a;
                            },
-                           [](signalc, const void *, const void *) -> int { return 78; });
+                           [](const raised_signal_info & /*unused*/) -> int { return 78; });
     BOOST_CHECK(ret == 78);
     BOOST_CHECK(detail::current_signal_handler() == nullptr);
   }
   std::cout << "2" << std::endl;
   {
-    int ret = signal_guard(signalc::termination, []() -> int { std::terminate(); }, [](signalc, const void *, const void *) -> int { return 78; });
+    int ret = signal_guard(signalc::termination, []() -> int { std::terminate(); }, [](const raised_signal_info & /*unused*/) -> int { return 78; });
     BOOST_CHECK(ret == 78);
     BOOST_CHECK(detail::current_signal_handler() == nullptr);
   }
@@ -56,7 +56,7 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / threadlocal, "Tests that signal_guar
                              thread_local_raise_signal(signalc::segmentation_fault);
                              return 5;
                            },
-                           [](signalc, const void *, const void *) -> int { return 78; });
+                           [](const raised_signal_info & /*unused*/) -> int { return 78; });
     BOOST_CHECK(ret == 78);
     BOOST_CHECK(detail::current_signal_handler() == nullptr);
   }
@@ -73,12 +73,12 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / early, "Tests that signal_guard work
                              volatile int *a = nullptr;
                              return *a;
                            },
-                           [](signalc, const void *, const void *) -> int { return 78; });
+                           [](const raised_signal_info & /*unused*/) -> int { return 78; });
     BOOST_CHECK(ret == 78);
     BOOST_CHECK(detail::current_signal_handler() == nullptr);
   }
   {
-    int ret = signal_guard(signalc::termination, []() -> int { std::terminate(); }, [](signalc, const void *, const void *) -> int { return 78; });
+    int ret = signal_guard(signalc::termination, []() -> int { std::terminate(); }, [](const raised_signal_info & /*unused*/) -> int { return 78; });
     BOOST_CHECK(ret == 78);
     BOOST_CHECK(detail::current_signal_handler() == nullptr);
   }
@@ -88,7 +88,7 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / early, "Tests that signal_guard work
                              thread_local_raise_signal(signalc::segmentation_fault);
                              return 5;
                            },
-                           [](signalc, const void *, const void *) -> int { return 78; });
+                           [](const raised_signal_info & /*unused*/) -> int { return 78; });
     BOOST_CHECK(ret == 78);
     BOOST_CHECK(detail::current_signal_handler() == nullptr);
   }
@@ -118,7 +118,7 @@ BOOST_AUTO_TEST_CASE(signal_guard / performance / threadlocal, "Tests that the s
     for(size_t n = 0; n < 128; n++)
     {
       uint64_t begin = ticksclock();
-      volatile int ret = signal_guard(signalc::segmentation_fault, []() -> int { return 5; }, [](signalc, const void *, const void *) -> int { return 78; });
+      volatile int ret = signal_guard(signalc::segmentation_fault, []() -> int { return 5; }, [](const raised_signal_info & /*unused*/) -> int { return 78; });
       uint64_t end = ticksclock();
       (void) ret;
       // std::cout << (end - begin - overhead) << std::endl;
@@ -152,7 +152,7 @@ BOOST_AUTO_TEST_CASE(signal_guard / performance / early, "Tests that the signal_
     for(size_t n = 0; n < 128; n++)
     {
       uint64_t begin = ticksclock();
-      volatile int ret = signal_guard(signalc::segmentation_fault, []() -> int { return 5; }, [](signalc, const void *, const void *) -> int { return 78; });
+      volatile int ret = signal_guard(signalc::segmentation_fault, []() -> int { return 5; }, [](const raised_signal_info & /*unused*/) -> int { return 78; });
       uint64_t end = ticksclock();
       (void) ret;
       // std::cout << (end - begin - overhead) << std::endl;

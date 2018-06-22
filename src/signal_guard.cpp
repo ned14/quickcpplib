@@ -51,9 +51,9 @@ namespace signal_guard
       return "unknown";
     }
 
-    SIGNALGUARD_FUNC_DECL signal_handler_info_base *&current_signal_handler() noexcept
+    SIGNALGUARD_FUNC_DECL raised_signal_info *&current_signal_handler() noexcept
     {
-      static QUICKCPPLIB_THREAD_LOCAL signal_handler_info_base *v;
+      static QUICKCPPLIB_THREAD_LOCAL raised_signal_info *v;
       return v;
     }
 #ifndef _WIN32
@@ -74,11 +74,11 @@ namespace signal_guard
       auto *shi = current_signal_handler();
       if(shi != nullptr)
       {
-        if(shi->set_siginfo(signalc::out_of_memory, nullptr, nullptr))
+        if(shi->_set_siginfo(signalc::out_of_memory, nullptr, nullptr))
         {
-          if(!shi->call_continuer())
+          if(!shi->_call_continuer())
           {
-            longjmp(shi->buf, 1);
+            longjmp(shi->_buf, 1);
           }
         }
       }
@@ -96,11 +96,11 @@ namespace signal_guard
       auto *shi = current_signal_handler();
       if(shi != nullptr)
       {
-        if(shi->set_siginfo(signalc::termination, nullptr, nullptr))
+        if(shi->_set_siginfo(signalc::termination, nullptr, nullptr))
         {
-          if(!shi->call_continuer())
+          if(!shi->_call_continuer())
           {
-            longjmp(shi->buf, 1);
+            longjmp(shi->_buf, 1);
           }
         }
       }
@@ -171,9 +171,9 @@ namespace signal_guard
       auto *shi = current_signal_handler();
       if(shi != nullptr)
       {
-        if(shi->set_siginfo(code, ptrs->ExceptionRecord, ptrs->ContextRecord))
+        if(shi->_set_siginfo(code, ptrs->ExceptionRecord, ptrs->ContextRecord))
         {
-          if(!shi->call_continuer())
+          if(!shi->_call_continuer())
           {
             // invoke longjmp
             return EXCEPTION_EXECUTE_HANDLER;
@@ -234,10 +234,12 @@ namespace signal_guard
     static installed_signal_handler handler_counts[16];
 
     // Simulate the raising of a signal
-    inline bool do_raise_signal(int signo, struct sigaction &sa, siginfo_t *info, void *context)
+    inline bool do_raise_signal(int signo, struct sigaction &sa, siginfo_t *_info, void *_context)
     {
       void (*h1)(int signo, siginfo_t *info, void *context) = nullptr;
       void (*h2)(int signo) = nullptr;
+      siginfo_t info;
+      ucontext_t context;
       // std::cout << "do_raise_signal(" << signo << ", " << (void *) sa.sa_handler << ", " << info << ", " << context << ")" << std::endl;
       if(sa.sa_handler == SIG_IGN)
       {
@@ -267,6 +269,8 @@ namespace signal_guard
       else if(sa.sa_flags & SA_SIGINFO)
       {
         h1 = sa.sa_sigaction;
+        info = *_info;
+        context = *(const ucontext_t *) _context;
       }
       else
       {
@@ -292,7 +296,7 @@ namespace signal_guard
       sigset_t oldset;
       pthread_sigmask(SIG_BLOCK, &sa.sa_mask, &oldset);
       if(h1 != nullptr)
-        h1(signo, info, context);
+        h1(signo, &info, &context);
       else
         h2(signo);
       pthread_sigmask(SIG_SETMASK, &oldset, nullptr);
@@ -306,11 +310,11 @@ namespace signal_guard
       // std::cout << "raw_signal_handler(" << signo << ", " << info << ", " << context << ") shi=" << shi << std::endl;
       if(shi != nullptr)
       {
-        if(shi->set_siginfo(signo, info, context))
+        if(shi->_set_siginfo(signo, info, context))
         {
-          if(!shi->call_continuer())
+          if(!shi->_call_continuer())
           {
-            longjmp(shi->buf, 1);
+            longjmp(shi->_buf, 1);
           }
         }
       }
@@ -526,8 +530,8 @@ namespace signal_guard
   {
     struct signal_handler_info
     {
-      signal_handler_info_base *next{nullptr};  // any previously installed info on this thread
-      signalc guarded{signalc::none};           // handlers used
+      raised_signal_info *next{nullptr};  // any previously installed info on this thread
+      signalc guarded{signalc::none};     // handlers used
 
       signalc signal{signalc::none};  // the signal which occurred
       intptr_t signo{-1};             // what the signal handler was called with
@@ -541,7 +545,7 @@ namespace signal_guard
       ucontext_t context;
 #endif
     };
-    static_assert(sizeof(signal_handler_info) <= 1408, "signal_handler_info is too big for erased storage");
+    static_assert(sizeof(signal_handler_info) <= 1424, "signal_handler_info is too big for erased storage");
 
     SIGNALGUARD_MEMFUNC_DECL erased_signal_handler_info::erased_signal_handler_info()
     {
@@ -554,15 +558,37 @@ namespace signal_guard
       auto *p = reinterpret_cast<const signal_handler_info *>(_erased);
       return p->signal;
     }
-    SIGNALGUARD_MEMFUNC_DECL const void *erased_signal_handler_info::info() const
+    SIGNALGUARD_MEMFUNC_DECL void *erased_signal_handler_info::address() const
     {
       auto *p = reinterpret_cast<const signal_handler_info *>(_erased);
-      return p->have_info ? static_cast<const void *>(&p->info) : nullptr;
+#ifdef _WIN32
+      return p->have_info ? (void *) p->info.ExceptionInformation[1] : nullptr;
+#else
+      return p->have_info ? p->info.si_addr : nullptr;
+#endif
     }
-    SIGNALGUARD_MEMFUNC_DECL const void *erased_signal_handler_info::context() const
+#ifdef _WIN32
+    SIGNALGUARD_MEMFUNC_DECL long erased_signal_handler_info::error_code() const
     {
       auto *p = reinterpret_cast<const signal_handler_info *>(_erased);
-      return p->have_context ? static_cast<const void *>(&p->context) : nullptr;
+      return p->have_info ? (long) p->info.ExceptionInformation[2] : 0;
+    }
+#else
+    SIGNALGUARD_MEMFUNC_DECL int erased_signal_handler_info::error_code() const
+    {
+      auto *p = reinterpret_cast<const signal_handler_info *>(_erased);
+      return p->have_info ? p->info.si_errno : 0;
+    }
+#endif
+    SIGNALGUARD_MEMFUNC_DECL void *erased_signal_handler_info::raw_info()
+    {
+      auto *p = reinterpret_cast<signal_handler_info *>(_erased);
+      return p->have_info ? static_cast<void *>(&p->info) : nullptr;
+    }
+    SIGNALGUARD_MEMFUNC_DECL void *erased_signal_handler_info::raw_context()
+    {
+      auto *p = reinterpret_cast<signal_handler_info *>(_erased);
+      return p->have_context ? static_cast<void *>(&p->context) : nullptr;
     }
 
     SIGNALGUARD_MEMFUNC_DECL void erased_signal_handler_info::acquire(signalc guarded)
@@ -620,7 +646,7 @@ namespace signal_guard
 #endif
       p->~signal_handler_info();
     }
-    SIGNALGUARD_MEMFUNC_DECL bool erased_signal_handler_info::set_siginfo(intptr_t signo, void *info, void *context)
+    SIGNALGUARD_MEMFUNC_DECL bool erased_signal_handler_info::_set_siginfo(intptr_t signo, void *info, void *context)
     {
       auto *p = reinterpret_cast<signal_handler_info *>(_erased);
       p->signo = signo;
