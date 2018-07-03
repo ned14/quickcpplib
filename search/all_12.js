@@ -1,9 +1,9 @@
 var searchData=
 [
   ['scoped_5fundo_2ehpp',['scoped_undo.hpp',['../scoped__undo_8hpp.html',1,'']]],
-  ['secdec_5fecc_2ehpp',['secdec_ecc.hpp',['../secdec__ecc_8hpp.html',1,'']]],
-  ['secded_5fecc',['secded_ecc',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1secdec__ecc_1_1secded__ecc.html',1,'quickcpplib::_xxx::algorithm::secdec_ecc']]],
-  ['secded_5fecc',['secded_ecc',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1secdec__ecc_1_1secded__ecc.html#a35a457be0deb844cd168eee48877760e',1,'quickcpplib::_xxx::algorithm::secdec_ecc::secded_ecc']]],
+  ['secded_5fecc',['secded_ecc',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html',1,'quickcpplib::_xxx::algorithm::secded_ecc']]],
+  ['secded_5fecc',['secded_ecc',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#ae73870163b0e105ef5d1135d9fe16651',1,'quickcpplib::_xxx::algorithm::secded_ecc::secded_ecc']]],
+  ['secded_5fecc_2ehpp',['secded_ecc.hpp',['../secded__ecc_8hpp.html',1,'']]],
   ['second',['second',['../structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html#aa4b26f9e693851150164c61abb20ff5c',1,'quickcpplib::_xxx::algorithm::open_hash_index::linear_memory_policy::value_type::second()'],['../structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type.html#ae9957939eb88984b475c682ec0c99c50',1,'quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy::value_type::second()']]],
   ['second_5ftype',['second_type',['../structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html#a17cf6a1f59a34cc3278b0df9e94721e1',1,'quickcpplib::_xxx::algorithm::open_hash_index::linear_memory_policy::value_type::second_type()'],['../structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type.html#a470660fb27c018c9d531396c2a075a25',1,'quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy::value_type::second_type()']]],
   ['segmentation_5ffault',['segmentation_fault',['../namespacequickcpplib_1_1__xxx_1_1signal__guard.html#ad51cebe56c9a0718495f06b43bd71fa3a6f73884c462ca69e0c2df3ae79df80f7',1,'quickcpplib::_xxx::signal_guard']]],

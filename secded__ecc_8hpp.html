@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>QuickCppLib: include/algorithm/secdec_ecc.hpp File Reference</title>
+<title>QuickCppLib: include/algorithm/secded_ecc.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -87,7 +87,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('secdec__ecc_8hpp.html','');});
+$(document).ready(function(){initNavTree('secded__ecc_8hpp.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -110,15 +110,16 @@ $(document).ready(function(){initNavTree('secdec__ecc_8hpp.html','');});
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#define-members">Macros</a>  </div>
   <div class="headertitle">
-<div class="title">secdec_ecc.hpp File Reference</div>  </div>
+<div class="title">secded_ecc.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="config_8hpp.html">../config.hpp</a>&quot;</code><br/>
+<code>#include &lt;stdexcept&gt;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secdec__ecc_1_1secded__ecc.html">quickcpplib::_xxx::algorithm::secdec_ecc::secded_ecc&lt; blocksize &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the single error correcting double error detecting (SECDED) Hamming Error Correcting Code for a <em>blocksize</em> block of bytes. For example, a secdec_ecc&lt;8&gt; would be the very common 72,64 Hamming code used in ECC RAM, or secdec_ecc&lt;4096&gt; would be for a 32784,32768 Hamming code.  <a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secdec__ecc_1_1secded__ecc.html#details">More...</a><br/></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html">quickcpplib::_xxx::algorithm::secded_ecc::secded_ecc&lt; blocksize &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the single error correcting double error detecting (SECDED) Hamming Error Correcting Code for a <em>blocksize</em> block of bytes. For example, a secdec_ecc&lt;8&gt; would be the very common 72,64 Hamming code used in ECC RAM, or secdec_ecc&lt;4096&gt; would be for a 32784,32768 Hamming code.  <a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -131,35 +132,35 @@ Namespaces</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespacequickcpplib_1_1__xxx_1_1algorithm"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1algorithm.html">quickcpplib::_xxx::algorithm</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacequickcpplib_1_1__xxx_1_1algorithm_1_1secdec__ecc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1algorithm_1_1secdec__ecc.html">quickcpplib::_xxx::algorithm::secdec_ecc</a></td></tr>
+<tr class="memitem:namespacequickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc.html">quickcpplib::_xxx::algorithm::secded_ecc</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:add1302bea5120518e58a39cfa8829dbc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="secdec__ecc_8hpp.html#add1302bea5120518e58a39cfa8829dbc">QUICKCPPLIB_SECDEC_INTRINSICS</a>&#160;&#160;&#160;0</td></tr>
-<tr class="separator:add1302bea5120518e58a39cfa8829dbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42c31deb76eec52de1b8616b021ef04e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="secdec__ecc_8hpp.html#a42c31deb76eec52de1b8616b021ef04e">QUICKCPPLIB_SECDEC_ROUND</a>(n)</td></tr>
-<tr class="separator:a42c31deb76eec52de1b8616b021ef04e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13b8b088fbfa4b9c7ff4f2b2b47b7ec0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="secded__ecc_8hpp.html#a13b8b088fbfa4b9c7ff4f2b2b47b7ec0">QUICKCPPLIB_SECDED_INTRINSICS</a>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:a13b8b088fbfa4b9c7ff4f2b2b47b7ec0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5402ceb5f5a6f996c87f2282f012918f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="secded__ecc_8hpp.html#a5402ceb5f5a6f996c87f2282f012918f">QUICKCPPLIB_SECDED_ROUND</a>(n)</td></tr>
+<tr class="separator:a5402ceb5f5a6f996c87f2282f012918f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
-<a class="anchor" id="add1302bea5120518e58a39cfa8829dbc"></a>
+<a class="anchor" id="a13b8b088fbfa4b9c7ff4f2b2b47b7ec0"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define QUICKCPPLIB_SECDEC_INTRINSICS&#160;&#160;&#160;0</td>
+          <td class="memname">#define QUICKCPPLIB_SECDED_INTRINSICS&#160;&#160;&#160;0</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a class="anchor" id="a42c31deb76eec52de1b8616b021ef04e"></a>
+<a class="anchor" id="a5402ceb5f5a6f996c87f2282f012918f"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define QUICKCPPLIB_SECDEC_ROUND</td>
+          <td class="memname">#define QUICKCPPLIB_SECDED_ROUND</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">n</td><td>)</td>
@@ -199,7 +200,7 @@ Macros</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_60beb1a8c39378ddb4df49f229c876e7.html">algorithm</a></li><li class="navelem"><a class="el" href="secdec__ecc_8hpp.html">secdec_ecc.hpp</a></li>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_60beb1a8c39378ddb4df49f229c876e7.html">algorithm</a></li><li class="navelem"><a class="el" href="secded__ecc_8hpp.html">secded_ecc.hpp</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>

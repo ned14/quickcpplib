@@ -108,6 +108,7 @@ $(document).ready(function(){initNavTree('classquickcpplib_1_1__xxx_1_1algorithm
 
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -115,21 +116,44 @@ $(document).ready(function(){initNavTree('classquickcpplib_1_1__xxx_1_1algorithm
 </div><!--header-->
 <div class="contents">
 
-<p>From <a href="http://burtleburtle.net/bob/rand/smallprng.html">http://burtleburtle.net/bob/rand/smallprng.html</a>.  
+<p>From <a href="http://burtleburtle.net/bob/rand/smallprng.html,">http://burtleburtle.net/bob/rand/smallprng.html,</a> a not awful fast random number source.  
  <a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#details">More...</a></p>
 
 <p><code>#include &quot;small_prng.hpp&quot;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:aeb165301d821dc3be5e68ddd1867ed20"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#aeb165301d821dc3be5e68ddd1867ed20">value_type</a> = uint32_t</td></tr>
+<tr class="memdesc:aeb165301d821dc3be5e68ddd1867ed20"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type produced by the small prng.  <a href="#aeb165301d821dc3be5e68ddd1867ed20">More...</a><br/></td></tr>
+<tr class="separator:aeb165301d821dc3be5e68ddd1867ed20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab94703102348a3b57103c95699139c28"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#ab94703102348a3b57103c95699139c28">small_prng</a> (uint32_t seed=0xdeadbeef) noexcept</td></tr>
+<tr class="memdesc:ab94703102348a3b57103c95699139c28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an instance with <code>seed</code>  <a href="#ab94703102348a3b57103c95699139c28">More...</a><br/></td></tr>
 <tr class="separator:ab94703102348a3b57103c95699139c28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b51ba6166559fc20c838dabeb0e0055"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#a4b51ba6166559fc20c838dabeb0e0055">operator()</a> () noexcept</td></tr>
+<tr class="memdesc:a4b51ba6166559fc20c838dabeb0e0055"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return <code>value_type</code> of pseudo-randomness.  <a href="#a4b51ba6166559fc20c838dabeb0e0055">More...</a><br/></td></tr>
 <tr class="separator:a4b51ba6166559fc20c838dabeb0e0055"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>From <a href="http://burtleburtle.net/bob/rand/smallprng.html">http://burtleburtle.net/bob/rand/smallprng.html</a>. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<div class="textblock"><p>From <a href="http://burtleburtle.net/bob/rand/smallprng.html,">http://burtleburtle.net/bob/rand/smallprng.html,</a> a not awful fast random number source. </p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a class="anchor" id="aeb165301d821dc3be5e68ddd1867ed20"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#aeb165301d821dc3be5e68ddd1867ed20">quickcpplib::_xxx::algorithm::small_prng::small_prng::value_type</a> =  uint32_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The type produced by the small prng. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ab94703102348a3b57103c95699139c28"></a>
 <div class="memitem">
 <div class="memproto">
@@ -151,12 +175,14 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        a = 0xf1ea5eed;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        b = c = d = seed;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0; i &lt; 20; ++i)</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;          (*<span class="keyword">this</span>)();</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      }</div>
+
+<p>Construct an instance with <code>seed</code> </p>
+<div class="fragment"><div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        a = 0xf1ea5eed;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        b = c = d = seed;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0; i &lt; 20; ++i)</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;          (*<span class="keyword">this</span>)();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -181,14 +207,16 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        uint32_t e = a - rot(b, 27);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        a = b ^ rot(c, 17);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        b = c + d;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        c = d + e;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        d = e + a;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordflow">return</span> d;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      }</div>
+
+<p>Return <code>value_type</code> of pseudo-randomness. </p>
+<div class="fragment"><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      {</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        uint32_t e = a - rot(b, 27);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        a = b ^ rot(c, 17);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        b = c + d;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        c = d + e;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        d = e + a;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keywordflow">return</span> d;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -1,5 +1,6 @@
 var NAVTREEINDEX3 =
 {
+"gsl-lite-vc6_8hpp.html#a0be826c860d1bf5c41ceb8a7002a3d1a":[4,0,0,2,0,0,0,32],
 "gsl-lite-vc6_8hpp.html#a0d04cb7c93b0dcbd177517c173760286":[4,0,0,2,0,0,0,17],
 "gsl-lite-vc6_8hpp.html#a0e239d0c3079c100a6c95bd20af04380":[4,0,0,2,0,0,0,22],
 "gsl-lite-vc6_8hpp.html#a103e788ac46099c560b791149475fd24":[4,0,0,2,0,0,0,52],
@@ -248,6 +249,5 @@ var NAVTREEINDEX3 =
 "namespacemembers_type.html":[2,1,3],
 "namespacemembers_vars.html":[2,1,2],
 "namespacequickcpplib.html":[3,0,1],
-"namespacequickcpplib.html":[2,0,1],
-"namespacequickcpplib_1_1__xxx.html":[3,0,1,0]
+"namespacequickcpplib.html":[2,0,1]
 };

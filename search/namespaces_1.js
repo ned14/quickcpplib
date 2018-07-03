@@ -30,7 +30,7 @@ var searchData=
   ['quickcpplib',['quickcpplib',['../namespacequickcpplib.html',1,'']]],
   ['ringbuffer_5flog',['ringbuffer_log',['../namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html',1,'quickcpplib::_xxx']]],
   ['scoped_5fundo',['scoped_undo',['../namespacequickcpplib_1_1__xxx_1_1scoped__undo.html',1,'quickcpplib::_xxx']]],
-  ['secdec_5fecc',['secdec_ecc',['../namespacequickcpplib_1_1__xxx_1_1algorithm_1_1secdec__ecc.html',1,'quickcpplib::_xxx::algorithm']]],
+  ['secded_5fecc',['secded_ecc',['../namespacequickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc.html',1,'quickcpplib::_xxx::algorithm']]],
   ['signal_5fguard',['signal_guard',['../namespacequickcpplib_1_1__xxx_1_1signal__guard.html',1,'quickcpplib::_xxx']]],
   ['simple_5fringbuffer_5flog_5fpolicy_5fdetail',['simple_ringbuffer_log_policy_detail',['../namespacequickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail.html',1,'quickcpplib::_xxx::ringbuffer_log']]],
   ['small_5fprng',['small_prng',['../namespacequickcpplib_1_1__xxx_1_1algorithm_1_1small__prng.html',1,'quickcpplib::_xxx::algorithm']]],

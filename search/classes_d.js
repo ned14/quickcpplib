@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['secded_5fecc',['secded_ecc',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1secdec__ecc_1_1secded__ecc.html',1,'quickcpplib::_xxx::algorithm::secdec_ecc']]],
+  ['secded_5fecc',['secded_ecc',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html',1,'quickcpplib::_xxx::algorithm::secded_ecc']]],
   ['shared_5fspinlock',['shared_spinlock',['../classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlock.html',1,'quickcpplib::_xxx::configurable_spinlock']]],
   ['shared_5fspinlockbase',['shared_spinlockbase',['../structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlockbase.html',1,'quickcpplib::_xxx::configurable_spinlock']]],
   ['signal_5fguard_5finstall',['signal_guard_install',['../classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__install.html',1,'quickcpplib::_xxx::signal_guard']]],

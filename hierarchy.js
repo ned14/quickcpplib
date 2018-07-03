@@ -68,7 +68,7 @@ var hierarchy =
     [ "quickcpplib::_xxx::aligned_allocator::aligned_allocator< T, Align, initialize >::rebind< U >", "structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_1_1rebind.html", null ],
     [ "quickcpplib::_xxx::unit_test::requirement_failed", "structquickcpplib_1_1__xxx_1_1unit__test_1_1requirement__failed.html", null ],
     [ "quickcpplib::_xxx::ringbuffer_log::ringbuffer_log< Policy >", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html", null ],
-    [ "quickcpplib::_xxx::algorithm::secdec_ecc::secded_ecc< blocksize >", "classquickcpplib_1_1__xxx_1_1algorithm_1_1secdec__ecc_1_1secded__ecc.html", null ],
+    [ "quickcpplib::_xxx::algorithm::secded_ecc::secded_ecc< blocksize >", "classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html", null ],
     [ "quickcpplib::_xxx::configurable_spinlock::shared_spinlockbase< T >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlockbase.html", null ],
     [ "quickcpplib::_xxx::signal_guard::signal_guard_install", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__install.html", null ],
     [ "quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy< Bytes >", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy.html", null ],
