@@ -38,7 +38,7 @@ namespace algorithm
   namespace small_prng
   {
     /*! \class small_prng
-    \brief From http://burtleburtle.net/bob/rand/smallprng.html
+    \brief From http://burtleburtle.net/bob/rand/smallprng.html, a not awful fast random number source.
     */
     class small_prng
     {
@@ -49,6 +49,10 @@ namespace algorithm
 
       static inline uint32_t rot(uint32_t x, uint32_t k) noexcept { return (((x) << (k)) | ((x) >> (32 - (k)))); }
     public:
+      //! The type produced by the small prng
+      using value_type = uint32_t;
+
+      //! Construct an instance with `seed`
       explicit small_prng(uint32_t seed = 0xdeadbeef) noexcept
       {
         a = 0xf1ea5eed;
@@ -57,6 +61,7 @@ namespace algorithm
           (*this)();
       }
 
+      //! Return `value_type` of pseudo-randomness
       inline uint32_t operator()() noexcept
       {
         uint32_t e = a - rot(b, 27);
@@ -82,6 +87,7 @@ namespace algorithm
 #endif
     }
 
+    //! A `random_shuffle` implementation which uses the small prng
     template <class RandomIt> void random_shuffle(RandomIt first, RandomIt last, small_prng &r = thread_local_prng())
     {
       typename std::iterator_traits<RandomIt>::difference_type i, n;

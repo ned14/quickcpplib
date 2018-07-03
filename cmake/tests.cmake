@@ -10,6 +10,7 @@ set(quickcpplib_TESTS
   "test/packed_backtrace.cpp"
   "test/persistent.cpp"
   "test/ringbuffer_log.cpp"
+  "test/secded.cpp"
   "test/signal_guard.cpp"
   "test/spinlock_tribool.cpp"
   "test/type_traits.cpp"

@@ -9,7 +9,7 @@ set(quickcpplib_HEADERS
   "include/import.h"
   "include/algorithm/hash.hpp"
   "include/algorithm/open_hash_index.hpp"
-  "include/algorithm/secdec_ecc.hpp"
+  "include/algorithm/secded_ecc.hpp"
   "include/algorithm/small_prng.hpp"
   "include/algorithm/string.hpp"
   "include/aligned_allocator.hpp"
