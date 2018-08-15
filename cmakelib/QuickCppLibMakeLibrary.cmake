@@ -7,11 +7,11 @@
 #  *  ${PROJECT_NAME}_dl-Xsan: with sanitiser
 
 if(NOT DEFINED ${PROJECT_NAME}_HEADERS)
-  message(FATAL_ERROR "FATAL: BoostLiteSetupProject has not been included yet.")
+  message(FATAL_ERROR "FATAL: QuickCppLibSetupProject has not been included yet.")
 endif()
 if(NOT DEFINED ${PROJECT_NAME}_SOURCES)
-  message(FATAL_ERROR "FATAL: Cannot include BoostLiteMakeLibrary without a src directory. "
-                      "Perhaps you meant BoostLiteMakeHeaderOnlyLibrary?")
+  message(FATAL_ERROR "FATAL: Cannot include QuickCppLibMakeLibrary without a src directory. "
+                      "Perhaps you meant QuickCppLibMakeHeaderOnlyLibrary?")
 endif()
 
 add_library(${PROJECT_NAME}_sl STATIC ${${PROJECT_NAME}_HEADERS} ${${PROJECT_NAME}_SOURCES})
