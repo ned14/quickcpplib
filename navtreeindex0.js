@@ -170,8 +170,12 @@ var NAVTREEINDEX0 =
 "classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#ad07ee479d7aa22a1a357707dd127bb1c":[3,0,1,0,17,2,0,5],
 "classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#ae73870163b0e105ef5d1135d9fe16651":[3,0,1,0,17,2,0,2],
 "classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html":[3,0,1,0,17,3,0],
+"classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#a11906d0f7bfcedd4c28e6c51c9477744":[3,0,1,0,17,3,0,6],
 "classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#a4b51ba6166559fc20c838dabeb0e0055":[3,0,1,0,17,3,0,2],
+"classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#a4cf2ec5b0eb15c368f9b634cccc2ffe0":[3,0,1,0,17,3,0,3],
+"classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#ab52400d5142b2279c695a0a504b8c605":[3,0,1,0,17,3,0,5],
 "classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#ab94703102348a3b57103c95699139c28":[3,0,1,0,17,3,0,1],
+"classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#aea2db0fc9592529c12d68a7a85583733":[3,0,1,0,17,3,0,4],
 "classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#aeb165301d821dc3be5e68ddd1867ed20":[3,0,1,0,17,3,0,0],
 "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator.html":[3,0,1,0,0,1],
 "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator.html#a02cd9b343835b79b1cfb630d26fd23c5":[3,0,1,0,0,1,15],
@@ -245,9 +249,5 @@ var NAVTREEINDEX0 =
 "classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlock.html#a1a8c638d741abe03a3394f57d7b1a857":[3,0,1,0,12,11,3],
 "classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlock.html#a9093f37d9ddf542c6bda89ef0b864957":[3,0,1,0,12,11,0],
 "classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlock.html#aa142a3cb38a8e70cab6ea4c3132afc03":[3,0,1,0,12,11,1],
-"classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlock.html#aae17eebfe8ee30d9a0a6120c5733fdbc":[3,0,1,0,12,11,4],
-"classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlock.html#ade37293131b9d884b5d9580cf7e5152b":[3,0,1,0,12,11,2],
-"classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr.html":[3,0,1,0,4,3],
-"classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr.html#a22d4d9881f6cf4bc1a1ee000e880a1c3":[3,0,1,0,4,3,11],
-"classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr.html#a27b66b7d19bafc4e89284c0c79143c52":[3,0,1,0,4,3,4]
+"classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlock.html#aae17eebfe8ee30d9a0a6120c5733fdbc":[3,0,1,0,12,11,4]
 };

@@ -152,17 +152,17 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>A thread safe small prng seeded with the thread id. </p>
-<div class="fragment"><div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    {</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">#ifdef QUICKCPPLIB_THREAD_LOCAL_IS_CXX11</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor"></span>      <span class="keyword">static</span> thread_local small_prng v(<a class="code" href="namespacequickcpplib_1_1__xxx_1_1utils_1_1thread.html#a63a09beca8498e70f7741e844c2ea5c7">utils::thread::this_thread_id</a>());</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;      <span class="keywordflow">return</span> v;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor"></span>      <span class="keyword">static</span> QUICKCPPLIB_THREAD_LOCAL small_prng *v;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;      <span class="keywordflow">if</span>(!v)</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        v = <span class="keyword">new</span> small_prng(<a class="code" href="namespacequickcpplib_1_1__xxx_1_1utils_1_1thread.html#a63a09beca8498e70f7741e844c2ea5c7">utils::thread::this_thread_id</a>());  <span class="comment">// leaks memory</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;      <span class="keywordflow">return</span> *v;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor"></span>    }</div>
+<div class="fragment"><div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    {</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#ifdef QUICKCPPLIB_THREAD_LOCAL_IS_CXX11</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor"></span>      <span class="keyword">static</span> thread_local small_prng v(<a class="code" href="namespacequickcpplib_1_1__xxx_1_1utils_1_1thread.html#a63a09beca8498e70f7741e844c2ea5c7">utils::thread::this_thread_id</a>());</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;      <span class="keywordflow">return</span> v;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor"></span>      <span class="keyword">static</span> QUICKCPPLIB_THREAD_LOCAL small_prng *v;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;      <span class="keywordflow">if</span>(!v)</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        v = <span class="keyword">new</span> small_prng(<a class="code" href="namespacequickcpplib_1_1__xxx_1_1utils_1_1thread.html#a63a09beca8498e70f7741e844c2ea5c7">utils::thread::this_thread_id</a>());  <span class="comment">// leaks memory</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;      <span class="keywordflow">return</span> *v;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor"></span>    }</div>
 <div class="ttc" id="namespacequickcpplib_1_1__xxx_1_1utils_1_1thread_html_a63a09beca8498e70f7741e844c2ea5c7"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1utils_1_1thread.html#a63a09beca8498e70f7741e844c2ea5c7">quickcpplib::_xxx::utils::thread::this_thread_id</a></div><div class="ttdeci">unsigned this_thread_id() noexcept</div><div class="ttdoc">The thread id of the calling thread. </div><div class="ttdef"><b>Definition:</b> thread.hpp:57</div></div>
 </div><!-- fragment -->
 </div>
@@ -200,15 +200,15 @@ template&lt;class RandomIt &gt; </div>
 </div><div class="memdoc">
 
 <p>A <code>random_shuffle</code> implementation which uses the small prng. </p>
-<div class="fragment"><div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    {</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;      <span class="keyword">typename</span> std::iterator_traits&lt;RandomIt&gt;::difference_type i, n;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;      n = last - first;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;      <span class="keywordflow">for</span>(i = n - 1; i &gt; 0; --i)</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;      {</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keyword">using</span> std::swap;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        swap(first[i], first[r() % (i + 1)]);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;      }</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    {</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;      <span class="keyword">typename</span> std::iterator_traits&lt;RandomIt&gt;::difference_type i, n;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;      n = last - first;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;      <span class="keywordflow">for</span>(i = n - 1; i &gt; 0; --i)</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;      {</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keyword">using</span> std::swap;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        swap(first[i], first[r() % (i + 1)]);</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;      }</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>

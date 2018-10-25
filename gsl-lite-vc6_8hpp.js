@@ -53,5 +53,5 @@ var gsl_lite_vc6_8hpp =
     [ "to_string", "gsl-lite-vc6_8hpp.html#aac9f712433e38e24a50c69ca5160efd0", null ],
     [ "to_string", "gsl-lite-vc6_8hpp.html#ab34317183f720bf50408432da2e86d66", null ],
     [ "to_string", "gsl-lite-vc6_8hpp.html#a103e788ac46099c560b791149475fd24", null ],
-    [ "ensure_z", "gsl-lite-vc6_8hpp.html#afac5b15fbd73284c00ed7ebee969ac78", null ]
+    [ "ensure_z", "gsl-lite-vc6_8hpp.html#ab233a9cfadadae45b14032345d3d845b", null ]
 ];

@@ -1,5 +1,9 @@
 var NAVTREEINDEX3 =
 {
+"group__unittesting.html#gadbb244c7b75defd4bfa7c28ead512b0c":[1,1,9],
+"gsl-lite-vc6_8hpp.html":[4,0,0,2,0,0,0],
+"gsl-lite-vc6_8hpp.html#a05852da9de75087b7292f44ed2c7775b":[4,0,0,2,0,0,0,36],
+"gsl-lite-vc6_8hpp.html#a06bb251a0bc15a78e3b2feaf74fe2dc0":[4,0,0,2,0,0,0,26],
 "gsl-lite-vc6_8hpp.html#a0be826c860d1bf5c41ceb8a7002a3d1a":[4,0,0,2,0,0,0,32],
 "gsl-lite-vc6_8hpp.html#a0d04cb7c93b0dcbd177517c173760286":[4,0,0,2,0,0,0,17],
 "gsl-lite-vc6_8hpp.html#a0e239d0c3079c100a6c95bd20af04380":[4,0,0,2,0,0,0,22],
@@ -30,6 +34,7 @@ var NAVTREEINDEX3 =
 "gsl-lite-vc6_8hpp.html#aa7c1401f6360a58ef8d88bb1e7ae125d":[4,0,0,2,0,0,0,38],
 "gsl-lite-vc6_8hpp.html#aac9f712433e38e24a50c69ca5160efd0":[4,0,0,2,0,0,0,50],
 "gsl-lite-vc6_8hpp.html#ab06078c47755670f1d03fe9e6f945738":[4,0,0,2,0,0,0,24],
+"gsl-lite-vc6_8hpp.html#ab233a9cfadadae45b14032345d3d845b":[4,0,0,2,0,0,0,53],
 "gsl-lite-vc6_8hpp.html#ab34317183f720bf50408432da2e86d66":[4,0,0,2,0,0,0,51],
 "gsl-lite-vc6_8hpp.html#abcc325ffa5670080cfb32e502e3c02d8":[4,0,0,2,0,0,0,15],
 "gsl-lite-vc6_8hpp.html#abd9a032bfaf7b6c8b2cab0041ad2e8b9":[4,0,0,2,0,0,0,7],
@@ -44,7 +49,6 @@ var NAVTREEINDEX3 =
 "gsl-lite-vc6_8hpp.html#ae2c7401b0a82740988faa070375fe903":[4,0,0,2,0,0,0,44],
 "gsl-lite-vc6_8hpp.html#af2af07fef2ca32a91a76976aa866b43b":[4,0,0,2,0,0,0,18],
 "gsl-lite-vc6_8hpp.html#af6787574c8bcc59e170ba24df9d7afc3":[4,0,0,2,0,0,0,13],
-"gsl-lite-vc6_8hpp.html#afac5b15fbd73284c00ed7ebee969ac78":[4,0,0,2,0,0,0,53],
 "gsl-lite-vc6_8hpp.html#afaf6db75ede2a9bc2fa4b6b17b8ef128":[4,0,0,2,0,0,0,41],
 "gsl-lite_8h.html":[4,0,0,2,0,0,1],
 "gsl-lite_8h.html#a58e895c22f2c4c6473cae4918046c247":[4,0,0,2,0,0,1,0],
@@ -245,9 +249,5 @@ var NAVTREEINDEX3 =
 "namespacemembers.html":[2,1,0],
 "namespacemembers_enum.html":[2,1,4],
 "namespacemembers_eval.html":[2,1,5],
-"namespacemembers_func.html":[2,1,1],
-"namespacemembers_type.html":[2,1,3],
-"namespacemembers_vars.html":[2,1,2],
-"namespacequickcpplib.html":[3,0,1],
-"namespacequickcpplib.html":[2,0,1]
+"namespacemembers_func.html":[2,1,1]
 };

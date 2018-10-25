@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['d',['d',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#a11906d0f7bfcedd4c28e6c51c9477744',1,'quickcpplib::_xxx::algorithm::small_prng::small_prng']]],
   ['data',['data',['../classquickcpplib_1_1__xxx_1_1string__view_1_1basic__string__view.html#aca2147716d7d914028649d5c12f874a7',1,'quickcpplib::_xxx::string_view::basic_string_view::data()'],['../classgsl_1_1span.html#a71b0e7033fcbe93d01922deb645c8f9d',1,'gsl::span::data()']]],
   ['deallocate',['deallocate',['../classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator.html#a7a0f88ed47f84407abf4dd715a4901ab',1,'quickcpplib::_xxx::aligned_allocator::aligned_allocator::deallocate()'],['../classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#af2843799a6615f4c8968c0806cb70ec0',1,'quickcpplib::_xxx::aligned_allocator::aligned_allocator&lt; const T, Align, initialize &gt;::deallocate()']]],
   ['deallocate_5faligned_5fmemory',['deallocate_aligned_memory',['../namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#a7b9f266229239d7da932520131697670',1,'quickcpplib::_xxx::aligned_allocator::detail']]],

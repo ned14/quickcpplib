@@ -1,5 +1,9 @@
 var NAVTREEINDEX4 =
 {
+"namespacemembers_type.html":[2,1,3],
+"namespacemembers_vars.html":[2,1,2],
+"namespacequickcpplib.html":[3,0,1],
+"namespacequickcpplib.html":[2,0,1],
 "namespacequickcpplib_1_1__xxx.html":[3,0,1,0],
 "namespacequickcpplib_1_1__xxx.html":[2,0,1,0],
 "namespacequickcpplib_1_1__xxx_1_1algorithm.html":[3,0,1,0,17],
@@ -52,10 +56,10 @@ var NAVTREEINDEX4 =
 "namespacequickcpplib_1_1__xxx_1_1persistence.html":[3,0,1,0,7],
 "namespacequickcpplib_1_1__xxx_1_1persistence_1_1detail.html":[2,0,1,0,7,0],
 "namespacequickcpplib_1_1__xxx_1_1persistence_1_1detail.html":[3,0,1,0,7,0],
-"namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html":[2,0,1,0,8],
 "namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html":[3,0,1,0,8],
-"namespacequickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail.html":[2,0,1,0,8,0],
+"namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html":[2,0,1,0,8],
 "namespacequickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail.html":[3,0,1,0,8,0],
+"namespacequickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail.html":[2,0,1,0,8,0],
 "namespacequickcpplib_1_1__xxx_1_1scoped__undo.html":[2,0,1,0,9],
 "namespacequickcpplib_1_1__xxx_1_1scoped__undo.html":[3,0,1,0,9],
 "namespacequickcpplib_1_1__xxx_1_1scoped__undo_1_1detail.html":[2,0,1,0,9,0],
@@ -80,8 +84,8 @@ var NAVTREEINDEX4 =
 "namespacequickcpplib_1_1__xxx_1_1unit__test.html":[2,0,1,0,18],
 "namespacequickcpplib_1_1__xxx_1_1utils.html":[2,0,1,0,19],
 "namespacequickcpplib_1_1__xxx_1_1utils.html":[3,0,1,0,19],
-"namespacequickcpplib_1_1__xxx_1_1utils_1_1thread.html":[3,0,1,0,19,0],
 "namespacequickcpplib_1_1__xxx_1_1utils_1_1thread.html":[2,0,1,0,19,0],
+"namespacequickcpplib_1_1__xxx_1_1utils_1_1thread.html":[3,0,1,0,19,0],
 "namespaces.html":[2,0],
 "offset__ptr_8hpp.html":[4,0,0,13],
 "open__hash__index_8hpp.html":[4,0,0,0,1],
@@ -245,9 +249,5 @@ var NAVTREEINDEX4 =
 "structgsl_1_1owner.html#ad5f904920decb4282bea78f0662d5616":[3,0,0,1,0],
 "structgsl_1_1span_1_1mk.html":[3,0,0,5,0],
 "structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1fnv1a__hash.html":[3,0,1,0,17,0,2],
-"structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1fnv1a__hash.html#a34668205666f50500059debe2de91fd9":[3,0,1,0,17,0,2,0],
-"structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1passthru__hash.html":[3,0,1,0,17,0,1],
-"structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1passthru__hash.html#a392988ae4f4e70be3c74be7b228ac493":[3,0,1,0,17,0,1,0],
-"structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1arithmetic__modulus.html":[3,0,1,0,17,1,1],
-"structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1arithmetic__modulus.html#a3498a0c351a7a629e83b69bfcfa96494":[3,0,1,0,17,1,1,0]
+"structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1fnv1a__hash.html#a34668205666f50500059debe2de91fd9":[3,0,1,0,17,0,2,0]
 };
