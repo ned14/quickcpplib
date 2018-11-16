@@ -1,5 +1,7 @@
 var NAVTREEINDEX5 =
 {
+"structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1fnv1a__hash.html":[3,0,1,0,17,0,2],
+"structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1fnv1a__hash.html#a34668205666f50500059debe2de91fd9":[3,0,1,0,17,0,2,0],
 "structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1passthru__hash.html":[3,0,1,0,17,0,1],
 "structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1passthru__hash.html#a392988ae4f4e70be3c74be7b228ac493":[3,0,1,0,17,0,1,0],
 "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1arithmetic__modulus.html":[3,0,1,0,17,1,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX5 =
 "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a12bcd937c3c94031b8f3d9e163c5bda7":[3,0,1,0,8,0,0,15],
 "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a164ef3bd3ceac150211bf8fc2727a9e2":[3,0,1,0,8,0,0,13],
 "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a173dc7b78e835aec4ac218aece10da40":[3,0,1,0,8,0,0,6],
-"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a3bf0a4687f916e254f15a013f9b43ca4":[3,0,1,0,8,0,0,14],
-"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a3d6d2e13a75d9464a4495478aeb8e660":[3,0,1,0,8,0,0,4],
-"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a3d9bee4048237e5e167175fe5f5786bf":[3,0,1,0,8,0,0,11]
+"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a3bf0a4687f916e254f15a013f9b43ca4":[3,0,1,0,8,0,0,14]
 };

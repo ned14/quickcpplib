@@ -18,6 +18,7 @@ var gsl_lite_vc6_8hpp =
     [ "gsl_CONFIG_UNIQUE_PTR_INCLUDE", "gsl-lite-vc6_8hpp.html#abcc325ffa5670080cfb32e502e3c02d8", null ],
     [ "gsl_CONFIG_SHARED_PTR_DECL", "gsl-lite-vc6_8hpp.html#ad38bb693f4900005f09f12308820cec2", null ],
     [ "gsl_CONFIG_UNIQUE_PTR_DECL", "gsl-lite-vc6_8hpp.html#a0d04cb7c93b0dcbd177517c173760286", null ],
+    [ "gsl_COMPILER_MSVC_VER", "gsl-lite-vc6_8hpp.html#a35b5f2d64ff632a101adbdea1cdc1e56", null ],
     [ "gsl_COMPILER_MSVC_VERSION", "gsl-lite-vc6_8hpp.html#af2af07fef2ca32a91a76976aa866b43b", null ],
     [ "gsl_COMPILER_NON_MSVC", "gsl-lite-vc6_8hpp.html#a92298f4b9e5821889a55986dc135599a", null ],
     [ "gsl_BETWEEN", "gsl-lite-vc6_8hpp.html#a4c8b681c7fb1c2e2a18db3cfe6a59fb3", null ],

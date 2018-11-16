@@ -172,11 +172,13 @@ Macros</h2></td></tr>
 <tr class="separator:ad38bb693f4900005f09f12308820cec2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d04cb7c93b0dcbd177517c173760286"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gsl-lite-vc6_8hpp.html#a0d04cb7c93b0dcbd177517c173760286">gsl_CONFIG_UNIQUE_PTR_DECL</a>&#160;&#160;&#160;boost::unique_ptr</td></tr>
 <tr class="separator:a0d04cb7c93b0dcbd177517c173760286"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35b5f2d64ff632a101adbdea1cdc1e56"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gsl-lite-vc6_8hpp.html#a35b5f2d64ff632a101adbdea1cdc1e56">gsl_COMPILER_MSVC_VER</a>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:a35b5f2d64ff632a101adbdea1cdc1e56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2af07fef2ca32a91a76976aa866b43b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gsl-lite-vc6_8hpp.html#af2af07fef2ca32a91a76976aa866b43b">gsl_COMPILER_MSVC_VERSION</a>&#160;&#160;&#160;0</td></tr>
 <tr class="separator:af2af07fef2ca32a91a76976aa866b43b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a92298f4b9e5821889a55986dc135599a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gsl-lite-vc6_8hpp.html#a92298f4b9e5821889a55986dc135599a">gsl_COMPILER_NON_MSVC</a>&#160;&#160;&#160;1</td></tr>
 <tr class="separator:a92298f4b9e5821889a55986dc135599a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c8b681c7fb1c2e2a18db3cfe6a59fb3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gsl-lite-vc6_8hpp.html#a4c8b681c7fb1c2e2a18db3cfe6a59fb3">gsl_BETWEEN</a>(v, lo, hi)&#160;&#160;&#160;( lo &lt;= v &amp;&amp; v &lt; hi )</td></tr>
+<tr class="memitem:a4c8b681c7fb1c2e2a18db3cfe6a59fb3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gsl-lite-vc6_8hpp.html#a4c8b681c7fb1c2e2a18db3cfe6a59fb3">gsl_BETWEEN</a>(v, lo, hi)&#160;&#160;&#160;( (lo) &lt;= (v) &amp;&amp; (v) &lt; (hi) )</td></tr>
 <tr class="separator:a4c8b681c7fb1c2e2a18db3cfe6a59fb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3539d59a0c0b1bc3dcf68dfb1bb42d21"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gsl-lite-vc6_8hpp.html#a3539d59a0c0b1bc3dcf68dfb1bb42d21">implicit</a></td></tr>
 <tr class="separator:a3539d59a0c0b1bc3dcf68dfb1bb42d21"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -407,6 +409,18 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a35b5f2d64ff632a101adbdea1cdc1e56"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define gsl_COMPILER_MSVC_VER&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="af2af07fef2ca32a91a76976aa866b43b"></a>
 <div class="memitem">
 <div class="memproto">
@@ -456,7 +470,7 @@ Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;( lo &lt;= v &amp;&amp; v &lt; hi )</td>
+          <td></td><td>&#160;&#160;&#160;( (lo) &lt;= (v) &amp;&amp; (v) &lt; (hi) )</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -571,8 +585,8 @@ Functions</h2></td></tr>
 <div class="line"><a class="code" href="gsl-lite-vc6_8hpp.html#ade61920cc3d2f9170543a5c2507905af">        Expects</a>( index &lt; cont.size() ); \</div>
 <div class="line">        return cont[index]; \</div>
 <div class="line">    } }}</div>
-<div class="ttc" id="gsl-lite-vc6_8hpp_html_ade61920cc3d2f9170543a5c2507905af"><div class="ttname"><a href="gsl-lite-vc6_8hpp.html#ade61920cc3d2f9170543a5c2507905af">Expects</a></div><div class="ttdeci">#define Expects(x)</div><div class="ttdef"><b>Definition:</b> gsl-lite-vc6.hpp:134</div></div>
-<div class="ttc" id="namespacegsl_1_1detail_html_a2becb898424dcb4169e065b75151a984"><div class="ttname"><a href="namespacegsl_1_1detail.html#a2becb898424dcb4169e065b75151a984">gsl::detail::at</a></div><div class="ttdeci">T &amp; at(Array &amp;arr, size_t index, T *, precedence_0 const &amp;)</div><div class="ttdef"><b>Definition:</b> gsl-lite-vc6.hpp:238</div></div>
+<div class="ttc" id="gsl-lite-vc6_8hpp_html_ade61920cc3d2f9170543a5c2507905af"><div class="ttname"><a href="gsl-lite-vc6_8hpp.html#ade61920cc3d2f9170543a5c2507905af">Expects</a></div><div class="ttdeci">#define Expects(x)</div><div class="ttdef"><b>Definition:</b> gsl-lite-vc6.hpp:136</div></div>
+<div class="ttc" id="namespacegsl_1_1detail_html_a2becb898424dcb4169e065b75151a984"><div class="ttname"><a href="namespacegsl_1_1detail.html#a2becb898424dcb4169e065b75151a984">gsl::detail::at</a></div><div class="ttdeci">T &amp; at(Array &amp;arr, size_t index, T *, precedence_0 const &amp;)</div><div class="ttdef"><b>Definition:</b> gsl-lite-vc6.hpp:240</div></div>
 </div><!-- fragment -->
 </div>
 </div>

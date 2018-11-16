@@ -1,5 +1,7 @@
 var NAVTREEINDEX6 =
 {
+"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a3d6d2e13a75d9464a4495478aeb8e660":[3,0,1,0,8,0,0,4],
+"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a3d9bee4048237e5e167175fe5f5786bf":[3,0,1,0,8,0,0,11],
 "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a4fd67f4f9693c421afdc933be3dd8053":[3,0,1,0,8,0,0,10],
 "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a5411a2661bb0a19f83347e99f975aef9":[3,0,1,0,8,0,0,2],
 "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a5d124ae364c4bab5b42e7075c53a24d3":[3,0,1,0,8,0,0,7],

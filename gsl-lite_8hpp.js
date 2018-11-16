@@ -28,6 +28,7 @@ var gsl_lite_8hpp =
     [ "gsl_CPP20_OR_GREATER", "gsl-lite_8hpp.html#a6d0a08b251988fc58a55675ec458ff54", null ],
     [ "gsl_CPLUSPLUS_V", "gsl-lite_8hpp.html#aa1cea824944f3a754d99f55c8b76cbd1", null ],
     [ "gsl_BETWEEN", "gsl-lite_8hpp.html#a4c8b681c7fb1c2e2a18db3cfe6a59fb3", null ],
+    [ "gsl_COMPILER_MSVC_VER", "gsl-lite_8hpp.html#a35b5f2d64ff632a101adbdea1cdc1e56", null ],
     [ "gsl_COMPILER_MSVC_VERSION", "gsl-lite_8hpp.html#af2af07fef2ca32a91a76976aa866b43b", null ],
     [ "gsl_COMPILER_VERSION", "gsl-lite_8hpp.html#ab7dbde2af9ac3fc2fd0917c7e74cece7", null ],
     [ "gsl_COMPILER_CLANG_VERSION", "gsl-lite_8hpp.html#a20d4adca0ec2a5ba83072c7fcdc7a006", null ],
