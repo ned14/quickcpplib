@@ -243,11 +243,11 @@ var NAVTREEINDEX3 =
 "import_8h.html#afdd111d3e2242041e02ed9ea4e7b8d7a":[4,0,0,12,13],
 "import_8h.html#afe4bb3cae74b4cd552caa5fd5949f1dc":[4,0,0,12,5],
 "index.html":[],
+"memory__resource_8hpp.html":[4,0,0,13],
+"memory__resource_8hpp.html#af53831c353ce75df3832681a9a316e27":[4,0,0,13,0],
 "modules.html":[1],
 "namespacegsl.html":[3,0,0],
 "namespacegsl.html":[2,0,0],
 "namespacegsl_1_1detail.html":[3,0,0,0],
-"namespacegsl_1_1detail.html":[2,0,0,0],
-"namespacemembers.html":[2,1,0],
-"namespacemembers_enum.html":[2,1,4]
+"namespacegsl_1_1detail.html":[2,0,0,0]
 };

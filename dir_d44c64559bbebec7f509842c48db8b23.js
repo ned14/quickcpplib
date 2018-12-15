@@ -13,6 +13,7 @@ var dir_d44c64559bbebec7f509842c48db8b23 =
     [ "cpp_feature.h", "cpp__feature_8h.html", null ],
     [ "execinfo_win64.h", "execinfo__win64_8h.html", "execinfo__win64_8h" ],
     [ "import.h", "import_8h.html", "import_8h" ],
+    [ "memory_resource.hpp", "memory__resource_8hpp.html", "memory__resource_8hpp" ],
     [ "offset_ptr.hpp", "offset__ptr_8hpp.html", [
       [ "offset_ptr", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr.html", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr" ],
       [ "offset_ptr< const T >", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr_3_01const_01_t_01_4.html", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr_3_01const_01_t_01_4" ],

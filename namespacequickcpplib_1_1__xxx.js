@@ -4,6 +4,7 @@ var namespacequickcpplib_1_1__xxx =
     [ "allocator_testing", "namespacequickcpplib_1_1__xxx_1_1allocator__testing.html", "namespacequickcpplib_1_1__xxx_1_1allocator__testing" ],
     [ "byte", "namespacequickcpplib_1_1__xxx_1_1byte.html", null ],
     [ "console_colours", "namespacequickcpplib_1_1__xxx_1_1console__colours.html", "namespacequickcpplib_1_1__xxx_1_1console__colours" ],
+    [ "pmr", "namespacequickcpplib_1_1__xxx_1_1pmr.html", null ],
     [ "offset_ptr", "namespacequickcpplib_1_1__xxx_1_1offset__ptr.html", "namespacequickcpplib_1_1__xxx_1_1offset__ptr" ],
     [ "optional", "namespacequickcpplib_1_1__xxx_1_1optional.html", null ],
     [ "packed_backtrace", "namespacequickcpplib_1_1__xxx_1_1packed__backtrace.html", "namespacequickcpplib_1_1__xxx_1_1packed__backtrace" ],
