@@ -26,6 +26,7 @@ set(quickcpplib_HEADERS
   "include/gsl-lite/include/gsl/gsl-lite.hpp"
   "include/gsl-lite/test/gsl-lite.t.hpp"
   "include/gsl-lite/test/lest_cpp03.hpp"
+  "include/memory_resource.hpp"
   "include/offset_ptr.hpp"
   "include/optional.hpp"
   "include/optional/optional.hpp"
