@@ -5,15 +5,17 @@
 # File created: Sept 2017
 
 from __future__ import print_function
-import os, sys, re, shutil, time, datetime, subprocess
+import os, sys, re, shutil, time, datetime, subprocess, io
 
 if len(sys.argv) < 2:
-    print(sys.argv[0], " <dest>", file=sys.stderr)
+    print(sys.argv[0], " <dest> [<src>]", file=sys.stderr)
     sys.exit(1)
-#    os.chdir('../../outcome')
-#    destpath = '../boost-outcome'
+    #os.chdir('outcome')
+    #destpath = '../boost-outcome'
 else:
     destpath = sys.argv[1]
+    if len(sys.argv) > 2:
+        os.chdir(sys.argv[2])
 
 configpath = ".boostify"
 if not os.path.exists(configpath):
@@ -74,9 +76,9 @@ def do_transform(srcpath, destpath):
                     print('   | ', transform)
                     need_transform.update(transforms[transform])
             if need_transform:
-                with open(path, 'rt') as ih:
+                with io.open(path, 'rt', encoding='utf-8') as ih:
                     lines = ih.readlines()
-                with open(destpath2, 'wt') as oh:
+                with io.open(destpath2, 'wt', encoding='utf-8') as oh:
                     for line in lines:
                         for transform in need_transform:
                             repl = need_transform[transform]
@@ -290,7 +292,7 @@ for dirpath, dirnames, filenames in os.walk(destpath):
             continue
         path = os.path.join(dirpath, filename)
         if '.git' not in path:
-            with open(path, 'rt') as ih:
+            with io.open(path, 'r', encoding='utf-8') as ih:
                 contents = ih.read()
             processor = CppSourceFile()
             if not processor.match_header(contents):
@@ -310,7 +312,7 @@ for dirpath, dirnames, filenames in os.walk(destpath):
                 #print("\n\nMatched", path, "with:\n\n" + replacement)
                 contents2 = replacement + contents[processor.matchedlen:]
                 if contents != contents2:
-                    with open(path, 'wt') as oh:
+                    with io.open(path, 'wt', encoding='utf-8') as oh:
                         oh.write(contents2)
                     print("Updated", path)
                 else:
