@@ -27,11 +27,11 @@ with open(configpath) as f:
 for dirpath, dirnames, filenames in os.walk(destpath, topdown=False):
     for filename in filenames:
         path = os.path.join(dirpath, filename)
-        if not path[len(destpath)+1:len(destpath)+5] == '.git':
+        if '.git' not in dirpath:
             os.remove(path)
     for dirname in dirnames:
         path = os.path.join(dirpath, dirname)
-        if not path[len(destpath)+1:len(destpath)+5] == '.git':
+        if '.git' not in dirpath and dirname != '.git':
             try:
                 os.rmdir(path)
             except:

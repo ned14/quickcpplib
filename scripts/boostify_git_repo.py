@@ -32,8 +32,8 @@ def clean():
 
 def do_convert(destpath, srcpath):
     try:
-        #subprocess.check_output([sys.executable, os.path.join(mydir, 'boostify.py'), os.path.abspath(destpath), os.path.abspath(srcpath)])
-        subprocess.check_output(['c:/python27/pythonw.exe', os.path.join(mydir, 'boostify.py'), os.path.abspath(destpath), os.path.abspath(srcpath)], stderr=subprocess.STDOUT)
+        subprocess.check_output([sys.executable, os.path.join(mydir, 'boostify.py'), os.path.abspath(destpath), os.path.abspath(srcpath)])
+        #subprocess.check_output(['c:/python27/pythonw.exe', os.path.join(mydir, 'boostify.py'), os.path.abspath(destpath), os.path.abspath(srcpath)], stderr=subprocess.STDOUT)
     except subprocess.CalledProcessError as ex:
         print(ex.returncode, ex.output, file = sys.stderr)
         raise
@@ -117,7 +117,7 @@ for branch in ['develop', 'master']:
                 srccommit = srccommit.parents[0]
         if found:
             commits_to_merge.reverse()
-            print("Last source commit merged was", commits_to_merge[0])
+            print(branch + ": Last source commit merged was", commits_to_merge[0])
             commits_to_merge = commits_to_merge[1:]
             print("Commits to merge now:")
             for commit in commits_to_merge:
@@ -128,13 +128,13 @@ for branch in ['develop', 'master']:
             break
         destcommit = destcommit.parents[0]
             
-for commit in commits_to_merge:
-    print('Merging commit', commit, commit.message)
-    try:
-        destrepo.git.merge(commit.hexsha, '--no-commit')
-    except: pass
-    srcrepo.git.checkout(commit.hexsha, force = True)
-    do_convert(destpath, srcpath)
-    destrepo.git.add('.')
-    destrepo = Repo(destpath)
-    destrepo.index.commit('Merging commit ' + srcshaprefix + commit.hexsha + ':\n\n' + commit.message, parent_commits = (destrepo.head.commit, commit))
+    for commit in commits_to_merge:
+        print('Merging commit', commit, commit.message)
+        try:
+            destrepo.git.merge(commit.hexsha, '--no-commit')
+        except: pass
+        srcrepo.git.checkout(commit.hexsha, force = True)
+        do_convert(destpath, srcpath)
+        destrepo.git.add('.')
+        destrepo = Repo(destpath)
+        destrepo.index.commit('Merging commit ' + srcshaprefix + commit.hexsha + ':\n\n' + commit.message, parent_commits = (destrepo.head.commit, commit))
