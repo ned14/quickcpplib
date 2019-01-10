@@ -3126,7 +3126,7 @@ Functions</h2></td></tr>
 <div class="line"><a name="l01634"></a><span class="lineno"> 1634</span>&#160;<span class="preprocessor">#if gsl_HAVE( SHARED_PTR )</span></div>
 <div class="line"><a name="l01635"></a><span class="lineno"> 1635</span>&#160;<span class="preprocessor"></span>    <a class="code" href="gsl-lite_8hpp.html#a579cb44c124e722f4b2adebaaf95e7ba">gsl_api</a> <a class="code" href="gsl-lite_8hpp.html#a49154f49c7c493f07374aa3cf2743828">gsl_constexpr</a> <a class="code" href="namespacequickcpplib_1_1__xxx_1_1span.html#a41d4f6abd008d90e96379c26e95fefb5">span</a>( shared_ptr&lt;element_type&gt; <span class="keyword">const</span> &amp; ptr )</div>
 <div class="line"><a name="l01636"></a><span class="lineno"> 1636</span>&#160;        : first_( ptr.get() )</div>
-<div class="line"><a name="l01637"></a><span class="lineno"> 1637</span>&#160;        , last_ ( ptr.get() ? ptr.get() + 1 : 0 )</div>
+<div class="line"><a name="l01637"></a><span class="lineno"> 1637</span>&#160;        , last_ ( ptr.get() ? ptr.get() + 1 : gsl_nullptr )</div>
 <div class="line"><a name="l01638"></a><span class="lineno"> 1638</span>&#160;    {}</div>
 <div class="line"><a name="l01639"></a><span class="lineno"> 1639</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l01640"></a><span class="lineno"> 1640</span>&#160;<span class="preprocessor"></span></div>
@@ -3145,7 +3145,7 @@ Functions</h2></td></tr>
 <div class="line"><a name="l01653"></a><span class="lineno"> 1653</span>&#160;</div>
 <div class="line"><a name="l01654"></a><span class="lineno"> 1654</span>&#160;    <a class="code" href="gsl-lite_8hpp.html#a579cb44c124e722f4b2adebaaf95e7ba">gsl_api</a> <a class="code" href="gsl-lite_8hpp.html#a49154f49c7c493f07374aa3cf2743828">gsl_constexpr</a> <a class="code" href="namespacequickcpplib_1_1__xxx_1_1span.html#a41d4f6abd008d90e96379c26e95fefb5">span</a>( unique_ptr&lt;element_type&gt; <span class="keyword">const</span> &amp; ptr )</div>
 <div class="line"><a name="l01655"></a><span class="lineno"> 1655</span>&#160;        : first_( ptr.get() )</div>
-<div class="line"><a name="l01656"></a><span class="lineno"> 1656</span>&#160;        , last_ ( ptr.get() ? ptr.get() + 1 : 0 )</div>
+<div class="line"><a name="l01656"></a><span class="lineno"> 1656</span>&#160;        , last_ ( ptr.get() ? ptr.get() + 1 : gsl_nullptr )</div>
 <div class="line"><a name="l01657"></a><span class="lineno"> 1657</span>&#160;    {}</div>
 <div class="line"><a name="l01658"></a><span class="lineno"> 1658</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l01659"></a><span class="lineno"> 1659</span>&#160;<span class="preprocessor"></span></div>
