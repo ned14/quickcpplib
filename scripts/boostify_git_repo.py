@@ -7,6 +7,7 @@
 from __future__ import print_function
 import os, sys, subprocess, shutil, time
 from git import Repo
+from email import utils as emailutils
 
 # There is always an empty tree object in every git repo
 empty_tree_sha = "4b825dc642cb6eb9a060e54bf8d69288fbee4904"
@@ -138,4 +139,8 @@ for branch in ['develop', 'master']:
         do_convert(destpath, srcpath)
         destrepo.git.add('.', '-A')
         destrepo = Repo(destpath)
-        destrepo.index.commit('Merging commit ' + srcshaprefix + commit.hexsha + ':\n\n' + commit.message, parent_commits = (destrepo.head.commit, commit))
+        destrepo.index.commit('Merging commit ' + srcshaprefix + commit.hexsha + ':\n\n' + commit.message,
+          parent_commits = (destrepo.head.commit, commit),
+          author = commit.author,
+          author_date = emailutils.formatdate(time.mktime(commit.authored_datetime.timetuple()))
+        )
