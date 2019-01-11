@@ -96,6 +96,7 @@ for remote in destrepo.remotes:
 for branch in ['develop', 'master']:
     if branch not in destrepo.heads:
         continue
+    destrepo.git.checkout(branch, force = True)
 
     # Find out what in srcbranch has not yet been merged into destbranch
     destcommit = destrepo.heads[branch].commit
@@ -135,6 +136,6 @@ for branch in ['develop', 'master']:
         except: pass
         srcrepo.git.checkout(commit.hexsha, force = True)
         do_convert(destpath, srcpath)
-        destrepo.git.add('.')
+        destrepo.git.add('.', '-A')
         destrepo = Repo(destpath)
         destrepo.index.commit('Merging commit ' + srcshaprefix + commit.hexsha + ':\n\n' + commit.message, parent_commits = (destrepo.head.commit, commit))
