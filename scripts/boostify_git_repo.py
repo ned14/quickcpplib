@@ -135,8 +135,10 @@ for branch in ['develop', 'master']:
         try:
             destrepo.git.merge(commit.hexsha, '--no-commit')
         except: pass
+        destrepo.git.rm('.', '-r', force = True)
+        clean()
         srcrepo.git.checkout(commit.hexsha, force = True)
-        srcrepo.git.submodule('update', '--init')
+        srcrepo.git.submodule('update', '--init', '--force')
         do_convert(destpath, srcpath)
         destrepo.git.add('.', '-A')
         destrepo = Repo(destpath)
