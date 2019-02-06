@@ -102,10 +102,10 @@ if(MSVC)
   )
 else()
   add_compile_options(
-    $<$<STREQUAL:$<TARGET_PROPERTY:CXX_EXCEPTIONS>,ON>:-fexceptions>
-    $<$<STREQUAL:$<TARGET_PROPERTY:CXX_RTTI>,ON>:-frtti>
-    $<$<STREQUAL:$<TARGET_PROPERTY:CXX_EXCEPTIONS>,OFF>:-fno-exceptions>
-    $<$<STREQUAL:$<TARGET_PROPERTY:CXX_RTTI>,OFF>:-fno-rtti>
+    $<$<COMPILE_LANGUAGE:CXX>:$<$<STREQUAL:$<TARGET_PROPERTY:CXX_EXCEPTIONS>,ON>:-fexceptions>>
+    $<$<COMPILE_LANGUAGE:CXX>:$<$<STREQUAL:$<TARGET_PROPERTY:CXX_RTTI>,ON>:-frtti>>
+    $<$<COMPILE_LANGUAGE:CXX>:$<$<STREQUAL:$<TARGET_PROPERTY:CXX_EXCEPTIONS>,OFF>:-fno-exceptions>>
+    $<$<COMPILE_LANGUAGE:CXX>:$<$<STREQUAL:$<TARGET_PROPERTY:CXX_RTTI>,OFF>:-fno-rtti>>
 #    $<$<STREQUAL:$<TARGET_PROPERTY:CXX_STATIC_RUNTIME>,ON>:-static>
   )
 endif()
@@ -185,7 +185,7 @@ if(NOT MSVC)
   set(CMAKE_REQUIRED_FLAGS "-fstack-protector-strong")
   check_cxx_source_compiles("int main() { return 0; }" COMPILER_HAS_STACK_PROTECTOR)
   if(COMPILER_HAS_STACK_PROTECTOR AND NOT MINGW)
-    set(STACK_PROTECTOR_COMPILE_FLAGS -fstack-protector-strong)
+    set(STACK_PROTECTOR_COMPILE_FLAGS $<$<COMPILE_LANGUAGE:CXX>:-fstack-protector-strong>)
   endif()
   add_compile_options(${STACK_PROTECTOR_COMPILE_FLAGS})  ## everything gets this flag
 endif()
