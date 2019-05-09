@@ -1,5 +1,5 @@
-/* Test persistent
-(C) 2018 Niall Douglas <http://www.nedproductions.biz/> (4 commits)
+/* Test ensure_stores
+(C) 2018 - 2019 Niall Douglas <http://www.nedproductions.biz/> (4 commits)
 
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,15 +22,21 @@ Distributed under the Boost Software License, Version 1.0.
 */
 
 #include "../include/boost/test/unit_test.hpp"
-#include "../include/persistent.hpp"
+#include "../include/ensure_stores.hpp"
 
-BOOST_AUTO_TEST_SUITE(persistence)
+BOOST_AUTO_TEST_SUITE(ensure_stores)
 
-BOOST_AUTO_TEST_CASE(persistence / works, "Tests that persistent<T> works as advertised")
+BOOST_AUTO_TEST_CASE(ensure_stores / works, "Tests that ensure_stores() works as advertised")
 {
-  QUICKCPPLIB_NAMESPACE::persistence::persistent<int> v(5);
-  v.store(6);
-  BOOST_CHECK(v == 6);
+  using QUICKCPPLIB_NAMESPACE::byte::to_byte;
+  QUICKCPPLIB_NAMESPACE::byte::byte array[16384];
+  array[5] = to_byte(4);
+  array[10000] = to_byte(78);
+  array[999] = to_byte(99);
+  auto ret = QUICKCPPLIB_NAMESPACE::ensure_stores::ensure_stores(array);
+  BOOST_CHECK(ret.second == std::memory_order_release);
+  QUICKCPPLIB_NAMESPACE::ensure_stores::ensure_stores(array, QUICKCPPLIB_NAMESPACE::ensure_stores::memory_flush_retain);
+  BOOST_CHECK(ret.second == std::memory_order_release);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
