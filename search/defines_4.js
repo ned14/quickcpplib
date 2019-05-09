@@ -95,7 +95,6 @@ var searchData=
   ['quickcpplib_5fnoinline',['QUICKCPPLIB_NOINLINE',['../config_8hpp.html#a3f6a7120abf6ac554e6a9ef4fe3000f2',1,'config.hpp']]],
   ['quickcpplib_5fnoreturn',['QUICKCPPLIB_NORETURN',['../config_8hpp.html#a12fd80b884ef35d73f050ea3a42e519d',1,'config.hpp']]],
   ['quickcpplib_5fnote',['QUICKCPPLIB_NOTE',['../config_8hpp.html#a2470b41360fc655b0e1a0bf3ef5fe8f7',1,'config.hpp']]],
-  ['quickcpplib_5fpersistent_5fop',['QUICKCPPLIB_PERSISTENT_OP',['../persistent_8hpp.html#a3897f14d122227d7cd9ee46444fa2ce7',1,'persistent.hpp']]],
   ['quickcpplib_5fprevious_5fcommit_5fdate',['QUICKCPPLIB_PREVIOUS_COMMIT_DATE',['../revision_8hpp.html#a07009836775e67a30e5bc4d3a38e1542',1,'revision.hpp']]],
   ['quickcpplib_5fprevious_5fcommit_5fref',['QUICKCPPLIB_PREVIOUS_COMMIT_REF',['../revision_8hpp.html#ae7b0b69e253d7ed41a73d3013930135e',1,'revision.hpp']]],
   ['quickcpplib_5fprevious_5fcommit_5funique',['QUICKCPPLIB_PREVIOUS_COMMIT_UNIQUE',['../revision_8hpp.html#af9ca29e1aef43d05f0de64f2cd8f70f5',1,'revision.hpp']]],

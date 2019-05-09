@@ -1,5 +1,7 @@
 var NAVTREEINDEX5 =
 {
+"string__view_8hpp.html#af33f2bef13dc6751928e4855ac655799":[4,0,0,24,19],
+"string__view_8hpp.html#af6e5476ec75023517b9ee25457b2136d":[4,0,0,24,37],
 "structgsl_1_1narrowing__error.html":[3,0,0,3],
 "structgsl_1_1owner.html":[3,0,0,1],
 "structgsl_1_1owner.html#ad5f904920decb4282bea78f0662d5616":[3,0,0,1,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX5 =
 "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1unique__id.html#a6c4096e233ffccd9ae4a69ab20086f7b":[3,0,1,0,9,1,1,1],
 "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy.html":[3,0,1,0,9,2],
 "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy.html#a0521a940033a44edc033f0dda30da32e":[3,0,1,0,9,2,1],
-"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy.html#a1ac80e5450665b0fc4b2720cbf3516c5":[3,0,1,0,9,2,0],
-"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html":[3,0,1,0,9,0,0],
-"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a0788a27f9786fd6f34dc8ecfeb7b9de7":[3,0,1,0,9,0,0,16]
+"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy.html#a1ac80e5450665b0fc4b2720cbf3516c5":[3,0,1,0,9,2,0]
 };

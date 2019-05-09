@@ -18,7 +18,7 @@ var indexSectionsWithContent =
   8: "abcdefhimnostuw",
   9: "bipr",
   10: "egioqs",
-  11: "cu",
+  11: "cpu",
   12: "t"
 };
 
