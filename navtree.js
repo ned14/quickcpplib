@@ -6,7 +6,7 @@ var NAVTREE =
     [ "Namespaces", null, [
       [ "Namespace List", "namespaces.html", "namespaces" ],
       [ "Namespace Members", "namespacemembers.html", [
-        [ "All", "namespacemembers.html", null ],
+        [ "All", "namespacemembers.html", "namespacemembers_dup" ],
         [ "Functions", "namespacemembers_func.html", null ],
         [ "Variables", "namespacemembers_vars.html", null ],
         [ "Typedefs", "namespacemembers_type.html", null ],
@@ -43,12 +43,12 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "aligned__allocator_8hpp.html",
-"classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlock.html#ade37293131b9d884b5d9580cf7e5152b",
-"classquickcpplib_1_1__xxx_1_1string__view_1_1basic__string__view.html#a5c5b05acb02d85b9cac2bd062bc65ef1",
-"group__unittesting.html#ga8c09a93d328cbe466b58f6fd17f783bb",
-"import_8h.html#af08015aae4f044785233944a02456a31",
-"string__view_8hpp.html#af33f2bef13dc6751928e4855ac655799",
-"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html"
+"classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlock.html#a8ee6be828c27fd80a9d9e7862ecd7b57",
+"classquickcpplib_1_1__xxx_1_1string__view_1_1basic__string__view.html#a44282dfe344520a634ec8da3ef4e17ad",
+"group__unittesting.html#ga294ed052e62b061f189021d631f11751",
+"import_8h.html#abbb8310a79a63cd9e41bf9c075ca53aa",
+"string_8hpp.html",
+"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase.html#afb0bf8ae911b882e2acdba154a2d912c"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

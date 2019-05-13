@@ -1,5 +1,8 @@
 var searchData=
 [
+  ['is_5finvocable',['is_invocable',['../structquickcpplib_1_1__xxx_1_1type__traits_1_1is__invocable.html',1,'quickcpplib::_xxx::type_traits']]],
+  ['is_5finvocable_3c_20void_20_3e',['is_invocable&lt; void &gt;',['../structquickcpplib_1_1__xxx_1_1type__traits_1_1is__invocable_3_01void_01_4.html',1,'quickcpplib::_xxx::type_traits']]],
+  ['is_5fmove_5frelocating',['is_move_relocating',['../structbit__cast_1_1traits_1_1is__move__relocating.html',1,'bit_cast::traits']]],
   ['is_5fsequence',['is_sequence',['../structquickcpplib_1_1__xxx_1_1type__traits_1_1is__sequence.html',1,'quickcpplib::_xxx::type_traits']]],
   ['is_5fsequence_3c_20t_2c_20bool_20_3e',['is_sequence&lt; T, bool &gt;',['../structquickcpplib_1_1__xxx_1_1type__traits_1_1is__sequence_3_01_t_00_01bool_01_4.html',1,'quickcpplib::_xxx::type_traits']]],
   ['is_5fsequence_3c_20void_20_3e',['is_sequence&lt; void &gt;',['../structquickcpplib_1_1__xxx_1_1type__traits_1_1is__sequence_3_01void_01_4.html',1,'quickcpplib::_xxx::type_traits']]],

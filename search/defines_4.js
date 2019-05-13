@@ -127,6 +127,7 @@ var searchData=
   ['quickcpplib_5ftexpr',['QUICKCPPLIB_TEXPR',['../config_8hpp.html#a13a8002e6ca691abb682df708d24d14e',1,'config.hpp']]],
   ['quickcpplib_5ftpred',['QUICKCPPLIB_TPRED',['../config_8hpp.html#a50591d5da06e6359d794d6039da14e1e',1,'config.hpp']]],
   ['quickcpplib_5ftrequires',['QUICKCPPLIB_TREQUIRES',['../config_8hpp.html#ad0efd8ee70b45fd3bf3a924bbb07577e',1,'config.hpp']]],
+  ['quickcpplib_5fuse_5fstd_5fbit_5fcast',['QUICKCPPLIB_USE_STD_BIT_CAST',['../bit__cast_8hpp.html#a159e35667401c4da6feb45e9cda48fd7',1,'bit_cast.hpp']]],
   ['quickcpplib_5fversion_5fglue',['QUICKCPPLIB_VERSION_GLUE',['../config_8hpp.html#af6f6cfbeaa59c8c02bc91eb2131bb60b',1,'config.hpp']]],
   ['quickcpplib_5fversion_5fglue2',['QUICKCPPLIB_VERSION_GLUE2',['../config_8hpp.html#abeef05c8bfeaff1b958ec734c0bf93c8',1,'config.hpp']]],
   ['quickcpplib_5fwarning',['QUICKCPPLIB_WARNING',['../config_8hpp.html#ab861e91edcaf0a524f5bcafa458b4ea2',1,'config.hpp']]]
