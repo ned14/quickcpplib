@@ -28,6 +28,7 @@ Distributed under the Boost Software License, Version 1.0.
 #include "config.hpp"
 
 #include <type_traits>
+#include <functional>
 
 QUICKCPPLIB_NAMESPACE_BEGIN
 //! Gets the compiler to error out printing a type
@@ -61,7 +62,7 @@ namespace type_traits
     {
       int operator()() const;
     };
-  }
+  }  // namespace detail
   //! True if type T is a STL compliant sequence (does it have begin() and end()?)
   template <class T, typename = decltype(detail::is_sequence_impl(detail::make_sequence_type<T>()()))> struct is_sequence : std::false_type
   {
@@ -74,6 +75,17 @@ namespace type_traits
     typedef decltype(*std::begin(*((typename std::remove_reference<T>::type *) nullptr))) raw_type;  //!< The raw type (probably a (const) lvalue ref) returned by *it
     typedef typename detail::decay_preserving_cv<raw_type>::type type;                               //!< The type held by the container, still potentially const if container does not permit write access
   };
+
+#if __cplusplus >= 201700
+  template <class Fn, class... Args> using is_invocable = std::is_invocable<Fn, Args...>;
+#else
+  template <typename F, typename... Args> struct is_invocable : std::is_constructible<std::function<void(Args...)>, std::reference_wrapper<typename std::remove_reference<F>::type>>
+  {
+  };
+  template <> struct is_invocable<void> : std::false_type
+  {
+  };
+#endif
 
 
 #if 0
@@ -145,7 +157,7 @@ namespace type_traits
       static_assert(!testcil, "testcil()");          // INCORRECT!
 #endif
 #endif
-}
+}  // namespace type_traits
 QUICKCPPLIB_NAMESPACE_END
 
 #endif

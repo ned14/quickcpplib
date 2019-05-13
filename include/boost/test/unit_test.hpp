@@ -132,7 +132,17 @@ namespace unit_test
         , requirement_failed(false)
     {
     }
-    test_case(test_case &&o) noexcept : name(o.name), desc(o.desc), func(o.func), passes(static_cast<size_t>(o.passes)), fails(static_cast<size_t>(o.fails)), skipped(o.skipped), requirement_failed(o.requirement_failed) {}
+    test_case(test_case &&o) noexcept
+        : name(o.name)
+        , desc(o.desc)
+        , func(o.func)
+        , duration(static_cast<std::chrono::steady_clock::duration &&>(o.duration))
+        , passes(static_cast<size_t>(o.passes))
+        , fails(static_cast<size_t>(o.fails))
+        , skipped(o.skipped)
+        , requirement_failed(o.requirement_failed)
+    {
+    }
     test_case &operator=(test_case &&o) noexcept
     {
       this->~test_case();
@@ -382,7 +392,7 @@ namespace unit_test
       test_suite *suite = test_suites().data() + suite_idx;
       suite->test_cases.push_back(test_case(name, desc, func));
     }
-    test_case_registration()
+    ~test_case_registration()
     {
       test_suite *suite = test_suites().data() + suite_idx;
       // Static deinit is exactly opposite in order to init
