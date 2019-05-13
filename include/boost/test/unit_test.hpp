@@ -395,8 +395,8 @@ namespace unit_test
     ~test_case_registration()
     {
       test_suite *suite = test_suites().data() + suite_idx;
-      // Static deinit is exactly opposite in order to init
-      suite->test_cases.erase(std::remove_if(suite->test_cases.rbegin(), suite->test_cases.rend(), [this](const test_case &i) { return i.func == func; }).base());
+      auto it = std::remove_if(suite->test_cases.begin(), suite->test_cases.end(), [this](const test_case &i) { return i.func == func; });
+      suite->test_cases.erase(it);
     }
   };
 }
