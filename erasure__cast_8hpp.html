@@ -117,30 +117,36 @@ $(document).ready(function(){initNavTree('erasure__cast_8hpp.html','');});
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:namespaceerasure__cast"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceerasure__cast.html">erasure_cast</a></td></tr>
+<tr class="memitem:namespacequickcpplib"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib.html">quickcpplib</a></td></tr>
+<tr class="memdesc:namespacequickcpplib"><td class="mdescLeft">&#160;</td><td class="mdescRight">The QuickCppLib namespace. <br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespaceerasure__cast_1_1detail"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceerasure__cast_1_1detail.html">erasure_cast::detail</a></td></tr>
+<tr class="memitem:namespacequickcpplib_1_1__xxx"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx.html">quickcpplib::_xxx</a></td></tr>
+<tr class="memdesc:namespacequickcpplib_1_1__xxx"><td class="mdescLeft">&#160;</td><td class="mdescRight">Per commit unique namespace to prevent different git submodule versions clashing. <br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacequickcpplib_1_1__xxx_1_1erasure__cast"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1erasure__cast.html">quickcpplib::_xxx::erasure_cast</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacequickcpplib_1_1__xxx_1_1erasure__cast_1_1detail"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1erasure__cast_1_1detail.html">quickcpplib::_xxx::erasure_cast::detail</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a778a9941fca70e5326423822a25dc55f"><td class="memTemplParams" colspan="2">template&lt;class To , class From &gt; </td></tr>
-<tr class="memitem:a778a9941fca70e5326423822a25dc55f"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceerasure__cast_1_1detail.html#a778a9941fca70e5326423822a25dc55f">erasure_cast::detail::is_erasure_castable</a> = std::integral_constant&lt; bool, <a class="el" href="structbit__cast_1_1traits_1_1is__move__relocating.html">traits::is_move_relocating</a>&lt; To &gt;::value &amp;&amp;<a class="el" href="structbit__cast_1_1traits_1_1is__move__relocating.html">traits::is_move_relocating</a>&lt; From &gt;::value &gt;</td></tr>
-<tr class="separator:a778a9941fca70e5326423822a25dc55f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a062ee88b32623283847709ee5a07dc27"><td class="memTemplParams" colspan="2">template&lt;class OfSize , class OfSign &gt; </td></tr>
-<tr class="memitem:a062ee88b32623283847709ee5a07dc27"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceerasure__cast_1_1detail.html#a062ee88b32623283847709ee5a07dc27">erasure_cast::detail::erasure_integer_type</a> = typename std::conditional&lt; std::is_signed&lt; typename identity_or_underlying_type&lt; OfSign &gt;::type &gt;::value, typename std::make_signed&lt; typename identity_or_underlying_type&lt; OfSize &gt;::type &gt;::type, typename std::make_unsigned&lt; typename identity_or_underlying_type&lt; OfSize &gt;::type &gt;::type &gt;::type</td></tr>
-<tr class="separator:a062ee88b32623283847709ee5a07dc27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac40ab1a0d6005c636b85377e0bb92c43"><td class="memTemplParams" colspan="2">template&lt;class To , class From &gt; </td></tr>
+<tr class="memitem:ac40ab1a0d6005c636b85377e0bb92c43"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1erasure__cast_1_1detail.html#ac40ab1a0d6005c636b85377e0bb92c43">quickcpplib::_xxx::erasure_cast::detail::is_erasure_castable</a> = std::integral_constant&lt; bool, traits::is_move_relocating&lt; To &gt;::value &amp;&amp;traits::is_move_relocating&lt; From &gt;::value &gt;</td></tr>
+<tr class="separator:ac40ab1a0d6005c636b85377e0bb92c43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4e2b9295c3c8f563e7d473debc35dcb"><td class="memTemplParams" colspan="2">template&lt;class OfSize , class OfSign &gt; </td></tr>
+<tr class="memitem:ac4e2b9295c3c8f563e7d473debc35dcb"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1erasure__cast_1_1detail.html#ac4e2b9295c3c8f563e7d473debc35dcb">quickcpplib::_xxx::erasure_cast::detail::erasure_integer_type</a> = typename std::conditional&lt; std::is_signed&lt; typename identity_or_underlying_type&lt; OfSign &gt;::type &gt;::value, typename std::make_signed&lt; typename identity_or_underlying_type&lt; OfSize &gt;::type &gt;::type, typename std::make_unsigned&lt; typename identity_or_underlying_type&lt; OfSize &gt;::type &gt;::type &gt;::type</td></tr>
+<tr class="separator:ac4e2b9295c3c8f563e7d473debc35dcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a09fca3ed1b382d29dee36a845a4af4e3"><td class="memTemplParams" colspan="2">template&lt;class To , class From , typename std::enable_if&lt; detail::is_erasure_castable&lt; To, From &gt;::value &amp;&amp;(sizeof(To)==sizeof(From)), bool &gt;::type  = true&gt; </td></tr>
-<tr class="memitem:a09fca3ed1b382d29dee36a845a4af4e3"><td class="memTemplItemLeft" align="right" valign="top">constexpr To&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceerasure__cast.html#a09fca3ed1b382d29dee36a845a4af4e3">erasure_cast::erasure_cast</a> (const From &amp;from) noexcept</td></tr>
-<tr class="memdesc:a09fca3ed1b382d29dee36a845a4af4e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erasure cast implementation chosen if types are move relocating or trivally copyable, have identical size, and are bit castable. Constexpr. Forwards to <code>bit_cast()</code> directly.  <a href="#a09fca3ed1b382d29dee36a845a4af4e3">More...</a><br/></td></tr>
-<tr class="separator:a09fca3ed1b382d29dee36a845a4af4e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2acfca0224efef52977bf8d15e8d871c"><td class="memTemplParams" colspan="2">template&lt;class To , class From &gt; </td></tr>
-<tr class="memitem:a2acfca0224efef52977bf8d15e8d871c"><td class="memTemplItemLeft" align="right" valign="top">constexpr To&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceerasure__cast.html#a2acfca0224efef52977bf8d15e8d871c">erasure_cast::erasure_cast</a> (const From &amp;from) noexcept</td></tr>
-<tr class="memdesc:a2acfca0224efef52977bf8d15e8d871c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erasure cast implementation chosen if types are move relocating or trivally copyable, are statically castable, and destination type is smaller than source type. Constexpr.  <a href="#a2acfca0224efef52977bf8d15e8d871c">More...</a><br/></td></tr>
-<tr class="separator:a2acfca0224efef52977bf8d15e8d871c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82e230ab89394410945b3a718294f37a"><td class="memTemplParams" colspan="2">template&lt;class To , class From , typename std::enable_if&lt; detail::is_erasure_castable&lt; To, From &gt;::value &amp;&amp;(sizeof(To)==sizeof(From)), bool &gt;::type  = true&gt; </td></tr>
+<tr class="memitem:a82e230ab89394410945b3a718294f37a"><td class="memTemplItemLeft" align="right" valign="top">constexpr To&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1erasure__cast.html#a82e230ab89394410945b3a718294f37a">quickcpplib::_xxx::erasure_cast::erasure_cast</a> (const From &amp;from) noexcept</td></tr>
+<tr class="memdesc:a82e230ab89394410945b3a718294f37a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erasure cast implementation chosen if types are move relocating or trivally copyable, have identical size, and are bit castable. Constexpr. Forwards to <code>bit_cast()</code> directly.  <a href="#a82e230ab89394410945b3a718294f37a">More...</a><br/></td></tr>
+<tr class="separator:a82e230ab89394410945b3a718294f37a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a374798812506b1e458d43ec910b3007c"><td class="memTemplParams" colspan="2">template&lt;class To , class From &gt; </td></tr>
+<tr class="memitem:a374798812506b1e458d43ec910b3007c"><td class="memTemplItemLeft" align="right" valign="top">constexpr To&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1erasure__cast.html#a374798812506b1e458d43ec910b3007c">quickcpplib::_xxx::erasure_cast::erasure_cast</a> (const From &amp;from) noexcept</td></tr>
+<tr class="memdesc:a374798812506b1e458d43ec910b3007c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erasure cast implementation chosen if types are move relocating or trivally copyable, are statically castable, and destination type is smaller than source type. Constexpr.  <a href="#a374798812506b1e458d43ec910b3007c">More...</a><br/></td></tr>
+<tr class="separator:a374798812506b1e458d43ec910b3007c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

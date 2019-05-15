@@ -2,9 +2,12 @@ var namespacequickcpplib_1_1__xxx =
 [
     [ "aligned_allocator", "namespacequickcpplib_1_1__xxx_1_1aligned__allocator.html", "namespacequickcpplib_1_1__xxx_1_1aligned__allocator" ],
     [ "allocator_testing", "namespacequickcpplib_1_1__xxx_1_1allocator__testing.html", "namespacequickcpplib_1_1__xxx_1_1allocator__testing" ],
+    [ "bit_cast", "namespacequickcpplib_1_1__xxx_1_1bit__cast.html", "namespacequickcpplib_1_1__xxx_1_1bit__cast" ],
     [ "byte", "namespacequickcpplib_1_1__xxx_1_1byte.html", null ],
     [ "console_colours", "namespacequickcpplib_1_1__xxx_1_1console__colours.html", "namespacequickcpplib_1_1__xxx_1_1console__colours" ],
+    [ "detach_cast", "namespacequickcpplib_1_1__xxx_1_1detach__cast.html", "namespacequickcpplib_1_1__xxx_1_1detach__cast" ],
     [ "ensure_stores", "namespacequickcpplib_1_1__xxx_1_1ensure__stores.html", "namespacequickcpplib_1_1__xxx_1_1ensure__stores" ],
+    [ "erasure_cast", "namespacequickcpplib_1_1__xxx_1_1erasure__cast.html", "namespacequickcpplib_1_1__xxx_1_1erasure__cast" ],
     [ "pmr", "namespacequickcpplib_1_1__xxx_1_1pmr.html", null ],
     [ "offset_ptr", "namespacequickcpplib_1_1__xxx_1_1offset__ptr.html", "namespacequickcpplib_1_1__xxx_1_1offset__ptr" ],
     [ "optional", "namespacequickcpplib_1_1__xxx_1_1optional.html", null ],

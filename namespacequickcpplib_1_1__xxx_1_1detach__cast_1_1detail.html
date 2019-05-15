@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>QuickCppLib: bit_cast Namespace Reference</title>
+<title>QuickCppLib: quickcpplib::_xxx::detach_cast::detail Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -87,7 +87,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('namespacebit__cast.html','');});
+$(document).ready(function(){initNavTree('namespacequickcpplib_1_1__xxx_1_1detach__cast_1_1detail.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -106,93 +106,114 @@ $(document).ready(function(){initNavTree('namespacebit__cast.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">bit_cast Namespace Reference</div>  </div>
+<div class="title">quickcpplib::_xxx::detach_cast::detail Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:namespacebit__cast_1_1traits"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebit__cast_1_1traits.html">traits</a></td></tr>
-<tr class="memdesc:namespacebit__cast_1_1traits"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace for user specialised traits. <br/></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacebit__cast_1_1detail"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebit__cast_1_1detail.html">detail</a></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><b>byte_array_wrapper</b></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad6310416d9006e4ca48d64aa5e57b269"><td class="memTemplParams" colspan="2">template&lt;class To , class From , typename std::enable_if&lt; detail::is_bit_castable&lt; To, From &gt;::value &amp;&amp;detail::is_static_castable&lt; To, From &gt;::value &amp;&amp;!detail::is_union_castable&lt; To, From &gt;::value, bool &gt;::type  = true&gt; </td></tr>
-<tr class="memitem:ad6310416d9006e4ca48d64aa5e57b269"><td class="memTemplItemLeft" align="right" valign="top">constexpr To&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebit__cast.html#ad6310416d9006e4ca48d64aa5e57b269">bit_cast</a> (const From &amp;from) noexcept</td></tr>
-<tr class="memdesc:ad6310416d9006e4ca48d64aa5e57b269"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit cast emulation chosen if types are move relocating or trivally copyable, have identical size, and are statically castable. Constexpr.  <a href="#ad6310416d9006e4ca48d64aa5e57b269">More...</a><br/></td></tr>
-<tr class="separator:ad6310416d9006e4ca48d64aa5e57b269"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c3fe0ab544ca9ca38586ef83a0dc58d"><td class="memTemplParams" colspan="2">template&lt;class To , class From , typename std::enable_if&lt; detail::is_bit_castable&lt; To, From &gt;::value &amp;&amp;!detail::is_static_castable&lt; To, From &gt;::value &amp;&amp;!detail::is_union_castable&lt; To, From &gt;::value, bool &gt;::type  = true&gt; </td></tr>
-<tr class="memitem:a8c3fe0ab544ca9ca38586ef83a0dc58d"><td class="memTemplItemLeft" align="right" valign="top">To&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebit__cast.html#a8c3fe0ab544ca9ca38586ef83a0dc58d">bit_cast</a> (const From &amp;from) noexcept</td></tr>
-<tr class="memdesc:a8c3fe0ab544ca9ca38586ef83a0dc58d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit cast emulation chosen if an array of types which are move relocating or trivally copyable, and have identical size. NOT constexpr.  <a href="#a8c3fe0ab544ca9ca38586ef83a0dc58d">More...</a><br/></td></tr>
-<tr class="separator:a8c3fe0ab544ca9ca38586ef83a0dc58d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30b58ed0621bafae6c207a68d639b432"><td class="memTemplParams" colspan="2">template&lt;class To , class From , typename  = decltype(quickcpplib::_xxx::bit_cast::bit_cast&lt;To, From&gt;(std::declval&lt;From&gt;()))&gt; </td></tr>
+<tr class="memitem:a30b58ed0621bafae6c207a68d639b432"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1detach__cast_1_1detail.html#a30b58ed0621bafae6c207a68d639b432">_is_bit_cast_valid</a> (int)</td></tr>
+<tr class="separator:a30b58ed0621bafae6c207a68d639b432"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4532a9128a100234391b3663c768c02"><td class="memTemplParams" colspan="2">template&lt;class To , class From &gt; </td></tr>
+<tr class="memitem:ab4532a9128a100234391b3663c768c02"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1detach__cast_1_1detail.html#ab4532a9128a100234391b3663c768c02">_is_bit_cast_valid</a> (...)</td></tr>
+<tr class="separator:ab4532a9128a100234391b3663c768c02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62119844e67df8419307868de925874e"><td class="memTemplParams" colspan="2">template&lt;class To , class From &gt; </td></tr>
+<tr class="memitem:a62119844e67df8419307868de925874e"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1detach__cast_1_1detail.html#a62119844e67df8419307868de925874e">is_bit_cast_valid</a> ()</td></tr>
+<tr class="separator:a62119844e67df8419307868de925874e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="ad6310416d9006e4ca48d64aa5e57b269"></a>
+<a class="anchor" id="a30b58ed0621bafae6c207a68d639b432"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class To , class From , typename std::enable_if&lt; detail::is_bit_castable&lt; To, From &gt;::value &amp;&amp;detail::is_static_castable&lt; To, From &gt;::value &amp;&amp;!detail::is_union_castable&lt; To, From &gt;::value, bool &gt;::type  = true&gt; </div>
+template&lt;class To , class From , typename  = decltype(quickcpplib::_xxx::bit_cast::bit_cast&lt;To, From&gt;(std::declval&lt;From&gt;()))&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr To bit_cast::bit_cast </td>
+          <td class="memname">constexpr bool quickcpplib::_xxx::detach_cast::detail::_is_bit_cast_valid </td>
           <td>(</td>
-          <td class="paramtype">const From &amp;&#160;</td>
-          <td class="paramname"><em>from</em></td><td>)</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Bit cast emulation chosen if types are move relocating or trivally copyable, have identical size, and are statically castable. Constexpr. </p>
-<p>Bit cast emulation chosen if types are move relocating or trivally copyable, have identical size, and are union castable. Constexpr. </p>
-<div class="fragment"><div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;{ <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>To<span class="keyword">&gt;</span>(from); }</div>
+<div class="fragment"><div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    {</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    };</div>
 </div><!-- fragment -->
 </div>
 </div>
-<a class="anchor" id="a8c3fe0ab544ca9ca38586ef83a0dc58d"></a>
+<a class="anchor" id="ab4532a9128a100234391b3663c768c02"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class To , class From , typename std::enable_if&lt; detail::is_bit_castable&lt; To, From &gt;::value &amp;&amp;!detail::is_static_castable&lt; To, From &gt;::value &amp;&amp;!detail::is_union_castable&lt; To, From &gt;::value, bool &gt;::type  = true&gt; </div>
+template&lt;class To , class From &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">To bit_cast::bit_cast </td>
+          <td class="memname">constexpr bool quickcpplib::_xxx::detach_cast::detail::_is_bit_cast_valid </td>
           <td>(</td>
-          <td class="paramtype">const From &amp;&#160;</td>
-          <td class="paramname"><em>from</em></td><td>)</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Bit cast emulation chosen if an array of types which are move relocating or trivally copyable, and have identical size. NOT constexpr. </p>
-<div class="fragment"><div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  {</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    detail::bit_cast_union&lt;To, From&gt; ret;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    memmove(&amp;ret.source, &amp;from, <span class="keyword">sizeof</span>(ret.source));</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordflow">return</span> ret.target;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  }</div>
+<div class="fragment"><div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="a62119844e67df8419307868de925874e"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class To , class From &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool quickcpplib::_xxx::detach_cast::detail::is_bit_cast_valid </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    {</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      <span class="keywordflow">return</span> _is_bit_cast_valid&lt;To, From&gt;(5);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    };</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -201,7 +222,7 @@ template&lt;class To , class From , typename std::enable_if&lt; detail::is_bit_c
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespacebit__cast.html">bit_cast</a></li>
+    <li class="navelem"><a class="el" href="namespacequickcpplib.html">quickcpplib</a></li><li class="navelem"><a class="el" href="namespacequickcpplib_1_1__xxx.html">_xxx</a></li><li class="navelem"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1detach__cast.html">detach_cast</a></li><li class="navelem"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1detach__cast_1_1detail.html">detail</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>

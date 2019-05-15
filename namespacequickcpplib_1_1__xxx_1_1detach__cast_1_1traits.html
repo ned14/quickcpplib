@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>QuickCppLib: erasure_cast::detail Namespace Reference</title>
+<title>QuickCppLib: quickcpplib::_xxx::detach_cast::traits Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -87,7 +87,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('namespaceerasure__cast_1_1detail.html','');});
+$(document).ready(function(){initNavTree('namespacequickcpplib_1_1__xxx_1_1detach__cast_1_1traits.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -106,66 +106,32 @@ $(document).ready(function(){initNavTree('namespaceerasure__cast_1_1detail.html'
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">erasure_cast::detail Namespace Reference</div>  </div>
+<div class="title">quickcpplib::_xxx::detach_cast::traits Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Namespace for user specialised traits.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><b>identity_or_underlying_type</b></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structquickcpplib_1_1__xxx_1_1detach__cast_1_1traits_1_1enable__reinterpret__detach__cast.html">enable_reinterpret_detach_cast</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialise to true if you want to enable the reinterpret cast based implementation of <code>detach_cast()</code> for some type <code>T</code>. This introduces undefined behaviour in C++ 20.  <a href="structquickcpplib_1_1__xxx_1_1detach__cast_1_1traits_1_1enable__reinterpret__detach__cast.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><b>identity_or_underlying_type&lt; T, true &gt;</b></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structquickcpplib_1_1__xxx_1_1detach__cast_1_1traits_1_1enable__reinterpret__attach__cast.html">enable_reinterpret_attach_cast</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialise to true if you want to enable the reinterpret cast based implementation of <code>attach_cast()</code> for some type <code>T</code>. This introduces undefined behaviour in C++ 20.  <a href="structquickcpplib_1_1__xxx_1_1detach__cast_1_1traits_1_1enable__reinterpret__attach__cast.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><b>padded_erasure_object</b></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a778a9941fca70e5326423822a25dc55f"><td class="memTemplParams" colspan="2">template&lt;class To , class From &gt; </td></tr>
-<tr class="memitem:a778a9941fca70e5326423822a25dc55f"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceerasure__cast_1_1detail.html#a778a9941fca70e5326423822a25dc55f">is_erasure_castable</a> = std::integral_constant&lt; bool, <a class="el" href="structbit__cast_1_1traits_1_1is__move__relocating.html">traits::is_move_relocating</a>&lt; To &gt;::value &amp;&amp;<a class="el" href="structbit__cast_1_1traits_1_1is__move__relocating.html">traits::is_move_relocating</a>&lt; From &gt;::value &gt;</td></tr>
-<tr class="separator:a778a9941fca70e5326423822a25dc55f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a062ee88b32623283847709ee5a07dc27"><td class="memTemplParams" colspan="2">template&lt;class OfSize , class OfSign &gt; </td></tr>
-<tr class="memitem:a062ee88b32623283847709ee5a07dc27"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceerasure__cast_1_1detail.html#a062ee88b32623283847709ee5a07dc27">erasure_integer_type</a> = typename std::conditional&lt; std::is_signed&lt; typename identity_or_underlying_type&lt; OfSign &gt;::type &gt;::value, typename std::make_signed&lt; typename identity_or_underlying_type&lt; OfSize &gt;::type &gt;::type, typename std::make_unsigned&lt; typename identity_or_underlying_type&lt; OfSize &gt;::type &gt;::type &gt;::type</td></tr>
-<tr class="separator:a062ee88b32623283847709ee5a07dc27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Typedef Documentation</h2>
-<a class="anchor" id="a778a9941fca70e5326423822a25dc55f"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class To , class From &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="namespaceerasure__cast_1_1detail.html#a778a9941fca70e5326423822a25dc55f">erasure_cast::detail::is_erasure_castable</a> = typedef std::integral_constant&lt;bool, <a class="el" href="structbit__cast_1_1traits_1_1is__move__relocating.html">traits::is_move_relocating</a>&lt;To&gt;::value &amp;&amp; <a class="el" href="structbit__cast_1_1traits_1_1is__move__relocating.html">traits::is_move_relocating</a>&lt;From&gt;::value&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a062ee88b32623283847709ee5a07dc27"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class OfSize , class OfSign &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="namespaceerasure__cast_1_1detail.html#a062ee88b32623283847709ee5a07dc27">erasure_cast::detail::erasure_integer_type</a> = typedef typename std::conditional&lt;std::is_signed&lt;typename identity_or_underlying_type&lt;OfSign&gt;::type&gt;::value, typename std::make_signed&lt;typename identity_or_underlying_type&lt;OfSize&gt;::type&gt;::type, typename std::make_unsigned&lt;typename identity_or_underlying_type&lt;OfSize&gt;::type&gt;::type&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Namespace for user specialised traits. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespaceerasure__cast.html">erasure_cast</a></li><li class="navelem"><a class="el" href="namespaceerasure__cast_1_1detail.html">detail</a></li>
+    <li class="navelem"><a class="el" href="namespacequickcpplib.html">quickcpplib</a></li><li class="navelem"><a class="el" href="namespacequickcpplib_1_1__xxx.html">_xxx</a></li><li class="navelem"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1detach__cast.html">detach_cast</a></li><li class="navelem"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1detach__cast_1_1traits.html">traits</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>

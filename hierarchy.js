@@ -26,6 +26,8 @@ var hierarchy =
       [ "quickcpplib::_xxx::signal_guard::signal_raised", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__raised.html", null ]
     ] ],
     [ "false_type", null, [
+      [ "quickcpplib::_xxx::detach_cast::traits::enable_reinterpret_attach_cast< T >", "structquickcpplib_1_1__xxx_1_1detach__cast_1_1traits_1_1enable__reinterpret__attach__cast.html", null ],
+      [ "quickcpplib::_xxx::detach_cast::traits::enable_reinterpret_detach_cast< T >", "structquickcpplib_1_1__xxx_1_1detach__cast_1_1traits_1_1enable__reinterpret__detach__cast.html", null ],
       [ "quickcpplib::_xxx::type_traits::is_invocable< void >", "structquickcpplib_1_1__xxx_1_1type__traits_1_1is__invocable_3_01void_01_4.html", null ],
       [ "quickcpplib::_xxx::type_traits::is_sequence< T, typename >", "structquickcpplib_1_1__xxx_1_1type__traits_1_1is__sequence.html", null ],
       [ "quickcpplib::_xxx::type_traits::is_sequence< void >", "structquickcpplib_1_1__xxx_1_1type__traits_1_1is__sequence_3_01void_01_4.html", null ]
@@ -36,7 +38,7 @@ var hierarchy =
     [ "is_constructible", null, [
       [ "quickcpplib::_xxx::type_traits::is_invocable< F, Args >", "structquickcpplib_1_1__xxx_1_1type__traits_1_1is__invocable.html", null ]
     ] ],
-    [ "bit_cast::traits::is_move_relocating< T >", "structbit__cast_1_1traits_1_1is__move__relocating.html", null ],
+    [ "quickcpplib::_xxx::bit_cast::traits::is_move_relocating< T >", "structquickcpplib_1_1__xxx_1_1bit__cast_1_1traits_1_1is__move__relocating.html", null ],
     [ "quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy< KeyType, T, LinearSearchLimit, LockType, KeyModulus, KeyCompare >::items_count_type", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1items__count__type.html", null ],
     [ "iterator", null, [
       [ "quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index< Policy, ContiguousContainerType, disable_existing_key_check >::iterator_< is_const, Parent, Pointer, Reference >", "classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_1_1iterator__.html", null ],
@@ -65,9 +67,9 @@ var hierarchy =
     [ "quickcpplib::_xxx::algorithm::hash::passthru_hash< T >", "structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1passthru__hash.html", null ],
     [ "quickcpplib::_xxx::print_type< T >", "structquickcpplib_1_1__xxx_1_1print__type.html", null ],
     [ "quickcpplib::_xxx::signal_guard::raised_signal_info", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1raised__signal__info.html", null ],
+    [ "quickcpplib::_xxx::aligned_allocator::aligned_allocator< T, Align, initialize >::rebind< U >", "structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_1_1rebind.html", null ],
     [ "quickcpplib::_xxx::aligned_allocator::aligned_allocator< const T, Align, initialize >::rebind< U >", "structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_alig38b3ce2fde59753f89f79b36dfe20c65.html", null ],
     [ "quickcpplib::_xxx::allocator_testing::allocator< T, A >::rebind< U >", "structquickcpplib_1_1__xxx_1_1allocator__testing_1_1allocator_1_1rebind.html", null ],
-    [ "quickcpplib::_xxx::aligned_allocator::aligned_allocator< T, Align, initialize >::rebind< U >", "structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_1_1rebind.html", null ],
     [ "quickcpplib::_xxx::unit_test::requirement_failed", "structquickcpplib_1_1__xxx_1_1unit__test_1_1requirement__failed.html", null ],
     [ "quickcpplib::_xxx::ringbuffer_log::ringbuffer_log< Policy >", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html", null ],
     [ "quickcpplib::_xxx::algorithm::secded_ecc::secded_ecc< blocksize >", "classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html", null ],
@@ -97,7 +99,7 @@ var hierarchy =
     [ "quickcpplib::_xxx::integers128::uint128", "unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html", null ],
     [ "quickcpplib::_xxx::integers128::uint128_hasher", "structquickcpplib_1_1__xxx_1_1integers128_1_1uint128__hasher.html", null ],
     [ "quickcpplib::_xxx::ringbuffer_log::ringbuffer_log< Policy >::unique_id", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1unique__id.html", null ],
-    [ "quickcpplib::_xxx::algorithm::open_hash_index::linear_memory_policy< KeyType, T, LinearSearchLimit, KeyModulus, KeyCompare >::value_type", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html", null ],
     [ "quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy< KeyType, T, LinearSearchLimit, LockType, KeyModulus, KeyCompare >::value_type", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type.html", null ],
+    [ "quickcpplib::_xxx::algorithm::open_hash_index::linear_memory_policy< KeyType, T, LinearSearchLimit, KeyModulus, KeyCompare >::value_type", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html", null ],
     [ "quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html", null ]
 ];

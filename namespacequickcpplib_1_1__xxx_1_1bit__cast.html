@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>QuickCppLib: erasure_cast Namespace Reference</title>
+<title>QuickCppLib: quickcpplib::_xxx::bit_cast Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -87,7 +87,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('namespaceerasure__cast.html','');});
+$(document).ready(function(){initNavTree('namespacequickcpplib_1_1__xxx_1_1bit__cast.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -109,38 +109,41 @@ $(document).ready(function(){initNavTree('namespaceerasure__cast.html','');});
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">erasure_cast Namespace Reference</div>  </div>
+<div class="title">quickcpplib::_xxx::bit_cast Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:namespaceerasure__cast_1_1detail"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceerasure__cast_1_1detail.html">detail</a></td></tr>
+<tr class="memitem:namespacequickcpplib_1_1__xxx_1_1bit__cast_1_1traits"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1bit__cast_1_1traits.html">traits</a></td></tr>
+<tr class="memdesc:namespacequickcpplib_1_1__xxx_1_1bit__cast_1_1traits"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace for user specialised traits. <br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacequickcpplib_1_1__xxx_1_1bit__cast_1_1detail"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1bit__cast_1_1detail.html">detail</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a09fca3ed1b382d29dee36a845a4af4e3"><td class="memTemplParams" colspan="2">template&lt;class To , class From , typename std::enable_if&lt; detail::is_erasure_castable&lt; To, From &gt;::value &amp;&amp;(sizeof(To)==sizeof(From)), bool &gt;::type  = true&gt; </td></tr>
-<tr class="memitem:a09fca3ed1b382d29dee36a845a4af4e3"><td class="memTemplItemLeft" align="right" valign="top">constexpr To&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceerasure__cast.html#a09fca3ed1b382d29dee36a845a4af4e3">erasure_cast</a> (const From &amp;from) noexcept</td></tr>
-<tr class="memdesc:a09fca3ed1b382d29dee36a845a4af4e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erasure cast implementation chosen if types are move relocating or trivally copyable, have identical size, and are bit castable. Constexpr. Forwards to <code>bit_cast()</code> directly.  <a href="#a09fca3ed1b382d29dee36a845a4af4e3">More...</a><br/></td></tr>
-<tr class="separator:a09fca3ed1b382d29dee36a845a4af4e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2acfca0224efef52977bf8d15e8d871c"><td class="memTemplParams" colspan="2">template&lt;class To , class From &gt; </td></tr>
-<tr class="memitem:a2acfca0224efef52977bf8d15e8d871c"><td class="memTemplItemLeft" align="right" valign="top">constexpr To&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceerasure__cast.html#a2acfca0224efef52977bf8d15e8d871c">erasure_cast</a> (const From &amp;from) noexcept</td></tr>
-<tr class="memdesc:a2acfca0224efef52977bf8d15e8d871c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erasure cast implementation chosen if types are move relocating or trivally copyable, are statically castable, and destination type is smaller than source type. Constexpr.  <a href="#a2acfca0224efef52977bf8d15e8d871c">More...</a><br/></td></tr>
-<tr class="separator:a2acfca0224efef52977bf8d15e8d871c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7fb7ca36afeecc06809df709a4db1f7"><td class="memTemplParams" colspan="2">template&lt;class To , class From , typename std::enable_if&lt; detail::is_bit_castable&lt; To, From &gt;::value &amp;&amp;detail::is_static_castable&lt; To, From &gt;::value &amp;&amp;!detail::is_union_castable&lt; To, From &gt;::value, bool &gt;::type  = true&gt; </td></tr>
+<tr class="memitem:ad7fb7ca36afeecc06809df709a4db1f7"><td class="memTemplItemLeft" align="right" valign="top">constexpr To&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1bit__cast.html#ad7fb7ca36afeecc06809df709a4db1f7">bit_cast</a> (const From &amp;from) noexcept</td></tr>
+<tr class="memdesc:ad7fb7ca36afeecc06809df709a4db1f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit cast emulation chosen if types are move relocating or trivally copyable, have identical size, and are statically castable. Constexpr.  <a href="#ad7fb7ca36afeecc06809df709a4db1f7">More...</a><br/></td></tr>
+<tr class="separator:ad7fb7ca36afeecc06809df709a4db1f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0289c0869b63dfb8ef961b3ed4808681"><td class="memTemplParams" colspan="2">template&lt;class To , class From , typename std::enable_if&lt; detail::is_bit_castable&lt; To, From &gt;::value &amp;&amp;!detail::is_static_castable&lt; To, From &gt;::value &amp;&amp;!detail::is_union_castable&lt; To, From &gt;::value, bool &gt;::type  = true&gt; </td></tr>
+<tr class="memitem:a0289c0869b63dfb8ef961b3ed4808681"><td class="memTemplItemLeft" align="right" valign="top">To&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1bit__cast.html#a0289c0869b63dfb8ef961b3ed4808681">bit_cast</a> (const From &amp;from) noexcept</td></tr>
+<tr class="memdesc:a0289c0869b63dfb8ef961b3ed4808681"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit cast emulation chosen if an array of types which are move relocating or trivally copyable, and have identical size. NOT constexpr.  <a href="#a0289c0869b63dfb8ef961b3ed4808681">More...</a><br/></td></tr>
+<tr class="separator:a0289c0869b63dfb8ef961b3ed4808681"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a09fca3ed1b382d29dee36a845a4af4e3"></a>
+<a class="anchor" id="ad7fb7ca36afeecc06809df709a4db1f7"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class To , class From , typename std::enable_if&lt; detail::is_erasure_castable&lt; To, From &gt;::value &amp;&amp;(sizeof(To)==sizeof(From)), bool &gt;::type  = true&gt; </div>
+template&lt;class To , class From , typename std::enable_if&lt; detail::is_bit_castable&lt; To, From &gt;::value &amp;&amp;detail::is_static_castable&lt; To, From &gt;::value &amp;&amp;!detail::is_union_castable&lt; To, From &gt;::value, bool &gt;::type  = true&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr To erasure_cast::erasure_cast </td>
+          <td class="memname">constexpr To quickcpplib::_xxx::bit_cast::bit_cast </td>
           <td>(</td>
           <td class="paramtype">const From &amp;&#160;</td>
           <td class="paramname"><em>from</em></td><td>)</td>
@@ -149,32 +152,28 @@ template&lt;class To , class From , typename std::enable_if&lt; detail::is_erasu
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Erasure cast implementation chosen if types are move relocating or trivally copyable, have identical size, and are bit castable. Constexpr. Forwards to <code>bit_cast()</code> directly. </p>
-<p>Erasure cast implementation chosen if types are move relocating or trivally copyable, are union castable, and destination type is larger than source type. May be constexpr if underlying bit cast is constexpr.</p>
-<p>Erasure cast implementation chosen if types are move relocating or trivally copyable, are statically castable, and destination type is larger than source type. Constexpr. </p>
-<div class="fragment"><div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  {</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacebit__cast.html#ad6310416d9006e4ca48d64aa5e57b269">bit_cast</a>&lt;To&gt;(from);</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  }</div>
-<div class="ttc" id="namespacebit__cast_html_ad6310416d9006e4ca48d64aa5e57b269"><div class="ttname"><a href="namespacebit__cast.html#ad6310416d9006e4ca48d64aa5e57b269">bit_cast::bit_cast</a></div><div class="ttdeci">constexpr To bit_cast(const From &amp;from) noexcept</div><div class="ttdoc">Bit cast emulation chosen if types are move relocating or trivally copyable, have identical size...</div><div class="ttdef"><b>Definition:</b> bit_cast.hpp:92</div></div>
+<p>Bit cast emulation chosen if types are move relocating or trivally copyable, have identical size, and are statically castable. Constexpr. </p>
+<p>Bit cast emulation chosen if types are move relocating or trivally copyable, have identical size, and are union castable. Constexpr. </p>
+<div class="fragment"><div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;{ <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>To<span class="keyword">&gt;</span>(from); }</div>
 </div><!-- fragment -->
 </div>
 </div>
-<a class="anchor" id="a2acfca0224efef52977bf8d15e8d871c"></a>
+<a class="anchor" id="a0289c0869b63dfb8ef961b3ed4808681"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class To , class From &gt; </div>
+template&lt;class To , class From , typename std::enable_if&lt; detail::is_bit_castable&lt; To, From &gt;::value &amp;&amp;!detail::is_static_castable&lt; To, From &gt;::value &amp;&amp;!detail::is_union_castable&lt; To, From &gt;::value, bool &gt;::type  = true&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr To erasure_cast::erasure_cast </td>
+          <td class="memname">To quickcpplib::_xxx::bit_cast::bit_cast </td>
           <td>(</td>
           <td class="paramtype">const From &amp;&#160;</td>
           <td class="paramname"><em>from</em></td><td>)</td>
@@ -183,17 +182,17 @@ template&lt;class To , class From &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Erasure cast implementation chosen if types are move relocating or trivally copyable, are statically castable, and destination type is smaller than source type. Constexpr. </p>
-<p>Erasure cast implementation chosen if types are move relocating or trivally copyable, are union castable, and destination type is smaller than source type. May be constexpr if underlying bit cast is constexpr. </p>
-<div class="fragment"><div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  {</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>To<span class="keyword">&gt;</span>(<a class="code" href="namespacebit__cast.html#ad6310416d9006e4ca48d64aa5e57b269">bit_cast</a>&lt;detail::erasure_integer_type&lt;From, To&gt;&gt;(from));</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  }</div>
-<div class="ttc" id="namespacebit__cast_html_ad6310416d9006e4ca48d64aa5e57b269"><div class="ttname"><a href="namespacebit__cast.html#ad6310416d9006e4ca48d64aa5e57b269">bit_cast::bit_cast</a></div><div class="ttdeci">constexpr To bit_cast(const From &amp;from) noexcept</div><div class="ttdoc">Bit cast emulation chosen if types are move relocating or trivally copyable, have identical size...</div><div class="ttdef"><b>Definition:</b> bit_cast.hpp:92</div></div>
+<p>Bit cast emulation chosen if an array of types which are move relocating or trivally copyable, and have identical size. NOT constexpr. </p>
+<div class="fragment"><div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  {</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    detail::bit_cast_union&lt;To, From&gt; ret;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    memmove(&amp;ret.source, &amp;from, <span class="keyword">sizeof</span>(ret.source));</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keywordflow">return</span> ret.target;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -202,7 +201,7 @@ template&lt;class To , class From &gt; </div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespaceerasure__cast.html">erasure_cast</a></li>
+    <li class="navelem"><a class="el" href="namespacequickcpplib.html">quickcpplib</a></li><li class="navelem"><a class="el" href="namespacequickcpplib_1_1__xxx.html">_xxx</a></li><li class="navelem"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1bit__cast.html">bit_cast</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
