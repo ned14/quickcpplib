@@ -82,7 +82,7 @@ namespace erasure_cast
                                     && (sizeof(To) == sizeof(From))               //
                                     ,
                                     bool>::type = true>  //
-  constexpr To erasure_cast(const From &from) noexcept
+  constexpr inline To erasure_cast(const From &from) noexcept
   {
     return bit_cast<To>(from);
   }
@@ -96,7 +96,7 @@ namespace erasure_cast
                                     && (sizeof(To) < sizeof(From))                  //
                                     ,
                                     bool>::type = true>  //
-  constexpr To erasure_cast(const From &from) noexcept
+  constexpr inline To erasure_cast(const From &from) noexcept
   {
     return static_cast<To>(bit_cast<detail::erasure_integer_type<From, To>>(from));
   }
@@ -110,7 +110,7 @@ namespace erasure_cast
                                     && (sizeof(To) > sizeof(From))                  //
                                     ,
                                     bool>::type = true>  //
-  constexpr To erasure_cast(const From &from) noexcept
+  constexpr inline To erasure_cast(const From &from) noexcept
   {
     return bit_cast<To>(static_cast<detail::erasure_integer_type<To, From>>(from));
   }
@@ -125,7 +125,7 @@ namespace erasure_cast
                                     && (sizeof(To) < sizeof(From))                   //
                                     ,
                                     bool>::type = true>  //
-  constexpr To erasure_cast(const From &from) noexcept
+  constexpr inline To erasure_cast(const From &from) noexcept
   {
     return bit_cast<detail::padded_erasure_object<To, sizeof(From) - sizeof(To)>>(from).value;
   }
@@ -140,7 +140,7 @@ namespace erasure_cast
                                     && (sizeof(To) > sizeof(From))                   //
                                     ,
                                     bool>::type = true>  //
-  constexpr To erasure_cast(const From &from) noexcept
+  constexpr inline To erasure_cast(const From &from) noexcept
   {
     return bit_cast<To>(detail::padded_erasure_object<From, sizeof(To) - sizeof(From)>{from});
   }

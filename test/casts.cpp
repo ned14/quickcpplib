@@ -22,8 +22,29 @@ Distributed under the Boost Software License, Version 1.0.
 */
 
 #include "../include/boost/test/unit_test.hpp"
+#include "../include/detach_cast.hpp"
 #include "../include/erasure_cast.hpp"
-#include "../include/type_traits.hpp"
+
+#include <array>
+
+struct DetachCastTest
+{
+  std::string s;
+};
+QUICKCPPLIB_NAMESPACE_BEGIN
+namespace detach_cast
+{
+  namespace traits
+  {
+    template <> struct enable_reinterpret_detach_cast<DetachCastTest> : public std::true_type
+    {
+    };
+    template <> struct enable_reinterpret_attach_cast<DetachCastTest> : public std::true_type
+    {
+    };
+  }  // namespace traits
+}  // namespace detach_cast
+QUICKCPPLIB_NAMESPACE_END
 
 BOOST_AUTO_TEST_SUITE(casts)
 
@@ -62,24 +83,9 @@ BOOST_AUTO_TEST_CASE(is_invocable / works, "Tests that type_traits::is_invocable
   static_assert(!QUICKCPPLIB_NAMESPACE::type_traits::is_invocable<callable_void_int, int, int>::value, "is_invocable<callable_void_int, int, int> is true");
 }
 
-template <class To, class From,                                                                            //
-          typename = decltype(QUICKCPPLIB_NAMESPACE::bit_cast::bit_cast<To, From>(std::declval<From>()))>  //
-inline constexpr bool _is_bit_cast_valid(int)
-{
-  return true;
-};
-template <class To, class From>  //
-inline constexpr bool _is_bit_cast_valid(...)
-{
-  return false;
-};
-template <class To, class From>  //
-inline constexpr bool is_bit_cast_valid()
-{
-  return _is_bit_cast_valid<To, From>(5);
-};
 BOOST_AUTO_TEST_CASE(bit_cast / works, "Tests that bit_cast works as advertised")
 {
+  using QUICKCPPLIB_NAMESPACE::detach_cast::detail::is_bit_cast_valid;
   enum class Test
   {
     label
@@ -94,15 +100,18 @@ BOOST_AUTO_TEST_CASE(bit_cast / works, "Tests that bit_cast works as advertised"
   {
     int a[5];
   };
-  using chars = char[sizeof(T)];
-  using chars1 = char[sizeof(T) + 1];
-  static_assert(is_bit_cast_valid<T, chars>(), "bit_cast(T, chars) is not callable");
-  //static_assert(is_bit_cast_valid<chars, T>(), "bit_cast(chars, T) is not callable");  // not working yet
-  static_assert(!is_bit_cast_valid<T, chars1>(), "bit_cast(T, chars1) is callable");
+  using Carray = char[sizeof(T)];
+  using Carray1 = char[sizeof(T) + 1];
+  using STDarray = std::array<char, sizeof(T)>;
+  static_assert(is_bit_cast_valid<T, Carray>(), "bit_cast(T, Carray) is not callable");
+  static_assert(!is_bit_cast_valid<Carray, T>(), "bit_cast(Carray, T) is callable");  // Functions cannot return C arrays by value
+  static_assert(!is_bit_cast_valid<T, Carray1>(), "bit_cast(T, Carray1) is callable");
+  static_assert(is_bit_cast_valid<T, STDarray>(), "bit_cast(T, STDarray) is not callable");
+  static_assert(is_bit_cast_valid<STDarray, T>(), "bit_cast(STDarray, T) is not callable");
 }
 
 
-template <class To, class From,                                                                            //
+template <class To, class From,                                                                                    //
           typename = decltype(QUICKCPPLIB_NAMESPACE::erasure_cast::erasure_cast<To, From>(std::declval<From>()))>  //
 inline constexpr bool _is_erasure_cast_valid(int)
 {
@@ -135,10 +144,71 @@ BOOST_AUTO_TEST_CASE(erasure_cast / works, "Tests that erasure_cast works as adv
   {
     int a[5];
   };
-  using chars = char[sizeof(T)];
-  using chars1 = char[sizeof(T) + 1];
-  static_assert(is_erasure_cast_valid<T, chars>(), "erasure_cast(T, chars) is not callable");
-  // static_assert(is_erasure_cast_valid<chars, T>(), "erasure_cast(chars, T) is not callable");  // not working yet
-  static_assert(is_erasure_cast_valid<T, chars1>(), "erasure_cast(T, chars1) is not callable");
+  using Carray = char[sizeof(T)];
+  using Carray1 = char[sizeof(T) + 1];
+  using STDarray = std::array<char, sizeof(T)>;
+  static_assert(is_erasure_cast_valid<T, Carray>(), "erasure_cast(T, Carray) is not callable");
+  static_assert(!is_erasure_cast_valid<Carray, T>(), "erasure_cast(Carray, T) is callable");  // Functions cannot return C arrays by value
+  static_assert(is_erasure_cast_valid<T, Carray1>(), "erasure_cast(T, Carray1) is not callable");
+  static_assert(is_erasure_cast_valid<T, STDarray>(), "erasure_cast(T, STDarray) is not callable");
+  static_assert(is_erasure_cast_valid<STDarray, T>(), "erasure_cast(STDarray, T) is not callable");
+}
+
+
+BOOST_AUTO_TEST_CASE(detach_attach_cast / works, "Tests that detach_cast and attach_cast works as advertised")
+{
+  using QUICKCPPLIB_NAMESPACE::detach_cast::attach_cast;
+  using QUICKCPPLIB_NAMESPACE::detach_cast::detach_cast;
+  {
+    enum class Test
+    {
+      label1,
+      label2
+    } a(Test::label2);
+    char a_copy[sizeof(a)];
+    memcpy(a_copy, &a, sizeof(a));
+    auto &b = detach_cast(a);
+    using output_type = std::remove_reference<decltype(b)>::type;
+    static_assert(sizeof(b) == sizeof(a), "Detached representation is not same size as input object");
+    static_assert(!std::is_const<output_type>::value, "Output type is const");
+    BOOST_CHECK((void *) &a == (void *) &b);
+    BOOST_CHECK(0 == memcmp(a_copy, &b, sizeof(b)));
+
+    Test &c = attach_cast<Test>(b);
+    BOOST_CHECK((void *) &a == (void *) &c);
+    BOOST_CHECK(0 == memcmp(a_copy, &c, sizeof(b)));
+  }
+  {
+    const enum class Test
+    {
+      label1,
+      label2
+    } a(Test::label2);
+    char a_copy[sizeof(a)];
+    memcpy(a_copy, &a, sizeof(a));
+    auto &b = detach_cast(a);
+    using output_type = std::remove_reference<decltype(b)>::type;
+    static_assert(sizeof(b) == sizeof(a), "Detached representation is not same size as input object");
+    static_assert(std::is_const<output_type>::value, "Output type is not const");
+    BOOST_CHECK((void *) &a == (void *) &b);
+    BOOST_CHECK(0 == memcmp(a_copy, &b, sizeof(b)));
+
+    const Test &c = attach_cast<const Test>(b);
+    BOOST_CHECK((void *) &a == (void *) &c);
+    BOOST_CHECK(0 == memcmp(a_copy, &c, sizeof(b)));
+  }
+
+  {
+    // The following is completely UB in C++ 20
+    DetachCastTest c{"test string"};
+    auto &d = detach_cast(c);
+    // If this proposal were accepted, c's destructor would not run now, but its storage would be
+    // rebound into a byte[sizeof(DetachCastTest)].
+    static_assert(sizeof(d) == sizeof(c), "Detached representation is not same size as input object");
+    BOOST_CHECK((void *) &c == (void *) &d);
+
+    DetachCastTest &e = attach_cast < DetachCastTest>(d);
+    BOOST_CHECK((void *) &c == (void *) &e);
+  }
 }
 BOOST_AUTO_TEST_SUITE_END()

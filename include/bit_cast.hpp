@@ -25,6 +25,8 @@ Distributed under the Boost Software License, Version 1.0.
 #ifndef QUICKCPPLIB_BIT_CAST_HPP
 #define QUICKCPPLIB_BIT_CAST_HPP
 
+#include "config.hpp"
+
 #ifndef QUICKCPPLIB_USE_STD_BIT_CAST
 #if __cplusplus >= 202000 && __has_include(<bit>)
 #define QUICKCPPLIB_USE_STD_BIT_CAST 1
@@ -35,9 +37,8 @@ Distributed under the Boost Software License, Version 1.0.
 
 #if QUICKCPPLIB_USE_STD_BIT_CAST
 #include <bit>
-#else
-#include <type_traits>
 #endif
+#include <type_traits>
 
 QUICKCPPLIB_NAMESPACE_BEGIN
 
@@ -89,17 +90,32 @@ namespace bit_cast
   /*! \brief Bit cast emulation chosen if types are move relocating or trivally copyable,
   have identical size, and are statically castable. Constexpr.
   */
-  template <class To, class From, typename std::enable_if<detail::is_bit_castable<To, From>::value && detail::is_static_castable<To, From>::value && !detail::is_union_castable<To, From>::value, bool>::type = true> constexpr To bit_cast(const From &from) noexcept { return static_cast<To>(from); }
+  template <class To, class From, //
+    typename std::enable_if<detail::is_bit_castable<To, From>::value//
+    && detail::is_static_castable<To, From>::value//
+    && !detail::is_union_castable<To, From>::value//
+    , bool>::type = true> //
+    constexpr inline To bit_cast(const From &from) noexcept { return static_cast<To>(from); }
 
   /*! \brief Bit cast emulation chosen if types are move relocating or trivally copyable,
   have identical size, and are union castable. Constexpr.
   */
-  template <class To, class From, typename std::enable_if<detail::is_bit_castable<To, From>::value && !detail::is_static_castable<To, From>::value && detail::is_union_castable<To, From>::value, bool>::type = true> constexpr To bit_cast(const From &from) noexcept { return detail::bit_cast_union<To, From>{from}.target; }
+  template <class To, class From, //
+    typename std::enable_if<detail::is_bit_castable<To, From>::value //
+    && !detail::is_static_castable<To, From>::value //
+    && detail::is_union_castable<To, From>::value//
+    , bool>::type = true> //
+    constexpr inline To bit_cast(const From &from) noexcept { return detail::bit_cast_union<To, From>{from}.target; }
 
   /*! \brief Bit cast emulation chosen if an array of types which are move relocating or
   trivally copyable, and have identical size. NOT constexpr.
   */
-  template <class To, class From, typename std::enable_if<detail::is_bit_castable<To, From>::value && !detail::is_static_castable<To, From>::value && !detail::is_union_castable<To, From>::value, bool>::type = true> To bit_cast(const From &from) noexcept
+  template <class To, class From, //
+    typename std::enable_if<detail::is_bit_castable<To, From>::value //
+    && !detail::is_static_castable<To, From>::value //
+    && !detail::is_union_castable<To, From>::value//
+    , bool>::type = true> //
+    inline To bit_cast(const From &from) noexcept
   {
     detail::bit_cast_union<To, From> ret;
     memmove(&ret.source, &from, sizeof(ret.source));
