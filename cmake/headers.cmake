@@ -17,6 +17,7 @@ set(quickcpplib_HEADERS
   "include/config.hpp"
   "include/console_colours.hpp"
   "include/cpp_feature.h"
+  "include/detach_cast.hpp"
   "include/detail/preprocessor_macro_overload.h"
   "include/ensure_stores.hpp"
   "include/erasure_cast.hpp"

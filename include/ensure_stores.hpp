@@ -154,10 +154,10 @@ namespace ensure_stores
       return f;
     }
 
-    using potentially_unknown_jump_ptr = void (*)(byte *data, size_t bytes);
+    using potentially_unknown_jump_ptr = void (*)(const byte *data, size_t bytes);
     extern inline potentially_unknown_jump_ptr potentially_unknown_jump(potentially_unknown_jump_ptr set = nullptr)
     {
-      static potentially_unknown_jump_ptr f = +[](byte * /*unused*/, size_t /*unused*/) -> void {};
+      static potentially_unknown_jump_ptr f = +[](const byte * /*unused*/, size_t /*unused*/) -> void {};
       if(set != nullptr)
       {
         f = set;
@@ -183,7 +183,7 @@ namespace ensure_stores
   some very poor performance. Check the value returned to see what kind of flush
   was actually performed.
   */
-  inline std::pair<memory_flush, std::memory_order> ensure_stores(byte *data, size_t bytes, memory_flush kind = memory_flush_none, std::memory_order order = std::memory_order_release) noexcept
+  inline std::pair<memory_flush, std::memory_order> ensure_stores(const byte *data, size_t bytes, memory_flush kind = memory_flush_none, std::memory_order order = std::memory_order_release) noexcept
   {
     // I really wish this would work on a region, not globally
     atomic_thread_fence(order);
@@ -206,7 +206,7 @@ namespace ensure_stores
   /*! \brief Sized C byte array overload for `ensure_stores()`.
   \addtogroup P1631
   */
-  template <size_t N> inline std::pair<memory_flush, std::memory_order> ensure_stores(byte (&region)[N], memory_flush kind = memory_flush_none, std::memory_order order = std::memory_order_release) noexcept { return ensure_stores(region, N, kind, order); }
+  template <size_t N> inline std::pair<memory_flush, std::memory_order> ensure_stores(const byte (&region)[N], memory_flush kind = memory_flush_none, std::memory_order order = std::memory_order_release) noexcept { return ensure_stores(region, N, kind, order); }
 
 }  // namespace ensure_stores
 
