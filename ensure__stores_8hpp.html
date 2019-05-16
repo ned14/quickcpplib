@@ -135,8 +135,8 @@ Namespaces</h2></td></tr>
 Typedefs</h2></td></tr>
 <tr class="memitem:a97761b4fd131f7813a6a977f5669ee51"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1ensure__stores_1_1detail.html#a97761b4fd131f7813a6a977f5669ee51">quickcpplib::_xxx::ensure_stores::detail::flush_impl_type</a> = memory_flush(*)(const void *addr, size_t bytes, memory_flush kind)</td></tr>
 <tr class="separator:a97761b4fd131f7813a6a977f5669ee51"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aedef7268e5ebb0ac3561f274359a5372"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1ensure__stores_1_1detail.html#aedef7268e5ebb0ac3561f274359a5372">quickcpplib::_xxx::ensure_stores::detail::potentially_unknown_jump_ptr</a> = void(*)(byte *data, size_t bytes)</td></tr>
-<tr class="separator:aedef7268e5ebb0ac3561f274359a5372"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55b64002aa3eede9764d5a2f7c2cb1b1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1ensure__stores_1_1detail.html#a55b64002aa3eede9764d5a2f7c2cb1b1">quickcpplib::_xxx::ensure_stores::detail::potentially_unknown_jump_ptr</a> = void(*)(const byte *data, size_t bytes)</td></tr>
+<tr class="separator:a55b64002aa3eede9764d5a2f7c2cb1b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -156,13 +156,13 @@ flush_impl_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el"
 <tr class="separator:ad577c35a8f1c074a019e8bd4a3968b08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87b52550d42e9b4a8fe14e08d666cd68"><td class="memItemLeft" align="right" valign="top">potentially_unknown_jump_ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1ensure__stores_1_1detail.html#a87b52550d42e9b4a8fe14e08d666cd68">quickcpplib::_xxx::ensure_stores::detail::potentially_unknown_jump</a> (potentially_unknown_jump_ptr set=nullptr)</td></tr>
 <tr class="separator:a87b52550d42e9b4a8fe14e08d666cd68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a187cb146ba97873773d001b1c3d456a0"><td class="memItemLeft" align="right" valign="top">std::pair&lt; memory_flush, <br class="typebreak"/>
-std::memory_order &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1ensure__stores.html#a187cb146ba97873773d001b1c3d456a0">quickcpplib::_xxx::ensure_stores::ensure_stores</a> (byte *data, size_t bytes, memory_flush kind=memory_flush_none, std::memory_order order=std::memory_order_release) noexcept</td></tr>
-<tr class="separator:a187cb146ba97873773d001b1c3d456a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e7e2e6506bd178b5277243a6e74f370"><td class="memTemplParams" colspan="2">template&lt;size_t N&gt; </td></tr>
-<tr class="memitem:a3e7e2e6506bd178b5277243a6e74f370"><td class="memTemplItemLeft" align="right" valign="top">std::pair&lt; memory_flush, <br class="typebreak"/>
-std::memory_order &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1ensure__stores.html#a3e7e2e6506bd178b5277243a6e74f370">quickcpplib::_xxx::ensure_stores::ensure_stores</a> (byte(&amp;region)[N], memory_flush kind=memory_flush_none, std::memory_order order=std::memory_order_release) noexcept</td></tr>
-<tr class="separator:a3e7e2e6506bd178b5277243a6e74f370"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af65c5893e3e892061895ce2d4fe70302"><td class="memItemLeft" align="right" valign="top">std::pair&lt; memory_flush, <br class="typebreak"/>
+std::memory_order &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1ensure__stores.html#af65c5893e3e892061895ce2d4fe70302">quickcpplib::_xxx::ensure_stores::ensure_stores</a> (const byte *data, size_t bytes, memory_flush kind=memory_flush_none, std::memory_order order=std::memory_order_release) noexcept</td></tr>
+<tr class="separator:af65c5893e3e892061895ce2d4fe70302"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad47c8d19090eab3b48516e766af5c5a1"><td class="memTemplParams" colspan="2">template&lt;size_t N&gt; </td></tr>
+<tr class="memitem:ad47c8d19090eab3b48516e766af5c5a1"><td class="memTemplItemLeft" align="right" valign="top">std::pair&lt; memory_flush, <br class="typebreak"/>
+std::memory_order &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1ensure__stores.html#ad47c8d19090eab3b48516e766af5c5a1">quickcpplib::_xxx::ensure_stores::ensure_stores</a> (const byte(&amp;region)[N], memory_flush kind=memory_flush_none, std::memory_order order=std::memory_order_release) noexcept</td></tr>
+<tr class="separator:ad47c8d19090eab3b48516e766af5c5a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
