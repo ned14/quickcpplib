@@ -237,7 +237,7 @@ endfunction()
 # Preprocess a file
 function(add_partial_preprocess target outfile infile)
   add_custom_target(${target} 
-    ${PYTHON_EXECUTABLE} ${QuickCppLibCMakePath}/../pcpp/pcpp/cmd.py
+    ${PYTHON_EXECUTABLE} ${QuickCppLibCMakePath}/../pcpp/pcpp/pcmd.py
     -o "${outfile}" "${infile}"
     ${ARGN}
     COMMENT "Preprocessing ${infile} into ${outfile} ..."
