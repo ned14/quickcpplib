@@ -24,6 +24,7 @@ Distributed under the Boost Software License, Version 1.0.
 #include "../include/boost/test/unit_test.hpp"
 #include "../include/detach_cast.hpp"
 #include "../include/erasure_cast.hpp"
+#include "../include/in_place_detach_attach.hpp"
 
 #include <array>
 
@@ -179,11 +180,7 @@ BOOST_AUTO_TEST_CASE(detach_attach_cast / works, "Tests that detach_cast and att
     BOOST_CHECK(0 == memcmp(a_copy, &c, sizeof(b)));
   }
   {
-    const enum class Test
-    {
-      label1,
-      label2
-    } a(Test::label2);
+    const enum class Test { label1, label2 } a(Test::label2);
     char a_copy[sizeof(a)];
     memcpy(a_copy, &a, sizeof(a));
     auto &b = detach_cast(a);
@@ -207,8 +204,36 @@ BOOST_AUTO_TEST_CASE(detach_attach_cast / works, "Tests that detach_cast and att
     static_assert(sizeof(d) == sizeof(c), "Detached representation is not same size as input object");
     BOOST_CHECK((void *) &c == (void *) &d);
 
-    DetachCastTest &e = attach_cast < DetachCastTest>(d);
+    DetachCastTest &e = attach_cast<DetachCastTest>(d);
     BOOST_CHECK((void *) &c == (void *) &e);
   }
 }
+
+BOOST_AUTO_TEST_CASE(in_place_detach_attach / works, "Tests that in_place_detach and in_place_attach works as advertised")
+{
+  {
+    using QUICKCPPLIB_NAMESPACE::in_place_attach_detach::in_place_attach;
+    using QUICKCPPLIB_NAMESPACE::in_place_attach_detach::in_place_detach;
+    float v = 5.0f;
+    QUICKCPPLIB_NAMESPACE::span::span<QUICKCPPLIB_NAMESPACE::byte::byte> b = in_place_detach(QUICKCPPLIB_NAMESPACE::span::span<float>{&v, 1});
+    QUICKCPPLIB_NAMESPACE::span::span<float> a = in_place_attach<float>(b);
+    BOOST_CHECK(&v == a.data());
+    BOOST_CHECK(v == a[0]);
+  }
+  union attachable_test {
+    double v;
+    QUICKCPPLIB_NAMESPACE::byte::byte b[sizeof(double)];
+  } test;
+  test.v = 78.2;
+  {
+    QUICKCPPLIB_NAMESPACE::in_place_attach_detach::attached<double> a(test.b);  // attaches
+    BOOST_CHECK(a.size() == 1);
+    BOOST_CHECK(a.data() == &test.v);
+    BOOST_CHECK(*a.begin() == 78.2);
+    *a.begin() = 99.8;
+    // detaches on destruction
+  }
+  BOOST_CHECK(test.v == 99.8);
+}
+
 BOOST_AUTO_TEST_SUITE_END()

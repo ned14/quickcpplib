@@ -85,37 +85,44 @@ namespace bit_cast
       From source;
       To target;
     };
+
+    struct static_cast_overload
+    {
+    };
+    struct union_cast_overload
+    {
+    };
+    struct memmove_overload
+    {
+    };
   }  // namespace detail
 
   /*! \brief Bit cast emulation chosen if types are move relocating or trivally copyable,
   have identical size, and are statically castable. Constexpr.
   */
-  template <class To, class From, //
-    typename std::enable_if<detail::is_bit_castable<To, From>::value//
-    && detail::is_static_castable<To, From>::value//
-    && !detail::is_union_castable<To, From>::value//
-    , bool>::type = true> //
-    constexpr inline To bit_cast(const From &from) noexcept { return static_cast<To>(from); }
+  QUICKCPPLIB_TEMPLATE(class To, class From)
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::is_bit_castable<To, From>::value       //
+                                          &&detail::is_static_castable<To, From>::value  //
+                                          && !detail::is_union_castable<To, From>::value))
+  constexpr inline To bit_cast(const From &from, detail::static_cast_overload = {}) noexcept { return static_cast<To>(from); }
 
   /*! \brief Bit cast emulation chosen if types are move relocating or trivally copyable,
   have identical size, and are union castable. Constexpr.
   */
-  template <class To, class From, //
-    typename std::enable_if<detail::is_bit_castable<To, From>::value //
-    && !detail::is_static_castable<To, From>::value //
-    && detail::is_union_castable<To, From>::value//
-    , bool>::type = true> //
-    constexpr inline To bit_cast(const From &from) noexcept { return detail::bit_cast_union<To, From>{from}.target; }
+  QUICKCPPLIB_TEMPLATE(class To, class From)
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::is_bit_castable<To, From>::value         //
+                                          && !detail::is_static_castable<To, From>::value  //
+                                          && detail::is_union_castable<To, From>::value))
+  constexpr inline To bit_cast(const From &from, detail::union_cast_overload = {}) noexcept { return detail::bit_cast_union<To, From>{from}.target; }
 
   /*! \brief Bit cast emulation chosen if an array of types which are move relocating or
   trivally copyable, and have identical size. NOT constexpr.
   */
-  template <class To, class From, //
-    typename std::enable_if<detail::is_bit_castable<To, From>::value //
-    && !detail::is_static_castable<To, From>::value //
-    && !detail::is_union_castable<To, From>::value//
-    , bool>::type = true> //
-    inline To bit_cast(const From &from) noexcept
+  QUICKCPPLIB_TEMPLATE(class To, class From)
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::is_bit_castable<To, From>::value         //
+                                          && !detail::is_static_castable<To, From>::value  //
+                                          && !detail::is_union_castable<To, From>::value))
+  inline To bit_cast(const From &from, detail::memmove_overload = {}) noexcept
   {
     detail::bit_cast_union<To, From> ret;
     memmove(&ret.source, &from, sizeof(ret.source));

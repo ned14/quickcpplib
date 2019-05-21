@@ -72,78 +72,68 @@ namespace erasure_cast
       }
     };
 
+    struct bit_cast_equivalence_overload
+    {
+    };
+    struct static_cast_dest_smaller_overload
+    {
+    };
+    struct static_cast_dest_larger_overload
+    {
+    };
+    struct union_cast_dest_smaller_overload
+    {
+    };
+    struct union_cast_dest_larger_overload
+    {
+    };
   }  // namespace detail
 
   /*! \brief Erasure cast implementation chosen if types are move relocating or trivally copyable,
   have identical size, and are bit castable. Constexpr. Forwards to `bit_cast()` directly.
   */
-  template <class To, class From,                                                 //
-            typename std::enable_if<detail::is_erasure_castable<To, From>::value  //
-                                    && (sizeof(To) == sizeof(From))               //
-                                    ,
-                                    bool>::type = true>  //
-  constexpr inline To erasure_cast(const From &from) noexcept
-  {
-    return bit_cast<To>(from);
-  }
+  QUICKCPPLIB_TEMPLATE(class To, class From)
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::is_erasure_castable<To, From>::value  //
+                                          && (sizeof(To) == sizeof(From))))
+  constexpr inline To erasure_cast(const From &from, detail::bit_cast_equivalence_overload = {}) noexcept { return bit_cast<To>(from); }
 
   /*! \brief Erasure cast implementation chosen if types are move relocating or trivally copyable,
   are statically castable, and destination type is smaller than source type. Constexpr.
   */
-  template <class To, class From,                                                   //
-            typename std::enable_if<detail::is_erasure_castable<To, From>::value    //
-                                    && detail::is_static_castable<To, From>::value  //
-                                    && (sizeof(To) < sizeof(From))                  //
-                                    ,
-                                    bool>::type = true>  //
-  constexpr inline To erasure_cast(const From &from) noexcept
-  {
-    return static_cast<To>(bit_cast<detail::erasure_integer_type<From, To>>(from));
-  }
+  QUICKCPPLIB_TEMPLATE(class To, class From)
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::is_erasure_castable<To, From>::value   //
+                                          &&detail::is_static_castable<To, From>::value  //
+                                          && (sizeof(To) < sizeof(From))))
+  constexpr inline To erasure_cast(const From &from, detail::static_cast_dest_smaller_overload = {}) noexcept { return static_cast<To>(bit_cast<detail::erasure_integer_type<From, To>>(from)); }
 
   /*! \brief Erasure cast implementation chosen if types are move relocating or trivally copyable,
   are statically castable, and destination type is larger than source type. Constexpr.
   */
-  template <class To, class From,                                                   //
-            typename std::enable_if<detail::is_erasure_castable<To, From>::value    //
-                                    && detail::is_static_castable<To, From>::value  //
-                                    && (sizeof(To) > sizeof(From))                  //
-                                    ,
-                                    bool>::type = true>  //
-  constexpr inline To erasure_cast(const From &from) noexcept
-  {
-    return bit_cast<To>(static_cast<detail::erasure_integer_type<To, From>>(from));
-  }
+  QUICKCPPLIB_TEMPLATE(class To, class From)
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::is_erasure_castable<To, From>::value   //
+                                          &&detail::is_static_castable<To, From>::value  //
+                                          && (sizeof(To) > sizeof(From))))
+  constexpr inline To erasure_cast(const From &from, detail::static_cast_dest_larger_overload = {}) noexcept { return bit_cast<To>(static_cast<detail::erasure_integer_type<To, From>>(from)); }
 
   /*! \brief Erasure cast implementation chosen if types are move relocating or trivally copyable,
   are union castable, and destination type is smaller than source type. May be constexpr if
   underlying bit cast is constexpr.
   */
-  template <class To, class From,                                                    //
-            typename std::enable_if<detail::is_erasure_castable<To, From>::value     //
-                                    && !detail::is_static_castable<To, From>::value  //
-                                    && (sizeof(To) < sizeof(From))                   //
-                                    ,
-                                    bool>::type = true>  //
-  constexpr inline To erasure_cast(const From &from) noexcept
-  {
-    return bit_cast<detail::padded_erasure_object<To, sizeof(From) - sizeof(To)>>(from).value;
-  }
+  QUICKCPPLIB_TEMPLATE(class To, class From)
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::is_erasure_castable<To, From>::value     //
+                                          && !detail::is_static_castable<To, From>::value  //
+                                          && (sizeof(To) < sizeof(From))))
+  constexpr inline To erasure_cast(const From &from, detail::union_cast_dest_smaller_overload = {}) noexcept { return bit_cast<detail::padded_erasure_object<To, sizeof(From) - sizeof(To)>>(from).value; }
 
   /*! \brief Erasure cast implementation chosen if types are move relocating or trivally copyable,
   are union castable, and destination type is larger than source type. May be constexpr if
   underlying bit cast is constexpr.
   */
-  template <class To, class From,                                                    //
-            typename std::enable_if<detail::is_erasure_castable<To, From>::value     //
-                                    && !detail::is_static_castable<To, From>::value  //
-                                    && (sizeof(To) > sizeof(From))                   //
-                                    ,
-                                    bool>::type = true>  //
-  constexpr inline To erasure_cast(const From &from) noexcept
-  {
-    return bit_cast<To>(detail::padded_erasure_object<From, sizeof(To) - sizeof(From)>{from});
-  }
+  QUICKCPPLIB_TEMPLATE(class To, class From)
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::is_erasure_castable<To, From>::value     //
+                                          && !detail::is_static_castable<To, From>::value  //
+                                          && (sizeof(To) > sizeof(From))))
+  constexpr inline To erasure_cast(const From &from, detail::union_cast_dest_larger_overload = {}) noexcept { return bit_cast<To>(detail::padded_erasure_object<From, sizeof(To) - sizeof(From)>{from}); }
 }  // namespace erasure_cast
 
 QUICKCPPLIB_NAMESPACE_END

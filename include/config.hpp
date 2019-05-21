@@ -273,7 +273,13 @@ extern "C" void _mm_pause();
 #define QUICKCPPLIB_TEMPLATE(...) template <__VA_ARGS__
 #define QUICKCPPLIB_TREQUIRES(...) , __VA_ARGS__ >
 #define QUICKCPPLIB_TEXPR(...) typename = decltype(__VA_ARGS__)
-#define QUICKCPPLIB_TPRED(...) typename = std::enable_if_t<__VA_ARGS__>
+#ifdef _MSC_VER
+// MSVC gives an error if every specialisation of a template is always ill-formed, so
+// the more powerful SFINAE form below causes pukeage :(
+#define QUICKCPPLIB_TPRED(...) typename = typename std::enable_if<(__VA_ARGS__)>::type
+#else
+#define QUICKCPPLIB_TPRED(...) typename std::enable_if<(__VA_ARGS__), bool>::type = true
+#endif
 #define QUICKCPPLIB_REQUIRES(...)
 #endif
 
