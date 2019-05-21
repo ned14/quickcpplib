@@ -123,21 +123,25 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad7fb7ca36afeecc06809df709a4db1f7"><td class="memTemplParams" colspan="2">template&lt;class To , class From , typename std::enable_if&lt; detail::is_bit_castable&lt; To, From &gt;::value &amp;&amp;detail::is_static_castable&lt; To, From &gt;::value &amp;&amp;!detail::is_union_castable&lt; To, From &gt;::value, bool &gt;::type  = true&gt; </td></tr>
-<tr class="memitem:ad7fb7ca36afeecc06809df709a4db1f7"><td class="memTemplItemLeft" align="right" valign="top">constexpr To&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1bit__cast.html#ad7fb7ca36afeecc06809df709a4db1f7">bit_cast</a> (const From &amp;from) noexcept</td></tr>
-<tr class="memdesc:ad7fb7ca36afeecc06809df709a4db1f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit cast emulation chosen if types are move relocating or trivally copyable, have identical size, and are statically castable. Constexpr.  <a href="#ad7fb7ca36afeecc06809df709a4db1f7">More...</a><br/></td></tr>
-<tr class="separator:ad7fb7ca36afeecc06809df709a4db1f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0289c0869b63dfb8ef961b3ed4808681"><td class="memTemplParams" colspan="2">template&lt;class To , class From , typename std::enable_if&lt; detail::is_bit_castable&lt; To, From &gt;::value &amp;&amp;!detail::is_static_castable&lt; To, From &gt;::value &amp;&amp;!detail::is_union_castable&lt; To, From &gt;::value, bool &gt;::type  = true&gt; </td></tr>
-<tr class="memitem:a0289c0869b63dfb8ef961b3ed4808681"><td class="memTemplItemLeft" align="right" valign="top">To&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1bit__cast.html#a0289c0869b63dfb8ef961b3ed4808681">bit_cast</a> (const From &amp;from) noexcept</td></tr>
-<tr class="memdesc:a0289c0869b63dfb8ef961b3ed4808681"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit cast emulation chosen if an array of types which are move relocating or trivally copyable, and have identical size. NOT constexpr.  <a href="#a0289c0869b63dfb8ef961b3ed4808681">More...</a><br/></td></tr>
-<tr class="separator:a0289c0869b63dfb8ef961b3ed4808681"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab36ed06eda7ed96f27c6db65bfcdec34"><td class="memTemplParams" colspan="2">template&lt;class To , class From , typename std::enable_if&lt;(detail::is_bit_castable&lt; To, From &gt;::value &amp;&amp;detail::is_static_castable&lt; To, From &gt;::value &amp;&amp;!detail::is_union_castable&lt; To, From &gt;::value), bool &gt;::type  = true&gt; </td></tr>
+<tr class="memitem:ab36ed06eda7ed96f27c6db65bfcdec34"><td class="memTemplItemLeft" align="right" valign="top">constexpr To&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1bit__cast.html#ab36ed06eda7ed96f27c6db65bfcdec34">bit_cast</a> (const From &amp;from, detail::static_cast_overload={}) noexcept</td></tr>
+<tr class="memdesc:ab36ed06eda7ed96f27c6db65bfcdec34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit cast emulation chosen if types are move relocating or trivally copyable, have identical size, and are statically castable. Constexpr.  <a href="#ab36ed06eda7ed96f27c6db65bfcdec34">More...</a><br/></td></tr>
+<tr class="separator:ab36ed06eda7ed96f27c6db65bfcdec34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a492f725b1ec8fed648005939873e0e"><td class="memTemplParams" colspan="2">template&lt;class To , class From , typename std::enable_if&lt;(detail::is_bit_castable&lt; To, From &gt;::value &amp;&amp;!detail::is_static_castable&lt; To, From &gt;::value &amp;&amp;detail::is_union_castable&lt; To, From &gt;::value), bool &gt;::type  = true&gt; </td></tr>
+<tr class="memitem:a7a492f725b1ec8fed648005939873e0e"><td class="memTemplItemLeft" align="right" valign="top">constexpr To&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1bit__cast.html#a7a492f725b1ec8fed648005939873e0e">bit_cast</a> (const From &amp;from, detail::union_cast_overload={}) noexcept</td></tr>
+<tr class="memdesc:a7a492f725b1ec8fed648005939873e0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit cast emulation chosen if types are move relocating or trivally copyable, have identical size, and are union castable. Constexpr.  <a href="#a7a492f725b1ec8fed648005939873e0e">More...</a><br/></td></tr>
+<tr class="separator:a7a492f725b1ec8fed648005939873e0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e04a2fa1390130c6e65475269c1c454"><td class="memTemplParams" colspan="2">template&lt;class To , class From , typename std::enable_if&lt;(detail::is_bit_castable&lt; To, From &gt;::value &amp;&amp;!detail::is_static_castable&lt; To, From &gt;::value &amp;&amp;!detail::is_union_castable&lt; To, From &gt;::value), bool &gt;::type  = true&gt; </td></tr>
+<tr class="memitem:a8e04a2fa1390130c6e65475269c1c454"><td class="memTemplItemLeft" align="right" valign="top">To&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1bit__cast.html#a8e04a2fa1390130c6e65475269c1c454">bit_cast</a> (const From &amp;from, detail::memmove_overload={}) noexcept</td></tr>
+<tr class="memdesc:a8e04a2fa1390130c6e65475269c1c454"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit cast emulation chosen if an array of types which are move relocating or trivally copyable, and have identical size. NOT constexpr.  <a href="#a8e04a2fa1390130c6e65475269c1c454">More...</a><br/></td></tr>
+<tr class="separator:a8e04a2fa1390130c6e65475269c1c454"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="ad7fb7ca36afeecc06809df709a4db1f7"></a>
+<a class="anchor" id="ab36ed06eda7ed96f27c6db65bfcdec34"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class To , class From , typename std::enable_if&lt; detail::is_bit_castable&lt; To, From &gt;::value &amp;&amp;detail::is_static_castable&lt; To, From &gt;::value &amp;&amp;!detail::is_union_castable&lt; To, From &gt;::value, bool &gt;::type  = true&gt; </div>
+template&lt;class To , class From , typename std::enable_if&lt;(detail::is_bit_castable&lt; To, From &gt;::value &amp;&amp;detail::is_static_castable&lt; To, From &gt;::value &amp;&amp;!detail::is_union_castable&lt; To, From &gt;::value), bool &gt;::type  = true&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -146,8 +150,18 @@ template&lt;class To , class From , typename std::enable_if&lt; detail::is_bit_c
           <td class="memname">constexpr To quickcpplib::_xxx::bit_cast::bit_cast </td>
           <td>(</td>
           <td class="paramtype">const From &amp;&#160;</td>
-          <td class="paramname"><em>from</em></td><td>)</td>
+          <td class="paramname"><em>from</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">detail::static_cast_overload&#160;</td>
+          <td class="paramname"> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -158,16 +172,54 @@ template&lt;class To , class From , typename std::enable_if&lt; detail::is_bit_c
 </div><div class="memdoc">
 
 <p>Bit cast emulation chosen if types are move relocating or trivally copyable, have identical size, and are statically castable. Constexpr. </p>
-<p>Bit cast emulation chosen if types are move relocating or trivally copyable, have identical size, and are union castable. Constexpr. </p>
-<div class="fragment"><div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;{ <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>To<span class="keyword">&gt;</span>(from); }</div>
+<div class="fragment"><div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;{}) noexcept { <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>To<span class="keyword">&gt;</span>(from); }</div>
 </div><!-- fragment -->
 </div>
 </div>
-<a class="anchor" id="a0289c0869b63dfb8ef961b3ed4808681"></a>
+<a class="anchor" id="a7a492f725b1ec8fed648005939873e0e"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class To , class From , typename std::enable_if&lt; detail::is_bit_castable&lt; To, From &gt;::value &amp;&amp;!detail::is_static_castable&lt; To, From &gt;::value &amp;&amp;!detail::is_union_castable&lt; To, From &gt;::value, bool &gt;::type  = true&gt; </div>
+template&lt;class To , class From , typename std::enable_if&lt;(detail::is_bit_castable&lt; To, From &gt;::value &amp;&amp;!detail::is_static_castable&lt; To, From &gt;::value &amp;&amp;detail::is_union_castable&lt; To, From &gt;::value), bool &gt;::type  = true&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr To quickcpplib::_xxx::bit_cast::bit_cast </td>
+          <td>(</td>
+          <td class="paramtype">const From &amp;&#160;</td>
+          <td class="paramname"><em>from</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">detail::union_cast_overload&#160;</td>
+          <td class="paramname"> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Bit cast emulation chosen if types are move relocating or trivally copyable, have identical size, and are union castable. Constexpr. </p>
+<div class="fragment"><div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;{}) noexcept { <span class="keywordflow">return</span> detail::bit_cast_union&lt;To, From&gt;{from}.target; }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="a8e04a2fa1390130c6e65475269c1c454"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class To , class From , typename std::enable_if&lt;(detail::is_bit_castable&lt; To, From &gt;::value &amp;&amp;!detail::is_static_castable&lt; To, From &gt;::value &amp;&amp;!detail::is_union_castable&lt; To, From &gt;::value), bool &gt;::type  = true&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -176,8 +228,18 @@ template&lt;class To , class From , typename std::enable_if&lt; detail::is_bit_c
           <td class="memname">To quickcpplib::_xxx::bit_cast::bit_cast </td>
           <td>(</td>
           <td class="paramtype">const From &amp;&#160;</td>
-          <td class="paramname"><em>from</em></td><td>)</td>
+          <td class="paramname"><em>from</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">detail::memmove_overload&#160;</td>
+          <td class="paramname"> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -188,11 +250,12 @@ template&lt;class To , class From , typename std::enable_if&lt; detail::is_bit_c
 </div><div class="memdoc">
 
 <p>Bit cast emulation chosen if an array of types which are move relocating or trivally copyable, and have identical size. NOT constexpr. </p>
-<div class="fragment"><div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  {</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    detail::bit_cast_union&lt;To, From&gt; ret;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    memmove(&amp;ret.source, &amp;from, <span class="keyword">sizeof</span>(ret.source));</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keywordflow">return</span> ret.target;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  }</div>
+<div class="fragment"><div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                                                                {}) noexcept</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;  {</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    detail::bit_cast_union&lt;To, From&gt; ret;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    memmove(&amp;ret.source, &amp;from, <span class="keyword">sizeof</span>(ret.source));</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordflow">return</span> ret.target;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>

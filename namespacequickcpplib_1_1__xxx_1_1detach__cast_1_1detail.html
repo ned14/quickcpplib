@@ -117,10 +117,14 @@ $(document).ready(function(){initNavTree('namespacequickcpplib_1_1__xxx_1_1detac
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><b>byte_array_wrapper</b></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><b>bit_castable_overload</b></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><b>reinterpret_cast_overload</b></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a30b58ed0621bafae6c207a68d639b432"><td class="memTemplParams" colspan="2">template&lt;class To , class From , typename  = decltype(quickcpplib::_xxx::bit_cast::bit_cast&lt;To, From&gt;(std::declval&lt;From&gt;()))&gt; </td></tr>
+<tr class="memitem:a30b58ed0621bafae6c207a68d639b432"><td class="memTemplParams" colspan="2">template&lt;class To , class From , typename  = decltype(  quickcpplib::_xxx ::bit_cast::bit_cast&lt;To, From&gt;(std::declval&lt;From&gt;()) )&gt; </td></tr>
 <tr class="memitem:a30b58ed0621bafae6c207a68d639b432"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1detach__cast_1_1detail.html#a30b58ed0621bafae6c207a68d639b432">_is_bit_cast_valid</a> (int)</td></tr>
 <tr class="separator:a30b58ed0621bafae6c207a68d639b432"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab4532a9128a100234391b3663c768c02"><td class="memTemplParams" colspan="2">template&lt;class To , class From &gt; </td></tr>
@@ -135,7 +139,7 @@ Functions</h2></td></tr>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class To , class From , typename  = decltype(quickcpplib::_xxx::bit_cast::bit_cast&lt;To, From&gt;(std::declval&lt;From&gt;()))&gt; </div>
+template&lt;class To , class From , typename  = decltype(  quickcpplib::_xxx ::bit_cast::bit_cast&lt;To, From&gt;(std::declval&lt;From&gt;()) )&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -154,9 +158,9 @@ template&lt;class To , class From , typename  = decltype(quickcpplib::_xxx::bit_
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    {</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    };</div>
+<div class="fragment"><div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    {</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    };</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -183,9 +187,9 @@ template&lt;class To , class From &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    {</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    };</div>
+<div class="fragment"><div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    {</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    };</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -211,9 +215,9 @@ template&lt;class To , class From &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    {</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      <span class="keywordflow">return</span> _is_bit_cast_valid&lt;To, From&gt;(5);</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    };</div>
+<div class="fragment"><div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;      <span class="keywordflow">return</span> _is_bit_cast_valid&lt;To, From&gt;(5);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    };</div>
 </div><!-- fragment -->
 </div>
 </div>

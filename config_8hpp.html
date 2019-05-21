@@ -201,7 +201,7 @@ Macros</h2></td></tr>
 <tr class="separator:ad0efd8ee70b45fd3bf3a924bbb07577e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13a8002e6ca691abb682df708d24d14e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8hpp.html#a13a8002e6ca691abb682df708d24d14e">QUICKCPPLIB_TEXPR</a>(...)&#160;&#160;&#160;typename = decltype(__VA_ARGS__)</td></tr>
 <tr class="separator:a13a8002e6ca691abb682df708d24d14e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50591d5da06e6359d794d6039da14e1e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8hpp.html#a50591d5da06e6359d794d6039da14e1e">QUICKCPPLIB_TPRED</a>(...)&#160;&#160;&#160;typename = std::enable_if_t&lt;__VA_ARGS__&gt;</td></tr>
+<tr class="memitem:a50591d5da06e6359d794d6039da14e1e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8hpp.html#a50591d5da06e6359d794d6039da14e1e">QUICKCPPLIB_TPRED</a>(...)&#160;&#160;&#160;typename std::enable_if&lt;(__VA_ARGS__), bool&gt;::type = true</td></tr>
 <tr class="separator:a50591d5da06e6359d794d6039da14e1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6da1d09d6659542dc81ef4775949c8b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8hpp.html#ab6da1d09d6659542dc81ef4775949c8b">QUICKCPPLIB_REQUIRES</a>(...)</td></tr>
 <tr class="separator:ab6da1d09d6659542dc81ef4775949c8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -794,7 +794,7 @@ Macros</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>...</em></td><td>)</td>
-          <td>&#160;&#160;&#160;typename = std::enable_if_t&lt;__VA_ARGS__&gt;</td>
+          <td>&#160;&#160;&#160;typename std::enable_if&lt;(__VA_ARGS__), bool&gt;::type = true</td>
         </tr>
       </table>
 </div><div class="memdoc">

@@ -8,6 +8,7 @@ var namespacequickcpplib_1_1__xxx =
     [ "detach_cast", "namespacequickcpplib_1_1__xxx_1_1detach__cast.html", "namespacequickcpplib_1_1__xxx_1_1detach__cast" ],
     [ "ensure_stores", "namespacequickcpplib_1_1__xxx_1_1ensure__stores.html", "namespacequickcpplib_1_1__xxx_1_1ensure__stores" ],
     [ "erasure_cast", "namespacequickcpplib_1_1__xxx_1_1erasure__cast.html", "namespacequickcpplib_1_1__xxx_1_1erasure__cast" ],
+    [ "in_place_attach_detach", "namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach.html", "namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach" ],
     [ "pmr", "namespacequickcpplib_1_1__xxx_1_1pmr.html", null ],
     [ "offset_ptr", "namespacequickcpplib_1_1__xxx_1_1offset__ptr.html", "namespacequickcpplib_1_1__xxx_1_1offset__ptr" ],
     [ "optional", "namespacequickcpplib_1_1__xxx_1_1optional.html", null ],

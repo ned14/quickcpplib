@@ -159,13 +159,13 @@ Enumerations</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:a0c2db7ab016b5793b5991812ae683e0e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a0c2db7ab016b5793b5991812ae683e0e">thread_local_raise_signal</a> (signalc signo, void *info=nullptr, void *context=nullptr)</td></tr>
 <tr class="separator:a0c2db7ab016b5793b5991812ae683e0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46acdfa193a0b615cb29f5b08ba4afdd"><td class="memTemplParams" colspan="2">template&lt;class F , class H , class C , class R  = decltype(std::declval&lt;F&gt;()()), typename  = std::enable_if_t&lt; std::is_constructible&lt;R, decltype(std::declval&lt;H&gt;()(std::declval&lt;const raised_signal_info&gt;()))&gt;::value &gt;, typename  = std::enable_if_t&lt; std::is_constructible&lt;bool, decltype(std::declval&lt;C&gt;()(std::declval&lt;const raised_signal_info&gt;()))&gt;::value &gt;&gt; </td></tr>
+<tr class="memitem:a46acdfa193a0b615cb29f5b08ba4afdd"><td class="memTemplParams" colspan="2">template&lt;class F , class H , class C , class R  = decltype(std::declval&lt;F&gt;()()), typename std::enable_if&lt;(std::is_constructible&lt; R, decltype(std::declval&lt; H &gt;()(std::declval&lt; const raised_signal_info &gt;()))&gt;::value), bool &gt;::type  = true, typename std::enable_if&lt;(std::is_constructible&lt; bool, decltype(std::declval&lt; C &gt;()(std::declval&lt; const raised_signal_info &gt;()))&gt;::value), bool &gt;::type  = true&gt; </td></tr>
 <tr class="memitem:a46acdfa193a0b615cb29f5b08ba4afdd"><td class="memTemplItemLeft" align="right" valign="top">R&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a46acdfa193a0b615cb29f5b08ba4afdd">signal_guard</a> (signalc guarded, F &amp;&amp;f, H &amp;&amp;h, C &amp;&amp;c)</td></tr>
 <tr class="separator:a46acdfa193a0b615cb29f5b08ba4afdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a93a123002d5e5710577c26d00f3ba853"><td class="memTemplParams" colspan="2">template&lt;class F , class R  = decltype(std::declval&lt;F&gt;()())&gt; </td></tr>
 <tr class="memitem:a93a123002d5e5710577c26d00f3ba853"><td class="memTemplItemLeft" align="right" valign="top">R&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a93a123002d5e5710577c26d00f3ba853">signal_guard</a> (signalc guarded, F &amp;&amp;f)</td></tr>
 <tr class="separator:a93a123002d5e5710577c26d00f3ba853"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90804da905b562f38d803454e3d26bca"><td class="memTemplParams" colspan="2">template&lt;class F , class H , class R  = decltype(std::declval&lt;F&gt;()()), typename  = std::enable_if_t&lt; std::is_constructible&lt;R, decltype(std::declval&lt;H&gt;()(std::declval&lt;const raised_signal_info&gt;()))&gt;::value &gt;&gt; </td></tr>
+<tr class="memitem:a90804da905b562f38d803454e3d26bca"><td class="memTemplParams" colspan="2">template&lt;class F , class H , class R  = decltype(std::declval&lt;F&gt;()()), typename std::enable_if&lt;(std::is_constructible&lt; R, decltype(std::declval&lt; H &gt;()(std::declval&lt; const raised_signal_info &gt;()))&gt;::value), bool &gt;::type  = true&gt; </td></tr>
 <tr class="memitem:a90804da905b562f38d803454e3d26bca"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a90804da905b562f38d803454e3d26bca">signal_guard</a> (signalc guarded, F &amp;&amp;f, H &amp;&amp;h)</td></tr>
 <tr class="separator:a90804da905b562f38d803454e3d26bca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -292,7 +292,7 @@ Functions</h2></td></tr>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class F , class H , class C , class R  = decltype(std::declval&lt;F&gt;()()), typename  = std::enable_if_t&lt; std::is_constructible&lt;R, decltype(std::declval&lt;H&gt;()(std::declval&lt;const raised_signal_info&gt;()))&gt;::value &gt;, typename  = std::enable_if_t&lt; std::is_constructible&lt;bool, decltype(std::declval&lt;C&gt;()(std::declval&lt;const raised_signal_info&gt;()))&gt;::value &gt;&gt; </div>
+template&lt;class F , class H , class C , class R  = decltype(std::declval&lt;F&gt;()()), typename std::enable_if&lt;(std::is_constructible&lt; R, decltype(std::declval&lt; H &gt;()(std::declval&lt; const raised_signal_info &gt;()))&gt;::value), bool &gt;::type  = true, typename std::enable_if&lt;(std::is_constructible&lt; bool, decltype(std::declval&lt; C &gt;()(std::declval&lt; const raised_signal_info &gt;()))&gt;::value), bool &gt;::type  = true&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -463,7 +463,7 @@ template&lt;class F , class R  = decltype(std::declval&lt;F&gt;()())&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class F , class H , class R  = decltype(std::declval&lt;F&gt;()()), typename  = std::enable_if_t&lt; std::is_constructible&lt;R, decltype(std::declval&lt;H&gt;()(std::declval&lt;const raised_signal_info&gt;()))&gt;::value &gt;&gt; </div>
+template&lt;class F , class H , class R  = decltype(std::declval&lt;F&gt;()()), typename std::enable_if&lt;(std::is_constructible&lt; R, decltype(std::declval&lt; H &gt;()(std::declval&lt; const raised_signal_info &gt;()))&gt;::value), bool &gt;::type  = true&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">

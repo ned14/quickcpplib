@@ -1,6 +1,7 @@
 var searchData=
 [
   ['_7eatomic_5foffset_5fptr',['~atomic_offset_ptr',['../classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr.html#afaf1ff4bede92e3762125dbbf650ac88',1,'quickcpplib::_xxx::offset_ptr::atomic_offset_ptr']]],
+  ['_7eattached',['~attached',['../classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html#a7fc8374233d1d2a1cb868bfb7cc72caf',1,'quickcpplib::_xxx::in_place_attach_detach::attached']]],
   ['_7econst_5fpointer',['~const_pointer',['../structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#a88918a3f523dc63b1c24a26e123aff6b',1,'quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy::const_pointer']]],
   ['_7efinal_5faction',['~final_action',['../classgsl_1_1final__action.html#a4d9dc9c462c33574d50247efed8c30ba',1,'gsl::final_action']]],
   ['_7elock_5fguard',['~lock_guard',['../classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html#a30bc71490fc4c767f53757325fb1bc52',1,'quickcpplib::_xxx::configurable_spinlock::lock_guard']]],

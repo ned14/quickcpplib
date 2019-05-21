@@ -4,6 +4,7 @@ var hierarchy =
     [ "A", null, [
       [ "quickcpplib::_xxx::allocator_testing::allocator< T, A >", "structquickcpplib_1_1__xxx_1_1allocator__testing_1_1allocator.html", null ]
     ] ],
+    [ "quickcpplib::_xxx::in_place_attach_detach::adopt_t", "structquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1adopt__t.html", null ],
     [ "quickcpplib::_xxx::aligned_allocator::aligned_allocator< T, Align, initialize >", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator.html", null ],
     [ "quickcpplib::_xxx::aligned_allocator::aligned_allocator< const T, Align, initialize >", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html", null ],
     [ "quickcpplib::_xxx::aligned_allocator::aligned_allocator< const void, Align, initialize >", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01void_00_01_align_00_01initialize_01_4.html", null ],
@@ -67,9 +68,9 @@ var hierarchy =
     [ "quickcpplib::_xxx::algorithm::hash::passthru_hash< T >", "structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1passthru__hash.html", null ],
     [ "quickcpplib::_xxx::print_type< T >", "structquickcpplib_1_1__xxx_1_1print__type.html", null ],
     [ "quickcpplib::_xxx::signal_guard::raised_signal_info", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1raised__signal__info.html", null ],
+    [ "quickcpplib::_xxx::allocator_testing::allocator< T, A >::rebind< U >", "structquickcpplib_1_1__xxx_1_1allocator__testing_1_1allocator_1_1rebind.html", null ],
     [ "quickcpplib::_xxx::aligned_allocator::aligned_allocator< T, Align, initialize >::rebind< U >", "structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_1_1rebind.html", null ],
     [ "quickcpplib::_xxx::aligned_allocator::aligned_allocator< const T, Align, initialize >::rebind< U >", "structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_alig38b3ce2fde59753f89f79b36dfe20c65.html", null ],
-    [ "quickcpplib::_xxx::allocator_testing::allocator< T, A >::rebind< U >", "structquickcpplib_1_1__xxx_1_1allocator__testing_1_1allocator_1_1rebind.html", null ],
     [ "quickcpplib::_xxx::unit_test::requirement_failed", "structquickcpplib_1_1__xxx_1_1unit__test_1_1requirement__failed.html", null ],
     [ "quickcpplib::_xxx::ringbuffer_log::ringbuffer_log< Policy >", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html", null ],
     [ "quickcpplib::_xxx::algorithm::secded_ecc::secded_ecc< blocksize >", "classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html", null ],
@@ -77,7 +78,9 @@ var hierarchy =
     [ "quickcpplib::_xxx::signal_guard::signal_guard_install", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__install.html", null ],
     [ "quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy< Bytes >", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy.html", null ],
     [ "quickcpplib::_xxx::algorithm::small_prng::small_prng", "classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html", null ],
-    [ "gsl::span< T >", "classgsl_1_1span.html", null ],
+    [ "gsl::span< T >", "classgsl_1_1span.html", [
+      [ "quickcpplib::_xxx::in_place_attach_detach::attached< T >", "classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html", null ]
+    ] ],
     [ "gsl::span< uint8_t >", "classgsl_1_1span.html", null ],
     [ "quickcpplib::_xxx::configurable_spinlock::spinlockbase< T >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase.html", null ],
     [ "quickcpplib::_xxx::configurable_spinlock::spinlockbase< lockable_ptr< T > >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4.html", null ],
