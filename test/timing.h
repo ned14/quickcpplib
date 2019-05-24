@@ -5,6 +5,8 @@
 #ifndef TIMING_H
 #define TIMING_H
 
+#include <stdint.h>
+
 #ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN
 #include <intrin.h>
@@ -77,6 +79,10 @@ inline uint64_t ticksclock()
   return rdtscp();
 }
 
+#ifdef __cplusplus
+#include <chrono>
+#include <iostream>
+
 inline uint64_t nanoclock()
 {
   static double ticks_per_sec;
@@ -101,5 +107,6 @@ inline uint64_t nanoclock()
   }
   return (uint64_t)((ticksclock() - offset) / ticks_per_sec);
 }
+#endif
 
 #endif
