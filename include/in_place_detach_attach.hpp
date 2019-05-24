@@ -168,40 +168,11 @@ namespace in_place_attach_detach
       }
     }
 
-    #if 0
-    //! Construct from a pointer and size
-    constexpr attached(byte p, index_type len)
-        : _base(in_place_attach<T>({p, len}))
-    {
-    }
-    //! Construct from two pointers
-    constexpr attached(byte p, byte e)
-        : _base(in_place_attach<T>({p, e}))
-    {
-    }
-    //! Implicitly construct from a C array reference
-    template <size_t N>
-    constexpr attached(element_type (&arr)[N])
-        : _base(in_place_attach<T>(arr))
-    {
-    }
-    //! Implicitly construct from a C++ array reference
-    template <size_t N>
-    constexpr attached(std::array<value_type, N> arr)
-        : _base(in_place_attach<T>(arr))
-    {
-    }
-    //! Implicitly construct from a STL container
-    QUICKCPPLIB_TEMPLATE(class Container)
-    QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TEXPR(std::declval<Container>().data() + std::declval<Container>().size()))
-    constexpr attached(Container &c)
-        : _base(in_place_attach<T>(c))
-    {
-    }
-    #endif
-    //! Implicitly construct from a span of bytes
-    constexpr attached(QUICKCPPLIB_NAMESPACE::span::span<QUICKCPPLIB_NAMESPACE::byte::byte> v)
-        : _base(in_place_attach<T>(v))
+    //! Implicitly construct from anything for which `in_place_attach<T>()` is valid.
+    QUICKCPPLIB_TEMPLATE(class U)
+    QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TEXPR(in_place_attach<T>(std::declval<U>())))
+    constexpr attached(U &&v)
+        : _base(in_place_attach<T>(static_cast<U &&>(v)))
     {
     }
     //! Explicitly construct from a span of already attached objects
