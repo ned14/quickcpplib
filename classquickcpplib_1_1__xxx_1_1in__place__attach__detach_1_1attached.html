@@ -188,9 +188,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7fc8374233d1d2a1cb868bfb7cc72caf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html#a7fc8374233d1d2a1cb868bfb7cc72caf">~attached</a> ()</td></tr>
 <tr class="memdesc:a7fc8374233d1d2a1cb868bfb7cc72caf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detaches the array of <code>T</code>, if not empty.  <a href="#a7fc8374233d1d2a1cb868bfb7cc72caf">More...</a><br/></td></tr>
 <tr class="separator:a7fc8374233d1d2a1cb868bfb7cc72caf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1855b79694391ad6241334f3eee0434"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html#aa1855b79694391ad6241334f3eee0434">attached</a> (<a class="el" href="namespacequickcpplib_1_1__xxx_1_1span.html#a41d4f6abd008d90e96379c26e95fefb5">quickcpplib::_xxx::span::span</a>&lt; quickcpplib::_xxx::byte::byte &gt; v)</td></tr>
-<tr class="memdesc:aa1855b79694391ad6241334f3eee0434"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implicitly construct from a span of bytes.  <a href="#aa1855b79694391ad6241334f3eee0434">More...</a><br/></td></tr>
-<tr class="separator:aa1855b79694391ad6241334f3eee0434"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac182532d0fe3c13403621d3f547b375a"><td class="memTemplParams" colspan="2">template&lt;class U , typename  = decltype( in_place_attach&lt;T&gt;(std::declval&lt;U&gt;()) )&gt; </td></tr>
+<tr class="memitem:ac182532d0fe3c13403621d3f547b375a"><td class="memTemplItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html#ac182532d0fe3c13403621d3f547b375a">attached</a> (U &amp;&amp;v)</td></tr>
+<tr class="memdesc:ac182532d0fe3c13403621d3f547b375a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implicitly construct from anything for which <code>in_place_attach&lt;T&gt;()</code> is valid.  <a href="#ac182532d0fe3c13403621d3f547b375a">More...</a><br/></td></tr>
+<tr class="separator:ac182532d0fe3c13403621d3f547b375a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe94a6ec80aba871f82f8e3e13ca9b2e"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html#abe94a6ec80aba871f82f8e3e13ca9b2e">attached</a> (<a class="el" href="structquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1adopt__t.html">adopt_t</a>, <a class="el" href="classgsl_1_1span.html">_base</a> v)</td></tr>
 <tr class="memdesc:abe94a6ec80aba871f82f8e3e13ca9b2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Explicitly construct from a span of already attached objects.  <a href="#abe94a6ec80aba871f82f8e3e13ca9b2e">More...</a><br/></td></tr>
 <tr class="separator:abe94a6ec80aba871f82f8e3e13ca9b2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -600,17 +601,19 @@ template&lt;class T &gt; </div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        <a class="code" href="namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach.html#ad1e86a7ab87376babdf684f51bd36190">in_place_detach</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html#adf8e078d74a7b9fb64730e42ba37f191">as_span</a>());</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;      }</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    }</div>
-<div class="ttc" id="classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached_html_adf8e078d74a7b9fb64730e42ba37f191"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html#adf8e078d74a7b9fb64730e42ba37f191">quickcpplib::_xxx::in_place_attach_detach::attached::as_span</a></div><div class="ttdeci">constexpr _base as_span() const noexcept</div><div class="ttdoc">Returns the attached region as a plain span of T </div><div class="ttdef"><b>Definition:</b> in_place_detach_attach.hpp:214</div></div>
+<div class="ttc" id="classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached_html_adf8e078d74a7b9fb64730e42ba37f191"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html#adf8e078d74a7b9fb64730e42ba37f191">quickcpplib::_xxx::in_place_attach_detach::attached::as_span</a></div><div class="ttdeci">constexpr _base as_span() const noexcept</div><div class="ttdoc">Returns the attached region as a plain span of T </div><div class="ttdef"><b>Definition:</b> in_place_detach_attach.hpp:185</div></div>
 <div class="ttc" id="namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach_html_ad1e86a7ab87376babdf684f51bd36190"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach.html#ad1e86a7ab87376babdf684f51bd36190">quickcpplib::_xxx::in_place_attach_detach::in_place_detach</a></div><div class="ttdeci">constexpr quickcpplib::_xxx::span::span&lt; quickcpplib::_xxx::byte::byte &gt; in_place_detach(quickcpplib::_xxx::span::span&lt; T &gt; objects, detail::default_cast_operator_overload={}) noexcept</div><div class="ttdoc">An ADL customisation point for the in-place detachment of an array of live T objects into an array of...</div><div class="ttdef"><b>Definition:</b> in_place_detach_attach.hpp:51</div></div>
 <div class="ttc" id="classgsl_1_1span_html_a15605737c15f0250294e6f52cfa0a059"><div class="ttname"><a href="classgsl_1_1span.html#a15605737c15f0250294e6f52cfa0a059">gsl::span::empty</a></div><div class="ttdeci">bool empty() const </div><div class="ttdef"><b>Definition:</b> gsl-lite-vc6.hpp:499</div></div>
 </div><!-- fragment -->
 </div>
 </div>
-<a class="anchor" id="aa1855b79694391ad6241334f3eee0434"></a>
+<a class="anchor" id="ac182532d0fe3c13403621d3f547b375a"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;class T &gt; </div>
+<div class="memtemplate">
+template&lt;class U , typename  = decltype( in_place_attach&lt;T&gt;(std::declval&lt;U&gt;()) )&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -618,7 +621,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">constexpr <a class="el" href="classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html">quickcpplib::_xxx::in_place_attach_detach::attached</a>&lt; T &gt;::<a class="el" href="classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html">attached</a> </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1span.html#a41d4f6abd008d90e96379c26e95fefb5">quickcpplib::_xxx::span::span</a>&lt; quickcpplib::_xxx::byte::byte &gt;&#160;</td>
+          <td class="paramtype">U &amp;&amp;&#160;</td>
           <td class="paramname"><em>v</em></td><td>)</td>
           <td></td>
         </tr>
@@ -630,10 +633,10 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Implicitly construct from a span of bytes. </p>
-<div class="fragment"><div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        : _base(in_place_attach&lt;T&gt;(v))</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    {</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    }</div>
+<p>Implicitly construct from anything for which <code>in_place_attach&lt;T&gt;()</code> is valid. </p>
+<div class="fragment"><div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        : _base(in_place_attach&lt;T&gt;(static_cast&lt;U &amp;&amp;&gt;(v)))</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    {</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -672,9 +675,9 @@ template&lt;class T &gt; </div>
 </div><div class="memdoc">
 
 <p>Explicitly construct from a span of already attached objects. </p>
-<div class="fragment"><div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        : _base(v)</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    {</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        : _base(v)</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    {</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -762,7 +765,7 @@ template&lt;class T &gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the attached region as a plain span of <code>T</code> </p>
-<div class="fragment"><div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;{ <span class="keywordflow">return</span> *<span class="keyword">this</span>; }</div>
+<div class="fragment"><div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;{ <span class="keywordflow">return</span> *<span class="keyword">this</span>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
