@@ -48,12 +48,13 @@ namespace in_place_attach_detach
   */
   QUICKCPPLIB_TEMPLATE(class T)
   QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TEXPR(detach_cast(std::declval<T>())))
-  constexpr inline QUICKCPPLIB_NAMESPACE::span::span<QUICKCPPLIB_NAMESPACE::byte::byte> in_place_detach(QUICKCPPLIB_NAMESPACE::span::span<T> objects, detail::default_cast_operator_overload = {}) noexcept
+  constexpr inline auto in_place_detach(QUICKCPPLIB_NAMESPACE::span::span<T> objects, detail::default_cast_operator_overload = {}) noexcept
   {
-    QUICKCPPLIB_NAMESPACE::span::span<QUICKCPPLIB_NAMESPACE::byte::byte> ret;
+    using byte_type = typename std::conditional<std::is_const<T>::value, const QUICKCPPLIB_NAMESPACE::byte::byte, QUICKCPPLIB_NAMESPACE::byte::byte>::type;
+    QUICKCPPLIB_NAMESPACE::span::span<byte_type> ret;
     if(objects.empty())
     {
-      ret = QUICKCPPLIB_NAMESPACE::span::span<QUICKCPPLIB_NAMESPACE::byte::byte>((QUICKCPPLIB_NAMESPACE::byte::byte *) objects.data(), (QUICKCPPLIB_NAMESPACE::byte::byte *) objects.data());
+      ret = QUICKCPPLIB_NAMESPACE::span::span<byte_type>((byte_type *) objects.data(), (byte_type *) objects.data());
       return ret;
     }
     for(size_t n = 0; n < objects.size(); n++)
@@ -146,11 +147,7 @@ namespace in_place_attach_detach
 
     attached(const attached &) = delete;
     //! Move constructs the instance, leaving the source empty.
-    constexpr attached(attached &&o) noexcept
-        : _base(std::move(o))
-    {
-      static_cast<_base &>(o) = {nullptr, 0};
-    }
+    constexpr attached(attached &&o) noexcept : _base(std::move(o)) { static_cast<_base &>(o) = {nullptr, 0}; }
     attached &operator=(const attached &) = delete;
     constexpr attached &operator=(attached &&o) noexcept
     {

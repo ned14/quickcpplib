@@ -62,12 +62,9 @@ namespace detach_cast
 
   namespace detail
   {
-     QUICKCPPLIB_TEMPLATE(class To, class From)
-             QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TEXPR(QUICKCPPLIB_NAMESPACE::bit_cast::bit_cast<To, From>(std::declval<From>())))
-    inline constexpr bool _is_bit_cast_valid(int)
-    {
-      return true;
-    };
+    QUICKCPPLIB_TEMPLATE(class To, class From)
+    QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TEXPR(QUICKCPPLIB_NAMESPACE::bit_cast::bit_cast<To, From>(std::declval<From>())))
+    inline constexpr bool _is_bit_cast_valid(int) { return true; };
     template <class To, class From>  //
     inline constexpr bool _is_bit_cast_valid(...)
     {
@@ -110,8 +107,8 @@ namespace detach_cast
   implement detachment using undefined behaviour by reinterpret casting.
   */
   QUICKCPPLIB_TEMPLATE(class T)
-    QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(!detail::is_bit_cast_valid<detail::byte_array_wrapper<T>, T>()                   //
-                                             && !traits::enable_reinterpret_detach_cast<typename std::decay<T>::type>::value))
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(!detail::is_bit_cast_valid<detail::byte_array_wrapper<T>, T>()  //
+                                          && !traits::enable_reinterpret_detach_cast<typename std::decay<T>::type>::value))
   QUICKCPPLIB_NODISCARD constexpr inline byte_array_reference<T> detach_cast(const T &, ...) noexcept
   {                                                                                                                                     //
     static_assert(!std::is_same<T, T>::value, "In C++ 20, detach_cast(T) is defined behaviour only for types which are bit castable. "  //
@@ -128,8 +125,8 @@ namespace detach_cast
   implement attachment using undefined behaviour by reinterpret casting.
   */
   QUICKCPPLIB_TEMPLATE(class T)
-    QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(!detail::is_bit_cast_valid<T, detail::byte_array_wrapper<T>>()                   //
-                                             && !traits::enable_reinterpret_attach_cast<typename std::decay<T>::type>::value))
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(!detail::is_bit_cast_valid<T, detail::byte_array_wrapper<T>>()  //
+                                          && !traits::enable_reinterpret_attach_cast<typename std::decay<T>::type>::value))
   QUICKCPPLIB_NODISCARD constexpr inline T &attach_cast(const_byte_array_reference<T> &, ...) noexcept
   {                                                                                                                                     //
     static_assert(!std::is_same<T, T>::value, "In C++ 20, attach_cast(T) is defined behaviour only for types which are bit castable. "  //
@@ -142,8 +139,8 @@ namespace detach_cast
   the memory copy for small objects, MSVC always copies the byte array twice).
   */
   QUICKCPPLIB_TEMPLATE(class T)
-    QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::is_bit_cast_valid<detail::byte_array_wrapper<T>, T>()                    //
-                                             && !traits::enable_reinterpret_detach_cast<typename std::decay<T>::type>::value))
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::is_bit_cast_valid<detail::byte_array_wrapper<T>, T>()  //
+                                          && !traits::enable_reinterpret_detach_cast<typename std::decay<T>::type>::value))
   QUICKCPPLIB_NODISCARD constexpr inline byte_array_reference<T> detach_cast(T &v, detail::bit_castable_overload = {}) noexcept
   {
     // Bit cast and copy the input object into a stack allocated byte array. This
@@ -166,8 +163,8 @@ namespace detach_cast
   the memory copy for small objects, MSVC always copies the byte array twice).
   */
   QUICKCPPLIB_TEMPLATE(class T)
-    QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::is_bit_cast_valid<const detail::byte_array_wrapper<T>, const T>()        //
-                                             && !traits::enable_reinterpret_detach_cast<typename std::decay<T>::type>::value))
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::is_bit_cast_valid<const detail::byte_array_wrapper<T>, const T>()  //
+                                          && !traits::enable_reinterpret_detach_cast<typename std::decay<T>::type>::value))
   QUICKCPPLIB_NODISCARD constexpr inline const_byte_array_reference<T> detach_cast(const T &v, detail::bit_castable_overload = {}) noexcept
   {
     const auto buffer(bit_cast<const detail::byte_array_wrapper<T>>(v));
@@ -181,8 +178,9 @@ namespace detach_cast
   the memory copy for small objects, MSVC always copies the byte array twice).
   */
   QUICKCPPLIB_TEMPLATE(class T)
-    QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::is_bit_cast_valid<T, detail::byte_array_wrapper<T>>()                    //
-                                             && !traits::enable_reinterpret_attach_cast<typename std::decay<T>::type>::value))
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::is_bit_cast_valid<T, detail::byte_array_wrapper<T>>()                    //
+                                          && !traits::enable_reinterpret_attach_cast<typename std::decay<T>::type>::value  //
+                                          && !std::is_const<T>::value))
   QUICKCPPLIB_NODISCARD constexpr inline T &attach_cast(byte_array_reference<T> v, detail::bit_castable_overload = {}) noexcept
   {
     // Bit cast and copy the input byte array into a stack allocated object. This
@@ -202,9 +200,9 @@ namespace detach_cast
   the memory copy for small objects, MSVC always copies the byte array twice).
   */
   QUICKCPPLIB_TEMPLATE(class T)
-    QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::is_bit_cast_valid<T, const detail::byte_array_wrapper<T>>()              //
-                                             && !traits::enable_reinterpret_attach_cast<typename std::decay<T>::type>::value  //
-                                             && std::is_const<T>::value))
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::is_bit_cast_valid<T, const detail::byte_array_wrapper<T>>()              //
+                                          && !traits::enable_reinterpret_attach_cast<typename std::decay<T>::type>::value  //
+                                          && std::is_const<T>::value))
   QUICKCPPLIB_NODISCARD constexpr inline const T &attach_cast(const_byte_array_reference<T> v, detail::bit_castable_overload = {}) noexcept
   {
     using nonconst = typename std::remove_const<T>::type;
@@ -219,46 +217,35 @@ namespace detach_cast
   for the type.
   */
   QUICKCPPLIB_TEMPLATE(class T)
-    QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(!detail::is_bit_cast_valid<detail::byte_array_wrapper<T>, T>()                  //
-                                             && traits::enable_reinterpret_detach_cast<typename std::decay<T>::type>::value))
-  QUICKCPPLIB_NODISCARD constexpr inline byte_array_reference<T> detach_cast(T &v, detail::reinterpret_cast_overload = {}) noexcept
-  {
-    return reinterpret_cast<byte_array_reference<T>>(v);
-  }
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(!detail::is_bit_cast_valid<detail::byte_array_wrapper<T>, T>()  //
+                                          && traits::enable_reinterpret_detach_cast<typename std::decay<T>::type>::value))
+  QUICKCPPLIB_NODISCARD constexpr inline byte_array_reference<T> detach_cast(T &v, detail::reinterpret_cast_overload = {}) noexcept { return reinterpret_cast<byte_array_reference<T>>(v); }
   /*! \brief Reinterpret casts a const object reference into a const byte representation.
   Pure undefined behaviour. Available only if `traits::enable_reinterpret_detach_cast<T>` is true
   for the type.
   */
   QUICKCPPLIB_TEMPLATE(class T)
-    QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(!detail::is_bit_cast_valid<const detail::byte_array_wrapper<T>, const T>()      //
-                                             && traits::enable_reinterpret_detach_cast<typename std::decay<T>::type>::value))
-  QUICKCPPLIB_NODISCARD constexpr inline const_byte_array_reference<T> detach_cast(const T &v, detail::reinterpret_cast_overload = {}) noexcept
-  {
-    return reinterpret_cast<const_byte_array_reference<T>>(v);
-  }
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(!detail::is_bit_cast_valid<const detail::byte_array_wrapper<T>, const T>()  //
+                                          && traits::enable_reinterpret_detach_cast<typename std::decay<T>::type>::value))
+  QUICKCPPLIB_NODISCARD constexpr inline const_byte_array_reference<T> detach_cast(const T &v, detail::reinterpret_cast_overload = {}) noexcept { return reinterpret_cast<const_byte_array_reference<T>>(v); }
   /*! \brief Reinterpret casts a const byte representation into a const object.
   Pure undefined behaviour. Available only if `traits::enable_reinterpret_attach_cast<T>` is true
   for the type.
   */
   QUICKCPPLIB_TEMPLATE(class T)
-    QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(!detail::is_bit_cast_valid<T, detail::byte_array_wrapper<T>>()                  //
-                                             && traits::enable_reinterpret_attach_cast<typename std::decay<T>::type>::value))
-  QUICKCPPLIB_NODISCARD constexpr inline T &attach_cast(byte_array_reference<T> v, detail::reinterpret_cast_overload = {}) noexcept
-  {
-    return reinterpret_cast<T &>(v);
-  }
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(!detail::is_bit_cast_valid<T, detail::byte_array_wrapper<T>>()                  //
+                                          && traits::enable_reinterpret_attach_cast<typename std::decay<T>::type>::value  //
+                                          && !std::is_const<T>::value))
+  QUICKCPPLIB_NODISCARD constexpr inline T &attach_cast(byte_array_reference<T> v, detail::reinterpret_cast_overload = {}) noexcept { return reinterpret_cast<T &>(v); }
   /*! \brief Reinterpret casts a non-const byte representation into a non-const object.
   Pure undefined behaviour. Available only if `traits::enable_reinterpret_attach_cast<T>` is true
   for the type.
   */
   QUICKCPPLIB_TEMPLATE(class T)
-    QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(!detail::is_bit_cast_valid<const T, const detail::byte_array_wrapper<T>>()      //
-                                             && traits::enable_reinterpret_attach_cast<typename std::decay<T>::type>::value  //
-                                             && std::is_const<T>::value))
-  QUICKCPPLIB_NODISCARD constexpr inline T &attach_cast(const_byte_array_reference<T> v, detail::reinterpret_cast_overload = {}) noexcept
-  {
-    return reinterpret_cast<T &>(v);
-  }
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(!detail::is_bit_cast_valid<const T, const detail::byte_array_wrapper<T>>()      //
+                                          && traits::enable_reinterpret_attach_cast<typename std::decay<T>::type>::value  //
+                                          && std::is_const<T>::value))
+  QUICKCPPLIB_NODISCARD constexpr inline T &attach_cast(const_byte_array_reference<T> v, detail::reinterpret_cast_overload = {}) noexcept { return reinterpret_cast<T &>(v); }
 
 }  // namespace detach_cast
 
