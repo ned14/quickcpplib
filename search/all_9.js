@@ -6,7 +6,7 @@ var searchData=
   ['implicit',['implicit',['../gsl-lite-vc6_8hpp.html#a3539d59a0c0b1bc3dcf68dfb1bb42d21',1,'implicit():&#160;gsl-lite-vc6.hpp'],['../gsl-lite_8hpp.html#a3539d59a0c0b1bc3dcf68dfb1bb42d21',1,'implicit():&#160;gsl-lite.hpp']]],
   ['import_2eh',['import.h',['../import_8h.html',1,'']]],
   ['in_5fplace_5fattach',['in_place_attach',['../namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach.html#a0afb485acbd22275a76a2a703aeed455',1,'quickcpplib::_xxx::in_place_attach_detach']]],
-  ['in_5fplace_5fdetach',['in_place_detach',['../namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach.html#ad1e86a7ab87376babdf684f51bd36190',1,'quickcpplib::_xxx::in_place_attach_detach']]],
+  ['in_5fplace_5fdetach',['in_place_detach',['../namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach.html#a8e1d19abc004b4e21e4cdafcc7742639',1,'quickcpplib::_xxx::in_place_attach_detach']]],
   ['in_5fplace_5fdetach_5fattach_2ehpp',['in_place_detach_attach.hpp',['../in__place__detach__attach_8hpp.html',1,'']]],
   ['indeterminate',['indeterminate',['../group__tribool.html#ga4a3161975d78c4532153ff57bd5b6b2b',1,'quickcpplib::_xxx::tribool::indeterminate(tribool a) noexcept'],['../group__tribool.html#ggafe26d2adc55c3e981fc0164e20ebeb9aa44560d82707cce3b8111a770924cf0e2',1,'quickcpplib::_xxx::tribool::indeterminate()']]],
   ['index_5ftype',['index_type',['../classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html#a18136b9415b8e41232be79fd76a801a3',1,'quickcpplib::_xxx::in_place_attach_detach::attached']]],

@@ -130,12 +130,10 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad1e86a7ab87376babdf684f51bd36190"><td class="memTemplParams" colspan="2">template&lt;class T , typename  = decltype( detach_cast(std::declval&lt;T&gt;()) )&gt; </td></tr>
-<tr class="memitem:ad1e86a7ab87376babdf684f51bd36190"><td class="memTemplItemLeft" align="right" valign="top">constexpr <br class="typebreak"/>
-<a class="el" href="namespacequickcpplib_1_1__xxx_1_1span.html#a41d4f6abd008d90e96379c26e95fefb5">quickcpplib::_xxx::span::span</a><br class="typebreak"/>
-&lt; quickcpplib::_xxx::byte::byte &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach.html#ad1e86a7ab87376babdf684f51bd36190">in_place_detach</a> (<a class="el" href="namespacequickcpplib_1_1__xxx_1_1span.html#a41d4f6abd008d90e96379c26e95fefb5">quickcpplib::_xxx::span::span</a>&lt; T &gt; objects, detail::default_cast_operator_overload={}) noexcept</td></tr>
-<tr class="memdesc:ad1e86a7ab87376babdf684f51bd36190"><td class="mdescLeft">&#160;</td><td class="mdescRight">An ADL customisation point for the in-place detachment of an array of live <code>T</code> objects into an array of bytes representing their detached object representations. This overload is available if <code>detach_cast()</code> is available for <code>T</code>.  <a href="#ad1e86a7ab87376babdf684f51bd36190">More...</a><br/></td></tr>
-<tr class="separator:ad1e86a7ab87376babdf684f51bd36190"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e1d19abc004b4e21e4cdafcc7742639"><td class="memTemplParams" colspan="2">template&lt;class T , typename  = decltype( detach_cast(std::declval&lt;T&gt;()) )&gt; </td></tr>
+<tr class="memitem:a8e1d19abc004b4e21e4cdafcc7742639"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach.html#a8e1d19abc004b4e21e4cdafcc7742639">in_place_detach</a> (<a class="el" href="namespacequickcpplib_1_1__xxx_1_1span.html#a41d4f6abd008d90e96379c26e95fefb5">quickcpplib::_xxx::span::span</a>&lt; T &gt; objects, detail::default_cast_operator_overload={}) noexcept</td></tr>
+<tr class="memdesc:a8e1d19abc004b4e21e4cdafcc7742639"><td class="mdescLeft">&#160;</td><td class="mdescRight">An ADL customisation point for the in-place detachment of an array of live <code>T</code> objects into an array of bytes representing their detached object representations. This overload is available if <code>detach_cast()</code> is available for <code>T</code>.  <a href="#a8e1d19abc004b4e21e4cdafcc7742639">More...</a><br/></td></tr>
+<tr class="separator:a8e1d19abc004b4e21e4cdafcc7742639"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0afb485acbd22275a76a2a703aeed455"><td class="memTemplParams" colspan="2">template&lt;class T , typename  = decltype( attach_cast&lt;T&gt;(std::declval&lt; quickcpplib::_xxx ::detach_cast::byte_array_reference&lt;T&gt;&gt;()) )&gt; </td></tr>
 <tr class="memitem:a0afb485acbd22275a76a2a703aeed455"><td class="memTemplItemLeft" align="right" valign="top">constexpr <br class="typebreak"/>
 <a class="el" href="namespacequickcpplib_1_1__xxx_1_1span.html#a41d4f6abd008d90e96379c26e95fefb5">quickcpplib::_xxx::span::span</a><br class="typebreak"/>
@@ -149,7 +147,7 @@ Variables</h2></td></tr>
 <tr class="separator:ac28287fa5a6920954badd8fd7e5eff35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="ad1e86a7ab87376babdf684f51bd36190"></a>
+<a class="anchor" id="a8e1d19abc004b4e21e4cdafcc7742639"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -159,7 +157,7 @@ template&lt;class T , typename  = decltype( detach_cast(std::declval&lt;T&gt;())
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="namespacequickcpplib_1_1__xxx_1_1span.html#a41d4f6abd008d90e96379c26e95fefb5">quickcpplib::_xxx::span::span</a>&lt;quickcpplib::_xxx::byte::byte&gt; quickcpplib::_xxx::in_place_attach_detach::in_place_detach </td>
+          <td class="memname">constexpr auto quickcpplib::_xxx::in_place_attach_detach::in_place_detach </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1span.html#a41d4f6abd008d90e96379c26e95fefb5">quickcpplib::_xxx::span::span</a>&lt; T &gt;&#160;</td>
           <td class="paramname"><em>objects</em>, </td>
@@ -184,33 +182,34 @@ template&lt;class T , typename  = decltype( detach_cast(std::declval&lt;T&gt;())
 </div><div class="memdoc">
 
 <p>An ADL customisation point for the in-place detachment of an array of live <code>T</code> objects into an array of bytes representing their detached object representations. This overload is available if <code>detach_cast()</code> is available for <code>T</code>. </p>
-<div class="fragment"><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                                                                                                                                                                                 {}) noexcept</div>
+<div class="fragment"><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                                                                                                                         {}) noexcept</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    QUICKCPPLIB_NAMESPACE::span::span&lt;QUICKCPPLIB_NAMESPACE::byte::byte&gt; ret;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">if</span>(objects.<a class="code" href="classgsl_1_1span.html#a15605737c15f0250294e6f52cfa0a059">empty</a>())</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      ret = QUICKCPPLIB_NAMESPACE::span::span&lt;QUICKCPPLIB_NAMESPACE::byte::byte&gt;((<a class="code" href="namespacegsl.html#a342d07d23bff66b0a2a85c5ffe7c64d4">QUICKCPPLIB_NAMESPACE::byte::byte</a> *) objects.<a class="code" href="classgsl_1_1span.html#a71b0e7033fcbe93d01922deb645c8f9d">data</a>(), (<a class="code" href="namespacegsl.html#a342d07d23bff66b0a2a85c5ffe7c64d4">QUICKCPPLIB_NAMESPACE::byte::byte</a> *) objects.<a class="code" href="classgsl_1_1span.html#a71b0e7033fcbe93d01922deb645c8f9d">data</a>());</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> n = 0; n &lt; objects.<a class="code" href="classgsl_1_1span.html#af1ac565758a3b767375df7fb89599a4c">size</a>(); n++)</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    {</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      <span class="keyword">auto</span> &amp;d = <a class="code" href="namespacequickcpplib_1_1__xxx_1_1detach__cast.html#af2d60e01eaca46123011af0e4af772cb">detach_cast</a>(objects[n]);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      <span class="keywordflow">if</span>(0 == n)</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        ret = {d, <span class="keyword">sizeof</span>(d)};</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      }</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      {</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        ret = {ret.data(), ret.size() + <span class="keyword">sizeof</span>(d)};</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      }</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    }</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  }</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">using</span> byte_type = <span class="keyword">typename</span> std::conditional&lt;std::is_const&lt;T&gt;::value, <span class="keyword">const</span> <a class="code" href="namespacegsl.html#a342d07d23bff66b0a2a85c5ffe7c64d4">QUICKCPPLIB_NAMESPACE::byte::byte</a>, QUICKCPPLIB_NAMESPACE::byte::byte&gt;::type;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    QUICKCPPLIB_NAMESPACE::span::span&lt;byte_type&gt; ret;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">if</span>(objects.<a class="code" href="classgsl_1_1span.html#a15605737c15f0250294e6f52cfa0a059">empty</a>())</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      ret = QUICKCPPLIB_NAMESPACE::span::span&lt;byte_type&gt;((byte_type *) objects.<a class="code" href="classgsl_1_1span.html#a71b0e7033fcbe93d01922deb645c8f9d">data</a>(), (byte_type *) objects.<a class="code" href="classgsl_1_1span.html#a71b0e7033fcbe93d01922deb645c8f9d">data</a>());</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    }</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> n = 0; n &lt; objects.<a class="code" href="classgsl_1_1span.html#af1ac565758a3b767375df7fb89599a4c">size</a>(); n++)</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      <span class="keyword">auto</span> &amp;d = <a class="code" href="namespacequickcpplib_1_1__xxx_1_1detach__cast.html#af2d60e01eaca46123011af0e4af772cb">detach_cast</a>(objects[n]);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      <span class="keywordflow">if</span>(0 == n)</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        ret = {d, <span class="keyword">sizeof</span>(d)};</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      {</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        ret = {ret.data(), ret.size() + <span class="keyword">sizeof</span>(d)};</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;      }</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    }</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  }</div>
 <div class="ttc" id="classgsl_1_1span_html_af1ac565758a3b767375df7fb89599a4c"><div class="ttname"><a href="classgsl_1_1span.html#af1ac565758a3b767375df7fb89599a4c">gsl::span::size</a></div><div class="ttdeci">size_type size() const </div><div class="ttdef"><b>Definition:</b> gsl-lite-vc6.hpp:504</div></div>
 <div class="ttc" id="classgsl_1_1span_html_a71b0e7033fcbe93d01922deb645c8f9d"><div class="ttname"><a href="classgsl_1_1span.html#a71b0e7033fcbe93d01922deb645c8f9d">gsl::span::data</a></div><div class="ttdeci">pointer data() const </div><div class="ttdef"><b>Definition:</b> gsl-lite-vc6.hpp:494</div></div>
 <div class="ttc" id="classgsl_1_1span_html_a15605737c15f0250294e6f52cfa0a059"><div class="ttname"><a href="classgsl_1_1span.html#a15605737c15f0250294e6f52cfa0a059">gsl::span::empty</a></div><div class="ttdeci">bool empty() const </div><div class="ttdef"><b>Definition:</b> gsl-lite-vc6.hpp:499</div></div>
 <div class="ttc" id="namespacegsl_html_a342d07d23bff66b0a2a85c5ffe7c64d4"><div class="ttname"><a href="namespacegsl.html#a342d07d23bff66b0a2a85c5ffe7c64d4">gsl::byte</a></div><div class="ttdeci">unsigned char byte</div><div class="ttdef"><b>Definition:</b> gsl-lite-vc6.hpp:315</div></div>
-<div class="ttc" id="namespacequickcpplib_1_1__xxx_1_1detach__cast_html_af2d60e01eaca46123011af0e4af772cb"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1detach__cast.html#af2d60e01eaca46123011af0e4af772cb">quickcpplib::_xxx::detach_cast::detach_cast</a></div><div class="ttdeci">QUICKCPPLIB_NODISCARD constexpr byte_array_reference&lt; T &gt; detach_cast(const T &amp;,...) noexcept</div><div class="ttdoc">Detaches a live object into its detached byte representation, ending the lifetime of the input object...</div><div class="ttdef"><b>Definition:</b> detach_cast.hpp:115</div></div>
+<div class="ttc" id="namespacequickcpplib_1_1__xxx_1_1detach__cast_html_af2d60e01eaca46123011af0e4af772cb"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1detach__cast.html#af2d60e01eaca46123011af0e4af772cb">quickcpplib::_xxx::detach_cast::detach_cast</a></div><div class="ttdeci">QUICKCPPLIB_NODISCARD constexpr byte_array_reference&lt; T &gt; detach_cast(const T &amp;,...) noexcept</div><div class="ttdoc">Detaches a live object into its detached byte representation, ending the lifetime of the input object...</div><div class="ttdef"><b>Definition:</b> detach_cast.hpp:112</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -249,33 +248,33 @@ template&lt;class T , typename  = decltype( attach_cast&lt;T&gt;(std::declval&lt
 </div><div class="memdoc">
 
 <p>An ADL customisation point for the in-place attachment of previously detached object representations, back into an array of live <code>T</code> objects. This overload is available if <code>attach_cast()</code> is available for <code>T</code>. </p>
-<div class="fragment"><div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                                                                                                                                                                                   {}) noexcept</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  {</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    QUICKCPPLIB_NAMESPACE::span::span&lt;detail::byte_array_wrapper&lt;T&gt;&gt; input = {(detail::byte_array_wrapper&lt;T&gt; *) bytearray.<a class="code" href="classgsl_1_1span.html#a71b0e7033fcbe93d01922deb645c8f9d">data</a>(), bytearray.<a class="code" href="classgsl_1_1span.html#af1ac565758a3b767375df7fb89599a4c">size</a>() / <span class="keyword">sizeof</span>(T)};</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    QUICKCPPLIB_NAMESPACE::span::span&lt;T&gt; ret;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">if</span>(bytearray.<a class="code" href="classgsl_1_1span.html#a15605737c15f0250294e6f52cfa0a059">empty</a>())</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    {</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;      ret = QUICKCPPLIB_NAMESPACE::span::span&lt;T&gt;((T *) bytearray.<a class="code" href="classgsl_1_1span.html#a71b0e7033fcbe93d01922deb645c8f9d">data</a>(), (T *) bytearray.<a class="code" href="classgsl_1_1span.html#a71b0e7033fcbe93d01922deb645c8f9d">data</a>());</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;      <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    }</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> n = 0; n &lt; input.size(); n++)</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    {</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;      T &amp;a = <a class="code" href="namespacequickcpplib_1_1__xxx_1_1detach__cast.html#abaa48201df2ef0251105559a11d05b38">attach_cast</a>&lt;T&gt;(input[n].value);</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;      <span class="keywordflow">if</span>(0 == n)</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;      {</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        ret = {&amp;a, 1};</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;      }</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;      <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;      {</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        ret = {ret.data(), ret.size() + 1};</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;      }</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    }</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  }</div>
+<div class="fragment"><div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                                                                                                                                                                                   {}) noexcept</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  {</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    QUICKCPPLIB_NAMESPACE::span::span&lt;detail::byte_array_wrapper&lt;T&gt;&gt; input = {(detail::byte_array_wrapper&lt;T&gt; *) bytearray.<a class="code" href="classgsl_1_1span.html#a71b0e7033fcbe93d01922deb645c8f9d">data</a>(), bytearray.<a class="code" href="classgsl_1_1span.html#af1ac565758a3b767375df7fb89599a4c">size</a>() / <span class="keyword">sizeof</span>(T)};</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    QUICKCPPLIB_NAMESPACE::span::span&lt;T&gt; ret;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">if</span>(bytearray.<a class="code" href="classgsl_1_1span.html#a15605737c15f0250294e6f52cfa0a059">empty</a>())</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    {</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;      ret = QUICKCPPLIB_NAMESPACE::span::span&lt;T&gt;((T *) bytearray.<a class="code" href="classgsl_1_1span.html#a71b0e7033fcbe93d01922deb645c8f9d">data</a>(), (T *) bytearray.<a class="code" href="classgsl_1_1span.html#a71b0e7033fcbe93d01922deb645c8f9d">data</a>());</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;      <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    }</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> n = 0; n &lt; input.size(); n++)</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    {</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;      T &amp;a = <a class="code" href="namespacequickcpplib_1_1__xxx_1_1detach__cast.html#abaa48201df2ef0251105559a11d05b38">attach_cast</a>&lt;T&gt;(input[n].value);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;      <span class="keywordflow">if</span>(0 == n)</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;      {</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        ret = {&amp;a, 1};</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;      }</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;      <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;      {</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        ret = {ret.data(), ret.size() + 1};</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;      }</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  }</div>
 <div class="ttc" id="classgsl_1_1span_html_af1ac565758a3b767375df7fb89599a4c"><div class="ttname"><a href="classgsl_1_1span.html#af1ac565758a3b767375df7fb89599a4c">gsl::span::size</a></div><div class="ttdeci">size_type size() const </div><div class="ttdef"><b>Definition:</b> gsl-lite-vc6.hpp:504</div></div>
 <div class="ttc" id="classgsl_1_1span_html_a71b0e7033fcbe93d01922deb645c8f9d"><div class="ttname"><a href="classgsl_1_1span.html#a71b0e7033fcbe93d01922deb645c8f9d">gsl::span::data</a></div><div class="ttdeci">pointer data() const </div><div class="ttdef"><b>Definition:</b> gsl-lite-vc6.hpp:494</div></div>
 <div class="ttc" id="classgsl_1_1span_html_a15605737c15f0250294e6f52cfa0a059"><div class="ttname"><a href="classgsl_1_1span.html#a15605737c15f0250294e6f52cfa0a059">gsl::span::empty</a></div><div class="ttdeci">bool empty() const </div><div class="ttdef"><b>Definition:</b> gsl-lite-vc6.hpp:499</div></div>
-<div class="ttc" id="namespacequickcpplib_1_1__xxx_1_1detach__cast_html_abaa48201df2ef0251105559a11d05b38"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1detach__cast.html#abaa48201df2ef0251105559a11d05b38">quickcpplib::_xxx::detach_cast::attach_cast</a></div><div class="ttdeci">QUICKCPPLIB_NODISCARD constexpr T &amp; attach_cast(const_byte_array_reference&lt; T &gt; &amp;,...) noexcept</div><div class="ttdoc">Reattaches a previously detached object, beginning the lifetime of the output object, and ending the lifetime of the input array of byte. All references to the input byte array become INVALID. Any use of the input array after attachment has occurred is illegal! </div><div class="ttdef"><b>Definition:</b> detach_cast.hpp:133</div></div>
+<div class="ttc" id="namespacequickcpplib_1_1__xxx_1_1detach__cast_html_abaa48201df2ef0251105559a11d05b38"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1detach__cast.html#abaa48201df2ef0251105559a11d05b38">quickcpplib::_xxx::detach_cast::attach_cast</a></div><div class="ttdeci">QUICKCPPLIB_NODISCARD constexpr T &amp; attach_cast(const_byte_array_reference&lt; T &gt; &amp;,...) noexcept</div><div class="ttdoc">Reattaches a previously detached object, beginning the lifetime of the output object, and ending the lifetime of the input array of byte. All references to the input byte array become INVALID. Any use of the input array after attachment has occurred is illegal! </div><div class="ttdef"><b>Definition:</b> detach_cast.hpp:130</div></div>
 </div><!-- fragment -->
 </div>
 </div>
