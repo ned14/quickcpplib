@@ -52,16 +52,27 @@ struct NonMoveable
 BOOST_AUTO_TEST_CASE(function_ptr / works, "Tests that function_ptr works as advertised")
 {
   auto a = QUICKCPPLIB_NAMESPACE::function_ptr::make_function_ptr<int(double, double)>([](double a, double b) { return (int) (a + b); });
+  std::cout << "The maximum non-allocating callable size is " << a.max_callable_size << std::endl;
+  std::cout << "a's callable is being stored as " << a.ptr_type() << std::endl;
   BOOST_CHECK(a(5, 6) == 11);
   auto b = QUICKCPPLIB_NAMESPACE::function_ptr::emplace_function_ptr<int(double, double), Callable<1>>(1, 2.f);
+  std::cout << "b's callable is being stored as " << b.ptr_type() << std::endl;
   BOOST_CHECK(b(5, 6) == 14);
   auto c = QUICKCPPLIB_NAMESPACE::function_ptr::emplace_function_ptr<int(double, double), Callable<100>>(1, 3.f);
+  std::cout << "c's callable is being stored as " << c.ptr_type() << std::endl;
   BOOST_CHECK(c(5, 6) == 15);
   auto d = std::move(b);
+  std::cout << "b's callable is being stored as " << b.ptr_type() << std::endl;
+  std::cout << "c's callable is being stored as " << c.ptr_type() << std::endl;
+  std::cout << "d's callable is being stored as " << d.ptr_type() << std::endl;
   BOOST_CHECK(d(5, 6) == 14);
   d = std::move(c);
+  std::cout << "b's callable is being stored as " << b.ptr_type() << std::endl;
+  std::cout << "c's callable is being stored as " << c.ptr_type() << std::endl;
+  std::cout << "d's callable is being stored as " << d.ptr_type() << std::endl;
   BOOST_CHECK(d(5, 6) == 15);
   auto e = QUICKCPPLIB_NAMESPACE::function_ptr::emplace_function_ptr<int(), NonMoveable>(5);
+  std::cout << "e's callable is being stored as " << e.ptr_type() << std::endl;
   BOOST_CHECK(e() == 5);
 }
 
