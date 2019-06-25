@@ -1,6 +1,10 @@
 var searchData=
 [
-  ['name',['name',['../structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#ae4e7951b6bfeeee43ea30280738f7878',1,'quickcpplib::_xxx::unit_test::test_case::name()'],['../structquickcpplib_1_1__xxx_1_1unit__test_1_1test__suite.html#ab297cdd74fde55f91e0193ecbf776753',1,'quickcpplib::_xxx::unit_test::test_suite::name()'],['../structquickcpplib_1_1__xxx_1_1unit__test_1_1test__suite__registration.html#ae2e9eec4c2222670559561faf94219cc',1,'quickcpplib::_xxx::unit_test::test_suite_registration::name()']]],
-  ['normal',['normal',['../namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#a4655e084dda14bd61469e307e0dc8dbe',1,'quickcpplib::_xxx::console_colours::detail']]],
-  ['npos',['npos',['../classquickcpplib_1_1__xxx_1_1string__view_1_1basic__string__view.html#a73e03d46082c1f13244d316496eb3c4d',1,'quickcpplib::_xxx::string_view::basic_string_view']]]
+  ['magenta',['magenta',['../namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#a721e49348d55821e39087574d0dec904',1,'quickcpplib::_xxx::console_colours::detail']]],
+  ['max_5fcallable_5fsize',['max_callable_size',['../classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#abeaab204aae14fd41f635240a8e50fb4',1,'quickcpplib::_xxx::function_ptr::function_ptr&lt; R(Args...), callable_storage_bytes &gt;']]],
+  ['max_5fitems',['max_items',['../structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy.html#a9ffd18453863c3587516465667ceb727',1,'quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy::max_items()'],['../classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a3f81ef46ef550a019304aaa68baf1373',1,'quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::max_items()']]],
+  ['memory_5fflush_5fevict',['memory_flush_evict',['../namespacequickcpplib_1_1__xxx_1_1ensure__stores.html#a23ef8a95147f1b088a016c67b3ce2c55',1,'quickcpplib::_xxx::ensure_stores']]],
+  ['memory_5fflush_5fnone',['memory_flush_none',['../namespacequickcpplib_1_1__xxx_1_1ensure__stores.html#a6dbce1db3d303aa052cb1f02e9889af7',1,'quickcpplib::_xxx::ensure_stores']]],
+  ['memory_5fflush_5fretain',['memory_flush_retain',['../namespacequickcpplib_1_1__xxx_1_1ensure__stores.html#ad2c9da17508241e8f0b99eb11d675cfa',1,'quickcpplib::_xxx::ensure_stores']]],
+  ['message',['message',['../structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#ac7938e6d36391b6b1651c2c89d7b1bb1',1,'quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['bitfield_5f_5fsignalc',['bitfield__signalc',['../namespacequickcpplib_1_1__xxx_1_1signal__guard.html#ad51cebe56c9a0718495f06b43bd71fa3',1,'quickcpplib::_xxx::signal_guard']]]
+  ['allocator_5falignment',['allocator_alignment',['../namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#ab68128e48d1244d5374933086190d094',1,'quickcpplib::_xxx::aligned_allocator::detail']]]
 ];

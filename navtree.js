@@ -44,12 +44,12 @@ var NAVTREEINDEX =
 [
 "aligned__allocator_8hpp.html",
 "classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlock.html#a77f934bbcaad362f15f4a009602cb708",
-"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html#acd41813436376ec81db821dbcc4f3199",
-"functions_func_u.html",
-"gsl-lite_8hpp.html#ae0ce3e05f2ecf4ea1f41605ba8201e31",
-"revision_8hpp.html#ae7b0b69e253d7ed41a73d3013930135e",
-"structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html#a9add7caa7ad7eff4f9adcce90f5694dd",
-"unit__test_8hpp.html"
+"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html#a08f6e0de2298c93abc38b6668d6ab9ff",
+"functions_d.html",
+"gsl-lite_8hpp.html#ab3bdfa102ce18fc848c37f70254889bb",
+"namespacequickcpplib_1_1__xxx_1_1tribool.html",
+"structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type.html#a9f310c0158579e52fa8c153997d3d05f",
+"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a3855a283339e33e9abeb03723260321b"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

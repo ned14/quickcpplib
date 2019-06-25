@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['memory_5fflush',['memory_flush',['../namespacequickcpplib_1_1__xxx_1_1ensure__stores.html#a6c99f75c321071186b802a2ac455a363',1,'quickcpplib::_xxx::ensure_stores']]]
+  ['level',['level',['../namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2',1,'quickcpplib::_xxx::ringbuffer_log']]]
 ];

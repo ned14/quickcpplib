@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['second',['second',['../structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html#aa4b26f9e693851150164c61abb20ff5c',1,'quickcpplib::_xxx::algorithm::open_hash_index::linear_memory_policy::value_type::second()'],['../structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type.html#ae9957939eb88984b475c682ec0c99c50',1,'quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy::value_type::second()']]],
-  ['skipped',['skipped',['../structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#afddc2037c663c31efcc595db3981f351',1,'quickcpplib::_xxx::unit_test::test_case']]],
-  ['spins_5fto_5floop',['spins_to_loop',['../structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop_1_1policy.html#ac8087e4a68873a6bac5fc4542296cafb',1,'quickcpplib::_xxx::configurable_spinlock::spins_to_loop::policy']]],
-  ['spins_5fto_5fyield',['spins_to_yield',['../structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield_1_1policy.html#a93a17f35e90f1036dd56c1f0cb9b3ab7',1,'quickcpplib::_xxx::configurable_spinlock::spins_to_yield::policy']]],
-  ['suite_5fidx',['suite_idx',['../structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case__registration.html#a953e697fee0b6dd20084782813c37f36',1,'quickcpplib::_xxx::unit_test::test_case_registration']]]
+  ['raw_5ftype',['raw_type',['../structquickcpplib_1_1__xxx_1_1type__traits_1_1is__sequence_3_01_t_00_01bool_01_4.html#a2bff5e3bc623c50ed5fa5cbca5cf7387',1,'quickcpplib::_xxx::type_traits::is_sequence&lt; T, bool &gt;']]],
+  ['red',['red',['../namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#a7fccccab473b3d346ed9159de184102f',1,'quickcpplib::_xxx::console_colours::detail']]],
+  ['requirement_5ffailed',['requirement_failed',['../structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#ae35149e2856793a5919fbc4b9855943e',1,'quickcpplib::_xxx::unit_test::test_case']]]
 ];

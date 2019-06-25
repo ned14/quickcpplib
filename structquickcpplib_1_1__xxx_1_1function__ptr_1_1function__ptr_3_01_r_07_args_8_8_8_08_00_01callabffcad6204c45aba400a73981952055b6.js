@@ -1,0 +1,5 @@
+var structquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callabffcad6204c45aba400a73981952055b6 =
+[
+    [ "standin_t", "structquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callabffcad6204c45aba400a73981952055b6.html#ac988f6ffb7f19c66e462c642a573e117", null ],
+    [ "operator()", "structquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callabffcad6204c45aba400a73981952055b6.html#a0e72678caab795b84d285fd2f562ccb4", null ]
+];

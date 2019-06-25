@@ -36,6 +36,8 @@ var hierarchy =
     [ "quickcpplib::_xxx::algorithm::hash::fast_hash", "classquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1fast__hash.html", null ],
     [ "gsl::final_action", "classgsl_1_1final__action.html", null ],
     [ "quickcpplib::_xxx::algorithm::hash::fnv1a_hash< T >", "structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1fnv1a__hash.html", null ],
+    [ "quickcpplib::_xxx::function_ptr::function_ptr< F, callable_storage_bytes >", "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr.html", null ],
+    [ "quickcpplib::_xxx::function_ptr::function_ptr< R(Args...), callable_storage_bytes >", "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html", null ],
     [ "is_constructible", null, [
       [ "quickcpplib::_xxx::type_traits::is_invocable< F, Args >", "structquickcpplib_1_1__xxx_1_1type__traits_1_1is__invocable.html", null ]
     ] ],
@@ -68,9 +70,9 @@ var hierarchy =
     [ "quickcpplib::_xxx::algorithm::hash::passthru_hash< T >", "structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1passthru__hash.html", null ],
     [ "quickcpplib::_xxx::print_type< T >", "structquickcpplib_1_1__xxx_1_1print__type.html", null ],
     [ "quickcpplib::_xxx::signal_guard::raised_signal_info", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1raised__signal__info.html", null ],
-    [ "quickcpplib::_xxx::allocator_testing::allocator< T, A >::rebind< U >", "structquickcpplib_1_1__xxx_1_1allocator__testing_1_1allocator_1_1rebind.html", null ],
     [ "quickcpplib::_xxx::aligned_allocator::aligned_allocator< T, Align, initialize >::rebind< U >", "structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_1_1rebind.html", null ],
     [ "quickcpplib::_xxx::aligned_allocator::aligned_allocator< const T, Align, initialize >::rebind< U >", "structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_alig38b3ce2fde59753f89f79b36dfe20c65.html", null ],
+    [ "quickcpplib::_xxx::allocator_testing::allocator< T, A >::rebind< U >", "structquickcpplib_1_1__xxx_1_1allocator__testing_1_1allocator_1_1rebind.html", null ],
     [ "quickcpplib::_xxx::unit_test::requirement_failed", "structquickcpplib_1_1__xxx_1_1unit__test_1_1requirement__failed.html", null ],
     [ "quickcpplib::_xxx::ringbuffer_log::ringbuffer_log< Policy >", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html", null ],
     [ "quickcpplib::_xxx::algorithm::secded_ecc::secded_ecc< blocksize >", "classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html", null ],
@@ -91,6 +93,7 @@ var hierarchy =
     [ "quickcpplib::_xxx::configurable_spinlock::spins_to_loop< spins, use_pause >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop.html", null ],
     [ "quickcpplib::_xxx::configurable_spinlock::spins_to_sleep", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep.html", null ],
     [ "quickcpplib::_xxx::configurable_spinlock::spins_to_yield< spins >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield.html", null ],
+    [ "quickcpplib::_xxx::function_ptr::function_ptr< R(Args...), callable_storage_bytes >::_function_ptr_storage_moveable< U >::standin_t", "structquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callabffcad6204c45aba400a73981952055b6.html", null ],
     [ "quickcpplib::_xxx::unit_test::test_case", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html", null ],
     [ "quickcpplib::_xxx::unit_test::test_case_registration", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case__registration.html", null ],
     [ "quickcpplib::_xxx::unit_test::test_suite", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__suite.html", null ],

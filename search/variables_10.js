@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['v',['v',['../structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase.html#a5d01ca062931c4a59d2fff902bd97cb4',1,'quickcpplib::_xxx::configurable_spinlock::spinlockbase']]],
-  ['value',['value',['../structquickcpplib_1_1__xxx_1_1bit__cast_1_1traits_1_1is__move__relocating.html#a48331e131e5271bf015ff97f9360330c',1,'quickcpplib::_xxx::bit_cast::traits::is_move_relocating::value()'],['../structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1unique__id.html#a6c4096e233ffccd9ae4a69ab20086f7b',1,'quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::unique_id::value()']]]
+  ['uint',['uint',['../unionquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase_1_1__internals.html#ada518ac4c8c5ba7473e4ac604dd4a353',1,'quickcpplib::_xxx::configurable_spinlock::ordered_spinlockbase::_internals']]],
+  ['using_5fbacktrace',['using_backtrace',['../structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a0788a27f9786fd6f34dc8ecfeb7b9de7',1,'quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type']]],
+  ['using_5fcode64',['using_code64',['../structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a12bcd937c3c94031b8f3d9e163c5bda7',1,'quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type']]]
 ];
