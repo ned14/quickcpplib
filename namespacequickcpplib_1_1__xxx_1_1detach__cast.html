@@ -257,10 +257,10 @@ template&lt;class T , typename std::enable_if&lt;(!detail::is_bit_cast_valid&lt;
 
 <p>Detaches a live object into its detached byte representation, ending the lifetime of the input object, and beginning the lifetime of an array of byte sized exactly the size of the input object at the same memory location, which is returned. All references to the input object become INVALID. Any use of the input object after detachment has occurred is illegal! </p>
 <p>Implementation notes: If the input type is bit castable, bit casting is used to implement detachment using defined behaviour in C++ 20. Otherwise <code>traits::enable_reinterpret_detach_cast&lt;T&gt;</code> is used to determine whether to implement detachment using undefined behaviour by reinterpret casting. </p>
-<div class="fragment"><div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  {                                                                                                                                     <span class="comment">//</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    static_assert(!std::is_same&lt;T, T&gt;::value, <span class="stringliteral">&quot;In C++ 20, detach_cast(T) is defined behaviour only for types which are bit castable. &quot;</span>  <span class="comment">//</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                                              <span class="stringliteral">&quot;Set traits::enable_reinterpret_detach_cast&lt;T&gt; for specific types if you don&#39;t mind undefined behaviour.&quot;</span>);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;  }</div>
+<div class="fragment"><div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;  {                                                                                                                                     <span class="comment">//</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    static_assert(!std::is_same&lt;T, T&gt;::value, <span class="stringliteral">&quot;In C++ 20, detach_cast(T) is defined behaviour only for types which are bit castable. &quot;</span>  <span class="comment">//</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                                              <span class="stringliteral">&quot;Set traits::enable_reinterpret_detach_cast&lt;T&gt; for specific types if you don&#39;t mind undefined behaviour.&quot;</span>);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -300,10 +300,10 @@ template&lt;class T &gt; </div>
 
 <p>Reattaches a previously detached object, beginning the lifetime of the output object, and ending the lifetime of the input array of byte. All references to the input byte array become INVALID. Any use of the input array after attachment has occurred is illegal! </p>
 <p>Implementation notes: If the output type is bit castable, bit casting is used to implement attachment using defined behaviour in C++ 20. Otherwise <code>traits::enable_reinterpret_attach_cast&lt;T&gt;</code> is used to determine whether to implement attachment using undefined behaviour by reinterpret casting. </p>
-<div class="fragment"><div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  {                                                                                                                                     <span class="comment">//</span></div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    static_assert(!std::is_same&lt;T, T&gt;::value, <span class="stringliteral">&quot;In C++ 20, attach_cast(T) is defined behaviour only for types which are bit castable. &quot;</span>  <span class="comment">//</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                                              <span class="stringliteral">&quot;Set traits::enable_reinterpret_attach_cast&lt;T&gt; for specific types if you don&#39;t mind undefined behaviour.&quot;</span>);</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  }</div>
+<div class="fragment"><div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;  {                                                                                                                                     <span class="comment">//</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    static_assert(!std::is_same&lt;T, T&gt;::value, <span class="stringliteral">&quot;In C++ 20, attach_cast(T) is defined behaviour only for types which are bit castable. &quot;</span>  <span class="comment">//</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                                              <span class="stringliteral">&quot;Set traits::enable_reinterpret_attach_cast&lt;T&gt; for specific types if you don&#39;t mind undefined behaviour.&quot;</span>);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -342,22 +342,22 @@ template&lt;class T , typename std::enable_if&lt;(detail::is_bit_cast_valid&lt; 
 </div><div class="memdoc">
 
 <p>Detaches a non-const bit-castable object into its detached non-const byte representation, ending the lifetime of the input object. Defined behaviour in C++ 20 (though only the clang compiler currently reliably does not copy the byte array twice. GCC avoids the memory copy for small objects, MSVC always copies the byte array twice). </p>
-<div class="fragment"><div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;                                                                                                                 {}) noexcept</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;  {</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="comment">// Bit cast and copy the input object into a stack allocated byte array. This</span></div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="comment">// is defined behaviour for trivially copyable types.</span></div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <span class="keyword">auto</span> buffer(<a class="code" href="namespacequickcpplib_1_1__xxx_1_1bit__cast.html#ab36ed06eda7ed96f27c6db65bfcdec34">bit_cast</a>&lt;detail::byte_array_wrapper&lt;T&gt;&gt;(v));</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="comment">// Cast input reference to output reference. Using the cast reference is defined</span></div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <span class="comment">// behaviour for a few special functions e.g. memcpy()</span></div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="keyword">auto</span> &amp;ret = <span class="keyword">reinterpret_cast&lt;</span>byte_array_reference&lt;T&gt;<span class="keyword">&gt;</span>(v);</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="comment">// Copy the detached byte representation back over the input storage. This ends</span></div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="comment">// the lifetime of the input object, which is defined behaviour due to it being</span></div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="comment">// trivially copyable. The compiler now knows that the output reference does not</span></div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="comment">// alias the same object given by the input reference.</span></div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    memcpy(&amp;ret, buffer.value, <span class="keyword">sizeof</span>(T));</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="comment">// Return a reference to the byte array representing the detached object.</span></div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;  }</div>
+<div class="fragment"><div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;                                                                                                                 {}) noexcept</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;  {</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="comment">// Bit cast and copy the input object into a stack allocated byte array. This</span></div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <span class="comment">// is defined behaviour for trivially copyable types.</span></div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keyword">auto</span> buffer(<a class="code" href="namespacequickcpplib_1_1__xxx_1_1bit__cast.html#ab36ed06eda7ed96f27c6db65bfcdec34">bit_cast</a>&lt;detail::byte_array_wrapper&lt;T&gt;&gt;(v));</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <span class="comment">// Cast input reference to output reference. Using the cast reference is defined</span></div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="comment">// behaviour for a few special functions e.g. memcpy()</span></div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keyword">auto</span> &amp;ret = <span class="keyword">reinterpret_cast&lt;</span>byte_array_reference&lt;T&gt;<span class="keyword">&gt;</span>(v);</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="comment">// Copy the detached byte representation back over the input storage. This ends</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="comment">// the lifetime of the input object, which is defined behaviour due to it being</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="comment">// trivially copyable. The compiler now knows that the output reference does not</span></div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="comment">// alias the same object given by the input reference.</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    memcpy(&amp;ret, buffer.value, <span class="keyword">sizeof</span>(T));</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="comment">// Return a reference to the byte array representing the detached object.</span></div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;  }</div>
 <div class="ttc" id="namespacequickcpplib_1_1__xxx_1_1bit__cast_html_ab36ed06eda7ed96f27c6db65bfcdec34"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1bit__cast.html#ab36ed06eda7ed96f27c6db65bfcdec34">quickcpplib::_xxx::bit_cast::bit_cast</a></div><div class="ttdeci">constexpr To bit_cast(const From &amp;from, detail::static_cast_overload={}) noexcept</div><div class="ttdoc">Bit cast emulation chosen if types are move relocating or trivally copyable, have identical size...</div><div class="ttdef"><b>Definition:</b> bit_cast.hpp:107</div></div>
 </div><!-- fragment -->
 </div>
@@ -397,13 +397,13 @@ template&lt;class T , typename std::enable_if&lt;(detail::is_bit_cast_valid&lt; 
 </div><div class="memdoc">
 
 <p>Detaches a const bit-castable object into its detached const byte representation, ending the lifetime of the input object. Defined behaviour in C++ 20 (though only the clang compiler currently reliably does not copy the byte array twice. GCC avoids the memory copy for small objects, MSVC always copies the byte array twice). </p>
-<div class="fragment"><div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                                                                                                                             {}) noexcept</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;  {</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> buffer(<a class="code" href="namespacequickcpplib_1_1__xxx_1_1bit__cast.html#ab36ed06eda7ed96f27c6db65bfcdec34">bit_cast</a>&lt;<span class="keyword">const</span> detail::byte_array_wrapper&lt;T&gt;&gt;(v));</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keyword">auto</span> &amp;ret = <span class="keyword">const_cast&lt;</span>byte_array_reference&lt;T&gt;<span class="keyword">&gt;</span>(<span class="keyword">reinterpret_cast&lt;</span>const_byte_array_reference&lt;T&gt;<span class="keyword">&gt;</span>(v));</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    memcpy(&amp;ret, buffer.value, <span class="keyword">sizeof</span>(T));</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;  }</div>
+<div class="fragment"><div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                                                                                                                             {}) noexcept</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;  {</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> buffer(<a class="code" href="namespacequickcpplib_1_1__xxx_1_1bit__cast.html#ab36ed06eda7ed96f27c6db65bfcdec34">bit_cast</a>&lt;<span class="keyword">const</span> detail::byte_array_wrapper&lt;T&gt;&gt;(v));</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keyword">auto</span> &amp;ret = <span class="keyword">const_cast&lt;</span>byte_array_reference&lt;T&gt;<span class="keyword">&gt;</span>(<span class="keyword">reinterpret_cast&lt;</span>const_byte_array_reference&lt;T&gt;<span class="keyword">&gt;</span>(v));</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    memcpy(&amp;ret, buffer.value, <span class="keyword">sizeof</span>(T));</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;  }</div>
 <div class="ttc" id="namespacequickcpplib_1_1__xxx_1_1bit__cast_html_ab36ed06eda7ed96f27c6db65bfcdec34"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1bit__cast.html#ab36ed06eda7ed96f27c6db65bfcdec34">quickcpplib::_xxx::bit_cast::bit_cast</a></div><div class="ttdeci">constexpr To bit_cast(const From &amp;from, detail::static_cast_overload={}) noexcept</div><div class="ttdoc">Bit cast emulation chosen if types are move relocating or trivally copyable, have identical size...</div><div class="ttdef"><b>Definition:</b> bit_cast.hpp:107</div></div>
 </div><!-- fragment -->
 </div>
@@ -443,19 +443,19 @@ template&lt;class T &gt; </div>
 </div><div class="memdoc">
 
 <p>Attaches a non-const bit-castable object from its detached non-const byte representation, ending the lifetime of the input array. Defined behaviour in C++ 20 (though only the clang compiler currently reliably does not copy the byte array twice. GCC avoids the memory copy for small objects, MSVC always copies the byte array twice). </p>
-<div class="fragment"><div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;                                                                                                                 {}) noexcept</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;  {</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="comment">// Bit cast and copy the input byte array into a stack allocated object. This</span></div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <span class="comment">// is defined behaviour for trivially copyable types.</span></div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    T temp(bit_cast&lt;T&gt;(v));</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="comment">// Cast input reference to output reference. Using the cast reference is defined</span></div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="comment">// behaviour for a few special functions e.g. memcpy()</span></div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    T &amp;ret = <span class="keyword">reinterpret_cast&lt;</span>T &amp;<span class="keyword">&gt;</span>(v);</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <span class="comment">// Trivially copyable types can be memcpy()ied, this begins lifetime in the destination</span></div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    memcpy(&amp;ret, &amp;temp, <span class="keyword">sizeof</span>(T));</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <span class="comment">// Return a reference to the new object.</span></div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;  }</div>
+<div class="fragment"><div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;                                                                                                                 {}) noexcept</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;  {</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <span class="comment">// Bit cast and copy the input byte array into a stack allocated object. This</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <span class="comment">// is defined behaviour for trivially copyable types.</span></div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    T temp(bit_cast&lt;T&gt;(v));</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="comment">// Cast input reference to output reference. Using the cast reference is defined</span></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <span class="comment">// behaviour for a few special functions e.g. memcpy()</span></div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    T &amp;ret = <span class="keyword">reinterpret_cast&lt;</span>T &amp;<span class="keyword">&gt;</span>(v);</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <span class="comment">// Trivially copyable types can be memcpy()ied, this begins lifetime in the destination</span></div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    memcpy(&amp;ret, &amp;temp, <span class="keyword">sizeof</span>(T));</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="comment">// Return a reference to the new object.</span></div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -494,14 +494,14 @@ template&lt;class T &gt; </div>
 </div><div class="memdoc">
 
 <p>Attaches a const bit-castable object from its detached const byte representation, ending the lifetime of the input array. Defined behaviour in C++ 20 (though only the clang compiler currently reliably does not copy the byte array twice. GCC avoids the memory copy for small objects, MSVC always copies the byte array twice). </p>
-<div class="fragment"><div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;                                                                                                                             {}) noexcept</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;  {</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    <span class="keyword">using</span> nonconst = <span class="keyword">typename</span> std::remove_const&lt;T&gt;::type;</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    T temp(bit_cast&lt;nonconst&gt;(v));</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    nonconst &amp;ret = <span class="keyword">const_cast&lt;</span>nonconst &amp;<span class="keyword">&gt;</span>(<span class="keyword">reinterpret_cast&lt;</span>T &amp;<span class="keyword">&gt;</span>(v));</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    memcpy(&amp;ret, &amp;temp, <span class="keyword">sizeof</span>(T));</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;  }</div>
+<div class="fragment"><div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;                                                                                                                             {}) noexcept</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;  {</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    <span class="keyword">using</span> nonconst = <span class="keyword">typename</span> std::remove_const&lt;T&gt;::type;</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    T temp(bit_cast&lt;nonconst&gt;(v));</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    nonconst &amp;ret = <span class="keyword">const_cast&lt;</span>nonconst &amp;<span class="keyword">&gt;</span>(<span class="keyword">reinterpret_cast&lt;</span>T &amp;<span class="keyword">&gt;</span>(v));</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    memcpy(&amp;ret, &amp;temp, <span class="keyword">sizeof</span>(T));</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -540,7 +540,7 @@ template&lt;class T , typename std::enable_if&lt;(!detail::is_bit_cast_valid&lt;
 </div><div class="memdoc">
 
 <p>Reinterpret casts a non-const object reference into a non-const byte representation. Pure undefined behaviour. Available only if <code>traits::enable_reinterpret_detach_cast&lt;T&gt;</code> is true for the type. </p>
-<div class="fragment"><div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;{}) noexcept { <span class="keywordflow">return</span> <span class="keyword">reinterpret_cast&lt;</span>byte_array_reference&lt;T&gt;<span class="keyword">&gt;</span>(v); }</div>
+<div class="fragment"><div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;{}) noexcept { <span class="keywordflow">return</span> <span class="keyword">reinterpret_cast&lt;</span>byte_array_reference&lt;T&gt;<span class="keyword">&gt;</span>(v); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -579,7 +579,7 @@ template&lt;class T , typename std::enable_if&lt;(!detail::is_bit_cast_valid&lt;
 </div><div class="memdoc">
 
 <p>Reinterpret casts a const object reference into a const byte representation. Pure undefined behaviour. Available only if <code>traits::enable_reinterpret_detach_cast&lt;T&gt;</code> is true for the type. </p>
-<div class="fragment"><div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;{}) noexcept { <span class="keywordflow">return</span> <span class="keyword">reinterpret_cast&lt;</span>const_byte_array_reference&lt;T&gt;<span class="keyword">&gt;</span>(v); }</div>
+<div class="fragment"><div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;{}) noexcept { <span class="keywordflow">return</span> <span class="keyword">reinterpret_cast&lt;</span>const_byte_array_reference&lt;T&gt;<span class="keyword">&gt;</span>(v); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -618,7 +618,7 @@ template&lt;class T &gt; </div>
 </div><div class="memdoc">
 
 <p>Reinterpret casts a const byte representation into a const object. Pure undefined behaviour. Available only if <code>traits::enable_reinterpret_attach_cast&lt;T&gt;</code> is true for the type. </p>
-<div class="fragment"><div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;{}) noexcept { <span class="keywordflow">return</span> <span class="keyword">reinterpret_cast&lt;</span>T &amp;<span class="keyword">&gt;</span>(v); }</div>
+<div class="fragment"><div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;{}) noexcept { <span class="keywordflow">return</span> <span class="keyword">reinterpret_cast&lt;</span>T &amp;<span class="keyword">&gt;</span>(v); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -657,7 +657,7 @@ template&lt;class T &gt; </div>
 </div><div class="memdoc">
 
 <p>Reinterpret casts a non-const byte representation into a non-const object. Pure undefined behaviour. Available only if <code>traits::enable_reinterpret_attach_cast&lt;T&gt;</code> is true for the type. </p>
-<div class="fragment"><div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;{}) noexcept { <span class="keywordflow">return</span> <span class="keyword">reinterpret_cast&lt;</span>T &amp;<span class="keyword">&gt;</span>(v); }</div>
+<div class="fragment"><div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;{}) noexcept { <span class="keywordflow">return</span> <span class="keyword">reinterpret_cast&lt;</span>T &amp;<span class="keyword">&gt;</span>(v); }</div>
 </div><!-- fragment -->
 </div>
 </div>

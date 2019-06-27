@@ -2,7 +2,7 @@ var searchData=
 [
   ['magenta',['magenta',['../namespacequickcpplib_1_1__xxx_1_1console__colours.html#a26d5600fd813ec2b0b6b7695b79ccf21',1,'quickcpplib::_xxx::console_colours']]],
   ['main',['main',['../group__unittesting.html#ga8eb486cd9992c108ade6a78384fb7f6a',1,'unit_test.hpp']]],
-  ['make_5fflush_5fimpl',['make_flush_impl',['../namespacequickcpplib_1_1__xxx_1_1ensure__stores_1_1detail.html#ab1e32eceb3e7589a1c7f3cf559e50147',1,'quickcpplib::_xxx::ensure_stores::detail']]],
+  ['make_5fflush_5fimpl',['make_flush_impl',['../namespacequickcpplib_1_1__xxx_1_1ensure__loads__stores_1_1detail.html#a9d6ca61f86319b847cfd37fe7c5093bd',1,'quickcpplib::_xxx::ensure_loads_stores::detail']]],
   ['make_5ffunction_5fptr',['make_function_ptr',['../namespacequickcpplib_1_1__xxx_1_1function__ptr.html#a27493311ed14cf1f650cbe501c6610aa',1,'quickcpplib::_xxx::function_ptr']]],
   ['make_5ffunction_5fptr_5fnothrow',['make_function_ptr_nothrow',['../namespacequickcpplib_1_1__xxx_1_1function__ptr.html#a395bcb900691c8ad15d9060174a8f5e7',1,'quickcpplib::_xxx::function_ptr']]],
   ['make_5fpacked_5fbacktrace',['make_packed_backtrace',['../namespacequickcpplib_1_1__xxx_1_1packed__backtrace.html#a9864d5c57da4d351f29002a0ed5cc8ea',1,'quickcpplib::_xxx::packed_backtrace']]],

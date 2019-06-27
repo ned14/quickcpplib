@@ -6,7 +6,7 @@ var namespacequickcpplib_1_1__xxx =
     [ "byte", "namespacequickcpplib_1_1__xxx_1_1byte.html", null ],
     [ "console_colours", "namespacequickcpplib_1_1__xxx_1_1console__colours.html", "namespacequickcpplib_1_1__xxx_1_1console__colours" ],
     [ "detach_cast", "namespacequickcpplib_1_1__xxx_1_1detach__cast.html", "namespacequickcpplib_1_1__xxx_1_1detach__cast" ],
-    [ "ensure_stores", "namespacequickcpplib_1_1__xxx_1_1ensure__stores.html", "namespacequickcpplib_1_1__xxx_1_1ensure__stores" ],
+    [ "ensure_loads_stores", "namespacequickcpplib_1_1__xxx_1_1ensure__loads__stores.html", "namespacequickcpplib_1_1__xxx_1_1ensure__loads__stores" ],
     [ "erasure_cast", "namespacequickcpplib_1_1__xxx_1_1erasure__cast.html", "namespacequickcpplib_1_1__xxx_1_1erasure__cast" ],
     [ "function_ptr", "namespacequickcpplib_1_1__xxx_1_1function__ptr.html", "namespacequickcpplib_1_1__xxx_1_1function__ptr" ],
     [ "in_place_attach_detach", "namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach.html", "namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach" ],

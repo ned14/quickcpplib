@@ -13,7 +13,7 @@ var dir_d44c64559bbebec7f509842c48db8b23 =
     [ "console_colours.hpp", "console__colours_8hpp.html", "console__colours_8hpp" ],
     [ "cpp_feature.h", "cpp__feature_8h.html", null ],
     [ "detach_cast.hpp", "detach__cast_8hpp.html", "detach__cast_8hpp" ],
-    [ "ensure_stores.hpp", "ensure__stores_8hpp.html", "ensure__stores_8hpp" ],
+    [ "ensure_loads_stores.hpp", "ensure__loads__stores_8hpp.html", "ensure__loads__stores_8hpp" ],
     [ "erasure_cast.hpp", "erasure__cast_8hpp.html", "erasure__cast_8hpp" ],
     [ "execinfo_win64.h", "execinfo__win64_8h.html", "execinfo__win64_8h" ],
     [ "function_ptr.hpp", "function__ptr_8hpp.html", "function__ptr_8hpp" ],

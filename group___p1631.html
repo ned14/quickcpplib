@@ -104,10 +104,23 @@ $(document).ready(function(){initNavTree('group___p1631.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>Ensures that dead store elimination does not happen for a region of memory, optionally synchronising the region with main memory.  
+<p>Ensures that reload elimination does not happen for a region of memory, optionally synchronising the region with main memory.  
 <a href="#details">More...</a></p>
-<p>Ensures that dead store elimination does not happen for a region of memory, optionally synchronising the region with main memory. </p>
+<p>Ensures that reload elimination does not happen for a region of memory, optionally synchronising the region with main memory. </p>
 <p>Sized C byte array overload for <code>ensure_stores()</code>.</p>
+<p>Ensures that dead store elimination does not happen for a region of memory, optionally synchronising the region with main memory.</p>
+<p>Sized C byte array overload for <code>ensure_loads()</code>.</p>
+<dl class="section return"><dt>Returns</dt><dd>The kind of memory flush and atomic synchronisation order actually used </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>The beginning of the byte array to ensure loads from. </td></tr>
+    <tr><td class="paramname">bytes</td><td>The number of bytes to ensure loads from. </td></tr>
+    <tr><td class="paramname">kind</td><td>Whether to ensure loads from the region are from main memory. Defaults to not doing so. </td></tr>
+    <tr><td class="paramname">order</td><td>The atomic reordering constraints to apply to this operation. Defaults to atomic acquire constraints, which prevents reads and writes to this region subsequent to this operation being reordered to before this operation.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd><code>memory_flush_retain</code> has no effect for loads, it is the same as doing nothing. Only <code>memory_flush_evict</code> evicts all the cache lines for the region of memory, thus ensuring that subsequent loads are from main memory.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>The kind of memory flush and atomic synchronisation order actually used </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
