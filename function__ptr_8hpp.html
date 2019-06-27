@@ -114,6 +114,7 @@ $(document).ready(function(){initNavTree('function__ptr_8hpp.html','');});
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="config_8hpp.html">config.hpp</a>&quot;</code><br/>
+<code>#include &lt;cassert&gt;</code><br/>
 <code>#include &lt;cstdint&gt;</code><br/>
 <code>#include &lt;cstdlib&gt;</code><br/>
 <code>#include &lt;type_traits&gt;</code><br/>
@@ -147,10 +148,11 @@ Functions</h2></td></tr>
 &lt; ErasedPrototype &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1function__ptr.html#abc80c54f2b98d22152572bd6600442b7">quickcpplib::_xxx::function_ptr::emplace_function_ptr</a> (CallableConstructionArgs &amp;&amp;...args)</td></tr>
 <tr class="memdesc:abc80c54f2b98d22152572bd6600442b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a <code>function_ptr&lt;ErasedPrototype&gt;</code> by emplacing <code>Callable(CallableConstructionArgs...)</code>. If <code>Callable</code> is nothrow move constructible and sufficiently small, avoids dynamic memory allocation.  <a href="#abc80c54f2b98d22152572bd6600442b7">More...</a><br/></td></tr>
 <tr class="separator:abc80c54f2b98d22152572bd6600442b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a15caf089690292e253c0e2e10bda3093"><td class="memTemplParams" colspan="2">template&lt;class ErasedPrototype , class Callable , class... CallableConstructionArgs&gt; </td></tr>
-<tr class="memitem:a15caf089690292e253c0e2e10bda3093"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1function__ptr.html#a15caf089690292e253c0e2e10bda3093">quickcpplib::_xxx::function_ptr::emplace_function_ptr_nothrow</a> (CallableConstructionArgs &amp;&amp;...args)</td></tr>
-<tr class="memdesc:a15caf089690292e253c0e2e10bda3093"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a <code>function_ptr&lt;ErasedPrototype&gt;</code> by emplacing <code>Callable(CallableConstructionArgs...)</code>, without dynamically allocating memory.  <a href="#a15caf089690292e253c0e2e10bda3093">More...</a><br/></td></tr>
-<tr class="separator:a15caf089690292e253c0e2e10bda3093"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91fb267d369b8fd82ef7d0b99a98196f"><td class="memTemplParams" colspan="2">template&lt;class ErasedPrototype , class Callable , class... CallableConstructionArgs&gt; </td></tr>
+<tr class="memitem:a91fb267d369b8fd82ef7d0b99a98196f"><td class="memTemplItemLeft" align="right" valign="top">constexpr function_ptr<br class="typebreak"/>
+&lt; ErasedPrototype, sizeof(Callable)+sizeof(void *)&gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1function__ptr.html#a91fb267d369b8fd82ef7d0b99a98196f">quickcpplib::_xxx::function_ptr::emplace_function_ptr_nothrow</a> (CallableConstructionArgs &amp;&amp;...args)</td></tr>
+<tr class="memdesc:a91fb267d369b8fd82ef7d0b99a98196f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a <code>function_ptr&lt;ErasedPrototype&gt;</code> by emplacing <code>Callable(CallableConstructionArgs...)</code>, without dynamically allocating memory.  <a href="#a91fb267d369b8fd82ef7d0b99a98196f">More...</a><br/></td></tr>
+<tr class="separator:a91fb267d369b8fd82ef7d0b99a98196f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27493311ed14cf1f650cbe501c6610aa"><td class="memTemplParams" colspan="2">template&lt;class ErasedPrototype , class Callable &gt; </td></tr>
 <tr class="memitem:a27493311ed14cf1f650cbe501c6610aa"><td class="memTemplItemLeft" align="right" valign="top">constexpr function_ptr<br class="typebreak"/>
 &lt; ErasedPrototype &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1function__ptr.html#a27493311ed14cf1f650cbe501c6610aa">quickcpplib::_xxx::function_ptr::make_function_ptr</a> (Callable &amp;&amp;f)</td></tr>

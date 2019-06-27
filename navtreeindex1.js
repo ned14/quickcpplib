@@ -13,6 +13,7 @@ var NAVTREEINDEX1 =
 "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr.html":[3,0,1,0,8,0],
 "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html":[3,0,1,0,8,1],
 "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#a16a0329463abf8bab0e7072ba53d46ab":[3,0,1,0,8,1,12],
+"classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#a3098d1b5f20ca0190360bea3ebdaf21d":[3,0,1,0,8,1,13],
 "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#a31edbc9fbcacbfe7bb1eef5328e5bae6":[3,0,1,0,8,1,6],
 "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#a46889a5be02b0468ba37127f79f6b739":[3,0,1,0,8,1,0],
 "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#a5c6804185612eb8b89083cdf56e51fa7":[3,0,1,0,8,1,10],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#aed913839534299924cb4cb2bdfaaac30":[3,0,1,0,14,1,32],
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#af0a96991205e7c9bc1345d2af46ffc49":[3,0,1,0,14,1,35],
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#af5cbb66a3525658db28298915df9ab81":[3,0,1,0,14,1,2],
-"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html":[3,0,1,0,14,1,0],
-"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html#a088f80706e811af633748e258070465e":[3,0,1,0,14,1,0,9]
+"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html":[3,0,1,0,14,1,0]
 };

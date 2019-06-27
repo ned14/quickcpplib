@@ -1,7 +1,8 @@
 var NAVTREEINDEX5 =
 {
-"namespacequickcpplib_1_1__xxx_1_1string__view_1_1detail.html":[3,0,1,0,19,0],
+"namespacequickcpplib_1_1__xxx_1_1string__view.html":[2,0,1,0,19],
 "namespacequickcpplib_1_1__xxx_1_1string__view_1_1detail.html":[2,0,1,0,19,0],
+"namespacequickcpplib_1_1__xxx_1_1string__view_1_1detail.html":[3,0,1,0,19,0],
 "namespacequickcpplib_1_1__xxx_1_1tribool.html":[2,0,1,0,20],
 "namespacequickcpplib_1_1__xxx_1_1tribool.html":[3,0,1,0,20],
 "namespacequickcpplib_1_1__xxx_1_1type__traits.html":[2,0,1,0,21],
@@ -248,6 +249,5 @@ var NAVTREEINDEX5 =
 "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type.html#a470660fb27c018c9d531396c2a075a25":[3,0,1,0,23,1,4,3,1],
 "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type.html#a516898fce181ff2de1b8aed82965d8fc":[3,0,1,0,23,1,4,3,14],
 "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type.html#a5e3b41b3b4670a1f3b14c7e0e0c6b005":[3,0,1,0,23,1,4,3,9],
-"structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type.html#a6017ff406689e69a5e9131d013395f95":[3,0,1,0,23,1,4,3,12],
-"structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type.html#a8cbc5ff9fc5b5ffc7fe12e77cea998cd":[3,0,1,0,23,1,4,3,10]
+"structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type.html#a6017ff406689e69a5e9131d013395f95":[3,0,1,0,23,1,4,3,12]
 };
