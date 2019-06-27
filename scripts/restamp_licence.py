@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # Restamps the top of a source file with licence boilerplate
 # (C) 2017 Niall Douglas http://www.nedproductions.biz/
 # File created: Apr 2017
@@ -40,6 +40,23 @@ Distributed under the Boost Software License, Version 1.0.
 '''
 
 replace = [ licence,
+'''Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License in the accompanying file
+Licence.txt or at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+''',
+'''Distributed under the Boost Software License, Version 1.0.
+(See accompanying file Licence.txt or copy at
+http://www.boost.org/LICENSE_1_0.txt)
+''',
 '''Boost Software License - Version 1.0 - August 17th, 2003
 
 Permission is hereby granted, free of charge, to any person or organization
@@ -106,14 +123,14 @@ class SourceFile(object):
             historyre = subprocess.check_output(['git', 'shortlog', '-sne', '--', path, '<', '/dev/tty'], shell = True)
         # Format will be:
         #    203  Niall Douglas (s [underscore] sourceforge {at} nedprod [dot] com) <spamtrap@nedprod.com>
-        historyre = historyre.split('\n')
+        historyre = historyre.split(b'\n')
         history_ = []
         for line in historyre:
             line = line.rstrip()
             if line:
-                result = re.match(r'\s*(\d+)\s+(.+) <(.+)>', line)
+                result = re.match(rb'\s*(\d+)\s+(.+) <(.+)>', line)
                 assert result
-                history_.append((int(result.group(1)), result.group(2), result.group(3)))
+                history_.append((int(result.group(1)), str(result.group(2), encoding='utf-8'), str(result.group(3), encoding='utf-8')))
         # Accumulate all Niall Douglas commits
         niallcommits = 0
         self.history = []
@@ -174,6 +191,7 @@ class CppSourceFile(SourceFile):
         ret += self.remainder
         return ret
 
+unmatched = []
 for dirpath, dirnames, filenames in os.walk(path):
     for filename in filenames:
         process = False
@@ -184,12 +202,16 @@ for dirpath, dirnames, filenames in os.walk(path):
         if not process:
             continue
         path = os.path.join(dirpath, filename)
-        if '.git' not in path:
-            with open(path, 'rt') as ih:
-                contents = ih.read()
+        if '.git' not in path and 'build_' not in path:
+            try:
+                with open(path, 'rt', encoding='utf-8') as ih:
+                    contents = ih.read()
+            except Exception as e:
+                print('Failed to read', path)
+                raise
             processor = CppSourceFile()
             if not processor.match_header(contents):
-                print("NOTE: Did not match", path)
+                unmatched.append(path)
             else:
                 # Remove any licence boilerplates from the header comment
                 for r in replace:
@@ -205,10 +227,13 @@ for dirpath, dirnames, filenames in os.walk(path):
                 #print("\n\nMatched", path, "with:\n\n" + replacement)
                 contents2 = replacement + contents[processor.matchedlen:]
                 if contents != contents2:
-                    with open(path, 'wt') as oh:
+                    with open(path, 'wt', encoding='utf-8') as oh:
                         oh.write(contents2)
                     print("Updated", path)
                 else:
                     print("No need to update", path)
                     
-        
+if unmatched:
+    print("The following files did not have a comment header I could match:")
+    for path in unmatched:
+        print(path)
