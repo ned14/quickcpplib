@@ -30,6 +30,7 @@ Distributed under the Boost Software License, Version 1.0.
 #include "span.hpp"
 #include "type_traits.hpp"
 
+#include <cstring>  // for memcpy
 #include <type_traits>
 
 QUICKCPPLIB_NAMESPACE_BEGIN
