@@ -74,6 +74,8 @@ BOOST_AUTO_TEST_CASE(function_ptr / works, "Tests that function_ptr works as adv
   auto e = QUICKCPPLIB_NAMESPACE::function_ptr::emplace_function_ptr<int(), NonMoveable>(5);
   std::cout << "e's callable is being stored as " << e.ptr_type() << std::endl;
   BOOST_CHECK(e() == 5);
+  auto f = QUICKCPPLIB_NAMESPACE::function_ptr::emplace_function_ptr_nothrow<int(double, double), Callable<100>>(1, 3.f);
+  std::cout << "f's callable is being stored as " << f.ptr_type() << " sizeof = " << sizeof(f) << std::endl;
 }
 
 BOOST_AUTO_TEST_SUITE_END()

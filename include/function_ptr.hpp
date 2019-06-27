@@ -27,6 +27,7 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "config.hpp"
 
+#include <cassert>
 #include <cstdint>
 #include <cstdlib>
 #include <type_traits>
@@ -47,7 +48,8 @@ namespace function_ptr
 
   template <class R, class... Args, size_t callable_storage_bytes> class function_ptr<R(Args...), callable_storage_bytes>
   {
-    template <class R_, class U, class... Args2> friend constexpr inline function_ptr<R_> emplace_function_ptr(Args2 &&... args);  // NOLINT
+    template <class R_, class U, class... Args2> friend constexpr inline function_ptr<R_> emplace_function_ptr(Args2 &&... args);                                      // NOLINT
+    template <class R_, class U, class... Args2> friend constexpr inline function_ptr<R_, sizeof(U) + sizeof(void *)> emplace_function_ptr_nothrow(Args2 &&... args);  // NOLINT
 
     struct _function_ptr_storage
     {
@@ -97,9 +99,9 @@ namespace function_ptr
     {
       struct standin_t
       {
-        template <class... Args2> standin_t(Args2 &&...) {}
+        template <class... Args2> standin_t(Args2 &&... /*unused*/) {}
 
-        R operator()(Args &&... args) { return {}; }
+        R operator()(Args &&... /*unused*/) { return {}; }
       };
 
       using type = std::conditional_t<std::is_move_constructible<U>::value, U, standin_t>;
@@ -158,22 +160,29 @@ namespace function_ptr
 
   private:
     // Get the pointer, minus ptrtype_t
-    _function_ptr_storage *_ptr() const { return reinterpret_cast<_function_ptr_storage *>(_ptr_ & ~3); }
+    _function_ptr_storage *_ptr() const
+    {
+      auto *ret = reinterpret_cast<_function_ptr_storage *>(_ptr_ & ~3);
+#ifdef __cpp_rtti
+      assert(nullptr != dynamic_cast<_function_ptr_storage *>(ret));
+#endif
+      return ret;
+    }
 
     // Used by the constructors to statically munge in the ptrtype_t bits
     static uintptr_t _ptr(_function_ptr_storage *p, _ptrtype_t type) { return reinterpret_cast<uintptr_t>(p) | static_cast<uintptr_t>(type); }
 
-    template <class U> struct emplace_t
+    template <class U> struct _emplace_t
     {
       void *mem{nullptr};
     };
-    template <class U> struct noallocate_t
+    template <class U> struct _noallocate_t
     {
     };
 
     // Non in-class constructor, emplaces callble either into supplied memory or dynamically allocated memory
     template <class U, class... Args2>
-    function_ptr(emplace_t<U> *_, Args2 &&... args)
+    function_ptr(_emplace_t<U> *_, Args2 &&... args)
         : _ptr_((_->mem != nullptr)  //
                 ?
                 _ptr(new(_->mem) _function_ptr_storage_nonmoveable<typename std::decay<U>::type>(static_cast<Args2 &&>(args)...), external)  //
@@ -184,17 +193,17 @@ namespace function_ptr
 
     // In-class constructor
     template <class U, class... Args2>
-    function_ptr(noallocate_t<U> /*unused*/, Args2 &&... args)
+    function_ptr(_noallocate_t<U> /*unused*/, Args2 &&... args)
         : _ptr_(_ptr(new((void *) (is_ssoable<U> ? _sso : nullptr)) _function_ptr_storage_moveable<typename std::decay<U>::type>(static_cast<Args2 &&>(args)...), ssoed))
     {
     }
 
     // Delegate to in-class or out-of-class constructor
     template <class U, class... Args2>
-    explicit function_ptr(emplace_t<U> _, Args2 &&... args)
+    explicit function_ptr(_emplace_t<U> _, Args2 &&... args)
         : function_ptr(is_ssoable<U>  //
                        ?
-                       function_ptr(noallocate_t<U>{}, static_cast<Args2 &&>(args)...)  //
+                       function_ptr(_noallocate_t<U>{}, static_cast<Args2 &&>(args)...)  //
                        :
                        function_ptr(&_, static_cast<Args2 &&>(args)...))
     {
@@ -206,7 +215,7 @@ namespace function_ptr
     //! \brief Move constructor
     constexpr function_ptr(function_ptr &&o) noexcept
     {
-      if(ssoed == ptr_type())
+      if(ssoed == o.ptr_type())
       {
         _ptr_ = _ptr(o._ptr()->move(_sso), ssoed);
       }
@@ -240,7 +249,11 @@ namespace function_ptr
     _ptrtype_t ptr_type() const { return static_cast<_ptrtype_t>(_ptr_ & 3); }
 
     //! \brief Calls the callable, returning what the callable returns
-    template <class... Args2> constexpr R operator()(Args2... args) const { return (*_ptr())(static_cast<Args2 &&>(args)...); }
+    template <class... Args2> constexpr R operator()(Args2... args) const
+    {
+      auto *r = _ptr();
+      return (*r)(static_cast<Args2 &&>(args)...);
+    }
 
     //! \brief Disposes of the callable, resetting ptr to empty
     constexpr void reset() noexcept
@@ -271,25 +284,25 @@ namespace function_ptr
   template <class ErasedPrototype, class Callable, class... CallableConstructionArgs>  //
   constexpr inline function_ptr<ErasedPrototype> emplace_function_ptr(CallableConstructionArgs &&... args)
   {
-    return function_ptr<ErasedPrototype>(typename function_ptr<ErasedPrototype>::template emplace_t<Callable>(), static_cast<CallableConstructionArgs &&>(args)...);
+    return function_ptr<ErasedPrototype>(typename function_ptr<ErasedPrototype>::template _emplace_t<Callable>(), static_cast<CallableConstructionArgs &&>(args)...);
   }
 
   /*! \brief Return a `function_ptr<ErasedPrototype>` by emplacing `Callable(CallableConstructionArgs...)`,
   without dynamically allocating memory.
    */
   template <class ErasedPrototype, class Callable, class... CallableConstructionArgs>  //
-  constexpr inline auto emplace_function_ptr_nothrow(CallableConstructionArgs &&... args)
+  constexpr inline function_ptr<ErasedPrototype, sizeof(Callable) + sizeof(void *)> emplace_function_ptr_nothrow(CallableConstructionArgs &&... args)
   {
     using type = function_ptr<ErasedPrototype, sizeof(Callable) + sizeof(void *)>;
     static_assert(type::template is_ssoable<Callable>, "The specified callable is not SSOable (probably lacks nothrow move construction");
-    return type(typename function_ptr<ErasedPrototype>::template emplace_t<Callable>(), static_cast<CallableConstructionArgs &&>(args)...);
+    return type(typename type::template _emplace_t<Callable>(), static_cast<CallableConstructionArgs &&>(args)...);
   }
 
   /*! \brief Return a `function_ptr<ErasedPrototype>` by from an input `Callable`.
   If `Callable` is nothrow move constructible and sufficiently small, avoids
   dynamic memory allocation.
    */
-  template <class ErasedPrototype, class Callable> //
+  template <class ErasedPrototype, class Callable>  //
   constexpr inline function_ptr<ErasedPrototype> make_function_ptr(Callable &&f)
   {
     return emplace_function_ptr<ErasedPrototype, std::decay_t<Callable>>(static_cast<Callable &&>(f));
@@ -298,12 +311,10 @@ namespace function_ptr
   /*! \brief Return a `function_ptr<ErasedPrototype>` by from an input `Callable`,
   without dynamically allocating memory.
    */
-  template <class ErasedPrototype, class Callable> //
+  template <class ErasedPrototype, class Callable>  //
   constexpr inline auto make_function_ptr_nothrow(Callable &&f)
   {
-    using type = function_ptr<ErasedPrototype, sizeof(std::decay_t<Callable>) + sizeof(void *)>;
-    static_assert(type::template is_ssoable<Callable>, "The specified callable is not SSOable (probably lacks nothrow move construction");
-    return emplace_function_ptr<ErasedPrototype, std::decay_t<Callable>>(static_cast<Callable &&>(f));
+    return emplace_function_ptr_nothrow<ErasedPrototype, std::decay_t<Callable>>(static_cast<Callable &&>(f));
   }
 
 }  // namespace function_ptr
