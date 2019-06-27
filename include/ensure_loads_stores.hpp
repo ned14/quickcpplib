@@ -1,4 +1,4 @@
-/* Ensuring no dead store elimination
+/* Ensuring no load nor dead store elimination
 (C) 2018 - 2019 Niall Douglas <http://www.nedproductions.biz/> (3 commits)
 File Created: April 2018
 
@@ -22,8 +22,8 @@ Distributed under the Boost Software License, Version 1.0.
           http://www.boost.org/LICENSE_1_0.txt)
 */
 
-#ifndef QUICKCPPLIB_ENSURE_STORE_HPP
-#define QUICKCPPLIB_ENSURE_STORE_HPP
+#ifndef QUICKCPPLIB_ENSURE_LOAD_STORE_HPP
+#define QUICKCPPLIB_ENSURE_LOAD_STORE_HPP
 
 #include "byte.hpp"
 
@@ -35,7 +35,7 @@ Distributed under the Boost Software License, Version 1.0.
 
 QUICKCPPLIB_NAMESPACE_BEGIN
 
-namespace ensure_stores
+namespace ensure_loads_stores
 {
   using byte::byte;
 
@@ -166,6 +166,47 @@ namespace ensure_stores
     }
   }  // namespace detail
 
+  /*! \brief Ensures that reload elimination does not happen for a region of
+  memory, optionally synchronising the region with main memory.
+  \addtogroup P1631
+  \return The kind of memory flush and atomic synchronisation order actually used
+  \param data The beginning of the byte array to ensure loads from.
+  \param bytes The number of bytes to ensure loads from.
+  \param kind Whether to ensure loads from the region are from main memory.
+  Defaults to not doing so.
+  \param order The atomic reordering constraints to apply to this operation. Defaults
+  to atomic acquire constraints, which prevents reads and writes to this region
+  subsequent to this operation being reordered to before this operation.
+
+  \note `memory_flush_retain` has no effect for loads, it is the same as doing
+  nothing. Only `memory_flush_evict` evicts all the cache lines for the region
+  of memory, thus ensuring that subsequent loads are from main memory.
+  */
+  inline std::pair<memory_flush, std::memory_order> ensure_loads(const byte *data, size_t bytes, memory_flush kind = memory_flush_none, std::memory_order order = std::memory_order_acquire) noexcept
+  {
+    memory_flush ret = kind;
+    // Ensure reload elimination does not occur on our region by calling a
+    // potentially unknown external function which forces the compiler to
+    // reload state after this call returns
+    detail::potentially_unknown_jump()(data, bytes);
+    if(memory_flush_evict == kind)
+    {
+      // TODO FIXME We assume a 64 byte cache line, which is bold.
+      void *_data = (void *) (((uintptr_t) data) & ~63);
+      size_t _bytes = ((uintptr_t) data + bytes + 63) - ((uintptr_t) _data);
+      _bytes &= ~63;
+      ret = detail::flush_impl()(_data, _bytes, kind);
+    }
+    // I really wish this would work on a region, not globally
+    atomic_thread_fence(order);
+    return {ret, order};
+  }
+
+  /*! \brief Sized C byte array overload for `ensure_loads()`.
+  \addtogroup P1631
+  */
+  template <size_t N> inline std::pair<memory_flush, std::memory_order> ensure_loads(const byte (&region)[N], memory_flush kind = memory_flush_none, std::memory_order order = std::memory_order_acquire) noexcept { return ensure_loads(region, N, kind, order); }
+
   /*! \brief Ensures that dead store elimination does not happen for a region of
   memory, optionally synchronising the region with main memory.
   \addtogroup P1631
@@ -208,7 +249,7 @@ namespace ensure_stores
   */
   template <size_t N> inline std::pair<memory_flush, std::memory_order> ensure_stores(const byte (&region)[N], memory_flush kind = memory_flush_none, std::memory_order order = std::memory_order_release) noexcept { return ensure_stores(region, N, kind, order); }
 
-}  // namespace ensure_stores
+}  // namespace ensure_loads_stores
 
 QUICKCPPLIB_NAMESPACE_END
 
