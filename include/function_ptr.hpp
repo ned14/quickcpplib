@@ -71,7 +71,7 @@ namespace function_ptr
     };
 
     // Dynamically allocated callables
-    template <class U> struct _function_ptr_storage_nonmoveable : public _function_ptr_storage
+    template <class U> struct _function_ptr_storage_nonmoveable final : public _function_ptr_storage
     {
       U c;
 
@@ -89,13 +89,13 @@ namespace function_ptr
 
       _function_ptr_storage_nonmoveable &operator=(_function_ptr_storage_nonmoveable &&) = delete;
 
-      R operator()(Args &&... args) final { return c(static_cast<Args &&>(args)...); }
+      R operator()(Args &&... args) override { return c(static_cast<Args &&>(args)...); }
 
       _function_ptr_storage *move(char * /*unused*/) noexcept final { abort(); }
     };
 
     // In-class stored callables
-    template <class U> struct _function_ptr_storage_moveable : public _function_ptr_storage
+    template <class U> struct _function_ptr_storage_moveable final : public _function_ptr_storage
     {
       struct standin_t
       {
@@ -124,7 +124,7 @@ namespace function_ptr
 
       _function_ptr_storage_moveable &operator=(_function_ptr_storage_moveable &&) = delete;
 
-      R operator()(Args &&... args) final { return c(static_cast<Args &&>(args)...); }
+      R operator()(Args &&... args) override { return c(static_cast<Args &&>(args)...); }
 
       _function_ptr_storage *move(char *v) noexcept final { return new(v) _function_ptr_storage_moveable(static_cast<_function_ptr_storage_moveable &&>(*this)); }
     };
@@ -134,7 +134,7 @@ namespace function_ptr
     {
       size_t foo;
 
-      void operator()() {}
+      R operator()(Args &&... /*unused*/);
     };
 
     uintptr_t _ptr_{0};
