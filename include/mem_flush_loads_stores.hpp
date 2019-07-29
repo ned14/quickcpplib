@@ -28,6 +28,7 @@ Distributed under the Boost Software License, Version 1.0.
 #include "byte.hpp"
 
 #include <atomic>
+#include <cstddef>  // for size_t
 
 #ifdef _MSC_VER
 #include <intrin.h>
