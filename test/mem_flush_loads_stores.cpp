@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_CASE(ensure_loads_stores / mem_flush_stores, "Tests that mem_flu
   array[10000] = to_byte(78);
   array[999] = to_byte(99);
   auto ret = QUICKCPPLIB_NAMESPACE::mem_flush_loads_stores::mem_flush_stores(array);
-  BOOST_CHECK(ret != QUICKCPPLIB_NAMESPACE::mem_flush_loads_stores::memory_flush_none);
+  BOOST_CHECK(ret == QUICKCPPLIB_NAMESPACE::mem_flush_loads_stores::memory_flush_none);
   ret = QUICKCPPLIB_NAMESPACE::mem_flush_loads_stores::mem_flush_stores(array, QUICKCPPLIB_NAMESPACE::mem_flush_loads_stores::memory_flush_retain);
   BOOST_CHECK(ret != QUICKCPPLIB_NAMESPACE::mem_flush_loads_stores::memory_flush_none);
 }
