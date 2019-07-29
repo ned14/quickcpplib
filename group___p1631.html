@@ -107,10 +107,10 @@ $(document).ready(function(){initNavTree('group___p1631.html','');});
 <p>Ensures that reload elimination does not happen for a region of memory, optionally synchronising the region with main memory.  
 <a href="#details">More...</a></p>
 <p>Ensures that reload elimination does not happen for a region of memory, optionally synchronising the region with main memory. </p>
-<p>Sized C byte array overload for <code>ensure_stores()</code>.</p>
+<p>Sized C byte array overload for <code>mem_flush_stores()</code>.</p>
 <p>Ensures that dead store elimination does not happen for a region of memory, optionally synchronising the region with main memory.</p>
-<p>Sized C byte array overload for <code>ensure_loads()</code>.</p>
-<dl class="section return"><dt>Returns</dt><dd>The kind of memory flush and atomic synchronisation order actually used </dd></dl>
+<p>Sized C byte array overload for <code>mem_force_reload()</code>.</p>
+<dl class="section return"><dt>Returns</dt><dd>The kind of memory flush actually used </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">data</td><td>The beginning of the byte array to ensure loads from. </td></tr>
@@ -121,7 +121,7 @@ $(document).ready(function(){initNavTree('group___p1631.html','');});
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd><code>memory_flush_retain</code> has no effect for loads, it is the same as doing nothing. Only <code>memory_flush_evict</code> evicts all the cache lines for the region of memory, thus ensuring that subsequent loads are from main memory.</dd></dl>
-<dl class="section return"><dt>Returns</dt><dd>The kind of memory flush and atomic synchronisation order actually used </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The kind of memory flush actually used </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">data</td><td>The beginning of the byte array to ensure stores to. </td></tr>

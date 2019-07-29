@@ -13,12 +13,12 @@ var dir_d44c64559bbebec7f509842c48db8b23 =
     [ "console_colours.hpp", "console__colours_8hpp.html", "console__colours_8hpp" ],
     [ "cpp_feature.h", "cpp__feature_8h.html", null ],
     [ "detach_cast.hpp", "detach__cast_8hpp.html", "detach__cast_8hpp" ],
-    [ "ensure_loads_stores.hpp", "ensure__loads__stores_8hpp.html", "ensure__loads__stores_8hpp" ],
     [ "erasure_cast.hpp", "erasure__cast_8hpp.html", "erasure__cast_8hpp" ],
     [ "execinfo_win64.h", "execinfo__win64_8h.html", "execinfo__win64_8h" ],
     [ "function_ptr.hpp", "function__ptr_8hpp.html", "function__ptr_8hpp" ],
     [ "import.h", "import_8h.html", "import_8h" ],
     [ "in_place_detach_attach.hpp", "in__place__detach__attach_8hpp.html", "in__place__detach__attach_8hpp" ],
+    [ "mem_flush_loads_stores.hpp", "mem__flush__loads__stores_8hpp.html", "mem__flush__loads__stores_8hpp" ],
     [ "memory_resource.hpp", "memory__resource_8hpp.html", "memory__resource_8hpp" ],
     [ "offset_ptr.hpp", "offset__ptr_8hpp.html", [
       [ "offset_ptr", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr.html", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr" ],

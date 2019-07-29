@@ -152,7 +152,7 @@ var NAVTREEINDEX6 =
 "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield_1_1policy.html#ab9c2043933dbd43e3cb1405216e0d2a2":[3,0,1,0,18,8,0,3],
 "structquickcpplib_1_1__xxx_1_1detach__cast_1_1traits_1_1enable__reinterpret__attach__cast.html":[3,0,1,0,5,0,1],
 "structquickcpplib_1_1__xxx_1_1detach__cast_1_1traits_1_1enable__reinterpret__detach__cast.html":[3,0,1,0,5,0,0],
-"structquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1adopt__t.html":[3,0,1,0,9,1],
+"structquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1adopt__t.html":[3,0,1,0,8,1],
 "structquickcpplib_1_1__xxx_1_1integers128_1_1uint128_1_1empty__type.html":[3,0,1,0,22,0,0],
 "structquickcpplib_1_1__xxx_1_1integers128_1_1uint128__hasher.html":[3,0,1,0,22,1],
 "structquickcpplib_1_1__xxx_1_1integers128_1_1uint128__hasher.html#a8b16f30ab5c72aa85f68b27c45d7bc66":[3,0,1,0,22,1,0],
