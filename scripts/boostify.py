@@ -76,12 +76,12 @@ def do_transform(srcpath, destpath):
                     print('   | ', transform)
                     need_transform.update(transforms[transform])
             if need_transform:
+                need_transform = sorted(need_transform.items())
                 with io.open(path, 'rt', encoding='utf-8') as ih:
                     lines = ih.readlines()
                 with io.open(destpath2, 'wt', encoding='utf-8') as oh:
                     for line in lines:
-                        for transform in need_transform:
-                            repl = need_transform[transform]
+                        for transform, repl in need_transform:
                             if isinstance(repl, str):
                                 line = re.sub(transform, repl, line)
                             else:
