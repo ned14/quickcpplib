@@ -152,16 +152,27 @@ namespace bitfield
 //! Begins a typesafe bitfield
 #define QUICKCPPLIB_BITFIELD_BEGIN(type) enum bitfield__##type : unsigned
 
+//! Begins a typesafe bitfield
+#define QUICKCPPLIB_BITFIELD_BEGIN_T(type, UT) enum bitfield__##type : UT
+
 //! Ends a typesafe bitfield
 #define QUICKCPPLIB_BITFIELD_END(type) ;
 #else
-//! Begins a typesafe bitfield
+//! Begins a typesafe bitfield with underlying representation `unsigned`
 #define QUICKCPPLIB_BITFIELD_BEGIN(type)                                                                                                                                                                                                                                                                                       \
   \
 struct type##_base                                                                                                                                                                                                                                                                                                             \
   \
 {                                                                                                                                                                                                                                                                                                                         \
   enum enum_type : unsigned
+
+//! Begins a typesafe bitfield with underlying representation `unsigned`
+#define QUICKCPPLIB_BITFIELD_BEGIN_T(type, UT)                                                                                                                                                                                                                                                                                       \
+  \
+struct type##_base                                                                                                                                                                                                                                                                                                             \
+  \
+{                                                                                                                                                                                                                                                                                                                         \
+  enum enum_type : UT
 
 //! Ends a typesafe bitfield
 #define QUICKCPPLIB_BITFIELD_END(type)                                                                                                                                                                                                                                                                                         \
