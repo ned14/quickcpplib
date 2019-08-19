@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['early_5fglobal_5fsignals',['early_global_signals',['../namespacequickcpplib_1_1__xxx_1_1signal__guard.html#ad51cebe56c9a0718495f06b43bd71fa3a7d516600bb930c4b047b5f624f288433',1,'quickcpplib::_xxx::signal_guard']]],
   ['element_5ftype',['element_type',['../classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html#ac923136883eeeeb69d7958a1ac3b44d3',1,'quickcpplib::_xxx::in_place_attach_detach::attached::element_type()'],['../classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr.html#a4c66af0f66c21c729310eb0d78868b1a',1,'quickcpplib::_xxx::offset_ptr::offset_ptr::element_type()'],['../classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr_3_01const_01_t_01_4.html#aea08828fb3a67419de63bd2dacf4626d',1,'quickcpplib::_xxx::offset_ptr::offset_ptr&lt; const T &gt;::element_type()'],['../classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr.html#aa2faf36c9d839a4043001a70be982511',1,'quickcpplib::_xxx::offset_ptr::atomic_offset_ptr::element_type()']]],
   ['emplace',['emplace',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a84a34a6d941fd3bdc036f129def90be1',1,'quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index']]],
   ['emplace_5fback',['emplace_back',['../classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ac9ce79a15a80d33763998369e638b2d8',1,'quickcpplib::_xxx::ringbuffer_log::ringbuffer_log']]],
@@ -20,7 +19,7 @@ var searchData=
   ['erasure_5fcast_2ehpp',['erasure_cast.hpp',['../erasure__cast_8hpp.html',1,'']]],
   ['erasure_5finteger_5ftype',['erasure_integer_type',['../namespacequickcpplib_1_1__xxx_1_1erasure__cast_1_1detail.html#ac4e2b9295c3c8f563e7d473debc35dcb',1,'quickcpplib::_xxx::erasure_cast::detail']]],
   ['error',['error',['../namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acb5e100e5a9a3e7f6d1fd97512215282',1,'quickcpplib::_xxx::ringbuffer_log']]],
-  ['error_5fcode',['error_code',['../classquickcpplib_1_1__xxx_1_1signal__guard_1_1raised__signal__info.html#a6e4600bb5297bd62009e7f1b0c9610b1',1,'quickcpplib::_xxx::signal_guard::raised_signal_info']]],
+  ['error_5fcode',['error_code',['../structraised__signal__info.html#a802b17064ed468624231dd9fc99ee99d',1,'raised_signal_info']]],
   ['execinfo_5fdecl',['EXECINFO_DECL',['../execinfo__win64_8h.html#ae3da3ccb95da219e5fb2bed0de8fbd4b',1,'execinfo_win64.h']]],
   ['execinfo_5fwin64_2eh',['execinfo_win64.h',['../execinfo__win64_8h.html',1,'']]],
   ['exit',['exit',['../unionquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase_1_1__internals.html#a7230c521d9366f29bbff69a749eb978b',1,'quickcpplib::_xxx::configurable_spinlock::ordered_spinlockbase::_internals']]],

@@ -34,6 +34,7 @@ var NAVTREE =
         [ "All", "globals.html", "globals_dup" ],
         [ "Functions", "globals_func.html", null ],
         [ "Variables", "globals_vars.html", null ],
+        [ "Typedefs", "globals_type.html", null ],
         [ "Macros", "globals_defs.html", "globals_defs" ]
       ] ]
     ] ]
@@ -43,13 +44,13 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "aligned__allocator_8hpp.html",
-"classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlock.html#a77f934bbcaad362f15f4a009602cb708",
-"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html#a088f80706e811af633748e258070465e",
-"functions_func_h.html",
-"gsl-lite_8hpp.html#ac9cb11ba00eb8f658d2db62e9a818b64",
-"namespacequickcpplib_1_1__xxx_1_1signal__guard.html",
-"structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type.html",
-"uint128_8hpp.html"
+"classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlock.html#a2be86d2deee48329b0f36470e77a5d78",
+"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html",
+"functions_rela.html",
+"gsl-lite_8hpp.html#af543ad53d00deb8cb2d526ab06b68658",
+"open__hash__index_8hpp.html#a80ea68773acf9c22d01c77345850c72c",
+"structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html#aa4b26f9e693851150164c61abb20ff5c",
+"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#acd4776547c6811bf5a9e2ea403e8c476"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

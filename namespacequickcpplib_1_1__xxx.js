@@ -16,7 +16,6 @@ var namespacequickcpplib_1_1__xxx =
     [ "packed_backtrace", "namespacequickcpplib_1_1__xxx_1_1packed__backtrace.html", "namespacequickcpplib_1_1__xxx_1_1packed__backtrace" ],
     [ "ringbuffer_log", "namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html", "namespacequickcpplib_1_1__xxx_1_1ringbuffer__log" ],
     [ "scoped_undo", "namespacequickcpplib_1_1__xxx_1_1scoped__undo.html", "namespacequickcpplib_1_1__xxx_1_1scoped__undo" ],
-    [ "signal_guard", "namespacequickcpplib_1_1__xxx_1_1signal__guard.html", "namespacequickcpplib_1_1__xxx_1_1signal__guard" ],
     [ "span", "namespacequickcpplib_1_1__xxx_1_1span.html", null ],
     [ "configurable_spinlock", "namespacequickcpplib_1_1__xxx_1_1configurable__spinlock.html", "namespacequickcpplib_1_1__xxx_1_1configurable__spinlock" ],
     [ "string_view", "namespacequickcpplib_1_1__xxx_1_1string__view.html", "namespacequickcpplib_1_1__xxx_1_1string__view" ],

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['debug',['debug',['../namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2aad42f6697b035b7580e4fef93be20b4d',1,'quickcpplib::_xxx::ringbuffer_log']]],
-  ['default',['Default',['../namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#ab68128e48d1244d5374933086190d094a7a1920d61156abc05a60135aefe8bc67',1,'quickcpplib::_xxx::aligned_allocator::detail']]]
+  ['error',['error',['../namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acb5e100e5a9a3e7f6d1fd97512215282',1,'quickcpplib::_xxx::ringbuffer_log']]],
+  ['external',['external',['../classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#ae35a4ad793f8d4734c0652fbe16fcadda3a9e67fa52dc7e6541c69935b0ac434b',1,'quickcpplib::_xxx::function_ptr::function_ptr&lt; R(Args...), callable_storage_bytes &gt;']]]
 ];

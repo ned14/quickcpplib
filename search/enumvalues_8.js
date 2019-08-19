@@ -1,8 +1,4 @@
 var searchData=
 [
-  ['m128',['M128',['../namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#ab68128e48d1244d5374933086190d094a00787e08f17fca565d5b1083b9e33b43',1,'quickcpplib::_xxx::aligned_allocator::detail']]],
-  ['m256',['M256',['../namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#ab68128e48d1244d5374933086190d094a05c31e68cb2532c5fd8e0b19aba485db',1,'quickcpplib::_xxx::aligned_allocator::detail']]],
-  ['memory_5fflush_5fevict',['memory_flush_evict',['../namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html#a76d6d0100a7bea5a3f4e96e127845f2aa4783d354b1448fc77830d73dac66051a',1,'quickcpplib::_xxx::mem_flush_loads_stores']]],
-  ['memory_5fflush_5fnone',['memory_flush_none',['../namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html#a76d6d0100a7bea5a3f4e96e127845f2aa6d3af1f11a3e5dbe57de917cdaa9573f',1,'quickcpplib::_xxx::mem_flush_loads_stores']]],
-  ['memory_5fflush_5fretain',['memory_flush_retain',['../namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html#a76d6d0100a7bea5a3f4e96e127845f2aa03cefe1b3f88f9a55e8ee19f52e2cc5c',1,'quickcpplib::_xxx::mem_flush_loads_stores']]]
+  ['none',['none',['../classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#ae35a4ad793f8d4734c0652fbe16fcadda0f9a19a2991085801bd1a533d216b5e1',1,'quickcpplib::_xxx::function_ptr::function_ptr&lt; R(Args...), callable_storage_bytes &gt;::none()'],['../namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2a334c4a4c42fdb79d7ebc3e73b517e6f8',1,'quickcpplib::_xxx::ringbuffer_log::none()']]]
 ];

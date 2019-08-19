@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['_5fbuf',['_buf',['../classquickcpplib_1_1__xxx_1_1signal__guard_1_1raised__signal__info.html#a1db9cadc0b481ac792e064ff1a978fd5',1,'quickcpplib::_xxx::signal_guard::raised_signal_info']]],
   ['_5fcount',['_count',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aaed7b6867003cb1ba6364d02190f1c3b',1,'quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index']]],
   ['_5fcounter',['_counter',['../classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a75b2f185b6853403aa386e0da10cfd50',1,'quickcpplib::_xxx::ringbuffer_log::ringbuffer_log']]],
   ['_5fempty',['_empty',['../unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a4309c182dc7329ff712136f521cff09e',1,'quickcpplib::_xxx::integers128::uint128']]],

@@ -3,8 +3,6 @@ var searchData=
   ['secded_5fecc',['secded_ecc',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html',1,'quickcpplib::_xxx::algorithm::secded_ecc']]],
   ['shared_5fspinlock',['shared_spinlock',['../classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlock.html',1,'quickcpplib::_xxx::configurable_spinlock']]],
   ['shared_5fspinlockbase',['shared_spinlockbase',['../structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlockbase.html',1,'quickcpplib::_xxx::configurable_spinlock']]],
-  ['signal_5fguard_5finstall',['signal_guard_install',['../classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__install.html',1,'quickcpplib::_xxx::signal_guard']]],
-  ['signal_5fraised',['signal_raised',['../classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__raised.html',1,'quickcpplib::_xxx::signal_guard']]],
   ['simple_5fringbuffer_5flog_5fpolicy',['simple_ringbuffer_log_policy',['../structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy.html',1,'quickcpplib::_xxx::ringbuffer_log']]],
   ['small_5fprng',['small_prng',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html',1,'quickcpplib::_xxx::algorithm::small_prng']]],
   ['span',['span',['../classgsl_1_1span.html',1,'gsl']]],

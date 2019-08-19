@@ -107,42 +107,25 @@ $(document).ready(function(){initNavTree('signal__guard_8hpp.html','');});
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
 <a href="#define-members">Macros</a> &#124;
-<a href="#enum-members">Enumerations</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">signal_guard.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="bitfield_8hpp.html">bitfield.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="scoped__undo_8hpp.html">scoped_undo.hpp</a>&quot;</code><br/>
-<code>#include &lt;csetjmp&gt;</code><br/>
-<code>#include &lt;exception&gt;</code><br/>
+<div class="textblock"><code>#include &quot;<a class="el" href="config_8hpp.html">config.hpp</a>&quot;</code><br/>
+<code>#include &lt;setjmp.h&gt;</code><br/>
+<code>#include &lt;signal.h&gt;</code><br/>
+<code>#include &lt;stdbool.h&gt;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__install.html">quickcpplib::_xxx::signal_guard::signal_guard_install</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="unionraised__signal__info__value.html">raised_signal_info_value</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">User defined value.  <a href="unionraised__signal__info__value.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__raised.html">quickcpplib::_xxx::signal_guard::signal_raised</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thrown by the default signal handler to abort the current operation.  <a href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__raised.html#details">More...</a><br/></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1raised__signal__info.html">quickcpplib::_xxx::signal_guard::raised_signal_info</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Portable information about a raised signal.  <a href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1raised__signal__info.html#details">More...</a><br/></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:namespacequickcpplib"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib.html">quickcpplib</a></td></tr>
-<tr class="memdesc:namespacequickcpplib"><td class="mdescLeft">&#160;</td><td class="mdescRight">The QuickCppLib namespace. <br/></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacequickcpplib_1_1__xxx"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx.html">quickcpplib::_xxx</a></td></tr>
-<tr class="memdesc:namespacequickcpplib_1_1__xxx"><td class="mdescLeft">&#160;</td><td class="mdescRight">Per commit unique namespace to prevent different git submodule versions clashing. <br/></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacequickcpplib_1_1__xxx_1_1signal__guard"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html">quickcpplib::_xxx::signal_guard</a></td></tr>
-<tr class="memdesc:namespacequickcpplib_1_1__xxx_1_1signal__guard"><td class="mdescLeft">&#160;</td><td class="mdescRight">The namespace for signal_guard. <br/></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html">quickcpplib::_xxx::signal_guard::detail</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structraised__signal__info.html">raised_signal_info</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A platform independent subset of <code>siginfo_t</code>.  <a href="structraised__signal__info.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -154,52 +137,32 @@ Macros</h2></td></tr>
 <tr class="memitem:afb7cacdb873bcef99c80f51c266192aa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="signal__guard_8hpp.html#afb7cacdb873bcef99c80f51c266192aa">SIGNALGUARD_MEMFUNC_DECL</a></td></tr>
 <tr class="separator:afb7cacdb873bcef99c80f51c266192aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:ad51cebe56c9a0718495f06b43bd71fa3"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#ad51cebe56c9a0718495f06b43bd71fa3">quickcpplib::_xxx::signal_guard::bitfield__signalc</a> : unsigned { <br/>
-&#160;&#160;<a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#ad51cebe56c9a0718495f06b43bd71fa3a4bbbd95c72aa353e9732d38e2cc03979">quickcpplib::_xxx::signal_guard::none</a> = 0, 
-<a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#ad51cebe56c9a0718495f06b43bd71fa3ac0540ec84b998b7b678d24ea77131453">quickcpplib::_xxx::signal_guard::abort_process</a> = (1 &lt;&lt; 0), 
-<a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#ad51cebe56c9a0718495f06b43bd71fa3ac12aa7ff3c8bad3b5535299782feb9b9">quickcpplib::_xxx::signal_guard::undefined_memory_access</a> = (1 &lt;&lt; 1), 
-<a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#ad51cebe56c9a0718495f06b43bd71fa3a9c7084c30e44c821e9a30772c678bcf3">quickcpplib::_xxx::signal_guard::illegal_instruction</a> = (1 &lt;&lt; 2), 
-<br/>
-&#160;&#160;<a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#ad51cebe56c9a0718495f06b43bd71fa3ae01ac3cc3cfdb1fe661f24f2e02366c5">quickcpplib::_xxx::signal_guard::interrupt</a> = (1 &lt;&lt; 3), 
-<a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#ad51cebe56c9a0718495f06b43bd71fa3ab6de06c7476055104a0290d06b726368">quickcpplib::_xxx::signal_guard::broken_pipe</a> = (1 &lt;&lt; 4), 
-<a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#ad51cebe56c9a0718495f06b43bd71fa3a6f73884c462ca69e0c2df3ae79df80f7">quickcpplib::_xxx::signal_guard::segmentation_fault</a> = (1 &lt;&lt; 5), 
-<a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#ad51cebe56c9a0718495f06b43bd71fa3a1b7561b84beaa502560c52a009195a97">quickcpplib::_xxx::signal_guard::floating_point_error</a> = (1 &lt;&lt; 8), 
-<br/>
-&#160;&#160;<a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#ad51cebe56c9a0718495f06b43bd71fa3a995f1a8ff0c0984e5c0613a2e0742950">quickcpplib::_xxx::signal_guard::out_of_memory</a> = (1 &lt;&lt; 16), 
-<a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#ad51cebe56c9a0718495f06b43bd71fa3aee1c27bcb8b84bb8614cb4441e2db7f6">quickcpplib::_xxx::signal_guard::termination</a> = (1 &lt;&lt; 17), 
-<a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#ad51cebe56c9a0718495f06b43bd71fa3a7d516600bb930c4b047b5f624f288433">quickcpplib::_xxx::signal_guard::early_global_signals</a> = (1 &lt;&lt; 28)
-<br/>
- }</td></tr>
-<tr class="memdesc:ad51cebe56c9a0718495f06b43bd71fa3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The signals which can be raised.  <a href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#ad51cebe56c9a0718495f06b43bd71fa3">More...</a><br/></td></tr>
-<tr class="separator:ad51cebe56c9a0718495f06b43bd71fa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a2a89dc400157b7a86a036c13521ba1c3"><td class="memItemLeft" align="right" valign="top">typedef int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="signal__guard_8hpp.html#a2a89dc400157b7a86a036c13521ba1c3">raised_signal_error_code_t</a></td></tr>
+<tr class="memdesc:a2a89dc400157b7a86a036c13521ba1c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Typedef to a system specific error code type.  <a href="#a2a89dc400157b7a86a036c13521ba1c3">More...</a><br/></td></tr>
+<tr class="separator:a2a89dc400157b7a86a036c13521ba1c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8ee0851cadcda63a194c7b21c6a51a9"><td class="memItemLeft" align="right" valign="top">typedef union <br class="typebreak"/>
+<a class="el" href="unionraised__signal__info__value.html">raised_signal_info_value</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="signal__guard_8hpp.html#ac8ee0851cadcda63a194c7b21c6a51a9">thrd_signal_guard_guarded_t</a> )(union <a class="el" href="unionraised__signal__info__value.html">raised_signal_info_value</a>)</td></tr>
+<tr class="memdesc:ac8ee0851cadcda63a194c7b21c6a51a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of the guarded function.  <a href="#ac8ee0851cadcda63a194c7b21c6a51a9">More...</a><br/></td></tr>
+<tr class="separator:ac8ee0851cadcda63a194c7b21c6a51a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e93a2d3a95e045f581b287f04fb4455"><td class="memItemLeft" align="right" valign="top">typedef union <br class="typebreak"/>
+<a class="el" href="unionraised__signal__info__value.html">raised_signal_info_value</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="signal__guard_8hpp.html#a8e93a2d3a95e045f581b287f04fb4455">thrd_signal_guard_recover_t</a> )(const struct <a class="el" href="structraised__signal__info.html">raised_signal_info</a> *)</td></tr>
+<tr class="memdesc:a8e93a2d3a95e045f581b287f04fb4455"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of the function called to recover from a signal being raised in a guarded section.  <a href="#a8e93a2d3a95e045f581b287f04fb4455">More...</a><br/></td></tr>
+<tr class="separator:a8e93a2d3a95e045f581b287f04fb4455"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3e6c9ffb2f3a9105bef88723710db06"><td class="memItemLeft" align="right" valign="top">typedef bool(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="signal__guard_8hpp.html#ae3e6c9ffb2f3a9105bef88723710db06">thrd_signal_guard_decide_t</a> )(struct <a class="el" href="structraised__signal__info.html">raised_signal_info</a> *)</td></tr>
+<tr class="memdesc:ae3e6c9ffb2f3a9105bef88723710db06"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of the function called when a signal is raised. Returns true to continue guarded code, false to recover.  <a href="#ae3e6c9ffb2f3a9105bef88723710db06">More...</a><br/></td></tr>
+<tr class="separator:ae3e6c9ffb2f3a9105bef88723710db06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a642df706deee4198eeb61b15d31c77fa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#a642df706deee4198eeb61b15d31c77fa">quickcpplib::_xxx::signal_guard::detail::signalc_to_string</a> (signalc code) noexcept</td></tr>
-<tr class="separator:a642df706deee4198eeb61b15d31c77fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34ae92a9448ca48328b758f2a647628d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> signalc &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#a34ae92a9448ca48328b758f2a647628d">quickcpplib::_xxx::signal_guard::detail::signal_guard_installed</a> () noexcept</td></tr>
-<tr class="separator:a34ae92a9448ca48328b758f2a647628d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c2db7ab016b5793b5991812ae683e0e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a0c2db7ab016b5793b5991812ae683e0e">quickcpplib::_xxx::signal_guard::thread_local_raise_signal</a> (signalc signo, void *info=nullptr, void *context=nullptr)</td></tr>
-<tr class="separator:a0c2db7ab016b5793b5991812ae683e0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada7c1a8306b2c9cd6eb5b26cb1eb7bc1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> <br class="typebreak"/>
-raised_signal_info *&amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#ada7c1a8306b2c9cd6eb5b26cb1eb7bc1">quickcpplib::_xxx::signal_guard::detail::current_signal_handler</a> () noexcept</td></tr>
-<tr class="separator:ada7c1a8306b2c9cd6eb5b26cb1eb7bc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a002ca48b8b0df61f635859223c7f5aca"><td class="memTemplParams" colspan="2">template&lt;class R &gt; </td></tr>
-<tr class="memitem:a002ca48b8b0df61f635859223c7f5aca"><td class="memTemplItemLeft" align="right" valign="top">R&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#a002ca48b8b0df61f635859223c7f5aca">quickcpplib::_xxx::signal_guard::detail::throw_signal_raised</a> (const raised_signal_info &amp;i)</td></tr>
-<tr class="separator:a002ca48b8b0df61f635859223c7f5aca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e69db95d5fe44c0ec06c9f9586e7a32"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#a7e69db95d5fe44c0ec06c9f9586e7a32">quickcpplib::_xxx::signal_guard::detail::continue_or_handle</a> (const raised_signal_info &amp;) noexcept</td></tr>
-<tr class="separator:a7e69db95d5fe44c0ec06c9f9586e7a32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46acdfa193a0b615cb29f5b08ba4afdd"><td class="memTemplParams" colspan="2">template&lt;class F , class H , class C , class R  = decltype(std::declval&lt;F&gt;()()), typename std::enable_if&lt;(std::is_constructible&lt; R, decltype(std::declval&lt; H &gt;()(std::declval&lt; const raised_signal_info &gt;()))&gt;::value), bool &gt;::type  = true, typename std::enable_if&lt;(std::is_constructible&lt; bool, decltype(std::declval&lt; C &gt;()(std::declval&lt; const raised_signal_info &gt;()))&gt;::value), bool &gt;::type  = true&gt; </td></tr>
-<tr class="memitem:a46acdfa193a0b615cb29f5b08ba4afdd"><td class="memTemplItemLeft" align="right" valign="top">R&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a46acdfa193a0b615cb29f5b08ba4afdd">quickcpplib::_xxx::signal_guard::signal_guard</a> (signalc guarded, F &amp;&amp;f, H &amp;&amp;h, C &amp;&amp;c)</td></tr>
-<tr class="separator:a46acdfa193a0b615cb29f5b08ba4afdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93a123002d5e5710577c26d00f3ba853"><td class="memTemplParams" colspan="2">template&lt;class F , class R  = decltype(std::declval&lt;F&gt;()())&gt; </td></tr>
-<tr class="memitem:a93a123002d5e5710577c26d00f3ba853"><td class="memTemplItemLeft" align="right" valign="top">R&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a93a123002d5e5710577c26d00f3ba853">quickcpplib::_xxx::signal_guard::signal_guard</a> (signalc guarded, F &amp;&amp;f)</td></tr>
-<tr class="separator:a93a123002d5e5710577c26d00f3ba853"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90804da905b562f38d803454e3d26bca"><td class="memTemplParams" colspan="2">template&lt;class F , class H , class R  = decltype(std::declval&lt;F&gt;()()), typename std::enable_if&lt;(std::is_constructible&lt; R, decltype(std::declval&lt; H &gt;()(std::declval&lt; const raised_signal_info &gt;()))&gt;::value), bool &gt;::type  = true&gt; </td></tr>
-<tr class="memitem:a90804da905b562f38d803454e3d26bca"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a90804da905b562f38d803454e3d26bca">quickcpplib::_xxx::signal_guard::signal_guard</a> (signalc guarded, F &amp;&amp;f, H &amp;&amp;h)</td></tr>
-<tr class="separator:a90804da905b562f38d803454e3d26bca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a513feb96b55c52300a9d6ed72d298580"><td class="memItemLeft" align="right" valign="top"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> union <br class="typebreak"/>
+<a class="el" href="unionraised__signal__info__value.html">raised_signal_info_value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="signal__guard_8hpp.html#a513feb96b55c52300a9d6ed72d298580">thrd_signal_guard_call</a> (const sigset_t *signals, <a class="el" href="signal__guard_8hpp.html#ac8ee0851cadcda63a194c7b21c6a51a9">thrd_signal_guard_guarded_t</a> guarded, <a class="el" href="signal__guard_8hpp.html#a8e93a2d3a95e045f581b287f04fb4455">thrd_signal_guard_recover_t</a> recovery, <a class="el" href="signal__guard_8hpp.html#ae3e6c9ffb2f3a9105bef88723710db06">thrd_signal_guard_decide_t</a> decider, union <a class="el" href="unionraised__signal__info__value.html">raised_signal_info_value</a> value)</td></tr>
+<tr class="memdesc:a513feb96b55c52300a9d6ed72d298580"><td class="mdescLeft">&#160;</td><td class="mdescRight">Installs a thread-local signal guard for the calling thread, and calls the guarded function <code>guarded</code>.  <a href="#a513feb96b55c52300a9d6ed72d298580">More...</a><br/></td></tr>
+<tr class="separator:a513feb96b55c52300a9d6ed72d298580"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07c0b588e32fae9509fb187c85fcc3bb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="signal__guard_8hpp.html#a07c0b588e32fae9509fb187c85fcc3bb">thrd_raise_signal</a> (int signo, void *raw_info, void *raw_context)</td></tr>
+<tr class="memdesc:a07c0b588e32fae9509fb187c85fcc3bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call the currently installed signal handler for a signal (POSIX), or raise a Win32 structured exception (Windows), returning false if no handler was called due to the currently installed handler being <code>SIG_IGN</code> (POSIX).  <a href="#a07c0b588e32fae9509fb187c85fcc3bb">More...</a><br/></td></tr>
+<tr class="separator:a07c0b588e32fae9509fb187c85fcc3bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a class="anchor" id="afc4c0d35b09e145b05c4a43a7a0aacc2"></a>
@@ -235,6 +198,158 @@ raised_signal_info *&amp;&#160;</td><td class="memItemRight" valign="bottom"><a 
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a class="anchor" id="a2a89dc400157b7a86a036c13521ba1c3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef int <a class="el" href="signal__guard_8hpp.html#a2a89dc400157b7a86a036c13521ba1c3">raised_signal_error_code_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Typedef to a system specific error code type. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac8ee0851cadcda63a194c7b21c6a51a9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef union <a class="el" href="unionraised__signal__info__value.html">raised_signal_info_value</a>(* thrd_signal_guard_guarded_t)(union <a class="el" href="unionraised__signal__info__value.html">raised_signal_info_value</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The type of the guarded function. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8e93a2d3a95e045f581b287f04fb4455"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef union <a class="el" href="unionraised__signal__info__value.html">raised_signal_info_value</a>(* thrd_signal_guard_recover_t)(const struct <a class="el" href="structraised__signal__info.html">raised_signal_info</a> *)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The type of the function called to recover from a signal being raised in a guarded section. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae3e6c9ffb2f3a9105bef88723710db06"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef bool(* thrd_signal_guard_decide_t)(struct <a class="el" href="structraised__signal__info.html">raised_signal_info</a> *)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The type of the function called when a signal is raised. Returns true to continue guarded code, false to recover. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a513feb96b55c52300a9d6ed72d298580"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> union <a class="el" href="unionraised__signal__info__value.html">raised_signal_info_value</a> thrd_signal_guard_call </td>
+          <td>(</td>
+          <td class="paramtype">const sigset_t *&#160;</td>
+          <td class="paramname"><em>signals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="signal__guard_8hpp.html#ac8ee0851cadcda63a194c7b21c6a51a9">thrd_signal_guard_guarded_t</a>&#160;</td>
+          <td class="paramname"><em>guarded</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="signal__guard_8hpp.html#a8e93a2d3a95e045f581b287f04fb4455">thrd_signal_guard_recover_t</a>&#160;</td>
+          <td class="paramname"><em>recovery</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="signal__guard_8hpp.html#ae3e6c9ffb2f3a9105bef88723710db06">thrd_signal_guard_decide_t</a>&#160;</td>
+          <td class="paramname"><em>decider</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">union <a class="el" href="unionraised__signal__info__value.html">raised_signal_info_value</a>&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Installs a thread-local signal guard for the calling thread, and calls the guarded function <code>guarded</code>. </p>
+<dl class="section return"><dt>Returns</dt><dd>The value returned by <code>guarded</code>, or <code>recovery</code>. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">signals</td><td>The set of signals to guard against. </td></tr>
+    <tr><td class="paramname">guarded</td><td>A function whose execution is to be guarded against signal raises. </td></tr>
+    <tr><td class="paramname">recovery</td><td>A function to be called if a signal is raised. </td></tr>
+    <tr><td class="paramname">decider</td><td>A function to be called to decide whether to recover from the signal and continue the execution of the guarded routine, or to abort and call the recovery routine. </td></tr>
+    <tr><td class="paramname">value</td><td>A value to supply to the guarded routine. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a07c0b588e32fae9509fb187c85fcc3bb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> bool thrd_raise_signal </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>signo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>raw_info</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>raw_context</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Call the currently installed signal handler for a signal (POSIX), or raise a Win32 structured exception (Windows), returning false if no handler was called due to the currently installed handler being <code>SIG_IGN</code> (POSIX). </p>
+<p>Note that on POSIX, we fetch the currently installed signal handler and try to call it directly. This allows us to supply custom <code>raw_info</code> and <code>raw_context</code>, and we do all the things which the signal handler flags tell us to do beforehand [1]. If the current handler has been defaulted, we enable the signal and execute <code>pthread_kill(pthread_self(), signo)</code> in order to invoke the default handling.</p>
+<p>Note that on Windows, <code>raw_context</code> is ignored as there is no way to override the context thrown with a Win32 structured exception.</p>
+<p>[1]: We currently do not implement alternative stack switching. If a handler requests that, we simply abort the process. Code donations implementing support are welcome. </p>
 
 </div>
 </div>
