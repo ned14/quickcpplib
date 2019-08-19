@@ -22,12 +22,13 @@ Distributed under the Boost Software License, Version 1.0.
           http://www.boost.org/LICENSE_1_0.txt)
 */
 
-#ifndef QUICKCPPLIB_ENSURE_LOAD_STORE_HPP
-#define QUICKCPPLIB_ENSURE_LOAD_STORE_HPP
+#ifndef QUICKCPPLIB_MEM_FLUSH_LOADS_STORES_HPP
+#define QUICKCPPLIB_MEM_FLUSH_LOADS_STORES_HPP
 
 #include "byte.hpp"
 
 #include <atomic>
+#include <cstddef>  // for size_t
 
 #ifdef _MSC_VER
 #include <intrin.h>
@@ -35,7 +36,7 @@ Distributed under the Boost Software License, Version 1.0.
 
 QUICKCPPLIB_NAMESPACE_BEGIN
 
-namespace ensure_loads_stores
+namespace mem_flush_loads_stores
 {
   using byte::byte;
 
@@ -169,7 +170,7 @@ namespace ensure_loads_stores
   /*! \brief Ensures that reload elimination does not happen for a region of
   memory, optionally synchronising the region with main memory.
   \addtogroup P1631
-  \return The kind of memory flush and atomic synchronisation order actually used
+  \return The kind of memory flush actually used
   \param data The beginning of the byte array to ensure loads from.
   \param bytes The number of bytes to ensure loads from.
   \param kind Whether to ensure loads from the region are from main memory.
@@ -182,7 +183,7 @@ namespace ensure_loads_stores
   nothing. Only `memory_flush_evict` evicts all the cache lines for the region
   of memory, thus ensuring that subsequent loads are from main memory.
   */
-  inline std::pair<memory_flush, std::memory_order> ensure_loads(const byte *data, size_t bytes, memory_flush kind = memory_flush_none, std::memory_order order = std::memory_order_acquire) noexcept
+  inline memory_flush mem_force_reload(const byte *data, size_t bytes, memory_flush kind = memory_flush_none, std::memory_order order = std::memory_order_acquire) noexcept
   {
     memory_flush ret = kind;
     // Ensure reload elimination does not occur on our region by calling a
@@ -199,18 +200,18 @@ namespace ensure_loads_stores
     }
     // I really wish this would work on a region, not globally
     atomic_thread_fence(order);
-    return {ret, order};
+    return ret;
   }
 
-  /*! \brief Sized C byte array overload for `ensure_loads()`.
+  /*! \brief Sized C byte array overload for `mem_force_reload()`.
   \addtogroup P1631
   */
-  template <size_t N> inline std::pair<memory_flush, std::memory_order> ensure_loads(const byte (&region)[N], memory_flush kind = memory_flush_none, std::memory_order order = std::memory_order_acquire) noexcept { return ensure_loads(region, N, kind, order); }
+  template <size_t N> inline memory_flush mem_force_reload(const byte (&region)[N], memory_flush kind = memory_flush_none, std::memory_order order = std::memory_order_acquire) noexcept { return mem_force_reload(region, N, kind, order); }
 
   /*! \brief Ensures that dead store elimination does not happen for a region of
   memory, optionally synchronising the region with main memory.
   \addtogroup P1631
-  \return The kind of memory flush and atomic synchronisation order actually used
+  \return The kind of memory flush actually used
   \param data The beginning of the byte array to ensure stores to.
   \param bytes The number of bytes to ensure stores to.
   \param kind Whether to wait until all stores to the region reach main memory.
@@ -224,7 +225,7 @@ namespace ensure_loads_stores
   some very poor performance. Check the value returned to see what kind of flush
   was actually performed.
   */
-  inline std::pair<memory_flush, std::memory_order> ensure_stores(const byte *data, size_t bytes, memory_flush kind = memory_flush_none, std::memory_order order = std::memory_order_release) noexcept
+  inline memory_flush mem_flush_stores(const byte *data, size_t bytes, memory_flush kind = memory_flush_none, std::memory_order order = std::memory_order_release) noexcept
   {
     // I really wish this would work on a region, not globally
     atomic_thread_fence(order);
@@ -239,17 +240,17 @@ namespace ensure_loads_stores
       size_t _bytes = ((uintptr_t) data + bytes + 63) - ((uintptr_t) _data);
       _bytes &= ~63;
       memory_flush ret = detail::flush_impl()(_data, _bytes, kind);
-      return {ret, order};
+      return ret;
     }
-    return {kind, order};
+    return kind;
   }
 
-  /*! \brief Sized C byte array overload for `ensure_stores()`.
+  /*! \brief Sized C byte array overload for `mem_flush_stores()`.
   \addtogroup P1631
   */
-  template <size_t N> inline std::pair<memory_flush, std::memory_order> ensure_stores(const byte (&region)[N], memory_flush kind = memory_flush_none, std::memory_order order = std::memory_order_release) noexcept { return ensure_stores(region, N, kind, order); }
+  template <size_t N> inline memory_flush mem_flush_stores(const byte (&region)[N], memory_flush kind = memory_flush_none, std::memory_order order = std::memory_order_release) noexcept { return mem_flush_stores(region, N, kind, order); }
 
-}  // namespace ensure_loads_stores
+}  // namespace mem_flush_loads_stores
 
 QUICKCPPLIB_NAMESPACE_END
 
