@@ -21,8 +21,8 @@ Distributed under the Boost Software License, Version 1.0.
           http://www.boost.org/LICENSE_1_0.txt)
 */
 
-#include "../include/boost/test/unit_test.hpp"
 #include "../include/signal_guard.hpp"
+#include "../include/boost/test/unit_test.hpp"
 
 #include "timing.h"
 
@@ -34,27 +34,34 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / threadlocal, "Tests that signal_guar
   signal_guard_install i(signalc_set::segmentation_fault | signalc_set::termination);
   std::cout << "1" << std::endl;
   {
-    int ret = signal_guard(signalc_set::segmentation_fault,
-                           []() -> int {
-                             volatile int *a = nullptr;
-                             return *a;
-                           },
-                           [](const raised_signal_info * /*unused*/) -> int { return 78; });
+    int ret = signal_guard(
+    signalc_set::segmentation_fault,
+    []()
+#if defined(__GNUC__) || defined(__clang__)
+    __attribute__((no_sanitize_undefined))
+#endif
+    ->int {
+      volatile int *a = nullptr;
+      return *a;
+    },
+    [](const raised_signal_info * /*unused*/) -> int { return 78; });
     BOOST_CHECK(ret == 78);
   }
   std::cout << "2" << std::endl;
   {
-    int ret = signal_guard(signalc_set::termination, []() -> int { std::terminate(); }, [](const raised_signal_info * /*unused*/) -> int { return 78; });
+    int ret = signal_guard(
+    signalc_set::termination, []() -> int { std::terminate(); }, [](const raised_signal_info * /*unused*/) -> int { return 78; });
     BOOST_CHECK(ret == 78);
   }
   std::cout << "3" << std::endl;
   {
-    int ret = signal_guard(signalc_set::segmentation_fault,
-                           []() -> int {
-                             thread_local_raise_signal(signalc::segmentation_fault);
-                             return 5;
-                           },
-                           [](const raised_signal_info * /*unused*/) -> int { return 78; });
+    int ret = signal_guard(
+    signalc_set::segmentation_fault,
+    []() -> int {
+      thread_local_raise_signal(signalc::segmentation_fault);
+      return 5;
+    },
+    [](const raised_signal_info * /*unused*/) -> int { return 78; });
     BOOST_CHECK(ret == 78);
   }
   std::cout << "4" << std::endl;
@@ -84,7 +91,8 @@ BOOST_AUTO_TEST_CASE(signal_guard / performance / threadlocal, "Tests that the s
     for(size_t n = 0; n < 128; n++)
     {
       uint64_t begin = ticksclock();
-      volatile int ret = signal_guard(signalc_set::segmentation_fault, []() -> int { return 5; }, [](const raised_signal_info * /*unused*/) -> int { return 78; });
+      volatile int ret = signal_guard(
+      signalc_set::segmentation_fault, []() -> int { return 5; }, [](const raised_signal_info * /*unused*/) -> int { return 78; });
       uint64_t end = ticksclock();
       (void) ret;
       // std::cout << (end - begin - overhead) << std::endl;

@@ -29,6 +29,10 @@ Distributed under the Boost Software License, Version 1.0.
 #include <cstring>       // for memset etc
 #include <system_error>  // for system_error
 
+#ifdef _MSC_VER
+extern "C" unsigned long __cdecl _exception_code(void);
+extern "C" void *__cdecl _exception_info(void);
+#endif
 
 extern "C" union raised_signal_info_value thrd_signal_guard_call(const sigset_t *signals, thrd_signal_guard_guarded_t guarded, thrd_signal_guard_recover_t recovery, thrd_signal_guard_decide_t decider, union raised_signal_info_value value)
 {
@@ -38,7 +42,7 @@ extern "C" union raised_signal_info_value thrd_signal_guard_call(const sigset_t 
   {
     if(sigismember(signals, n))
     {
-      mask |= static_cast<signalc_set>(1 << n);
+      mask |= static_cast<signalc_set>(1ULL << n);
     }
   }
   return signal_guard(mask, guarded, recovery, decider, value);
@@ -166,66 +170,92 @@ namespace signal_guard
     }
 
 #ifdef _WIN32
-    inline DWORD win32_exception_code_from_signalc(signalc c)
+    namespace win32
+    {
+      typedef struct _EXCEPTION_RECORD
+      {
+        unsigned long ExceptionCode;
+        unsigned long ExceptionFlags;
+        struct _EXCEPTION_RECORD *ExceptionRecord;
+        void *ExceptionAddress;
+        unsigned long NumberParameters;
+        unsigned long long ExceptionInformation[15];
+      } EXCEPTION_RECORD;
+
+      typedef EXCEPTION_RECORD *PEXCEPTION_RECORD;
+
+      struct CONTEXT;
+      typedef CONTEXT *PCONTEXT;
+
+      typedef struct _EXCEPTION_POINTERS
+      {
+        PEXCEPTION_RECORD ExceptionRecord;
+        PCONTEXT ContextRecord;
+      } EXCEPTION_POINTERS, *PEXCEPTION_POINTERS;
+
+      extern "C" void __stdcall RaiseException(unsigned long dwExceptionCode, unsigned long dwExceptionFlags, unsigned long nNumberOfArguments, const unsigned long long *lpArguments);
+
+    }  // namespace win32
+    inline unsigned long win32_exception_code_from_signalc(signalc c)
     {
       switch(static_cast<unsigned>(c))
       {
       case signalc::abort_process:
-        return EXCEPTION_NONCONTINUABLE_EXCEPTION;
+        return ((unsigned long) 0xC0000025L) /*EXCEPTION_NONCONTINUABLE_EXCEPTION*/;
       case signalc::undefined_memory_access:
-        return EXCEPTION_IN_PAGE_ERROR;
+        return ((unsigned long) 0xC0000006L) /*EXCEPTION_IN_PAGE_ERROR*/;
       case signalc::illegal_instruction:
-        return EXCEPTION_ILLEGAL_INSTRUCTION;
+        return ((unsigned long) 0xC000001DL) /*EXCEPTION_ILLEGAL_INSTRUCTION*/;
       // case signalc::interrupt:
       //  return SIGINT;
       // case signalc::broken_pipe:
       //  return SIGPIPE;
       case signalc::segmentation_fault:
-        return EXCEPTION_ACCESS_VIOLATION;
+        return ((unsigned long) 0xC0000005L) /*EXCEPTION_ACCESS_VIOLATION*/;
       case signalc::floating_point_error:
-        return EXCEPTION_FLT_INVALID_OPERATION;
+        return ((unsigned long) 0xC0000090L) /*EXCEPTION_FLT_INVALID_OPERATION*/;
       }
-      return (DWORD) -1;
+      return (unsigned long) -1;
     }
     inline signalc signalc_from_win32_exception_code(unsigned long c)
     {
       switch(c)
       {
-      case EXCEPTION_NONCONTINUABLE_EXCEPTION:
+      case((unsigned long) 0xC0000025L) /*EXCEPTION_NONCONTINUABLE_EXCEPTION*/:
         return signalc::abort_process;
-      case EXCEPTION_IN_PAGE_ERROR:
+      case((unsigned long) 0xC0000006L) /*EXCEPTION_IN_PAGE_ERROR*/:
         return signalc::undefined_memory_access;
-      case EXCEPTION_ILLEGAL_INSTRUCTION:
+      case((unsigned long) 0xC000001DL) /*EXCEPTION_ILLEGAL_INSTRUCTION*/:
         return signalc::illegal_instruction;
       // case SIGINT:
       //  return signalc::interrupt;
       // case SIGPIPE:
       //  return signalc::broken_pipe;
-      case EXCEPTION_ACCESS_VIOLATION:
+      case((unsigned long) 0xC0000005L) /*EXCEPTION_ACCESS_VIOLATION*/:
         return signalc::segmentation_fault;
-      case EXCEPTION_FLT_DENORMAL_OPERAND:
-      case EXCEPTION_FLT_DIVIDE_BY_ZERO:
-      case EXCEPTION_FLT_INEXACT_RESULT:
-      case EXCEPTION_FLT_INVALID_OPERATION:
-      case EXCEPTION_FLT_OVERFLOW:
-      case EXCEPTION_FLT_STACK_CHECK:
-      case EXCEPTION_FLT_UNDERFLOW:
+      case((unsigned long) 0xC000008DL) /*EXCEPTION_FLT_DENORMAL_OPERAND*/:
+      case((unsigned long) 0xC000008EL) /*EXCEPTION_FLT_DIVIDE_BY_ZERO*/:
+      case((unsigned long) 0xC000008FL) /*EXCEPTION_FLT_INEXACT_RESULT*/:
+      case((unsigned long) 0xC0000090L) /*EXCEPTION_FLT_INVALID_OPERATION*/:
+      case((unsigned long) 0xC0000091L) /*EXCEPTION_FLT_OVERFLOW*/:
+      case((unsigned long) 0xC0000092L) /*EXCEPTION_FLT_STACK_CHECK*/:
+      case((unsigned long) 0xC0000093L) /*EXCEPTION_FLT_UNDERFLOW*/:
         return signalc::floating_point_error;
-      case EXCEPTION_STACK_OVERFLOW:
+      case((unsigned long) 0xC00000FDL) /*EXCEPTION_STACK_OVERFLOW*/:
         return signalc::out_of_memory;
       default:
         return signalc::none;
       }
     }
     // Overload for when a Win32 exception is being raised
-    inline bool set_siginfo(thread_local_signal_guard *g, unsigned long code, PEXCEPTION_RECORD raw_info, PCONTEXT raw_context)
+    inline bool set_siginfo(thread_local_signal_guard *g, unsigned long code, win32::PEXCEPTION_RECORD raw_info, win32::PCONTEXT raw_context)
     {
       auto signo = signalc_from_win32_exception_code(code);
       auto signalset = static_cast<signalc_set>(1ULL << static_cast<int>(signo));
       if(g->guarded & signalset)
       {
         g->info.signo = static_cast<int>(signo);
-        g->info.error_code = (NTSTATUS) raw_info->ExceptionInformation[2];
+        g->info.error_code = (long) raw_info->ExceptionInformation[2];
         g->info.addr = (void *) raw_info->ExceptionInformation[1];
         g->info.value.ptr_value = nullptr;
         g->info.raw_info = raw_info;
@@ -234,20 +264,25 @@ namespace signal_guard
       }
       return false;
     }
-    SIGNALGUARD_FUNC_DECL unsigned long win32_exception_filter_function(unsigned long code, _EXCEPTION_POINTERS *ptrs) noexcept
+    SIGNALGUARD_FUNC_DECL unsigned long win32_exception_filter_function(unsigned long code, win32::_EXCEPTION_POINTERS *ptrs) noexcept
     {
       for(auto *shi = current_thread_local_signal_guard; shi != nullptr; shi = shi->previous)
       {
         if(set_siginfo(shi, code, ptrs->ExceptionRecord, ptrs->ContextRecord))
         {
-          if(!shi->call_continuer())
+          if(shi->call_continuer())
+          {
+            // continue execution
+            return (unsigned long) -1 /*EXCEPTION_CONTINUE_EXECUTION*/;
+          }
+          else
           {
             // invoke longjmp
-            return EXCEPTION_EXECUTE_HANDLER;
+            return 1 /*EXCEPTION_EXECUTE_HANDLER*/;
           }
         }
       }
-      return EXCEPTION_CONTINUE_SEARCH;
+      return 0 /*EXCEPTION_CONTINUE_SEARCH*/;
     }
 #else
     struct installed_signal_handler
@@ -303,8 +338,14 @@ namespace signal_guard
       else if(sa.sa_flags & SA_SIGINFO)
       {
         h1 = sa.sa_sigaction;
-        info = *_info;
-        context = *(const ucontext_t *) _context;
+        if(nullptr != _info)
+        {
+          info = *_info;
+        }
+        if(nullptr != _context)
+        {
+          context = *(const ucontext_t *) _context;
+        }
       }
       else
       {
@@ -330,7 +371,7 @@ namespace signal_guard
       sigset_t oldset;
       pthread_sigmask(SIG_BLOCK, &sa.sa_mask, &oldset);
       if(h1 != nullptr)
-        h1(signo, &info, &context);
+        h1(signo, (nullptr != _info) ? &info : nullptr, (nullptr != _context) ? &context : nullptr);
       else
         h2(signo);
       pthread_sigmask(SIG_SETMASK, &oldset, nullptr);
@@ -344,8 +385,8 @@ namespace signal_guard
       if(g->guarded & signalset)
       {
         g->info.signo = signo;
-        g->info.error_code = raw_info->si_errno;
-        g->info.addr = raw_info->si_addr;
+        g->info.error_code = (nullptr != raw_info) ? raw_info->si_errno : 0;
+        g->info.addr = (nullptr != raw_info) ? raw_info->si_addr : nullptr;
         g->info.value.ptr_value = nullptr;
         g->info.raw_info = raw_info;
         g->info.raw_context = raw_context;
@@ -468,6 +509,7 @@ namespace signal_guard
     uint64_t handlers_installed = 0;
     sigset_t set;
     sigemptyset(&set);
+    bool setsigprocmask = false;
     detail::lock.lock();
     for(int signo = 0; signo < 32; signo++)
     {
@@ -482,6 +524,7 @@ namespace signal_guard
             abort();
           }
           sigaddset(&set, signo);
+          setsigprocmask = true;
         }
       }
       if(detail::handler_counts[signo].count > 0)
@@ -499,7 +542,7 @@ namespace signal_guard
     }
     detail::handlers_installed = static_cast<signalc_set>(handlers_installed);
     detail::lock.unlock();
-    if(!sigisemptyset(&set))
+    if(setsigprocmask)
     {
       sigprocmask(SIG_BLOCK, &set, nullptr);
     }
@@ -522,8 +565,10 @@ namespace signal_guard
       std::terminate();
     }
 #ifdef _WIN32
+    using detail::win32::_EXCEPTION_RECORD;
+    using detail::win32::RaiseException;
     auto win32sehcode = detail::win32_exception_code_from_signalc(signo);
-    if((DWORD) -1 == win32sehcode)
+    if((unsigned long) -1 == win32sehcode)
       throw std::runtime_error("Unknown signal");
     (void) _context;
     const auto *info = (const _EXCEPTION_RECORD *) _info;

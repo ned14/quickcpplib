@@ -31,6 +31,20 @@ Distributed under the Boost Software License, Version 1.0.
 #include <signal.h>
 #include <stdbool.h>
 
+#ifdef _WIN32
+#ifndef SIGBUS
+#define SIGBUS (7)
+#endif
+#ifndef SIGPIPE
+#define SIGPIPE (13)
+#endif
+struct sigset_t
+{
+  unsigned mask;
+};
+#define sigismember(s, signo) (((s)->mask & (1ULL << signo)) != 0)
+#endif
+
 #if defined(__cplusplus)
 #include "bitfield.hpp"
 #include "scoped_undo.hpp"
@@ -166,7 +180,7 @@ namespace signal_guard
     On all the systems I examined, all signal numbers are <= 30 in order to fit inside a sigset_t.
     */
     out_of_memory = 32,  //!< A call to operator new failed, and a throw is about to occur
-    termination = 33,     //!< A call to std::terminate() was made
+    termination = 33,    //!< A call to std::terminate() was made
 
     _max_value
   };
@@ -204,7 +218,7 @@ namespace signal_guard
 
   On platforms with better than POSIX global signal support, this class does nothing.
 
-  ## POSIX onlyNODEF
+  ## POSIX only
 
   Any existing global signal handlers are replaced with a filtering signal handler, which
   checks if the current kernel thread has installed a signal guard, and if so executes the
@@ -276,13 +290,21 @@ namespace signal_guard
       raised_signal_info info;
       thread_local_signal_guard *previous{nullptr};
 
-      thread_local_signal_guard(signalc_set _guarded) : guarded(_guarded) { push_thread_local_signal_handler(this); }
+      thread_local_signal_guard(signalc_set _guarded)
+          : guarded(_guarded)
+      {
+        push_thread_local_signal_handler(this);
+      }
       virtual ~thread_local_signal_guard() { pop_thread_local_signal_handler(this); }
       virtual bool call_continuer() = 0;
     };
 
 #ifdef _WIN32
-    SIGNALGUARD_FUNC_DECL unsigned long win32_exception_filter_function(unsigned long code, _EXCEPTION_POINTERS *pts) noexcept;
+    namespace win32
+    {
+      struct _EXCEPTION_POINTERS;
+    }
+    SIGNALGUARD_FUNC_DECL unsigned long win32_exception_filter_function(unsigned long code, win32::_EXCEPTION_POINTERS *pts) noexcept;
 #endif
     template <class R> inline R throw_signal_raised(const raised_signal_info *i) { throw signal_raised(signalc(1ULL << i->signo)); }
     inline bool continue_or_handle(const raised_signal_info * /*unused*/) noexcept { return false; }
@@ -298,10 +320,10 @@ namespace signal_guard
   Firstly, how to restore execution to this context is saved, and `f(Args...)` is executed, returning whatever
   `f(Args...)` returns if `f` completes execution successfully. This is usually inlined code, so it will be
   quite fast. No memory allocation is performed if a `signal_guard_install` for the guarded signal set is already
-  instanced. Approximate best case overhead on an Intel CPU:
+  instanced. Approximate best case overhead:
 
-  - Linux: 28 CPU cycles
-  - Windows: ? CPU cycles
+  - Linux: 28 CPU cycles (Intel CPU), 53 CPU cycles (AMD CPU)
+  - Windows: 36 CPU cycles (Intel CPU), 68 CPU cycles (AMD CPU)
 
   If during the execution of `f`, any one of the signals `guarded` is raised:
 
@@ -325,7 +347,7 @@ namespace signal_guard
   one is temporarily installed, which is not quick. You are therefore very strongly recommended, when on POSIX,
   to call this function with a `signal_guard_install` already installed for all the signals you will ever guard.
   `signal_guard_install` is guaranteed to be composable and be safe to use within static data init, so a common
-  use pattern is simply to place a guard install into your static data init. 
+  use pattern is simply to place a guard install into your static data init.
   */
   QUICKCPPLIB_TEMPLATE(class F, class H, class C, class... Args, class R = decltype(std::declval<F>()(std::declval<Args>()...)))
   QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(std::is_constructible<R, decltype(std::declval<H>()(std::declval<const raised_signal_info *>()))>::value),  //
@@ -338,7 +360,9 @@ namespace signal_guard
       signal_guard_install *sgi{nullptr};
       C &continuer;
 
-      signal_guard_installer(signalc_set guarded, C &c) : detail::thread_local_signal_guard(guarded), continuer(c)
+      signal_guard_installer(signalc_set guarded, C &c)
+          : detail::thread_local_signal_guard(guarded)
+          , continuer(c)
       {
 #ifndef _WIN32
         uint64_t oldinstalled(detail::signal_guards_installed());
@@ -381,16 +405,19 @@ namespace signal_guard
     }
     std::atomic_signal_fence(std::memory_order_seq_cst);
 #ifdef _WIN32
-    __try
-    {
-      return f();
-    }
-    __except(detail::win32_exception_filter_function(GetExceptionCode(), GetExceptionInformation()))
-    {
-      longjmp(sgi.info.buf, 1);
-    }
+    // Cannot use __try in a function with non-trivial destructors
+    return [&] {
+      __try
+      {
+        return f(static_cast<Args &&>(args)...);
+      }
+      __except(detail::win32_exception_filter_function(_exception_code(), (struct detail::win32::_EXCEPTION_POINTERS *) _exception_info()))
+      {
+        longjmp(sgi.info.buf, 1);
+      }
+    }();
 #else
-    return f(static_cast<Args&&>(args)...);
+    return f(static_cast<Args &&>(args)...);
 #endif
   }
 #if defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 6

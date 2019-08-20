@@ -27,6 +27,8 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "config.hpp"
 
+#include <type_traits>  // for std::underlying_type
+
 QUICKCPPLIB_NAMESPACE_BEGIN
 
 //! \brief The namespace for the bitfield types
