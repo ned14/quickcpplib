@@ -83,6 +83,10 @@ def do_transform(srcpath, destpath):
                     for line in lines:
                         for transform, repl in need_transform:
                             if isinstance(repl, str):
+                                #if '/include' in line:
+                                #    print("in", line)
+                                #    print("re", transform)
+                                #    print("out", re.sub(transform, repl, line))
                                 line = re.sub(transform, repl, line)
                             else:
                                 m = re.match(transform, line)
