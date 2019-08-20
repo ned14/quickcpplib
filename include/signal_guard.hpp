@@ -52,6 +52,7 @@ struct sigset_t
 #include <atomic>
 #include <cassert>
 #include <exception>
+#include <new>  // for placement new
 #endif
 
 #ifdef QUICKCPPLIB_EXPORTS
