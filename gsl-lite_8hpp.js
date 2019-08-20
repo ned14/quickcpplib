@@ -98,7 +98,6 @@ var gsl_lite_8hpp =
     [ "gsl_constexpr", "gsl-lite_8hpp.html#a49154f49c7c493f07374aa3cf2743828", null ],
     [ "gsl_constexpr14", "gsl-lite_8hpp.html#a206702a522def23cfc458d9e7c458e33", null ],
     [ "gsl_explicit", "gsl-lite_8hpp.html#ac667083ccdb4254d6cad8522a3ac2d47", null ],
-    [ "implicit", "gsl-lite_8hpp.html#a3539d59a0c0b1bc3dcf68dfb1bb42d21", null ],
     [ "gsl_is_delete", "gsl-lite_8hpp.html#ae93c8e6698a5f3301b0fdd58f2f7e3fe", null ],
     [ "gsl_is_delete_access", "gsl-lite_8hpp.html#a8819a6e3c4c6e0828291173790b9bf46", null ],
     [ "gsl_noexcept", "gsl-lite_8hpp.html#a51754a5c88309892af5daab1676b43f5", null ],
@@ -122,5 +121,5 @@ var gsl_lite_8hpp =
     [ "gsl_STRINGIFY_", "gsl-lite_8hpp.html#a4a65e53f5c3a4aeb1669eca7948e91fa", null ],
     [ "gsl_not_null_explicit", "gsl-lite_8hpp.html#a0804e5e85eca5b35559427db85a9de77", null ],
     [ "gsl_ENABLE_IF_INTEGRAL_T", "gsl-lite_8hpp.html#aa928c9d2634e97a532e6753431079165", null ],
-    [ "gsl_DISABLE_MSVC_WARNINGS", "gsl-lite_8hpp.html#a5aed906ed95e723a25833bfe3e56f835", null ]
+    [ "gsl_DISABLE_MSVC_WARNINGS", "gsl-lite_8hpp.html#acc85d93494a990713a38487d6131bf1e", null ]
 ];
