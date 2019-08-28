@@ -1,5 +1,5 @@
 /* Signal guard support
-(C) 2018 Niall Douglas <http://www.nedproductions.biz/> (4 commits)
+(C) 2018-2019 Niall Douglas <http://www.nedproductions.biz/> (4 commits)
 File Created: June 2018
 
 
@@ -82,6 +82,17 @@ extern "C"
   union raised_signal_info_value {
     int int_value;
     void *ptr_value;
+#if defined(__cplusplus)
+    raised_signal_info_value() = default;
+    raised_signal_info_value(int v)
+        : int_value(v)
+    {
+    }
+    raised_signal_info_value(void *v)
+        : ptr_value(v)
+    {
+    }
+#endif
   };
 
   //! Typedef to a system specific error code type
@@ -148,6 +159,28 @@ typedef int raised_signal_error_code_t;
    */
   SIGNALGUARD_FUNC_DECL bool thrd_raise_signal(int signo, void *raw_info, void *raw_context);
 
+  /*! \brief Register a global signal continuation decider. Threadsafe with respect to
+  other calls of this function, but not reentrant i.e. modifying the global signal continuation
+  decider registry whilst inside a global signal continuation decider is racy. Called after
+  all thread local handling is exhausted. Note that what you can safely do in the decider
+  function is extremely limited, only async signal safe functions may be called.
+  \return An opaque pointer to the registered decider. `NULL` if `malloc` failed.
+  \param callfirst True if this decider should be called before any other. Otherwise
+  call order is in the order of addition.
+  \param decider A decider function, which must return `true` if execution is to resume,
+  `false` if the next decider function should be called.
+  \param value A user supplied value to set in the `raised_signal_info` passed to the
+  decider callback.
+  */
+  SIGNALGUARD_FUNC_DECL void *signal_add_decider(bool callfirst, thrd_signal_guard_decide_t decider, union raised_signal_info_value value);
+  /*! \brief Deregister a global signal continuation decider. Threadsafe with
+  respect to other calls of this function, but not reentrant i.e. do not call
+  whilst inside a global signal continuation decider.
+  \return True if recognised and thus removed.
+  */
+  SIGNALGUARD_FUNC_DECL bool signal_remove_decider(void *decider);
+
+
 #if defined(__cplusplus)
 }
 #endif
@@ -164,6 +197,8 @@ QUICKCPPLIB_NAMESPACE_BEGIN
 //! \brief The namespace for signal_guard
 namespace signal_guard
 {
+  using raised_signal_info = ::raised_signal_info;
+
   //! \brief The signals which are supported
   enum class signalc
   {
@@ -263,7 +298,7 @@ namespace signal_guard
   [1]: We currently do not implement alternative stack switching. If a handler requests that, we
   simply abort the process. Code donations implementing support are welcome.
   */
-  SIGNALGUARD_FUNC_DECL bool thread_local_raise_signal(signalc signo, void *raw_info = nullptr, void *raw_context = nullptr);
+  SIGNALGUARD_FUNC_DECL bool thrd_raise_signal(signalc signo, void *raw_info = nullptr, void *raw_context = nullptr);
 
 
   //! \brief Thrown by the default signal handler to abort the current operation
@@ -305,7 +340,7 @@ namespace signal_guard
     {
       struct _EXCEPTION_POINTERS;
     }
-    SIGNALGUARD_FUNC_DECL unsigned long win32_exception_filter_function(unsigned long code, win32::_EXCEPTION_POINTERS *pts) noexcept;
+    SIGNALGUARD_FUNC_DECL long win32_exception_filter_function(unsigned long code, win32::_EXCEPTION_POINTERS *pts) noexcept;
 #endif
     template <class R> inline R throw_signal_raised(const raised_signal_info *i) { throw signal_raised(signalc(1ULL << i->signo)); }
     inline bool continue_or_handle(const raised_signal_info * /*unused*/) noexcept { return false; }
@@ -328,14 +363,14 @@ namespace signal_guard
 
   If during the execution of `f`, any one of the signals `guarded` is raised:
 
-  1. `c`, which must have the prototype `bool(raised_signal_info &)`, is called with the signal which
+  1. `c`, which must have the prototype `bool(raised_signal_info *)`, is called with the signal which
   was raised. You can fix the cause of the signal and return `true` to continue execution, or else return `false`
   to halt execution. Note that the variety of code you can call in `c` is extremely limited, the same restrictions
   as for signal handlers apply.
 
   2. If `c` returned `false`, the execution of `f` is halted **immediately** without stack unwind, the thread is returned
   to the state just before the calling of `f`, and the callable `g` is called with the specific signal
-  which occurred. `g` must have the prototype `R(const raised_signal_info &)` where `R` is the return type of `f`.
+  which occurred. `g` must have the prototype `R(const raised_signal_info *)` where `R` is the return type of `f`.
   `g` is called with this signal guard removed, though a signal guard higher in the call chain may instead be active.
 
   Obviously all state which `f` may have been in the process of doing will be thrown away, in particular

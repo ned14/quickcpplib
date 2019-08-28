@@ -1,5 +1,5 @@
 /* Signal guard support
-(C) 2018 Niall Douglas <http://www.nedproductions.biz/> (4 commits)
+(C) 2018-2019 Niall Douglas <http://www.nedproductions.biz/> (4 commits)
 File Created: June 2018
 
 
@@ -51,9 +51,8 @@ extern "C" union raised_signal_info_value thrd_signal_guard_call(const sigset_t 
 extern "C" bool thrd_raise_signal(int signo, void *raw_info, void *raw_context)
 {
   using namespace QUICKCPPLIB_NAMESPACE::signal_guard;
-  return thread_local_raise_signal(static_cast<signalc>(1U << signo), raw_info, raw_context);
+  return thrd_raise_signal(static_cast<signalc>(1U << signo), raw_info, raw_context);
 }
-
 
 QUICKCPPLIB_NAMESPACE_BEGIN
 
@@ -125,6 +124,16 @@ namespace signal_guard
     static unsigned new_handler_count, terminate_handler_count;
     static std::new_handler new_handler_old;
     static std::terminate_handler terminate_handler_old;
+    struct global_signal_decider
+    {
+      global_signal_decider *next, *prev;
+      thrd_signal_guard_decide_t decider;
+      raised_signal_info_value value;
+    };
+    static global_signal_decider *global_signal_deciders_front, *global_signal_deciders_back;
+#ifdef _WIN32
+    static void *win32_global_signal_decider;
+#endif
 
     inline void new_handler()
     {
@@ -138,12 +147,42 @@ namespace signal_guard
           }
         }
       }
+      lock.lock();
+      if(global_signal_deciders_front != nullptr)
+      {
+        raised_signal_info rsi;
+        memset(&rsi, 0, sizeof(rsi));
+        rsi.signo = static_cast<int>(signalc::out_of_memory);
+        auto *d = global_signal_deciders_front;
+        for(size_t n = 0; d != nullptr; n++)
+        {
+          size_t i = 0;
+          for(d = global_signal_deciders_front; d != nullptr; d = d->next)
+          {
+            if(i++ == n)
+            {
+              rsi.value = d->value;
+              lock.unlock();
+              if(d->decider(&rsi))
+              {
+                // Cannot continue OOM
+                abort();
+              }
+              lock.lock();
+              break;
+            }
+          }
+        }
+      }
       if(new_handler_old != nullptr)
       {
-        new_handler_old();
+        auto *h = new_handler_old;
+        lock.unlock();
+        h();
       }
       else
       {
+        lock.unlock();
         throw std::bad_alloc();
       }
     }
@@ -159,9 +198,38 @@ namespace signal_guard
           }
         }
       }
+      lock.lock();
+      if(global_signal_deciders_front != nullptr)
+      {
+        raised_signal_info rsi;
+        memset(&rsi, 0, sizeof(rsi));
+        rsi.signo = static_cast<int>(signalc::termination);
+        auto *d = global_signal_deciders_front;
+        for(size_t n = 0; d != nullptr; n++)
+        {
+          size_t i = 0;
+          for(d = global_signal_deciders_front; d != nullptr; d = d->next)
+          {
+            if(i++ == n)
+            {
+              rsi.value = d->value;
+              lock.unlock();
+              if(d->decider(&rsi))
+              {
+                // Cannot continue termination
+                abort();
+              }
+              lock.lock();
+              break;
+            }
+          }
+        }
+      }
       if(terminate_handler_old != nullptr)
       {
-        terminate_handler_old();
+        auto *h = terminate_handler_old;
+        lock.unlock();
+        h();
       }
       else
       {
@@ -264,7 +332,7 @@ namespace signal_guard
       }
       return false;
     }
-    SIGNALGUARD_FUNC_DECL unsigned long win32_exception_filter_function(unsigned long code, win32::_EXCEPTION_POINTERS *ptrs) noexcept
+    SIGNALGUARD_FUNC_DECL long win32_exception_filter_function(unsigned long code, win32::_EXCEPTION_POINTERS *ptrs) noexcept
     {
       for(auto *shi = current_thread_local_signal_guard; shi != nullptr; shi = shi->previous)
       {
@@ -273,7 +341,7 @@ namespace signal_guard
           if(shi->call_continuer())
           {
             // continue execution
-            return (unsigned long) -1 /*EXCEPTION_CONTINUE_EXECUTION*/;
+            return (long) -1 /*EXCEPTION_CONTINUE_EXECUTION*/;
           }
           else
           {
@@ -282,6 +350,44 @@ namespace signal_guard
           }
         }
       }
+      return 0 /*EXCEPTION_CONTINUE_SEARCH*/;
+    }
+    long win32_vectored_exception_function(win32::_EXCEPTION_POINTERS *ptrs) noexcept
+    {
+      lock.lock();
+      if(global_signal_deciders_front != nullptr)
+      {
+        auto *raw_info = ptrs->ExceptionRecord;
+        auto *raw_context = ptrs->ContextRecord;
+        auto signo = signalc_from_win32_exception_code(raw_info->ExceptionCode);
+        raised_signal_info rsi;
+        memset(&rsi, 0, sizeof(rsi));
+        rsi.signo = static_cast<int>(signo);
+        rsi.error_code = (long) raw_info->ExceptionInformation[2];
+        rsi.addr = (void *) raw_info->ExceptionInformation[1];
+        rsi.raw_info = raw_info;
+        rsi.raw_context = raw_context;
+        auto *d = global_signal_deciders_front;
+        for(size_t n = 0; d != nullptr; n++)
+        {
+          size_t i = 0;
+          for(d = global_signal_deciders_front; d != nullptr; d = d->next)
+          {
+            if(i++ == n)
+            {
+              rsi.value = d->value;
+              lock.unlock();
+              if(d->decider(&rsi))
+              {
+                return (long) -1 /*EXCEPTION_CONTINUE_EXECUTION*/;
+              }
+              lock.lock();
+              break;
+            }
+          }
+        }
+      }
+      lock.unlock();
       return 0 /*EXCEPTION_CONTINUE_SEARCH*/;
     }
 #else
@@ -408,18 +514,49 @@ namespace signal_guard
           }
         }
       }
+      lock.lock();
+      if(global_signal_deciders_front != nullptr)
+      {
+        raised_signal_info rsi;
+        memset(&rsi, 0, sizeof(rsi));
+        rsi.signo = signo;
+        rsi.error_code = (nullptr != info) ? info->si_errno : 0;
+        rsi.addr = (nullptr != info) ? info->si_addr : nullptr;
+        rsi.raw_info = info;
+        rsi.raw_context = context;
+        auto *d = global_signal_deciders_front;
+        for(size_t n = 0; d != nullptr; n++)
+        {
+          size_t i = 0;
+          for(d = global_signal_deciders_front; d != nullptr; d = d->next)
+          {
+            if(i++ == n)
+            {
+              rsi.value = d->value;
+              lock.unlock();
+              if(d->decider(&rsi))
+              {
+                return;  // resume execution
+              }
+              lock.lock();
+              break;
+            }
+          }
+        }
+      }
       // Otherwise, call the previous signal handler
       if(handler_counts[signo].count > 0)
       {
         struct sigaction sa;
-        lock.lock();
         sa = handler_counts[signo].former;
         lock.unlock();
         do_raise_signal(signo, sa, info, context);
       }
+      else
+      {
+        lock.unlock();
+      }
     }
-
-
 #endif
   }  // namespace detail
 
@@ -549,7 +686,7 @@ namespace signal_guard
 #endif
   }
 
-  SIGNALGUARD_FUNC_DECL bool thread_local_raise_signal(signalc signo, void *_info, void *_context)
+  SIGNALGUARD_FUNC_DECL bool thrd_raise_signal(signalc signo, void *_info, void *_context)
   {
     if(signo == signalc::out_of_memory)
     {
@@ -596,3 +733,66 @@ namespace signal_guard
 }  // namespace signal_guard
 
 QUICKCPPLIB_NAMESPACE_END
+
+extern "C" void *signal_add_decider(bool callfirst, thrd_signal_guard_decide_t decider, union raised_signal_info_value value)
+{
+  using namespace QUICKCPPLIB_NAMESPACE::signal_guard::detail;
+  auto *p = new(std::nothrow) global_signal_decider;
+  if(nullptr == p)
+  {
+    return nullptr;
+  }
+  p->decider = decider;
+  p->value = value;
+  lock.lock();
+  global_signal_decider **a, **b;
+  if(global_signal_deciders_front == nullptr)
+  {
+    a = &global_signal_deciders_front;
+    b = &global_signal_deciders_back;
+  }
+  else if(callfirst)
+  {
+    a = &global_signal_deciders_front;
+    b = &global_signal_deciders_front->prev;
+  }
+  else
+  {
+    a = &global_signal_deciders_back->next;
+    b = &global_signal_deciders_back;
+  }
+  p->next = *a;
+  p->prev = *b;
+  *a = p;
+  *b = p;
+#ifdef _WIN32
+  if(nullptr == win32_global_signal_decider)
+  {
+    win32_global_signal_decider = AddVectoredContinueHandler(1, win32_vectored_exception_function);
+  }
+#endif
+              lock.unlock();
+  return p;
+}
+extern "C" bool signal_remove_decider(void *decider)
+{
+  using namespace QUICKCPPLIB_NAMESPACE::signal_guard::detail;
+  auto *p = (global_signal_decider *) decider;
+  lock.lock();
+  global_signal_decider **a = (nullptr == p->prev) ? &global_signal_deciders_front : &p->prev->next;
+  global_signal_decider **b = (nullptr == p->next) ? &global_signal_deciders_back : &p->next->prev;
+  *a = p->next;
+  *b = p->prev;
+#ifdef _WIN32
+  if(nullptr == global_signal_deciders_front)
+  {
+    RemoveVectoredContinueHandler(win32_global_signal_decider);
+    win32_global_signal_decider = nullptr;
+  }
+#endif
+  lock.unlock();
+  delete p;
+  return true;
+}
+
+

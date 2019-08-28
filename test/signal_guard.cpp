@@ -34,37 +34,66 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / threadlocal, "Tests that signal_guar
   signal_guard_install i(signalc_set::segmentation_fault | signalc_set::termination);
   std::cout << "1" << std::endl;
   {
-    int ret = signal_guard(
-    signalc_set::segmentation_fault,
-    []()
+    int ret = signal_guard(signalc_set::segmentation_fault,
+                           []()
 #if defined(__GNUC__) || defined(__clang__)
-    __attribute__((no_sanitize_undefined))
+                           __attribute__((no_sanitize_undefined))
 #endif
-    ->int {
-      volatile int *a = nullptr;
-      return *a;
-    },
-    [](const raised_signal_info * /*unused*/) -> int { return 78; });
+                           ->int {
+                             volatile int *a = nullptr;
+                             return *a;
+                           },
+                           [](const raised_signal_info * /*unused*/) -> int { return 78; });
     BOOST_CHECK(ret == 78);
   }
   std::cout << "2" << std::endl;
   {
-    int ret = signal_guard(
-    signalc_set::termination, []() -> int { std::terminate(); }, [](const raised_signal_info * /*unused*/) -> int { return 78; });
+    int ret = signal_guard(signalc_set::termination, []() -> int { std::terminate(); }, [](const raised_signal_info * /*unused*/) -> int { return 78; });
     BOOST_CHECK(ret == 78);
   }
   std::cout << "3" << std::endl;
   {
-    int ret = signal_guard(
-    signalc_set::segmentation_fault,
-    []() -> int {
-      thread_local_raise_signal(signalc::segmentation_fault);
-      return 5;
-    },
-    [](const raised_signal_info * /*unused*/) -> int { return 78; });
+    int ret = signal_guard(signalc_set::segmentation_fault,
+                           []() -> int {
+                             thrd_raise_signal(signalc::segmentation_fault);
+                             return 5;
+                           },
+                           [](const raised_signal_info * /*unused*/) -> int { return 78; });
     BOOST_CHECK(ret == 78);
   }
   std::cout << "4" << std::endl;
+}
+
+BOOST_AUTO_TEST_CASE(signal_guard / works / global, "Tests that signal_guard works as advertised (global)")
+{
+  using namespace QUICKCPPLIB_NAMESPACE::signal_guard;
+  signal_guard_install i(signalc_set::segmentation_fault | signalc_set::termination);
+  std::cout << "1" << std::endl;
+  jmp_buf buf;
+  void *decider = signal_add_decider(true, [](raised_signal_info *rsi) -> bool { longjmp(*(jmp_buf *) rsi->value.ptr_value, 78); }, &buf);
+  auto ret = setjmp(buf);
+  if(!ret)
+  {
+    volatile int *a = nullptr;
+    (void) *a;
+  }
+  BOOST_CHECK(ret == 78);
+  std::cout << "2" << std::endl;
+  ret = setjmp(buf);
+  if(!ret)
+  {
+    std::terminate();
+  }
+  BOOST_CHECK(ret == 78);
+  std::cout << "3" << std::endl;
+  ret = setjmp(buf);
+  if(!ret)
+  {
+    thrd_raise_signal(signalc::segmentation_fault);
+  }
+  BOOST_CHECK(ret == 78);
+  std::cout << "4" << std::endl;
+  signal_remove_decider(decider);
 }
 
 BOOST_AUTO_TEST_CASE(signal_guard / performance / threadlocal, "Tests that the signal_guard has reasonable performance (thread local)")
@@ -91,8 +120,7 @@ BOOST_AUTO_TEST_CASE(signal_guard / performance / threadlocal, "Tests that the s
     for(size_t n = 0; n < 128; n++)
     {
       uint64_t begin = ticksclock();
-      volatile int ret = signal_guard(
-      signalc_set::segmentation_fault, []() -> int { return 5; }, [](const raised_signal_info * /*unused*/) -> int { return 78; });
+      volatile int ret = signal_guard(signalc_set::segmentation_fault, []() -> int { return 5; }, [](const raised_signal_info * /*unused*/) -> int { return 78; });
       uint64_t end = ticksclock();
       (void) ret;
       // std::cout << (end - begin - overhead) << std::endl;
