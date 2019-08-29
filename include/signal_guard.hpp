@@ -94,6 +94,11 @@ extern "C"
     }
 #endif
   };
+#if defined(__cplusplus)
+  static_assert(std::is_trivial<raised_signal_info_value>::value, "raised_signal_info_value is not trivial!");
+  static_assert(std::is_trivially_copyable<raised_signal_info_value>::value, "raised_signal_info_value is not trivially copyable!");
+  static_assert(std::is_standard_layout<raised_signal_info_value>::value, "raised_signal_info_value does not have standard layout!");
+#endif
 
   //! Typedef to a system specific error code type
 #ifdef _WIN32
@@ -130,6 +135,10 @@ typedef int raised_signal_error_code_t;
   //! \brief The type of the function called when a signal is raised. Returns true to continue guarded code, false to recover.
   typedef bool (*thrd_signal_guard_decide_t)(struct raised_signal_info *);
 
+  #ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4190)  // C-linkage with UDTs
+  #endif
   /*! \brief Installs a thread-local signal guard for the calling thread, and calls the guarded function `guarded`.
   \return The value returned by `guarded`, or `recovery`.
   \param signals The set of signals to guard against.
@@ -140,6 +149,9 @@ typedef int raised_signal_error_code_t;
   \param value A value to supply to the guarded routine.
    */
   SIGNALGUARD_FUNC_DECL union raised_signal_info_value thrd_signal_guard_call(const sigset_t *signals, thrd_signal_guard_guarded_t guarded, thrd_signal_guard_recover_t recovery, thrd_signal_guard_decide_t decider, union raised_signal_info_value value);
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
   /*! \brief Call the currently installed signal handler for a signal (POSIX), or raise a Win32 structured
   exception (Windows), returning false if no handler was called due to the currently
@@ -189,6 +201,7 @@ typedef int raised_signal_error_code_t;
 /**************************************** The C++ API ***************************************/
 
 #if defined(__cplusplus)
+static_assert(std::is_trivial<raised_signal_info>::value, "raised_signal_info is not trivial!");
 static_assert(std::is_trivially_copyable<raised_signal_info>::value, "raised_signal_info is not trivially copyable!");
 static_assert(std::is_standard_layout<raised_signal_info>::value, "raised_signal_info does not have standard layout!");
 

@@ -34,6 +34,10 @@ extern "C" unsigned long __cdecl _exception_code(void);
 extern "C" void *__cdecl _exception_info(void);
 #endif
 
+  #ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable : 4190)  // C-linkage with UDTs
+#endif
 extern "C" union raised_signal_info_value thrd_signal_guard_call(const sigset_t *signals, thrd_signal_guard_guarded_t guarded, thrd_signal_guard_recover_t recovery, thrd_signal_guard_decide_t decider, union raised_signal_info_value value)
 {
   using namespace QUICKCPPLIB_NAMESPACE::signal_guard;
@@ -47,6 +51,9 @@ extern "C" union raised_signal_info_value thrd_signal_guard_call(const sigset_t 
   }
   return signal_guard(mask, guarded, recovery, decider, value);
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 extern "C" bool thrd_raise_signal(int signo, void *raw_info, void *raw_context)
 {
@@ -261,7 +268,11 @@ namespace signal_guard
         PCONTEXT ContextRecord;
       } EXCEPTION_POINTERS, *PEXCEPTION_POINTERS;
 
+      typedef long(__stdcall *PVECTORED_EXCEPTION_HANDLER)(struct _EXCEPTION_POINTERS *ExceptionInfo);
+
       extern "C" void __stdcall RaiseException(unsigned long dwExceptionCode, unsigned long dwExceptionFlags, unsigned long nNumberOfArguments, const unsigned long long *lpArguments);
+      extern "C" void *__stdcall AddVectoredContinueHandler(unsigned long First, PVECTORED_EXCEPTION_HANDLER Handler);
+      extern "C" unsigned long __stdcall RemoveVectoredContinueHandler(void *Handle);
 
     }  // namespace win32
     inline unsigned long win32_exception_code_from_signalc(signalc c)
@@ -768,7 +779,7 @@ extern "C" void *signal_add_decider(bool callfirst, thrd_signal_guard_decide_t d
 #ifdef _WIN32
   if(nullptr == win32_global_signal_decider)
   {
-    win32_global_signal_decider = AddVectoredContinueHandler(1, win32_vectored_exception_function);
+    win32_global_signal_decider = QUICKCPPLIB_NAMESPACE::signal_guard::detail::win32::AddVectoredContinueHandler(1, win32_vectored_exception_function);
   }
 #endif
               lock.unlock();
@@ -786,7 +797,7 @@ extern "C" bool signal_remove_decider(void *decider)
 #ifdef _WIN32
   if(nullptr == global_signal_deciders_front)
   {
-    RemoveVectoredContinueHandler(win32_global_signal_decider);
+    QUICKCPPLIB_NAMESPACE::signal_guard::detail::win32::RemoveVectoredContinueHandler(win32_global_signal_decider);
     win32_global_signal_decider = nullptr;
   }
 #endif
