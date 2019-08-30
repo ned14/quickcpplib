@@ -163,12 +163,18 @@ Functions</h2></td></tr>
 <tr class="memitem:a07c0b588e32fae9509fb187c85fcc3bb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="signal__guard_8hpp.html#a07c0b588e32fae9509fb187c85fcc3bb">thrd_raise_signal</a> (int signo, void *raw_info, void *raw_context)</td></tr>
 <tr class="memdesc:a07c0b588e32fae9509fb187c85fcc3bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call the currently installed signal handler for a signal (POSIX), or raise a Win32 structured exception (Windows), returning false if no handler was called due to the currently installed handler being <code>SIG_IGN</code> (POSIX).  <a href="#a07c0b588e32fae9509fb187c85fcc3bb">More...</a><br/></td></tr>
 <tr class="separator:a07c0b588e32fae9509fb187c85fcc3bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab930235b6db16f3060f9f42ac7aa6276"><td class="memItemLeft" align="right" valign="top"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="signal__guard_8hpp.html#ab930235b6db16f3060f9f42ac7aa6276">signal_add_decider</a> (bool callfirst, <a class="el" href="signal__guard_8hpp.html#ae3e6c9ffb2f3a9105bef88723710db06">thrd_signal_guard_decide_t</a> decider, union <a class="el" href="unionraised__signal__info__value.html">raised_signal_info_value</a> value)</td></tr>
-<tr class="memdesc:ab930235b6db16f3060f9f42ac7aa6276"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a global signal continuation decider. Threadsafe with respect to other calls of this function, but not reentrant i.e. modifying the global signal continuation decider registry whilst inside a global signal continuation decider is racy. Called after all thread local handling is exhausted. Note that what you can safely do in the decider function is extremely limited, only async signal safe functions may be called.  <a href="#ab930235b6db16f3060f9f42ac7aa6276">More...</a><br/></td></tr>
-<tr class="separator:ab930235b6db16f3060f9f42ac7aa6276"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b6966872efb0b8370a16bba939b011b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="signal__guard_8hpp.html#a3b6966872efb0b8370a16bba939b011b">signal_remove_decider</a> (void *decider)</td></tr>
-<tr class="memdesc:a3b6966872efb0b8370a16bba939b011b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deregister a global signal continuation decider. Threadsafe with respect to other calls of this function, but not reentrant i.e. do not call whilst inside a global signal continuation decider.  <a href="#a3b6966872efb0b8370a16bba939b011b">More...</a><br/></td></tr>
-<tr class="separator:a3b6966872efb0b8370a16bba939b011b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ebd6491ad57f610bdb82f141dc713ae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="signal__guard_8hpp.html#a4ebd6491ad57f610bdb82f141dc713ae">signal_guard_create</a> (const sigset_t *guarded)</td></tr>
+<tr class="memdesc:a4ebd6491ad57f610bdb82f141dc713ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">On platforms where it is necessary (POSIX), installs, and potentially enables, the global signal handlers for the signals specified by <code>guarded</code>. Each signal installed is threadsafe reference counted, so this is safe to call from multiple threads or instantiate multiple times.  <a href="#a4ebd6491ad57f610bdb82f141dc713ae">More...</a><br/></td></tr>
+<tr class="separator:a4ebd6491ad57f610bdb82f141dc713ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0572ac044c5b9e156c193e4c6e2a4510"><td class="memItemLeft" align="right" valign="top"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="signal__guard_8hpp.html#a0572ac044c5b9e156c193e4c6e2a4510">signal_guard_destroyl</a> (void *i)</td></tr>
+<tr class="memdesc:a0572ac044c5b9e156c193e4c6e2a4510"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uninstall a previously installed signal guard.  <a href="#a0572ac044c5b9e156c193e4c6e2a4510">More...</a><br/></td></tr>
+<tr class="separator:a0572ac044c5b9e156c193e4c6e2a4510"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3c6f651bfcc822d8e12c330858a9e61"><td class="memItemLeft" align="right" valign="top"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="signal__guard_8hpp.html#af3c6f651bfcc822d8e12c330858a9e61">signal_guard_decider_create</a> (const sigset_t *guarded, bool callfirst, <a class="el" href="signal__guard_8hpp.html#ae3e6c9ffb2f3a9105bef88723710db06">thrd_signal_guard_decide_t</a> decider, union <a class="el" href="unionraised__signal__info__value.html">raised_signal_info_value</a> value)</td></tr>
+<tr class="memdesc:af3c6f651bfcc822d8e12c330858a9e61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a global signal continuation decider. Threadsafe with respect to other calls of this function, but not reentrant i.e. modifying the global signal continuation decider registry whilst inside a global signal continuation decider is racy. Called after all thread local handling is exhausted. Note that what you can safely do in the decider function is extremely limited, only async signal safe functions may be called.  <a href="#af3c6f651bfcc822d8e12c330858a9e61">More...</a><br/></td></tr>
+<tr class="separator:af3c6f651bfcc822d8e12c330858a9e61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fa7645a3baffab74235e7edb6cbc24d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="signal__guard_8hpp.html#a9fa7645a3baffab74235e7edb6cbc24d">signal_guard_decider_destroy</a> (void *decider)</td></tr>
+<tr class="memdesc:a9fa7645a3baffab74235e7edb6cbc24d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy a global signal continuation decider. Threadsafe with respect to other calls of this function, but not reentrant i.e. do not call whilst inside a global signal continuation decider.  <a href="#a9fa7645a3baffab74235e7edb6cbc24d">More...</a><br/></td></tr>
+<tr class="separator:a9fa7645a3baffab74235e7edb6cbc24d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a class="anchor" id="afc4c0d35b09e145b05c4a43a7a0aacc2"></a>
@@ -359,13 +365,60 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ab930235b6db16f3060f9f42ac7aa6276"></a>
+<a class="anchor" id="a4ebd6491ad57f610bdb82f141dc713ae"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> void* signal_add_decider </td>
+          <td class="memname"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> void* signal_guard_create </td>
           <td>(</td>
+          <td class="paramtype">const sigset_t *&#160;</td>
+          <td class="paramname"><em>guarded</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>On platforms where it is necessary (POSIX), installs, and potentially enables, the global signal handlers for the signals specified by <code>guarded</code>. Each signal installed is threadsafe reference counted, so this is safe to call from multiple threads or instantiate multiple times. </p>
+<p>On platforms with better than POSIX global signal support, this function does nothing.</p>
+<h2>POSIX only</h2>
+<p>Any existing global signal handlers are replaced with a filtering signal handler, which checks if the current kernel thread has installed a signal guard, and if so executes the guard. If no signal guard has been installed for the current kernel thread, global signal continuation handlers are executed. If none claims the signal, the previously installed signal handler is called.</p>
+<p>After the new signal handlers have been installed, the guarded signals are globally enabled for all threads of execution. Be aware that the handlers are installed with <code>SA_NODEFER</code> to avoid the need to perform an expensive syscall when a signal is handled. However this may also produce surprise e.g. infinite loops.</p>
+<dl class="section warning"><dt>Warning</dt><dd>This class is threadsafe with respect to other concurrent executions of itself, but is NOT threadsafe with respect to other code modifying the global signal handlers. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a0572ac044c5b9e156c193e4c6e2a4510"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> bool signal_guard_destroyl </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uninstall a previously installed signal guard. </p>
+
+</div>
+</div>
+<a class="anchor" id="af3c6f651bfcc822d8e12c330858a9e61"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> void* signal_guard_decider_create </td>
+          <td>(</td>
+          <td class="paramtype">const sigset_t *&#160;</td>
+          <td class="paramname"><em>guarded</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>callfirst</em>, </td>
         </tr>
@@ -389,7 +442,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Register a global signal continuation decider. Threadsafe with respect to other calls of this function, but not reentrant i.e. modifying the global signal continuation decider registry whilst inside a global signal continuation decider is racy. Called after all thread local handling is exhausted. Note that what you can safely do in the decider function is extremely limited, only async signal safe functions may be called. </p>
+<p>Create a global signal continuation decider. Threadsafe with respect to other calls of this function, but not reentrant i.e. modifying the global signal continuation decider registry whilst inside a global signal continuation decider is racy. Called after all thread local handling is exhausted. Note that what you can safely do in the decider function is extremely limited, only async signal safe functions may be called. </p>
 <dl class="section return"><dt>Returns</dt><dd>An opaque pointer to the registered decider. <code>NULL</code> if <code>malloc</code> failed. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -402,12 +455,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a3b6966872efb0b8370a16bba939b011b"></a>
+<a class="anchor" id="a9fa7645a3baffab74235e7edb6cbc24d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> bool signal_remove_decider </td>
+          <td class="memname"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> bool signal_guard_decider_destroy </td>
           <td>(</td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>decider</em></td><td>)</td>
@@ -416,7 +469,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Deregister a global signal continuation decider. Threadsafe with respect to other calls of this function, but not reentrant i.e. do not call whilst inside a global signal continuation decider. </p>
+<p>Destroy a global signal continuation decider. Threadsafe with respect to other calls of this function, but not reentrant i.e. do not call whilst inside a global signal continuation decider. </p>
 <dl class="section return"><dt>Returns</dt><dd>True if recognised and thus removed. </dd></dl>
 
 </div>
