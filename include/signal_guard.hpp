@@ -135,10 +135,10 @@ typedef int raised_signal_error_code_t;
   //! \brief The type of the function called when a signal is raised. Returns true to continue guarded code, false to recover.
   typedef bool (*thrd_signal_guard_decide_t)(struct raised_signal_info *);
 
-  #ifdef _MSC_VER
+#ifdef _MSC_VER
 #pragma warning(push)
-#pragma warning(disable: 4190)  // C-linkage with UDTs
-  #endif
+#pragma warning(disable : 4190)  // C-linkage with UDTs
+#endif
   /*! \brief Installs a thread-local signal guard for the calling thread, and calls the guarded function `guarded`.
   \return The value returned by `guarded`, or `recovery`.
   \param signals The set of signals to guard against.
@@ -171,7 +171,35 @@ typedef int raised_signal_error_code_t;
    */
   SIGNALGUARD_FUNC_DECL bool thrd_raise_signal(int signo, void *raw_info, void *raw_context);
 
-  /*! \brief Register a global signal continuation decider. Threadsafe with respect to
+  /*! \brief On platforms where it is necessary (POSIX), installs, and potentially enables,
+  the global signal handlers for the signals specified by `guarded`. Each signal installed
+  is threadsafe reference counted, so this is safe to call from multiple threads or instantiate
+  multiple times.
+
+  On platforms with better than POSIX global signal support, this function does nothing.
+
+  ## POSIX only
+
+  Any existing global signal handlers are replaced with a filtering signal handler, which
+  checks if the current kernel thread has installed a signal guard, and if so executes the
+  guard. If no signal guard has been installed for the current kernel thread, global signal
+  continuation handlers are executed. If none claims the signal, the previously
+  installed signal handler is called.
+
+  After the new signal handlers have been installed, the guarded signals are globally enabled
+  for all threads of execution. Be aware that the handlers are installed with `SA_NODEFER`
+  to avoid the need to perform an expensive syscall when a signal is handled.
+  However this may also produce surprise e.g. infinite loops.
+
+  \warning This class is threadsafe with respect to other concurrent executions of itself,
+  but is NOT threadsafe with respect to other code modifying the global signal handlers.
+  */
+  SIGNALGUARD_FUNC_DECL void *signal_guard_create(const sigset_t *guarded);
+  /*! \brief Uninstall a previously installed signal guard.
+   */
+  SIGNALGUARD_FUNC_DECL bool signal_guard_destroyl(void *i);
+
+  /*! \brief Create a global signal continuation decider. Threadsafe with respect to
   other calls of this function, but not reentrant i.e. modifying the global signal continuation
   decider registry whilst inside a global signal continuation decider is racy. Called after
   all thread local handling is exhausted. Note that what you can safely do in the decider
@@ -184,13 +212,13 @@ typedef int raised_signal_error_code_t;
   \param value A user supplied value to set in the `raised_signal_info` passed to the
   decider callback.
   */
-  SIGNALGUARD_FUNC_DECL void *signal_add_decider(bool callfirst, thrd_signal_guard_decide_t decider, union raised_signal_info_value value);
-  /*! \brief Deregister a global signal continuation decider. Threadsafe with
+  SIGNALGUARD_FUNC_DECL void *signal_guard_decider_create(const sigset_t *guarded, bool callfirst, thrd_signal_guard_decide_t decider, union raised_signal_info_value value);
+  /*! \brief Destroy a global signal continuation decider. Threadsafe with
   respect to other calls of this function, but not reentrant i.e. do not call
   whilst inside a global signal continuation decider.
   \return True if recognised and thus removed.
   */
-  SIGNALGUARD_FUNC_DECL bool signal_remove_decider(void *decider);
+  SIGNALGUARD_FUNC_DECL bool signal_guard_decider_destroy(void *decider);
 
 
 #if defined(__cplusplus)
@@ -271,7 +299,8 @@ namespace signal_guard
 
   Any existing global signal handlers are replaced with a filtering signal handler, which
   checks if the current kernel thread has installed a signal guard, and if so executes the
-  guard. If no signal guard has been installed for the current kernel thread, the previously
+  guard. If no signal guard has been installed for the current kernel thread, global signal
+  continuation handlers are executed. If none claims the signal, the previously
   installed signal handler is called.
 
   After the new signal handlers have been installed, the guarded signals are globally enabled
@@ -290,10 +319,85 @@ namespace signal_guard
     SIGNALGUARD_MEMFUNC_DECL explicit signal_guard_install(signalc_set guarded);
     SIGNALGUARD_MEMFUNC_DECL ~signal_guard_install();
     signal_guard_install(const signal_guard_install &) = delete;
-    signal_guard_install(signal_guard_install &&) = delete;
+    signal_guard_install(signal_guard_install &&o) noexcept
+        : _guarded(o._guarded)
+    {
+      o._guarded = signalc_set::none;
+    }
     signal_guard_install &operator=(const signal_guard_install &) = delete;
-    signal_guard_install &operator=(signal_guard_install &&) = delete;
+    signal_guard_install &operator=(signal_guard_install &&o) noexcept
+    {
+      this->~signal_guard_install();
+      new(this) signal_guard_install(static_cast<signal_guard_install &&>(o));
+      return *this;
+    }
   };
+
+  namespace detail
+  {
+    static inline bool signal_guard_global_decider_impl_indirect(raised_signal_info *rsi);
+    class SIGNALGUARD_CLASS_DECL signal_guard_global_decider_impl
+    {
+      friend inline bool signal_guard_global_decider_impl_indirect(raised_signal_info *rsi);
+      signal_guard_install _install;
+      void *_p{nullptr};
+      virtual bool _call(raised_signal_info *) const noexcept = 0;
+
+    public:
+      SIGNALGUARD_MEMFUNC_DECL signal_guard_global_decider_impl(signalc_set guarded, bool callfirst);
+      virtual SIGNALGUARD_MEMFUNC_DECL ~signal_guard_global_decider_impl();
+      signal_guard_global_decider_impl(const signal_guard_global_decider_impl &) = delete;
+      SIGNALGUARD_MEMFUNC_DECL signal_guard_global_decider_impl(signal_guard_global_decider_impl &&o) noexcept;
+      signal_guard_global_decider_impl &operator=(const signal_guard_global_decider_impl &) = delete;
+      signal_guard_global_decider_impl &operator=(signal_guard_global_decider_impl &&) = delete;
+    };
+  }  // namespace detail
+
+  /*! \brief Install a global signal continuation decider.
+
+  This is threadsafe with respect to concurrent instantiations of this type, but not reentrant
+  i.e. modifying the global signal continuation decider registry whilst inside a global signal
+  continuation decider is racy. Callable is called after
+  all thread local handling is exhausted. Note that what you can safely do in the decider
+  callable is extremely limited, only async signal safe functions may be called.
+
+  A `signal_guard_install` is always instanced for every global decider.
+  */
+  template <class T> class signal_guard_global_decider : public detail::signal_guard_global_decider_impl
+  {
+    T _f;
+    virtual bool _call(raised_signal_info *rsi) const noexcept override final { return _f(rsi); }
+
+  public:
+    /*! \brief Constructs an instance.
+    \param guarded The signal set for which this decider ought to be called.
+    \param f A callable with prototype `bool(raised_signal_info *)`, which must return
+    `true` if execution is to resume, `false` if the next decider function should be called.
+    \param callfirst True if this decider should be called before any other. Otherwise
+    call order is in the order of addition.
+    */
+    QUICKCPPLIB_TEMPLATE(class U)
+    QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(std::is_constructible<T, U>::value), QUICKCPPLIB_TEXPR(std::declval<U>()((raised_signal_info *) 0)))
+    signal_guard_global_decider(signalc_set guarded, U &&f, bool callfirst)
+        : detail::signal_guard_global_decider_impl(guarded, callfirst)
+        , _f(static_cast<U &&>(f))
+    {
+    }
+    ~signal_guard_global_decider() = default;
+    signal_guard_global_decider(const signal_guard_global_decider &) = delete;
+    signal_guard_global_decider(signal_guard_global_decider &&o) noexcept = default;
+    signal_guard_global_decider &operator=(const signal_guard_global_decider &) = delete;
+    signal_guard_global_decider &operator=(signal_guard_global_decider &&o) noexcept
+    {
+      this->~signal_guard_global_decider();
+      new(this) signal_guard_global_decider(static_cast<signal_guard_global_decider &&>(o));
+      return *this;
+    }
+  };
+  //! \brief Convenience instantiator of `signal_guard_global_decider`.
+  QUICKCPPLIB_TEMPLATE(class U)
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TEXPR(std::declval<U>()((raised_signal_info *) 0)))
+  inline signal_guard_global_decider<std::decay_t<U>> make_signal_guard_global_decider(signalc_set guarded, U &&f, bool callfirst = false) { return signal_guard_global_decider<std::decay_t<U>>(guarded, static_cast<U &&>(f), callfirst); }
 
   /*! \brief Call the currently installed signal handler for a signal (POSIX), or raise a Win32 structured
   exception (Windows), returning false if no handler was called due to the currently

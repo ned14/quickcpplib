@@ -67,15 +67,21 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / threadlocal, "Tests that signal_guar
 BOOST_AUTO_TEST_CASE(signal_guard / works / global, "Tests that signal_guard works as advertised (global)")
 {
   using namespace QUICKCPPLIB_NAMESPACE::signal_guard;
-  signal_guard_install i(signalc_set::segmentation_fault | signalc_set::termination);
   std::cout << "1" << std::endl;
   jmp_buf buf;
-  void *decider = signal_add_decider(true, [](raised_signal_info *rsi) -> bool { longjmp(*(jmp_buf *) rsi->value.ptr_value, 78); }, &buf);
+  auto decider = make_signal_guard_global_decider(signalc_set::segmentation_fault | signalc_set::termination, [&buf](raised_signal_info * /*unused*/) -> bool { longjmp(buf, 78); });
   auto ret = setjmp(buf);
   if(!ret)
   {
-    volatile int *a = nullptr;
-    (void) *a;
+    []()
+#if defined(__GNUC__) || defined(__clang__)
+    __attribute__((no_sanitize_undefined))
+#endif
+    {
+      volatile int *a = nullptr;
+      (void) *a;
+    }
+    ();
   }
   BOOST_CHECK(ret == 78);
   std::cout << "2" << std::endl;
@@ -93,7 +99,6 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / global, "Tests that signal_guard wor
   }
   BOOST_CHECK(ret == 78);
   std::cout << "4" << std::endl;
-  signal_remove_decider(decider);
 }
 
 BOOST_AUTO_TEST_CASE(signal_guard / performance / threadlocal, "Tests that the signal_guard has reasonable performance (thread local)")

@@ -34,7 +34,7 @@ extern "C" unsigned long __cdecl _exception_code(void);
 extern "C" void *__cdecl _exception_info(void);
 #endif
 
-  #ifdef _MSC_VER
+#ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable : 4190)  // C-linkage with UDTs
 #endif
@@ -60,6 +60,70 @@ extern "C" bool thrd_raise_signal(int signo, void *raw_info, void *raw_context)
   using namespace QUICKCPPLIB_NAMESPACE::signal_guard;
   return thrd_raise_signal(static_cast<signalc>(1U << signo), raw_info, raw_context);
 }
+
+extern "C" void *signal_guard_create(const sigset_t *guarded)
+{
+  using namespace QUICKCPPLIB_NAMESPACE::signal_guard;
+  signalc_set mask;
+  for(size_t n = 0; n < 31; n++)
+  {
+    if(sigismember(guarded, n))
+    {
+      mask |= static_cast<signalc_set>(1ULL << n);
+    }
+  }
+  return new(std::nothrow) QUICKCPPLIB_NAMESPACE::signal_guard::signal_guard_install(mask);
+}
+
+extern "C" bool signal_guard_destroy(void *i)
+{
+  auto *p = (QUICKCPPLIB_NAMESPACE::signal_guard::signal_guard_install *) i;
+  delete p;
+  return true;
+}
+
+QUICKCPPLIB_NAMESPACE_BEGIN
+
+namespace signal_guard
+{
+
+  namespace detail
+  {
+    struct signal_guard_decider_callable
+    {
+      thrd_signal_guard_decide_t decider;
+      raised_signal_info_value value;
+      bool operator()(raised_signal_info *rsi) const noexcept
+      {
+        rsi->value = value;
+        return decider(rsi);
+      }
+    };
+  }  // namespace detail
+}  // namespace signal_guard
+QUICKCPPLIB_NAMESPACE_END
+
+extern "C" void *signal_guard_decider_create(const sigset_t *guarded, bool callfirst, thrd_signal_guard_decide_t decider, union raised_signal_info_value value)
+{
+  using namespace QUICKCPPLIB_NAMESPACE::signal_guard;
+  signalc_set mask;
+  for(size_t n = 0; n < 31; n++)
+  {
+    if(sigismember(guarded, n))
+    {
+      mask |= static_cast<signalc_set>(1ULL << n);
+    }
+  }
+  return new(std::nothrow) signal_guard_global_decider<detail::signal_guard_decider_callable>(mask, detail::signal_guard_decider_callable{decider, value}, callfirst);
+}
+extern "C" bool signal_guard_decider_destroy(void *decider)
+{
+  using namespace QUICKCPPLIB_NAMESPACE::signal_guard;
+  auto *p = (signal_guard_global_decider<detail::signal_guard_decider_callable> *) decider;
+  delete p;
+  return true;
+}
+
 
 QUICKCPPLIB_NAMESPACE_BEGIN
 
@@ -134,6 +198,7 @@ namespace signal_guard
     struct global_signal_decider
     {
       global_signal_decider *next, *prev;
+      signalc_set guarded;
       thrd_signal_guard_decide_t decider;
       raised_signal_info_value value;
     };
@@ -166,7 +231,7 @@ namespace signal_guard
           size_t i = 0;
           for(d = global_signal_deciders_front; d != nullptr; d = d->next)
           {
-            if(i++ == n)
+            if(i++ == n && (d->guarded & (1ULL<<static_cast<int>(signalc::out_of_memory))))
             {
               rsi.value = d->value;
               lock.unlock();
@@ -217,7 +282,7 @@ namespace signal_guard
           size_t i = 0;
           for(d = global_signal_deciders_front; d != nullptr; d = d->next)
           {
-            if(i++ == n)
+            if(i++ == n && (d->guarded & (1ULL<<static_cast<int>(signalc::termination))))
             {
               rsi.value = d->value;
               lock.unlock();
@@ -370,7 +435,8 @@ namespace signal_guard
       {
         auto *raw_info = ptrs->ExceptionRecord;
         auto *raw_context = ptrs->ContextRecord;
-        auto signo = signalc_from_win32_exception_code(raw_info->ExceptionCode);
+        const auto signo = signalc_from_win32_exception_code(raw_info->ExceptionCode);
+        const signalc_set signo_set = 1ULL<<static_cast<int>(signalc::out_of_memory);
         raised_signal_info rsi;
         memset(&rsi, 0, sizeof(rsi));
         rsi.signo = static_cast<int>(signo);
@@ -384,7 +450,7 @@ namespace signal_guard
           size_t i = 0;
           for(d = global_signal_deciders_front; d != nullptr; d = d->next)
           {
-            if(i++ == n)
+            if(i++ == n && (d->guarded & signo_set))))
             {
               rsi.value = d->value;
               lock.unlock();
@@ -541,7 +607,7 @@ namespace signal_guard
           size_t i = 0;
           for(d = global_signal_deciders_front; d != nullptr; d = d->next)
           {
-            if(i++ == n)
+            if(i++ == n && (d->guarded &(1ULL<<signo)))
             {
               rsi.value = d->value;
               lock.unlock();
@@ -697,6 +763,86 @@ namespace signal_guard
 #endif
   }
 
+  namespace detail
+  {
+    static inline bool signal_guard_global_decider_impl_indirect(raised_signal_info *rsi)
+    {
+      auto *p = (signal_guard_global_decider_impl *) rsi->value.ptr_value;
+      return p->_call(rsi);
+    }
+    SIGNALGUARD_MEMFUNC_DECL signal_guard_global_decider_impl::signal_guard_global_decider_impl(signalc_set guarded, bool callfirst)
+        : _install(guarded)
+    {
+      auto *p = new global_signal_decider;
+      _p = p;
+      p->guarded = guarded;
+      p->decider = signal_guard_global_decider_impl_indirect;
+      p->value.ptr_value = this;
+      lock.lock();
+      global_signal_decider **a, **b;
+      if(global_signal_deciders_front == nullptr)
+      {
+        a = &global_signal_deciders_front;
+        b = &global_signal_deciders_back;
+      }
+      else if(callfirst)
+      {
+        a = &global_signal_deciders_front;
+        b = &global_signal_deciders_front->prev;
+      }
+      else
+      {
+        a = &global_signal_deciders_back->next;
+        b = &global_signal_deciders_back;
+      }
+      p->next = *a;
+      p->prev = *b;
+      *a = p;
+      *b = p;
+#ifdef _WIN32
+      if(nullptr == win32_global_signal_decider)
+      {
+        win32_global_signal_decider = win32::AddVectoredContinueHandler(1, win32_vectored_exception_function);
+      }
+#endif
+      lock.unlock();
+    }
+
+    SIGNALGUARD_MEMFUNC_DECL signal_guard_global_decider_impl::signal_guard_global_decider_impl(signal_guard_global_decider_impl &&o) noexcept
+        : _install(static_cast<signal_guard_global_decider_impl &&>(o)._install)
+        , _p(o._p)
+    {
+      lock.lock();
+      auto *p = (global_signal_decider *) _p;
+      p->value.ptr_value = this;
+      lock.unlock();
+      o._p = nullptr;
+    }
+
+    SIGNALGUARD_MEMFUNC_DECL signal_guard_global_decider_impl::~signal_guard_global_decider_impl()
+    {
+      if(_p != nullptr)
+      {
+        auto *p = (global_signal_decider *) _p;
+        lock.lock();
+        global_signal_decider **a = (nullptr == p->prev) ? &global_signal_deciders_front : &p->prev->next;
+        global_signal_decider **b = (nullptr == p->next) ? &global_signal_deciders_back : &p->next->prev;
+        *a = p->next;
+        *b = p->prev;
+#ifdef _WIN32
+        if(nullptr == global_signal_deciders_front)
+        {
+          win32::RemoveVectoredContinueHandler(win32_global_signal_decider);
+          win32_global_signal_decider = nullptr;
+        }
+#endif
+        lock.unlock();
+        delete p;
+        _p = nullptr;
+      }
+    }
+  }  // namespace detail
+
   SIGNALGUARD_FUNC_DECL bool thrd_raise_signal(signalc signo, void *_info, void *_context)
   {
     if(signo == signalc::out_of_memory)
@@ -744,66 +890,3 @@ namespace signal_guard
 }  // namespace signal_guard
 
 QUICKCPPLIB_NAMESPACE_END
-
-extern "C" void *signal_add_decider(bool callfirst, thrd_signal_guard_decide_t decider, union raised_signal_info_value value)
-{
-  using namespace QUICKCPPLIB_NAMESPACE::signal_guard::detail;
-  auto *p = new(std::nothrow) global_signal_decider;
-  if(nullptr == p)
-  {
-    return nullptr;
-  }
-  p->decider = decider;
-  p->value = value;
-  lock.lock();
-  global_signal_decider **a, **b;
-  if(global_signal_deciders_front == nullptr)
-  {
-    a = &global_signal_deciders_front;
-    b = &global_signal_deciders_back;
-  }
-  else if(callfirst)
-  {
-    a = &global_signal_deciders_front;
-    b = &global_signal_deciders_front->prev;
-  }
-  else
-  {
-    a = &global_signal_deciders_back->next;
-    b = &global_signal_deciders_back;
-  }
-  p->next = *a;
-  p->prev = *b;
-  *a = p;
-  *b = p;
-#ifdef _WIN32
-  if(nullptr == win32_global_signal_decider)
-  {
-    win32_global_signal_decider = QUICKCPPLIB_NAMESPACE::signal_guard::detail::win32::AddVectoredContinueHandler(1, win32_vectored_exception_function);
-  }
-#endif
-              lock.unlock();
-  return p;
-}
-extern "C" bool signal_remove_decider(void *decider)
-{
-  using namespace QUICKCPPLIB_NAMESPACE::signal_guard::detail;
-  auto *p = (global_signal_decider *) decider;
-  lock.lock();
-  global_signal_decider **a = (nullptr == p->prev) ? &global_signal_deciders_front : &p->prev->next;
-  global_signal_decider **b = (nullptr == p->next) ? &global_signal_deciders_back : &p->next->prev;
-  *a = p->next;
-  *b = p->prev;
-#ifdef _WIN32
-  if(nullptr == global_signal_deciders_front)
-  {
-    QUICKCPPLIB_NAMESPACE::signal_guard::detail::win32::RemoveVectoredContinueHandler(win32_global_signal_decider);
-    win32_global_signal_decider = nullptr;
-  }
-#endif
-  lock.unlock();
-  delete p;
-  return true;
-}
-
-
