@@ -34,6 +34,17 @@ namespace in_place_attach_detach
   using QUICKCPPLIB_NAMESPACE::detach_cast::attach_cast;
   using QUICKCPPLIB_NAMESPACE::detach_cast::detach_cast;
 
+  //! Namespace for user specialised traits
+  namespace traits
+  {
+    /*! \brief Specialise to true if you want to `attached<>` to do nothing
+    when constructed from some source `T`.
+    */
+    template <class T> struct disable_attached_for : public std::false_type
+    {
+    };
+  }  // namespace traits
+
   namespace detail
   {
     template <class T> using byte_array_wrapper = QUICKCPPLIB_NAMESPACE::detach_cast::detail::byte_array_wrapper<T>;
@@ -114,6 +125,8 @@ namespace in_place_attach_detach
   template <class T> class attached : protected QUICKCPPLIB_NAMESPACE::span::span<T>
   {
     using _base = QUICKCPPLIB_NAMESPACE::span::span<T>;
+    
+    bool _disabled{false};
 
   public:
     //! The index type
@@ -147,7 +160,7 @@ namespace in_place_attach_detach
 
     attached(const attached &) = delete;
     //! Move constructs the instance, leaving the source empty.
-    constexpr attached(attached &&o) noexcept : _base(std::move(o)) { static_cast<_base &>(o) = {nullptr, 0}; }
+    constexpr attached(attached &&o) noexcept : _base(std::move(o)), _disabled{o._disabled} { static_cast<_base &>(o) = {nullptr, 0}; }
     attached &operator=(const attached &) = delete;
     constexpr attached &operator=(attached &&o) noexcept
     {
@@ -159,7 +172,7 @@ namespace in_place_attach_detach
     //! Detaches the array of `T`, if not empty
     ~attached()
     {
-      if(!this->empty())
+      if(!this->empty() && !_disabled)
       {
         in_place_detach(as_span());
       }
@@ -169,7 +182,7 @@ namespace in_place_attach_detach
     QUICKCPPLIB_TEMPLATE(class U)
     QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TEXPR(in_place_attach<T>(std::declval<U>())))
     constexpr attached(U &&v)
-        : _base(in_place_attach<T>(static_cast<U &&>(v)))
+        : _base(in_place_attach<T>(static_cast<U &&>(v))), _disabled(traits::disable_attached_for<std::decay_t<U>>::value)
     {
     }
     //! Explicitly construct from a span of already attached objects
