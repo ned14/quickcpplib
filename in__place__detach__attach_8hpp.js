@@ -1,5 +1,6 @@
 var in__place__detach__attach_8hpp =
 [
+    [ "disable_attached_for", "structquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1traits_1_1disable__attached__for.html", null ],
     [ "adopt_t", "structquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1adopt__t.html", null ],
     [ "attached", "classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html", "classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached" ],
     [ "byte_array_wrapper", "in__place__detach__attach_8hpp.html#a5549c2e9a661d39865e579b587f41ea6", null ],
