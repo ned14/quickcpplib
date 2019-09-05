@@ -204,7 +204,8 @@ namespace signal_guard
     };
     static global_signal_decider *global_signal_deciders_front, *global_signal_deciders_back;
 #ifdef _WIN32
-    static void *win32_global_signal_decider;
+    static void *win32_global_signal_decider1;
+    static void *win32_global_signal_decider2;
 #endif
 
     inline void new_handler()
@@ -336,6 +337,7 @@ namespace signal_guard
       typedef long(__stdcall *PVECTORED_EXCEPTION_HANDLER)(struct _EXCEPTION_POINTERS *ExceptionInfo);
 
       extern "C" void __stdcall RaiseException(unsigned long dwExceptionCode, unsigned long dwExceptionFlags, unsigned long nNumberOfArguments, const unsigned long long *lpArguments);
+      extern "C" PVECTORED_EXCEPTION_HANDLER __stdcall SetUnhandledExceptionFilter(PVECTORED_EXCEPTION_HANDLER Handler);
       extern "C" void *__stdcall AddVectoredContinueHandler(unsigned long First, PVECTORED_EXCEPTION_HANDLER Handler);
       extern "C" unsigned long __stdcall RemoveVectoredContinueHandler(void *Handle);
 
@@ -436,7 +438,7 @@ namespace signal_guard
         auto *raw_info = ptrs->ExceptionRecord;
         auto *raw_context = ptrs->ContextRecord;
         const auto signo = signalc_from_win32_exception_code(raw_info->ExceptionCode);
-        const signalc_set signo_set = 1ULL<<static_cast<int>(signalc::out_of_memory);
+        const signalc_set signo_set = 1ULL<<static_cast<int>(signo);
         raised_signal_info rsi;
         memset(&rsi, 0, sizeof(rsi));
         rsi.signo = static_cast<int>(signo);
@@ -450,7 +452,7 @@ namespace signal_guard
           size_t i = 0;
           for(d = global_signal_deciders_front; d != nullptr; d = d->next)
           {
-            if(i++ == n && (d->guarded & signo_set))))
+            if(i++ == n && (d->guarded & signo_set))
             {
               rsi.value = d->value;
               lock.unlock();
@@ -800,9 +802,40 @@ namespace signal_guard
       *a = p;
       *b = p;
 #ifdef _WIN32
-      if(nullptr == win32_global_signal_decider)
+      if(nullptr == win32_global_signal_decider2)
       {
-        win32_global_signal_decider = win32::AddVectoredContinueHandler(1, win32_vectored_exception_function);
+        /* The interaction between AddVectoredContinueHandler, AddVectoredExceptionHandler,
+        UnhandledExceptionFilter, and frame-based EH is completely undocumented in Microsoft
+        documentation. The following is the truth, as determined by empirical testing:
+
+        1. Vectored exception handlers get called first, before anything else, including
+        frame-based EH. This is not what the MSDN documentation hints at.
+
+        2. Frame-based EH filters are now run.
+
+        3. UnhandledExceptionFilter() is now called. On older Windows, this invokes the
+        debugger if being run under the debugger, otherwise continues search. But as of
+        at least Windows 7 onwards, if no debugger is attached, it invokes Windows
+        Error Reporting to send a core dump to Microsoft.
+
+        4. Vectored continue handlers now get called, AFTER the frame-based EH. Again,
+        not what MSDN hints at.
+
+
+        The change in the default non-debugger behaviour of UnhandledExceptionFilter()
+        effectively makes vectored continue handlers useless. I suspect whomever made
+        the change at Microsoft didn't realise that vectored continue handlers are
+        invoked AFTER the unhandled exception filter, because that's really non-obvious
+        from the documentation.
+
+        Anyway this is why we install for both the continue handler and the unhandled
+        exception filters. The unhandled exception filter will be called when not running
+        under a debugger. The vectored continue handler will be called when running
+        under a debugger, as the UnhandledExceptionFilter() function never calls the
+        installed unhandled exception filter function if under a debugger.
+        */
+        win32_global_signal_decider1 = win32::SetUnhandledExceptionFilter(win32_vectored_exception_function);
+        win32_global_signal_decider2 = win32::AddVectoredContinueHandler(1, win32_vectored_exception_function);
       }
 #endif
       lock.unlock();
@@ -832,8 +865,10 @@ namespace signal_guard
 #ifdef _WIN32
         if(nullptr == global_signal_deciders_front)
         {
-          win32::RemoveVectoredContinueHandler(win32_global_signal_decider);
-          win32_global_signal_decider = nullptr;
+          win32::RemoveVectoredContinueHandler(win32_global_signal_decider2);
+          win32::SetUnhandledExceptionFilter((win32::PVECTORED_EXCEPTION_HANDLER) win32_global_signal_decider1);
+          win32_global_signal_decider1 = nullptr;
+          win32_global_signal_decider2 = nullptr;
         }
 #endif
         lock.unlock();
