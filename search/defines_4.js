@@ -80,6 +80,7 @@ var searchData=
   ['quickcpplib_5fbitfield_5fbegin',['QUICKCPPLIB_BITFIELD_BEGIN',['../bitfield_8hpp.html#a165ed92a83a11d716f08a1ad70e58e9b',1,'bitfield.hpp']]],
   ['quickcpplib_5fbitfield_5fbegin_5ft',['QUICKCPPLIB_BITFIELD_BEGIN_T',['../bitfield_8hpp.html#a5ef1fe763bb9adb823780bce247546dc',1,'bitfield.hpp']]],
   ['quickcpplib_5fbitfield_5fend',['QUICKCPPLIB_BITFIELD_END',['../bitfield_8hpp.html#af73980f3fbafa65e93218ec34754f9a9',1,'bitfield.hpp']]],
+  ['quickcpplib_5fdetach_5fcast_5fnodiscard',['QUICKCPPLIB_DETACH_CAST_NODISCARD',['../detach__cast_8hpp.html#a5b169ff4148b0331ea5bad6347b8bafb',1,'detach_cast.hpp']]],
   ['quickcpplib_5fdisable_5fthread_5fsanitize',['QUICKCPPLIB_DISABLE_THREAD_SANITIZE',['../config_8hpp.html#a2c5970ca36f51fc6cbd10da9346016f1',1,'config.hpp']]],
   ['quickcpplib_5fdrd_5fignore_5fvar',['QUICKCPPLIB_DRD_IGNORE_VAR',['../config_8hpp.html#a3ae948c9d2fe0de5935bffc1e93be1d6',1,'config.hpp']]],
   ['quickcpplib_5fdrd_5fstop_5fignoring_5fvar',['QUICKCPPLIB_DRD_STOP_IGNORING_VAR',['../config_8hpp.html#a69c09a26fd7909cc12ea3a867da69f9f',1,'config.hpp']]],
