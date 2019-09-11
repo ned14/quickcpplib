@@ -466,6 +466,9 @@ namespace signal_guard
 #if defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 6
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wclobbered"
+#if __GNUC__ >= 7
+#pragma GCC diagnostic ignored "-Wnoexcept-type"
+#endif
 #endif
 
   /*! Call a callable `f` with signals `guarded` protected for this thread only, returning whatever `f` or `h` returns.
