@@ -121,7 +121,7 @@ namespace mem_flush_loads_stores
         };
       }
 #elif defined(__aarch64__)
-      return [](const void *addr, memory_flush kind) -> memory_flush {
+      return [](const void *addr, size_t bytes, memory_flush kind) -> memory_flush {
         if(kind == memory_flush_retain)
         {
           while(bytes > 0)
@@ -140,6 +140,28 @@ namespace mem_flush_loads_stores
           bytes -= 64;
         }
         __asm__ __volatile__("dmb ish" : : : "memory");
+        return memory_flush_evict;
+      };
+#elif defined(__arm__)
+      return [](const void *addr, size_t bytes, memory_flush kind) -> memory_flush {
+        if(kind == memory_flush_retain)
+        {
+          while(bytes > 0)
+          {
+            __asm__ __volatile__("MCR p15, 0, %0, c7, c10, 1" : : "r"(addr) : "memory");
+            addr = (void *) ((uintptr_t) addr + 64);
+            bytes -= 64;
+          }
+          __asm__ __volatile__("mcr p15, 0, %0, c7, c10, 5" : : "r"(0) : "memory");
+          return memory_flush_retain;
+        }
+        while(bytes > 0)
+        {
+          __asm__ __volatile__("MCR p15, 0, %0, c7, c14, 1" : : "r"(addr) : "memory");
+          addr = (void *) ((uintptr_t) addr + 64);
+          bytes -= 64;
+        }
+        __asm__ __volatile__("mcr p15, 0, %0, c7, c10, 5" : : "r"(0) : "memory");
         return memory_flush_evict;
       };
 #else
