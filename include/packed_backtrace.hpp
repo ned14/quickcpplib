@@ -123,28 +123,30 @@ namespace packed_backtrace
 #endif
     {
       using storage_type = span::span<uint8_t>;
-      static constexpr uintptr_t bits63_43 = ~((1ULL << 43) - 1);
-      static constexpr uintptr_t bit20 = (1ULL << 20);
-      static constexpr uintptr_t bits20_0 = ((1ULL << 21) - 1);
-      static constexpr uintptr_t bits42_21 = ~(bits63_43 | bits20_0);
-      static constexpr uintptr_t bits42_0 = ((1ULL << 43) - 1);
+      using uintptr_type = std::conditional_t<sizeof(uintptr_t) >= 8, uintptr_t, uint64_t>;
+      
+      static constexpr uintptr_type bits63_43 = ~((1ULL << 43) - 1);
+      static constexpr uintptr_type bit20 = (1ULL << 20);
+      static constexpr uintptr_type bits20_0 = ((1ULL << 21) - 1);
+      static constexpr uintptr_type bits42_21 = ~(bits63_43 | bits20_0);
+      static constexpr uintptr_type bits42_0 = ((1ULL << 43) - 1);
 
       storage_type _storage;
       size_t _count;  // number of decoded items
 
-      template <size_t signbit> static intptr_t _sign_extend(uintptr_t x) noexcept
+      template <size_t signbit> static intptr_t _sign_extend(uintptr_type x) noexcept
       {
 #if 1
         const size_t m = (63 - signbit);
         intptr_t v = static_cast<intptr_t>(x << m);
         return v >> m;
 #else
-        uintptr_t m = 1ULL << signbit;
-        uintptr_t y = (x ^ m) - m;
+        uintptr_type m = 1ULL << signbit;
+        uintptr_type y = (x ^ m) - m;
         return static_cast<intptr_t>(y);
 #endif
       }
-      bool _decode(uintptr_t &out, size_t &idx) const noexcept
+      bool _decode(uintptr_type &out, size_t &idx) const noexcept
       {
         bool first = true;
         for(;;)
@@ -160,9 +162,9 @@ namespace packed_backtrace
               return false;
             // Replace bits 63-43, keeping bits 42-0
             out &= bits42_0;
-            out |= ((uintptr_t)(t & 0x3f) << 59);
-            out |= (uintptr_t) _storage[idx++] << 51;
-            out |= (uintptr_t) _storage[idx++] << 43;
+            out |= ((uintptr_type)(t & 0x3f) << 59);
+            out |= (uintptr_type) _storage[idx++] << 51;
+            out |= (uintptr_type) _storage[idx++] << 43;
             break;
           }
           case 2:
@@ -172,9 +174,9 @@ namespace packed_backtrace
             // Replace bits 42-21, setting bit 20, zeroing 19-0, keeping bits 63-43
             out &= bits63_43;
             out |= bit20;
-            out |= ((uintptr_t)(t & 0x3f) << 37);
-            out |= (uintptr_t) _storage[idx++] << 29;
-            out |= (uintptr_t) _storage[idx++] << 21;
+            out |= ((uintptr_type)(t & 0x3f) << 37);
+            out |= (uintptr_type) _storage[idx++] << 29;
+            out |= (uintptr_type) _storage[idx++] << 21;
             break;
           }
           case 1:
@@ -182,9 +184,9 @@ namespace packed_backtrace
             if(idx > _storage.size() - 3)  // 22 bit payload
               return false;
             // Offset bits 21-0
-            uintptr_t offset = ((uintptr_t)(t & 0x3f) << 16);
-            offset |= (uintptr_t) _storage[idx++] << 8;
-            offset |= (uintptr_t) _storage[idx++] << 0;
+            uintptr_type offset = ((uintptr_type)(t & 0x3f) << 16);
+            offset |= (uintptr_type) _storage[idx++] << 8;
+            offset |= (uintptr_type) _storage[idx++] << 0;
             out += _sign_extend<21>(offset);
             return true;
           }
@@ -208,8 +210,8 @@ namespace packed_backtrace
                 return false;
             }
             // Offset bits 13-0
-            uintptr_t offset = ((uintptr_t)(t & 0x3f) << 8);
-            offset |= (uintptr_t) _storage[idx++] << 0;
+            uintptr_type offset = ((uintptr_type)(t & 0x3f) << 8);
+            offset |= (uintptr_type) _storage[idx++] << 0;
             out += _sign_extend<13>(offset);
             return true;
           }
@@ -219,7 +221,7 @@ namespace packed_backtrace
       }
       size_t _decode_count() const noexcept
       {
-        uintptr_t out = 0;
+        uintptr_type out = 0;
         size_t idx = 0, ret = 0;
         while(_decode(out, idx))
         {
@@ -269,7 +271,7 @@ namespace packed_backtrace
         {
           if(_parent)
           {
-            uintptr_t v = reinterpret_cast<uintptr_t>(_v);
+            uintptr_type v = reinterpret_cast<uintptr_type>(_v);
             if(_parent->_decode(v, _idx))
               _v = reinterpret_cast<value_type>(v);
             else
@@ -374,7 +376,7 @@ namespace packed_backtrace
       //! Returns the specified element, unchecked.
       value_type operator[](size_type i) const noexcept
       {
-        uintptr_t out = 0;
+        uintptr_type out = 0;
         size_t idx = 0;
         for(size_type n = 0; n <= i; n++)
         {
@@ -386,7 +388,7 @@ namespace packed_backtrace
       //! Returns the specified element, checked.
       value_type at(size_type i) const
       {
-        uintptr_t out = 0;
+        uintptr_type out = 0;
         size_t idx = 0;
         for(size_type n = 0; n <= i; n++)
         {
@@ -405,15 +407,15 @@ namespace packed_backtrace
       //! Assigns a raw stack backtrace to the packed storage
       void assign(span::span<const_value_type> input) noexcept
       {
-        uintptr_t out = 0;
+        uintptr_type out = 0;
         size_t idx = 0;
         memset(_storage.data(), 0, _storage.size());
         _count = 0;
         for(const auto &_i : input)
         {
           size_t startidx = idx;
-          uintptr_t i = reinterpret_cast<uintptr_t>(_i);
-          uintptr_t delta = i & bits63_43;
+          uintptr_type i = reinterpret_cast<uintptr_type>(_i);
+          uintptr_type delta = i & bits63_43;
           if((out & bits63_43) != delta)
           {
             if(idx > _storage.size() - 3)
@@ -448,7 +450,7 @@ namespace packed_backtrace
               memset(_storage.data() + startidx, 0, idx - startidx);
               return;
             }
-            delta = static_cast<uintptr_t>(i - out);
+            delta = static_cast<uintptr_type>(i - out);
             // std::cout << "For entry " << _i << " with diff " << (intptr_t) delta << " encoding three byte delta: " << (void *) delta << std::endl;
             _storage[idx++] = 0x40 | ((delta >> 16) & 0x3f);
             _storage[idx++] = (delta >> 8) & 0xff;
@@ -462,7 +464,7 @@ namespace packed_backtrace
               memset(_storage.data() + startidx, 0, idx - startidx);
               return;
             }
-            delta = static_cast<uintptr_t>(i - out);
+            delta = static_cast<uintptr_type>(i - out);
             // std::cout << "For entry " << _i << " with diff " << (intptr_t) delta << " encoding two byte delta: " << (void *) delta << std::endl;
             _storage[idx++] = (delta >> 8) & 0x3f;
             _storage[idx++] = (delta >> 0) & 0xff;
