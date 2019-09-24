@@ -25,9 +25,9 @@ Distributed under the Boost Software License, Version 1.0.
 
 #define _CRT_SECURE_NO_WARNINGS 1
 
-#include "../include/boost/test/unit_test.hpp"
-#include "../include/spinlock.hpp"
-#include "../include/tribool.hpp"
+#include "../include/quickcpplib/boost/test/unit_test.hpp"
+#include "../include/quickcpplib/spinlock.hpp"
+#include "../include/quickcpplib/tribool.hpp"
 #include "timing.h"
 
 #include <algorithm>

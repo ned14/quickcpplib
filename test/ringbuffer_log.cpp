@@ -21,8 +21,8 @@ Distributed under the Boost Software License, Version 1.0.
           http://www.boost.org/LICENSE_1_0.txt)
 */
 
-#include "../include/boost/test/unit_test.hpp"
-#include "../include/ringbuffer_log.hpp"
+#include "../include/quickcpplib/boost/test/unit_test.hpp"
+#include "../include/quickcpplib/ringbuffer_log.hpp"
 
 BOOST_AUTO_TEST_SUITE(ringbuffer_log)
 

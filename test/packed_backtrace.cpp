@@ -21,9 +21,9 @@ Distributed under the Boost Software License, Version 1.0.
           http://www.boost.org/LICENSE_1_0.txt)
 */
 
-#include "../include/algorithm/small_prng.hpp"
-#include "../include/boost/test/unit_test.hpp"
-#include "../include/packed_backtrace.hpp"
+#include "../include/quickcpplib/algorithm/small_prng.hpp"
+#include "../include/quickcpplib/boost/test/unit_test.hpp"
+#include "../include/quickcpplib/packed_backtrace.hpp"
 
 #include <array>
 #include <chrono>

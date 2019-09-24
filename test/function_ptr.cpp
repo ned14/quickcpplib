@@ -21,8 +21,8 @@ Distributed under the Boost Software License, Version 1.0.
           http://www.boost.org/LICENSE_1_0.txt)
 */
 
-#include "../include/boost/test/unit_test.hpp"
-#include "../include/function_ptr.hpp"
+#include "../include/quickcpplib/boost/test/unit_test.hpp"
+#include "../include/quickcpplib/function_ptr.hpp"
 
 BOOST_AUTO_TEST_SUITE(function_ptr)
 

@@ -21,10 +21,10 @@ Distributed under the Boost Software License, Version 1.0.
           http://www.boost.org/LICENSE_1_0.txt)
 */
 
-#include "../include/boost/test/unit_test.hpp"
-#include "../include/detach_cast.hpp"
-#include "../include/erasure_cast.hpp"
-#include "../include/in_place_detach_attach.hpp"
+#include "../include/quickcpplib/boost/test/unit_test.hpp"
+#include "../include/quickcpplib/detach_cast.hpp"
+#include "../include/quickcpplib/erasure_cast.hpp"
+#include "../include/quickcpplib/in_place_detach_attach.hpp"
 
 #include <array>
 

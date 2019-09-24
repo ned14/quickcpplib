@@ -21,8 +21,8 @@ Distributed under the Boost Software License, Version 1.0.
           http://www.boost.org/LICENSE_1_0.txt)
 */
 
-#include "../include/algorithm/open_hash_index.hpp"
-#include "../include/boost/test/unit_test.hpp"
+#include "../include/quickcpplib/algorithm/open_hash_index.hpp"
+#include "../include/quickcpplib/boost/test/unit_test.hpp"
 
 #include <array>
 #include <random>

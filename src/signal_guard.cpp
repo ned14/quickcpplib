@@ -22,9 +22,9 @@ Distributed under the Boost Software License, Version 1.0.
           http://www.boost.org/LICENSE_1_0.txt)
 */
 
-#include "../include/signal_guard.hpp"
+#include "../include/quickcpplib/signal_guard.hpp"
 
-#include "../include/spinlock.hpp"
+#include "../include/quickcpplib/spinlock.hpp"
 
 #include <cstring>       // for memset etc
 #include <system_error>  // for system_error
