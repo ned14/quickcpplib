@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
 # If necessary bring in the quickcpplib cmake tooling
 list(FIND CMAKE_MODULE_PATH "quickcpplib" quickcpplib_idx)
 if(${quickcpplib_idx} GREATER -1)
@@ -20,10 +20,10 @@ unset(PROJECT_NAMESPACE)
 include(QuickCppLibSetupProject)
 if(NOT PROJECT_IS_DEPENDENCY)
   # This file should be updated with the last git SHA next commit
-  UpdateRevisionHppFromGit("${CMAKE_CURRENT_SOURCE_DIR}/include/revision.hpp")
+  UpdateRevisionHppFromGit("${CMAKE_CURRENT_SOURCE_DIR}/include/quickcpplib/revision.hpp")
 endif()
 # Exclude any embedded CATCH
-list_filter(quickcpplib_HEADERS EXCLUDE REGEX "include/CATCH")
+list_filter(quickcpplib_HEADERS EXCLUDE REGEX "include/quickcpplib/CATCH")
 # Make an interface only library so dependent CMakeLists can bring in this header-only library
 include(QuickCppLibMakeHeaderOnlyLibrary)
 # Make a docs target

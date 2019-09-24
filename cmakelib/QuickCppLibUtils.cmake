@@ -247,9 +247,11 @@ endfunction()
 # Finds a quickcpplib library
 #
 # quickcpplib libraries can be located via these means in order of preference:
-# Only if "../.quickcpplib_use_siblings" exists:
-#   1) "../${library}"                         (e.g. ../outcome)
-# Otherwise it looks up ${library} in .gitmodules
+#
+# 1. Only if "../.quickcpplib_use_siblings" exists:
+#   - "../${library}"                         (e.g. ../outcome)
+# 2. It looks up ${library} in .gitmodules, if present it uses that.
+# 3. find_package(${library})
 #
 # If we use a sibling edition, we update the current git index to point at the 
 # git SHA of the sibling edition. That way when we git commit, we need not arse
@@ -289,10 +291,7 @@ function(find_quickcpplib_library libraryname version)
       # One of the only uses of a non-target specific cmake command anywhere,
       # but this is local to the calling CMakeLists.txt and is the correct
       # thing to use.
-      include_directories(SYSTEM "${boostishdir}/.quickcpplib_use_siblings/a/a")
-      include_directories(SYSTEM "${boostishdir}/.quickcpplib_use_siblings/a")
-      include_directories(SYSTEM "${boostishdir}/.quickcpplib_use_siblings")
-      include_directories(SYSTEM "${boostishdir}")
+      include_directories(SYSTEM "${boostishdir}/include")
       set(${libraryname}_PATH "${GITREPO}")
       set(${libraryname}_FOUND TRUE)
     elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${gitsubmodulepath}/.quickcpplib")
@@ -303,11 +302,11 @@ function(find_quickcpplib_library libraryname version)
       )
       # If we are using an embedded dependency, for any unit tests make the
       # dependencies appear as if at the same location as for the headers
-      include_directories(SYSTEM "${CMAKE_CURRENT_SOURCE_DIR}/${gitsubmodulepath}/..")
+      include_directories(SYSTEM "${CMAKE_CURRENT_SOURCE_DIR}/${gitsubmodulepath}/include")
       set(${libraryname}_PATH "${CMAKE_CURRENT_SOURCE_DIR}/${gitsubmodulepath}")
       set(${libraryname}_FOUND TRUE)
     else()
-      set(${libraryname}_FOUND FALSE)
+      find_package(${libraryname} QUIET CONFIG)
     endif()
     # Reset policies after using add_subdirectory() which usually means a cmake_minimum_required()
     # was called which resets policies to default
@@ -366,6 +365,7 @@ function(find_quickcpplib_library libraryname version)
       if(NOT siblingenabled)
         indented_message(STATUS "  (sibling library use disabled due to lack of ${boostishdir}/.quickcpplib_use_siblings)")
       endif()
+      indented_message(STATUS "  find_package(${libraryname})")
     endif()
     list(FIND ARGN "REQUIRED" required_idx)
     if(${required_idx} GREATER -1)

@@ -18,11 +18,19 @@ add_library(${PROJECT_NAME}_sl STATIC ${${PROJECT_NAME}_HEADERS} ${${PROJECT_NAM
 ##if(PROJECT_IS_DEPENDENCY)
   set_target_properties(${PROJECT_NAME}_sl PROPERTIES EXCLUDE_FROM_ALL ON)
 ##endif()
+target_include_directories(${PROJECT_NAME}_sl INTERFACE
+  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+  "$<INSTALL_INTERFACE:include>"
+)
 add_dependencies(_sl ${PROJECT_NAME}_sl)
 list(APPEND ${PROJECT_NAME}_TARGETS ${PROJECT_NAME}_sl)
 foreach(special ${SPECIAL_BUILDS})
   add_library(${PROJECT_NAME}_sl-${special} STATIC EXCLUDE_FROM_ALL ${${PROJECT_NAME}_HEADERS} ${${PROJECT_NAME}_SOURCES})
   target_compile_options(${PROJECT_NAME}_sl-${special} PRIVATE ${${special}_COMPILE_FLAGS})
+  target_include_directories(${PROJECT_NAME}_sl-${special} INTERFACE
+    "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+    "$<INSTALL_INTERFACE:include>"
+  )
   list(APPEND ${PROJECT_NAME}_${special}_TARGETS ${PROJECT_NAME}_sl-${special})
 endforeach()
 if(CMAKE_GENERATOR MATCHES "Visual Studio")
@@ -44,6 +52,10 @@ add_library(${PROJECT_NAME}_dl SHARED ${${PROJECT_NAME}_HEADERS} ${${PROJECT_NAM
 ##if(PROJECT_IS_DEPENDENCY)
   set_target_properties(${PROJECT_NAME}_dl PROPERTIES EXCLUDE_FROM_ALL ON)
 ##endif()
+target_include_directories(${PROJECT_NAME}_dl INTERFACE
+  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+  "$<INSTALL_INTERFACE:include>"
+)
 add_dependencies(_dl ${PROJECT_NAME}_dl)
 list(APPEND ${PROJECT_NAME}_TARGETS ${PROJECT_NAME}_dl)
 foreach(special ${SPECIAL_BUILDS})
@@ -52,6 +64,10 @@ foreach(special ${SPECIAL_BUILDS})
     _target_link_options(${PROJECT_NAME}_dl-${special} ${${special}_LINK_FLAGS})
   endif()
   target_compile_options(${PROJECT_NAME}_dl-${special} PRIVATE ${${special}_COMPILE_FLAGS})
+  target_include_directories(${PROJECT_NAME}_dl-${special} INTERFACE
+    "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+    "$<INSTALL_INTERFACE:include>"
+  )
   list(APPEND ${PROJECT_NAME}_${special}_TARGETS ${PROJECT_NAME}_dl-${special})
 endforeach()
 if(CMAKE_GENERATOR MATCHES "Visual Studio")

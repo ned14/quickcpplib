@@ -1,39 +1,40 @@
-# Firstly, to install the library into /usr/local or whatever
-# Note that this only installs this library, not any boost-lite imported
-# dependencies, and so is actually quite useless.
-#
-# The showstopper question, which we also need to answer for cmake package
-# support, is how best to implement cmake package dependencies.
+# Note that this only installs this library, not any quickcpplib imported
+# dependencies. It is on the installation consumer to also install the
+# dependencies separately.
+include(GNUInstallDirs)
+
 foreach(header ${${PROJECT_NAME}_HEADERS})
   get_filename_component(dir ${header} DIRECTORY)
-  # If not a boost library, install into a library named after the library
-  if(NOT dir MATCHES "include/boost/")
-    string(REGEX REPLACE "include/?(.*)" "include/${PROJECT_NAME}/\\1" dir "${dir}")
-  endif()
-  #indented_message(STATUS "*** Would install ${header} => ${dir}")
-  install(FILES ${header}
+  install(FILES "${header}"
     DESTINATION "${dir}"
   )
 endforeach()
+if(TARGET ${PROJECT_NAME}_hl)
+    install(TARGETS ${PROJECT_NAME}_hl
+            EXPORT ${PROJECT_NAME}Exports
+            INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+    )
+endif()
 if(TARGET ${PROJECT_NAME}_sl)
-  install(FILES ${${PROJECT_NAME}_sl}
-    DESTINATION "lib"
-  )
+    install(TARGETS ${PROJECT_NAME}_sl
+            EXPORT ${PROJECT_NAME}Exports
+            INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+    )
 endif()
 if(TARGET ${PROJECT_NAME}_dl)
-  install(FILES ${${PROJECT_NAME}_dl}
-    DESTINATION "lib"
-  )
+    install(TARGETS ${PROJECT_NAME}_dl
+            EXPORT ${PROJECT_NAME}Exports
+            INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+    )
 endif()
 
-
-# All interface headers in all targets are public headers
-#foreach(target ${${PROJECT_NAME}_TARGETS})
-#  set_target_properties(${target} PROPERTIES PUBLIC_HEADER "${${PROJECT_NAME}_HEADERS}")
-#endforeach()
-#install(TARGETS ${${PROJECT_NAME}_TARGETS} #EXPORT ${PROJECT_NAMESPACE}${PROJECT_NAME}
-#  RUNTIME DESTINATION "bin"
-#  ARCHIVE DESTINATION "lib"
-#  LIBRARY DESTINATION "lib"
-#  INCLUDES DESTINATION "include/${PROJECT_DIR}"
-#)
+# Create and install a find package file
+configure_file(
+  "${CMAKE_CURRENT_LIST_DIR}/ProjectConfig.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+  @ONLY
+)
+install(FILES
+  "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+  DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
+)

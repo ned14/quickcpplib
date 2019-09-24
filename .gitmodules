@@ -5,7 +5,7 @@
 	fetchRecurseSubmodules = true
 	ignore = none
 [submodule "include/gsl-lite"]
-	path = include/gsl-lite
+	path = include/quickcpplib/gsl-lite
 	url = https://github.com/martinmoene/gsl-lite.git
 	branch = master
 	fetchRecurseSubmodules = true
@@ -17,12 +17,12 @@
 	fetchRecurseSubmodules = true
 	ignore = untracked
 [submodule "include/optional"]
-	path = include/optional
+	path = include/quickcpplib/optional
 	url = https://github.com/akrzemi1/Optional.git
 	branch = master
 	fetchRecurseSubmodules = true
 	ignore = untracked
 [submodule "include/byte"]
-	path = include/byte
+	path = include/quickcpplib/byte
 	url = https://github.com/martinmoene/byte-lite.git
 	branch = master

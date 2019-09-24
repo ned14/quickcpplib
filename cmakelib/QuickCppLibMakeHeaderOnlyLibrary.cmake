@@ -24,6 +24,10 @@ endfunction()
 function(default_header_only_interface_library reason)
   indented_message(STATUS "NOTE: NOT compiling header only library for ${PROJECT_NAME} into a C++ Module nor a precompiled header due to ${reason}")
   add_library(${PROJECT_NAME}_hl INTERFACE)
+  target_include_directories(${PROJECT_NAME}_hl INTERFACE
+    "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+#    "$<INSTALL_INTERFACE:include>"  ## unneeded, as adding sources does this for us
+  )
 #  if(DEFINED ${PROJECT_NAME}_INTERFACE)
 #    foreach(source ${${PROJECT_NAME}_INTERFACE})
 #      # Cause my master header to appear in the sources of anything consuming me
@@ -52,8 +56,6 @@ if(NOT DEFINED ENABLE_CXX_MODULES)
 endif()
 if(${PROJECT_NAME}_INTERFACE_DISABLED)
   default_header_only_interface_library("this project not providing a master interface header file")
-elseif(CMAKE_VERSION VERSION_LESS 3.3)
-  default_header_only_interface_library("using a cmake before v3.3")
 elseif(ENABLE_CXX_MODULES AND DEFINED ${PROJECT_NAME}_INTERFACE_SOURCE)  # This library provides a C++ Module source file
   # Add a C++ Module for the PCH header file
   indented_message(STATUS "Compiling ${${PROJECT_NAME}_INTERFACE_SOURCE} into a C++ Module for the ${PROJECT_NAME}_hl target")
