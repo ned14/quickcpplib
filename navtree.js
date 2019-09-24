@@ -1,56 +1,11 @@
 var NAVTREE =
 [
-  [ "QuickCppLib", "index.html", [
-    [ "Todo List", "todo.html", null ],
-    [ "Modules", "modules.html", "modules" ],
-    [ "Namespaces", null, [
-      [ "Namespace List", "namespaces.html", "namespaces" ],
-      [ "Namespace Members", "namespacemembers.html", [
-        [ "All", "namespacemembers.html", "namespacemembers_dup" ],
-        [ "Functions", "namespacemembers_func.html", null ],
-        [ "Variables", "namespacemembers_vars.html", null ],
-        [ "Typedefs", "namespacemembers_type.html", null ],
-        [ "Enumerations", "namespacemembers_enum.html", null ],
-        [ "Enumerator", "namespacemembers_eval.html", null ]
-      ] ]
-    ] ],
-    [ "Classes", null, [
-      [ "Class List", "annotated.html", "annotated" ],
-      [ "Class Index", "classes.html", null ],
-      [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
-      [ "Class Members", "functions.html", [
-        [ "All", "functions.html", "functions_dup" ],
-        [ "Functions", "functions_func.html", "functions_func" ],
-        [ "Variables", "functions_vars.html", null ],
-        [ "Typedefs", "functions_type.html", null ],
-        [ "Enumerations", "functions_enum.html", null ],
-        [ "Enumerator", "functions_eval.html", null ],
-        [ "Related Functions", "functions_rela.html", null ]
-      ] ]
-    ] ],
-    [ "Files", null, [
-      [ "File List", "files.html", "files" ],
-      [ "File Members", "globals.html", [
-        [ "All", "globals.html", "globals_dup" ],
-        [ "Functions", "globals_func.html", null ],
-        [ "Variables", "globals_vars.html", null ],
-        [ "Typedefs", "globals_type.html", null ],
-        [ "Macros", "globals_defs.html", "globals_defs" ]
-      ] ]
-    ] ]
-  ] ]
+  [ "QuickCppLib", "index.html", ]
 ];
 
 var NAVTREEINDEX =
 [
-"aligned__allocator_8hpp.html",
-"classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlock.html#a2be86d2deee48329b0f36470e77a5d78",
-"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html",
-"functions_r.html",
-"gsl-lite_8hpp.html#af543ad53d00deb8cb2d526ab06b68658",
-"open__hash__index_8hpp.html#a0d6a18e3ed4e0604cb9861f7f4c483f5",
-"structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html#a2797b9392e0e9d0f02ee9d093bee4086",
-"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#abb0d211a47995c19bcde650fbae48243"
+"index.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
