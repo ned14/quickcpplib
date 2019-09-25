@@ -118,14 +118,19 @@ if(NOT PROJECT_IS_DEPENDENCY)
       endforeach()
 
       # Deal with tests which require the compilation to succeed
+      set(testtargets)
       foreach(testsource ${${PROJECT_NAME}_COMPILE_TESTS})
         do_add_test(target_names "${testsource}" "" OFF)
+        list(APPEND testtargets ${target_names})
       endforeach()
+      set(${PROJECT_NAME}_COMPILE_TEST_TARGETS ${testtargets} PARENT_SCOPE)
 
       # Deal with tests which require the compilation to fail in an exact way
+      set(testtargets)
       foreach(testsource ${${PROJECT_NAME}_COMPILE_FAIL_TESTS})
         do_add_test(target_names "${testsource}" "" ON)
         foreach(target_name ${target_names})
+          list(APPEND testtargets "${target_name}")
           # Do not build these normally, only on request
           set_target_properties(${target_name} PROPERTIES
             EXCLUDE_FROM_ALL ON
@@ -143,6 +148,7 @@ if(NOT PROJECT_IS_DEPENDENCY)
           set_tests_properties(${target_name} PROPERTIES PASS_REGULAR_EXPRESSION "${firstline}")
         endforeach()
       endforeach()
+      set(${PROJECT_NAME}_COMPILE_FAIL_TARGETS ${testtargets} PARENT_SCOPE)
     endfunction()
     generate_tests()
   endif()
