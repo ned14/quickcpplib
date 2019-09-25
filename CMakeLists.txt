@@ -8,7 +8,8 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmakelib
 include(QuickCppLibRequireOutOfSourceBuild)
 include(QuickCppLibUtils)
 include(QuickCppLibPolicies)
-indented_message(STATUS "NOTE: CMAKE_BUILD_TYPE = ${CMAKE_BUILD_TYPE}")
+# Copy my gitattributes into the optional implementation's
+file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/.gitattributes" DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/include/quickcpplib/optional/")
 
 # Sets the usual PROJECT_NAME etc
 project(quickcpplib VERSION 0.1.0.0 LANGUAGES C CXX)
