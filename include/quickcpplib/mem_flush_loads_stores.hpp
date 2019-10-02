@@ -62,11 +62,11 @@ namespace mem_flush_loads_stores
 #if defined(__i386__) || defined(_M_IX86) || defined(__x86_64__) || defined(_M_X64)
 #ifndef _MSC_VER
       static const auto __cpuidex = [](int *cpuInfo, int func1, int func2) { __asm__ __volatile__("cpuid\n\t" : "=a"(cpuInfo[0]), "=b"(cpuInfo[1]), "=c"(cpuInfo[2]), "=d"(cpuInfo[3]) : "a"(func1), "c"(func2)); };  // NOLINT
-      // static constexpr auto _mm_clwb = [](const void *addr) { __asm__ __volatile__("clwb (%0)\n\t" : : "r"(addr)); };                                                                                                     // NOLINT
-      static const auto _mm_clwb = [](const void *addr) { __asm__ __volatile__(".byte 0x0f, 0xae, 0x30\n\t" : : "a"(addr)); };  // NOLINT
-      static const auto _mm_clflushopt = [](const void *addr) { __asm__ __volatile__("clflushopt (%0)\n\t" : : "r"(addr)); };   // NOLINT
-      static const auto _mm_clflush = [](const void *addr) { __asm__ __volatile__("clflush (%0)\n\t" : : "r"(addr)); };         // NOLINT
-      static const auto _mm_sfence = []() { __asm__ __volatile__("sfence\n\t"); };                                              // NOLINT
+      // static constexpr auto _mm_clwb = [](const void *addr) { __asm__ __volatile__("clwb (%0)\n\t" : : "r"(addr)); };                                                                                                 // NOLINT
+      static const auto _mm_clwb = [](const void *addr) { __asm__ __volatile__(".byte 0x66, 0x0f, 0xae, 0x30\n\t" : : "a"(addr)); };  // NOLINT
+      static const auto _mm_clflushopt = [](const void *addr) { __asm__ __volatile__("clflushopt (%0)\n\t" : : "r"(addr)); };         // NOLINT
+      static const auto _mm_clflush = [](const void *addr) { __asm__ __volatile__("clflush (%0)\n\t" : : "r"(addr)); };               // NOLINT
+      static const auto _mm_sfence = []() { __asm__ __volatile__("sfence\n\t"); };                                                    // NOLINT
 #endif
       int nBuff[4];
       __cpuidex(nBuff, 0x7, 0x0);
