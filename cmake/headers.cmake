@@ -51,4 +51,8 @@ set(quickcpplib_HEADERS
   "include/quickcpplib/type_traits.hpp"
   "include/quickcpplib/uint128.hpp"
   "include/quickcpplib/utils/thread.hpp"
+  "include/quickcpplib/valgrind/drd.h"
+  "include/quickcpplib/valgrind/helgrind.h"
+  "include/quickcpplib/valgrind/memcheck.h"
+  "include/quickcpplib/valgrind/valgrind.h"
 )

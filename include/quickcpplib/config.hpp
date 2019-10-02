@@ -78,7 +78,7 @@ namespace quickcpplib
 
 
 #ifdef QUICKCPPLIB_ENABLE_VALGRIND
-#include "../valgrind/drd.h"
+#include "./valgrind/drd.h"
 #define QUICKCPPLIB_ANNOTATE_RWLOCK_CREATE(p) ANNOTATE_RWLOCK_CREATE(p)
 #define QUICKCPPLIB_ANNOTATE_RWLOCK_DESTROY(p) ANNOTATE_RWLOCK_DESTROY(p)
 #define QUICKCPPLIB_ANNOTATE_RWLOCK_ACQUIRED(p, s) ANNOTATE_RWLOCK_ACQUIRED(p, s)
@@ -153,8 +153,14 @@ extern "C" void _mm_pause();
 #endif
 #endif
 
+#ifdef __has_cpp_attribute
+#define QUICKCPPLIB_HAS_CPP_ATTRIBUTE(attr) __has_cpp_attribute(attr)
+#else
+#define QUICKCPPLIB_HAS_CPP_ATTRIBUTE(attr) (0)
+#endif
+
 #if !defined(QUICKCPPLIB_NORETURN)
-#ifdef __cpp_attributes
+#if QUICKCPPLIB_HAS_CPP_ATTRIBUTE(noreturn)
 #define QUICKCPPLIB_NORETURN [[noreturn]]
 #elif defined(_MSC_VER)
 #define QUICKCPPLIB_NORETURN __declspec(noreturn)
@@ -171,11 +177,9 @@ extern "C" void _mm_pause();
 #endif
 #endif
 #ifndef QUICKCPPLIB_NODISCARD
-#ifdef __has_cpp_attribute
-#if __has_cpp_attribute(nodiscard)
+#if QUICKCPPLIB_HAS_CPP_ATTRIBUTE(nodiscard)
 #define QUICKCPPLIB_NODISCARD [[nodiscard]]
-#endif
-#elif defined(__clang__)
+#elif defined(__clang__)  // deliberately not GCC
 #define QUICKCPPLIB_NODISCARD __attribute__((warn_unused_result))
 #elif defined(_MSC_VER)
 // _Must_inspect_result_ expands into this

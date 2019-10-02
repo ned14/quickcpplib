@@ -3,9 +3,10 @@ if(QuickCppLibUtilsIncluded)
 endif()
 set(QuickCppLibUtilsIncluded ON)
 set(QuickCppLibCMakePath "${CMAKE_CURRENT_LIST_DIR}")
+include(ExternalProject)
 include(FindGit)
 if(NOT GIT_FOUND)
-  message(FATAL_ERROR "FATAL: The Boost-lite infrastructure is very tightly integrated with git"
+  message(FATAL_ERROR "FATAL: The quickcpplib infrastructure is very tightly integrated with git"
                       " and requires it to be available")
 endif()
 
@@ -244,131 +245,117 @@ function(add_partial_preprocess target outfile infile)
   )
 endfunction()
 
+# Have cmake download, build, and install some git repo
+function(download_build_install)
+  cmake_parse_arguments(DBI "" "NAME;DESTINATION;GIT_REPOSITORY;GIT_TAG" "" ${ARGN})
+  configure_file("${QuickCppLibCMakePath}/DownloadBuildInstall.cmake.in" "${DBI_DESTINATION}/CMakeLists.txt" @ONLY)
+  checked_execute_process("Configure download, build and install of ${DBI_NAME}"
+    COMMAND "${CMAKE_COMMAND}" .
+    WORKING_DIRECTORY "${DBI_DESTINATION}"
+  )
+  checked_execute_process("Execute download, build and install of ${DBI_NAME}" 
+    COMMAND "${CMAKE_COMMAND}" --build .
+    WORKING_DIRECTORY "${DBI_DESTINATION}"
+  )
+endfunction()
+
 # Finds a quickcpplib library
+#
+#          QUIET: print no messages
+#       REQUIRED: fail if not found
+#          LOCAL: always git clone a local edition instead of using cmake package edition
+#        INBUILD: add the dependency as a part of this build instead of using the installed edition
+# GIT_REPOSITORY: git repository to clone if library not found
+#        GIT_TAG: git branch or tag or SHA to clone
 #
 # quickcpplib libraries can be located via these means in order of preference:
 #
-# 1. Only if "../.quickcpplib_use_siblings" exists:
-#   - "../${library}"                         (e.g. ../outcome)
-# 2. It looks up ${library} in .gitmodules, if present it uses that.
-# 3. find_package(${library})
+# 1. Only if "../.quickcpplib_use_siblings" exists, "../${libraryname}". These are always INBUILD.
 #
-# If we use a sibling edition, we update the current git index to point at the 
-# git SHA of the sibling edition. That way when we git commit, we need not arse
-# around with manually updating the embedded submodules.
-function(find_quickcpplib_library libraryname version)
+# 2. If not LOCAL, find_package(${libraryname}).
+#
+# 3. ExternalProject_Add() to CMAKE_BINARY_DIR followed by find_package(${libraryname} NO_DEFAULT_PATH).
+function(find_quickcpplib_library libraryname)
   if(NOT PROJECT_NAME)
     message(FATAL_ERROR "FATAL: find_quickcpplib_library() must only be called after a project()")
   endif()
   get_filename_component(boostishdir "${CMAKE_CURRENT_SOURCE_DIR}/.." ABSOLUTE)
-  if(IS_DIRECTORY "${boostishdir}/.quickcpplib_use_siblings")
+  if(IS_DIRECTORY "${boostishdir}/.quickcpplib_use_siblings" AND NOT QUICKCPPLIB_DISABLE_SIBLINGS)
     set(siblingenabled ON)
   else()
     set(siblingenabled OFF)
   endif()
-  if(NOT DEFINED ${libraryname}_FOUND)
-    unset(gitsubmodulepath)
-    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.gitmodules")
-      # Read in .gitmodules and look for the dependency
-      file(READ "${CMAKE_CURRENT_SOURCE_DIR}/.gitmodules" GITMODULESCONTENTS)
-      if(GITMODULESCONTENTS MATCHES ".*\\n?\\[submodule \"([^\"]+\\/${libraryname})\"\\]")
-        set(gitsubmodulepath "${CMAKE_MATCH_1}")
-      endif()
-    endif()
-    if(NOT DEFINED gitsubmodulepath)
-      message(FATAL_ERROR "FATAL: Dependent library ${libraryname} not found in .gitmodules")
-    endif()
-    # Prefer sibling editions of dependencies to embedded editions
+  cmake_parse_arguments(FINDLIB "QUIET;REQUIRED;LOCAL;INBUILD" "GIT_REPOSITORY;GIT_TAG" "" ${ARGN})
+  if(FINDLIB_KEYWORDS_MISSING_VALUES)
+    message(FATAL_ERROR "FATAL: No values given for keywords ${FINDLIB_KEYWORDS_MISSING_VALUES}")
+  endif()
+  if(FINDLIB_UNPARSED_ARGUMENTS)
+    message(FATAL_ERROR "FATAL: Unrecognised arguments ${FINDLIB_UNPARSED_ARGUMENTS}")
+  endif()
+  if(NOT FINDLIB_GIT_REPOSITORY)
+    message(FATAL_ERROR "FATAL: GIT_REPOSITORY must be specified!")
+  endif()
+  set(FINDLIB_LOCAL_PATH)
+  if(NOT ${libraryname}_FOUND)
+    # Prefer sibling editions of dependencies
     if(siblingenabled AND EXISTS "${boostishdir}/${libraryname}/.quickcpplib")
-      set(GITREPO "${boostishdir}/${libraryname}")
-      git_revision_from_path("${GITREPO}" GITSHA GITTS)
-      indented_message(STATUS "Found ${libraryname} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} at sibling ../${libraryname} git revision ${GITSHA} last commit ${GITTS}")
-      set(MESSAGE_INDENT "${MESSAGE_INDENT}  ")
-      add_subdirectory("${GITREPO}"
-        "${CMAKE_CURRENT_BINARY_DIR}/${libraryname}"
-        EXCLUDE_FROM_ALL
-      )
-      # One of the only uses of a non-target specific cmake command anywhere,
-      # but this is local to the calling CMakeLists.txt and is the correct
-      # thing to use.
-      include_directories(SYSTEM "${boostishdir}/include")
-      set(${libraryname}_PATH "${GITREPO}")
+      set(FINDLIB_LOCAL_PATH "${boostishdir}/${libraryname}")
       set(${libraryname}_FOUND TRUE)
-    elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${gitsubmodulepath}/.quickcpplib")
-      indented_message(STATUS "Found ${libraryname} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} at embedded ${gitsubmodulepath}")
-      set(MESSAGE_INDENT "${MESSAGE_INDENT}  ")
-      add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/${gitsubmodulepath}"
-        EXCLUDE_FROM_ALL
-      )
-      # If we are using an embedded dependency, for any unit tests make the
-      # dependencies appear as if at the same location as for the headers
-      include_directories(SYSTEM "${CMAKE_CURRENT_SOURCE_DIR}/${gitsubmodulepath}/include")
-      set(${libraryname}_PATH "${CMAKE_CURRENT_SOURCE_DIR}/${gitsubmodulepath}")
-      set(${libraryname}_FOUND TRUE)
-    else()
+    elseif(NOT FINDLIB_LOCAL)
       find_package(${libraryname} QUIET CONFIG)
     endif()
-    # Reset policies after using add_subdirectory() which usually means a cmake_minimum_required()
-    # was called which resets policies to default
-    include(QuickCppLibPolicies)
-    # I may need to update git submodule SHAs in the index to those of the sibling repo
-    if(DEFINED GITSHA)
-      # Get the SHA used by our repo for the subrepo
-      git_repo_get_entry_sha("${CMAKE_CURRENT_SOURCE_DIR}" "${gitsubmodulepath}" subreposha)
-      if(NOT DEFINED subreposha)
-        message(FATAL_ERROR "FATAL: Failed to get a SHA for the subrepo '${gitsubmodulepath}'")
-      endif()
-      if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${gitsubmodulepath}/.git")
-        # We need to delete any files inside the "${gitsubmodulepath}"
-        # to prevent the submodule SHA restamp confusing git
-        git_repo_changed("${CMAKE_CURRENT_SOURCE_DIR}/${gitsubmodulepath}" subrepoochanged)
-        if(subrepoochanged)
-          message(FATAL_ERROR "FATAL: About to replace embedded subrepo '${gitsubmodulepath}'"
-                              " with sibling subrepo '${GITREPO}' but git says that embedded subrepo has been"
-                              " changed. Please save any changes and hard reset the embedded subrepo.")
-        endif()
-        file(REMOVE_RECURSE "${gitsubmodulepath}")
-        file(MAKE_DIRECTORY "${gitsubmodulepath}")
-      endif()
-      # Git uses the magic cacheinfo of 160000 for subrepos for some reason as can be evidenced by:
-      # ned@LYTA:~/windocs/boostish/afio$ git ls-files -s | grep -e ^160000
-      #   160000 cc293d14a48bf1ee3fb78743c3ad5cf61d63f3ff 0       doc/html
-      #   160000 2682d240406a8a68be442227a6c15df8e2261b94 0       include/boost/afio/boost-lite
-      #   160000 f436d33188b0117c1ecaa40ad9ebadabfdc69c3f 0       include/boost/afio/gsl-lite
-      #   160000 7fb9617c21cae96e04f3a9afa54310a08ad87a57 0       include/boost/afio/outcome
-      #   160000 7f583ce7cc36d2a8baefd3c09445457503614cb8 0       test/kerneltest
-      if(NOT GITSHA STREQUAL subreposha)
-        indented_message(STATUS "Sibling repo for embedded subrepo '${gitsubmodulepath}' has"
-                                " SHA ${GITSHA} but our index uses SHA ${subreposha}, updating our index"
-        )
-        checked_execute_process("git update-index"
-          COMMAND "${GIT_EXECUTABLE}" update-index --cacheinfo 160000 ${GITSHA} ${gitsubmodulepath}
-          WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-        )
+    
+    if(NOT ${libraryname}_FOUND)
+      if(FINDLIB_INBUILD AND EXISTS "${CMAKE_BINARY_DIR}/${libraryname}")
+        set(FINDLIB_LOCAL_PATH "${CMAKE_BINARY_DIR}/${libraryname}")
+        set(${libraryname}_FOUND TRUE)
+      else()
+        find_package(${libraryname} QUIET CONFIG NO_DEFAULT_PATH PATHS "${CMAKE_BINARY_DIR}/${libraryname}")
       endif()
     endif()
+    if(NOT ${libraryname}_FOUND)
+      download_build_install(NAME ${libraryname}
+        GIT_REPOSITORY "${FINDLIB_GIT_REPOSITORY}"
+        GIT_TAG "${FINDLIB_GIT_TAG}"
+        DESTINATION "${CMAKE_BINARY_DIR}/${libraryname}"
+      )
+      if(FINDLIB_INBUILD)
+        set(FINDLIB_LOCAL_PATH "${CMAKE_BINARY_DIR}/${libraryname}")
+        set(${libraryname}_FOUND TRUE)
+      else()
+        find_package(${libraryname} CONFIG REQUIRED NO_DEFAULT_PATH PATHS "${CMAKE_BINARY_DIR}/${libraryname}")
+      endif()
+    endif()
+    
+    if(FINDLIB_LOCAL_PATH)
+      set(MESSAGE_INDENT "${MESSAGE_INDENT}  ")
+      add_subdirectory("${FINDLIB_LOCAL_PATH}"
+        "${CMAKE_CURRENT_BINARY_DIR}/${libraryname}_sibling"
+        EXCLUDE_FROM_ALL
+      )
+      # Reset policies after using add_subdirectory() which usually means a cmake_minimum_required()
+      # was called which resets policies to default
+      include(QuickCppLibPolicies)
+    endif()
   endif()
-  # We don't cache this as we want to rerun the above git SHA stamping etc. per build
-  set(${libraryname}_PATH "${${libraryname}_PATH}" PARENT_SCOPE)
-  set(${libraryname}_FOUND ${${libraryname}_FOUND} PARENT_SCOPE)
   if(${libraryname}_FOUND)
     set(${PROJECT_NAME}_DEPENDENCIES ${${PROJECT_NAME}_DEPENDENCIES} "${libraryname}" PARENT_SCOPE)
   else()
-    list(FIND ARGN "QUIET" quiet_idx)
-    if(${quiet_idx} EQUAL -1)
+    if(NOT FINDLIB_QUIET)
       indented_message(WARNING "WARNING: quickcpplib library ${libraryname} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} not found")
       indented_message(STATUS "Tried: ")
       if(siblingenabled)
         indented_message(STATUS "  ${boostishdir}/${libraryname}/.quickcpplib")
       endif()
-      indented_message(STATUS "  ${CMAKE_CURRENT_SOURCE_DIR}/${gitsubmodulepath}/.quickcpplib")
+      indented_message(STATUS "  ${CMAKE_BINARY_DIR}/${libraryname}/.quickcpplib")
       if(NOT siblingenabled)
         indented_message(STATUS "  (sibling library use disabled due to lack of ${boostishdir}/.quickcpplib_use_siblings)")
       endif()
-      indented_message(STATUS "  find_package(${libraryname})")
+      if(NOT FINDLIB_LOCAL)
+        indented_message(STATUS "  find_package(${libraryname})")
+      endif()
     endif()
-    list(FIND ARGN "REQUIRED" required_idx)
-    if(${required_idx} GREATER -1)
+    if(FINDLIB_REQUIRED)
       indented_message(FATAL_ERROR "FATAL: quickcpplib library ${libraryname} required by ${PROJECT_NAMESPACE}${PROJECT_NAME} not found")
     endif()
   endif()
