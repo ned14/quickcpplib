@@ -3,7 +3,6 @@ if(QuickCppLibUtilsIncluded)
 endif()
 set(QuickCppLibUtilsIncluded ON)
 set(QuickCppLibCMakePath "${CMAKE_CURRENT_LIST_DIR}")
-include(ExternalProject)
 include(FindGit)
 if(NOT GIT_FOUND)
   message(FATAL_ERROR "FATAL: The quickcpplib infrastructure is very tightly integrated with git"
