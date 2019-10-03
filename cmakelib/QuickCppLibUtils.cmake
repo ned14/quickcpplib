@@ -79,9 +79,13 @@ endfunction()
 
 # Executes an external process, fatal erroring if it fails
 function(checked_execute_process desc)
-  execute_process(${ARGN} RESULT_VARIABLE result)
+  execute_process(${ARGN}
+    RESULT_VARIABLE result
+    OUTPUT_VARIABLE out
+    ERROR_VARIABLE errout
+  )
   if(NOT result EQUAL 0)
-    message(FATAL_ERROR "FATAL: ${desc} failed with error '${result}'")
+    message(FATAL_ERROR "FATAL: ${desc} failed with error '${result}'\n\nstdout was: ${out}\n\nstderr was: ${errout}")
   endif()
 endfunction()
 
@@ -406,4 +410,136 @@ function(merge_junit_results_into_ctest_xml)
     RESULT_VARIABLE result
   )
   message(STATUS "Merging junit XML results into the CTest XML returned with status ${result}")
+endfunction()
+
+
+# Figures out whether this compiler support C++ Concepts, and if so
+# applies the appropriate config to the targets specified to enable them
+function(apply_cxx_concepts_to visibility)
+  include(CheckCXXSourceCompiles)
+  # Do we have the Concepts TS?
+  function(CheckCXXHasConcepts iter)
+    set(CMAKE_REQUIRED_FLAGS ${ARGN})
+    check_cxx_source_compiles("
+  #if !defined(_MSC_VER) && !defined(__clang__) && __GNUC__ < 9
+  #define OUTCOME_GCC6_CONCEPT_BOOL bool
+  #else
+  #define OUTCOME_GCC6_CONCEPT_BOOL
+  #endif
+  template <class U> concept OUTCOME_GCC6_CONCEPT_BOOL ValueOrNone = requires(U a)
+  {
+    {
+      a.has_value()
+    }
+    ->bool;
+    {a.value()};
+  };
+  int main() { return 0; }
+  " CXX_HAS_CONCEPTS${iter})
+    set(CXX_HAS_CONCEPTS${iter} ${CXX_HAS_CONCEPTS${iter}} PARENT_SCOPE)
+  endfunction()
+  set(CXX_CONCEPTS_FLAGS "deduce" CACHE STRING "The flags to enable C++ Concepts for this compiler")
+  if(CXX_CONCEPTS_FLAGS STREQUAL "deduce")
+    set(HAVE_CONCEPTS 0)
+    CheckCXXHasConcepts(_BY_DEFAULT)
+    if(CXX_HAS_CONCEPTS_BY_DEFAULT)
+      set(HAVE_CONCEPTS 1)
+      set(CXX_CONCEPTS_FLAGS "" CACHE STRING "The flags to enable C++ Concepts for this compiler" FORCE)
+    endif()
+    if(NOT HAVE_CONCEPTS)
+      if(CLANG OR GCC)
+        CheckCXXHasConcepts(_CLANG_GCC -fconcepts)
+        if(CXX_HAS_CONCEPTS_CLANG_GCC)
+          set(CXX_CONCEPTS_FLAGS "-fconcepts" CACHE STRING "The flags to enable C++ Concepts for this compiler" FORCE)
+          set(HAVE_CONCEPTS 1)
+        endif()
+      endif()
+    endif()
+    if(NOT HAVE_CONCEPTS)
+      set(CXX_CONCEPTS_FLAGS "unsupported" CACHE STRING "The flags to enable C++ Concepts for this compiler" FORCE)
+    endif()
+  endif()
+  if(CXX_CONCEPTS_FLAGS AND NOT CXX_CONCEPTS_FLAGS STREQUAL "unsupported")
+    foreach(target ${ARGN})
+      target_compile_options(${target} ${visibility} ${CXX_CONCEPTS_FLAGS})
+    endforeach()
+  endif()
+endfunction()
+
+# Figures out whether this compiler support C++ Coroutines, and if so
+# applies the appropriate config to the targets specified to enable them
+function(apply_cxx_coroutines_to visibility)
+  include(CheckCXXSourceCompiles)
+  # Do we have the Coroutines TS?
+  function(CheckCXXHasCoroutines iter)
+    set(CMAKE_REQUIRED_FLAGS ${ARGN})
+    check_cxx_source_compiles("
+#if __has_include(<coroutine>)
+#include <coroutine>
+using std::suspend_never;
+#elif __has_include(<experimental/coroutine>)
+#include <experimental/coroutine>
+using std::experimental::suspend_never;
+#endif
+class resumable{
+public:
+  struct promise_type
+  {
+    resumable get_return_object() { return {}; }
+    auto initial_suspend() { return suspend_never(); }
+    auto final_suspend() { return suspend_never(); }
+    int return_value(int x) { return x; }
+    void unhandled_exception() {}
+  };
+  bool resume() { return true; }
+  int get() { return 0; }
+};
+resumable g() { co_return 0; }
+int main() { return g().get(); }
+" CXX_HAS_COROUTINES${iter})
+    set(CXX_HAS_COROUTINES${iter} ${CXX_HAS_COROUTINES${iter}} PARENT_SCOPE)
+  endfunction()
+  set(CXX_COROUTINES_FLAGS "deduce" CACHE STRING "The flags to enable C++ Coroutines for this compiler")
+  set(CXX_COROUTINES_LINKER_FLAGS "" CACHE STRING "The linker flags to enable C++ Coroutines for this compiler")
+  if(CXX_COROUTINES_FLAGS STREQUAL "deduce")
+    set(HAVE_COROUTINES 0)
+    CheckCXXHasCoroutines(_BY_DEFAULT)
+    if(CXX_HAS_COROUTINES_BY_DEFAULT)
+      set(HAVE_COROUTINES 1)
+      set(CXX_COROUTINES_FLAGS "" CACHE STRING "The flags to enable C++ Coroutines for this compiler" FORCE)
+    endif()
+    if(NOT HAVE_COROUTINES)
+      if(MSVC)
+        CheckCXXHasCoroutines(_MSVC "/EHsc /await")
+        if(CXX_HAS_COROUTINES_MSVC)
+          set(CXX_COROUTINES_FLAGS "/await" CACHE STRING "The flags to enable C++ Coroutines for this compiler" FORCE)
+          set(HAVE_COROUTINES 1)
+        endif()
+      endif()
+      if(CLANG OR GCC)
+        CheckCXXHasCoroutines(_CLANG_GCC "-fcoroutines-ts")
+        if(CXX_HAS_COROUTINES_CLANG_GCC)
+          set(CXX_COROUTINES_FLAGS "-fcoroutines-ts" CACHE STRING "The flags to enable C++ Coroutines for this compiler" FORCE)
+          set(HAVE_COROUTINES 1)
+        endif()
+        CheckCXXHasCoroutines(_CLANG_GCC_LIBCXX "-stdlib=libc++ -fcoroutines-ts")
+        if(CXX_HAS_COROUTINES_CLANG_GCC_LIBCXX)
+          set(CXX_COROUTINES_FLAGS "-stdlib=libc++;-fcoroutines-ts" CACHE STRING "The flags to enable C++ Coroutines for this compiler" FORCE)
+          set(CXX_COROUTINES_LINKER_FLAGS "-stdlib=libc++ -lc++abi" CACHE STRING "The linker flags to enable C++ Coroutines for this compiler" FORCE)
+          set(HAVE_COROUTINES 1)
+        endif()
+      endif()
+    endif()
+    if(NOT HAVE_COROUTINES)
+      set(CXX_COROUTINES_FLAGS "unsupported" CACHE STRING "The flags to enable C++ Coroutines for this compiler" FORCE)
+    endif()
+  endif()
+  if(CXX_COROUTINES_FLAGS AND NOT CXX_COROUTINES_FLAGS STREQUAL "unsupported")
+    foreach(target ${ARGN})
+      target_compile_options(${target} ${visibility} ${CXX_COROUTINES_FLAGS})
+      if(CXX_COROUTINES_LINKER_FLAGS)
+        _target_link_options(${target} ${CXX_COROUTINES_LINKER_FLAGS})
+      endif()
+    endforeach()
+  endif()
 endfunction()
