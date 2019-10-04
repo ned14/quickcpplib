@@ -49,9 +49,6 @@ endif()
 add_library(${PROJECT_NAMESPACE}${PROJECT_NAME}::sl ALIAS ${PROJECT_NAME}_sl)
 
 add_library(${PROJECT_NAME}_dl SHARED ${${PROJECT_NAME}_HEADERS} ${${PROJECT_NAME}_SOURCES})
-##if(PROJECT_IS_DEPENDENCY)
-  set_target_properties(${PROJECT_NAME}_dl PROPERTIES EXCLUDE_FROM_ALL ON)
-##endif()
 target_include_directories(${PROJECT_NAME}_dl INTERFACE
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
   "$<INSTALL_INTERFACE:include>"

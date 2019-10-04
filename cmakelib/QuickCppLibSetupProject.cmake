@@ -1,5 +1,9 @@
 # Set up this cmake environment for this project
 
+if(NOT CMAKE_CONFIGURATION_TYPES AND NOT CMAKE_BUILD_TYPE AND NOT CMAKE_GENERATOR_INSTANCE)
+  message(FATAL_ERROR "FATAL: CMAKE_BUILD_TYPE must be set on non-multi-config generators")
+endif()
+
 # Bring in CTest support
 include(CTest)
 # Bring in threads, this is after all the 21st century
