@@ -131,12 +131,10 @@ else()
   # MSVC has a cool feature where .natvis files tell the debugger how to display a type
   # We append this to the main interface header because we want all .natvis in all the
   # dependencies brought into anything we link
-  if(MSVC)
-    set(${PROJECT_NAME}_INTERFACE_SOURCES ${${PROJECT_NAME}_HEADERS})
-    list_filter(${PROJECT_NAME}_INTERFACE_SOURCES INCLUDE REGEX "\\.natvis$")
-    list(APPEND ${PROJECT_NAME}_INTERFACE ${${PROJECT_NAME}_INTERFACE_SOURCES})
-    unset(${PROJECT_NAME}_INTERFACE_SOURCES)
-  endif()
+  set(${PROJECT_NAME}_INTERFACE_SOURCES ${${PROJECT_NAME}_HEADERS})
+  list_filter(${PROJECT_NAME}_INTERFACE_SOURCES INCLUDE REGEX "\\.natvis$")
+  list(APPEND ${PROJECT_NAME}_INTERFACE ${${PROJECT_NAME}_INTERFACE_SOURCES})
+  unset(${PROJECT_NAME}_INTERFACE_SOURCES)
 endif()
 
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/src")
