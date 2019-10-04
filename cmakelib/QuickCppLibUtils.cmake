@@ -240,12 +240,16 @@ endfunction()
 
 # Preprocess a file
 function(add_partial_preprocess target outfile infile)
-  add_custom_target(${target} 
-    ${PYTHON_EXECUTABLE} ${QuickCppLibCMakePath}/../pcpp/pcpp/pcmd.py
-    -o "${outfile}" "${infile}"
-    ${ARGN}
-    COMMENT "Preprocessing ${infile} into ${outfile} ..."
-  )
+  if(EXISTS "${QuickCppLibCMakePath}/../pcpp/pcpp/pcmd.py")
+    add_custom_target(${target} 
+      "${PYTHON_EXECUTABLE}" "${QuickCppLibCMakePath}/../pcpp/pcpp/pcmd.py"
+      -o "${outfile}" "${infile}"
+      ${ARGN}
+      COMMENT "Preprocessing ${infile} into ${outfile} ..."
+    )
+  else()
+    add_custom_target(${target})
+  endif()
 endfunction()
 
 # Have cmake download, build, and install some git repo
@@ -300,6 +304,9 @@ function(find_quickcpplib_library libraryname)
   endif()
   set(FINDLIB_LOCAL_PATH)
   if(NOT ${libraryname}_FOUND)
+    get_property(${libraryname}_FOUND GLOBAL PROPERTY ${libraryname}_FOUND)
+  endif()
+  if(NOT ${libraryname}_FOUND)
     # Prefer sibling editions of dependencies
     if(siblingenabled AND EXISTS "${boostishdir}/${libraryname}/.quickcpplib")
       set(FINDLIB_LOCAL_PATH "${boostishdir}/${libraryname}")
@@ -332,6 +339,7 @@ function(find_quickcpplib_library libraryname)
     
     if(FINDLIB_LOCAL_PATH)
       set(MESSAGE_INDENT "${MESSAGE_INDENT}  ")
+      set(PROJECT_IS_DEPENDENCY TRUE)
       add_subdirectory("${FINDLIB_LOCAL_PATH}"
         "${CMAKE_CURRENT_BINARY_DIR}/${libraryname}_sibling"
         EXCLUDE_FROM_ALL
@@ -344,9 +352,9 @@ function(find_quickcpplib_library libraryname)
     endif()
   endif()
   if(${libraryname}_FOUND)
-    set(${libraryname}_FOUND "${${libraryname}_FOUND}" CACHE BOOL "Used by quickcpplib to avoid refinding the same library" FORCE)
-    set(${libraryname}_DIR "${${libraryname}_DIR}" CACHE STRING "The path where quickcpplib first found the library" FORCE)
-    set(${PROJECT_NAME}_DEPENDENCIES "${${PROJECT_NAME}_DEPENDENCIES};${libraryname}" CACHE STRING "The dependencies of this quickcpplib found library" FORCE)
+    set_property(GLOBAL PROPERTY ${libraryname}_FOUND TRUE)
+    set_property(GLOBAL PROPERTY ${libraryname}_DIR "${${libraryname}_DIR}")
+    set_property(GLOBAL PROPERTY ${libraryname}_DEPENDENCIES "${${PROJECT_NAME}_DEPENDENCIES};${libraryname}")
   else()
     if(NOT FINDLIB_QUIET)
       indented_message(WARNING "WARNING: quickcpplib library ${libraryname} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} not found")
@@ -530,6 +538,7 @@ int main() { return g().get(); }
         if(CXX_HAS_COROUTINES_CLANG_GCC_LIBCXX)
           set(CXX_COROUTINES_FLAGS "-stdlib=libc++;-fcoroutines-ts" CACHE STRING "The flags to enable C++ Coroutines for this compiler" FORCE)
           set(CXX_COROUTINES_LINKER_FLAGS "-stdlib=libc++ -lc++abi" CACHE STRING "The linker flags to enable C++ Coroutines for this compiler" FORCE)
+          set(CXX_COROUTINES_FORCE_STATIC_SHARED_LIBRARY_LINK TRUE CACHE BOOL "Whether to force a static link for shared libraries due to use of an incompatible STL" FORCE)
           set(HAVE_COROUTINES 1)
         endif()
       endif()
@@ -542,7 +551,12 @@ int main() { return g().get(); }
     foreach(target ${ARGN})
       target_compile_options(${target} ${visibility} ${CXX_COROUTINES_FLAGS})
       if(CXX_COROUTINES_LINKER_FLAGS)
-        _target_link_options(${target} ${CXX_COROUTINES_LINKER_FLAGS})
+        get_target_property(type ${target} TYPE)
+        if(CXX_COROUTINES_FORCE_STATIC_SHARED_LIBRARY_LINK AND type MATCHES SHARED)
+          _target_link_options(${target} ${CXX_COROUTINES_LINKER_FLAGS} -static)
+        else()
+          _target_link_options(${target} ${CXX_COROUTINES_LINKER_FLAGS})
+        endif()
       endif()
     endforeach()
   endif()
