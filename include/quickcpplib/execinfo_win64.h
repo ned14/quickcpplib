@@ -59,7 +59,7 @@ EXECINFO_DECL _Check_return_ _Ret_writes_maybenull_(len) char **backtrace_symbol
 
 #if(!defined(QUICKCPPLIB_HEADERS_ONLY) || QUICKCPPLIB_HEADERS_ONLY == 1) && !defined(DOXYGEN_SHOULD_SKIP_THIS)
 #define QUICKCPPLIB_INCLUDED_BY_HEADER 1
-#include "../src/execinfo_win64.c"
+#include "../../src/execinfo_win64.c"
 #undef QUICKCPPLIB_INCLUDED_BY_HEADER
 #endif
 
