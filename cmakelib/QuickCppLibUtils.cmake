@@ -324,6 +324,7 @@ function(find_quickcpplib_library libraryname)
       endif()
     endif()
     if(NOT ${libraryname}_FOUND)
+      indented_message(STATUS "Superbuilding missing dependency ${libraryname}, this make take a while ...")
       download_build_install(NAME ${libraryname}
         GIT_REPOSITORY "${FINDLIB_GIT_REPOSITORY}"
         GIT_TAG "${FINDLIB_GIT_TAG}"
