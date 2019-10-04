@@ -336,13 +336,17 @@ function(find_quickcpplib_library libraryname)
         "${CMAKE_CURRENT_BINARY_DIR}/${libraryname}_sibling"
         EXCLUDE_FROM_ALL
       )
+      set(${libraryname}_DIR "${FINDLIB_LOCAL_PATH}")
+      set(${libraryname}_FOUND TRUE)
       # Reset policies after using add_subdirectory() which usually means a cmake_minimum_required()
       # was called which resets policies to default
       include(QuickCppLibPolicies)
     endif()
   endif()
   if(${libraryname}_FOUND)
-    set(${PROJECT_NAME}_DEPENDENCIES ${${PROJECT_NAME}_DEPENDENCIES} "${libraryname}" PARENT_SCOPE)
+    set(${libraryname}_FOUND "${${libraryname}_FOUND}" CACHE BOOL "Used by quickcpplib to avoid refinding the same library" FORCE)
+    set(${libraryname}_DIR "${${libraryname}_DIR}" CACHE STRING "The path where quickcpplib first found the library" FORCE)
+    set(${PROJECT_NAME}_DEPENDENCIES "${${PROJECT_NAME}_DEPENDENCIES};${libraryname}" CACHE STRING "The dependencies of this quickcpplib found library" FORCE)
   else()
     if(NOT FINDLIB_QUIET)
       indented_message(WARNING "WARNING: quickcpplib library ${libraryname} depended upon by ${PROJECT_NAMESPACE}${PROJECT_NAME} not found")
