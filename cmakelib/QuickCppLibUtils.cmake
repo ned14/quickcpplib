@@ -307,6 +307,9 @@ function(find_quickcpplib_library libraryname)
   if(NOT ${libraryname}_FOUND)
     get_property(${libraryname}_FOUND GLOBAL PROPERTY ${libraryname}_FOUND)
   endif()
+  if(NOT DEFINED QUICKCPPLIB_ROOT_BINARY_DIR)
+    set(QUICKCPPLIB_ROOT_BINARY_DIR "${CMAKE_BINARY_DIR}")
+  endif()
   if(NOT ${libraryname}_FOUND)
     # Prefer sibling editions of dependencies
     if(siblingenabled AND EXISTS "${boostishdir}/${libraryname}/.quickcpplib")
@@ -317,11 +320,11 @@ function(find_quickcpplib_library libraryname)
     endif()
     
     if(NOT ${libraryname}_FOUND)
-      if(FINDLIB_INBUILD AND EXISTS "${CMAKE_BINARY_DIR}/${libraryname}")
-        set(FINDLIB_LOCAL_PATH "${CMAKE_BINARY_DIR}/${libraryname}")
+      if(FINDLIB_INBUILD AND EXISTS "${QUICKCPPLIB_ROOT_BINARY_DIR}/${libraryname}")
+        set(FINDLIB_LOCAL_PATH "${QUICKCPPLIB_ROOT_BINARY_DIR}/${libraryname}")
         set(${libraryname}_FOUND TRUE)
       else()
-        find_package(${libraryname} QUIET CONFIG NO_DEFAULT_PATH PATHS "${CMAKE_BINARY_DIR}/${libraryname}")
+        find_package(${libraryname} QUIET CONFIG NO_DEFAULT_PATH PATHS "${QUICKCPPLIB_ROOT_BINARY_DIR}/${libraryname}")
       endif()
     endif()
     if(NOT ${libraryname}_FOUND)
@@ -329,25 +332,25 @@ function(find_quickcpplib_library libraryname)
         indented_message(STATUS "Superbuilding missing dependency ${libraryname} with config ${config}, this make take a while ...")
         set(extraargs "GIT_SHALLOW 1")
         if(NOT config STREQUAL Debug)
-          if(FINDLIB_IS_HEADER_ONLY)
-            break()
-          endif()
           # go faster
           set(extraargs "GIT_SHALLOW 1;GIT_SUBMODULES")
         endif()
         download_build_install(NAME ${libraryname}
-          CMAKE_ARGS -DCMAKE_BUILD_TYPE=${config} -DPROJECT_IS_DEPENDENCY=TRUE
+          CMAKE_ARGS -DCMAKE_BUILD_TYPE=${config} -DPROJECT_IS_DEPENDENCY=TRUE "-DQUICKCPPLIB_ROOT_BINARY_DIR=${QUICKCPPLIB_ROOT_BINARY_DIR}"
           EXTERNALPROJECT_ARGS ${extraargs}
           GIT_REPOSITORY "${FINDLIB_GIT_REPOSITORY}"
           GIT_TAG "${FINDLIB_GIT_TAG}"
-          DESTINATION "${CMAKE_BINARY_DIR}/${libraryname}"
+          DESTINATION "${QUICKCPPLIB_ROOT_BINARY_DIR}/${libraryname}"
         )
+        if(FINDLIB_IS_HEADER_ONLY)
+          break()
+        endif()
       endforeach()
       if(FINDLIB_INBUILD)
-        set(FINDLIB_LOCAL_PATH "${CMAKE_BINARY_DIR}/${libraryname}")
+        set(FINDLIB_LOCAL_PATH "${QUICKCPPLIB_ROOT_BINARY_DIR}/${libraryname}")
         set(${libraryname}_FOUND TRUE)
       else()
-        find_package(${libraryname} CONFIG REQUIRED NO_DEFAULT_PATH PATHS "${CMAKE_BINARY_DIR}/${libraryname}")
+        find_package(${libraryname} CONFIG REQUIRED NO_DEFAULT_PATH PATHS "${QUICKCPPLIB_ROOT_BINARY_DIR}/${libraryname}")
       endif()
     endif()
     
@@ -355,7 +358,7 @@ function(find_quickcpplib_library libraryname)
       set(MESSAGE_INDENT "${MESSAGE_INDENT}  ")
       set(PROJECT_IS_DEPENDENCY TRUE)
       add_subdirectory("${FINDLIB_LOCAL_PATH}"
-        "${CMAKE_CURRENT_BINARY_DIR}/${libraryname}_sibling"
+        "${QUICKCPPLIB_ROOT_BINARY_DIR}/${libraryname}_sibling"
         EXCLUDE_FROM_ALL
       )
       set(${libraryname}_DIR "${FINDLIB_LOCAL_PATH}")
@@ -376,7 +379,7 @@ function(find_quickcpplib_library libraryname)
       if(siblingenabled)
         indented_message(STATUS "  ${boostishdir}/${libraryname}/.quickcpplib")
       endif()
-      indented_message(STATUS "  ${CMAKE_BINARY_DIR}/${libraryname}/.quickcpplib")
+      indented_message(STATUS "  ${QUICKCPPLIB_ROOT_BINARY_DIR}/${libraryname}/.quickcpplib")
       if(NOT siblingenabled)
         indented_message(STATUS "  (sibling library use disabled due to lack of ${boostishdir}/.quickcpplib_use_siblings)")
       endif()
