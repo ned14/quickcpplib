@@ -254,13 +254,13 @@ endfunction()
 
 # Have cmake download, build, and install some git repo
 function(download_build_install)
-  cmake_parse_arguments(DBI "" "NAME;DESTINATION;GIT_REPOSITORY;GIT_TAG" "" ${ARGN})
+  cmake_parse_arguments(DBI "" "NAME;DESTINATION;GIT_REPOSITORY;GIT_TAG;CMAKE_ARGS" "" ${ARGN})
   configure_file("${QuickCppLibCMakePath}/DownloadBuildInstall.cmake.in" "${DBI_DESTINATION}/CMakeLists.txt" @ONLY)
-  checked_execute_process("Configure download, build and install of ${DBI_NAME}"
+  checked_execute_process("Configure download, build and install of ${DBI_NAME} with ${DBI_CMAKE_ARGS}"
     COMMAND "${CMAKE_COMMAND}" .
     WORKING_DIRECTORY "${DBI_DESTINATION}"
   )
-  checked_execute_process("Execute download, build and install of ${DBI_NAME}" 
+  checked_execute_process("Execute download, build and install of ${DBI_NAME} with ${DBI_CMAKE_ARGS}" 
     COMMAND "${CMAKE_COMMAND}" --build .
     WORKING_DIRECTORY "${DBI_DESTINATION}"
   )
@@ -320,21 +320,24 @@ function(find_quickcpplib_library libraryname)
         set(FINDLIB_LOCAL_PATH "${CMAKE_BINARY_DIR}/${libraryname}")
         set(${libraryname}_FOUND TRUE)
       else()
-        find_package(${libraryname} QUIET CONFIG NO_DEFAULT_PATH PATHS "${CMAKE_BINARY_DIR}/${libraryname}/lib")
+        find_package(${libraryname} QUIET CONFIG NO_DEFAULT_PATH PATHS "${CMAKE_BINARY_DIR}/${libraryname}")
       endif()
     endif()
     if(NOT ${libraryname}_FOUND)
-      indented_message(STATUS "Superbuilding missing dependency ${libraryname}, this make take a while ...")
-      download_build_install(NAME ${libraryname}
-        GIT_REPOSITORY "${FINDLIB_GIT_REPOSITORY}"
-        GIT_TAG "${FINDLIB_GIT_TAG}"
-        DESTINATION "${CMAKE_BINARY_DIR}/${libraryname}"
-      )
+      foreach(config Debug Release RelWithDebInfo MinSizeRel)
+        indented_message(STATUS "Superbuilding missing dependency ${libraryname} with config ${config}, this make take a while ...")
+        download_build_install(NAME ${libraryname}
+          CMAKE_ARGS -DCMAKE_BUILD_TYPE=${config} -DPROJECT_IS_DEPENDENCY=TRUE
+          GIT_REPOSITORY "${FINDLIB_GIT_REPOSITORY}"
+          GIT_TAG "${FINDLIB_GIT_TAG}"
+          DESTINATION "${CMAKE_BINARY_DIR}/${libraryname}"
+        )
+      endforeach()
       if(FINDLIB_INBUILD)
         set(FINDLIB_LOCAL_PATH "${CMAKE_BINARY_DIR}/${libraryname}")
         set(${libraryname}_FOUND TRUE)
       else()
-        find_package(${libraryname} CONFIG REQUIRED NO_DEFAULT_PATH PATHS "${CMAKE_BINARY_DIR}/${libraryname}/lib")
+        find_package(${libraryname} CONFIG REQUIRED NO_DEFAULT_PATH PATHS "${CMAKE_BINARY_DIR}/${libraryname}")
       endif()
     endif()
     
