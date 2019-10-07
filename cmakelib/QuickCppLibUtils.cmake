@@ -87,6 +87,7 @@ function(checked_execute_process desc)
   if(NOT result EQUAL 0)
     message(FATAL_ERROR "FATAL: ${desc} failed with error '${result}'\n\nstdout was: ${out}\n\nstderr was: ${errout}")
   endif()
+  message("stdout was: ${out}\n\nstderr was: ${errout}")
 endfunction()
 
 # Determines if a git repo has changed
@@ -254,7 +255,7 @@ endfunction()
 
 # Have cmake download, build, and install some git repo
 function(download_build_install)
-  cmake_parse_arguments(DBI "" "NAME;DESTINATION;GIT_REPOSITORY;GIT_TAG;CMAKE_ARGS" "" ${ARGN})
+  cmake_parse_arguments(DBI "" "NAME;DESTINATION;GIT_REPOSITORY;GIT_TAG" "CMAKE_ARGS;EXTERNALPROJECT_ARGS" ${ARGN})
   configure_file("${QuickCppLibCMakePath}/DownloadBuildInstall.cmake.in" "${DBI_DESTINATION}/CMakeLists.txt" @ONLY)
   checked_execute_process("Configure download, build and install of ${DBI_NAME} with ${DBI_CMAKE_ARGS}"
     COMMAND "${CMAKE_COMMAND}" .
@@ -326,8 +327,14 @@ function(find_quickcpplib_library libraryname)
     if(NOT ${libraryname}_FOUND)
       foreach(config Debug Release RelWithDebInfo MinSizeRel)
         indented_message(STATUS "Superbuilding missing dependency ${libraryname} with config ${config}, this make take a while ...")
+        set(extraargs "GIT_SHALLOW 1")
+        if(config NOT STREQUAL Debug)
+          # go faster
+          set(extraargs "GIT_SHALLOW 1;GIT_SUBMODULES")
+        endif()
         download_build_install(NAME ${libraryname}
           CMAKE_ARGS -DCMAKE_BUILD_TYPE=${config} -DPROJECT_IS_DEPENDENCY=TRUE
+          EXTERNALPROJECT_ARGS ${extraargs}
           GIT_REPOSITORY "${FINDLIB_GIT_REPOSITORY}"
           GIT_TAG "${FINDLIB_GIT_TAG}"
           DESTINATION "${CMAKE_BINARY_DIR}/${libraryname}"
