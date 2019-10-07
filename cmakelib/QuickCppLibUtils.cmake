@@ -328,7 +328,7 @@ function(find_quickcpplib_library libraryname)
       foreach(config Debug Release RelWithDebInfo MinSizeRel)
         indented_message(STATUS "Superbuilding missing dependency ${libraryname} with config ${config}, this make take a while ...")
         set(extraargs "GIT_SHALLOW 1")
-        if(config NOT STREQUAL Debug)
+        if(NOT config STREQUAL Debug)
           # go faster
           set(extraargs "GIT_SHALLOW 1;GIT_SUBMODULES")
         endif()
