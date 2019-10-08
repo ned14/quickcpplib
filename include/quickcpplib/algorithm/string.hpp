@@ -92,9 +92,9 @@ This lets one pack one byte of input into two bytes of output.
 #pragma warning(pop)
 #endif
     //! \overload
-    inline size_t to_hex_string(span::span<char> out, const span::span<char> in) { return to_hex_string(out.data(), out.size(), in.data(), in.size()); }
+    inline size_t to_hex_string(span::span<char> out, const span::span<const char> in) { return to_hex_string(out.data(), out.size(), in.data(), in.size()); }
     //! \overload
-    inline std::string to_hex_string(span::span<char> in)
+    inline std::string to_hex_string(span::span<const char> in)
     {
       std::string out(in.size() * 2, ' ');
       to_hex_string(const_cast<char *>(out.data()), out.size(), in.data(), in.size());
