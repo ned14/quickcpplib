@@ -1,6 +1,6 @@
 file(READ "@CMAKE_BINARY_DIR@/CMakeFiles/Export/lib/cmake/@PROJECT_NAME@/@PROJECT_NAME@Exports.cmake" exportfile1)
 string(REGEX REPLACE "[^ :\"(;]+::([^_]+)_(hl|sl|dl)" "\\1::\\2" exportfile2 "${exportfile1}")
 if(NOT exportfile1 STREQUAL exportfile2)
-  file(WRITE "@CMAKE_BINARY_DIR@/CMakeFiles/Export/lib/cmake/@PROJECT_NAME@/@PROJECT_NAME@Exports.cmake" "${exportfile2}")
-  file(WRITE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/@PROJECT_NAME@/@PROJECT_NAME@Exports.cmake" "${exportfile2}")
+  file(WRITE "@CMAKE_BINARY_DIR@/CMakeFiles/Export/@CMAKE_INSTALL_LIBDIR@/cmake/@PROJECT_NAME@/@PROJECT_NAME@Exports.cmake" "${exportfile2}")
+  file(WRITE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/@CMAKE_INSTALL_LIBDIR@/cmake/@PROJECT_NAME@/@PROJECT_NAME@Exports.cmake" "${exportfile2}")
 endif()
