@@ -344,7 +344,7 @@ namespace signal_guard
     }  // namespace win32
     inline unsigned long win32_exception_code_from_signalc(signalc c)
     {
-      switch(static_cast<unsigned>(c))
+      switch(c)
       {
       case signalc::abort_process:
         return ((unsigned long) 0xC0000025L) /*EXCEPTION_NONCONTINUABLE_EXCEPTION*/;
