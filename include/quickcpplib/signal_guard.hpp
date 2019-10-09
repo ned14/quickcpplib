@@ -470,6 +470,10 @@ namespace signal_guard
 #pragma GCC diagnostic ignored "-Wnoexcept-type"
 #endif
 #endif
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable : 4611)  // interaction between setjmp() and C++ object destruction is non-portable
+#endif
 
   /*! Call a callable `f` with signals `guarded` protected for this thread only, returning whatever `f` or `h` returns.
 
@@ -546,14 +550,7 @@ namespace signal_guard
     // around a setjmp(), so let's prevent that. This is the weak form affecting the
     // compiler reordering only.
     std::atomic_signal_fence(std::memory_order_seq_cst);
-#ifdef _MSC_VER
-#pragma warning(push)
-#pragma warning(disable : 4611)  // interaction between setjmp() and C++ object destruction is non-portable
-#endif
     if(setjmp(sgi.info.buf))
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
     {
       // returning from longjmp, so unset the TLS and call failure handler
       sgi.reset();
@@ -576,6 +573,9 @@ namespace signal_guard
     return f(static_cast<Args &&>(args)...);
 #endif
   }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 #if defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 6
 #pragma GCC diagnostic pop
 #endif

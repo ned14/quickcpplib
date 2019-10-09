@@ -40,7 +40,7 @@ namespace span
 
 QUICKCPPLIB_NAMESPACE_END
 
-#elif _HAS_CXX20 || __cplusplus >= 202000 && __has_include(<span>)
+#elif (_HAS_CXX20 || __cplusplus >= 202000) && __has_include(<span>)
 
 #include <span>
 

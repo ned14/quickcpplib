@@ -31,12 +31,16 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include <cstddef>
 
+
 QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace byte
 {
   using std::byte;
-  using std::to_byte;
+  template <class IntegerType>
+  inline constexpr byte to_byte(IntegerType v) noexcept {
+    return static_cast<byte>(v);
+  }
 }
 
 QUICKCPPLIB_NAMESPACE_END
@@ -45,12 +49,16 @@ QUICKCPPLIB_NAMESPACE_END
 
 #include <cstddef>
 
+
 QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace byte
 {
   using std::byte;
-  using std::to_byte;
+  template<class IntegerType>
+  inline constexpr byte to_byte(IntegerType v) noexcept {
+    return static_cast<byte>(v);
+  }
 }
 
 QUICKCPPLIB_NAMESPACE_END
