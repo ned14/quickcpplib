@@ -87,7 +87,7 @@ function(checked_execute_process desc)
   if(NOT result EQUAL 0)
     message(FATAL_ERROR "FATAL: ${desc} failed with error '${result}'\n\nstdout was: ${out}\n\nstderr was: ${errout}")
   endif()
-  message("stdout was: ${out}\n\nstderr was: ${errout}")
+  #message("stdout was: ${out}\n\nstderr was: ${errout}")
 endfunction()
 
 # Determines if a git repo has changed
