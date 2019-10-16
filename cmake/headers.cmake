@@ -48,6 +48,7 @@ set(quickcpplib_HEADERS
   "include/quickcpplib/span.hpp"
   "include/quickcpplib/spinlock.hpp"
   "include/quickcpplib/spinlock.natvis"
+  "include/quickcpplib/start_lifetime_as.hpp"
   "include/quickcpplib/string_view.hpp"
   "include/quickcpplib/tribool.hpp"
   "include/quickcpplib/type_traits.hpp"
