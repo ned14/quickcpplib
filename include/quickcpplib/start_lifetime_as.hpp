@@ -32,25 +32,21 @@ Distributed under the Boost Software License, Version 1.0.
 QUICKCPPLIB_NAMESPACE_BEGIN
 namespace start_lifetime_as
 {
-#if defined(QUICKCPPLIB_USE_STD_START_LIFETIME_AS) || _HAS_CXX23 || __cplusplus >= 202300
+  namespace detail
+  {
+    using namespace std;
+    template <class T> constexpr inline T *launder(T *p, ...) noexcept { return p; }
+    template <typename T> inline T *start_lifetime_as(void *p, ...) { return reinterpret_cast<T *>(p); }
 
-  using std::launder;
-  using std::start_lifetime_as;
+    template <class T> constexpr inline T *_launder(T *p) noexcept { return launder<T>(p); }
+    template <typename T> inline T *_start_lifetime_as(void *p) { return start_lifetime_as<T>(p); }
+  }  // namespace detail
 
-#elif(_HAS_CXX17 || __cplusplus >= 201700)
+  //! `std::launder<T>` from C++ 17, or an emulation
+  template <class T> QUICKCPPLIB_NODISCARD constexpr inline T *launder(T *p) noexcept { return detail::_launder(p); }
+  //! `std::start_lifetime_as<T>` from C++ 23, or an emulation
+  template <typename T> QUICKCPPLIB_NODISCARD inline T *start_lifetime_as(void *p) { return detail::_start_lifetime_as<T>(p); }
 
-  using std::launder;
-  //! Faked `std::start_lifetime_as<T>` from C++ 23
-  template <typename T> QUICKCPPLIB_NODISCARD inline T *start_lifetime_as(void *p) { return reinterpret_cast<T *>(p); }
-
-#else
-
-  //! Faked `std::launder<T>` from C++ 17
-  template <class T> QUICKCPPLIB_NODISCARD constexpr inline T *launder(T *p) noexcept { return p; }
-  //! Faked `std::start_lifetime_as<T>` from C++ 23
-  template <typename T> QUICKCPPLIB_NODISCARD inline T *start_lifetime_as(void *p) { return reinterpret_cast<T *>(p); }
-
-#endif
 }  // namespace start_lifetime_as
 
 QUICKCPPLIB_NAMESPACE_END
