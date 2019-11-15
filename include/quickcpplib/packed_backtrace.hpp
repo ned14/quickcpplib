@@ -288,7 +288,7 @@ namespace packed_backtrace
 
       public:
         using iterator_category = std::forward_iterator_tag;
-        using value_type = typename packed_backtrace::value_type;
+        using value_type = FramePtrType; // GCC 6 dislikes typename packed_backtrace::value_type;
         using difference_type = typename packed_backtrace::difference_type;
         using pointer = typename packed_backtrace::pointer;
         using reference = typename packed_backtrace::reference;
