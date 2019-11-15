@@ -43,6 +43,11 @@ struct sigset_t
   unsigned mask;
 };
 #define sigismember(s, signo) (((s)->mask & (1ULL << signo)) != 0)
+
+#ifdef _MSC_VER
+extern "C" unsigned long __cdecl _exception_code(void);
+extern "C" void *__cdecl _exception_info(void);
+#endif
 #endif
 
 #if defined(__cplusplus)

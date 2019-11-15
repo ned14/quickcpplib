@@ -65,6 +65,14 @@ endif()
 if(TARGET quickcpplib_hl--spinlock_tribool)
   target_uses_openmp(quickcpplib_hl--spinlock_tribool)
 endif()
+# MSVC's concepts implementation blow up unless permissive is off
+if(MSVC AND NOT CLANG)
+  foreach(target ${quickcpplib_TEST_TARGETS})
+    if(NOT target MATCHES "spinlock_tribool")
+      target_compile_options(${target} PRIVATE /permissive-)
+    endif()
+  endforeach()
+endif()
 
 # Cache this library's auto scanned sources for later reuse
 include(QuickCppLibCacheLibrarySources)
