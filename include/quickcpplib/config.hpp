@@ -255,7 +255,7 @@ extern "C" void _mm_pause();
 #endif
 
 #include "detail/preprocessor_macro_overload.h"
-#ifdef __cpp_concepts
+#if defined(__cpp_concepts) && !defined(QUICKCPPLIB_DISABLE_CONCEPTS_SUPPORT)
 #define QUICKCPPLIB_TREQUIRES_EXPAND8(a, b, c, d, e, f, g, h) a &&QUICKCPPLIB_TREQUIRES_EXPAND7(b, c, d, e, f, g, h)
 #define QUICKCPPLIB_TREQUIRES_EXPAND7(a, b, c, d, e, f, g) a &&QUICKCPPLIB_TREQUIRES_EXPAND6(b, c, d, e, f, g)
 #define QUICKCPPLIB_TREQUIRES_EXPAND6(a, b, c, d, e, f) a &&QUICKCPPLIB_TREQUIRES_EXPAND5(b, c, d, e, f)
@@ -272,7 +272,11 @@ extern "C" void _mm_pause();
 #define QUICKCPPLIB_TEXPR(...)                                                                                                                                                                                                                                                                                                 \
   requires { (__VA_ARGS__); }
 #define QUICKCPPLIB_TPRED(...) (__VA_ARGS__)
+#if !defined(_MSC_VER) || _MSC_FULL_VER >= 192400000  // VS 2019 16.3 is broken here
 #define QUICKCPPLIB_REQUIRES(...) requires __VA_ARGS__
+#else
+#define QUICKCPPLIB_REQUIRES(...)
+#endif
 #else
 #define QUICKCPPLIB_TEMPLATE(...) template <__VA_ARGS__
 #define QUICKCPPLIB_TREQUIRES(...) , __VA_ARGS__ >
