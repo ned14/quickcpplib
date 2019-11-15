@@ -260,7 +260,7 @@ namespace packed_backtrace
       //! The const pointer type
       using const_pointer = const FramePtrType *;
       //! The iterator type
-      class iterator : public std::iterator<std::forward_iterator_tag, value_type, difference_type, pointer, reference>
+      class iterator
       {
         friend class packed_backtrace;
         packed_backtrace *_parent;
@@ -287,6 +287,12 @@ namespace packed_backtrace
         iterator(packed_backtrace *parent) noexcept : _parent(parent), _idx(0), _v(nullptr) { _inc(); }
 
       public:
+        using iterator_category = std::forward_iterator_tag;
+        using value_type = typename packed_backtrace::value_type;
+        using difference_type = typename packed_backtrace::difference_type;
+        using pointer = typename packed_backtrace::pointer;
+        using reference = typename packed_backtrace::reference;
+
         constexpr iterator() noexcept : _parent(nullptr), _idx((size_t) -1), _v(nullptr) {}
         iterator(const iterator &) = default;
         iterator(iterator &&) noexcept = default;
