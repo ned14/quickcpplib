@@ -251,7 +251,7 @@ namespace function_ptr
     _ptrtype_t ptr_type() const { return static_cast<_ptrtype_t>(_ptr_ & 3); }
 
     //! \brief Calls the callable, returning what the callable returns
-    template <class... Args2> constexpr R operator()(Args2... args) const
+    template <class... Args2> constexpr R operator()(Args2 &&... args) const
     {
       auto *r = _ptr();
       return (*r)(static_cast<Args2 &&>(args)...);
