@@ -37,6 +37,8 @@ QUICKCPPLIB_NAMESPACE_BEGIN
 //! \brief The namespace for the function pointer type
 namespace function_ptr
 {
+  static constexpr size_t default_callable_storage_bytes = 32 - sizeof(uintptr_t);
+
   /*! \brief A move only lightweight `std::function` alternative, with configurable small object optimisation.
 
   Requirements for small object optimisation:
@@ -44,12 +46,12 @@ namespace function_ptr
   1. `U` must be nothrow move constructible.
   2. Default of `sizeof(U) + sizeof(vptr) + sizeof(void *) <= 32`, but is configurable by the make functions.
   */
-  template <class F, size_t callable_storage_bytes = 32 - sizeof(uintptr_t)> class function_ptr;
+  template <class F, size_t callable_storage_bytes = default_callable_storage_bytes> class function_ptr;
 
   template <class R, class... Args, size_t callable_storage_bytes> class function_ptr<R(Args...), callable_storage_bytes>
   {
-    template <class R_, class U, class... Args2> friend constexpr inline function_ptr<R_> emplace_function_ptr(Args2 &&... args);                                      // NOLINT
-    template <class R_, class U, class... Args2> friend constexpr inline function_ptr<R_, sizeof(U) + sizeof(void *)> emplace_function_ptr_nothrow(Args2 &&... args);  // NOLINT
+    template <class R_, class U, size_t C, class... Args2> friend constexpr inline function_ptr<R_, C> emplace_function_ptr(Args2 &&... args);                           // NOLINT
+    template <class R_, class U, class... Args2> friend constexpr inline function_ptr<R_, (sizeof(U) + sizeof(void *) + sizeof(void *) - 1) & ~(sizeof(void *) - 1)> emplace_function_ptr_nothrow(Args2 &&... args) noexcept;  // NOLINT
 
     struct _function_ptr_storage
     {
@@ -281,20 +283,21 @@ namespace function_ptr
   If `Callable` is nothrow move constructible and sufficiently small, avoids
   dynamic memory allocation.
    */
-  template <class ErasedPrototype, class Callable, class... CallableConstructionArgs>  //
-  constexpr inline function_ptr<ErasedPrototype> emplace_function_ptr(CallableConstructionArgs &&... args)
+  template <class ErasedPrototype, class Callable, size_t callable_storage_bytes = default_callable_storage_bytes, class... CallableConstructionArgs>  //
+  constexpr inline function_ptr<ErasedPrototype, callable_storage_bytes> emplace_function_ptr(CallableConstructionArgs &&... args)
   {
-    return function_ptr<ErasedPrototype>(typename function_ptr<ErasedPrototype>::template _emplace_t<Callable>(), static_cast<CallableConstructionArgs &&>(args)...);
+    return function_ptr<ErasedPrototype, callable_storage_bytes>(typename function_ptr<ErasedPrototype, callable_storage_bytes>::template _emplace_t<Callable>(), static_cast<CallableConstructionArgs &&>(args)...);
   }
 
   /*! \brief Return a `function_ptr<ErasedPrototype>` by emplacing `Callable(CallableConstructionArgs...)`,
-  without dynamically allocating memory.
+  without dynamically allocating memory. Note that the size of function ptr returned will be exactly the
+  amount to store the callable, which may not be the default size of `function_ptr<ErasedPrototype>`.
    */
   template <class ErasedPrototype, class Callable, class... CallableConstructionArgs>  //
-  constexpr inline function_ptr<ErasedPrototype, sizeof(Callable) + sizeof(void *)> emplace_function_ptr_nothrow(CallableConstructionArgs &&... args)
+  constexpr inline function_ptr<ErasedPrototype, (sizeof(Callable) + sizeof(void *) + sizeof(void *) - 1) & ~(sizeof(void *) - 1)> emplace_function_ptr_nothrow(CallableConstructionArgs &&... args) noexcept
   {
-    using type = function_ptr<ErasedPrototype, sizeof(Callable) + sizeof(void *)>;
-    static_assert(type::template is_ssoable<Callable>, "The specified callable is not SSOable (probably lacks nothrow move construction");
+    using type = function_ptr<ErasedPrototype, (sizeof(Callable) + sizeof(void *) + sizeof(void *) - 1) & ~(sizeof(void *) - 1)>;
+    static_assert(type::template is_ssoable<Callable>, "The specified callable is not SSOable (probably lacks nothrow move construction)");
     return type(typename type::template _emplace_t<Callable>(), static_cast<CallableConstructionArgs &&>(args)...);
   }
 
@@ -302,17 +305,18 @@ namespace function_ptr
   If `Callable` is nothrow move constructible and sufficiently small, avoids
   dynamic memory allocation.
    */
-  template <class ErasedPrototype, class Callable>  //
-  constexpr inline function_ptr<ErasedPrototype> make_function_ptr(Callable &&f)
+  template <class ErasedPrototype, class Callable, size_t callable_storage_bytes = default_callable_storage_bytes>  //
+  constexpr inline function_ptr<ErasedPrototype, callable_storage_bytes> make_function_ptr(Callable &&f)
   {
-    return emplace_function_ptr<ErasedPrototype, std::decay_t<Callable>>(static_cast<Callable &&>(f));
+    return emplace_function_ptr<ErasedPrototype, std::decay_t<Callable>, callable_storage_bytes>(static_cast<Callable &&>(f));
   }
 
   /*! \brief Return a `function_ptr<ErasedPrototype>` by from an input `Callable`,
-  without dynamically allocating memory.
+  without dynamically allocating memory. Note that the size of function ptr returned will be exactly the
+  amount to store the callable, which may not be the default size of `function_ptr<ErasedPrototype>`.
    */
   template <class ErasedPrototype, class Callable>  //
-  constexpr inline auto make_function_ptr_nothrow(Callable &&f)
+  constexpr inline auto make_function_ptr_nothrow(Callable &&f) noexcept
   {
     return emplace_function_ptr_nothrow<ErasedPrototype, std::decay_t<Callable>>(static_cast<Callable &&>(f));
   }
