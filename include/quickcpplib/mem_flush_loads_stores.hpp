@@ -60,7 +60,7 @@ namespace mem_flush_loads_stores
     inline QUICKCPPLIB_NOINLINE flush_impl_type make_flush_impl() noexcept
     {
 #if defined(__i386__) || defined(_M_IX86) || defined(__x86_64__) || defined(_M_X64)
-#ifndef _MSC_VER
+#if !defined(_MSC_VER) || (defined(_MSC_VER) && defined(__clang__) && !defined(__c2__))
       static const auto __cpuidex = [](int *cpuInfo, int func1, int func2) { __asm__ __volatile__("cpuid\n\t" : "=a"(cpuInfo[0]), "=b"(cpuInfo[1]), "=c"(cpuInfo[2]), "=d"(cpuInfo[3]) : "a"(func1), "c"(func2)); };  // NOLINT
       // static constexpr auto _mm_clwb = [](const void *addr) { __asm__ __volatile__("clwb (%0)\n\t" : : "r"(addr)); };                                                                                                 // NOLINT
       static const auto _mm_clwb = [](const void *addr) { __asm__ __volatile__(".byte 0x66, 0x0f, 0xae, 0x30\n\t" : : "a"(addr)); };  // NOLINT
