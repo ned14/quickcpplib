@@ -1,0 +1,47 @@
+var dir_ffe1caaf86c1751fc0a67e45c4d5dfd1 =
+[
+    [ "algorithm", "dir_e3f2b6aaefadf38c28bd7e3e5526526e.html", "dir_e3f2b6aaefadf38c28bd7e3e5526526e" ],
+    [ "boost", "dir_9fcac295f8c4b64f34c170aa8bfdaf58.html", "dir_9fcac295f8c4b64f34c170aa8bfdaf58" ],
+    [ "byte", "dir_43f1eba4b27e1ecc3002bb969d112fc4.html", "dir_43f1eba4b27e1ecc3002bb969d112fc4" ],
+    [ "gsl-lite", "dir_c3fe6d69ba024288d4bcb99575feb108.html", "dir_c3fe6d69ba024288d4bcb99575feb108" ],
+    [ "optional", "dir_ee9f0caf4dc9e88af9eb597fe329da9c.html", "dir_ee9f0caf4dc9e88af9eb597fe329da9c" ],
+    [ "utils", "dir_b45bb5a31d632e342fc44400b863d236.html", "dir_b45bb5a31d632e342fc44400b863d236" ],
+    [ "aligned_allocator.hpp", "aligned__allocator_8hpp.html", "aligned__allocator_8hpp" ],
+    [ "allocator_testing.hpp", "allocator__testing_8hpp.html", "allocator__testing_8hpp" ],
+    [ "bit_cast.hpp", "bit__cast_8hpp.html", "bit__cast_8hpp" ],
+    [ "bitfield.hpp", "bitfield_8hpp.html", "bitfield_8hpp" ],
+    [ "byte.hpp", "byte_8hpp.html", null ],
+    [ "config.hpp", "config_8hpp.html", "config_8hpp" ],
+    [ "console_colours.hpp", "console__colours_8hpp.html", "console__colours_8hpp" ],
+    [ "cpp_feature.h", "cpp__feature_8h.html", null ],
+    [ "detach_cast.hpp", "detach__cast_8hpp.html", "detach__cast_8hpp" ],
+    [ "erasure_cast.hpp", "erasure__cast_8hpp.html", "erasure__cast_8hpp" ],
+    [ "execinfo_win64.h", "execinfo__win64_8h.html", "execinfo__win64_8h" ],
+    [ "function_ptr.hpp", "function__ptr_8hpp.html", "function__ptr_8hpp" ],
+    [ "import.h", "import_8h.html", "import_8h" ],
+    [ "in_place_detach_attach.hpp", "in__place__detach__attach_8hpp.html", "in__place__detach__attach_8hpp" ],
+    [ "mem_flush_loads_stores.hpp", "mem__flush__loads__stores_8hpp.html", "mem__flush__loads__stores_8hpp" ],
+    [ "memory_resource.hpp", "memory__resource_8hpp.html", "memory__resource_8hpp" ],
+    [ "offset_ptr.hpp", "offset__ptr_8hpp.html", [
+      [ "offset_ptr", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr.html", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr" ],
+      [ "offset_ptr< const T >", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr_3_01const_01_t_01_4.html", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr_3_01const_01_t_01_4" ],
+      [ "atomic_offset_ptr", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr.html", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr" ]
+    ] ],
+    [ "optional.hpp", "optional_8hpp.html", "optional_8hpp" ],
+    [ "packed_backtrace.hpp", "packed__backtrace_8hpp.html", "packed__backtrace_8hpp" ],
+    [ "revision.hpp", "revision_8hpp.html", "revision_8hpp" ],
+    [ "ringbuffer_log.hpp", "ringbuffer__log_8hpp.html", "ringbuffer__log_8hpp" ],
+    [ "scoped_undo.hpp", "scoped__undo_8hpp.html", "scoped__undo_8hpp" ],
+    [ "signal_guard.hpp", "signal__guard_8hpp.html", "signal__guard_8hpp" ],
+    [ "span.hpp", "span_8hpp.html", "span_8hpp" ],
+    [ "spinlock.hpp", "spinlock_8hpp.html", "spinlock_8hpp" ],
+    [ "start_lifetime_as.hpp", "start__lifetime__as_8hpp.html", "start__lifetime__as_8hpp" ],
+    [ "string_view.hpp", "string__view_8hpp.html", "string__view_8hpp" ],
+    [ "tribool.hpp", "tribool_8hpp.html", "tribool_8hpp" ],
+    [ "type_traits.hpp", "type__traits_8hpp.html", "type__traits_8hpp" ],
+    [ "uint128.hpp", "uint128_8hpp.html", [
+      [ "uint128", "unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html", "unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128" ],
+      [ "empty_type", "structquickcpplib_1_1__xxx_1_1integers128_1_1uint128_1_1empty__type.html", null ],
+      [ "uint128_hasher", "structquickcpplib_1_1__xxx_1_1integers128_1_1uint128__hasher.html", "structquickcpplib_1_1__xxx_1_1integers128_1_1uint128__hasher" ]
+    ] ]
+];
