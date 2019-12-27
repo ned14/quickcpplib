@@ -525,7 +525,7 @@ namespace ringbuffer_log
 
   protected:
     template <class Parent, class Pointer, class Reference> class iterator_;
-    template <class Parent, class Pointer, class Reference> class iterator_ : public std::iterator<std::random_access_iterator_tag, value_type, difference_type, pointer, reference>
+    template <class Parent, class Pointer, class Reference> class iterator_
     {
       friend class ringbuffer_log;
       template <class Parent_, class Pointer_, class Reference_> friend class iterator_;
@@ -540,6 +540,12 @@ namespace ringbuffer_log
       }
 
     public:
+      using iterator_category = std::random_access_iterator_tag;
+      using value_type = typename container_type::value_type;
+      using difference_type = typename container_type::difference_type;
+      using pointer = typename container_type::pointer;
+      using reference = typename container_type::reference;
+
       constexpr iterator_()
           : _parent(nullptr)
           , _counter(0)
