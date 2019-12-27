@@ -68,7 +68,7 @@ This lets one pack one byte of input into two bytes of output.
 #pragma warning(push)
 #pragma warning(disable : 6293)  // MSVC sanitiser warns that we wrap n in the for loop
 #endif
-    inline size_t to_hex_string(char *out, size_t outlen, const char *_in, size_t inlen)
+    template <class CharType> inline size_t to_hex_string(CharType *out, size_t outlen, const char *_in, size_t inlen)
     {
       unsigned const char *in = (unsigned const char *) _in;
       static constexpr char table[] = "0123456789abcdef";
@@ -92,7 +92,7 @@ This lets one pack one byte of input into two bytes of output.
 #pragma warning(pop)
 #endif
     //! \overload
-    inline size_t to_hex_string(span::span<char> out, const span::span<const char> in) { return to_hex_string(out.data(), out.size(), in.data(), in.size()); }
+    template <class CharType> inline size_t to_hex_string(span::span<CharType> out, const span::span<const char> in) { return to_hex_string(out.data(), out.size(), in.data(), in.size()); }
     //! \overload
     inline std::string to_hex_string(span::span<const char> in)
     {
@@ -109,14 +109,14 @@ This lets one pack one byte of input into two bytes of output.
     \complexity{O(N) where N is the length of the string.}
     \exceptionmodel{Throws exception if output buffer is too small for input or input size is not multiple of two.}
     */
-    inline size_t from_hex_string(char *out, size_t outlen, const char *in, size_t inlen)
+    template <class CharType> inline size_t from_hex_string(char *out, size_t outlen, const CharType *in, size_t inlen)
     {
       if(inlen % 2)
         throw std::invalid_argument("Input buffer not multiple of two.");
       if(outlen < inlen / 2)
         throw std::invalid_argument("Output buffer too small.");
       bool is_invalid = false;
-      auto fromhex = [&is_invalid](char c) -> unsigned char {
+      auto fromhex = [&is_invalid](CharType c) -> unsigned char {
 #if 1
         // ASCII starting from 48 is 0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
         //                           48               65                              97
