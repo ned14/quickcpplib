@@ -309,13 +309,13 @@ template&lt;class Policy &gt; </div>
 </div><div class="memdoc">
 
 <p>std::ostream writer for a log </p>
-<div class="fragment"><div class="line"><a name="l00911"></a><span class="lineno">  911</span>&#160;  {</div>
-<div class="line"><a name="l00912"></a><span class="lineno">  912</span>&#160;    <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;i : l)</div>
-<div class="line"><a name="l00913"></a><span class="lineno">  913</span>&#160;    {</div>
-<div class="line"><a name="l00914"></a><span class="lineno">  914</span>&#160;      s &lt;&lt; i;</div>
-<div class="line"><a name="l00915"></a><span class="lineno">  915</span>&#160;    }</div>
-<div class="line"><a name="l00916"></a><span class="lineno">  916</span>&#160;    <span class="keywordflow">return</span> s;</div>
-<div class="line"><a name="l00917"></a><span class="lineno">  917</span>&#160;  }</div>
+<div class="fragment"><div class="line"><a name="l00917"></a><span class="lineno">  917</span>&#160;  {</div>
+<div class="line"><a name="l00918"></a><span class="lineno">  918</span>&#160;    <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;i : l)</div>
+<div class="line"><a name="l00919"></a><span class="lineno">  919</span>&#160;    {</div>
+<div class="line"><a name="l00920"></a><span class="lineno">  920</span>&#160;      s &lt;&lt; i;</div>
+<div class="line"><a name="l00921"></a><span class="lineno">  921</span>&#160;    }</div>
+<div class="line"><a name="l00922"></a><span class="lineno">  922</span>&#160;    <span class="keywordflow">return</span> s;</div>
+<div class="line"><a name="l00923"></a><span class="lineno">  923</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -344,17 +344,17 @@ template&lt;class Policy &gt; </div>
 </div><div class="memdoc">
 
 <p>CSV string writer for a log. </p>
-<div class="fragment"><div class="line"><a name="l00921"></a><span class="lineno">  921</span>&#160;  {</div>
-<div class="line"><a name="l00922"></a><span class="lineno">  922</span>&#160;    std::stringstream s;</div>
-<div class="line"><a name="l00923"></a><span class="lineno">  923</span>&#160;    <span class="comment">// timestamp,level,using_code64,using_backtrace,code0,code1,message,backtrace</span></div>
-<div class="line"><a name="l00924"></a><span class="lineno">  924</span>&#160;    s &lt;&lt; <span class="stringliteral">&quot;timestamp,level,using_code64,using_backtrace,code0,code1,message,backtrace\n&quot;</span>;</div>
-<div class="line"><a name="l00925"></a><span class="lineno">  925</span>&#160;    <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;i : l)</div>
-<div class="line"><a name="l00926"></a><span class="lineno">  926</span>&#160;    {</div>
-<div class="line"><a name="l00927"></a><span class="lineno">  927</span>&#160;      <a class="code" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#aaccd259eeb8e67febc5beda3ed44cd08">csv</a>(s, i);</div>
-<div class="line"><a name="l00928"></a><span class="lineno">  928</span>&#160;    }</div>
-<div class="line"><a name="l00929"></a><span class="lineno">  929</span>&#160;    <span class="keywordflow">return</span> s.str();</div>
-<div class="line"><a name="l00930"></a><span class="lineno">  930</span>&#160;  }</div>
-<div class="ttc" id="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log_html_aaccd259eeb8e67febc5beda3ed44cd08"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#aaccd259eeb8e67febc5beda3ed44cd08">quickcpplib::_xxx::ringbuffer_log::csv</a></div><div class="ttdeci">std::string csv(const ringbuffer_log&lt; Policy &gt; &amp;l)</div><div class="ttdoc">CSV string writer for a log. </div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:920</div></div>
+<div class="fragment"><div class="line"><a name="l00927"></a><span class="lineno">  927</span>&#160;  {</div>
+<div class="line"><a name="l00928"></a><span class="lineno">  928</span>&#160;    std::stringstream s;</div>
+<div class="line"><a name="l00929"></a><span class="lineno">  929</span>&#160;    <span class="comment">// timestamp,level,using_code64,using_backtrace,code0,code1,message,backtrace</span></div>
+<div class="line"><a name="l00930"></a><span class="lineno">  930</span>&#160;    s &lt;&lt; <span class="stringliteral">&quot;timestamp,level,using_code64,using_backtrace,code0,code1,message,backtrace\n&quot;</span>;</div>
+<div class="line"><a name="l00931"></a><span class="lineno">  931</span>&#160;    <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;i : l)</div>
+<div class="line"><a name="l00932"></a><span class="lineno">  932</span>&#160;    {</div>
+<div class="line"><a name="l00933"></a><span class="lineno">  933</span>&#160;      <a class="code" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#aaccd259eeb8e67febc5beda3ed44cd08">csv</a>(s, i);</div>
+<div class="line"><a name="l00934"></a><span class="lineno">  934</span>&#160;    }</div>
+<div class="line"><a name="l00935"></a><span class="lineno">  935</span>&#160;    <span class="keywordflow">return</span> s.str();</div>
+<div class="line"><a name="l00936"></a><span class="lineno">  936</span>&#160;  }</div>
+<div class="ttc" id="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log_html_aaccd259eeb8e67febc5beda3ed44cd08"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#aaccd259eeb8e67febc5beda3ed44cd08">quickcpplib::_xxx::ringbuffer_log::csv</a></div><div class="ttdeci">std::string csv(const ringbuffer_log&lt; Policy &gt; &amp;l)</div><div class="ttdoc">CSV string writer for a log. </div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:926</div></div>
 </div><!-- fragment -->
 </div>
 </div>

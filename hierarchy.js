@@ -69,10 +69,10 @@ var hierarchy =
     [ "std::experimental::is_nothrow_move_constructible< T >", "structstd_1_1experimental_1_1is__nothrow__move__constructible.html", null ],
     [ "quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy< KeyType, T, LinearSearchLimit, LockType, KeyModulus, KeyCompare >::items_count_type", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1items__count__type.html", null ],
     [ "iterator", null, [
-      [ "quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index< Policy, ContiguousContainerType, disable_existing_key_check >::iterator_< is_const, Parent, Pointer, Reference >", "classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_1_1iterator__.html", null ],
-      [ "quickcpplib::_xxx::ringbuffer_log::ringbuffer_log< Policy >::iterator_< Parent, Pointer, Reference >", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html", null ]
+      [ "quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index< Policy, ContiguousContainerType, disable_existing_key_check >::iterator_< is_const, Parent, Pointer, Reference >", "classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_1_1iterator__.html", null ]
     ] ],
     [ "quickcpplib::_xxx::packed_backtrace::impl::packed_backtrace< FramePtrType, FrameTypeSize >::iterator", "classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace_1_1iterator.html", null ],
+    [ "quickcpplib::_xxx::ringbuffer_log::ringbuffer_log< Policy >::iterator_< Parent, Pointer, Reference >", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html", null ],
     [ "quickcpplib::_xxx::algorithm::open_hash_index::linear_memory_policy< KeyType, T, LinearSearchLimit, KeyModulus, KeyCompare >", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy.html", null ],
     [ "quickcpplib::_xxx::configurable_spinlock::lock_guard< T >", "classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html", null ],
     [ "gsl::span< T >::mk< U >", "structgsl_1_1span_1_1mk.html", null ],
@@ -150,9 +150,9 @@ var hierarchy =
     [ "quickcpplib::_xxx::ringbuffer_log::ringbuffer_log< Policy >::unique_id", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1unique__id.html", null ],
     [ "std::experimental::Unsafe", "structstd_1_1experimental_1_1_unsafe.html", null ],
     [ "std::experimental::Val", "structstd_1_1experimental_1_1_val.html", null ],
-    [ "quickcpplib::_xxx::algorithm::open_hash_index::linear_memory_policy< KeyType, T, LinearSearchLimit, KeyModulus, KeyCompare >::value_type", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html", null ],
     [ "quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html", null ],
     [ "quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy< KeyType, T, LinearSearchLimit, LockType, KeyModulus, KeyCompare >::value_type", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type.html", null ],
+    [ "quickcpplib::_xxx::algorithm::open_hash_index::linear_memory_policy< KeyType, T, LinearSearchLimit, KeyModulus, KeyCompare >::value_type", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html", null ],
     [ "VEC", "struct_v_e_c.html", null ],
     [ "std::experimental::VoidNothrowBoth", "structstd_1_1experimental_1_1_void_nothrow_both.html", null ]
 ];

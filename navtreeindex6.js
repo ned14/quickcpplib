@@ -1,5 +1,10 @@
 var NAVTREEINDEX6 =
 {
+"optional_2optional_8hpp.html#aa6a14a4a2f99c053eaf12e4d438786cc":[5,0,0,0,4,0,58],
+"optional_2optional_8hpp.html#aa6c8db3625ec5a8e7f6288fb5adf8f95":[5,0,0,0,4,0,92],
+"optional_2optional_8hpp.html#aa7075b9ff2db35978c50e744de295b37":[5,0,0,0,4,0,47],
+"optional_2optional_8hpp.html#aadc70283fcbb48d2935b05ffaa3d703b":[5,0,0,0,4,0,74],
+"optional_2optional_8hpp.html#aae473bf94a6a56a2445199b173bd0043":[5,0,0,0,4,0,85],
 "optional_2optional_8hpp.html#ab0139892916a389ed15c89675d5512ac":[5,0,0,0,4,0,51],
 "optional_2optional_8hpp.html#aba246528349d07cba40ef2d678e6fc78":[5,0,0,0,4,0,27],
 "optional_2optional_8hpp.html#abd848c9a298d0e6558671b929d56620f":[5,0,0,0,4,0,77],
@@ -122,11 +127,11 @@ var NAVTREEINDEX6 =
 "start__lifetime__as_8hpp.html#af628743ec160ca5c902cb096ee3b1c6c":[5,0,0,0,31,5],
 "string_8hpp.html":[5,0,0,0,0,5],
 "string_8hpp.html#a242776ef2a1ceb459dacec2552f92050":[5,0,0,0,0,5,1],
-"string_8hpp.html#a6c315255fbe9ac88401378c572be0933":[5,0,0,0,0,5,3],
-"string_8hpp.html#a761c4bde7bc43471420c3059c549b7c2":[5,0,0,0,0,5,5],
+"string_8hpp.html#a724ec0d0161426aecb97809177053e7b":[5,0,0,0,0,5,3],
 "string_8hpp.html#a84bfe458deef337d88abbdaac46a4ac3":[5,0,0,0,0,5,4],
+"string_8hpp.html#aa60a46849555a72068a7d8035108b0cd":[5,0,0,0,0,5,5],
+"string_8hpp.html#acad135a18c3936ba06996a805ba17128":[5,0,0,0,0,5,2],
 "string_8hpp.html#adcc18aea44c8d32def8e887f70e55fc3":[5,0,0,0,0,5,0],
-"string_8hpp.html#af3d19e68961bf7f1a4a3c9836a19fd38":[5,0,0,0,0,5,2],
 "string__view_8hpp.html":[5,0,0,0,32],
 "string__view_8hpp.html#a01c386ff4f8b8faa149c0411c2c33221":[5,0,0,0,32,14],
 "string__view_8hpp.html#a0b56060fa79acfe955d854a348b3e245":[5,0,0,0,32,3],
@@ -244,10 +249,5 @@ var NAVTREEINDEX6 =
 "struct_v_e_c.html#a8f9a9f8b145a06255232fed87b306b08":[4,0,25,0],
 "struct_v_e_c.html#a95e276a1d8e72b537f3235c46333e837":[4,0,25,1],
 "structcaller.html":[4,0,7],
-"structcaller.html#a3465d74f42db965f8715cff0ed6a209a":[4,0,7,0],
-"structgeneric.html":[4,0,12],
-"structgeneric.html#a4997545df86b9645ee7255a18dff7391":[4,0,12,0],
-"structgeneric_3_01_u_01_6_01_4.html":[4,0,13],
-"structgeneric_3_01_u_01_6_01_4.html#a2046573544dfa345374f63542fd090b1":[4,0,13,0],
-"structgsl_1_1narrowing__error.html":[4,0,2,3]
+"structcaller.html#a3465d74f42db965f8715cff0ed6a209a":[4,0,7,0]
 };
