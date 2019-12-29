@@ -348,6 +348,8 @@ namespace signal_guard
     {
       switch(c)
       {
+      default:
+        abort();
       case signalc::abort_process:
         return ((unsigned long) 0xC0000025L) /*EXCEPTION_NONCONTINUABLE_EXCEPTION*/;
       case signalc::undefined_memory_access:
@@ -836,8 +838,8 @@ namespace signal_guard
         under a debugger, as the UnhandledExceptionFilter() function never calls the
         installed unhandled exception filter function if under a debugger.
         */
-        win32_global_signal_decider1 = win32::SetUnhandledExceptionFilter(win32_vectored_exception_function);
-        win32_global_signal_decider2 = win32::AddVectoredContinueHandler(1, win32_vectored_exception_function);
+        win32_global_signal_decider1 = (void *) win32::SetUnhandledExceptionFilter(win32_vectored_exception_function);
+        win32_global_signal_decider2 = (void *) win32::AddVectoredContinueHandler(1, win32_vectored_exception_function);
       }
 #endif
       lock.unlock();
