@@ -1,5 +1,14 @@
 var NAVTREEINDEX7 =
 {
+"struct_oracle_val.html#a3fac04d4e5002ae7c6eb3b68629f864a":[4,0,22,2],
+"struct_oracle_val.html#a4823da73ef67df52d178da912c5109bb":[4,0,22,0],
+"struct_oracle_val.html#a49e0b5ec286b358ddd124a70dc7c89cb":[4,0,22,1],
+"struct_v_e_c.html":[4,0,25],
+"struct_v_e_c.html#a23615ad8e5bc0902f62379964cd226ad":[4,0,25,2],
+"struct_v_e_c.html#a8f9a9f8b145a06255232fed87b306b08":[4,0,25,0],
+"struct_v_e_c.html#a95e276a1d8e72b537f3235c46333e837":[4,0,25,1],
+"structcaller.html":[4,0,7],
+"structcaller.html#a3465d74f42db965f8715cff0ed6a209a":[4,0,7,0],
 "structgeneric.html":[4,0,12],
 "structgeneric.html#a4997545df86b9645ee7255a18dff7391":[4,0,12,0],
 "structgeneric_3_01_u_01_6_01_4.html":[4,0,13],
@@ -240,14 +249,5 @@ var NAVTREEINDEX7 =
 "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html#a6271daaa7603b2c46bad58423866733e":[4,0,4,0,17,9,0,2],
 "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html#a9ecdfcfeacd55cc1baf2cbc210344c85":[4,0,4,0,17,9,0,0],
 "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html#af1be6151dbf2c02aed9252b4c35971d2":[4,0,4,0,17,9,0,1],
-"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield.html":[4,0,4,0,17,8],
-"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield_1_1policy.html":[4,0,4,0,17,8,0],
-"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield_1_1policy.html#a0e3990993d4ed451d5ad4f0d53f16426":[4,0,4,0,17,8,0,0],
-"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield_1_1policy.html#a112cbf76d478c4747a9a8f783a6ce274":[4,0,4,0,17,8,0,2],
-"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield_1_1policy.html#a2d2357af45899f301af7e9ad943e8b03":[4,0,4,0,17,8,0,1],
-"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield_1_1policy.html#ab9c2043933dbd43e3cb1405216e0d2a2":[4,0,4,0,17,8,0,3],
-"structquickcpplib_1_1__xxx_1_1detach__cast_1_1traits_1_1enable__reinterpret__attach__cast.html":[4,0,4,0,5,0,1],
-"structquickcpplib_1_1__xxx_1_1detach__cast_1_1traits_1_1enable__reinterpret__detach__cast.html":[4,0,4,0,5,0,0],
-"structquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1adopt__t.html":[4,0,4,0,8,2],
-"structquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1traits_1_1disable__attached__for.html":[4,0,4,0,8,0,0]
+"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield.html":[4,0,4,0,17,8]
 };

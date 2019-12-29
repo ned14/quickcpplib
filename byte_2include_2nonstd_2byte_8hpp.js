@@ -49,7 +49,7 @@ var byte_2include_2nonstd_2byte_8hpp =
     [ "byte_ENABLE_IF_INTEGRAL_T", "byte_2include_2nonstd_2byte_8hpp.html#a8789aab87230b2491626c534a1556e81", null ],
     [ "byte_DEFAULT_TEMPLATE_ARG", "byte_2include_2nonstd_2byte_8hpp.html#a1fb3e0d71d670d09f3e5577e49bea65c", null ],
     [ "to_byte", "byte_2include_2nonstd_2byte_8hpp.html#ad3cb936f5cc827264cb18db4601c51ee", null ],
-    [ "to_integer", "byte_2include_2nonstd_2byte_8hpp.html#a6f03ec012a75e27b1ff18fb6c3e45e2b", null ],
+    [ "to_integer", "byte_2include_2nonstd_2byte_8hpp.html#a290673f3047aafbdb661c863ec8c3b9b", null ],
     [ "to_uchar", "byte_2include_2nonstd_2byte_8hpp.html#a07a186fedf389b97c4889e50aaa91f40", null ],
     [ "to_uchar", "byte_2include_2nonstd_2byte_8hpp.html#a756024db6c1d5858e582fbc9927feee2", null ],
     [ "operator==", "byte_2include_2nonstd_2byte_8hpp.html#aa181101f3f187637cb791d05c1bab967", null ],

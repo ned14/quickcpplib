@@ -1,5 +1,14 @@
 var NAVTREEINDEX8 =
 {
+"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield_1_1policy.html":[4,0,4,0,17,8,0],
+"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield_1_1policy.html#a0e3990993d4ed451d5ad4f0d53f16426":[4,0,4,0,17,8,0,0],
+"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield_1_1policy.html#a112cbf76d478c4747a9a8f783a6ce274":[4,0,4,0,17,8,0,2],
+"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield_1_1policy.html#a2d2357af45899f301af7e9ad943e8b03":[4,0,4,0,17,8,0,1],
+"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield_1_1policy.html#ab9c2043933dbd43e3cb1405216e0d2a2":[4,0,4,0,17,8,0,3],
+"structquickcpplib_1_1__xxx_1_1detach__cast_1_1traits_1_1enable__reinterpret__attach__cast.html":[4,0,4,0,5,0,1],
+"structquickcpplib_1_1__xxx_1_1detach__cast_1_1traits_1_1enable__reinterpret__detach__cast.html":[4,0,4,0,5,0,0],
+"structquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1adopt__t.html":[4,0,4,0,8,2],
+"structquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1traits_1_1disable__attached__for.html":[4,0,4,0,8,0,0],
 "structquickcpplib_1_1__xxx_1_1integers128_1_1uint128_1_1empty__type.html":[4,0,4,0,22,0,0],
 "structquickcpplib_1_1__xxx_1_1integers128_1_1uint128__hasher.html":[4,0,4,0,22,1],
 "structquickcpplib_1_1__xxx_1_1integers128_1_1uint128__hasher.html#a8b16f30ab5c72aa85f68b27c45d7bc66":[4,0,4,0,22,1,0],
@@ -240,14 +249,5 @@ var NAVTREEINDEX8 =
 "tribool_8hpp.html#ggafe26d2adc55c3e981fc0164e20ebeb9aab1b5574e03193aa8d5307455b036c2d1":[5,0,0,0,33,0,0],
 "type__traits_8hpp.html":[5,0,0,0,34],
 "type__traits_8hpp.html#a976ef0c550dfefb3740db89db457de4a":[5,0,0,0,34,6],
-"type__traits_8hpp.html#af2b35cdd63686f7e2b5229443a4d3f84":[5,0,0,0,34,7],
-"uint128_8hpp.html":[5,0,0,0,35],
-"unionquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase_1_1__internals.html":[4,0,4,0,17,5,0],
-"unionquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase_1_1__internals.html#a368d859ae484578d7aa87d7b2e369082":[4,0,4,0,17,5,0,2],
-"unionquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase_1_1__internals.html#a7230c521d9366f29bbff69a749eb978b":[4,0,4,0,17,5,0,1],
-"unionquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase_1_1__internals.html#ada518ac4c8c5ba7473e4ac604dd4a353":[4,0,4,0,17,5,0,0],
-"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html":[4,0,4,0,22,0],
-"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a026f372509841884fde10aa9ab279c2d":[4,0,4,0,22,0,21],
-"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a0337ddf3b73cb771fd70708b08709e9a":[4,0,4,0,22,0,3],
-"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a1fe835346303bd4d12c6e224af57250d":[4,0,4,0,22,0,27]
+"type__traits_8hpp.html#af2b35cdd63686f7e2b5229443a4d3f84":[5,0,0,0,34,7]
 };

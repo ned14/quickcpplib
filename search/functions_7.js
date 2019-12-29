@@ -5,6 +5,6 @@ var searchData=
   ['getstartmidend',['getStartMidEnd',['../test__optional_8cpp.html#a9112015b0a45c0757cd1757cf3010534',1,'test_optional.cpp']]],
   ['getvalue',['getValue',['../test__optional_8cpp.html#ab0366e062f8070af74a8eef94a02eaee',1,'test_optional.cpp']]],
   ['green',['green',['../namespacequickcpplib_1_1__xxx_1_1console__colours.html#aad60a7fef00258306345d9469328e51d',1,'quickcpplib::_xxx::console_colours']]],
-  ['gsl_5fdisable_5fmsvc_5fwarnings',['gsl_DISABLE_MSVC_WARNINGS',['../gsl-lite_8hpp.html#acc85d93494a990713a38487d6131bf1e',1,'gsl-lite.hpp']]],
+  ['gsl_5fdisable_5fmsvc_5fwarnings',['gsl_DISABLE_MSVC_WARNINGS',['../gsl-lite_8hpp.html#a74f0eeedf3f18b7967eb6f3991783683',1,'gsl-lite.hpp']]],
   ['guard',['Guard',['../struct_guard.html#a9563f226951050de2ae72e8f2b4acda9',1,'Guard::Guard()'],['../struct_guard.html#a6da56848f2ea5bbee5c869d3e24ca75d',1,'Guard::Guard(std::string s, int=0)'],['../struct_guard.html#afe2116575b467b6495282a5bb8e7c64e',1,'Guard::Guard(const Guard &amp;)=delete'],['../struct_guard.html#ab30fc4462b1746000365da3d7e1425bc',1,'Guard::Guard(Guard &amp;&amp;)=delete']]]
 ];
