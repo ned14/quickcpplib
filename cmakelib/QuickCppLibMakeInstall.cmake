@@ -16,6 +16,7 @@ if(TARGET ${PROJECT_NAME}_hl)
             ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
             LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
     )
+	set_target_properties(${PROJECT_NAME}_hl PROPERTIES EXPORT_NAME hl)
 endif()
 if(TARGET ${PROJECT_NAME}_sl)
     install(TARGETS ${PROJECT_NAME}_sl
@@ -24,6 +25,7 @@ if(TARGET ${PROJECT_NAME}_sl)
             ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
             LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
     )
+	set_target_properties(${PROJECT_NAME}_sl PROPERTIES EXPORT_NAME sl)
 endif()
 if(TARGET ${PROJECT_NAME}_dl)
     install(TARGETS ${PROJECT_NAME}_dl
@@ -32,6 +34,7 @@ if(TARGET ${PROJECT_NAME}_dl)
             ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
             LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
     )
+	set_target_properties(${PROJECT_NAME}_dl PROPERTIES EXPORT_NAME dl)
 endif()
 
 # Create and install a find package file
