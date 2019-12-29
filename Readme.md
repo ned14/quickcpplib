@@ -10,7 +10,7 @@ CTest dashboard: http://my.cdash.org/index.php?project=QuickCppLib
 
 Documentation: https://ned14.github.io/quickcpplib/
 
-Common library for most of https://github.com/ned14's open source libraries. Automates away hassle for build, sanitising, linting, documentation, super building, dependencies, modules, single include generation, and lack of later C++ facilities in C++ 14.
+Common library for most of [https://github.com/ned14](https://github.com/ned14)'s open source libraries. Automates away hassle for build, sanitising, linting, documentation, super building, dependencies, modules, single include generation, and lack of later C++ facilities in C++ 14.
 
 ## Requirements:
 - GCC 6 or later (Linux)
