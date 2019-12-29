@@ -273,7 +273,7 @@ extern "C" void _mm_pause();
   requires { (__VA_ARGS__); }
 #define QUICKCPPLIB_TPRED(...) (__VA_ARGS__)
 #if !defined(_MSC_VER) || _MSC_FULL_VER >= 192400000  // VS 2019 16.3 is broken here
-#define QUICKCPPLIB_REQUIRES(...) requires __VA_ARGS__
+#define QUICKCPPLIB_REQUIRES(...) requires(__VA_ARGS__)
 #else
 #define QUICKCPPLIB_REQUIRES(...)
 #endif
