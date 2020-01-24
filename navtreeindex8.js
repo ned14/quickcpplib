@@ -1,5 +1,6 @@
 var NAVTREEINDEX8 =
 {
+"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield.html":[4,0,4,0,17,8],
 "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield_1_1policy.html":[4,0,4,0,17,8,0],
 "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield_1_1policy.html#a0e3990993d4ed451d5ad4f0d53f16426":[4,0,4,0,17,8,0,0],
 "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield_1_1policy.html#a112cbf76d478c4747a9a8f783a6ce274":[4,0,4,0,17,8,0,2],
@@ -248,6 +249,5 @@ var NAVTREEINDEX8 =
 "tribool_8hpp.html#ggafe26d2adc55c3e981fc0164e20ebeb9aaad921d60486366258809553a3db49a4a":[5,0,0,0,33,0,4],
 "tribool_8hpp.html#ggafe26d2adc55c3e981fc0164e20ebeb9aab1b5574e03193aa8d5307455b036c2d1":[5,0,0,0,33,0,0],
 "type__traits_8hpp.html":[5,0,0,0,34],
-"type__traits_8hpp.html#a976ef0c550dfefb3740db89db457de4a":[5,0,0,0,34,6],
-"type__traits_8hpp.html#af2b35cdd63686f7e2b5229443a4d3f84":[5,0,0,0,34,7]
+"type__traits_8hpp.html#a976ef0c550dfefb3740db89db457de4a":[5,0,0,0,34,6]
 };

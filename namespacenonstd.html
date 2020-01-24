@@ -199,15 +199,15 @@ template&lt;class IntegerType  byte_ENABLE_IF_INTEGRAL_T&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;{</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;<span class="preprocessor">#if   byte_HAVE_ENUM_CLASS_CONSTRUCTION_FROM_UNDERLYING_TYPE</span></div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><a class="code" href="namespacegsl.html#a342d07d23bff66b0a2a85c5ffe7c64d4">byte</a><span class="keyword">&gt;</span>( v );</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;<span class="preprocessor">#elif byte_HAVE_CONSTEXPR_11</span></div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">return</span> { <span class="keyword">static_cast&lt;</span>typename byte::type<span class="keyword">&gt;</span>( v ) };</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;<span class="preprocessor"></span>    <a class="code" href="namespacegsl.html#a342d07d23bff66b0a2a85c5ffe7c64d4">byte</a> b = { <span class="keyword">static_cast&lt;</span>typename byte::type<span class="keyword">&gt;</span>( v ) }; <span class="keywordflow">return</span> b;</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;<span class="preprocessor"></span>}</div>
+<div class="fragment"><div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;{</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;<span class="preprocessor">#if   byte_HAVE_ENUM_CLASS_CONSTRUCTION_FROM_UNDERLYING_TYPE</span></div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><a class="code" href="namespacegsl.html#a342d07d23bff66b0a2a85c5ffe7c64d4">byte</a><span class="keyword">&gt;</span>( v );</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;<span class="preprocessor">#elif byte_HAVE_CONSTEXPR_11</span></div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">return</span> { <span class="keyword">static_cast&lt;</span>typename byte::type<span class="keyword">&gt;</span>( v ) };</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;<span class="preprocessor"></span>    <a class="code" href="namespacegsl.html#a342d07d23bff66b0a2a85c5ffe7c64d4">byte</a> b = { <span class="keyword">static_cast&lt;</span>typename byte::type<span class="keyword">&gt;</span>( v ) }; <span class="keywordflow">return</span> b;</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;<span class="preprocessor"></span>}</div>
 <div class="ttc" id="namespacegsl_html_a342d07d23bff66b0a2a85c5ffe7c64d4"><div class="ttname"><a href="namespacegsl.html#a342d07d23bff66b0a2a85c5ffe7c64d4">gsl::byte</a></div><div class="ttdeci">unsigned char byte</div><div class="ttdef"><b>Definition:</b> gsl-lite-vc6.hpp:315</div></div>
 </div><!-- fragment -->
 </div>
@@ -235,9 +235,9 @@ template&lt;class IntegerType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;{</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    <span class="keywordflow">return</span> b.v;</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;}</div>
+<div class="fragment"><div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;{</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <span class="keywordflow">return</span> b.v;</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -262,9 +262,9 @@ template&lt;class IntegerType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;{</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    <span class="keywordflow">return</span> to_integer&lt;unsigned char&gt;( b );</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;}</div>
+<div class="fragment"><div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;{</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    <span class="keywordflow">return</span> to_integer&lt;unsigned char&gt;( b );</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -289,9 +289,9 @@ template&lt;class IntegerType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;{</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>( i );</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;}</div>
+<div class="fragment"><div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;{</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>( i );</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -326,9 +326,9 @@ template&lt;class IntegerType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;{</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    <span class="keywordflow">return</span> l.v == r.v;</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;}</div>
+<div class="fragment"><div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;{</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    <span class="keywordflow">return</span> l.v == r.v;</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -363,9 +363,9 @@ template&lt;class IntegerType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;{</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    <span class="keywordflow">return</span> !( l == r );</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;}</div>
+<div class="fragment"><div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;{</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;    <span class="keywordflow">return</span> !( l == r );</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -400,9 +400,9 @@ template&lt;class IntegerType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;{</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    <span class="keywordflow">return</span> l.v &lt; r.v;</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;}</div>
+<div class="fragment"><div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;{</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;    <span class="keywordflow">return</span> l.v &lt; r.v;</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -437,9 +437,9 @@ template&lt;class IntegerType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;{</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    <span class="keywordflow">return</span> !( r &lt; l );</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;}</div>
+<div class="fragment"><div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;{</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    <span class="keywordflow">return</span> !( r &lt; l );</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -474,9 +474,9 @@ template&lt;class IntegerType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;{</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;    <span class="keywordflow">return</span> ( r &lt; l );</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;}</div>
+<div class="fragment"><div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;{</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    <span class="keywordflow">return</span> ( r &lt; l );</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -511,9 +511,9 @@ template&lt;class IntegerType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;{</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    <span class="keywordflow">return</span> !( l &lt; r );</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;}</div>
+<div class="fragment"><div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;{</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;    <span class="keywordflow">return</span> !( l &lt; r );</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -550,15 +550,15 @@ template&lt;class IntegerType  byte_ENABLE_IF_INTEGRAL_T&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;{</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;<span class="preprocessor">#if byte_HAVE_ENUM_CLASS_CONSTRUCTION_FROM_UNDERLYING_TYPE</span></div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">return</span> b = <a class="code" href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">to_byte</a>( <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( b ) &lt;&lt; shift );</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;<span class="preprocessor"></span>    b.v = <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( b.v &lt;&lt; shift ); <span class="keywordflow">return</span> b;</div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;<span class="preprocessor"></span>}</div>
-<div class="ttc" id="namespacenonstd_html_ad3cb936f5cc827264cb18db4601c51ee"><div class="ttname"><a href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">nonstd::to_byte</a></div><div class="ttdeci">byte_constexpr byte to_byte(IntegerType v) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:248</div></div>
-<div class="ttc" id="namespacenonstd_html_a756024db6c1d5858e582fbc9927feee2"><div class="ttname"><a href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">nonstd::to_uchar</a></div><div class="ttdeci">byte_constexpr unsigned char to_uchar(int i) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:303</div></div>
+<div class="fragment"><div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;{</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;<span class="preprocessor">#if byte_HAVE_ENUM_CLASS_CONSTRUCTION_FROM_UNDERLYING_TYPE</span></div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">return</span> b = <a class="code" href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">to_byte</a>( <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( b ) &lt;&lt; shift );</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;<span class="preprocessor"></span>    b.v = <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( b.v &lt;&lt; shift ); <span class="keywordflow">return</span> b;</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;<span class="preprocessor"></span>}</div>
+<div class="ttc" id="namespacenonstd_html_ad3cb936f5cc827264cb18db4601c51ee"><div class="ttname"><a href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">nonstd::to_byte</a></div><div class="ttdeci">byte_constexpr byte to_byte(IntegerType v) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:249</div></div>
+<div class="ttc" id="namespacenonstd_html_a756024db6c1d5858e582fbc9927feee2"><div class="ttname"><a href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">nonstd::to_uchar</a></div><div class="ttdeci">byte_constexpr unsigned char to_uchar(int i) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:304</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -595,15 +595,15 @@ template&lt;class IntegerType  byte_ENABLE_IF_INTEGRAL_T&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;{</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;<span class="preprocessor">#if byte_HAVE_ENUM_CLASS_CONSTRUCTION_FROM_UNDERLYING_TYPE</span></div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">return</span> b = <a class="code" href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">to_byte</a>( <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( b ) &gt;&gt; shift );</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;<span class="preprocessor"></span>    b.v = <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( b.v &gt;&gt; shift ); <span class="keywordflow">return</span> b;</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;<span class="preprocessor"></span>}</div>
-<div class="ttc" id="namespacenonstd_html_ad3cb936f5cc827264cb18db4601c51ee"><div class="ttname"><a href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">nonstd::to_byte</a></div><div class="ttdeci">byte_constexpr byte to_byte(IntegerType v) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:248</div></div>
-<div class="ttc" id="namespacenonstd_html_a756024db6c1d5858e582fbc9927feee2"><div class="ttname"><a href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">nonstd::to_uchar</a></div><div class="ttdeci">byte_constexpr unsigned char to_uchar(int i) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:303</div></div>
+<div class="fragment"><div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;{</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;<span class="preprocessor">#if byte_HAVE_ENUM_CLASS_CONSTRUCTION_FROM_UNDERLYING_TYPE</span></div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">return</span> b = <a class="code" href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">to_byte</a>( <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( b ) &gt;&gt; shift );</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;<span class="preprocessor"></span>    b.v = <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( b.v &gt;&gt; shift ); <span class="keywordflow">return</span> b;</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;<span class="preprocessor"></span>}</div>
+<div class="ttc" id="namespacenonstd_html_ad3cb936f5cc827264cb18db4601c51ee"><div class="ttname"><a href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">nonstd::to_byte</a></div><div class="ttdeci">byte_constexpr byte to_byte(IntegerType v) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:249</div></div>
+<div class="ttc" id="namespacenonstd_html_a756024db6c1d5858e582fbc9927feee2"><div class="ttname"><a href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">nonstd::to_uchar</a></div><div class="ttdeci">byte_constexpr unsigned char to_uchar(int i) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:304</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -640,11 +640,11 @@ template&lt;class IntegerType  byte_ENABLE_IF_INTEGRAL_T&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;{</div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">to_byte</a>( <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( b ) &lt;&lt; shift );</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;}</div>
-<div class="ttc" id="namespacenonstd_html_ad3cb936f5cc827264cb18db4601c51ee"><div class="ttname"><a href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">nonstd::to_byte</a></div><div class="ttdeci">byte_constexpr byte to_byte(IntegerType v) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:248</div></div>
-<div class="ttc" id="namespacenonstd_html_a756024db6c1d5858e582fbc9927feee2"><div class="ttname"><a href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">nonstd::to_uchar</a></div><div class="ttdeci">byte_constexpr unsigned char to_uchar(int i) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:303</div></div>
+<div class="fragment"><div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;{</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">to_byte</a>( <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( b ) &lt;&lt; shift );</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;}</div>
+<div class="ttc" id="namespacenonstd_html_ad3cb936f5cc827264cb18db4601c51ee"><div class="ttname"><a href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">nonstd::to_byte</a></div><div class="ttdeci">byte_constexpr byte to_byte(IntegerType v) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:249</div></div>
+<div class="ttc" id="namespacenonstd_html_a756024db6c1d5858e582fbc9927feee2"><div class="ttname"><a href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">nonstd::to_uchar</a></div><div class="ttdeci">byte_constexpr unsigned char to_uchar(int i) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:304</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -681,11 +681,11 @@ template&lt;class IntegerType  byte_ENABLE_IF_INTEGRAL_T&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;{</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">to_byte</a>( <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( b ) &gt;&gt; shift );</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;}</div>
-<div class="ttc" id="namespacenonstd_html_ad3cb936f5cc827264cb18db4601c51ee"><div class="ttname"><a href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">nonstd::to_byte</a></div><div class="ttdeci">byte_constexpr byte to_byte(IntegerType v) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:248</div></div>
-<div class="ttc" id="namespacenonstd_html_a756024db6c1d5858e582fbc9927feee2"><div class="ttname"><a href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">nonstd::to_uchar</a></div><div class="ttdeci">byte_constexpr unsigned char to_uchar(int i) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:303</div></div>
+<div class="fragment"><div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;{</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">to_byte</a>( <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( b ) &gt;&gt; shift );</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;}</div>
+<div class="ttc" id="namespacenonstd_html_ad3cb936f5cc827264cb18db4601c51ee"><div class="ttname"><a href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">nonstd::to_byte</a></div><div class="ttdeci">byte_constexpr byte to_byte(IntegerType v) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:249</div></div>
+<div class="ttc" id="namespacenonstd_html_a756024db6c1d5858e582fbc9927feee2"><div class="ttname"><a href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">nonstd::to_uchar</a></div><div class="ttdeci">byte_constexpr unsigned char to_uchar(int i) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:304</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -720,15 +720,15 @@ template&lt;class IntegerType  byte_ENABLE_IF_INTEGRAL_T&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;{</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;<span class="preprocessor">#if byte_HAVE_ENUM_CLASS_CONSTRUCTION_FROM_UNDERLYING_TYPE</span></div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">return</span> l = <a class="code" href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">to_byte</a>( <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( l ) | <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( r ) );</div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;<span class="preprocessor"></span>    l.v = <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( l ) | <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( r ); <span class="keywordflow">return</span> l;</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;<span class="preprocessor"></span>}</div>
-<div class="ttc" id="namespacenonstd_html_ad3cb936f5cc827264cb18db4601c51ee"><div class="ttname"><a href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">nonstd::to_byte</a></div><div class="ttdeci">byte_constexpr byte to_byte(IntegerType v) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:248</div></div>
-<div class="ttc" id="namespacenonstd_html_a756024db6c1d5858e582fbc9927feee2"><div class="ttname"><a href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">nonstd::to_uchar</a></div><div class="ttdeci">byte_constexpr unsigned char to_uchar(int i) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:303</div></div>
+<div class="fragment"><div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;{</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;<span class="preprocessor">#if byte_HAVE_ENUM_CLASS_CONSTRUCTION_FROM_UNDERLYING_TYPE</span></div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">return</span> l = <a class="code" href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">to_byte</a>( <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( l ) | <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( r ) );</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;<span class="preprocessor"></span>    l.v = <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( l ) | <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( r ); <span class="keywordflow">return</span> l;</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;<span class="preprocessor"></span>}</div>
+<div class="ttc" id="namespacenonstd_html_ad3cb936f5cc827264cb18db4601c51ee"><div class="ttname"><a href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">nonstd::to_byte</a></div><div class="ttdeci">byte_constexpr byte to_byte(IntegerType v) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:249</div></div>
+<div class="ttc" id="namespacenonstd_html_a756024db6c1d5858e582fbc9927feee2"><div class="ttname"><a href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">nonstd::to_uchar</a></div><div class="ttdeci">byte_constexpr unsigned char to_uchar(int i) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:304</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -763,15 +763,15 @@ template&lt;class IntegerType  byte_ENABLE_IF_INTEGRAL_T&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;{</div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;<span class="preprocessor">#if byte_HAVE_ENUM_CLASS_CONSTRUCTION_FROM_UNDERLYING_TYPE</span></div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">return</span> l = <a class="code" href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">to_byte</a>( <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( l ) &amp; <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( r ) );</div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;<span class="preprocessor"></span>    l.v = <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( l ) &amp; <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( r ); <span class="keywordflow">return</span> l;</div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;<span class="preprocessor"></span>}</div>
-<div class="ttc" id="namespacenonstd_html_ad3cb936f5cc827264cb18db4601c51ee"><div class="ttname"><a href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">nonstd::to_byte</a></div><div class="ttdeci">byte_constexpr byte to_byte(IntegerType v) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:248</div></div>
-<div class="ttc" id="namespacenonstd_html_a756024db6c1d5858e582fbc9927feee2"><div class="ttname"><a href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">nonstd::to_uchar</a></div><div class="ttdeci">byte_constexpr unsigned char to_uchar(int i) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:303</div></div>
+<div class="fragment"><div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;{</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;<span class="preprocessor">#if byte_HAVE_ENUM_CLASS_CONSTRUCTION_FROM_UNDERLYING_TYPE</span></div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">return</span> l = <a class="code" href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">to_byte</a>( <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( l ) &amp; <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( r ) );</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;<span class="preprocessor"></span>    l.v = <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( l ) &amp; <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( r ); <span class="keywordflow">return</span> l;</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;<span class="preprocessor"></span>}</div>
+<div class="ttc" id="namespacenonstd_html_ad3cb936f5cc827264cb18db4601c51ee"><div class="ttname"><a href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">nonstd::to_byte</a></div><div class="ttdeci">byte_constexpr byte to_byte(IntegerType v) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:249</div></div>
+<div class="ttc" id="namespacenonstd_html_a756024db6c1d5858e582fbc9927feee2"><div class="ttname"><a href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">nonstd::to_uchar</a></div><div class="ttdeci">byte_constexpr unsigned char to_uchar(int i) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:304</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -806,15 +806,15 @@ template&lt;class IntegerType  byte_ENABLE_IF_INTEGRAL_T&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;{</div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;<span class="preprocessor">#if byte_HAVE_ENUM_CLASS_CONSTRUCTION_FROM_UNDERLYING_TYPE</span></div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">return</span> l = <a class="code" href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">to_byte</a>( <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( l ) ^ <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a> (r ) );</div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;<span class="preprocessor"></span>    l.v = <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( l ) ^ <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a> (r ); <span class="keywordflow">return</span> l;</div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;<span class="preprocessor"></span>}</div>
-<div class="ttc" id="namespacenonstd_html_ad3cb936f5cc827264cb18db4601c51ee"><div class="ttname"><a href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">nonstd::to_byte</a></div><div class="ttdeci">byte_constexpr byte to_byte(IntegerType v) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:248</div></div>
-<div class="ttc" id="namespacenonstd_html_a756024db6c1d5858e582fbc9927feee2"><div class="ttname"><a href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">nonstd::to_uchar</a></div><div class="ttdeci">byte_constexpr unsigned char to_uchar(int i) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:303</div></div>
+<div class="fragment"><div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;{</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;<span class="preprocessor">#if byte_HAVE_ENUM_CLASS_CONSTRUCTION_FROM_UNDERLYING_TYPE</span></div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">return</span> l = <a class="code" href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">to_byte</a>( <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( l ) ^ <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a> (r ) );</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;<span class="preprocessor"></span>    l.v = <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( l ) ^ <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a> (r ); <span class="keywordflow">return</span> l;</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;<span class="preprocessor"></span>}</div>
+<div class="ttc" id="namespacenonstd_html_ad3cb936f5cc827264cb18db4601c51ee"><div class="ttname"><a href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">nonstd::to_byte</a></div><div class="ttdeci">byte_constexpr byte to_byte(IntegerType v) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:249</div></div>
+<div class="ttc" id="namespacenonstd_html_a756024db6c1d5858e582fbc9927feee2"><div class="ttname"><a href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">nonstd::to_uchar</a></div><div class="ttdeci">byte_constexpr unsigned char to_uchar(int i) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:304</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -849,11 +849,11 @@ template&lt;class IntegerType  byte_ENABLE_IF_INTEGRAL_T&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;{</div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">to_byte</a>( <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( l ) | <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( r ) );</div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;}</div>
-<div class="ttc" id="namespacenonstd_html_ad3cb936f5cc827264cb18db4601c51ee"><div class="ttname"><a href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">nonstd::to_byte</a></div><div class="ttdeci">byte_constexpr byte to_byte(IntegerType v) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:248</div></div>
-<div class="ttc" id="namespacenonstd_html_a756024db6c1d5858e582fbc9927feee2"><div class="ttname"><a href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">nonstd::to_uchar</a></div><div class="ttdeci">byte_constexpr unsigned char to_uchar(int i) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:303</div></div>
+<div class="fragment"><div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;{</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">to_byte</a>( <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( l ) | <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( r ) );</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;}</div>
+<div class="ttc" id="namespacenonstd_html_ad3cb936f5cc827264cb18db4601c51ee"><div class="ttname"><a href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">nonstd::to_byte</a></div><div class="ttdeci">byte_constexpr byte to_byte(IntegerType v) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:249</div></div>
+<div class="ttc" id="namespacenonstd_html_a756024db6c1d5858e582fbc9927feee2"><div class="ttname"><a href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">nonstd::to_uchar</a></div><div class="ttdeci">byte_constexpr unsigned char to_uchar(int i) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:304</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -888,11 +888,11 @@ template&lt;class IntegerType  byte_ENABLE_IF_INTEGRAL_T&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;{</div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">to_byte</a>( <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( l ) &amp; <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( r ) );</div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;}</div>
-<div class="ttc" id="namespacenonstd_html_ad3cb936f5cc827264cb18db4601c51ee"><div class="ttname"><a href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">nonstd::to_byte</a></div><div class="ttdeci">byte_constexpr byte to_byte(IntegerType v) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:248</div></div>
-<div class="ttc" id="namespacenonstd_html_a756024db6c1d5858e582fbc9927feee2"><div class="ttname"><a href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">nonstd::to_uchar</a></div><div class="ttdeci">byte_constexpr unsigned char to_uchar(int i) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:303</div></div>
+<div class="fragment"><div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;{</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">to_byte</a>( <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( l ) &amp; <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( r ) );</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;}</div>
+<div class="ttc" id="namespacenonstd_html_ad3cb936f5cc827264cb18db4601c51ee"><div class="ttname"><a href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">nonstd::to_byte</a></div><div class="ttdeci">byte_constexpr byte to_byte(IntegerType v) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:249</div></div>
+<div class="ttc" id="namespacenonstd_html_a756024db6c1d5858e582fbc9927feee2"><div class="ttname"><a href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">nonstd::to_uchar</a></div><div class="ttdeci">byte_constexpr unsigned char to_uchar(int i) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:304</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -927,11 +927,11 @@ template&lt;class IntegerType  byte_ENABLE_IF_INTEGRAL_T&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;{</div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">to_byte</a>( <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( l ) ^ <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( r ) );</div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;}</div>
-<div class="ttc" id="namespacenonstd_html_ad3cb936f5cc827264cb18db4601c51ee"><div class="ttname"><a href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">nonstd::to_byte</a></div><div class="ttdeci">byte_constexpr byte to_byte(IntegerType v) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:248</div></div>
-<div class="ttc" id="namespacenonstd_html_a756024db6c1d5858e582fbc9927feee2"><div class="ttname"><a href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">nonstd::to_uchar</a></div><div class="ttdeci">byte_constexpr unsigned char to_uchar(int i) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:303</div></div>
+<div class="fragment"><div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;{</div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">to_byte</a>( <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( l ) ^ <a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( r ) );</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;}</div>
+<div class="ttc" id="namespacenonstd_html_ad3cb936f5cc827264cb18db4601c51ee"><div class="ttname"><a href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">nonstd::to_byte</a></div><div class="ttdeci">byte_constexpr byte to_byte(IntegerType v) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:249</div></div>
+<div class="ttc" id="namespacenonstd_html_a756024db6c1d5858e582fbc9927feee2"><div class="ttname"><a href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">nonstd::to_uchar</a></div><div class="ttdeci">byte_constexpr unsigned char to_uchar(int i) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:304</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -956,11 +956,11 @@ template&lt;class IntegerType  byte_ENABLE_IF_INTEGRAL_T&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;{</div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">to_byte</a>( ~<a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( b ) );</div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;}</div>
-<div class="ttc" id="namespacenonstd_html_ad3cb936f5cc827264cb18db4601c51ee"><div class="ttname"><a href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">nonstd::to_byte</a></div><div class="ttdeci">byte_constexpr byte to_byte(IntegerType v) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:248</div></div>
-<div class="ttc" id="namespacenonstd_html_a756024db6c1d5858e582fbc9927feee2"><div class="ttname"><a href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">nonstd::to_uchar</a></div><div class="ttdeci">byte_constexpr unsigned char to_uchar(int i) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:303</div></div>
+<div class="fragment"><div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;{</div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">to_byte</a>( ~<a class="code" href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">to_uchar</a>( b ) );</div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;}</div>
+<div class="ttc" id="namespacenonstd_html_ad3cb936f5cc827264cb18db4601c51ee"><div class="ttname"><a href="namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee">nonstd::to_byte</a></div><div class="ttdeci">byte_constexpr byte to_byte(IntegerType v) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:249</div></div>
+<div class="ttc" id="namespacenonstd_html_a756024db6c1d5858e582fbc9927feee2"><div class="ttname"><a href="namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2">nonstd::to_uchar</a></div><div class="ttdeci">byte_constexpr unsigned char to_uchar(int i) byte_noexcept</div><div class="ttdef"><b>Definition:</b> byte.hpp:304</div></div>
 </div><!-- fragment -->
 </div>
 </div>

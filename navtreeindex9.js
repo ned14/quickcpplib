@@ -1,5 +1,6 @@
 var NAVTREEINDEX9 =
 {
+"type__traits_8hpp.html#af2b35cdd63686f7e2b5229443a4d3f84":[5,0,0,0,34,7],
 "uint128_8hpp.html":[5,0,0,0,35],
 "unionquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase_1_1__internals.html":[4,0,4,0,17,5,0],
 "unionquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase_1_1__internals.html#a368d859ae484578d7aa87d7b2e369082":[4,0,4,0,17,5,0,2],
