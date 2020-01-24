@@ -646,9 +646,7 @@ static void                                                                     
 
 #endif
 
-#if defined _MSC_VER && !defined(__clang__)
-#define BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS inline
-#elif defined _MSC_VER && defined(__clang__)
+#if defined _MSC_VER
 #define BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS
 #elif defined __MINGW32__
 #define BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS
@@ -660,16 +658,17 @@ static void                                                                     
 
 #ifndef QUICKCPPLIB_BOOST_UNIT_TEST_CUSTOM_MAIN_DEFINED
 #ifdef _MSC_VER
-#pragma warning(push)
-#pragma warning(disable : 4008)  // inline on main
-#endif
+extern inline int quickcpplib_unit_testing_main(int argc, const char* const argv[]) {
+  int result = QUICKCPPLIB_BOOST_UNIT_TEST_RUN_TESTS(argc, argv);
+  return result;
+}
+#pragma comment(linker, "/alternatename:main=?quickcpplib_unit_testing_main@@YAHHQEBQEBD@Z")
+#else
 BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS int main(int argc, const char *const argv[])
 {
   int result = QUICKCPPLIB_BOOST_UNIT_TEST_RUN_TESTS(argc, argv);
   return result;
 }
-#ifdef _MSC_VER
-#pragma warning(pop)
 #endif
 #endif
 
