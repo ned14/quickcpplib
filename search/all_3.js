@@ -46,6 +46,8 @@ var searchData=
   ['crend',['crend',['../classquickcpplib_1_1__xxx_1_1string__view_1_1basic__string__view.html#a471398d138a43d58e0fecff60b2b0af3',1,'quickcpplib::_xxx::string_view::basic_string_view::crend()'],['../classgsl_1_1span.html#a48c85698fa186e8e99ff24ca34d7cac2',1,'gsl::span::crend()']]],
   ['cstring_5fspan',['cstring_span',['../namespacegsl.html#a98d1a1e5e62780b5f2605a54c0f88eec',1,'gsl']]],
   ['csv',['csv',['../namespacequickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail.html#a826abbd8019519a92d2ffc41a522980e',1,'quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::csv()'],['../namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#aaccd259eeb8e67febc5beda3ed44cd08',1,'quickcpplib::_xxx::ringbuffer_log::csv()']]],
+  ['current_5ftest_5fcase',['current_test_case',['../namespacequickcpplib_1_1__xxx_1_1unit__test.html#ac482d7982dfc7591e066c2c11452ca10',1,'quickcpplib::_xxx::unit_test']]],
+  ['current_5ftest_5fsuite',['current_test_suite',['../namespacequickcpplib_1_1__xxx_1_1unit__test.html#ab65df9b369444d8385f0ea05b8e0214d',1,'quickcpplib::_xxx::unit_test']]],
   ['cwstring_5fspan',['cwstring_span',['../namespacegsl.html#a05852da9de75087b7292f44ed2c7775b',1,'gsl']]],
   ['cwzstring',['cwzstring',['../namespacegsl.html#a0be826c860d1bf5c41ceb8a7002a3d1a',1,'gsl']]],
   ['cyan',['cyan',['../namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#aa2840e8ff202a8a794fd5192ea8b2840',1,'quickcpplib::_xxx::console_colours::detail::cyan()'],['../namespacequickcpplib_1_1__xxx_1_1console__colours.html#a5939a5f128a2aff319ff6a9e578f98a5',1,'quickcpplib::_xxx::console_colours::cyan()']]],

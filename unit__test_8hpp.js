@@ -34,5 +34,10 @@ var unit__test_8hpp =
     [ "BOOST_AUTO_TEST_CASE", "unit__test_8hpp.html#gab7ba609bc6e1acbfc8861d1da0620532", null ],
     [ "QUICKCPPLIB_BOOST_UNIT_TEST_RUN_TESTS", "unit__test_8hpp.html#ga4eceeb6c35ebc01c1e28ef13932484e2", null ],
     [ "BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS", "unit__test_8hpp.html#ga294ed052e62b061f189021d631f11751", null ],
+    [ "test_case_failed", "unit__test_8hpp.html#af830eb869f495741513b8cc32a2fe708", null ],
+    [ "test_suites", "unit__test_8hpp.html#a744a99c37b7eb5c18ad4f6b63ee610c7", null ],
+    [ "current_test_suite", "unit__test_8hpp.html#ab65df9b369444d8385f0ea05b8e0214d", null ],
+    [ "current_test_case", "unit__test_8hpp.html#ac482d7982dfc7591e066c2c11452ca10", null ],
+    [ "run", "unit__test_8hpp.html#a1376be7d93b74267e4f9a88368be0266", null ],
     [ "main", "unit__test_8hpp.html#ga8eb486cd9992c108ade6a78384fb7f6a", null ]
 ];
