@@ -1,5 +1,5 @@
 /* Provides lightweight Boost.Test macros
-(C) 2014-2017 Niall Douglas <http://www.nedproductions.biz/> (26 commits)
+(C) 2014-2020 Niall Douglas <http://www.nedproductions.biz/> (26 commits)
 File Created: Nov 2014
 
 
@@ -108,7 +108,7 @@ namespace unit_test
   {
   };
 #ifndef __cpp_exceptions
-  static inline jmp_buf &test_case_failed()
+  extern inline jmp_buf &test_case_failed()
   {
     static jmp_buf b;
     return b;
@@ -159,23 +159,23 @@ namespace unit_test
     {
     }
   };
-  static inline std::vector<test_suite> &test_suites()
+  extern inline std::vector<test_suite> &test_suites()
   {
     static std::vector<test_suite> v;
     return v;
   }
-  static inline test_suite *&current_test_suite()
+  extern inline test_suite *&current_test_suite()
   {
     static test_suite *v;
     return v;
   }
-  static inline test_case *&current_test_case()
+  extern inline test_case *&current_test_case()
   {
     static test_case default_test_case("unnamed", "Default test case for unit test which don't declare test cases", nullptr);
     static test_case *v = &default_test_case;
     return v;
   }
-  static inline int run(int argc, const char *const argv[])
+  extern inline int run(int argc, const char *const argv[])
   {
     std::regex enabled(".*"), disabled;
     bool list_tests = false;
