@@ -11,6 +11,7 @@ var gsl_lite_8hpp =
     [ "gsl_FEATURE_IMPLICIT_MACRO", "gsl-lite_8hpp.html#a05784342ed40a111cbf30323319e8cac", null ],
     [ "gsl_FEATURE_OWNER_MACRO", "gsl-lite_8hpp.html#a1109590a581a092a25892cfa90e2e9be", null ],
     [ "gsl_FEATURE_EXPERIMENTAL_RETURN_GUARD", "gsl-lite_8hpp.html#a7d82d9eca854d5117ff1ab6fd9fc2169", null ],
+    [ "gsl_FEATURE_GSL_LITE_NAMESPACE", "gsl-lite_8hpp.html#a06d2554fc8af617378effd7149fa8226", null ],
     [ "gsl_CONFIG_DEPRECATE_TO_LEVEL", "gsl-lite_8hpp.html#aa4b98155cf28f79c482badc225adbb7d", null ],
     [ "gsl_CONFIG_SPAN_INDEX_TYPE", "gsl-lite_8hpp.html#ac2724519f32971090acd465d873f16dd", null ],
     [ "gsl_CONFIG_INDEX_TYPE", "gsl-lite_8hpp.html#a072be8014b48c32fbf1f299e0c6ef8da", null ],

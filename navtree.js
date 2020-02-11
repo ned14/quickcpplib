@@ -51,11 +51,11 @@ var NAVTREEINDEX =
 "classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace.html#a4dbee8593d307d3c62e22c99157ec61b",
 "config_8hpp.html#a2470b41360fc655b0e1a0bf3ef5fe8f7",
 "gsl-lite-vc6_8hpp.html#a4c8b681c7fb1c2e2a18db3cfe6a59fb3",
-"in__place__detach__attach_8hpp.html#a5549c2e9a661d39865e579b587f41ea6",
-"optional_2optional_8hpp.html#a8c661768ae1035ed3ab1218921e5c4dd",
-"struct_oracle_val.html",
-"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield.html",
-"type__traits_8hpp.html#af2b35cdd63686f7e2b5229443a4d3f84"
+"in__place__detach__attach_8hpp.html#a0afb485acbd22275a76a2a703aeed455",
+"optional_2optional_8hpp.html#a80c8353dc956b844b2255d2c385c62f0",
+"struct_oracle.html#af4f7c74fb8decdd790363a7776756a3d",
+"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html#af1be6151dbf2c02aed9252b4c35971d2",
+"type__traits_8hpp.html#a976ef0c550dfefb3740db89db457de4a"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
