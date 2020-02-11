@@ -122,6 +122,7 @@ else()
        "${CMAKE_CURRENT_SOURCE_DIR}/include/*.ipp"
        "${CMAKE_CURRENT_SOURCE_DIR}/include/*.natvis"
        )
+  list(SORT ${PROJECT_NAME}_HEADERS)
   set(${PROJECT_NAME}_HEADERS_FILTER ${${PROJECT_NAME}_HEADERS})
   list_filter(${PROJECT_NAME}_HEADERS_FILTER INCLUDE REGEX "\\.quickcpplib$")
   prune_quickcpplib_libraries(${PROJECT_NAME}_HEADERS_FILTER ${PROJECT_NAME}_HEADERS)
@@ -153,6 +154,7 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/src")
          "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cxx"
          "${CMAKE_CURRENT_SOURCE_DIR}/src/*.ipp"
          )
+    list(SORT ${PROJECT_NAME}_SOURCES)
     set(${PROJECT_NAME}_SOURCES_FILTER ${${PROJECT_NAME}_SOURCES})
     list_filter(${PROJECT_NAME}_SOURCES_FILTER INCLUDE REGEX "\\.quickcpplib$")
     prune_quickcpplib_libraries(${PROJECT_NAME}_SOURCES_FILTER ${PROJECT_NAME}_SOURCES)
@@ -176,6 +178,7 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/test")
          "${CMAKE_CURRENT_SOURCE_DIR}/test/*.cxx"
          "${CMAKE_CURRENT_SOURCE_DIR}/test/*.ipp"
          )
+    list(SORT ${PROJECT_NAME}_TESTS)
     set(${PROJECT_NAME}_TESTS_FILTER ${${PROJECT_NAME}_TESTS})
     list_filter(${PROJECT_NAME}_TESTS_FILTER INCLUDE REGEX "\\.quickcpplib$")
     prune_quickcpplib_libraries(${PROJECT_NAME}_TESTS_FILTER ${PROJECT_NAME}_TESTS)
@@ -194,6 +197,7 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/test")
          "${CMAKE_CURRENT_SOURCE_DIR}/example/*.cxx"
          "${CMAKE_CURRENT_SOURCE_DIR}/example/*.ipp"
          )
+	list(SORT ${PROJECT_NAME}_COMPILE_TESTS)
     set(${PROJECT_NAME}_TESTS_FILTER ${${PROJECT_NAME}_COMPILE_TESTS})
     list_filter(${PROJECT_NAME}_TESTS_FILTER INCLUDE REGEX "\\.quickcpplib$")
     prune_quickcpplib_libraries(${PROJECT_NAME}_TESTS_FILTER ${PROJECT_NAME}_COMPILE_TESTS)
