@@ -29,6 +29,7 @@ endfunction()
 
 if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/cmake/headers.cmake")
   write_cached_scan_file(WRITE "${CMAKE_CURRENT_SOURCE_DIR}/cmake/interface.cmake" "${PROJECT_NAME}_INTERFACE" ${${PROJECT_NAME}_INTERFACE})
+  write_cached_scan_file(APPEND "${CMAKE_CURRENT_SOURCE_DIR}/cmake/interface.cmake" "${PROJECT_NAME}_INTERFACE_SOURCE" ${${PROJECT_NAME}_INTERFACE_SOURCE})
   write_cached_scan_file(WRITE "${CMAKE_CURRENT_SOURCE_DIR}/cmake/headers.cmake" "${PROJECT_NAME}_HEADERS" ${${PROJECT_NAME}_HEADERS})
 endif()
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/src")

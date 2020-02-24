@@ -82,16 +82,3 @@ else()
 endif()
 add_library(${PROJECT_NAMESPACE}${PROJECT_NAME}::dl ALIAS ${PROJECT_NAME}_dl)
 
-# Check headers for C++ Modules support
-if(MSVC AND MSVC_VERSION VERSION_GREATER 1900)  # VS2015
-  # Parse the front of each header file looking for ^import .*;
-  # todo
-endif()
-
-include(QuickCppLibPrecompiledHeader)
-# Now the config is ready, generate a private precompiled header for
-# ${PROJECT_NAME}_INTERFACE and have the sources in ${PROJECT_NAME}_SOURCES
-# use the precompiled header UNLESS there is only one source file
-# 
-# todo
-

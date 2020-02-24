@@ -52,6 +52,12 @@ if(NOT PROJECT_IS_DEPENDENCY)
               endif()
             endif()
             add_executable(${target_name} ${thistestsources})
+            if(NOT first_test_target)
+              set(first_test_target ${target_name} PARENT_SCOPE)
+            elseif(target MATCHES "_hl$" AND COMMAND target_precompile_headers)
+              #message("*** target_precompile_headers(${target_name} REUSE_FROM ${first_test_target})")
+              target_precompile_headers(${target_name} REUSE_FROM ${first_test_target})
+            endif()
             set_target_properties(${target_name} PROPERTIES
               EXCLUDE_FROM_ALL ON
             )
@@ -81,8 +87,9 @@ if(NOT PROJECT_IS_DEPENDENCY)
       
       # Deal with normal tests + special builds of them first
       set(testtargets)
-      foreach(testsource ${${PROJECT_NAME}_TESTS})
-        foreach(special ${SPECIAL_BUILDS} "")
+      foreach(special ${SPECIAL_BUILDS} "")
+        set(first_test_target)
+        foreach(testsource ${${PROJECT_NAME}_TESTS})
           do_add_test(target_names "${testsource}" "${special}" OFF)
           foreach(target_name ${target_names})
             # This is a normal test target run for success
@@ -119,6 +126,7 @@ if(NOT PROJECT_IS_DEPENDENCY)
 
       # Deal with tests which require the compilation to succeed
       set(testtargets)
+      set(first_test_target)
       foreach(testsource ${${PROJECT_NAME}_COMPILE_TESTS})
         do_add_test(target_names "${testsource}" "" OFF)
         list(APPEND testtargets ${target_names})
@@ -127,6 +135,7 @@ if(NOT PROJECT_IS_DEPENDENCY)
 
       # Deal with tests which require the compilation to fail in an exact way
       set(testtargets)
+      set(first_test_target)
       foreach(testsource ${${PROJECT_NAME}_COMPILE_FAIL_TESTS})
         do_add_test(target_names "${testsource}" "" ON)
         foreach(target_name ${target_names})

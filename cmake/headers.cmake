@@ -26,6 +26,7 @@ set(quickcpplib_HEADERS
   "include/quickcpplib/execinfo_win64.h"
   "include/quickcpplib/function_ptr.hpp"
   "include/quickcpplib/gsl-lite/gsl-lite.natvis"
+  "include/quickcpplib/gsl-lite/include/gsl-lite/gsl-lite.hpp"
   "include/quickcpplib/gsl-lite/include/gsl.h"
   "include/quickcpplib/gsl-lite/include/gsl.hpp"
   "include/quickcpplib/gsl-lite/include/gsl/gsl-lite-vc6.hpp"

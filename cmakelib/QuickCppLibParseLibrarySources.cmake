@@ -100,16 +100,18 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/cmake/headers.cmake")
 else()
   indented_message(STATUS "Cached scan of project ${PROJECT_NAME} headers not found! Starting scan ...")
   if(NOT ${PROJECT_NAME}_INTERFACE_DISABLED)
-    set(${PROJECT_NAME}_INTERFACE "${PROJECT_DIR}/${PROJECT_NAME}.hpp")
-    if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/include/${${PROJECT_NAME}_INTERFACE}")
-      indented_message(FATAL_ERROR "FATAL: No master interface header file found at include/${${PROJECT_NAME}_INTERFACE}. "
+    if(NOT DEFINED ${PROJECT_NAME}_INTERFACE)
+      set(${PROJECT_NAME}_INTERFACE "include/${PROJECT_NAME}.hpp")
+    endif()
+    if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${${PROJECT_NAME}_INTERFACE}")
+      indented_message(FATAL_ERROR "FATAL: No master interface header file found at ${${PROJECT_NAME}_INTERFACE}. "
                           "You need a master interface header file at that location if you are to make available "
                           "your library as a C++ Module or as a precompiled header. If your library can never "
                           "support a master interface header file, set ${PROJECT_NAME}_INTERFACE_DISABLED to ON."
       )
     endif()
-    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/${PROJECT_NAME}.ixx")
-      set(${PROJECT_NAME}_INTERFACE_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_DIR}/${PROJECT_NAME}.ixx")
+    if(NOT DEFINED ${PROJECT_NAME}_INTERFACE_SOURCE AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}.ixx")
+      set(${PROJECT_NAME}_INTERFACE_SOURCE "include/${PROJECT_NAME}.ixx")
     endif()
   endif()
   indented_message(STATUS "  Recursively scanning ${CMAKE_CURRENT_SOURCE_DIR}/include for header files ...")

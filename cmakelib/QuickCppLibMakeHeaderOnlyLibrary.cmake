@@ -5,9 +5,8 @@
 #  * ${PROJECT_NAME}_hlm: Header only C++ Module target (where supported)
 
 if(NOT DEFINED ${PROJECT_NAME}_HEADERS)
-  message(FATAL_ERROR "FATAL: BoostLiteSetupProject has not been included yet.")
+  message(FATAL_ERROR "FATAL: QuickCppLibSetupProject has not been included yet.")
 endif()
-include(QuickCppLibPrecompiledHeader)
 
 function(target_append_header_only_sources tgt)
   set(sources)
@@ -21,8 +20,10 @@ function(target_append_header_only_sources tgt)
   target_sources(${tgt} INTERFACE ${sources})
 endfunction()
 
-function(default_header_only_interface_library reason)
-  indented_message(STATUS "NOTE: NOT compiling header only library for ${PROJECT_NAME} into a C++ Module nor a precompiled header due to ${reason}")
+function(default_header_only_interface_library)
+  if(ARGN)
+    indented_message(STATUS "NOTE: NOT compiling header only library for ${PROJECT_NAME} into a precompiled header due to ${ARGN}")
+  endif()
   add_library(${PROJECT_NAME}_hl INTERFACE)
   target_include_directories(${PROJECT_NAME}_hl INTERFACE
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
@@ -46,34 +47,18 @@ function(default_header_only_interface_library reason)
 #  endif()
 endfunction()
 
-# Do we have C++ Modules support on this compiler?
-if(NOT DEFINED ENABLE_CXX_MODULES)
-  if(MSVC_VERSION VERSION_GREATER 1999)  # VS2017
-    option(ENABLE_CXX_MODULES "Enable C++ Modules support in this build (defaults to ON on a sufficiently recent MSVC)" ON)
-  else()
-    option(ENABLE_CXX_MODULES "Enable C++ Modules support in this build (defaults to ON on a sufficiently recent MSVC)" OFF)
-  endif()
-endif()
 if(${PROJECT_NAME}_INTERFACE_DISABLED)
   default_header_only_interface_library("this project not providing a master interface header file")
-elseif(ENABLE_CXX_MODULES AND DEFINED ${PROJECT_NAME}_INTERFACE_SOURCE)  # This library provides a C++ Module source file
-  # Add a C++ Module for the PCH header file
-  indented_message(STATUS "Compiling ${${PROJECT_NAME}_INTERFACE_SOURCE} into a C++ Module for the ${PROJECT_NAME}_hl target")
-  add_cxx_module(${PROJECT_NAME}_hl ${${PROJECT_NAME}_INTERFACE_SOURCE})
-elseif(MSVC)
-  # MSVC can't share precompiled headers between targets so fall back onto an interface library
-  if(DEFINED ${PROJECT_NAME}_INTERFACE_SOURCE)
-    default_header_only_interface_library("this MSVC does not sufficiently support C++ Modules, and MSVC cannot share precompiled headers between targets")
-  else()
-    default_header_only_interface_library("this project not providing a C++ Module source file, and MSVC cannot share precompiled headers between targets")
-  endif()
 elseif(NOT PROJECT_IS_DEPENDENCY)
-## Works on anything not Bash for Windows, but that's mostly what I'm testing with
-##  # Add a precompiled header for the PCH header file
-##  add_precompiled_header(${PROJECT_NAME}_hl ${${PROJECT_NAME}_INTERFACE})
-##  # Include all my headers into the sources of anything consuming me
-##  target_append_header_only_sources(${PROJECT_NAME}_hl)
-  default_header_only_interface_library("Niall temporarily disabling precompiled headers support pending diagnosis")
+  if(COMMAND target_precompile_headers)
+    default_header_only_interface_library()
+    set(pch_sources ${${PROJECT_NAME}_INTERFACE})
+    list_filter(pch_sources EXCLUDE REGEX "\\.natvis$")
+    indented_message(STATUS "NOTE: Telling cmake to precompile inclusions of ${pch_sources} for all targets linking against ${PROJECT_NAME}_hl, you may wish to apply target_precompile_headers(... REUSE_FROM ...) to prevent precompiling for every linked target")
+    target_precompile_headers(${PROJECT_NAME}_hl INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/${pch_sources}")
+  else()
+    default_header_only_interface_library("this cmake does not support target_precompile_headers()")
+  endif()
 else()
   default_header_only_interface_library("this project being a dependency of a higher level project")
 endif()
