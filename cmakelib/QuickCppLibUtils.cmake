@@ -240,14 +240,16 @@ function(target_uses_openmp target)
 endfunction()
 
 # Preprocess a file
-function(add_partial_preprocess target outfile infile)
+function(add_partial_preprocess target outfile infile depend)
   if(EXISTS "${QuickCppLibCMakePath}/../pcpp/pcpp/pcmd.py")
-    add_custom_target(${target} 
-      "${PYTHON_EXECUTABLE}" "${QuickCppLibCMakePath}/../pcpp/pcpp/pcmd.py"
+    add_custom_command(OUTPUT "${outfile}"
+      COMMAND "${PYTHON_EXECUTABLE}" "${QuickCppLibCMakePath}/../pcpp/pcpp/pcmd.py"
       -o "${outfile}" "${infile}"
       ${ARGN}
+      DEPENDS "${depend}"
       COMMENT "Preprocessing ${infile} into ${outfile} ..."
     )
+    add_custom_target(${target} DEPENDS "${outfile}")
   else()
     add_custom_target(${target})
   endif()
@@ -330,13 +332,17 @@ function(find_quickcpplib_library libraryname)
     if(NOT ${libraryname}_FOUND)
       foreach(config Debug Release RelWithDebInfo MinSizeRel)
         indented_message(STATUS "Superbuilding missing dependency ${libraryname} with config ${config}, this make take a while ...")
+        set(cmakeargs -DCMAKE_BUILD_TYPE=${config} -DPROJECT_IS_DEPENDENCY=TRUE "-DQUICKCPPLIB_ROOT_BINARY_DIR=${QUICKCPPLIB_ROOT_BINARY_DIR}")
+        if(DEFINED CMAKE_TOOLCHAIN_FILE)
+          list(APPEND cmakeargs "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}")
+        endif()
         set(extraargs "GIT_SHALLOW 1")
         if(NOT config STREQUAL Debug)
           # go faster
           set(extraargs "GIT_SHALLOW 1;GIT_SUBMODULES")
         endif()
         download_build_install(NAME ${libraryname}
-          CMAKE_ARGS -DCMAKE_BUILD_TYPE=${config} -DPROJECT_IS_DEPENDENCY=TRUE "-DQUICKCPPLIB_ROOT_BINARY_DIR=${QUICKCPPLIB_ROOT_BINARY_DIR}"
+          CMAKE_ARGS ${cmakeargs}
           EXTERNALPROJECT_ARGS ${extraargs}
           GIT_REPOSITORY "${FINDLIB_GIT_REPOSITORY}"
           GIT_TAG "${FINDLIB_GIT_TAG}"
