@@ -240,7 +240,7 @@ function(target_uses_openmp target)
 endfunction()
 
 # Preprocess a file
-function(add_partial_preprocess target outfile infile depend)
+function(add_partial_preprocess target outfile depend infile)
   if(EXISTS "${QuickCppLibCMakePath}/../pcpp/pcpp/pcmd.py")
     add_custom_command(OUTPUT "${outfile}"
       COMMAND "${PYTHON_EXECUTABLE}" "${QuickCppLibCMakePath}/../pcpp/pcpp/pcmd.py"

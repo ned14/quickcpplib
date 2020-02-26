@@ -22,6 +22,11 @@ target_include_directories(${PROJECT_NAME}_sl INTERFACE
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
   "$<INSTALL_INTERFACE:include>"
 )
+if(NOT DEFINED ${PROJECT_NAME}_INTERFACE_DISABLED AND COMMAND target_precompile_headers)
+  set(pch_sources ${${PROJECT_NAME}_INTERFACE})
+  list_filter(pch_sources EXCLUDE REGEX "\\.natvis$")
+  target_precompile_headers(${PROJECT_NAME}_sl INTERFACE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${pch_sources}>")
+endif()
 add_dependencies(_sl ${PROJECT_NAME}_sl)
 list(APPEND ${PROJECT_NAME}_TARGETS ${PROJECT_NAME}_sl)
 foreach(special ${SPECIAL_BUILDS})
@@ -53,6 +58,11 @@ target_include_directories(${PROJECT_NAME}_dl INTERFACE
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
   "$<INSTALL_INTERFACE:include>"
 )
+if(NOT DEFINED ${PROJECT_NAME}_INTERFACE_DISABLED AND COMMAND target_precompile_headers)
+  set(pch_sources ${${PROJECT_NAME}_INTERFACE})
+  list_filter(pch_sources EXCLUDE REGEX "\\.natvis$")
+  target_precompile_headers(${PROJECT_NAME}_dl INTERFACE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${pch_sources}>")
+endif()
 add_dependencies(_dl ${PROJECT_NAME}_dl)
 list(APPEND ${PROJECT_NAME}_TARGETS ${PROJECT_NAME}_dl)
 foreach(special ${SPECIAL_BUILDS})
