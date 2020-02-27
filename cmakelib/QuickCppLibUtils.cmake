@@ -582,3 +582,27 @@ int main() { return g().get(); }
     endforeach()
   endif()
 endfunction()
+
+function(ensure_git_subrepo path url)
+  if(NOT EXISTS "${path}")
+    include(FindGit)
+    message(STATUS "NOTE: Due to missing ${path}, running ${GIT_EXECUTABLE} submodule update --init --recursive ...")
+    execute_process(COMMAND "${GIT_EXECUTABLE}" submodule update --init --recursive
+      WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+      RESULT_VARIABLE retcode
+    )
+    if(retcode)
+      # Try pulling repo directly from github
+      get_filename_component(path "${path}" DIRECTORY)
+      get_filename_component(path "${path}" DIRECTORY)
+      message(WARNING "WARNING: git submodule update failed with code ${retcode}, trying a direct git clone ...")
+      execute_process(COMMAND "${GIT_EXECUTABLE}" clone --recurse-submodules ${url}
+        WORKING_DIRECTORY "${path}"
+        RESULT_VARIABLE retcode
+      )
+      if(retcode)
+        message(FATAL_ERROR "FATAL: git clone failed with code ${retcode}")
+      endif()
+    endif()
+  endif()
+endfunction()
