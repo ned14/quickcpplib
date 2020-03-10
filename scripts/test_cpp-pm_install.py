@@ -49,7 +49,7 @@ with open('test_cpp-pm_install/cmake/Hunter/config.cmake', 'w') as oh:
 
 with open('test_cpp-pm_install/CMakeLists.txt', 'a') as oh:
     for dependency in dependencies:
-        oh.write('hunter_add_package(' + dependency[0] + ')\nfind_package(' + dependency[0] + ' CONFIG REQUIRED)\ntarget_link_libraries(test ' + dependency[1] + ')\n')
+        oh.write('hunter_add_package(' + dependency[0] + ')\nfind_package(' + dependency[0] + ' CONFIG REQUIRED)\ntarget_link_libraries(mytest ' + dependency[1] + ')\n')
 
 repo.git.add('.')
 try:

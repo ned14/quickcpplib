@@ -2,4 +2,4 @@ cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 
 include("cmake/HunterVersion.cmake")
 project(cpp-pm-test LANGUAGES C CXX)
-add_executable(test "test.cpp")
+add_executable(mytest "test.cpp")
