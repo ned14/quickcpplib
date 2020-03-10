@@ -596,7 +596,7 @@ function(ensure_git_subrepo path url)
       get_filename_component(path "${path}" DIRECTORY)
       get_filename_component(path "${path}" DIRECTORY)
       message(WARNING "WARNING: git submodule update failed with code ${retcode}, trying a direct git clone ...")
-      execute_process(COMMAND "${GIT_EXECUTABLE}" clone --recurse-submodules ${url}
+      execute_process(COMMAND "${GIT_EXECUTABLE}" clone --recurse-submodules ${url} ${ARGN}
         WORKING_DIRECTORY "${path}"
         RESULT_VARIABLE retcode
       )
