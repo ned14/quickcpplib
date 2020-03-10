@@ -19,8 +19,8 @@ subreponame = sys.argv[3]
 linktarget = sys.argv[4]
 #giturl = 'https://github.com/ned14/outcome'
 #testcpppath = resourcepath + '/../test_outcome.cpp'
-#subreponame = b'outcome'
-#linktarget = b'outcome::hl'
+#subreponame = 'outcome'
+#linktarget = 'outcome::hl'
 
 def copytree(src, dst, symlinks=False):
     names = os.listdir(src)
@@ -38,19 +38,22 @@ copytree(resourcepath, 'test_cpp-pm_install')
 shutil.copy(testcpppath, 'test_cpp-pm_install/test.cpp')
 if os.path.exists('test_cpp-pm_install/build'):
     shutil.rmtree('test_cpp-pm_install/build')
-if os.path.exists(b'test_cpp-pm_install/' + subreponame):
+if os.path.exists('test_cpp-pm_install/' + subreponame):
     print('Updating subrepo to latest ...')
     repo.submodules[0].update(to_latest_revision = True, force = True)
 else:
     print('Adding subrepo ...')
-    subrepo = repo.create_submodule(subreponame.decode(), subreponame.decode(), url = giturl)
+    subrepo = repo.create_submodule(subreponame, subreponame, url = giturl)
 
 os.makedirs('test_cpp-pm_install/cmake/Hunter', exist_ok = True)
-with open('test_cpp-pm_install/cmake/Hunter/config.cmake', 'wb') as oh:
-    oh.write(b'hunter_config(' + subreponame + b' GIT_SUBMODULE "' + subreponame + b'")\n')
+with open('test_cpp-pm_install/cmake/Hunter/config.cmake', 'w') as oh:
+    oh.write('hunter_config(' + subreponame + ' GIT_SUBMODULE "' + subreponame + '")\n')
 
-with open('test_cpp-pm_install/CMakeLists.txt', 'ab') as oh:
-    oh.write(b'hunter_add_package(' + subreponame + b')\nfind_package(' + subreponame + b' CONFIG REQUIRED)\ntarget_link_libraries(test ' + linktarget + b')\n')
+with open('test_cpp-pm_install/CMakeLists.txt', 'a') as oh:
+    oh.write('hunter_add_package(' + subreponame + ')\nfind_package(' + subreponame + ' CONFIG REQUIRED)\ntarget_link_libraries(test ' + linktarget + ')\n')
 
 repo.git.add('.')
-repo.git.commit('--all', '--no-edit', '-m', '"A commit"')
+try:
+    repo.git.commit('--all', '--no-edit', '-m', '"A commit"')
+except:
+    pass
