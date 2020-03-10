@@ -11,16 +11,12 @@ from git import Repo
 resourcepath = os.path.join(os.path.dirname(__file__), 'cpp-pm')
 
 if len(sys.argv) < 5:
-    print(sys.argv[0], " <git url> <test-cpp> <subrepo> <cmake-link-target>", file=sys.stderr)
+    print(sys.argv[0], " <test-cpp> [<subrepo> <cmake-link-target> <git url>]+", file=sys.stderr)
     sys.exit(1)
-giturl = sys.argv[1]
-testcpppath = sys.argv[2]
-subreponame = sys.argv[3]
-linktarget = sys.argv[4]
-#giturl = 'https://github.com/ned14/outcome'
-#testcpppath = resourcepath + '/../test_outcome.cpp'
-#subreponame = 'outcome'
-#linktarget = 'outcome::hl'
+testcpppath = sys.argv[1]
+dependencies = []
+for n in range(2, len(sys.argv), 3):
+    dependencies += [(sys.argv[n + 0], sys.argv[n + 1], sys.argv[n + 2])]
 
 def copytree(src, dst, symlinks=False):
     names = os.listdir(src)
@@ -38,19 +34,22 @@ copytree(resourcepath, 'test_cpp-pm_install')
 shutil.copy(testcpppath, 'test_cpp-pm_install/test.cpp')
 if os.path.exists('test_cpp-pm_install/build'):
     shutil.rmtree('test_cpp-pm_install/build')
-if os.path.exists('test_cpp-pm_install/' + subreponame):
-    print('Updating subrepo to latest ...')
-    repo.submodules[0].update(to_latest_revision = True, force = True)
-else:
-    print('Adding subrepo ...')
-    subrepo = repo.create_submodule(subreponame, subreponame, url = giturl)
+for dependency in dependencies:
+    if os.path.exists('test_cpp-pm_install/' + dependency[0]):
+        print('Updating subrepo to latest ...')
+        repo.submodules[0].update(to_latest_revision = True, force = True)
+    else:
+        print('Adding subrepo ...')
+        subrepo = repo.create_submodule(dependency[0], dependency[0], url = dependency[2])
 
 os.makedirs('test_cpp-pm_install/cmake/Hunter', exist_ok = True)
 with open('test_cpp-pm_install/cmake/Hunter/config.cmake', 'w') as oh:
-    oh.write('hunter_config(' + subreponame + ' GIT_SUBMODULE "' + subreponame + '")\n')
+    for dependency in dependencies:
+        oh.write('hunter_config(' + dependency[0] + ' GIT_SUBMODULE "' + dependency[0] + '")\n')
 
 with open('test_cpp-pm_install/CMakeLists.txt', 'a') as oh:
-    oh.write('hunter_add_package(' + subreponame + ')\nfind_package(' + subreponame + ' CONFIG REQUIRED)\ntarget_link_libraries(test ' + linktarget + ')\n')
+    for dependency in dependencies:
+        oh.write('hunter_add_package(' + dependency[0] + ')\nfind_package(' + dependency[0] + ' CONFIG REQUIRED)\ntarget_link_libraries(test ' + dependency[1] + ')\n')
 
 repo.git.add('.')
 try:

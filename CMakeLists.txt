@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 # If necessary bring in the quickcpplib cmake tooling
 list(FIND CMAKE_MODULE_PATH "quickcpplib" quickcpplib_idx)
 if(${quickcpplib_idx} GREATER -1)
@@ -8,6 +8,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmakelib
 include(QuickCppLibRequireOutOfSourceBuild)
 include(QuickCppLibUtils)
 include(QuickCppLibPolicies)
+ensure_git_subrepo("${CMAKE_CURRENT_SOURCE_DIR}/include/quickcpplib/gsl-lite/include" "https://github.com/martinmoene/gsl-lite.git")
+ensure_git_subrepo("${CMAKE_CURRENT_SOURCE_DIR}/include/quickcpplib/optional/optional.hpp" "https://github.com/akrzemi1/Optional.git")
+ensure_git_subrepo("${CMAKE_CURRENT_SOURCE_DIR}/include/quickcpplib/byte/include" "https://github.com/martinmoene/byte-lite.git")
 # Copy my gitattributes into the optional implementation's to prevent dirty git repo status
 file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/.gitattributes" DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/include/quickcpplib/optional/")
 file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/.gitattributes" DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/pcpp/pcpp/ply")
