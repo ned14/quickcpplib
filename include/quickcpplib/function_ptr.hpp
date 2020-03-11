@@ -48,6 +48,9 @@ namespace function_ptr
   */
   template <class F, size_t callable_storage_bytes = default_callable_storage_bytes> class function_ptr;
 
+  template <class ErasedPrototype, class Callable, size_t callable_storage_bytes = default_callable_storage_bytes, class... CallableConstructionArgs>  //
+  constexpr inline function_ptr<ErasedPrototype, callable_storage_bytes> emplace_function_ptr(CallableConstructionArgs &&... args);
+
   template <class R, class... Args, size_t callable_storage_bytes> class function_ptr<R(Args...), callable_storage_bytes>
   {
     template <class ErasedPrototype_, class Callable_, size_t callable_storage_bytes_, class... CallableConstructionArgs_> friend constexpr inline function_ptr<ErasedPrototype_, callable_storage_bytes_> emplace_function_ptr(CallableConstructionArgs_ &&... args);
