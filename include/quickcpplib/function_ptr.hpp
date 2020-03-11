@@ -50,8 +50,8 @@ namespace function_ptr
 
   template <class R, class... Args, size_t callable_storage_bytes> class function_ptr<R(Args...), callable_storage_bytes>
   {
-    template <class R_, class U, size_t C, class... Args2> friend constexpr inline function_ptr<R_, C> emplace_function_ptr(Args2 &&... args);                           // NOLINT
-    template <class R_, class U, class... Args2> friend constexpr inline function_ptr<R_, (sizeof(U) + sizeof(void *) + sizeof(void *) - 1) & ~(sizeof(void *) - 1)> emplace_function_ptr_nothrow(Args2 &&... args) noexcept;  // NOLINT
+    template <class ErasedPrototype_, class Callable_, size_t callable_storage_bytes_, class... CallableConstructionArgs_> friend constexpr inline function_ptr<ErasedPrototype_, callable_storage_bytes_> emplace_function_ptr(CallableConstructionArgs_ &&... args);
+    template <class ErasedPrototype_, class Callable_, class... CallableConstructionArgs_> friend constexpr inline function_ptr<ErasedPrototype_, (sizeof(Callable_) + sizeof(void *) + sizeof(void *) - 1) & ~(sizeof(void *) - 1)> emplace_function_ptr_nothrow(CallableConstructionArgs_ &&... args) noexcept;
 
     struct _function_ptr_storage
     {

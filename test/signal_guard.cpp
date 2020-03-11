@@ -26,6 +26,10 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "timing.h"
 
+#ifdef __clang__
+#pragma clang diagnostic ignored "-Wunknown-attributes"
+#endif
+
 BOOST_AUTO_TEST_SUITE(signal_guard)
 
 BOOST_AUTO_TEST_CASE(signal_guard / works / threadlocal, "Tests that signal_guard works as advertised (thread local)")
