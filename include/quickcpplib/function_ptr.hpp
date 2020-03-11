@@ -48,14 +48,9 @@ namespace function_ptr
   */
   template <class F, size_t callable_storage_bytes = default_callable_storage_bytes> class function_ptr;
 
-  template <class ErasedPrototype, class Callable, size_t callable_storage_bytes = default_callable_storage_bytes, class... CallableConstructionArgs>  //
-  constexpr inline function_ptr<ErasedPrototype, callable_storage_bytes> emplace_function_ptr(CallableConstructionArgs &&... args);
-
   template <class R, class... Args, size_t callable_storage_bytes> class function_ptr<R(Args...), callable_storage_bytes>
   {
-#if defined(__clang__) && __clang_major__ < 5
-    template <class ErasedPrototype_, class Callable_, size_t callable_storage_bytes_ = default_callable_storage_bytes, class... CallableConstructionArgs_> friend constexpr inline function_ptr<ErasedPrototype_, callable_storage_bytes_> emplace_function_ptr(CallableConstructionArgs_ &&... args);
-#else
+#if !defined(__clang__) || __clang_major__ >= 5
     template <class ErasedPrototype_, class Callable_, size_t callable_storage_bytes_, class... CallableConstructionArgs_> friend constexpr inline function_ptr<ErasedPrototype_, callable_storage_bytes_> emplace_function_ptr(CallableConstructionArgs_ &&... args);
 #endif
     template <class ErasedPrototype_, class Callable_, class... CallableConstructionArgs_> friend constexpr inline function_ptr<ErasedPrototype_, (sizeof(Callable_) + sizeof(void *) + sizeof(void *) - 1) & ~(sizeof(void *) - 1)> emplace_function_ptr_nothrow(CallableConstructionArgs_ &&... args) noexcept;
@@ -167,7 +162,9 @@ namespace function_ptr
       external = 3  //!< We use an externally supplied allocation for the callable which we do NOT free upon destruction
     };
 
+#if !defined(__clang__) || __clang_major__ >= 5
   private:
+#endif
     // Get the pointer, minus ptrtype_t
     _function_ptr_storage *_ptr() const
     {
