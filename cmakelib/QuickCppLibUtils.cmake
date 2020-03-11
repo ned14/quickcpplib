@@ -345,7 +345,8 @@ function(find_quickcpplib_library libraryname)
           # go faster
           set(extraargs "GIT_SHALLOW 1;GIT_SUBMODULES")
         endif()
-        indented_message(STATUS "DEBUG: download_build_install() DESTINATION = '${QUICKCPPLIB_ROOT_BINARY_DIR}/${libraryname}'")
+        indented_message(STATUS "DEBUG: download_build_install() QUICKCPPLIB_ROOT_BINARY_DIR = '${QUICKCPPLIB_ROOT_BINARY_DIR}'")
+        indented_message(STATUS "DEBUG: download_build_install() cmakeargs = '${cmakeargs}'")
         download_build_install(NAME ${libraryname}
           CMAKE_ARGS ${cmakeargs}
           EXTERNALPROJECT_ARGS ${extraargs}
