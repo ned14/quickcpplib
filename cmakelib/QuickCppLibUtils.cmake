@@ -336,17 +336,17 @@ function(find_quickcpplib_library libraryname)
     if(NOT ${libraryname}_FOUND)
       foreach(config Debug Release RelWithDebInfo MinSizeRel)
         indented_message(STATUS "Superbuilding missing dependency ${libraryname} with config ${config}, this may take a while ...")
-        set(cmakeargs -DCMAKE_BUILD_TYPE=${config} -DPROJECT_IS_DEPENDENCY=TRUE "-DQUICKCPPLIB_ROOT_BINARY_DIR=${QUICKCPPLIB_ROOT_BINARY_DIR}")
+        set(cmakeargs "-DCMAKE_BUILD_TYPE=${config} -DPROJECT_IS_DEPENDENCY=TRUE \"-DQUICKCPPLIB_ROOT_BINARY_DIR=${QUICKCPPLIB_ROOT_BINARY_DIR}\"")
         if(DEFINED CMAKE_TOOLCHAIN_FILE)
-          list(APPEND cmakeargs "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}")
+          set(cmakeargs "${cmakeargs} \"-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}\"")
         endif()
         set(extraargs "GIT_SHALLOW 1")
         if(NOT config STREQUAL Debug)
           # go faster
           set(extraargs "GIT_SHALLOW 1;GIT_SUBMODULES")
         endif()
-        indented_message(STATUS "DEBUG: download_build_install() QUICKCPPLIB_ROOT_BINARY_DIR = '${QUICKCPPLIB_ROOT_BINARY_DIR}'")
-        indented_message(STATUS "DEBUG: download_build_install() cmakeargs = '${cmakeargs}'")
+        #indented_message(STATUS "DEBUG: download_build_install() QUICKCPPLIB_ROOT_BINARY_DIR = '${QUICKCPPLIB_ROOT_BINARY_DIR}'")
+        #indented_message(STATUS "DEBUG: download_build_install() cmakeargs = '${cmakeargs}'")
         download_build_install(NAME ${libraryname}
           CMAKE_ARGS ${cmakeargs}
           EXTERNALPROJECT_ARGS ${extraargs}
