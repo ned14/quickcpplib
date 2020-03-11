@@ -177,9 +177,9 @@ template&lt;class ErasedPrototype , class Callable , size_t callable_storage_byt
 </div><div class="memdoc">
 
 <p>Return a <code>function_ptr&lt;ErasedPrototype&gt;</code> by emplacing <code>Callable(CallableConstructionArgs...)</code>. If <code>Callable</code> is nothrow move constructible and sufficiently small, avoids dynamic memory allocation. </p>
-<div class="fragment"><div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;  {</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <span class="keywordflow">return</span> function_ptr&lt;ErasedPrototype, callable_storage_bytes&gt;(<span class="keyword">typename</span> function_ptr&lt;ErasedPrototype, callable_storage_bytes&gt;::template _emplace_t&lt;Callable&gt;(), static_cast&lt;CallableConstructionArgs &amp;&amp;&gt;(args)...);</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;  }</div>
+<div class="fragment"><div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;  {</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    <span class="keywordflow">return</span> function_ptr&lt;ErasedPrototype, callable_storage_bytes&gt;(<span class="keyword">typename</span> function_ptr&lt;ErasedPrototype, callable_storage_bytes&gt;::template _emplace_t&lt;Callable&gt;(), static_cast&lt;CallableConstructionArgs &amp;&amp;&gt;(args)...);</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -208,11 +208,11 @@ template&lt;class ErasedPrototype , class Callable , class... CallableConstructi
 </div><div class="memdoc">
 
 <p>Return a <code>function_ptr&lt;ErasedPrototype&gt;</code> by emplacing <code>Callable(CallableConstructionArgs...)</code>, without dynamically allocating memory. Note that the size of function ptr returned will be exactly the amount to store the callable, which may not be the default size of <code>function_ptr&lt;ErasedPrototype&gt;</code>. </p>
-<div class="fragment"><div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;  {</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    <span class="keyword">using</span> type = function_ptr&lt;ErasedPrototype, (<span class="keyword">sizeof</span>(Callable) + <span class="keyword">sizeof</span>(<span class="keywordtype">void</span> *) + <span class="keyword">sizeof</span>(<span class="keywordtype">void</span> *) - 1) &amp; ~(<span class="keyword">sizeof</span>(<span class="keywordtype">void</span> *) - 1)&gt;;</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    static_assert(type::template is_ssoable&lt;Callable&gt;, <span class="stringliteral">&quot;The specified callable is not SSOable (probably lacks nothrow move construction)&quot;</span>);</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    <span class="keywordflow">return</span> type(<span class="keyword">typename</span> type::template _emplace_t&lt;Callable&gt;(), static_cast&lt;CallableConstructionArgs &amp;&amp;&gt;(args)...);</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;  }</div>
+<div class="fragment"><div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;  {</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    <span class="keyword">using</span> type = function_ptr&lt;ErasedPrototype, (<span class="keyword">sizeof</span>(Callable) + <span class="keyword">sizeof</span>(<span class="keywordtype">void</span> *) + <span class="keyword">sizeof</span>(<span class="keywordtype">void</span> *) - 1) &amp; ~(<span class="keyword">sizeof</span>(<span class="keywordtype">void</span> *) - 1)&gt;;</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    static_assert(type::template is_ssoable&lt;Callable&gt;, <span class="stringliteral">&quot;The specified callable is not SSOable (probably lacks nothrow move construction)&quot;</span>);</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    <span class="keywordflow">return</span> type(<span class="keyword">typename</span> type::template _emplace_t&lt;Callable&gt;(), static_cast&lt;CallableConstructionArgs &amp;&amp;&gt;(args)...);</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -241,9 +241,9 @@ template&lt;class ErasedPrototype , class Callable , size_t callable_storage_byt
 </div><div class="memdoc">
 
 <p>Return a <code>function_ptr&lt;ErasedPrototype&gt;</code> by from an input <code>Callable</code>. If <code>Callable</code> is nothrow move constructible and sufficiently small, avoids dynamic memory allocation. </p>
-<div class="fragment"><div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;  {</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    <span class="keywordflow">return</span> emplace_function_ptr&lt;ErasedPrototype, std::decay_t&lt;Callable&gt;, callable_storage_bytes&gt;(<span class="keyword">static_cast&lt;</span>Callable &amp;&amp;<span class="keyword">&gt;</span>(f));</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;  }</div>
+<div class="fragment"><div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;  {</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    <span class="keywordflow">return</span> emplace_function_ptr&lt;ErasedPrototype, std::decay_t&lt;Callable&gt;, callable_storage_bytes&gt;(<span class="keyword">static_cast&lt;</span>Callable &amp;&amp;<span class="keyword">&gt;</span>(f));</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -272,9 +272,9 @@ template&lt;class ErasedPrototype , class Callable &gt; </div>
 </div><div class="memdoc">
 
 <p>Return a <code>function_ptr&lt;ErasedPrototype&gt;</code> by from an input <code>Callable</code>, without dynamically allocating memory. Note that the size of function ptr returned will be exactly the amount to store the callable, which may not be the default size of <code>function_ptr&lt;ErasedPrototype&gt;</code>. </p>
-<div class="fragment"><div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;  {</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    <span class="keywordflow">return</span> emplace_function_ptr_nothrow&lt;ErasedPrototype, std::decay_t&lt;Callable&gt;&gt;(<span class="keyword">static_cast&lt;</span>Callable &amp;&amp;<span class="keyword">&gt;</span>(f));</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;  }</div>
+<div class="fragment"><div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;  {</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    <span class="keywordflow">return</span> emplace_function_ptr_nothrow&lt;ErasedPrototype, std::decay_t&lt;Callable&gt;&gt;(<span class="keyword">static_cast&lt;</span>Callable &amp;&amp;<span class="keyword">&gt;</span>(f));</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
