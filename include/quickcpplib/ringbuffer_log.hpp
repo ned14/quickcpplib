@@ -104,8 +104,8 @@ namespace ringbuffer_log
     using level_ = level;
     struct value_type
     {
-      uint64_t counter;
-      uint64_t timestamp;
+      uint64_t counter{0};
+      uint64_t timestamp{0};
       union {
         uint32_t code32[2];
         uint64_t code64;
@@ -127,7 +127,15 @@ namespace ringbuffer_log
       }
 
     public:
-      value_type() noexcept { memset(this, 0, sizeof(*this)); }
+      value_type() noexcept
+          : code64{0}
+          , backtrace{0}
+          , level{0}
+          , using_code64{0}
+          , using_backtrace{0}
+          , message{0}
+      {
+      }
       value_type(level_ _level, const char *_message, uint32_t _code1, uint32_t _code2, const char *_function = nullptr, unsigned lineno = 0)
           : counter((size_t) -1)
           , timestamp(std::chrono::duration_cast<std::chrono::nanoseconds>((_first_item(), std::chrono::high_resolution_clock::now() - _first_item())).count())
@@ -457,7 +465,7 @@ namespace ringbuffer_log
       }
       return s << "\"\n";
     }
-  }
+  }  // namespace simple_ringbuffer_log_policy_detail
 
   /*! \tparam Bytes The size of the ring buffer
   \brief A ring buffer log stored in a fixed
@@ -558,7 +566,13 @@ namespace ringbuffer_log
       iterator_ &operator=(const iterator_ &) noexcept = default;
       iterator_ &operator=(iterator_ &&) noexcept = default;
       // Non-const to const iterator
-      template <class Parent_, class Pointer_, class Reference_, typename = typename std::enable_if<!std::is_const<Pointer_>::value && !std::is_const<Reference_>::value>::type> constexpr iterator_(const iterator_<Parent_, Pointer_, Reference_> &o) noexcept : _parent(o._parent), _counter(o._counter), _togo(o._togo) {}
+      template <class Parent_, class Pointer_, class Reference_, typename = typename std::enable_if<!std::is_const<Pointer_>::value && !std::is_const<Reference_>::value>::type>
+      constexpr iterator_(const iterator_<Parent_, Pointer_, Reference_> &o) noexcept
+          : _parent(o._parent)
+          , _counter(o._counter)
+          , _togo(o._togo)
+      {
+      }
       iterator_ &operator++() noexcept
       {
         if(_parent && _togo)
@@ -692,6 +706,7 @@ namespace ringbuffer_log
     std::ostream *_immediate;
 
     size_type counter_to_idx(size_type counter) const noexcept { return max_items ? (counter % max_items) : (counter % _store.size()); }
+
   public:
     //! Default construction, passes through args to container_type
     template <class... Args>
@@ -938,7 +953,7 @@ namespace ringbuffer_log
 
   //! Alias for a simple ringbuffer log
   template <size_t Bytes = QUICKCPPLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES * 256> using simple_ringbuffer_log = ringbuffer_log<simple_ringbuffer_log_policy<Bytes>>;
-}
+}  // namespace ringbuffer_log
 
 QUICKCPPLIB_NAMESPACE_END
 

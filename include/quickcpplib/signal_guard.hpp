@@ -202,7 +202,7 @@ typedef int raised_signal_error_code_t;
   SIGNALGUARD_FUNC_DECL void *signal_guard_create(const sigset_t *guarded);
   /*! \brief Uninstall a previously installed signal guard.
    */
-  SIGNALGUARD_FUNC_DECL bool signal_guard_destroyl(void *i);
+  SIGNALGUARD_FUNC_DECL bool signal_guard_destroy(void *i);
 
   /*! \brief Create a global signal continuation decider. Threadsafe with respect to
   other calls of this function, but not reentrant i.e. modifying the global signal continuation
