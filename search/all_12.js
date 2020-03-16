@@ -23,7 +23,7 @@ var searchData=
   ['signal_5fguard_5fcreate',['signal_guard_create',['../signal__guard_8hpp.html#a4ebd6491ad57f610bdb82f141dc713ae',1,'signal_guard.hpp']]],
   ['signal_5fguard_5fdecider_5fcreate',['signal_guard_decider_create',['../signal__guard_8hpp.html#af3c6f651bfcc822d8e12c330858a9e61',1,'signal_guard.hpp']]],
   ['signal_5fguard_5fdecider_5fdestroy',['signal_guard_decider_destroy',['../signal__guard_8hpp.html#a9fa7645a3baffab74235e7edb6cbc24d',1,'signal_guard.hpp']]],
-  ['signal_5fguard_5fdestroyl',['signal_guard_destroyl',['../signal__guard_8hpp.html#a0572ac044c5b9e156c193e4c6e2a4510',1,'signal_guard.hpp']]],
+  ['signal_5fguard_5fdestroy',['signal_guard_destroy',['../signal__guard_8hpp.html#a3afd0771b355d4acd29f1ff3ec1817d4',1,'signal_guard.hpp']]],
   ['signalguard_5fclass_5fdecl',['SIGNALGUARD_CLASS_DECL',['../signal__guard_8hpp.html#afc4c0d35b09e145b05c4a43a7a0aacc2',1,'signal_guard.hpp']]],
   ['signalguard_5ffunc_5fdecl',['SIGNALGUARD_FUNC_DECL',['../signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8',1,'signal_guard.hpp']]],
   ['signalguard_5fmemfunc_5fdecl',['SIGNALGUARD_MEMFUNC_DECL',['../signal__guard_8hpp.html#afb7cacdb873bcef99c80f51c266192aa',1,'signal_guard.hpp']]],

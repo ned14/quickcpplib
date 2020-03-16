@@ -12,7 +12,7 @@ var signal__guard_8hpp =
     [ "thrd_signal_guard_call", "signal__guard_8hpp.html#a513feb96b55c52300a9d6ed72d298580", null ],
     [ "thrd_raise_signal", "signal__guard_8hpp.html#a07c0b588e32fae9509fb187c85fcc3bb", null ],
     [ "signal_guard_create", "signal__guard_8hpp.html#a4ebd6491ad57f610bdb82f141dc713ae", null ],
-    [ "signal_guard_destroyl", "signal__guard_8hpp.html#a0572ac044c5b9e156c193e4c6e2a4510", null ],
+    [ "signal_guard_destroy", "signal__guard_8hpp.html#a3afd0771b355d4acd29f1ff3ec1817d4", null ],
     [ "signal_guard_decider_create", "signal__guard_8hpp.html#af3c6f651bfcc822d8e12c330858a9e61", null ],
     [ "signal_guard_decider_destroy", "signal__guard_8hpp.html#a9fa7645a3baffab74235e7edb6cbc24d", null ]
 ];

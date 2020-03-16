@@ -166,9 +166,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a4ebd6491ad57f610bdb82f141dc713ae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="signal__guard_8hpp.html#a4ebd6491ad57f610bdb82f141dc713ae">signal_guard_create</a> (const sigset_t *guarded)</td></tr>
 <tr class="memdesc:a4ebd6491ad57f610bdb82f141dc713ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">On platforms where it is necessary (POSIX), installs, and potentially enables, the global signal handlers for the signals specified by <code>guarded</code>. Each signal installed is threadsafe reference counted, so this is safe to call from multiple threads or instantiate multiple times.  <a href="#a4ebd6491ad57f610bdb82f141dc713ae">More...</a><br/></td></tr>
 <tr class="separator:a4ebd6491ad57f610bdb82f141dc713ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0572ac044c5b9e156c193e4c6e2a4510"><td class="memItemLeft" align="right" valign="top"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="signal__guard_8hpp.html#a0572ac044c5b9e156c193e4c6e2a4510">signal_guard_destroyl</a> (void *i)</td></tr>
-<tr class="memdesc:a0572ac044c5b9e156c193e4c6e2a4510"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uninstall a previously installed signal guard.  <a href="#a0572ac044c5b9e156c193e4c6e2a4510">More...</a><br/></td></tr>
-<tr class="separator:a0572ac044c5b9e156c193e4c6e2a4510"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3afd0771b355d4acd29f1ff3ec1817d4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="signal__guard_8hpp.html#a3afd0771b355d4acd29f1ff3ec1817d4">signal_guard_destroy</a> (void *i)</td></tr>
+<tr class="memdesc:a3afd0771b355d4acd29f1ff3ec1817d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uninstall a previously installed signal guard.  <a href="#a3afd0771b355d4acd29f1ff3ec1817d4">More...</a><br/></td></tr>
+<tr class="separator:a3afd0771b355d4acd29f1ff3ec1817d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af3c6f651bfcc822d8e12c330858a9e61"><td class="memItemLeft" align="right" valign="top"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="signal__guard_8hpp.html#af3c6f651bfcc822d8e12c330858a9e61">signal_guard_decider_create</a> (const sigset_t *guarded, bool callfirst, <a class="el" href="signal__guard_8hpp.html#ae3e6c9ffb2f3a9105bef88723710db06">thrd_signal_guard_decide_t</a> decider, union <a class="el" href="unionraised__signal__info__value.html">raised_signal_info_value</a> value)</td></tr>
 <tr class="memdesc:af3c6f651bfcc822d8e12c330858a9e61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a global signal continuation decider. Threadsafe with respect to other calls of this function, but not reentrant i.e. modifying the global signal continuation decider registry whilst inside a global signal continuation decider is racy. Called after all thread local handling is exhausted. Note that what you can safely do in the decider function is extremely limited, only async signal safe functions may be called.  <a href="#af3c6f651bfcc822d8e12c330858a9e61">More...</a><br/></td></tr>
 <tr class="separator:af3c6f651bfcc822d8e12c330858a9e61"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -388,12 +388,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a0572ac044c5b9e156c193e4c6e2a4510"></a>
+<a class="anchor" id="a3afd0771b355d4acd29f1ff3ec1817d4"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> bool signal_guard_destroyl </td>
+          <td class="memname"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> bool signal_guard_destroy </td>
           <td>(</td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>i</em></td><td>)</td>
