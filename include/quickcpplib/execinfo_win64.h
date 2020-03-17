@@ -37,8 +37,10 @@ Distributed under the Boost Software License, Version 1.0.
 #else
 #if defined(__cplusplus) && (!defined(QUICKCPPLIB_HEADERS_ONLY) || QUICKCPPLIB_HEADERS_ONLY == 1) && !defined(DOXYGEN_SHOULD_SKIP_THIS)
 #define EXECINFO_DECL inline
-#else
+#elif defined(QUICKCPPLIB_DYN_LINK) && !defined(QUICKCPPLIB_STATIC_LINK)
 #define EXECINFO_DECL extern __declspec(dllimport)
+#else
+#define EXECINFO_DECL extern
 #endif
 #endif
 
