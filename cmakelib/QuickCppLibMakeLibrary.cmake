@@ -68,7 +68,7 @@ list(APPEND ${PROJECT_NAME}_TARGETS ${PROJECT_NAME}_dl)
 foreach(special ${SPECIAL_BUILDS})
   add_library(${PROJECT_NAME}_dl-${special} SHARED EXCLUDE_FROM_ALL ${${PROJECT_NAME}_HEADERS} ${${PROJECT_NAME}_SOURCES})
   if(DEFINED ${special}_LINK_FLAGS)
-    _target_link_options(${PROJECT_NAME}_dl-${special} ${${special}_LINK_FLAGS})
+    _target_link_options(${PROJECT_NAME}_dl-${special} PRIVATE ${${special}_LINK_FLAGS})
   endif()
   target_compile_options(${PROJECT_NAME}_dl-${special} PRIVATE ${${special}_COMPILE_FLAGS})
   target_include_directories(${PROJECT_NAME}_dl-${special} INTERFACE

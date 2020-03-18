@@ -62,7 +62,7 @@ include(QuickCppLibMakeStandardTests)
 # On MSVC the ringbuffer_log test needs to emit debug info to work
 if(TARGET quickcpplib_hl--ringbuffer_log AND MSVC)
   target_compile_options(quickcpplib_hl--ringbuffer_log PRIVATE /Oy- /Z7)
-  _target_link_options(quickcpplib_hl--ringbuffer_log /DEBUG)
+  _target_link_options(quickcpplib_hl--ringbuffer_log PRIVATE /DEBUG)
 endif()
 # The spinlock_tribool test needs OpenMP
 if(TARGET quickcpplib_hl--spinlock_tribool)
