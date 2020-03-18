@@ -662,7 +662,11 @@ extern inline int quickcpplib_unit_testing_main(int argc, const char* const argv
   int result = QUICKCPPLIB_BOOST_UNIT_TEST_RUN_TESTS(argc, argv);
   return result;
 }
+#if defined(_WIN64)
 #pragma comment(linker, "/alternatename:main=?quickcpplib_unit_testing_main@@YAHHQEBQEBD@Z")
+#else
+#pragma comment(linker, "/alternatename:_main=?quickcpplib_unit_testing_main@@YAHHQBQBD@Z")
+#endif
 #else
 BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS int main(int argc, const char *const argv[])
 {

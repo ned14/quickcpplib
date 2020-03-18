@@ -227,7 +227,7 @@ namespace signal_guard
           size_t i = 0;
           for(d = global_signal_deciders_front; d != nullptr; d = d->next)
           {
-            if(i++ == n && (d->guarded & (1ULL<<static_cast<int>(signalc::out_of_memory))))
+            if(i++ == n && (d->guarded & (1ULL << static_cast<int>(signalc::out_of_memory))))
             {
               rsi.value = d->value;
               lock.unlock();
@@ -278,7 +278,7 @@ namespace signal_guard
           size_t i = 0;
           for(d = global_signal_deciders_front; d != nullptr; d = d->next)
           {
-            if(i++ == n && (d->guarded & (1ULL<<static_cast<int>(signalc::termination))))
+            if(i++ == n && (d->guarded & (1ULL << static_cast<int>(signalc::termination))))
             {
               rsi.value = d->value;
               lock.unlock();
@@ -340,15 +340,29 @@ namespace signal_guard
 #define QUICKCPPLIB_SIGNAL_GUARD_SYMBOL2(a, b, c) a #b c
 #define QUICKCPPLIB_SIGNAL_GUARD_SYMBOL1(a, b, c) QUICKCPPLIB_SIGNAL_GUARD_SYMBOL2(a, b, c)
 #define QUICKCPPLIB_SIGNAL_GUARD_SYMBOL(a, b) QUICKCPPLIB_SIGNAL_GUARD_SYMBOL1(a, QUICKCPPLIB_PREVIOUS_COMMIT_UNIQUE, b)
+#if defined(_WIN64)
 #pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RaiseException@win32@detail@signal_guard@_", "@quickcpplib@@YAXKKKPEB_K@Z=RaiseException"))
 #pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?SetUnhandledExceptionFilter@win32@detail@signal_guard@_", "@quickcpplib@@YAP6AJPEAU_EXCEPTION_POINTERS@12345@@ZP6AJ0@Z@Z=SetUnhandledExceptionFilter"))
 #pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?AddVectoredContinueHandler@win32@detail@signal_guard@_", "@quickcpplib@@YAPEAXKP6AJPEAU_EXCEPTION_POINTERS@12345@@Z@Z=AddVectoredContinueHandler"))
 #pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RemoveVectoredContinueHandler@win32@detail@signal_guard@_", "@quickcpplib@@YAKPEAX@Z=RemoveVectoredContinueHandler"))
 #else
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RaiseException@win32@detail@signal_guard@_", "@quickcpplib@@YGXKKKPB_K@Z=__imp__RaiseException@16"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?SetUnhandledExceptionFilter@win32@detail@signal_guard@_", "@quickcpplib@@YGP6GJPAU_EXCEPTION_POINTERS@@@ZP6GJ0@Z@Z=__imp__SetUnhandledExceptionFilter@4"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?AddVectoredContinueHandler@win32@detail@signal_guard@_", "@quickcpplib@@YGPAXKP6GJPAU_EXCEPTION_POINTERS@@@Z@Z=__imp__AddVectoredContinueHandler@8"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RemoveVectoredContinueHandler@win32@detail@signal_guard@_", "@quickcpplib@@YGKPAX@Z=__imp__RemoveVectoredContinueHandler@4"))
+#endif
+#else
+#if defined(_WIN64)
 #pragma comment(linker, "/alternatename:?RaiseException@win32@detail@signal_guard@quickcpplib@@YAXKKKPEB_K@Z=RaiseException")
 #pragma comment(linker, "/alternatename:?SetUnhandledExceptionFilter@win32@detail@signal_guard@quickcpplib@@YAP6AJPEAU_EXCEPTION_POINTERS@12345@@ZP6AJ0@Z@Z=SetUnhandledExceptionFilter")
 #pragma comment(linker, "/alternatename:?AddVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YAPEAXKP6AJPEAU_EXCEPTION_POINTERS@12345@@Z@Z=AddVectoredContinueHandler")
 #pragma comment(linker, "/alternatename:?RemoveVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YAKPEAX@Z=RemoveVectoredContinueHandler")
+#else
+#pragma comment(linker, "/alternatename:?RaiseException@win32@detail@signal_guard@quickcpplib@@YGXKKKPB_K@Z=__imp__RaiseException@16")
+#pragma comment(linker, "/alternatename:?SetUnhandledExceptionFilter@win32@detail@signal_guard@quickcpplib@@YGP6GJPAU_EXCEPTION_POINTERS@@@ZP6GJ0@Z@Z=__imp__SetUnhandledExceptionFilter@4")
+#pragma comment(linker, "/alternatename:?AddVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YGPAXKP6GJPAU_EXCEPTION_POINTERS@@@Z@Z=__imp__AddVectoredContinueHandler@8")
+#pragma comment(linker, "/alternatename:?RemoveVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YGKPAX@Z=__imp__RemoveVectoredContinueHandler@4")
+#endif
 #endif
     }  // namespace win32
     inline unsigned long win32_exception_code_from_signalc(signalc c)
@@ -449,7 +463,7 @@ namespace signal_guard
         auto *raw_info = ptrs->ExceptionRecord;
         auto *raw_context = ptrs->ContextRecord;
         const auto signo = signalc_from_win32_exception_code(raw_info->ExceptionCode);
-        const signalc_set signo_set = 1ULL<<static_cast<int>(signo);
+        const signalc_set signo_set = 1ULL << static_cast<int>(signo);
         raised_signal_info rsi;
         memset(&rsi, 0, sizeof(rsi));
         rsi.signo = static_cast<int>(signo);
@@ -620,7 +634,7 @@ namespace signal_guard
           size_t i = 0;
           for(d = global_signal_deciders_front; d != nullptr; d = d->next)
           {
-            if(i++ == n && (d->guarded &(1ULL<<signo)))
+            if(i++ == n && (d->guarded & (1ULL << signo)))
             {
               rsi.value = d->value;
               lock.unlock();
