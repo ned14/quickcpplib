@@ -517,7 +517,7 @@ namespace configurable_spinlock
         // For very heavily contended locks, stop thrashing the cache line
         if(n > 2)
         {
-          for(volatile size_t m = 0; m < 15000; m++)
+          for(volatile size_t m = 0; m < 15000; m = m + 1)
             ;
         }
       }

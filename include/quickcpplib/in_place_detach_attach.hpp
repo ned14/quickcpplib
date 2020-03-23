@@ -130,7 +130,7 @@ namespace in_place_attach_detach
 
   public:
     //! The index type
-    using index_type = typename _base::index_type;
+    //using index_type = typename _base::index_type;
     //! The element type
     using element_type = typename _base::element_type;
     //! The value type
@@ -199,11 +199,11 @@ namespace in_place_attach_detach
     using _base::last;
     using _base::size;
     using _base::size_bytes;
-    using _base::ssize;
+    //using _base::ssize;
     using _base::subspan;
     using _base::operator[];
-    using _base::operator();
-    using _base::at;
+    //using _base::operator();
+    //using _base::at;
     using _base::begin;
     using _base::cbegin;
     using _base::cend;
