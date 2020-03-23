@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['index_5ftype',['index_type',['../classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html#a18136b9415b8e41232be79fd76a801a3',1,'quickcpplib::_xxx::in_place_attach_detach::attached']]],
   ['is_5fbit_5fcastable',['is_bit_castable',['../namespacequickcpplib_1_1__xxx_1_1bit__cast_1_1detail.html#aeea50b7d77ccbf751450ff50592bb9b0',1,'quickcpplib::_xxx::bit_cast::detail']]],
   ['is_5ferasure_5fcastable',['is_erasure_castable',['../namespacequickcpplib_1_1__xxx_1_1erasure__cast_1_1detail.html#ac40ab1a0d6005c636b85377e0bb92c43',1,'quickcpplib::_xxx::erasure_cast::detail']]],
   ['is_5fintegral_5for_5fenum',['is_integral_or_enum',['../namespacequickcpplib_1_1__xxx_1_1bit__cast_1_1detail.html#ac9c5b9f25deff58391dc20185886790e',1,'quickcpplib::_xxx::bit_cast::detail']]],

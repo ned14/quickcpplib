@@ -134,11 +134,8 @@ Inheritance diagram for quickcpplib::_xxx::in_place_attach_detach::attached&lt; 
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a18136b9415b8e41232be79fd76a801a3"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html#a18136b9415b8e41232be79fd76a801a3">index_type</a> = typename _base::index_type</td></tr>
-<tr class="memdesc:a18136b9415b8e41232be79fd76a801a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The index type.  <a href="#a18136b9415b8e41232be79fd76a801a3">More...</a><br/></td></tr>
-<tr class="separator:a18136b9415b8e41232be79fd76a801a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac923136883eeeeb69d7958a1ac3b44d3"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html#ac923136883eeeeb69d7958a1ac3b44d3">element_type</a> = typename _base::element_type</td></tr>
-<tr class="memdesc:ac923136883eeeeb69d7958a1ac3b44d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The element type.  <a href="#ac923136883eeeeb69d7958a1ac3b44d3">More...</a><br/></td></tr>
+<tr class="memdesc:ac923136883eeeeb69d7958a1ac3b44d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The index type.  <a href="#ac923136883eeeeb69d7958a1ac3b44d3">More...</a><br/></td></tr>
 <tr class="separator:ac923136883eeeeb69d7958a1ac3b44d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad32e635c0748cb3930a8ca843bfb9d26"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html#ad32e635c0748cb3930a8ca843bfb9d26">value_type</a> = typename <a class="el" href="classgsl_1_1span.html#aa703a8d1565b50040eef1f55466d7258">_base::value_type</a></td></tr>
 <tr class="memdesc:ad32e635c0748cb3930a8ca843bfb9d26"><td class="mdescLeft">&#160;</td><td class="mdescRight">The value type.  <a href="#ad32e635c0748cb3930a8ca843bfb9d26">More...</a><br/></td></tr>
@@ -270,22 +267,6 @@ class quickcpplib::_xxx::in_place_attach_detach::attached&lt; T &gt;</h3>
 
 <p>An RAII refinement of <code>span&lt;T&gt;</code> for automatically calling <code>in_place_attach()</code> and <code>in_place_detach()</code> on an input array of <code>T</code>. Move-only, detaches only on final object destruction. </p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a class="anchor" id="a18136b9415b8e41232be79fd76a801a3"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html">quickcpplib::_xxx::in_place_attach_detach::attached</a>&lt; T &gt;::<a class="el" href="classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html#a18136b9415b8e41232be79fd76a801a3">index_type</a> =  typename _base::index_type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The index type. </p>
-
-</div>
-</div>
 <a class="anchor" id="ac923136883eeeeb69d7958a1ac3b44d3"></a>
 <div class="memitem">
 <div class="memproto">
@@ -298,7 +279,8 @@ template&lt;class T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>The element type. </p>
+<p>The index type. </p>
+<p>The element type </p>
 
 </div>
 </div>

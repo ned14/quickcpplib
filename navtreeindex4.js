@@ -1,6 +1,5 @@
 var NAVTREEINDEX4 =
 {
-"gsl-lite-vc6_8hpp.html#a4c8b681c7fb1c2e2a18db3cfe6a59fb3":[5,0,0,0,3,0,0,0,21],
 "gsl-lite-vc6_8hpp.html#a4daf162abda6fdb00b94142861fc5a41":[5,0,0,0,3,0,0,0,24],
 "gsl-lite-vc6_8hpp.html#a52ea449d45d7b01e06409c9674e60be5":[5,0,0,0,3,0,0,0,38],
 "gsl-lite-vc6_8hpp.html#a5401dc8076387923501aeb475ad15c52":[5,0,0,0,3,0,0,0,49],
@@ -249,5 +248,6 @@ var NAVTREEINDEX4 =
 "import_8h.html#afcb641c0ec799e52a670216d06eca2fb":[5,0,0,0,18,9],
 "import_8h.html#afdd111d3e2242041e02ed9ea4e7b8d7a":[5,0,0,0,18,13],
 "import_8h.html#afe4bb3cae74b4cd552caa5fd5949f1dc":[5,0,0,0,18,5],
-"in__place__detach__attach_8hpp.html":[5,0,0,0,19]
+"in__place__detach__attach_8hpp.html":[5,0,0,0,19],
+"in__place__detach__attach_8hpp.html#a0afb485acbd22275a76a2a703aeed455":[5,0,0,0,19,5]
 };

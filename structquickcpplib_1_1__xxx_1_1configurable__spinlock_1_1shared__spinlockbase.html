@@ -605,7 +605,7 @@ template&lt;typename T &gt; </div>
 <div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;        <span class="comment">// For very heavily contended locks, stop thrashing the cache line</span></div>
 <div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;        <span class="keywordflow">if</span>(n &gt; 2)</div>
 <div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;        {</div>
-<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;          <span class="keywordflow">for</span>(<span class="keyword">volatile</span> <span class="keywordtype">size_t</span> m = 0; m &lt; 15000; m++)</div>
+<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;          <span class="keywordflow">for</span>(<span class="keyword">volatile</span> <span class="keywordtype">size_t</span> m = 0; m &lt; 15000; m = m + 1)</div>
 <div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;            ;</div>
 <div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;        }</div>
 <div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;      }</div>

@@ -1,6 +1,5 @@
 var NAVTREEINDEX3 =
 {
-"config_8hpp.html#a2470b41360fc655b0e1a0bf3ef5fe8f7":[5,0,0,0,11,9],
 "config_8hpp.html#a2c5970ca36f51fc6cbd10da9346016f1":[5,0,0,0,11,24],
 "config_8hpp.html#a2defa94a4b1fa646456a47b20be0087f":[5,0,0,0,11,31],
 "config_8hpp.html#a3269b0446557952ee91cf4d7fc2f219e":[5,0,0,0,11,30],
@@ -249,5 +248,6 @@ var NAVTREEINDEX3 =
 "gsl-lite-vc6_8hpp.html#a342d07d23bff66b0a2a85c5ffe7c64d4":[5,0,0,0,3,0,0,0,29],
 "gsl-lite-vc6_8hpp.html#a3539d59a0c0b1bc3dcf68dfb1bb42d21":[5,0,0,0,3,0,0,0,22],
 "gsl-lite-vc6_8hpp.html#a35b5f2d64ff632a101adbdea1cdc1e56":[5,0,0,0,3,0,0,0,18],
-"gsl-lite-vc6_8hpp.html#a41a5510f5bd47c611b4905faa99d2899":[5,0,0,0,3,0,0,0,28]
+"gsl-lite-vc6_8hpp.html#a41a5510f5bd47c611b4905faa99d2899":[5,0,0,0,3,0,0,0,28],
+"gsl-lite-vc6_8hpp.html#a4c8b681c7fb1c2e2a18db3cfe6a59fb3":[5,0,0,0,3,0,0,0,21]
 };
