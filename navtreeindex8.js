@@ -1,5 +1,8 @@
 var NAVTREEINDEX8 =
 {
+"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html#a6271daaa7603b2c46bad58423866733e":[4,0,4,0,17,9,0,2],
+"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html#a9ecdfcfeacd55cc1baf2cbc210344c85":[4,0,4,0,17,9,0,0],
+"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html#af1be6151dbf2c02aed9252b4c35971d2":[4,0,4,0,17,9,0,1],
 "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield.html":[4,0,4,0,17,8],
 "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield_1_1policy.html":[4,0,4,0,17,8,0],
 "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield_1_1policy.html#a0e3990993d4ed451d5ad4f0d53f16426":[4,0,4,0,17,8,0,0],
@@ -246,8 +249,5 @@ var NAVTREEINDEX8 =
 "tribool_8hpp.html#ggafe26d2adc55c3e981fc0164e20ebeb9aa44560d82707cce3b8111a770924cf0e2":[5,0,0,0,33,0,3],
 "tribool_8hpp.html#ggafe26d2adc55c3e981fc0164e20ebeb9aa795f3202b17cb6bc3d4b771d8c6c9eaf":[5,0,0,0,33,0,2],
 "tribool_8hpp.html#ggafe26d2adc55c3e981fc0164e20ebeb9aa9c0aa11f455c4d30ab951498e0d597e2":[5,0,0,0,33,0,1],
-"tribool_8hpp.html#ggafe26d2adc55c3e981fc0164e20ebeb9aaad921d60486366258809553a3db49a4a":[5,0,0,0,33,0,4],
-"tribool_8hpp.html#ggafe26d2adc55c3e981fc0164e20ebeb9aab1b5574e03193aa8d5307455b036c2d1":[5,0,0,0,33,0,0],
-"type__traits_8hpp.html":[5,0,0,0,34],
-"type__traits_8hpp.html#a976ef0c550dfefb3740db89db457de4a":[5,0,0,0,34,6]
+"tribool_8hpp.html#ggafe26d2adc55c3e981fc0164e20ebeb9aaad921d60486366258809553a3db49a4a":[5,0,0,0,33,0,4]
 };
