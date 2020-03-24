@@ -160,7 +160,7 @@ namespace in_place_attach_detach
 
     attached(const attached &) = delete;
     //! Move constructs the instance, leaving the source empty.
-    constexpr attached(attached &&o) noexcept : _base(std::move(o)), _disabled{o._disabled} { static_cast<_base &>(o) = {nullptr, 0}; }
+    constexpr attached(attached &&o) noexcept : _base(std::move(o)), _disabled{o._disabled} { static_cast<_base &>(o) = {}; }
     attached &operator=(const attached &) = delete;
     constexpr attached &operator=(attached &&o) noexcept
     {
