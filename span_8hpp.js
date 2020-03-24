@@ -1,4 +1,5 @@
 var span_8hpp =
 [
-    [ "span", "span_8hpp.html#a41d4f6abd008d90e96379c26e95fefb5", null ]
+    [ "gsl_CONFIG_DEFAULTS_VERSION", "span_8hpp.html#ac4fc2fcc5010195e2641477740b5bc8c", null ],
+    [ "span", "span_8hpp.html#aad1714706619cacacca28cf02d4a5112", null ]
 ];
