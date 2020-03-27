@@ -1,5 +1,5 @@
 /* String algorithms
-(C) 2016-2017 Niall Douglas <http://www.nedproductions.biz/> (7 commits)
+(C) 2016-2020 Niall Douglas <http://www.nedproductions.biz/> (7 commits)
 File Created: Jun 2016
 
 
@@ -74,12 +74,15 @@ This lets one pack one byte of input into two bytes of output.
       static constexpr char table[] = "0123456789abcdef";
       if(outlen < inlen * 2)
         throw std::invalid_argument("Output buffer too small.");
-      for(size_t n = inlen - 2; n <= inlen - 2; n -= 2)
+      if(inlen >= 2)
       {
-        out[n * 2 + 3] = table[(in[n + 1] >> 4) & 0xf];
-        out[n * 2 + 2] = table[in[n + 1] & 0xf];
-        out[n * 2 + 1] = table[(in[n] >> 4) & 0xf];
-        out[n * 2 + 0] = table[in[n] & 0xf];
+        for(size_t n = inlen - 2; n <= inlen - 2; n -= 2)
+        {
+          out[n * 2 + 3] = table[(in[n + 1] >> 4) & 0xf];
+          out[n * 2 + 2] = table[in[n + 1] & 0xf];
+          out[n * 2 + 1] = table[(in[n] >> 4) & 0xf];
+          out[n * 2 + 0] = table[in[n] & 0xf];
+        }
       }
       if(inlen & 1)
       {
@@ -141,21 +144,24 @@ This lets one pack one byte of input into two bytes of output.
         throw std::invalid_argument("Input is not hexadecimal.");
 #endif
       };
-      for(size_t n = 0; n < inlen / 2; n += 4)
+      if(inlen >= 8)
       {
-        unsigned char c[8];
-        c[0] = fromhex(in[n * 2]);
-        c[1] = fromhex(in[n * 2 + 1]);
-        c[2] = fromhex(in[n * 2 + 2]);
-        c[3] = fromhex(in[n * 2 + 3]);
-        out[n] = (c[1] << 4) | c[0];
-        c[4] = fromhex(in[n * 2 + 4]);
-        c[5] = fromhex(in[n * 2 + 5]);
-        out[n + 1] = (c[3] << 4) | c[2];
-        c[6] = fromhex(in[n * 2 + 6]);
-        c[7] = fromhex(in[n * 2 + 7]);
-        out[n + 2] = (c[5] << 4) | c[4];
-        out[n + 3] = (c[7] << 4) | c[6];
+        for(size_t n = 0; n < inlen / 2; n += 4)
+        {
+          unsigned char c[8];
+          c[0] = fromhex(in[n * 2]);
+          c[1] = fromhex(in[n * 2 + 1]);
+          c[2] = fromhex(in[n * 2 + 2]);
+          c[3] = fromhex(in[n * 2 + 3]);
+          out[n] = (c[1] << 4) | c[0];
+          c[4] = fromhex(in[n * 2 + 4]);
+          c[5] = fromhex(in[n * 2 + 5]);
+          out[n + 1] = (c[3] << 4) | c[2];
+          c[6] = fromhex(in[n * 2 + 6]);
+          c[7] = fromhex(in[n * 2 + 7]);
+          out[n + 2] = (c[5] << 4) | c[4];
+          out[n + 3] = (c[7] << 4) | c[6];
+        }
       }
       for(size_t n = inlen / 2 - (inlen / 2) % 4; n < inlen / 2; n++)
       {
@@ -166,8 +172,8 @@ This lets one pack one byte of input into two bytes of output.
         throw std::invalid_argument("Input is not hexadecimal.");
       return inlen / 2;
     }
-  }
-}
+  }  // namespace string
+}  // namespace algorithm
 
 QUICKCPPLIB_NAMESPACE_END
 
