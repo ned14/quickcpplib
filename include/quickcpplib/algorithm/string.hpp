@@ -144,9 +144,10 @@ This lets one pack one byte of input into two bytes of output.
         throw std::invalid_argument("Input is not hexadecimal.");
 #endif
       };
-      if(inlen >= 8)
+      const auto bulklen = inlen / 2 - (inlen / 2) % 4;
+      if(bulklen >= 4)
       {
-        for(size_t n = 0; n < inlen / 2; n += 4)
+        for(size_t n = 0; n < bulklen; n += 4)
         {
           unsigned char c[8];
           c[0] = fromhex(in[n * 2]);
@@ -163,7 +164,7 @@ This lets one pack one byte of input into two bytes of output.
           out[n + 3] = (c[7] << 4) | c[6];
         }
       }
-      for(size_t n = inlen / 2 - (inlen / 2) % 4; n < inlen / 2; n++)
+      for(size_t n = bulklen; n < inlen / 2; n++)
       {
         unsigned char c1 = fromhex(in[n * 2]), c2 = fromhex(in[n * 2 + 1]);
         out[n] = (c2 << 4) | c1;
