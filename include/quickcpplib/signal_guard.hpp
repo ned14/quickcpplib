@@ -52,7 +52,6 @@ extern "C" void *__cdecl _exception_info(void);
 
 #if defined(__cplusplus)
 #include "bitfield.hpp"
-#include "scoped_undo.hpp"
 
 #include <atomic>
 #include <cassert>

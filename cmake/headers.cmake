@@ -44,7 +44,7 @@ set(quickcpplib_HEADERS
   "include/quickcpplib/packed_backtrace.hpp"
   "include/quickcpplib/revision.hpp"
   "include/quickcpplib/ringbuffer_log.hpp"
-  "include/quickcpplib/scoped_undo.hpp"
+  "include/quickcpplib/scope.hpp"
   "include/quickcpplib/signal_guard.hpp"
   "include/quickcpplib/span.hpp"
   "include/quickcpplib/spinlock.hpp"

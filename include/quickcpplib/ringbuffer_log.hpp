@@ -45,7 +45,7 @@ Distributed under the Boost Software License, Version 1.0.
 #endif
 
 #include "packed_backtrace.hpp"
-#include "scoped_undo.hpp"
+#include "scope.hpp"
 
 #include <array>
 #include <atomic>
@@ -220,18 +220,18 @@ namespace ringbuffer_log
         } childreadh, childwriteh, readh, writeh;
         if(-1 != ::pipe(temp))
         {
-          using namespace scoped_undo;
+          using namespace scope;
           childreadh.fd = temp[0];
           readh.fd = temp[1];
           if(-1 != ::pipe(temp))
           {
             writeh.fd = temp[0];
             childwriteh.fd = temp[1];
-            auto unmypipes = undoer([&] {
+            auto unmypipes = make_scope_exit([&]() noexcept {
               (void) ::close(readh.fd);
               (void) ::close(writeh.fd);
             });
-            auto unhispipes = undoer([&] {
+            auto unhispipes = make_scope_exit([&]() noexcept {
               (void) ::close(childreadh.fd);
               (void) ::close(childwriteh.fd);
             });
@@ -241,7 +241,7 @@ namespace ringbuffer_log
             posix_spawn_file_actions_t child_fd_actions;
             if(!::posix_spawn_file_actions_init(&child_fd_actions))
             {
-              auto unactions = undoer([&] { ::posix_spawn_file_actions_destroy(&child_fd_actions); });
+              auto unactions = make_scope_exit([&]() noexcept { ::posix_spawn_file_actions_destroy(&child_fd_actions); });
               if(!::posix_spawn_file_actions_adddup2(&child_fd_actions, childreadh.fd, STDIN_FILENO))
               {
                 if(!::posix_spawn_file_actions_addclose(&child_fd_actions, childreadh.fd))
@@ -291,7 +291,7 @@ namespace ringbuffer_log
                         sigemptyset(&toblock);
                         sigaddset(&toblock, SIGPIPE);
                         pthread_sigmask(SIG_BLOCK, &toblock, &oldset);
-                        auto unsigmask = undoer([&toblock, &oldset] {
+                        auto unsigmask = make_scope_exit([&toblock, &oldset]() noexcept {
 #ifdef __APPLE__
                           pthread_kill(pthread_self(), SIGPIPE);
                           int cleared = 0;
@@ -317,8 +317,8 @@ namespace ringbuffer_log
                             addrs.append(buffer, bytes);
                           }
                           (void) ::close(writeh.fd);
-                          unmypipes.dismiss();
-                          unhispipes.dismiss();
+                          unmypipes.release();
+                          unhispipes.release();
                         }
                         // std::cerr << "\n\n---\n" << addrs << "---\n\n" << std::endl;
                         // reap child
