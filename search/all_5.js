@@ -22,7 +22,7 @@ var searchData=
   ['error_5fcode',['error_code',['../structraised__signal__info.html#a802b17064ed468624231dd9fc99ee99d',1,'raised_signal_info']]],
   ['execinfo_5fdecl',['EXECINFO_DECL',['../execinfo__win64_8h.html#ae3da3ccb95da219e5fb2bed0de8fbd4b',1,'execinfo_win64.h']]],
   ['execinfo_5fwin64_2eh',['execinfo_win64.h',['../execinfo__win64_8h.html',1,'']]],
-  ['exit',['exit',['../unionquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase_1_1__internals.html#a7230c521d9366f29bbff69a749eb978b',1,'quickcpplib::_xxx::configurable_spinlock::ordered_spinlockbase::_internals']]],
+  ['exit',['exit',['../unionquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase_1_1__internals.html#a7230c521d9366f29bbff69a749eb978b',1,'quickcpplib::_xxx::configurable_spinlock::ordered_spinlockbase::_internals::exit()'],['../namespacequickcpplib_1_1__xxx_1_1scope_1_1detail.html#aff58ddf2d65ee18a8b09c9c4eb077eb1af24f62eeb789199b9b2e467df3b1876b',1,'quickcpplib::_xxx::scope::detail::exit()']]],
   ['expects',['Expects',['../gsl-lite-vc6_8hpp.html#ade61920cc3d2f9170543a5c2507905af',1,'Expects():&#160;gsl-lite-vc6.hpp'],['../gsl-lite_8hpp.html#ade61920cc3d2f9170543a5c2507905af',1,'Expects():&#160;gsl-lite.hpp']]],
   ['explicitstr',['ExplicitStr',['../struct_explicit_str.html',1,'ExplicitStr'],['../struct_explicit_str.html#a4989ea4fec902f76f3ecd3887582b435',1,'ExplicitStr::ExplicitStr()']]],
   ['external',['external',['../classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#ae35a4ad793f8d4734c0652fbe16fcadda3a9e67fa52dc7e6541c69935b0ac434b',1,'quickcpplib::_xxx::function_ptr::function_ptr&lt; R(Args...), callable_storage_bytes &gt;']]]

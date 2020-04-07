@@ -53,9 +53,9 @@ var NAVTREEINDEX =
 "gsl-lite-vc6_8hpp.html#ae2c7401b0a82740988faa070375fe903",
 "namespacealgorithm.html",
 "optional_2optional_8hpp.html#ad6c79ef527ee25f0a6295128c4b51f89",
-"structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1arithmetic__modulus.html",
-"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a3bf0a4687f916e254f15a013f9b43ca4",
-"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#ab51c67e68145d7dff0fd862f7fe2f28b"
+"structgeneric_3_01_u_01_6_01_4.html#a2046573544dfa345374f63542fd090b1",
+"structquickcpplib_1_1__xxx_1_1print__type.html",
+"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a35e2497001e03a7a62a845ded335abe7"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

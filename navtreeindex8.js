@@ -1,5 +1,17 @@
 var NAVTREEINDEX8 =
 {
+"structquickcpplib_1_1__xxx_1_1print__type.html":[4,0,4,0,26],
+"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1unique__id.html":[4,0,4,0,14,1,1],
+"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1unique__id.html#a19e58cee44eefc9c2d9f0e1b8d4b3b79":[4,0,4,0,14,1,1,0],
+"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1unique__id.html#a6c4096e233ffccd9ae4a69ab20086f7b":[4,0,4,0,14,1,1,1],
+"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy.html":[4,0,4,0,14,2],
+"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy.html#a0521a940033a44edc033f0dda30da32e":[4,0,4,0,14,2,1],
+"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy.html#a1ac80e5450665b0fc4b2720cbf3516c5":[4,0,4,0,14,2,0],
+"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html":[4,0,4,0,14,0,0],
+"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a0788a27f9786fd6f34dc8ecfeb7b9de7":[4,0,4,0,14,0,0,16],
+"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a12bcd937c3c94031b8f3d9e163c5bda7":[4,0,4,0,14,0,0,15],
+"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a164ef3bd3ceac150211bf8fc2727a9e2":[4,0,4,0,14,0,0,13],
+"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a173dc7b78e835aec4ac218aece10da40":[4,0,4,0,14,0,0,6],
 "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a3bf0a4687f916e254f15a013f9b43ca4":[4,0,4,0,14,0,0,14],
 "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a3d6d2e13a75d9464a4495478aeb8e660":[4,0,4,0,14,0,0,4],
 "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a3d9bee4048237e5e167175fe5f5786bf":[4,0,4,0,14,0,0,11],
@@ -237,17 +249,5 @@ var NAVTREEINDEX8 =
 "unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a1fe835346303bd4d12c6e224af57250d":[4,0,4,0,22,0,27],
 "unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a29c2181ac07e3517c331d47a90c06eb7":[4,0,4,0,22,0,32],
 "unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a31679af5286ac9b52bb4bc4cd9bada5d":[4,0,4,0,22,0,30],
-"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a35ce3e716278dc5f19edeabc4b1b8d7d":[4,0,4,0,22,0,4],
-"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a35e2497001e03a7a62a845ded335abe7":[4,0,4,0,22,0,28],
-"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a3855a283339e33e9abeb03723260321b":[4,0,4,0,22,0,13],
-"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a4309c182dc7329ff712136f521cff09e":[4,0,4,0,22,0,29],
-"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a5e0186b4675f72a8bce23c691e9b4c4e":[4,0,4,0,22,0,25],
-"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a62bdbc25c34085bb8ab35420bd9eeca1":[4,0,4,0,22,0,22],
-"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a7826d3b9a12531654007c42d3d8695e5":[4,0,4,0,22,0,33],
-"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a81c9aa62c31ab5bfa8a6356fa6305e82":[4,0,4,0,22,0,10],
-"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a94c9f26b1ee3667104680c40cc55909c":[4,0,4,0,22,0,17],
-"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#aa36c5dd83645b27c9ccbabbd097b9d8f":[4,0,4,0,22,0,20],
-"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#aabdc75fdcaefe55a60663c3553108bdf":[4,0,4,0,22,0,8],
-"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#ab1efd43271c75fd297429cbe23c2bb7f":[4,0,4,0,22,0,26],
-"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#ab3cfa0a75f979aceae660c224da6ab48":[4,0,4,0,22,0,18]
+"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a35ce3e716278dc5f19edeabc4b1b8d7d":[4,0,4,0,22,0,4]
 };

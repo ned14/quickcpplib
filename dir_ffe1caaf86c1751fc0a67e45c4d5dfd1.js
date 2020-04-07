@@ -31,7 +31,7 @@ var dir_ffe1caaf86c1751fc0a67e45c4d5dfd1 =
     [ "packed_backtrace.hpp", "packed__backtrace_8hpp.html", "packed__backtrace_8hpp" ],
     [ "revision.hpp", "revision_8hpp.html", "revision_8hpp" ],
     [ "ringbuffer_log.hpp", "ringbuffer__log_8hpp.html", "ringbuffer__log_8hpp" ],
-    [ "scoped_undo.hpp", "scoped__undo_8hpp.html", "scoped__undo_8hpp" ],
+    [ "scope.hpp", "scope_8hpp.html", "scope_8hpp" ],
     [ "signal_guard.hpp", "signal__guard_8hpp.html", "signal__guard_8hpp" ],
     [ "span.hpp", "span_8hpp.html", "span_8hpp" ],
     [ "spinlock.hpp", "spinlock_8hpp.html", "spinlock_8hpp" ],

@@ -8,6 +8,7 @@ var searchData=
   ['smovedfrom',['sMovedFrom',['../test__optional_8cpp.html#a5d74787dedbc4e11c1ab15bf487e61f8ad317b3c74e43c741de739d83cb1d497e',1,'test_optional.cpp']]],
   ['sse',['SSE',['../namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#ab68128e48d1244d5374933086190d094a5fc53fc8197865c63285f74b1e147013',1,'quickcpplib::_xxx::aligned_allocator::detail']]],
   ['ssoed',['ssoed',['../classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#ae35a4ad793f8d4734c0652fbe16fcadda1e71938ce385407e3268dcfe96bb504a',1,'quickcpplib::_xxx::function_ptr::function_ptr&lt; R(Args...), callable_storage_bytes &gt;']]],
+  ['success',['success',['../namespacequickcpplib_1_1__xxx_1_1scope_1_1detail.html#aff58ddf2d65ee18a8b09c9c4eb077eb1a260ca9dd8a4577fc00b7bd5810298076',1,'quickcpplib::_xxx::scope::detail']]],
   ['svalueconstructed',['sValueConstructed',['../test__optional_8cpp.html#a5d74787dedbc4e11c1ab15bf487e61f8a58a437ae7d557d99ef84b9b0d25d54a0',1,'test_optional.cpp']]],
   ['svaluecopyassigned',['sValueCopyAssigned',['../test__optional_8cpp.html#a5d74787dedbc4e11c1ab15bf487e61f8aa01abb0fb242304e486053cc4b067980',1,'test_optional.cpp']]],
   ['svaluecopyconstructed',['sValueCopyConstructed',['../test__optional_8cpp.html#a5d74787dedbc4e11c1ab15bf487e61f8acff48cb0f376a9dd83490b14a61d80f6',1,'test_optional.cpp']]],

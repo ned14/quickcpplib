@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['fail',['fail',['../namespacequickcpplib_1_1__xxx_1_1scope_1_1detail.html#aff58ddf2d65ee18a8b09c9c4eb077eb1ae11185b6e35c1b767174dc988aa0f179',1,'quickcpplib::_xxx::scope::detail']]],
   ['fail_5fat',['fail_at',['../structquickcpplib_1_1__xxx_1_1allocator__testing_1_1config.html#a97b529113f5c59b09c7224beeac9e545',1,'quickcpplib::_xxx::allocator_testing::config']]],
   ['fail_5ffast_5fassert',['fail_fast_assert',['../namespacegsl.html#a52ea449d45d7b01e06409c9674e60be5',1,'gsl::fail_fast_assert(bool cond)'],['../namespacegsl.html#aa7c1401f6360a58ef8d88bb1e7ae125d',1,'gsl::fail_fast_assert(bool cond, char const *const )']]],
   ['fail_5ffrom',['fail_from',['../structquickcpplib_1_1__xxx_1_1allocator__testing_1_1config.html#a9fc0e3d728ea089a5ebe3857b642bfa9',1,'quickcpplib::_xxx::allocator_testing::config']]],

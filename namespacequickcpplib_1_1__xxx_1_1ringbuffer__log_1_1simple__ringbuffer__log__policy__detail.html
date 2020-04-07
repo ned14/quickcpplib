@@ -200,18 +200,18 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;        } childreadh, childwriteh, readh, writeh;</div>
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;        <span class="keywordflow">if</span>(-1 != ::pipe(temp))</div>
 <div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;        {</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;          <span class="keyword">using namespace </span>scoped_undo;</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;          <span class="keyword">using namespace </span>scope;</div>
 <div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;          childreadh.fd = temp[0];</div>
 <div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;          readh.fd = temp[1];</div>
 <div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;          <span class="keywordflow">if</span>(-1 != ::pipe(temp))</div>
 <div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;          {</div>
 <div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;            writeh.fd = temp[0];</div>
 <div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;            childwriteh.fd = temp[1];</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;            <span class="keyword">auto</span> unmypipes = <a class="code" href="namespacequickcpplib_1_1__xxx_1_1scoped__undo.html#a62993f318b6783401ed8ff8841026c33">undoer</a>([&amp;] {</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;            <span class="keyword">auto</span> unmypipes = <a class="code" href="namespacequickcpplib_1_1__xxx_1_1scope.html#a84b686813671fdcbc693b1846ec6e30c">make_scope_exit</a>([&amp;]() noexcept {</div>
 <div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;              (void) ::close(readh.fd);</div>
 <div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;              (void) ::close(writeh.fd);</div>
 <div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;            });</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;            <span class="keyword">auto</span> unhispipes = <a class="code" href="namespacequickcpplib_1_1__xxx_1_1scoped__undo.html#a62993f318b6783401ed8ff8841026c33">undoer</a>([&amp;] {</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;            <span class="keyword">auto</span> unhispipes = <a class="code" href="namespacequickcpplib_1_1__xxx_1_1scope.html#a84b686813671fdcbc693b1846ec6e30c">make_scope_exit</a>([&amp;]() noexcept {</div>
 <div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;              (void) ::close(childreadh.fd);</div>
 <div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;              (void) ::close(childwriteh.fd);</div>
 <div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;            });</div>
@@ -221,7 +221,7 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;            posix_spawn_file_actions_t child_fd_actions;</div>
 <div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;            <span class="keywordflow">if</span>(!::posix_spawn_file_actions_init(&amp;child_fd_actions))</div>
 <div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;            {</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;              <span class="keyword">auto</span> unactions = <a class="code" href="namespacequickcpplib_1_1__xxx_1_1scoped__undo.html#a62993f318b6783401ed8ff8841026c33">undoer</a>([&amp;] { ::posix_spawn_file_actions_destroy(&amp;child_fd_actions); });</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;              <span class="keyword">auto</span> unactions = <a class="code" href="namespacequickcpplib_1_1__xxx_1_1scope.html#a84b686813671fdcbc693b1846ec6e30c">make_scope_exit</a>([&amp;]() noexcept { ::posix_spawn_file_actions_destroy(&amp;child_fd_actions); });</div>
 <div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;              <span class="keywordflow">if</span>(!::posix_spawn_file_actions_adddup2(&amp;child_fd_actions, childreadh.fd, STDIN_FILENO))</div>
 <div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;              {</div>
 <div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;                <span class="keywordflow">if</span>(!::posix_spawn_file_actions_addclose(&amp;child_fd_actions, childreadh.fd))</div>
@@ -271,7 +271,7 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;                        sigemptyset(&amp;toblock);</div>
 <div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;                        sigaddset(&amp;toblock, SIGPIPE);</div>
 <div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;                        pthread_sigmask(SIG_BLOCK, &amp;toblock, &amp;oldset);</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;                        <span class="keyword">auto</span> unsigmask = <a class="code" href="namespacequickcpplib_1_1__xxx_1_1scoped__undo.html#a62993f318b6783401ed8ff8841026c33">undoer</a>([&amp;toblock, &amp;oldset] {</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;                        <span class="keyword">auto</span> unsigmask = <a class="code" href="namespacequickcpplib_1_1__xxx_1_1scope.html#a84b686813671fdcbc693b1846ec6e30c">make_scope_exit</a>([&amp;toblock, &amp;oldset]() noexcept {</div>
 <div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;<span class="preprocessor">#ifdef __APPLE__</span></div>
 <div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;<span class="preprocessor"></span>                          pthread_kill(pthread_self(), SIGPIPE);</div>
 <div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;                          <span class="keywordtype">int</span> cleared = 0;</div>
@@ -297,8 +297,8 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;                            addrs.append(buffer, bytes);</div>
 <div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;                          }</div>
 <div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;                          (void) ::close(writeh.fd);</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;                          unmypipes.dismiss();</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;                          unhispipes.dismiss();</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;                          unmypipes.release();</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;                          unhispipes.release();</div>
 <div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;                        }</div>
 <div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;                        <span class="comment">// std::cerr &lt;&lt; &quot;\n\n---\n&quot; &lt;&lt; addrs &lt;&lt; &quot;---\n\n&quot; &lt;&lt; std::endl;</span></div>
 <div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;                        <span class="comment">// reap child</span></div>
@@ -365,7 +365,7 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;    }</div>
 <div class="ttc" id="execinfo__win64_8h_html_af8f00baaffaa60f09468f2b214a0c522"><div class="ttname"><a href="execinfo__win64_8h.html#af8f00baaffaa60f09468f2b214a0c522">backtrace</a></div><div class="ttdeci">EXECINFO_DECL _Check_return_ size_t backtrace(_Out_writes_(len) void **bt, _In_ size_t len)</div><div class="ttdoc">Fill the array of void * at bt with up to len entries, returning entries filled. </div></div>
 <div class="ttc" id="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log_html_add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">quickcpplib::_xxx::ringbuffer_log::level::info</a></div></div>
-<div class="ttc" id="namespacequickcpplib_1_1__xxx_1_1scoped__undo_html_a62993f318b6783401ed8ff8841026c33"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1scoped__undo.html#a62993f318b6783401ed8ff8841026c33">quickcpplib::_xxx::scoped_undo::undoer</a></div><div class="ttdeci">detail::undo_impl&lt; callable &gt; undoer(callable c)</div><div class="ttdoc">Alexandrescu style rollbacks, a la C++ 11. </div><div class="ttdef"><b>Definition:</b> scoped_undo.hpp:107</div></div>
+<div class="ttc" id="namespacequickcpplib_1_1__xxx_1_1scope_html_a84b686813671fdcbc693b1846ec6e30c"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1scope.html#a84b686813671fdcbc693b1846ec6e30c">quickcpplib::_xxx::scope::make_scope_exit</a></div><div class="ttdeci">constexpr auto make_scope_exit(T &amp;&amp;v)</div><div class="ttdef"><b>Definition:</b> scope.hpp:153</div></div>
 <div class="ttc" id="execinfo__win64_8h_html_a74d180764c748819f56703822acc12c4"><div class="ttname"><a href="execinfo__win64_8h.html#a74d180764c748819f56703822acc12c4">len</a></div><div class="ttdeci">EXECINFO_DECL _Check_return_ _In_ size_t len</div><div class="ttdef"><b>Definition:</b> execinfo_win64.h:55</div></div>
 </div><!-- fragment -->
 </div>
