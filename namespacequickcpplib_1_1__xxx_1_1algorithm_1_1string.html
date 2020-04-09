@@ -250,16 +250,16 @@ template&lt;class CharType &gt; </div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      {</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> n = inlen - 2; n &lt;= inlen - 2; n -= 2)</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        {</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;          out[n * 2 + 3] = table[(in[n + 1] &gt;&gt; 4) &amp; 0xf];</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;          out[n * 2 + 2] = table[in[n + 1] &amp; 0xf];</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;          out[n * 2 + 1] = table[(in[n] &gt;&gt; 4) &amp; 0xf];</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;          out[n * 2 + 0] = table[in[n] &amp; 0xf];</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;          out[n * 2 + 3] = table[in[n + 1] &amp; 0xf];</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;          out[n * 2 + 2] = table[(in[n + 1] &gt;&gt; 4) &amp; 0xf];</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;          out[n * 2 + 1] = table[in[n] &amp; 0xf];</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;          out[n * 2 + 0] = table[(in[n] &gt;&gt; 4) &amp; 0xf];</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        }</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;      }</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;      <span class="keywordflow">if</span>(inlen &amp; 1)</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;      {</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        out[1] = table[(in[0] &gt;&gt; 4) &amp; 0xf];</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        out[0] = table[in[0] &amp; 0xf];</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        out[1] = table[in[0] &amp; 0xf];</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        out[0] = table[(in[0] &gt;&gt; 4) &amp; 0xf];</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;      }</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;      <span class="keywordflow">return</span> inlen * 2;</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    }</div>
@@ -427,20 +427,20 @@ template&lt;class CharType &gt; </div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;          c[1] = fromhex(in[n * 2 + 1]);</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;          c[2] = fromhex(in[n * 2 + 2]);</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;          c[3] = fromhex(in[n * 2 + 3]);</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;          out[n] = (c[1] &lt;&lt; 4) | c[0];</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;          out[n] = (c[0] &lt;&lt; 4) | c[1];</div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;          c[4] = fromhex(in[n * 2 + 4]);</div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;          c[5] = fromhex(in[n * 2 + 5]);</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;          out[n + 1] = (c[3] &lt;&lt; 4) | c[2];</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;          out[n + 1] = (c[2] &lt;&lt; 4) | c[3];</div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;          c[6] = fromhex(in[n * 2 + 6]);</div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;          c[7] = fromhex(in[n * 2 + 7]);</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;          out[n + 2] = (c[5] &lt;&lt; 4) | c[4];</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;          out[n + 3] = (c[7] &lt;&lt; 4) | c[6];</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;          out[n + 2] = (c[4] &lt;&lt; 4) | c[5];</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;          out[n + 3] = (c[6] &lt;&lt; 4) | c[7];</div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        }</div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;      }</div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;      <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> n = bulklen; n &lt; inlen / 2; n++)</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;      {</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> c1 = fromhex(in[n * 2]), c2 = fromhex(in[n * 2 + 1]);</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        out[n] = (c2 &lt;&lt; 4) | c1;</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        out[n] = (c1 &lt;&lt; 4) | c2;</div>
 <div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;      }</div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;      <span class="keywordflow">if</span>(is_invalid)</div>
 <div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        <span class="keywordflow">throw</span> std::invalid_argument(<span class="stringliteral">&quot;Input is not hexadecimal.&quot;</span>);</div>
