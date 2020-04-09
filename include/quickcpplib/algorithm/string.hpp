@@ -78,16 +78,16 @@ This lets one pack one byte of input into two bytes of output.
       {
         for(size_t n = inlen - 2; n <= inlen - 2; n -= 2)
         {
-          out[n * 2 + 3] = table[(in[n + 1] >> 4) & 0xf];
-          out[n * 2 + 2] = table[in[n + 1] & 0xf];
-          out[n * 2 + 1] = table[(in[n] >> 4) & 0xf];
-          out[n * 2 + 0] = table[in[n] & 0xf];
+          out[n * 2 + 3] = table[in[n + 1] & 0xf];
+          out[n * 2 + 2] = table[(in[n + 1] >> 4) & 0xf];
+          out[n * 2 + 1] = table[in[n] & 0xf];
+          out[n * 2 + 0] = table[(in[n] >> 4) & 0xf];
         }
       }
       if(inlen & 1)
       {
-        out[1] = table[(in[0] >> 4) & 0xf];
-        out[0] = table[in[0] & 0xf];
+        out[1] = table[in[0] & 0xf];
+        out[0] = table[(in[0] >> 4) & 0xf];
       }
       return inlen * 2;
     }
@@ -154,20 +154,20 @@ This lets one pack one byte of input into two bytes of output.
           c[1] = fromhex(in[n * 2 + 1]);
           c[2] = fromhex(in[n * 2 + 2]);
           c[3] = fromhex(in[n * 2 + 3]);
-          out[n] = (c[1] << 4) | c[0];
+          out[n] = (c[0] << 4) | c[1];
           c[4] = fromhex(in[n * 2 + 4]);
           c[5] = fromhex(in[n * 2 + 5]);
-          out[n + 1] = (c[3] << 4) | c[2];
+          out[n + 1] = (c[2] << 4) | c[3];
           c[6] = fromhex(in[n * 2 + 6]);
           c[7] = fromhex(in[n * 2 + 7]);
-          out[n + 2] = (c[5] << 4) | c[4];
-          out[n + 3] = (c[7] << 4) | c[6];
+          out[n + 2] = (c[4] << 4) | c[5];
+          out[n + 3] = (c[6] << 4) | c[7];
         }
       }
       for(size_t n = bulklen; n < inlen / 2; n++)
       {
         unsigned char c1 = fromhex(in[n * 2]), c2 = fromhex(in[n * 2 + 1]);
-        out[n] = (c2 << 4) | c1;
+        out[n] = (c1 << 4) | c2;
       }
       if(is_invalid)
         throw std::invalid_argument("Input is not hexadecimal.");
