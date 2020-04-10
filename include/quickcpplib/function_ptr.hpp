@@ -69,7 +69,7 @@ namespace function_ptr
 
       virtual ~_function_ptr_storage() = default;
 
-      virtual R operator()(Args &&... args) = 0;
+      virtual R operator()(Args... args) = 0;
 
       virtual _function_ptr_storage *move(char *v) noexcept = 0;
     };
@@ -93,7 +93,7 @@ namespace function_ptr
 
       _function_ptr_storage_nonmoveable &operator=(_function_ptr_storage_nonmoveable &&) = delete;
 
-      R operator()(Args &&... args) override { return c(static_cast<Args &&>(args)...); }
+      R operator()(Args... args) override { return c(static_cast<Args &&>(args)...); }
 
       _function_ptr_storage *move(char * /*unused*/) noexcept final { abort(); }
     };
@@ -105,7 +105,7 @@ namespace function_ptr
       {
         template <class... Args2> standin_t(Args2 &&... /*unused*/) {}
 
-        R operator()(Args &&... /*unused*/) { return {}; }
+        R operator()(Args... /*unused*/) override { return {}; }
       };
 
       using type = std::conditional_t<std::is_move_constructible<U>::value, U, standin_t>;
@@ -128,7 +128,7 @@ namespace function_ptr
 
       _function_ptr_storage_moveable &operator=(_function_ptr_storage_moveable &&) = delete;
 
-      R operator()(Args &&... args) override { return c(static_cast<Args &&>(args)...); }
+      R operator()(Args... args) override { return c(static_cast<Args &&>(args)...); }
 
       _function_ptr_storage *move(char *v) noexcept final { return new(v) _function_ptr_storage_moveable(static_cast<_function_ptr_storage_moveable &&>(*this)); }
     };
@@ -138,7 +138,7 @@ namespace function_ptr
     {
       size_t foo;
 
-      R operator()(Args &&... /*unused*/);
+      R operator()(Args... /*unused*/);
     };
 
     uintptr_t _ptr_{0};
