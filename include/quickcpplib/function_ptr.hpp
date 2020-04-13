@@ -105,7 +105,7 @@ namespace function_ptr
       {
         template <class... Args2> standin_t(Args2 &&... /*unused*/) {}
 
-        R operator()(Args... /*unused*/) override { return {}; }
+        R operator()(Args... /*unused*/) { return {}; }
       };
 
       using type = std::conditional_t<std::is_move_constructible<U>::value, U, standin_t>;
