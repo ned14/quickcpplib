@@ -369,7 +369,12 @@ function(find_quickcpplib_library libraryname)
         set(FINDLIB_LOCAL_PATH "${QUICKCPPLIB_ROOT_BINARY_DIR}/${libraryname}")
         set(${libraryname}_FOUND TRUE)
       else()
-        find_package(${libraryname} CONFIG REQUIRED NO_DEFAULT_PATH PATHS "${QUICKCPPLIB_ROOT_BINARY_DIR}/${libraryname}")
+        # Normally, the following ${libraryname}_DIR would not be needed if
+        # PATHS "${QUICKCPPLIB_ROOT_BINARY_DIR}/${libraryname}" were provided.
+        # However, when CMAKE_SYSROOT is set, the paths provided by the PATHS option are assumed to be system paths
+        # even when they are in the build directory, and get rewritten into the sysroot.
+        set(${libraryname}_DIR "${QUICKCPPLIB_ROOT_BINARY_DIR}/${libraryname}/lib/cmake/${libraryname}")
+        find_package(${libraryname} CONFIG REQUIRED NO_DEFAULT_PATH)
       endif()
     endif()
     
