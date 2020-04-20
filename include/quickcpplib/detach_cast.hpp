@@ -34,7 +34,7 @@ Distributed under the Boost Software License, Version 1.0.
 #include <type_traits>
 
 // GCC has some weird parsing bug here
-#if defined(__GNUC__) && !defined(__clang__) && __GNUC__ < 10
+#if defined(__GNUC__) && !defined(__clang__) && __GNUC__ < 11
 #define QUICKCPPLIB_DETACH_CAST_NODISCARD
 #else
 #define QUICKCPPLIB_DETACH_CAST_NODISCARD QUICKCPPLIB_NODISCARD
