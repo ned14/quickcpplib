@@ -32,7 +32,7 @@ var NAVTREEINDEX2 =
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#aab19b5291043c979f3d5bbf7d85fdeec":[4,0,4,0,14,1,17],
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#abddcf90fbd8fe58c2724d3fe3d6f0702":[4,0,4,0,14,1,29],
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#abe9ef9ff8583356db22c69fcf3918b59":[4,0,4,0,14,1,38],
-"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ac67e499cfdf1983399afd9850bb8069e":[4,0,4,0,14,1,48],
+"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ac4214e49253ab299136dff1501a753d1":[4,0,4,0,14,1,48],
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ac72fe7472c02cf4805e6da800655cef6":[4,0,4,0,14,1,20],
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ac9ba81fb0dd2aa35f24daa740a02a23e":[4,0,4,0,14,1,26],
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ac9c84150ef0b15c02a3e9e256747086a":[4,0,4,0,14,1,33],

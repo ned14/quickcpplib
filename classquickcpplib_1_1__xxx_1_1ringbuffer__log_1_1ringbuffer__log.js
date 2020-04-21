@@ -48,7 +48,7 @@ var classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log =
     [ "emplace_back", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ac9ce79a15a80d33763998369e638b2d8", null ],
     [ "iterator_", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a292d4c3b165ecb5a32c9ec02fa2f8604", null ],
     [ "_store", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a9d2707ff945ddf24a0b52a280499d939", null ],
-    [ "_level", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ac67e499cfdf1983399afd9850bb8069e", null ],
+    [ "_level", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ac4214e49253ab299136dff1501a753d1", null ],
     [ "_counter", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a75b2f185b6853403aa386e0da10cfd50", null ],
     [ "_immediate", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a170535d0de92dd1bf57a52ed4189c73a", null ]
 ];
