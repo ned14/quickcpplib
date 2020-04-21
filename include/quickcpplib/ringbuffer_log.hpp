@@ -701,7 +701,7 @@ namespace ringbuffer_log
 
   protected:
     container_type _store;
-    level _level;
+    std::atomic<level> _level;
     std::atomic<size_type> _counter;
     std::ostream *_immediate;
 
@@ -734,10 +734,10 @@ namespace ringbuffer_log
       std::swap(_immediate, o._immediate);
     }
 
-    //! Returns the current log level
-    level log_level() const noexcept { return _level; }
-    //! Returns the current log level
-    void log_level(level new_level) noexcept { _level = new_level; }
+    //! THREADSAFE Returns the current log level
+    level log_level() const noexcept { return _level.load(std::memory_order_relaxed); }
+    //! THREADSAFE Returns the current log level
+    void log_level(level new_level) noexcept { _level.store(new_level, std::memory_order_relaxed); }
 
     //! Returns true if the log is empty
     bool empty() const noexcept { return _counter.load(std::memory_order_relaxed) == 0; }
@@ -900,7 +900,7 @@ namespace ringbuffer_log
     //! THREADSAFE Logs a new item, returning its unique counter id
     size_type push_back(value_type &&v) noexcept
     {
-      if(static_cast<level>(v.level) <= _level)
+      if(static_cast<level>(v.level) <= log_level())
       {
         if(_immediate)
           *_immediate << v << std::endl;
@@ -914,7 +914,7 @@ namespace ringbuffer_log
     //! THREADSAFE Logs a new item, returning its unique counter id
     template <class... Args> size_type emplace_back(level __level, Args &&... args) noexcept
     {
-      if(__level <= _level)
+      if(__level <= log_level())
       {
         value_type v(__level, std::forward<Args>(args)...);
         if(_immediate)
