@@ -729,7 +729,9 @@ namespace ringbuffer_log
     void swap(ringbuffer_log &o) noexcept
     {
       std::swap(_store, o._store);
-      std::swap(_level, o._level);
+      auto t = o._level.load(std::memory_order_relaxed);
+      o._level.store(_level.load(std::memory_order_relaxed), std::memory_order_relaxed);
+      _level.store(t, std::memory_order_relaxed);
       std::swap(_counter, o._counter);
       std::swap(_immediate, o._immediate);
     }
