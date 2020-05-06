@@ -708,7 +708,7 @@ namespace ringbuffer_log
     size_type counter_to_idx(size_type counter) const noexcept { return max_items ? (counter % max_items) : (counter % _store.size()); }
     static level &_thread_level()
     {
-      static thread_local level v{level::none};
+      static thread_local level v{level::all};
       return v;
     }
 
@@ -741,15 +741,15 @@ namespace ringbuffer_log
       std::swap(_immediate, o._immediate);
     }
 
-    //! THREADSAFE Returns the combined log level from the instance and thread values, choosing whichever is the highest.
-    level log_level() const noexcept { return std::max(instance_log_level(), thread_log_level()); }
+    //! THREADSAFE Returns the combined log level from the instance and thread values, choosing whichever is the lowest.
+    level log_level() const noexcept { return std::min(instance_log_level(), thread_log_level()); }
     //! THREADSAFE Returns the current per-instance log level
     level instance_log_level() const noexcept { return _instance_level.load(std::memory_order_relaxed); }
     //! THREADSAFE Sets the current per-instance log level
     void instance_log_level(level new_level) noexcept { _instance_level.store(new_level, std::memory_order_relaxed); }
     //! THREADSAFE Returns the current per-thread log level. Note this affects ALL instances!
     level thread_log_level() const noexcept { return _thread_level(); }
-    //! THREADSAFE Sets the current per-thread log level. Note this affects ALL instances! Set to `level::none` to not override the per-instance log level
+    //! THREADSAFE Sets the current per-thread log level. Note this affects ALL instances! Set to `level::all` to not override the per-instance log level
     void thread_log_level(level new_level) noexcept { _thread_level() = new_level; }
 
     //! Returns true if the log is empty
