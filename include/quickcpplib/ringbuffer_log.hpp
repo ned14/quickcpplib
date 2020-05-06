@@ -701,18 +701,23 @@ namespace ringbuffer_log
 
   protected:
     container_type _store;
-    std::atomic<level> _level;
+    std::atomic<level> _instance_level;
     std::atomic<size_type> _counter;
     std::ostream *_immediate;
 
     size_type counter_to_idx(size_type counter) const noexcept { return max_items ? (counter % max_items) : (counter % _store.size()); }
+    static level &_thread_level()
+    {
+      static thread_local level v{level::none};
+      return v;
+    }
 
   public:
     //! Default construction, passes through args to container_type
     template <class... Args>
     explicit ringbuffer_log(level starting_level, Args &&... args) noexcept(noexcept(container_type(std::forward<Args>(args)...)))
         : _store(std::forward<Args>(args)...)
-        , _level(starting_level)
+        , _instance_level(starting_level)
         , _counter(0)
         , _immediate(nullptr)
     {
@@ -729,17 +734,23 @@ namespace ringbuffer_log
     void swap(ringbuffer_log &o) noexcept
     {
       std::swap(_store, o._store);
-      auto t = o._level.load(std::memory_order_relaxed);
-      o._level.store(_level.load(std::memory_order_relaxed), std::memory_order_relaxed);
-      _level.store(t, std::memory_order_relaxed);
+      auto t = o._instance_level.load(std::memory_order_relaxed);
+      o._instance_level.store(_instance_level.load(std::memory_order_relaxed), std::memory_order_relaxed);
+      _instance_level.store(t, std::memory_order_relaxed);
       std::swap(_counter, o._counter);
       std::swap(_immediate, o._immediate);
     }
 
-    //! THREADSAFE Returns the current log level
-    level log_level() const noexcept { return _level.load(std::memory_order_relaxed); }
-    //! THREADSAFE Returns the current log level
-    void log_level(level new_level) noexcept { _level.store(new_level, std::memory_order_relaxed); }
+    //! THREADSAFE Returns the combined log level from the instance and thread values, choosing whichever is the highest.
+    level log_level() const noexcept { return std::max(instance_log_level(), thread_log_level()); }
+    //! THREADSAFE Returns the current per-instance log level
+    level instance_log_level() const noexcept { return _instance_level.load(std::memory_order_relaxed); }
+    //! THREADSAFE Sets the current per-instance log level
+    void instance_log_level(level new_level) noexcept { _instance_level.store(new_level, std::memory_order_relaxed); }
+    //! THREADSAFE Returns the current per-thread log level. Note this affects ALL instances!
+    level thread_log_level() const noexcept { return _thread_level(); }
+    //! THREADSAFE Sets the current per-thread log level. Note this affects ALL instances! Set to `level::none` to not override the per-instance log level
+    void thread_log_level(level new_level) noexcept { _thread_level() = new_level; }
 
     //! Returns true if the log is empty
     bool empty() const noexcept { return _counter.load(std::memory_order_relaxed) == 0; }

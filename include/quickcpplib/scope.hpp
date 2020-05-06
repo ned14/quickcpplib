@@ -68,7 +68,7 @@ namespace scope
       EF _f;
       bool _released{false};
 #if __cplusplus >= 201700 || _HAS_CXX17
-      size_t _uncaught_exceptions;
+      int _uncaught_exceptions;
 #endif
 
     public:
