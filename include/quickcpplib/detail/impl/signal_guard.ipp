@@ -186,7 +186,7 @@ namespace signal_guard
       return false;
     }
 
-    static configurable_spinlock::spinlock<bool> lock;
+    static configurable_spinlock::spinlock<uintptr_t> lock;
     static unsigned new_handler_count, terminate_handler_count;
     static std::new_handler new_handler_old;
     static std::terminate_handler terminate_handler_old;
@@ -500,15 +500,7 @@ namespace signal_guard
       unsigned count;  // number of signal_install instances for this signal
       struct sigaction former;
     };
-    static signalc_set handlers_installed;
     static installed_signal_handler handler_counts[32];  // indexed by signal number
-    SIGNALGUARD_FUNC_DECL signalc_set signal_guards_installed() noexcept
-    {
-      lock.lock();
-      signalc_set ret = handlers_installed;
-      lock.unlock();
-      return ret;
-    }
 
     // Simulate the raising of a signal
     inline bool do_raise_signal(int signo, struct sigaction &sa, siginfo_t *_info, void *_context)
@@ -670,24 +662,24 @@ namespace signal_guard
 #ifndef _WIN32
     sigset_t set;
     sigemptyset(&set);
+    detail::lock.lock();
     for(int signo = 0; signo < 32; signo++)
     {
       if((static_cast<uint64_t>(guarded) & (1 << signo)) != 0)
       {
         int ret = 0;
-        detail::lock.lock();
         if(!detail::handler_counts[signo].count++)
         {
           struct sigaction sa;
           memset(&sa, 0, sizeof(sa));
           sa.sa_sigaction = detail::raw_signal_handler;
           sa.sa_flags = SA_SIGINFO | SA_NODEFER;
-          ret = sigaction(signo, &sa, &detail::handler_counts[signo].former);
-        }
-        detail::lock.unlock();
-        if(ret == -1)
-        {
-          throw std::system_error(errno, std::system_category());
+          if(-1 == sigaction(signo, &sa, &detail::handler_counts[signo].former))
+          {
+            detail::handler_counts[signo].count--;
+            detail::lock.unlock();
+            throw std::system_error(errno, std::system_category());
+          }
         }
       }
       if(detail::handler_counts[signo].count > 0)
@@ -698,10 +690,10 @@ namespace signal_guard
     // Globally enable all signals we have installed handlers for
     if(-1 == sigprocmask(SIG_UNBLOCK, &set, nullptr))
     {
+      detail::lock.unlock();
       throw std::system_error(errno, std::system_category());
     }
-    detail::lock.lock();
-    detail::handlers_installed |= guarded;
+    detail::signal_guards_installed().store(detail::signal_guards_installed().load(std::memory_order_relaxed) | guarded, std::memory_order_relaxed);
     detail::lock.unlock();
 #endif
     if((guarded & signalc_set::out_of_memory) || (guarded & signalc_set::termination))
@@ -781,7 +773,7 @@ namespace signal_guard
     {
       handlers_installed |= signalc_set::termination;
     }
-    detail::handlers_installed = static_cast<signalc_set>(handlers_installed);
+    detail::signal_guards_installed().store(static_cast<signalc_set>(handlers_installed), std::memory_order_relaxed);
     detail::lock.unlock();
     if(setsigprocmask)
     {

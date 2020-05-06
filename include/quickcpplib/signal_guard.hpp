@@ -66,7 +66,7 @@ extern "C" void *__cdecl _exception_info(void);
 #else
 #if defined(__cplusplus) && (!defined(QUICKCPPLIB_HEADERS_ONLY) || QUICKCPPLIB_HEADERS_ONLY == 1) && !defined(DOXYGEN_SHOULD_SKIP_THIS)
 #define SIGNALGUARD_CLASS_DECL
-#define SIGNALGUARD_FUNC_DECL inline
+#define SIGNALGUARD_FUNC_DECL extern inline
 #define SIGNALGUARD_MEMFUNC_DECL inline
 #elif defined(QUICKCPPLIB_DYN_LINK) && !defined(QUICKCPPLIB_STATIC_LINK)
 #define SIGNALGUARD_CLASS_DECL QUICKCPPLIB_SYMBOL_IMPORT
@@ -291,7 +291,9 @@ namespace signal_guard
   namespace detail
   {
     SIGNALGUARD_FUNC_DECL const char *signalc_to_string(signalc code) noexcept;
-    SIGNALGUARD_FUNC_DECL signalc_set signal_guards_installed() noexcept;
+    extern inline std::atomic<signalc_set> &signal_guards_installed() { static std::atomic<signalc_set> v;
+      return v;
+    }
   }
 
   /*! \brief On platforms where it is necessary (POSIX), installs, and potentially enables,
@@ -533,7 +535,7 @@ namespace signal_guard
           , continuer(c)
       {
 #ifndef _WIN32
-        uint64_t oldinstalled(detail::signal_guards_installed());
+        uint64_t oldinstalled(detail::signal_guards_installed().load(std::memory_order_relaxed));
         uint64_t newinstalled = oldinstalled | uint64_t(guarded);
         if(newinstalled != oldinstalled)
         {
