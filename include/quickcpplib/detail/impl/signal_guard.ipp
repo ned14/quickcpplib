@@ -667,7 +667,6 @@ namespace signal_guard
     {
       if((static_cast<uint64_t>(guarded) & (1 << signo)) != 0)
       {
-        int ret = 0;
         if(!detail::handler_counts[signo].count++)
         {
           struct sigaction sa;
