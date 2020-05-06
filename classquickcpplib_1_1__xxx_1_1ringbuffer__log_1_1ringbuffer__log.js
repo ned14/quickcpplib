@@ -22,7 +22,10 @@ var classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log =
     [ "operator=", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a756712b4240320f6991fb2b00939f256", null ],
     [ "swap", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ac72fe7472c02cf4805e6da800655cef6", null ],
     [ "log_level", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a67624982364a789291081880a3b4ec4a", null ],
-    [ "log_level", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a290d211a595f8b281c4e10ea5fa70d1a", null ],
+    [ "instance_log_level", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a1c80c38b0decc8a71fab57471023f7a9", null ],
+    [ "instance_log_level", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a2280a81d849087fd88d8a8d20481068d", null ],
+    [ "thread_log_level", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a68656c55dec7aa54739cba06496e59e0", null ],
+    [ "thread_log_level", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#abf06e86c205e6ff0c29d6a7785ce1fae", null ],
     [ "empty", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a02de34000308aebe71ca5a1681001e55", null ],
     [ "size", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a79248b26733c9a797b05bad4b95dd3f3", null ],
     [ "max_size", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a75c8a7b1b012b0cbc35b32f715a777f3", null ],
@@ -48,7 +51,7 @@ var classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log =
     [ "emplace_back", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ac9ce79a15a80d33763998369e638b2d8", null ],
     [ "iterator_", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a292d4c3b165ecb5a32c9ec02fa2f8604", null ],
     [ "_store", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a9d2707ff945ddf24a0b52a280499d939", null ],
-    [ "_level", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ac4214e49253ab299136dff1501a753d1", null ],
+    [ "_instance_level", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#aca89437ed494b10b6961658a45a114bb", null ],
     [ "_counter", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a75b2f185b6853403aa386e0da10cfd50", null ],
     [ "_immediate", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a170535d0de92dd1bf57a52ed4189c73a", null ]
 ];

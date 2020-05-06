@@ -1,5 +1,8 @@
 var NAVTREEINDEX3 =
 {
+"config_8hpp.html#af1cff29c451e06b725cbfe06090ea6d9":[5,0,0,0,11,6],
+"config_8hpp.html#af6f6cfbeaa59c8c02bc91eb2131bb60b":[5,0,0,0,11,1],
+"config_8hpp.html#af7daf0598d93e6eb851f9d2e65e306ae":[5,0,0,0,11,4],
 "console__colours_8hpp.html":[5,0,0,0,12],
 "console__colours_8hpp.html#a0074c3eb18203e173a67f074183e6129":[5,0,0,0,12,17],
 "console__colours_8hpp.html#a149c857eadee7b5cf5f7e0b795e0c76f":[5,0,0,0,12,0],
@@ -120,13 +123,13 @@ var NAVTREEINDEX3 =
 "functions_v.html":[4,3,0,20],
 "functions_vars.html":[4,3,2],
 "functions_~.html":[4,3,0,21],
-"globals.html":[5,1,0,0],
 "globals.html":[5,1,0],
+"globals.html":[5,1,0,0],
 "globals_a.html":[5,1,0,1],
 "globals_b.html":[5,1,0,2],
 "globals_c.html":[5,1,0,3],
-"globals_defs.html":[5,1,6,0],
 "globals_defs.html":[5,1,6],
+"globals_defs.html":[5,1,6,0],
 "globals_defs_c.html":[5,1,6,1],
 "globals_defs_e.html":[5,1,6,2],
 "globals_defs_g.html":[5,1,6,3],
@@ -246,8 +249,5 @@ var NAVTREEINDEX3 =
 "gsl-lite-vc6_8hpp.html#ac01fcb22701718005d8c2eb2980771ea":[5,0,0,0,3,0,0,0,40],
 "gsl-lite-vc6_8hpp.html#ac904714ab21de69a15de107412f9b925":[5,0,0,0,3,0,0,0,34],
 "gsl-lite-vc6_8hpp.html#acac1f0c4f528ee736725989478a222d8":[5,0,0,0,3,0,0,0,41],
-"gsl-lite-vc6_8hpp.html#ad38bb693f4900005f09f12308820cec2":[5,0,0,0,3,0,0,0,16],
-"gsl-lite-vc6_8hpp.html#ad9e146bbac23b63d3381c451ad4586d1":[5,0,0,0,3,0,0,0,31],
-"gsl-lite-vc6_8hpp.html#ada7a00f9ef8cbe7781396df594abca6d":[5,0,0,0,3,0,0,0,30],
-"gsl-lite-vc6_8hpp.html#ade61920cc3d2f9170543a5c2507905af":[5,0,0,0,3,0,0,0,26]
+"gsl-lite-vc6_8hpp.html#ad38bb693f4900005f09f12308820cec2":[5,0,0,0,3,0,0,0,16]
 };

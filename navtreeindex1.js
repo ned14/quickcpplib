@@ -248,6 +248,6 @@ var NAVTREEINDEX1 =
 "classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace.html#af1e388ef6bf2ee5ad9d16ca24a73cac4":[4,0,4,0,13,2,18],
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html":[4,0,4,0,14,1],
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a0295f5ac461ed6260a3b998c61feea0d":[4,0,4,0,14,1,7],
-"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a02de34000308aebe71ca5a1681001e55":[4,0,4,0,14,1,23],
-"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a0499126b8d796e1a0bd8acad518b5a46":[4,0,4,0,14,1,34]
+"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a02de34000308aebe71ca5a1681001e55":[4,0,4,0,14,1,26],
+"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a0499126b8d796e1a0bd8acad518b5a46":[4,0,4,0,14,1,37]
 };
