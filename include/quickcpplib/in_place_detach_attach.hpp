@@ -146,11 +146,11 @@ namespace in_place_attach_detach
     //! The iterator type
     using iterator = typename _base::iterator;
     //! The const iterator type
-    using const_iterator = typename _base::const_iterator;
+    //using const_iterator = typename _base::const_iterator;
     //! The reverse iterator type
     using reverse_iterator = typename _base::reverse_iterator;
     //! The const reverse iterator type
-    using const_reverse_iterator = typename _base::const_reverse_iterator;
+    //using const_reverse_iterator = typename _base::const_reverse_iterator;
     //! The difference type
     using difference_type = typename _base::difference_type;
 
@@ -205,15 +205,15 @@ namespace in_place_attach_detach
     //using _base::operator();
     //using _base::at;
     using _base::begin;
-    using _base::cbegin;
-    using _base::cend;
-    using _base::crbegin;
-    using _base::crend;
+    //using _base::cbegin;
+    //using _base::cend;
+    //using _base::crbegin;
+    //using _base::crend;
     using _base::data;
     using _base::end;
     using _base::rbegin;
     using _base::rend;
-    using _base::swap;
+    //using _base::swap;
   };
 
 }  // namespace in_place_attach_detach

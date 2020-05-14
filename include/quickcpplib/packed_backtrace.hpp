@@ -409,8 +409,9 @@ namespace packed_backtrace
       //! Swaps with another instance
       void swap(packed_backtrace &o) noexcept
       {
-        _storage.swap(o._storage);
-        std::swap(_count, o._count);
+        using std::swap;
+        swap(_storage, o._storage);
+        swap(_count, o._count);
       }
 
       //! Assigns a raw stack backtrace to the packed storage

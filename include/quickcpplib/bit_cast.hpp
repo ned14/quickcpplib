@@ -28,16 +28,18 @@ Distributed under the Boost Software License, Version 1.0.
 #include "config.hpp"
 
 #ifndef QUICKCPPLIB_USE_STD_BIT_CAST
-#if __cplusplus >= 202000 && __has_include(<bit>) && (!defined(_LIBCPP_VERSION) || _LIBCPP_VERSION > 10000 /* approx start of 2020 */)
+#if __cplusplus >= 202000 && __has_include(<bit>)
+#include <bit>
+#if __cpp_lib_bit_cast
 #define QUICKCPPLIB_USE_STD_BIT_CAST 1
+#else
+#define QUICKCPPLIB_USE_STD_BIT_CAST 0
+#endif
 #else
 #define QUICKCPPLIB_USE_STD_BIT_CAST 0
 #endif
 #endif
 
-#if QUICKCPPLIB_USE_STD_BIT_CAST
-#include <bit>
-#endif
 #include <type_traits>
 
 QUICKCPPLIB_NAMESPACE_BEGIN
