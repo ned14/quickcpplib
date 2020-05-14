@@ -172,7 +172,7 @@ template&lt;class To , class From , typename std::enable_if&lt;(detail::is_bit_c
 </div><div class="memdoc">
 
 <p>Bit cast emulation chosen if types are move relocating or trivally copyable, have identical size, and are statically castable. Constexpr. </p>
-<div class="fragment"><div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;{}) noexcept { <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>To<span class="keyword">&gt;</span>(from); }</div>
+<div class="fragment"><div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;{}) noexcept { <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>To<span class="keyword">&gt;</span>(from); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -211,7 +211,7 @@ template&lt;class To , class From , typename std::enable_if&lt;(detail::is_bit_c
 </div><div class="memdoc">
 
 <p>Bit cast emulation chosen if types are move relocating or trivally copyable, have identical size, and are union castable. Constexpr. </p>
-<div class="fragment"><div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;{}) noexcept { <span class="keywordflow">return</span> detail::bit_cast_union&lt;To, From&gt;{from}.target; }</div>
+<div class="fragment"><div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;{}) noexcept { <span class="keywordflow">return</span> detail::bit_cast_union&lt;To, From&gt;{from}.target; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -250,12 +250,12 @@ template&lt;class To , class From , typename std::enable_if&lt;(detail::is_bit_c
 </div><div class="memdoc">
 
 <p>Bit cast emulation chosen if an array of types which are move relocating or trivally copyable, and have identical size. NOT constexpr. </p>
-<div class="fragment"><div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                                                                {}) noexcept</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;  {</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    detail::bit_cast_union&lt;To, From&gt; ret;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    memmove(&amp;ret.source, &amp;from, <span class="keyword">sizeof</span>(ret.source));</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordflow">return</span> ret.target;</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;  }</div>
+<div class="fragment"><div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                                                                {}) noexcept</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;  {</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    detail::bit_cast_union&lt;To, From&gt; ret;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    memmove(&amp;ret.source, &amp;from, <span class="keyword">sizeof</span>(ret.source));</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordflow">return</span> ret.target;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>

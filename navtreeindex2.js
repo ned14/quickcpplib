@@ -1,7 +1,5 @@
 var NAVTREEINDEX2 =
 {
-"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a0cf9c9ba63b87a6766fd23fe58fc767e":[4,0,4,0,14,1,9],
-"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a170535d0de92dd1bf57a52ed4189c73a":[4,0,4,0,14,1,53],
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a1c80c38b0decc8a71fab57471023f7a9":[4,0,4,0,14,1,22],
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a1fcf25f02869ddacf8797651e8eaefb4":[4,0,4,0,14,1,40],
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a2280a81d849087fd88d8a8d20481068d":[4,0,4,0,14,1,23],
@@ -249,5 +247,7 @@ var NAVTREEINDEX2 =
 "config_8hpp.html#ac7d7b384e7d113f667c93d95e9a89574":[5,0,0,0,11,3],
 "config_8hpp.html#ad0efd8ee70b45fd3bf3a924bbb07577e":[5,0,0,0,11,34],
 "config_8hpp.html#ade19a82edb486c94d9e02db1512fac06":[5,0,0,0,11,25],
-"config_8hpp.html#ae173991a5e771834657fa3a984d70465":[5,0,0,0,11,23]
+"config_8hpp.html#ae173991a5e771834657fa3a984d70465":[5,0,0,0,11,23],
+"config_8hpp.html#af1cff29c451e06b725cbfe06090ea6d9":[5,0,0,0,11,6],
+"config_8hpp.html#af6f6cfbeaa59c8c02bc91eb2131bb60b":[5,0,0,0,11,1]
 };

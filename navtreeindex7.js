@@ -1,9 +1,5 @@
 var NAVTREEINDEX7 =
 {
-"structgeneric.html":[4,0,12],
-"structgeneric.html#a4997545df86b9645ee7255a18dff7391":[4,0,12,0],
-"structgeneric_3_01_u_01_6_01_4.html":[4,0,13],
-"structgeneric_3_01_u_01_6_01_4.html#a2046573544dfa345374f63542fd090b1":[4,0,13,0],
 "structgsl_1_1narrowing__error.html":[4,0,2,3],
 "structgsl_1_1owner.html":[4,0,2,1],
 "structgsl_1_1owner.html#ad5f904920decb4282bea78f0662d5616":[4,0,2,1,0],
@@ -249,5 +245,9 @@ var NAVTREEINDEX7 =
 "structquickcpplib_1_1__xxx_1_1detach__cast_1_1traits_1_1enable__reinterpret__attach__cast.html":[4,0,4,0,5,0,1],
 "structquickcpplib_1_1__xxx_1_1detach__cast_1_1traits_1_1enable__reinterpret__detach__cast.html":[4,0,4,0,5,0,0],
 "structquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1adopt__t.html":[4,0,4,0,8,2],
-"structquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1traits_1_1disable__attached__for.html":[4,0,4,0,8,0,0]
+"structquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1traits_1_1disable__attached__for.html":[4,0,4,0,8,0,0],
+"structquickcpplib_1_1__xxx_1_1integers128_1_1uint128_1_1empty__type.html":[4,0,4,0,22,0,0],
+"structquickcpplib_1_1__xxx_1_1integers128_1_1uint128__hasher.html":[4,0,4,0,22,1],
+"structquickcpplib_1_1__xxx_1_1integers128_1_1uint128__hasher.html#a8b16f30ab5c72aa85f68b27c45d7bc66":[4,0,4,0,22,1,0],
+"structquickcpplib_1_1__xxx_1_1print__type.html":[4,0,4,0,26]
 };

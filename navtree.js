@@ -48,14 +48,14 @@ var NAVTREEINDEX =
 [
 ".html",
 "classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html",
-"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a0cf9c9ba63b87a6766fd23fe58fc767e",
-"config_8hpp.html#af1cff29c451e06b725cbfe06090ea6d9",
-"gsl-lite-vc6_8hpp.html#ad9e146bbac23b63d3381c451ad4586d1",
-"memory__resource_8hpp.html#af53831c353ce75df3832681a9a316e27",
-"optional_2optional_8hpp.html#acdfba2d2e9c79f689a34c9cea5c5682d",
-"structgeneric.html",
-"structquickcpplib_1_1__xxx_1_1integers128_1_1uint128_1_1empty__type.html",
-"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a29c2181ac07e3517c331d47a90c06eb7"
+"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a1c80c38b0decc8a71fab57471023f7a9",
+"config_8hpp.html#af7daf0598d93e6eb851f9d2e65e306ae",
+"gsl-lite-vc6_8hpp.html#ade61920cc3d2f9170543a5c2507905af",
+"namespacealgorithm_1_1prime__modulus.html",
+"optional_2optional_8hpp.html#ad8c97d8b9bc6ae640f7bac45dc604ffd",
+"structgsl_1_1narrowing__error.html",
+"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1unique__id.html",
+"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a3855a283339e33e9abeb03723260321b"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

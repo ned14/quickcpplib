@@ -1,9 +1,5 @@
 var NAVTREEINDEX5 =
 {
-"memory__resource_8hpp.html#af53831c353ce75df3832681a9a316e27":[5,0,0,0,21,0],
-"modules.html":[2],
-"namespacealgorithm.html":[4,0,0],
-"namespacealgorithm.html":[3,0,0],
 "namespacealgorithm_1_1prime__modulus.html":[4,0,0,0],
 "namespacealgorithm_1_1prime__modulus.html":[3,0,0,0],
 "namespacealgorithm_1_1prime__modulus_1_1detail.html":[4,0,0,0,0],
@@ -125,8 +121,8 @@ var NAVTREEINDEX5 =
 "namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1detail.html":[4,0,4,0,8,1],
 "namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1traits.html":[3,0,4,0,8,0],
 "namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1traits.html":[4,0,4,0,8,0],
-"namespacequickcpplib_1_1__xxx_1_1integers128.html":[4,0,4,0,22],
 "namespacequickcpplib_1_1__xxx_1_1integers128.html":[3,0,4,0,22],
+"namespacequickcpplib_1_1__xxx_1_1integers128.html":[4,0,4,0,22],
 "namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html":[3,0,4,0,9],
 "namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html":[4,0,4,0,9],
 "namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_1_1detail.html":[3,0,4,0,9,0],
@@ -163,12 +159,12 @@ var NAVTREEINDEX5 =
 "namespacequickcpplib_1_1__xxx_1_1string__view.html":[4,0,4,0,19],
 "namespacequickcpplib_1_1__xxx_1_1string__view_1_1detail.html":[3,0,4,0,19,0],
 "namespacequickcpplib_1_1__xxx_1_1string__view_1_1detail.html":[4,0,4,0,19,0],
-"namespacequickcpplib_1_1__xxx_1_1tribool.html":[4,0,4,0,20],
 "namespacequickcpplib_1_1__xxx_1_1tribool.html":[3,0,4,0,20],
+"namespacequickcpplib_1_1__xxx_1_1tribool.html":[4,0,4,0,20],
 "namespacequickcpplib_1_1__xxx_1_1type__traits.html":[4,0,4,0,21],
 "namespacequickcpplib_1_1__xxx_1_1type__traits.html":[3,0,4,0,21],
-"namespacequickcpplib_1_1__xxx_1_1type__traits_1_1detail.html":[4,0,4,0,21,0],
 "namespacequickcpplib_1_1__xxx_1_1type__traits_1_1detail.html":[3,0,4,0,21,0],
+"namespacequickcpplib_1_1__xxx_1_1type__traits_1_1detail.html":[4,0,4,0,21,0],
 "namespacequickcpplib_1_1__xxx_1_1unit__test.html":[4,0,4,0,24],
 "namespacequickcpplib_1_1__xxx_1_1unit__test.html":[3,0,4,0,24],
 "namespacequickcpplib_1_1__xxx_1_1utils.html":[4,0,4,0,25],
@@ -249,5 +245,9 @@ var NAVTREEINDEX5 =
 "optional_2optional_8hpp.html#abf45cbc40acb4929dbf1caa3b31460d9":[5,0,0,0,4,0,38],
 "optional_2optional_8hpp.html#ac871efb617fb4544dafd6c5c44d21bf0":[5,0,0,0,4,0,69],
 "optional_2optional_8hpp.html#acd392a8263ad2dd322655078d53e77ad":[5,0,0,0,4,0,61],
-"optional_2optional_8hpp.html#acd496ce7fb815b5ed07c64c3c50473a5":[5,0,0,0,4,0,59]
+"optional_2optional_8hpp.html#acd496ce7fb815b5ed07c64c3c50473a5":[5,0,0,0,4,0,59],
+"optional_2optional_8hpp.html#acdfba2d2e9c79f689a34c9cea5c5682d":[5,0,0,0,4,0,91],
+"optional_2optional_8hpp.html#ad2382084b60bd9f33f220ade5855c154":[5,0,0,0,4,0,71],
+"optional_2optional_8hpp.html#ad40f3ff2c6562139fe910ab3d0a63f10":[5,0,0,0,4,0,55],
+"optional_2optional_8hpp.html#ad6c79ef527ee25f0a6295128c4b51f89":[5,0,0,0,4,0,30]
 };
