@@ -474,18 +474,34 @@ function(apply_cxx_concepts_to visibility)
   # Do we have the Concepts TS?
   function(CheckCXXHasConcepts iter)
     set(CMAKE_REQUIRED_FLAGS ${ARGN})
+    if(CMAKE_CXX_STANDARD)
+      if(MSVC)
+        if(CMAKE_CXX_STANDARD EQUAL 20)
+          list(APPEND CMAKE_REQUIRED_FLAGS /std:c++latest)
+        else()
+          list(APPEND CMAKE_REQUIRED_FLAGS /std:c++${CMAKE_CXX_STANDARD})
+        endif()
+      elseif(CLANG OR GCC)
+        list(APPEND CMAKE_REQUIRED_FLAGS -std=c++${CMAKE_CXX_STANDARD})
+      endif()
+    endif()
     check_cxx_source_compiles("
   #if !defined(_MSC_VER) && !defined(__clang__) && __GNUC__ < 9
   #define OUTCOME_GCC6_CONCEPT_BOOL bool
   #else
   #define OUTCOME_GCC6_CONCEPT_BOOL
   #endif
+  namespace detail
+  {
+    template <class T, class U> concept OUTCOME_GCC6_CONCEPT_BOOL SameHelper = true;
+    template <class T, class U> concept OUTCOME_GCC6_CONCEPT_BOOL same_as = detail::SameHelper<T, U> &&detail::SameHelper<U, T>;
+  }  // namespace detail
   template <class U> concept OUTCOME_GCC6_CONCEPT_BOOL ValueOrNone = requires(U a)
   {
     {
       a.has_value()
     }
-    ->bool;
+    ->detail::same_as<bool>;
     {a.value()};
   };
   int main() { return 0; }
@@ -527,6 +543,17 @@ function(apply_cxx_coroutines_to visibility)
   # Do we have the Coroutines TS?
   function(CheckCXXHasCoroutines iter)
     set(CMAKE_REQUIRED_FLAGS ${ARGN})
+    if(CMAKE_CXX_STANDARD)
+      if(MSVC)
+        if(CMAKE_CXX_STANDARD EQUAL 20)
+          list(APPEND CMAKE_REQUIRED_FLAGS /std:c++latest)
+        else()
+          list(APPEND CMAKE_REQUIRED_FLAGS /std:c++${CMAKE_CXX_STANDARD})
+        endif()
+      elseif(CLANG OR GCC)
+        list(APPEND CMAKE_REQUIRED_FLAGS -std=c++${CMAKE_CXX_STANDARD})
+      endif()
+    endif()
     check_cxx_source_compiles("
 #if __has_include(<coroutine>)
 #include <coroutine>
