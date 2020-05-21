@@ -348,11 +348,7 @@ function(find_quickcpplib_library libraryname)
         if(DEFINED CMAKE_TOOLCHAIN_FILE)
           set(cmakeargs "${cmakeargs} \"-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}\"")
         endif()
-        set(extraargs "GIT_SHALLOW 1")
-        if(NOT config STREQUAL Debug)
-          # go faster
-          set(extraargs "GIT_SHALLOW 1;GIT_SUBMODULES")
-        endif()
+        set(extraargs "GIT_SHALLOW 1;GIT_SUBMODULES \"\"")
         #indented_message(STATUS "DEBUG: download_build_install() QUICKCPPLIB_ROOT_BINARY_DIR = '${QUICKCPPLIB_ROOT_BINARY_DIR}'")
         #indented_message(STATUS "DEBUG: download_build_install() cmakeargs = '${cmakeargs}'")
         download_build_install(NAME ${libraryname}
@@ -627,8 +623,8 @@ endfunction()
 function(ensure_git_subrepo path url)
   if(NOT EXISTS "${path}")
     include(FindGit)
-    message(STATUS "NOTE: Due to missing ${path}, running ${GIT_EXECUTABLE} submodule update --init --recursive ...")
-    execute_process(COMMAND "${GIT_EXECUTABLE}" submodule update --init --recursive
+    message(STATUS "NOTE: Due to missing ${path}, running ${GIT_EXECUTABLE} submodule update --init --recursive --depth 1 --jobs 8 ...")
+    execute_process(COMMAND "${GIT_EXECUTABLE}" submodule update --init --recursive --depth 1 --jobs 8
       WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
       RESULT_VARIABLE retcode
     )
@@ -637,7 +633,7 @@ function(ensure_git_subrepo path url)
       get_filename_component(path "${path}" DIRECTORY)
       get_filename_component(path "${path}" DIRECTORY)
       message(WARNING "WARNING: git submodule update failed with code ${retcode}, trying a direct git clone ...")
-      execute_process(COMMAND "${GIT_EXECUTABLE}" clone --recurse-submodules ${url} ${ARGN}
+      execute_process(COMMAND "${GIT_EXECUTABLE}" clone --recurse-submodules --depth 1 --jobs 8 --shallow-submodules ${url} ${ARGN}
         WORKING_DIRECTORY "${path}"
         RESULT_VARIABLE retcode
       )

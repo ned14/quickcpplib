@@ -1,4 +1,7 @@
 cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
+if(POLICY CMP0097)
+  cmake_policy(SET CMP0097 NEW)
+endif()
 project(DownloadBuildInstall NONE)
 include(ExternalProject)
 ExternalProject_Add(@DBI_NAME@
