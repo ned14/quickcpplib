@@ -386,7 +386,6 @@ namespace signal_guard
       case signalc::floating_point_error:
         return ((unsigned long) 0xC0000090L) /*EXCEPTION_FLT_INVALID_OPERATION*/;
       }
-      return (unsigned long) -1;
     }
     inline signalc signalc_from_win32_exception_code(unsigned long c)
     {

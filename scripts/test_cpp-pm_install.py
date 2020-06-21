@@ -11,12 +11,12 @@ from git import Repo
 resourcepath = os.path.join(os.path.dirname(__file__), 'cpp-pm')
 
 if len(sys.argv) < 5:
-    print(sys.argv[0], " <test-cpp> [<subrepo> <cmake-link-target> <git url>]+", file=sys.stderr)
+    print(sys.argv[0], " <test-cpp> [<subrepo> <cmake-link-target> <git url> <branch>]+", file=sys.stderr)
     sys.exit(1)
 testcpppath = sys.argv[1]
 dependencies = []
-for n in range(2, len(sys.argv), 3):
-    dependencies += [(sys.argv[n + 0], sys.argv[n + 1], sys.argv[n + 2])]
+for n in range(2, len(sys.argv), 4):
+    dependencies += [(sys.argv[n + 0], sys.argv[n + 1], sys.argv[n + 2], sys.argv[n + 3])]
 
 def copytree(src, dst, symlinks=False):
     names = os.listdir(src)
@@ -40,7 +40,7 @@ for dependency in dependencies:
         repo.submodules[0].update(to_latest_revision = True, force = True)
     else:
         print('Adding subrepo ...')
-        subrepo = repo.create_submodule(dependency[0], dependency[0], url = dependency[2])
+        subrepo = repo.create_submodule(dependency[0], dependency[0], url = dependency[2], branch = dependency[3])
 
 os.makedirs('test_cpp-pm_install/cmake/Hunter', exist_ok = True)
 with open('test_cpp-pm_install/cmake/Hunter/config.cmake', 'w') as oh:
