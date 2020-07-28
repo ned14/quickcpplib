@@ -24,6 +24,7 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "../include/quickcpplib/execinfo_win64.h"
 
+#include <atomic>
 #include <stdlib.h>  // for abort
 #include <string.h>
 
@@ -79,6 +80,7 @@ namespace
 
   typedef int(__stdcall *SymGetLineFromAddr64_t)(_In_ void *hProcess, _In_ unsigned long long int dwAddr, _Out_ unsigned long *pdwDisplacement, _Out_ PIMAGEHLP_LINE64 Line);
 
+  static std::atomic<unsigned> dbghelp_init_lock;
 #if defined(__cplusplus) && !defined(__clang__)
   static void *dbghelp;
 #else
@@ -93,8 +95,13 @@ static HMODULE dbghelp;
     using win32::GetProcAddress;
     using win32::LoadLibraryA;
 #endif
+    while(dbghelp_init_lock.exchange(1, std::memory_order_acq_rel))
+      ;
     if(dbghelp)
+    {
+      dbghelp_init_lock.store(0, std::memory_order_release);
       return;
+    }
     dbghelp = LoadLibraryA("DBGHELP.DLL");
     if(dbghelp)
     {
@@ -107,6 +114,7 @@ static HMODULE dbghelp;
       if(!SymGetLineFromAddr64)
         abort();
     }
+    dbghelp_init_lock.store(0, std::memory_order_release);
   }
 
 #ifdef __cplusplus
