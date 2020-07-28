@@ -13,7 +13,6 @@ ensure_git_subrepo("${CMAKE_CURRENT_SOURCE_DIR}/include/quickcpplib/optional/opt
 ensure_git_subrepo("${CMAKE_CURRENT_SOURCE_DIR}/include/quickcpplib/byte/include" "https://github.com/martinmoene/byte-lite.git" byte)
 # Copy my gitattributes into the optional implementation's to prevent dirty git repo status
 file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/.gitattributes" DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/include/quickcpplib/optional/")
-file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/.gitattributes" DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/pcpp/pcpp/ply")
 
 # Sets the usual PROJECT_NAME etc
 project(quickcpplib VERSION 0.1.0.0 LANGUAGES C CXX)
