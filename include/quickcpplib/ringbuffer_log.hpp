@@ -111,11 +111,13 @@ namespace ringbuffer_log
     {
       uint64_t counter{0};
       uint64_t timestamp{0};
-      union {
+      union
+      {
         uint32_t code32[2];
         uint64_t code64;
       };
-      union {
+      union
+      {
         char backtrace[40];  // packed_backtrace
         char function[40];
       };
@@ -571,7 +573,8 @@ namespace ringbuffer_log
       iterator_ &operator=(const iterator_ &) noexcept = default;
       iterator_ &operator=(iterator_ &&) noexcept = default;
       // Non-const to const iterator
-      template <class Parent_, class Pointer_, class Reference_, typename = typename std::enable_if<!std::is_const<Pointer_>::value && !std::is_const<Reference_>::value>::type>
+      template <class Parent_, class Pointer_, class Reference_,
+                typename = typename std::enable_if<!std::is_const<Pointer_>::value && !std::is_const<Reference_>::value>::type>
       constexpr iterator_(const iterator_<Parent_, Pointer_, Reference_> &o) noexcept
           : _parent(o._parent)
           , _counter(o._counter)
@@ -639,10 +642,22 @@ namespace ringbuffer_log
         }
         return ret;
       }
-      bool operator<(const iterator_ &o) const noexcept { return _parent == o._parent && _parent->counter_to_idx(_counter) < o._parent->counter_to_idx(o._counter); }
-      bool operator>(const iterator_ &o) const noexcept { return _parent == o._parent && _parent->counter_to_idx(_counter) > o._parent->counter_to_idx(o._counter); }
-      bool operator<=(const iterator_ &o) const noexcept { return _parent == o._parent && _parent->counter_to_idx(_counter) <= o._parent->counter_to_idx(o._counter); }
-      bool operator>=(const iterator_ &o) const noexcept { return _parent == o._parent && _parent->counter_to_idx(_counter) >= o._parent->counter_to_idx(o._counter); }
+      bool operator<(const iterator_ &o) const noexcept
+      {
+        return _parent == o._parent && _parent->counter_to_idx(_counter) < o._parent->counter_to_idx(o._counter);
+      }
+      bool operator>(const iterator_ &o) const noexcept
+      {
+        return _parent == o._parent && _parent->counter_to_idx(_counter) > o._parent->counter_to_idx(o._counter);
+      }
+      bool operator<=(const iterator_ &o) const noexcept
+      {
+        return _parent == o._parent && _parent->counter_to_idx(_counter) <= o._parent->counter_to_idx(o._counter);
+      }
+      bool operator>=(const iterator_ &o) const noexcept
+      {
+        return _parent == o._parent && _parent->counter_to_idx(_counter) >= o._parent->counter_to_idx(o._counter);
+      }
       iterator_ &operator+=(size_type v) const noexcept
       {
         if(_parent && _togo)
@@ -938,7 +953,7 @@ namespace ringbuffer_log
   };
 
   //! std::ostream writer for a log
-  template <class Policy> inline std::ostream &operator<<(std::ostream &s, const ringbuffer_log<Policy> &l)
+  template <class Policy, class LogLevelChecker> inline std::ostream &operator<<(std::ostream &s, const ringbuffer_log<Policy, LogLevelChecker> &l)
   {
     for(const auto &i : l)
     {
@@ -948,7 +963,7 @@ namespace ringbuffer_log
   }
 
   //! CSV string writer for a log
-  template <class Policy> inline std::string csv(const ringbuffer_log<Policy> &l)
+  template <class Policy, class LogLevelChecker> inline std::string csv(const ringbuffer_log<Policy, LogLevelChecker> &l)
   {
     std::stringstream s;
     // timestamp,level,using_code64,using_backtrace,code0,code1,message,backtrace
@@ -961,7 +976,8 @@ namespace ringbuffer_log
   }
 
   //! Alias for a simple ringbuffer log
-  template <size_t Bytes = QUICKCPPLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES * 256> using simple_ringbuffer_log = ringbuffer_log<simple_ringbuffer_log_policy<Bytes>>;
+  template <size_t Bytes = QUICKCPPLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES * 256, class LogLevelChecker = default_ringbuffer_log_level_checker>
+  using simple_ringbuffer_log = ringbuffer_log<simple_ringbuffer_log_policy<Bytes>, LogLevelChecker>;
 }  // namespace ringbuffer_log
 
 QUICKCPPLIB_NAMESPACE_END
@@ -982,9 +998,11 @@ QUICKCPPLIB_NAMESPACE_END
 
 #if QUICKCPPLIB_RINGBUFFERLOG_LEVEL >= 1
 //! Logs an item to the log at fatal level with calling function name
-#define QUICKCPPLIB_RINGBUFFERLOG_FATAL_FUNCTION(log, message, code1, code2) QUICKCPPLIB_RINGBUFFERLOG_ITEM_FUNCTION((log), ringbuffer_log::level::fatal, (message), (code1), (code2))
+#define QUICKCPPLIB_RINGBUFFERLOG_FATAL_FUNCTION(log, message, code1, code2)                                                                                   \
+  QUICKCPPLIB_RINGBUFFERLOG_ITEM_FUNCTION((log), ringbuffer_log::level::fatal, (message), (code1), (code2))
 //! Logs an item to the log at fatal level with stack backtrace
-#define QUICKCPPLIB_RINGBUFFERLOG_FATAL_BACKTRACE(log, message, code1, code2) QUICKCPPLIB_RINGBUFFERLOG_ITEM_BACKTRACE((log), ringbuffer_log::level::fatal, (message), (code1), (code2))
+#define QUICKCPPLIB_RINGBUFFERLOG_FATAL_BACKTRACE(log, message, code1, code2)                                                                                  \
+  QUICKCPPLIB_RINGBUFFERLOG_ITEM_BACKTRACE((log), ringbuffer_log::level::fatal, (message), (code1), (code2))
 #else
 #define QUICKCPPLIB_RINGBUFFERLOG_FATAL_FUNCTION(log, message, code1, code2)
 #define QUICKCPPLIB_RINGBUFFERLOG_FATAL_BACKTRACE(log, message, code1, code2)
@@ -992,9 +1010,11 @@ QUICKCPPLIB_NAMESPACE_END
 
 #if QUICKCPPLIB_RINGBUFFERLOG_LEVEL >= 2
 //! Logs an item to the log at error level with calling function name
-#define QUICKCPPLIB_RINGBUFFERLOG_ERROR_FUNCTION(log, message, code1, code2) QUICKCPPLIB_RINGBUFFERLOG_ITEM_FUNCTION((log), ringbuffer_log::level::error, (message), (code1), (code2))
+#define QUICKCPPLIB_RINGBUFFERLOG_ERROR_FUNCTION(log, message, code1, code2)                                                                                   \
+  QUICKCPPLIB_RINGBUFFERLOG_ITEM_FUNCTION((log), ringbuffer_log::level::error, (message), (code1), (code2))
 //! Logs an item to the log at error level with stack backtrace
-#define QUICKCPPLIB_RINGBUFFERLOG_ERROR_BACKTRACE(log, message, code1, code2) QUICKCPPLIB_RINGBUFFERLOG_ITEM_BACKTRACE((log), ringbuffer_log::level::error, (message), (code1), (code2))
+#define QUICKCPPLIB_RINGBUFFERLOG_ERROR_BACKTRACE(log, message, code1, code2)                                                                                  \
+  QUICKCPPLIB_RINGBUFFERLOG_ITEM_BACKTRACE((log), ringbuffer_log::level::error, (message), (code1), (code2))
 #else
 #define QUICKCPPLIB_RINGBUFFERLOG_ERROR_FUNCTION(log, message, code1, code2)
 #define QUICKCPPLIB_RINGBUFFERLOG_ERROR_BACKTRACE(log, message, code1, code2)
@@ -1002,9 +1022,11 @@ QUICKCPPLIB_NAMESPACE_END
 
 #if QUICKCPPLIB_RINGBUFFERLOG_LEVEL >= 3
 //! Logs an item to the log at warn level with calling function name
-#define QUICKCPPLIB_RINGBUFFERLOG_WARN_FUNCTION(log, message, code1, code2) QUICKCPPLIB_RINGBUFFERLOG_ITEM_FUNCTION((log), ringbuffer_log::level::warn, (message), (code1), (code2))
+#define QUICKCPPLIB_RINGBUFFERLOG_WARN_FUNCTION(log, message, code1, code2)                                                                                    \
+  QUICKCPPLIB_RINGBUFFERLOG_ITEM_FUNCTION((log), ringbuffer_log::level::warn, (message), (code1), (code2))
 //! Logs an item to the log at warn level with stack backtrace
-#define QUICKCPPLIB_RINGBUFFERLOG_WARN_BACKTRACE(log, message, code1, code2) QUICKCPPLIB_RINGBUFFERLOG_ITEM_BACKTRACE((log), ringbuffer_log::level::warn, (message), (code1), (code2))
+#define QUICKCPPLIB_RINGBUFFERLOG_WARN_BACKTRACE(log, message, code1, code2)                                                                                   \
+  QUICKCPPLIB_RINGBUFFERLOG_ITEM_BACKTRACE((log), ringbuffer_log::level::warn, (message), (code1), (code2))
 #else
 #define QUICKCPPLIB_RINGBUFFERLOG_WARN_FUNCTION(log, message, code1, code2)
 #define QUICKCPPLIB_RINGBUFFERLOG_WARN_BACKTRACE(log, message, code1, code2)
@@ -1012,9 +1034,11 @@ QUICKCPPLIB_NAMESPACE_END
 
 #if QUICKCPPLIB_RINGBUFFERLOG_LEVEL >= 4
 //! Logs an item to the log at info level with calling function name
-#define QUICKCPPLIB_RINGBUFFERLOG_INFO_FUNCTION(log, message, code1, code2) QUICKCPPLIB_RINGBUFFERLOG_ITEM_FUNCTION((log), ringbuffer_log::level::info, (message), (code1), (code2))
+#define QUICKCPPLIB_RINGBUFFERLOG_INFO_FUNCTION(log, message, code1, code2)                                                                                    \
+  QUICKCPPLIB_RINGBUFFERLOG_ITEM_FUNCTION((log), ringbuffer_log::level::info, (message), (code1), (code2))
 //! Logs an item to the log at info level with stack backtrace
-#define QUICKCPPLIB_RINGBUFFERLOG_INFO_BACKTRACE(log, message, code1, code2) QUICKCPPLIB_RINGBUFFERLOG_ITEM_BACKTRACE((log), ringbuffer_log::level::info, (message), (code1), (code2))
+#define QUICKCPPLIB_RINGBUFFERLOG_INFO_BACKTRACE(log, message, code1, code2)                                                                                   \
+  QUICKCPPLIB_RINGBUFFERLOG_ITEM_BACKTRACE((log), ringbuffer_log::level::info, (message), (code1), (code2))
 #else
 #define QUICKCPPLIB_RINGBUFFERLOG_INFO_FUNCTION(log, message, code1, code2)
 #define QUICKCPPLIB_RINGBUFFERLOG_INFO_BACKTRACE(log, message, code1, code2)
@@ -1022,9 +1046,11 @@ QUICKCPPLIB_NAMESPACE_END
 
 #if QUICKCPPLIB_RINGBUFFERLOG_LEVEL >= 5
 //! Logs an item to the log at debug level with calling function name
-#define QUICKCPPLIB_RINGBUFFERLOG_DEBUG_FUNCTION(log, message, code1, code2) QUICKCPPLIB_RINGBUFFERLOG_ITEM_FUNCTION((log), ringbuffer_log::level::debug, (message), (code1), (code2))
+#define QUICKCPPLIB_RINGBUFFERLOG_DEBUG_FUNCTION(log, message, code1, code2)                                                                                   \
+  QUICKCPPLIB_RINGBUFFERLOG_ITEM_FUNCTION((log), ringbuffer_log::level::debug, (message), (code1), (code2))
 //! Logs an item to the log at debug level with stack backtrace
-#define QUICKCPPLIB_RINGBUFFERLOG_DEBUG_BACKTRACE(log, message, code1, code2) QUICKCPPLIB_RINGBUFFERLOG_ITEM_BACKTRACE((log), ringbuffer_log::level::debug, (message), (code1), (code2))
+#define QUICKCPPLIB_RINGBUFFERLOG_DEBUG_BACKTRACE(log, message, code1, code2)                                                                                  \
+  QUICKCPPLIB_RINGBUFFERLOG_ITEM_BACKTRACE((log), ringbuffer_log::level::debug, (message), (code1), (code2))
 #else
 #define QUICKCPPLIB_RINGBUFFERLOG_DEBUG_FUNCTION(log, message, code1, code2)
 #define QUICKCPPLIB_RINGBUFFERLOG_DEBUG_BACKTRACE(log, message, code1, code2)
@@ -1032,9 +1058,11 @@ QUICKCPPLIB_NAMESPACE_END
 
 #if QUICKCPPLIB_RINGBUFFERLOG_LEVEL >= 6
 //! Logs an item to the log at all level with calling function name
-#define QUICKCPPLIB_RINGBUFFERLOG_ALL_FUNCTION(log, message, code1, code2) QUICKCPPLIB_RINGBUFFERLOG_ITEM_FUNCTION((log), ringbuffer_log::level::all, (message), (code1), (code2))
+#define QUICKCPPLIB_RINGBUFFERLOG_ALL_FUNCTION(log, message, code1, code2)                                                                                     \
+  QUICKCPPLIB_RINGBUFFERLOG_ITEM_FUNCTION((log), ringbuffer_log::level::all, (message), (code1), (code2))
 //! Logs an item to the log at all level with stack backtrace
-#define QUICKCPPLIB_RINGBUFFERLOG_ALL_BACKTRACE(log, message, code1, code2) QUICKCPPLIB_RINGBUFFERLOG_ITEM_BACKTRACE((log), ringbuffer_log::level::all, (message), (code1), (code2))
+#define QUICKCPPLIB_RINGBUFFERLOG_ALL_BACKTRACE(log, message, code1, code2)                                                                                    \
+  QUICKCPPLIB_RINGBUFFERLOG_ITEM_BACKTRACE((log), ringbuffer_log::level::all, (message), (code1), (code2))
 #else
 #define QUICKCPPLIB_RINGBUFFERLOG_ALL_FUNCTION(log, message, code1, code2)
 #define QUICKCPPLIB_RINGBUFFERLOG_ALL_BACKTRACE(log, message, code1, code2)
