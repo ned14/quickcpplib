@@ -135,10 +135,10 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:abfea5dab15da60e5d09e43aaf2489560"><td class="memTemplParams" colspan="2">template&lt;size_t Bytes = QUICKCPPLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES * 256&gt; </td></tr>
-<tr class="memitem:abfea5dab15da60e5d09e43aaf2489560"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#abfea5dab15da60e5d09e43aaf2489560">simple_ringbuffer_log</a> = <a class="el" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">ringbuffer_log</a>&lt; <a class="el" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy.html">simple_ringbuffer_log_policy</a>&lt; Bytes &gt;&gt;</td></tr>
-<tr class="memdesc:abfea5dab15da60e5d09e43aaf2489560"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias for a simple ringbuffer log.  <a href="#abfea5dab15da60e5d09e43aaf2489560">More...</a><br/></td></tr>
-<tr class="separator:abfea5dab15da60e5d09e43aaf2489560"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a255bd07d3b38a23221ea35a882841c35"><td class="memTemplParams" colspan="2">template&lt;size_t Bytes = QUICKCPPLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES * 256, class LogLevelChecker  = default_ringbuffer_log_level_checker&gt; </td></tr>
+<tr class="memitem:a255bd07d3b38a23221ea35a882841c35"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#a255bd07d3b38a23221ea35a882841c35">simple_ringbuffer_log</a> = <a class="el" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">ringbuffer_log</a>&lt; <a class="el" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy.html">simple_ringbuffer_log_policy</a>&lt; Bytes &gt;, LogLevelChecker &gt;</td></tr>
+<tr class="memdesc:a255bd07d3b38a23221ea35a882841c35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias for a simple ringbuffer log.  <a href="#a255bd07d3b38a23221ea35a882841c35">More...</a><br/></td></tr>
+<tr class="separator:a255bd07d3b38a23221ea35a882841c35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -162,24 +162,24 @@ Functions</h2></td></tr>
 <tr class="memitem:a85fe3cd90562017cb46cb68e4375350f"><td class="memTemplItemLeft" align="right" valign="top">const char *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#a85fe3cd90562017cb46cb68e4375350f">last190</a> (const T &amp;v)</td></tr>
 <tr class="memdesc:a85fe3cd90562017cb46cb68e4375350f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const char * no more than 190 chars from its end.  <a href="#a85fe3cd90562017cb46cb68e4375350f">More...</a><br/></td></tr>
 <tr class="separator:a85fe3cd90562017cb46cb68e4375350f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65633629342f2a5dd14596d42276c85a"><td class="memTemplParams" colspan="2">template&lt;class Policy &gt; </td></tr>
-<tr class="memitem:a65633629342f2a5dd14596d42276c85a"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#a65633629342f2a5dd14596d42276c85a">operator&lt;&lt;</a> (std::ostream &amp;s, const <a class="el" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">ringbuffer_log</a>&lt; Policy &gt; &amp;l)</td></tr>
-<tr class="memdesc:a65633629342f2a5dd14596d42276c85a"><td class="mdescLeft">&#160;</td><td class="mdescRight">std::ostream writer for a log  <a href="#a65633629342f2a5dd14596d42276c85a">More...</a><br/></td></tr>
-<tr class="separator:a65633629342f2a5dd14596d42276c85a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaccd259eeb8e67febc5beda3ed44cd08"><td class="memTemplParams" colspan="2">template&lt;class Policy &gt; </td></tr>
-<tr class="memitem:aaccd259eeb8e67febc5beda3ed44cd08"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#aaccd259eeb8e67febc5beda3ed44cd08">csv</a> (const <a class="el" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">ringbuffer_log</a>&lt; Policy &gt; &amp;l)</td></tr>
-<tr class="memdesc:aaccd259eeb8e67febc5beda3ed44cd08"><td class="mdescLeft">&#160;</td><td class="mdescRight">CSV string writer for a log.  <a href="#aaccd259eeb8e67febc5beda3ed44cd08">More...</a><br/></td></tr>
-<tr class="separator:aaccd259eeb8e67febc5beda3ed44cd08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78c7b55fba640ef8a6c6a062f17c9426"><td class="memTemplParams" colspan="2">template&lt;class Policy , class LogLevelChecker &gt; </td></tr>
+<tr class="memitem:a78c7b55fba640ef8a6c6a062f17c9426"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#a78c7b55fba640ef8a6c6a062f17c9426">operator&lt;&lt;</a> (std::ostream &amp;s, const <a class="el" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">ringbuffer_log</a>&lt; Policy, LogLevelChecker &gt; &amp;l)</td></tr>
+<tr class="memdesc:a78c7b55fba640ef8a6c6a062f17c9426"><td class="mdescLeft">&#160;</td><td class="mdescRight">std::ostream writer for a log  <a href="#a78c7b55fba640ef8a6c6a062f17c9426">More...</a><br/></td></tr>
+<tr class="separator:a78c7b55fba640ef8a6c6a062f17c9426"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9de9cd4ed7c0444e25a40cfda172014"><td class="memTemplParams" colspan="2">template&lt;class Policy , class LogLevelChecker &gt; </td></tr>
+<tr class="memitem:ab9de9cd4ed7c0444e25a40cfda172014"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#ab9de9cd4ed7c0444e25a40cfda172014">csv</a> (const <a class="el" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">ringbuffer_log</a>&lt; Policy, LogLevelChecker &gt; &amp;l)</td></tr>
+<tr class="memdesc:ab9de9cd4ed7c0444e25a40cfda172014"><td class="mdescLeft">&#160;</td><td class="mdescRight">CSV string writer for a log.  <a href="#ab9de9cd4ed7c0444e25a40cfda172014">More...</a><br/></td></tr>
+<tr class="separator:ab9de9cd4ed7c0444e25a40cfda172014"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
-<a class="anchor" id="abfea5dab15da60e5d09e43aaf2489560"></a>
+<a class="anchor" id="a255bd07d3b38a23221ea35a882841c35"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;size_t Bytes = QUICKCPPLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES * 256&gt; </div>
+template&lt;size_t Bytes = QUICKCPPLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES * 256, class LogLevelChecker  = default_ringbuffer_log_level_checker&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#abfea5dab15da60e5d09e43aaf2489560">quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log</a> = typedef <a class="el" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">ringbuffer_log</a>&lt;<a class="el" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy.html">simple_ringbuffer_log_policy</a>&lt;Bytes&gt;&gt;</td>
+          <td class="memname">using <a class="el" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#a255bd07d3b38a23221ea35a882841c35">quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log</a> = typedef <a class="el" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">ringbuffer_log</a>&lt;<a class="el" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy.html">simple_ringbuffer_log_policy</a>&lt;Bytes&gt;, LogLevelChecker&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -277,11 +277,11 @@ template&lt;class T &gt; </div>
 </div><!-- fragment -->
 </div>
 </div>
-<a class="anchor" id="a65633629342f2a5dd14596d42276c85a"></a>
+<a class="anchor" id="a78c7b55fba640ef8a6c6a062f17c9426"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class Policy &gt; </div>
+template&lt;class Policy , class LogLevelChecker &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -295,7 +295,7 @@ template&lt;class Policy &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const ringbuffer_log&lt; Policy &gt; &amp;&#160;</td>
+          <td class="paramtype">const ringbuffer_log&lt; Policy, LogLevelChecker &gt; &amp;&#160;</td>
           <td class="paramname"><em>l</em>&#160;</td>
         </tr>
         <tr>
@@ -312,21 +312,21 @@ template&lt;class Policy &gt; </div>
 </div><div class="memdoc">
 
 <p>std::ostream writer for a log </p>
-<div class="fragment"><div class="line"><a name="l00942"></a><span class="lineno">  942</span>&#160;  {</div>
-<div class="line"><a name="l00943"></a><span class="lineno">  943</span>&#160;    <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;i : l)</div>
-<div class="line"><a name="l00944"></a><span class="lineno">  944</span>&#160;    {</div>
-<div class="line"><a name="l00945"></a><span class="lineno">  945</span>&#160;      s &lt;&lt; i;</div>
-<div class="line"><a name="l00946"></a><span class="lineno">  946</span>&#160;    }</div>
-<div class="line"><a name="l00947"></a><span class="lineno">  947</span>&#160;    <span class="keywordflow">return</span> s;</div>
-<div class="line"><a name="l00948"></a><span class="lineno">  948</span>&#160;  }</div>
+<div class="fragment"><div class="line"><a name="l00957"></a><span class="lineno">  957</span>&#160;  {</div>
+<div class="line"><a name="l00958"></a><span class="lineno">  958</span>&#160;    <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;i : l)</div>
+<div class="line"><a name="l00959"></a><span class="lineno">  959</span>&#160;    {</div>
+<div class="line"><a name="l00960"></a><span class="lineno">  960</span>&#160;      s &lt;&lt; i;</div>
+<div class="line"><a name="l00961"></a><span class="lineno">  961</span>&#160;    }</div>
+<div class="line"><a name="l00962"></a><span class="lineno">  962</span>&#160;    <span class="keywordflow">return</span> s;</div>
+<div class="line"><a name="l00963"></a><span class="lineno">  963</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
-<a class="anchor" id="aaccd259eeb8e67febc5beda3ed44cd08"></a>
+<a class="anchor" id="ab9de9cd4ed7c0444e25a40cfda172014"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class Policy &gt; </div>
+template&lt;class Policy , class LogLevelChecker &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -334,7 +334,7 @@ template&lt;class Policy &gt; </div>
         <tr>
           <td class="memname">std::string quickcpplib::_xxx::ringbuffer_log::csv </td>
           <td>(</td>
-          <td class="paramtype">const ringbuffer_log&lt; Policy &gt; &amp;&#160;</td>
+          <td class="paramtype">const ringbuffer_log&lt; Policy, LogLevelChecker &gt; &amp;&#160;</td>
           <td class="paramname"><em>l</em></td><td>)</td>
           <td></td>
         </tr>
@@ -347,17 +347,17 @@ template&lt;class Policy &gt; </div>
 </div><div class="memdoc">
 
 <p>CSV string writer for a log. </p>
-<div class="fragment"><div class="line"><a name="l00952"></a><span class="lineno">  952</span>&#160;  {</div>
-<div class="line"><a name="l00953"></a><span class="lineno">  953</span>&#160;    std::stringstream s;</div>
-<div class="line"><a name="l00954"></a><span class="lineno">  954</span>&#160;    <span class="comment">// timestamp,level,using_code64,using_backtrace,code0,code1,message,backtrace</span></div>
-<div class="line"><a name="l00955"></a><span class="lineno">  955</span>&#160;    s &lt;&lt; <span class="stringliteral">&quot;timestamp,level,using_code64,using_backtrace,code0,code1,message,backtrace\n&quot;</span>;</div>
-<div class="line"><a name="l00956"></a><span class="lineno">  956</span>&#160;    <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;i : l)</div>
-<div class="line"><a name="l00957"></a><span class="lineno">  957</span>&#160;    {</div>
-<div class="line"><a name="l00958"></a><span class="lineno">  958</span>&#160;      <a class="code" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#aaccd259eeb8e67febc5beda3ed44cd08">csv</a>(s, i);</div>
-<div class="line"><a name="l00959"></a><span class="lineno">  959</span>&#160;    }</div>
-<div class="line"><a name="l00960"></a><span class="lineno">  960</span>&#160;    <span class="keywordflow">return</span> s.str();</div>
-<div class="line"><a name="l00961"></a><span class="lineno">  961</span>&#160;  }</div>
-<div class="ttc" id="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log_html_aaccd259eeb8e67febc5beda3ed44cd08"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#aaccd259eeb8e67febc5beda3ed44cd08">quickcpplib::_xxx::ringbuffer_log::csv</a></div><div class="ttdeci">std::string csv(const ringbuffer_log&lt; Policy &gt; &amp;l)</div><div class="ttdoc">CSV string writer for a log. </div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:951</div></div>
+<div class="fragment"><div class="line"><a name="l00967"></a><span class="lineno">  967</span>&#160;  {</div>
+<div class="line"><a name="l00968"></a><span class="lineno">  968</span>&#160;    std::stringstream s;</div>
+<div class="line"><a name="l00969"></a><span class="lineno">  969</span>&#160;    <span class="comment">// timestamp,level,using_code64,using_backtrace,code0,code1,message,backtrace</span></div>
+<div class="line"><a name="l00970"></a><span class="lineno">  970</span>&#160;    s &lt;&lt; <span class="stringliteral">&quot;timestamp,level,using_code64,using_backtrace,code0,code1,message,backtrace\n&quot;</span>;</div>
+<div class="line"><a name="l00971"></a><span class="lineno">  971</span>&#160;    <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;i : l)</div>
+<div class="line"><a name="l00972"></a><span class="lineno">  972</span>&#160;    {</div>
+<div class="line"><a name="l00973"></a><span class="lineno">  973</span>&#160;      <a class="code" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#ab9de9cd4ed7c0444e25a40cfda172014">csv</a>(s, i);</div>
+<div class="line"><a name="l00974"></a><span class="lineno">  974</span>&#160;    }</div>
+<div class="line"><a name="l00975"></a><span class="lineno">  975</span>&#160;    <span class="keywordflow">return</span> s.str();</div>
+<div class="line"><a name="l00976"></a><span class="lineno">  976</span>&#160;  }</div>
+<div class="ttc" id="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log_html_ab9de9cd4ed7c0444e25a40cfda172014"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#ab9de9cd4ed7c0444e25a40cfda172014">quickcpplib::_xxx::ringbuffer_log::csv</a></div><div class="ttdeci">std::string csv(const ringbuffer_log&lt; Policy, LogLevelChecker &gt; &amp;l)</div><div class="ttdoc">CSV string writer for a log. </div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:966</div></div>
 </div><!-- fragment -->
 </div>
 </div>

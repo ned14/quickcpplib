@@ -27,7 +27,7 @@ var ringbuffer__log_8hpp =
     [ "QUICKCPPLIB_RINGBUFFERLOG_ALL_FUNCTION", "ringbuffer__log_8hpp.html#a88f3c1061012ef7bf98c41196fec0df3", null ],
     [ "QUICKCPPLIB_RINGBUFFERLOG_ALL_BACKTRACE", "ringbuffer__log_8hpp.html#adb408b1e8fa7fd73a384e9892fcec6ff", null ],
     [ "level_", "ringbuffer__log_8hpp.html#a0d9bf43b5eb89710b60f28a0b3535480", null ],
-    [ "simple_ringbuffer_log", "ringbuffer__log_8hpp.html#abfea5dab15da60e5d09e43aaf2489560", null ],
+    [ "simple_ringbuffer_log", "ringbuffer__log_8hpp.html#a255bd07d3b38a23221ea35a882841c35", null ],
     [ "level", "ringbuffer__log_8hpp.html#add4cc747a8c90cbfd538b0f07dfdd1e2", [
       [ "none", "ringbuffer__log_8hpp.html#add4cc747a8c90cbfd538b0f07dfdd1e2a334c4a4c42fdb79d7ebc3e73b517e6f8", null ],
       [ "fatal", "ringbuffer__log_8hpp.html#add4cc747a8c90cbfd538b0f07dfdd1e2adf6402fd9ecc60f5a2159fdf45711cd4", null ],
@@ -41,6 +41,6 @@ var ringbuffer__log_8hpp =
     [ "location", "ringbuffer__log_8hpp.html#a89497c0c3ff363d6c01c6c31e0a9f7e4", null ],
     [ "operator<<", "ringbuffer__log_8hpp.html#ad43a2050c49cd4008ab0be29e2006eea", null ],
     [ "csv", "ringbuffer__log_8hpp.html#a826abbd8019519a92d2ffc41a522980e", null ],
-    [ "operator<<", "ringbuffer__log_8hpp.html#a65633629342f2a5dd14596d42276c85a", null ],
-    [ "csv", "ringbuffer__log_8hpp.html#aaccd259eeb8e67febc5beda3ed44cd08", null ]
+    [ "operator<<", "ringbuffer__log_8hpp.html#a78c7b55fba640ef8a6c6a062f17c9426", null ],
+    [ "csv", "ringbuffer__log_8hpp.html#ab9de9cd4ed7c0444e25a40cfda172014", null ]
 ];
