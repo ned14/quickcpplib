@@ -1,7 +1,5 @@
 var NAVTREEINDEX5 =
 {
-"namespacealgorithm_1_1prime__modulus.html":[4,0,0,0],
-"namespacealgorithm_1_1prime__modulus.html":[3,0,0,0],
 "namespacealgorithm_1_1prime__modulus_1_1detail.html":[4,0,0,0,0],
 "namespacealgorithm_1_1prime__modulus_1_1detail.html":[3,0,0,0,0],
 "namespaceconstexpr__optional__ref__and__arrow.html":[4,0,1],
@@ -65,8 +63,8 @@ var NAVTREEINDEX5 =
 "namespacequickcpplib.html":[4,0,4],
 "namespacequickcpplib_1_1__xxx.html":[3,0,4,0],
 "namespacequickcpplib_1_1__xxx.html":[4,0,4,0],
-"namespacequickcpplib_1_1__xxx_1_1algorithm.html":[4,0,4,0,23],
 "namespacequickcpplib_1_1__xxx_1_1algorithm.html":[3,0,4,0,23],
+"namespacequickcpplib_1_1__xxx_1_1algorithm.html":[4,0,4,0,23],
 "namespacequickcpplib_1_1__xxx_1_1algorithm_1_1hash.html":[4,0,4,0,23,0],
 "namespacequickcpplib_1_1__xxx_1_1algorithm_1_1hash.html":[3,0,4,0,23,0],
 "namespacequickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1fash__hash__detail.html":[4,0,4,0,23,0,0],
@@ -133,8 +131,8 @@ var NAVTREEINDEX5 =
 "namespacequickcpplib_1_1__xxx_1_1offset__ptr_1_1detail.html":[4,0,4,0,11,0],
 "namespacequickcpplib_1_1__xxx_1_1optional.html":[3,0,4,0,12],
 "namespacequickcpplib_1_1__xxx_1_1optional.html":[4,0,4,0,12],
-"namespacequickcpplib_1_1__xxx_1_1packed__backtrace.html":[3,0,4,0,13],
 "namespacequickcpplib_1_1__xxx_1_1packed__backtrace.html":[4,0,4,0,13],
+"namespacequickcpplib_1_1__xxx_1_1packed__backtrace.html":[3,0,4,0,13],
 "namespacequickcpplib_1_1__xxx_1_1packed__backtrace_1_1detail.html":[3,0,4,0,13,0],
 "namespacequickcpplib_1_1__xxx_1_1packed__backtrace_1_1detail.html":[4,0,4,0,13,0],
 "namespacequickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl.html":[3,0,4,0,13,1],
@@ -163,8 +161,8 @@ var NAVTREEINDEX5 =
 "namespacequickcpplib_1_1__xxx_1_1tribool.html":[4,0,4,0,20],
 "namespacequickcpplib_1_1__xxx_1_1type__traits.html":[4,0,4,0,21],
 "namespacequickcpplib_1_1__xxx_1_1type__traits.html":[3,0,4,0,21],
-"namespacequickcpplib_1_1__xxx_1_1type__traits_1_1detail.html":[3,0,4,0,21,0],
 "namespacequickcpplib_1_1__xxx_1_1type__traits_1_1detail.html":[4,0,4,0,21,0],
+"namespacequickcpplib_1_1__xxx_1_1type__traits_1_1detail.html":[3,0,4,0,21,0],
 "namespacequickcpplib_1_1__xxx_1_1unit__test.html":[4,0,4,0,24],
 "namespacequickcpplib_1_1__xxx_1_1unit__test.html":[3,0,4,0,24],
 "namespacequickcpplib_1_1__xxx_1_1utils.html":[4,0,4,0,25],
@@ -249,5 +247,7 @@ var NAVTREEINDEX5 =
 "optional_2optional_8hpp.html#acdfba2d2e9c79f689a34c9cea5c5682d":[5,0,0,0,4,0,91],
 "optional_2optional_8hpp.html#ad2382084b60bd9f33f220ade5855c154":[5,0,0,0,4,0,71],
 "optional_2optional_8hpp.html#ad40f3ff2c6562139fe910ab3d0a63f10":[5,0,0,0,4,0,55],
-"optional_2optional_8hpp.html#ad6c79ef527ee25f0a6295128c4b51f89":[5,0,0,0,4,0,30]
+"optional_2optional_8hpp.html#ad6c79ef527ee25f0a6295128c4b51f89":[5,0,0,0,4,0,30],
+"optional_2optional_8hpp.html#ad8c97d8b9bc6ae640f7bac45dc604ffd":[5,0,0,0,4,0,81],
+"optional_2optional_8hpp.html#adba9b0cfaa992511fcc48564456de1b0":[5,0,0,0,4,0,68]
 };

@@ -1,7 +1,5 @@
 var NAVTREEINDEX3 =
 {
-"config_8hpp.html#af7daf0598d93e6eb851f9d2e65e306ae":[5,0,0,0,11,4],
-"console__colours_8hpp.html":[5,0,0,0,12],
 "console__colours_8hpp.html#a0074c3eb18203e173a67f074183e6129":[5,0,0,0,12,17],
 "console__colours_8hpp.html#a149c857eadee7b5cf5f7e0b795e0c76f":[5,0,0,0,12,0],
 "console__colours_8hpp.html#a14ecbac6832a186cbf826c7f2122af75":[5,0,0,0,12,1],
@@ -249,5 +247,7 @@ var NAVTREEINDEX3 =
 "gsl-lite-vc6_8hpp.html#acac1f0c4f528ee736725989478a222d8":[5,0,0,0,3,0,0,0,41],
 "gsl-lite-vc6_8hpp.html#ad38bb693f4900005f09f12308820cec2":[5,0,0,0,3,0,0,0,16],
 "gsl-lite-vc6_8hpp.html#ad9e146bbac23b63d3381c451ad4586d1":[5,0,0,0,3,0,0,0,31],
-"gsl-lite-vc6_8hpp.html#ada7a00f9ef8cbe7781396df594abca6d":[5,0,0,0,3,0,0,0,30]
+"gsl-lite-vc6_8hpp.html#ada7a00f9ef8cbe7781396df594abca6d":[5,0,0,0,3,0,0,0,30],
+"gsl-lite-vc6_8hpp.html#ade61920cc3d2f9170543a5c2507905af":[5,0,0,0,3,0,0,0,26],
+"gsl-lite-vc6_8hpp.html#ae2c7401b0a82740988faa070375fe903":[5,0,0,0,3,0,0,0,45]
 };

@@ -1,7 +1,5 @@
 var NAVTREEINDEX4 =
 {
-"gsl-lite-vc6_8hpp.html#ade61920cc3d2f9170543a5c2507905af":[5,0,0,0,3,0,0,0,26],
-"gsl-lite-vc6_8hpp.html#ae2c7401b0a82740988faa070375fe903":[5,0,0,0,3,0,0,0,45],
 "gsl-lite-vc6_8hpp.html#af2af07fef2ca32a91a76976aa866b43b":[5,0,0,0,3,0,0,0,19],
 "gsl-lite-vc6_8hpp.html#af6787574c8bcc59e170ba24df9d7afc3":[5,0,0,0,3,0,0,0,13],
 "gsl-lite-vc6_8hpp.html#afaf6db75ede2a9bc2fa4b6b17b8ef128":[5,0,0,0,3,0,0,0,42],
@@ -249,5 +247,7 @@ var NAVTREEINDEX4 =
 "memory__resource_8hpp.html#af53831c353ce75df3832681a9a316e27":[5,0,0,0,21,0],
 "modules.html":[2],
 "namespacealgorithm.html":[4,0,0],
-"namespacealgorithm.html":[3,0,0]
+"namespacealgorithm.html":[3,0,0],
+"namespacealgorithm_1_1prime__modulus.html":[4,0,0,0],
+"namespacealgorithm_1_1prime__modulus.html":[3,0,0,0]
 };

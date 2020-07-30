@@ -6,6 +6,5 @@ var searchData=
   ['_5flaunder',['_launder',['../namespacequickcpplib_1_1__xxx_1_1start__lifetime__as_1_1detail.html#aadff66bf552eb9c174af908de0ac2f81',1,'quickcpplib::_xxx::start_lifetime_as::detail']]],
   ['_5fret_5fwrites_5fmaybenull_5f',['_Ret_writes_maybenull_',['../execinfo__win64_8h.html#af417933826c2d4f6c082efd01c0cee81',1,'execinfo_win64.h']]],
   ['_5fstart_5flifetime_5fas',['_start_lifetime_as',['../namespacequickcpplib_1_1__xxx_1_1start__lifetime__as_1_1detail.html#aa1637ace1d8a0d11de65c77b1c13e8d5',1,'quickcpplib::_xxx::start_lifetime_as::detail::_start_lifetime_as(void *p)'],['../namespacequickcpplib_1_1__xxx_1_1start__lifetime__as_1_1detail.html#af628743ec160ca5c902cb096ee3b1c6c',1,'quickcpplib::_xxx::start_lifetime_as::detail::_start_lifetime_as(const void *p)']]],
-  ['_5fthread_5flevel',['_thread_level',['../classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a4e297c6e00591224ef86e3a8f0ba8029',1,'quickcpplib::_xxx::ringbuffer_log::ringbuffer_log']]],
   ['_5ftry_5flock',['_try_lock',['../structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase.html#adcc5fab0bcc98cac673fc931788f394c',1,'quickcpplib::_xxx::configurable_spinlock::ordered_spinlockbase']]]
 ];

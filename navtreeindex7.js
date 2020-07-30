@@ -1,7 +1,5 @@
 var NAVTREEINDEX7 =
 {
-"structgsl_1_1narrowing__error.html":[4,0,2,3],
-"structgsl_1_1owner.html":[4,0,2,1],
 "structgsl_1_1owner.html#ad5f904920decb4282bea78f0662d5616":[4,0,2,1,0],
 "structgsl_1_1span_1_1mk.html":[4,0,2,5,0],
 "structnonstd_1_1byte.html":[4,0,3,1],
@@ -249,5 +247,7 @@ var NAVTREEINDEX7 =
 "structquickcpplib_1_1__xxx_1_1integers128_1_1uint128_1_1empty__type.html":[4,0,4,0,22,0,0],
 "structquickcpplib_1_1__xxx_1_1integers128_1_1uint128__hasher.html":[4,0,4,0,22,1],
 "structquickcpplib_1_1__xxx_1_1integers128_1_1uint128__hasher.html#a8b16f30ab5c72aa85f68b27c45d7bc66":[4,0,4,0,22,1,0],
-"structquickcpplib_1_1__xxx_1_1print__type.html":[4,0,4,0,26]
+"structquickcpplib_1_1__xxx_1_1print__type.html":[4,0,4,0,26],
+"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1default__ringbuffer__log__level__checker.html":[4,0,4,0,14,1],
+"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1default__ringbuffer__log__level__checker.html#a64ef6ce435f481a42b537778374e4074":[4,0,4,0,14,1,0]
 };
