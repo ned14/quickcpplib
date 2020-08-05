@@ -278,7 +278,7 @@ namespace ringbuffer_log
                           addrs.append(info.dli_fname);
                           addrs.append(" 0x");
                           const char *end = strrchr(info.dli_fname, '/');
-                          if(end != nullptr && strstr(end, ".so") != nullptr)
+                          if(end != nullptr /*&& strstr(end, ".so") != nullptr*/)
                           {
                             ssize_t diff = (char *) backtrace[n] - (char *) info.dli_fbase;
                             char buffer[32];
