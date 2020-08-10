@@ -99,6 +99,7 @@ var NAVTREEINDEX0 =
 "byte_2include_2nonstd_2byte_8hpp.html#af98842ca6cbab5c6991b8d0e4e77cd8e":[5,0,0,0,2,0,0,0,66],
 "byte_2include_2nonstd_2byte_8hpp.html#afb230671e625bdff1f316d46dcad207f":[5,0,0,0,2,0,0,0,5],
 "byte_8hpp.html":[5,0,0,0,10],
+"byte_8hpp.html#a6797e2016ca05fc749b3d7b4cd578c54":[5,0,0,0,10,0],
 "classes.html":[4,1],
 "classgsl_1_1final__action.html":[4,0,2,2],
 "classgsl_1_1final__action.html#a4d9dc9c462c33574d50247efed8c30ba":[4,0,2,2,2],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#aa0b1a4798c525be9f51c3051754ea40ca1a97a19f71daaf9fd189a302f1b71486":[4,0,4,0,23,2,0,1,2],
 "classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#aa0b1a4798c525be9f51c3051754ea40ca1ef0a2a9c5cfd09fbb2d008b66571597":[4,0,4,0,23,2,0,1,1],
 "classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#ac6b6690fdd6a50a82ac774d0b60a826c":[4,0,4,0,23,2,0,4],
-"classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#ad07ee479d7aa22a1a357707dd127bb1c":[4,0,4,0,23,2,0,5],
-"classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#ae73870163b0e105ef5d1135d9fe16651":[4,0,4,0,23,2,0,2]
+"classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#ad07ee479d7aa22a1a357707dd127bb1c":[4,0,4,0,23,2,0,5]
 };

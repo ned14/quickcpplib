@@ -1,5 +1,6 @@
 var NAVTREEINDEX8 =
 {
+"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1default__ringbuffer__log__level__checker.html#a64ef6ce435f481a42b537778374e4074":[4,0,4,0,14,1,0],
 "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1unique__id.html":[4,0,4,0,14,2,1],
 "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1unique__id.html#a582240d2fdabad1f68db09069c197db8":[4,0,4,0,14,2,1,0],
 "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1unique__id.html#ad3fd40d4efaf0397ccfcba4a7e1604c2":[4,0,4,0,14,2,1,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX8 =
 "unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a1fe835346303bd4d12c6e224af57250d":[4,0,4,0,22,0,27],
 "unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a29c2181ac07e3517c331d47a90c06eb7":[4,0,4,0,22,0,32],
 "unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a31679af5286ac9b52bb4bc4cd9bada5d":[4,0,4,0,22,0,30],
-"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a35ce3e716278dc5f19edeabc4b1b8d7d":[4,0,4,0,22,0,4],
-"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a35e2497001e03a7a62a845ded335abe7":[4,0,4,0,22,0,28]
+"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a35ce3e716278dc5f19edeabc4b1b8d7d":[4,0,4,0,22,0,4]
 };

@@ -10,7 +10,7 @@ var dir_ffe1caaf86c1751fc0a67e45c4d5dfd1 =
     [ "allocator_testing.hpp", "allocator__testing_8hpp.html", "allocator__testing_8hpp" ],
     [ "bit_cast.hpp", "bit__cast_8hpp.html", "bit__cast_8hpp" ],
     [ "bitfield.hpp", "bitfield_8hpp.html", "bitfield_8hpp" ],
-    [ "byte.hpp", "byte_8hpp.html", null ],
+    [ "byte.hpp", "byte_8hpp.html", "byte_8hpp" ],
     [ "config.hpp", "config_8hpp.html", "config_8hpp" ],
     [ "console_colours.hpp", "console__colours_8hpp.html", "console__colours_8hpp" ],
     [ "cpp_feature.h", "cpp__feature_8h.html", null ],
