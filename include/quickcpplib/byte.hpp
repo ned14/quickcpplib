@@ -27,10 +27,17 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "config.hpp"
 
-#ifdef QUICKCPPLIB_USE_STD_BYTE
+#ifndef QUICKCPPLIB_USE_STD_BYTE
+#if _HAS_CXX17 || __cplusplus >= 201700
+#define QUICKCPPLIB_USE_STD_BYTE 1
+#else
+#define QUICKCPPLIB_USE_STD_BYTE 0
+#endif
+#endif
+
+#if QUICKCPPLIB_USE_STD_BYTE
 
 #include <cstddef>
-
 
 QUICKCPPLIB_NAMESPACE_BEGIN
 
@@ -38,24 +45,6 @@ namespace byte
 {
   using std::byte;
   template <class IntegerType>
-  inline constexpr byte to_byte(IntegerType v) noexcept {
-    return static_cast<byte>(v);
-  }
-}
-
-QUICKCPPLIB_NAMESPACE_END
-
-#elif _HAS_CXX20 || __cplusplus >= 202000
-
-#include <cstddef>
-
-
-QUICKCPPLIB_NAMESPACE_BEGIN
-
-namespace byte
-{
-  using std::byte;
-  template<class IntegerType>
   inline constexpr byte to_byte(IntegerType v) noexcept {
     return static_cast<byte>(v);
   }
