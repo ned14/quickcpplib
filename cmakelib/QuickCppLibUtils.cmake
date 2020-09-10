@@ -565,8 +565,8 @@ public:
   {
     resumable get_return_object() { return {}; }
     auto initial_suspend() { return suspend_never(); }
-    auto final_suspend() { return suspend_never(); }
-    int return_value(int x) { return x; }
+    auto final_suspend() noexcept { return suspend_never(); }
+    void return_value(int) { }
     void unhandled_exception() {}
   };
   bool resume() { return true; }
