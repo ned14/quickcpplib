@@ -81,4 +81,12 @@ include(QuickCppLibCacheLibrarySources)
 
 # Make available this library for install and export
 include(QuickCppLibMakeInstall)
+install(DIRECTORY
+  "${CMAKE_CURRENT_SOURCE_DIR}/cmakelib"
+  DESTINATION "${CMAKE_INSTALL_DATADIR}"
+)
+install(DIRECTORY
+  "${CMAKE_CURRENT_SOURCE_DIR}/scripts"
+  DESTINATION "${CMAKE_INSTALL_DATADIR}"
+)
 include(QuickCppLibMakeExport)
