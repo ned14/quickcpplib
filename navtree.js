@@ -51,11 +51,11 @@ var NAVTREEINDEX =
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a11f438cc8ba64bac2adbb026f9488603",
 "console__colours_8hpp.html",
 "gsl-lite-vc6_8hpp.html#ae2c7401b0a82740988faa070375fe903",
-"namespacealgorithm_1_1prime__modulus.html",
-"optional_2optional_8hpp.html#adba9b0cfaa992511fcc48564456de1b0",
-"structgsl_1_1owner.html",
-"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1default__ringbuffer__log__level__checker.html#a64ef6ce435f481a42b537778374e4074",
-"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a35e2497001e03a7a62a845ded335abe7"
+"import_8h.html#a088895481b70e37a9f826daa2fc6d3a5",
+"namespacequickcpplib_1_1__xxx_1_1type__traits_1_1detail.html",
+"string__view_8hpp.html#af2e2e7b06a528779369fe9593f4a6f40",
+"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase.html#a70a11a2c982176dc8678baf85da2a014",
+"test__optional_8cpp.html#a5de61bdf852ad90a5ab09b253a303d52"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
