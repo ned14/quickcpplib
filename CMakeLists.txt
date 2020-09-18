@@ -11,8 +11,6 @@ include(QuickCppLibPolicies)
 ensure_git_subrepo("${CMAKE_CURRENT_SOURCE_DIR}/include/quickcpplib/gsl-lite/include" "https://github.com/martinmoene/gsl-lite.git")
 ensure_git_subrepo("${CMAKE_CURRENT_SOURCE_DIR}/include/quickcpplib/optional/optional.hpp" "https://github.com/akrzemi1/Optional.git" optional)
 ensure_git_subrepo("${CMAKE_CURRENT_SOURCE_DIR}/include/quickcpplib/byte/include" "https://github.com/martinmoene/byte-lite.git" byte)
-# Copy my gitattributes into the optional implementation's to prevent dirty git repo status
-file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/.gitattributes" DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/include/quickcpplib/optional/")
 
 # Sets the usual PROJECT_NAME etc
 project(quickcpplib VERSION 0.1.0.0 LANGUAGES C CXX)
