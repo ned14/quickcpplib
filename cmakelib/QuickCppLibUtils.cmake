@@ -483,7 +483,7 @@ function(apply_cxx_concepts_to visibility)
       endif()
     endif()
     check_cxx_source_compiles("
-  #if !defined(_MSC_VER) && !defined(__clang__) && __GNUC__ < 9
+  #if !defined(_MSC_VER) && !defined(__clang__) && (__GNUC__ < 9 || __cplusplus < 202000L)
   #define OUTCOME_GCC6_CONCEPT_BOOL bool
   #else
   #define OUTCOME_GCC6_CONCEPT_BOOL
