@@ -30,6 +30,7 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include <cstddef>  // for ptrdiff_t etc
 #include <cstdint>  // for uint32_t etc
+#include <cstdlib>  // for abort()
 #include <cstring>  // for memset
 
 QUICKCPPLIB_NAMESPACE_BEGIN
@@ -402,7 +403,9 @@ namespace packed_backtrace
         for(size_type n = 0; n <= i; n++)
         {
           if(!_decode(out, idx))
-            throw std::out_of_range("packed_backtrace: out of range");
+          {
+            abort();  // out of range
+          }
         }
         return reinterpret_cast<value_type>(out);
       }
