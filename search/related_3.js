@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['packed_5fbacktrace',['packed_backtrace',['../classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace_1_1iterator.html#aa11cbee4cf5f5aa20d9b23de2b403e20',1,'quickcpplib::_xxx::packed_backtrace::impl::packed_backtrace::iterator']]]
+  ['operator_21_3d',['operator!=',['../classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html#a438b9568cdcef03a9c280a15f0bf76bd',1,'quickcpplib::_xxx::pmr::memory_resource']]],
+  ['operator_3d_3d',['operator==',['../classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html#a915f8e3a5ab81bdeb41a3566f0a937bf',1,'quickcpplib::_xxx::pmr::memory_resource']]]
 ];

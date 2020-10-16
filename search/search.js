@@ -16,7 +16,7 @@ var indexSectionsWithContent =
   6: "_abcdefgiklmoprstuvwz",
   7: "_almstv",
   8: "acdefhimnostuw",
-  9: "beipr",
+  9: "beiopr",
   10: "bceginoqst",
   11: "cpu",
   12: "ot"

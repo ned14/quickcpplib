@@ -48,14 +48,14 @@ var NAVTREEINDEX =
 [
 ".html",
 "classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#ae73870163b0e105ef5d1135d9fe16651",
-"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a11f438cc8ba64bac2adbb026f9488603",
-"console__colours_8hpp.html",
-"gsl-lite-vc6_8hpp.html#ae2c7401b0a82740988faa070375fe903",
-"import_8h.html#a088895481b70e37a9f826daa2fc6d3a5",
-"namespacequickcpplib_1_1__xxx_1_1type__traits_1_1detail.html",
-"string__view_8hpp.html#af2e2e7b06a528779369fe9593f4a6f40",
-"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase.html#a70a11a2c982176dc8678baf85da2a014",
-"test__optional_8cpp.html#a5de61bdf852ad90a5ab09b253a303d52"
+"classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html#a915f8e3a5ab81bdeb41a3566f0a937bf",
+"config_8hpp.html#a59f73173a4341567e3346909644ed61e",
+"gsl-lite-vc6_8hpp.html#a77381e72aadc6dd137fd71a84234a6e4",
+"gsl-lite_8hpp.html#af68e66f9dbad8ffbe7fafc47cc8032d4",
+"namespacequickcpplib_1_1__xxx_1_1pmr.html",
+"string__view_8hpp.html#a4ac62b99657cb72e7a25348b0d5903b3",
+"structquickcpplib_1_1__xxx_1_1allocator__testing_1_1allocator.html#aaede31e82e2a03722cd24a60b9bf631d",
+"test__optional_8cpp.html#a2e2a2e4cbece69196abef0240e5eb4c8"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

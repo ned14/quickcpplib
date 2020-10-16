@@ -10,7 +10,7 @@ var namespacequickcpplib_1_1__xxx =
     [ "function_ptr", "namespacequickcpplib_1_1__xxx_1_1function__ptr.html", "namespacequickcpplib_1_1__xxx_1_1function__ptr" ],
     [ "in_place_attach_detach", "namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach.html", "namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach" ],
     [ "mem_flush_loads_stores", "namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html", "namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores" ],
-    [ "pmr", "namespacequickcpplib_1_1__xxx_1_1pmr.html", null ],
+    [ "pmr", "namespacequickcpplib_1_1__xxx_1_1pmr.html", "namespacequickcpplib_1_1__xxx_1_1pmr" ],
     [ "offset_ptr", "namespacequickcpplib_1_1__xxx_1_1offset__ptr.html", "namespacequickcpplib_1_1__xxx_1_1offset__ptr" ],
     [ "optional", "namespacequickcpplib_1_1__xxx_1_1optional.html", null ],
     [ "packed_backtrace", "namespacequickcpplib_1_1__xxx_1_1packed__backtrace.html", "namespacequickcpplib_1_1__xxx_1_1packed__backtrace" ],

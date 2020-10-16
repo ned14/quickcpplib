@@ -69,13 +69,14 @@ var hierarchy =
     [ "std::experimental::is_nothrow_move_assignable< T >", "structstd_1_1experimental_1_1is__nothrow__move__assignable.html", null ],
     [ "std::experimental::is_nothrow_move_constructible< T >", "structstd_1_1experimental_1_1is__nothrow__move__constructible.html", null ],
     [ "quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy< KeyType, T, LinearSearchLimit, LockType, KeyModulus, KeyCompare >::items_count_type", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1items__count__type.html", null ],
-    [ "quickcpplib::_xxx::packed_backtrace::impl::packed_backtrace< FramePtrType, FrameTypeSize >::iterator", "classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace_1_1iterator.html", null ],
     [ "iterator", null, [
       [ "quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index< Policy, ContiguousContainerType, disable_existing_key_check >::iterator_< is_const, Parent, Pointer, Reference >", "classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_1_1iterator__.html", null ]
     ] ],
+    [ "quickcpplib::_xxx::packed_backtrace::impl::packed_backtrace< FramePtrType, FrameTypeSize >::iterator", "classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace_1_1iterator.html", null ],
     [ "quickcpplib::_xxx::ringbuffer_log::ringbuffer_log< Policy, LogLevelChecker >::iterator_< Parent, Pointer, Reference >", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html", null ],
     [ "quickcpplib::_xxx::algorithm::open_hash_index::linear_memory_policy< KeyType, T, LinearSearchLimit, KeyModulus, KeyCompare >", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy.html", null ],
     [ "quickcpplib::_xxx::configurable_spinlock::lock_guard< T >", "classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html", null ],
+    [ "quickcpplib::_xxx::pmr::memory_resource", "classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html", null ],
     [ "gsl::span< T >::mk< U >", "structgsl_1_1span_1_1mk.html", null ],
     [ "MoveAware< T >", "struct_move_aware.html", null ],
     [ "Nasty", "struct_nasty.html", null ],
@@ -109,11 +110,12 @@ var hierarchy =
       [ "quickcpplib::_xxx::configurable_spinlock::spins_to_yield< spins >::policy< parenttype >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield_1_1policy.html", null ]
     ] ],
     [ "quickcpplib::_xxx::algorithm::hash::passthru_hash< T >", "structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1passthru__hash.html", null ],
+    [ "quickcpplib::_xxx::pmr::polymorphic_allocator< T >", "classquickcpplib_1_1__xxx_1_1pmr_1_1polymorphic__allocator.html", null ],
     [ "quickcpplib::_xxx::print_type< T >", "structquickcpplib_1_1__xxx_1_1print__type.html", null ],
     [ "raised_signal_info", "structraised__signal__info.html", null ],
     [ "raised_signal_info_value", "unionraised__signal__info__value.html", null ],
-    [ "quickcpplib::_xxx::aligned_allocator::aligned_allocator< const T, Align, initialize >::rebind< U >", "structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_alig38b3ce2fde59753f89f79b36dfe20c65.html", null ],
     [ "quickcpplib::_xxx::aligned_allocator::aligned_allocator< T, Align, initialize >::rebind< U >", "structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_1_1rebind.html", null ],
+    [ "quickcpplib::_xxx::aligned_allocator::aligned_allocator< const T, Align, initialize >::rebind< U >", "structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_alig38b3ce2fde59753f89f79b36dfe20c65.html", null ],
     [ "quickcpplib::_xxx::allocator_testing::allocator< T, A >::rebind< U >", "structquickcpplib_1_1__xxx_1_1allocator__testing_1_1allocator_1_1rebind.html", null ],
     [ "quickcpplib::_xxx::unit_test::requirement_failed", "structquickcpplib_1_1__xxx_1_1unit__test_1_1requirement__failed.html", null ],
     [ "quickcpplib::_xxx::ringbuffer_log::ringbuffer_log< Policy, LogLevelChecker >", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html", null ],
@@ -151,9 +153,9 @@ var hierarchy =
     [ "quickcpplib::_xxx::ringbuffer_log::ringbuffer_log< Policy, LogLevelChecker >::unique_id", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1unique__id.html", null ],
     [ "std::experimental::Unsafe", "structstd_1_1experimental_1_1_unsafe.html", null ],
     [ "std::experimental::Val", "structstd_1_1experimental_1_1_val.html", null ],
-    [ "quickcpplib::_xxx::algorithm::open_hash_index::linear_memory_policy< KeyType, T, LinearSearchLimit, KeyModulus, KeyCompare >::value_type", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html", null ],
-    [ "quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy< KeyType, T, LinearSearchLimit, LockType, KeyModulus, KeyCompare >::value_type", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type.html", null ],
     [ "quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html", null ],
+    [ "quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy< KeyType, T, LinearSearchLimit, LockType, KeyModulus, KeyCompare >::value_type", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type.html", null ],
+    [ "quickcpplib::_xxx::algorithm::open_hash_index::linear_memory_policy< KeyType, T, LinearSearchLimit, KeyModulus, KeyCompare >::value_type", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html", null ],
     [ "VEC", "struct_v_e_c.html", null ],
     [ "std::experimental::VoidNothrowBoth", "structstd_1_1experimental_1_1_void_nothrow_both.html", null ]
 ];
