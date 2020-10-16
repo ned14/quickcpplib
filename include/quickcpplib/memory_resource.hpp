@@ -53,11 +53,69 @@ QUICKCPPLIB_NAMESPACE_END
 
 QUICKCPPLIB_NAMESPACE_BEGIN
 
-//! The world's worst C++ 14 emulation of polymorphic_allocator, which maps onto std::allocator
 namespace pmr
 {
-  template <class T> using polymorphic_allocator = std::allocator<T>;
-}
+  //! memory_resource emulation
+  class memory_resource
+  {
+    friend inline bool operator==(const memory_resource &a, const memory_resource &b) noexcept;
+    friend inline bool operator!=(const memory_resource &a, const memory_resource &b) noexcept;
+    virtual void *do_allocate(size_t bytes, size_t alignment) = 0;
+    virtual void do_deallocate(void *p, size_t bytes, size_t alignment) = 0;
+    virtual bool do_is_equal(const memory_resource &other) const noexcept = 0;
+
+  public:
+    memory_resource() = default;
+    memory_resource(const memory_resource &) = default;
+    memory_resource &operator=(const memory_resource &) = default;
+    virtual ~memory_resource() {}
+
+    QUICKCPPLIB_NODISCARD void *allocate(size_t bytes, size_t alignment = alignof(std::max_align_t)) { return do_allocate(bytes, alignment); }
+    void deallocate(void *p, size_t bytes, size_t alignment = alignof(std::max_align_t)) { return do_deallocate(p, bytes, alignment); }
+  };
+  inline bool operator==(const memory_resource &a, const memory_resource &b) noexcept { return a.do_is_equal(b); }
+  inline bool operator!=(const memory_resource &a, const memory_resource &b) noexcept { return !a.do_is_equal(b); }
+
+  //! The world's worst C++ 14 emulation of polymorphic_allocator, which maps onto std::allocator
+  template <class T> class polymorphic_allocator
+  {
+    memory_resource *_r{nullptr};
+
+  public:
+    using value_type = T;
+
+    polymorphic_allocator() = default;
+    polymorphic_allocator(memory_resource *r)
+        : _r(r)
+    {
+    }
+    polymorphic_allocator(const polymorphic_allocator &o)
+        : _r(o._r)
+    {
+    }
+    template <class U>
+    polymorphic_allocator(const polymorphic_allocator<U> &o) noexcept
+        : _r(o._r)
+    {
+    }
+    polymorphic_allocator &operator=(const polymorphic_allocator &) = delete;
+
+    memory_resource *resource() const { return _r; }
+
+    QUICKCPPLIB_NODISCARD T *allocate(size_t n) { return static_cast<T *>(resource()->allocate(n * sizeof(T), alignof(T))); }
+    void deallocate(T *p, size_t n) { resource()->deallocate(p, n * sizeof(T), alignof(T)); }
+    template <class U, class... Args> void construct(U *p, Args &&... args) { new(p) T(static_cast<Args &&>(args)...); }
+    template <class U> void destroy(U *p) { p->~U(); }
+  };
+  template <class T1, class T2> inline bool operator==(const polymorphic_allocator<T1> &a, const polymorphic_allocator<T2> &b) noexcept
+  {
+    return *a.resource() == *b.resource();
+  }
+  template <class T1, class T2> inline bool operator!=(const polymorphic_allocator<T1> &a, const polymorphic_allocator<T2> &b) noexcept
+  {
+    return *a.resource() != *b.resource();
+  }
+}  // namespace pmr
 
 QUICKCPPLIB_NAMESPACE_END
 
