@@ -37,7 +37,7 @@ namespace pmr = std::pmr;
 
 QUICKCPPLIB_NAMESPACE_END
 
-#elif _HAS_CXX17 || __cplusplus >= 201700
+#elif (_HAS_CXX17 || __cplusplus >= 201700) && __has_include(<memory_resource>)
 
 #include <memory_resource>
 
