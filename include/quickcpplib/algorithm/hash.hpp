@@ -99,6 +99,9 @@ namespace algorithm
       static inline void short_(uint128 &hash, const void *data, size_t bytes) noexcept;
 
     public:
+      //! The result type of the hash
+      using result_type = uint128;
+
       //! Initialise the hash with an optional seed
       constexpr fast_hash(const uint128 &seed = 0) noexcept : m_data{0}, m_state{seed.as_longlongs[0], seed.as_longlongs[1]}, m_length(0), m_remainder(0) {}
 

@@ -1,5 +1,5 @@
 /* Signal guard support
-(C) 2018-2019 Niall Douglas <http://www.nedproductions.biz/> (4 commits)
+(C) 2018-2020 Niall Douglas <http://www.nedproductions.biz/> (4 commits)
 File Created: June 2018
 
 
@@ -33,7 +33,9 @@ Distributed under the Boost Software License, Version 1.0.
 #pragma warning(push)
 #pragma warning(disable : 4190)  // C-linkage with UDTs
 #endif
-extern "C" union raised_signal_info_value thrd_signal_guard_call(const sigset_t *signals, thrd_signal_guard_guarded_t guarded, thrd_signal_guard_recover_t recovery, thrd_signal_guard_decide_t decider, union raised_signal_info_value value)
+extern "C" union raised_signal_info_value thrd_signal_guard_call(const sigset_t *signals, thrd_signal_guard_guarded_t guarded,
+                                                                 thrd_signal_guard_recover_t recovery, thrd_signal_guard_decide_t decider,
+                                                                 union raised_signal_info_value value)
 {
   using namespace QUICKCPPLIB_NAMESPACE::signal_guard;
   signalc_set mask;
@@ -109,7 +111,8 @@ extern "C" void *signal_guard_decider_create(const sigset_t *guarded, bool callf
       mask |= static_cast<signalc_set>(1ULL << n);
     }
   }
-  return new(std::nothrow) signal_guard_global_decider<detail::signal_guard_decider_callable>(mask, detail::signal_guard_decider_callable{decider, value}, callfirst);
+  return new(std::nothrow)
+  signal_guard_global_decider<detail::signal_guard_decider_callable>(mask, detail::signal_guard_decider_callable{decider, value}, callfirst);
 }
 extern "C" bool signal_guard_decider_destroy(void *decider)
 {
@@ -126,21 +129,32 @@ namespace signal_guard
 {
   namespace detail
   {
-    static thread_local thread_local_signal_guard *current_thread_local_signal_guard;
-    SIGNALGUARD_FUNC_DECL void push_thread_local_signal_handler(thread_local_signal_guard *g) noexcept
+    static thread_local thread_local_signal_guard *_current_thread_local_signal_handler;
+#ifdef __GNUC__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wattributes"
+#endif
+    SIGNALGUARD_FUNC_DECL QUICKCPPLIB_NOINLINE void push_thread_local_signal_handler(thread_local_signal_guard *g) noexcept
     {
-      g->previous = current_thread_local_signal_guard;
-      current_thread_local_signal_guard = g;
+      g->previous = _current_thread_local_signal_handler;
+      _current_thread_local_signal_handler = g;
     }
-    SIGNALGUARD_FUNC_DECL void pop_thread_local_signal_handler(thread_local_signal_guard *g) noexcept
+    SIGNALGUARD_FUNC_DECL QUICKCPPLIB_NOINLINE void pop_thread_local_signal_handler(thread_local_signal_guard *g) noexcept
     {
-      assert(current_thread_local_signal_guard == g);
-      if(current_thread_local_signal_guard != g)
+      assert(_current_thread_local_signal_handler == g);
+      if(_current_thread_local_signal_handler != g)
       {
         abort();
       }
-      current_thread_local_signal_guard = g->previous;
+      _current_thread_local_signal_handler = g->previous;
     }
+    SIGNALGUARD_FUNC_DECL QUICKCPPLIB_NOINLINE thread_local_signal_guard *current_thread_local_signal_handler() noexcept
+    {
+      return _current_thread_local_signal_handler;
+    }
+#ifdef __GNUC__
+#pragma GCC diagnostic pop
+#endif
 
     SIGNALGUARD_FUNC_DECL const char *signalc_to_string(signalc code) noexcept
     {
@@ -205,7 +219,7 @@ namespace signal_guard
 
     inline void new_handler()
     {
-      for(auto *shi = current_thread_local_signal_guard; shi != nullptr; shi = shi->previous)
+      for(auto *shi = current_thread_local_signal_handler(); shi != nullptr; shi = shi->previous)
       {
         if(set_siginfo(shi, signalc::out_of_memory))
         {
@@ -256,7 +270,7 @@ namespace signal_guard
     }
     inline void terminate_handler()
     {
-      for(auto *shi = current_thread_local_signal_guard; shi != nullptr; shi = shi->previous)
+      for(auto *shi = current_thread_local_signal_handler(); shi != nullptr; shi = shi->previous)
       {
         if(set_siginfo(shi, signalc::termination))
         {
@@ -331,7 +345,8 @@ namespace signal_guard
 
       typedef long(__stdcall *PVECTORED_EXCEPTION_HANDLER)(struct _EXCEPTION_POINTERS *ExceptionInfo);
 
-      extern void __stdcall RaiseException(unsigned long dwExceptionCode, unsigned long dwExceptionFlags, unsigned long nNumberOfArguments, const unsigned long long *lpArguments);
+      extern void __stdcall RaiseException(unsigned long dwExceptionCode, unsigned long dwExceptionFlags, unsigned long nNumberOfArguments,
+                                           const unsigned long long *lpArguments);
       extern PVECTORED_EXCEPTION_HANDLER __stdcall SetUnhandledExceptionFilter(PVECTORED_EXCEPTION_HANDLER Handler);
       extern void *__stdcall AddVectoredContinueHandler(unsigned long First, PVECTORED_EXCEPTION_HANDLER Handler);
       extern unsigned long __stdcall RemoveVectoredContinueHandler(void *Handle);
@@ -341,26 +356,42 @@ namespace signal_guard
 #define QUICKCPPLIB_SIGNAL_GUARD_SYMBOL1(a, b, c) QUICKCPPLIB_SIGNAL_GUARD_SYMBOL2(a, b, c)
 #define QUICKCPPLIB_SIGNAL_GUARD_SYMBOL(a, b) QUICKCPPLIB_SIGNAL_GUARD_SYMBOL1(a, QUICKCPPLIB_PREVIOUS_COMMIT_UNIQUE, b)
 #if defined(_WIN64)
-#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RaiseException@win32@detail@signal_guard@_", "@quickcpplib@@YAXKKKPEB_K@Z=RaiseException"))
-#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?SetUnhandledExceptionFilter@win32@detail@signal_guard@_", "@quickcpplib@@YAP6AJPEAU_EXCEPTION_POINTERS@12345@@ZP6AJ0@Z@Z=SetUnhandledExceptionFilter"))
-#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?AddVectoredContinueHandler@win32@detail@signal_guard@_", "@quickcpplib@@YAPEAXKP6AJPEAU_EXCEPTION_POINTERS@12345@@Z@Z=AddVectoredContinueHandler"))
-#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RemoveVectoredContinueHandler@win32@detail@signal_guard@_", "@quickcpplib@@YAKPEAX@Z=RemoveVectoredContinueHandler"))
+#pragma comment(linker,                                                                                                                                        \
+                QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RaiseException@win32@detail@signal_guard@_", "@quickcpplib@@YAXKKKPEB_K@Z=RaiseException"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?SetUnhandledExceptionFilter@win32@detail@signal_guard@_",                             \
+                                                        "@quickcpplib@@YAP6AJPEAU_EXCEPTION_POINTERS@12345@@ZP6AJ0@Z@Z=SetUnhandledExceptionFilter"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?AddVectoredContinueHandler@win32@detail@signal_guard@_",                              \
+                                                        "@quickcpplib@@YAPEAXKP6AJPEAU_EXCEPTION_POINTERS@12345@@Z@Z=AddVectoredContinueHandler"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RemoveVectoredContinueHandler@win32@detail@signal_guard@_",                           \
+                                                        "@quickcpplib@@YAKPEAX@Z=RemoveVectoredContinueHandler"))
 #else
-#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RaiseException@win32@detail@signal_guard@_", "@quickcpplib@@YGXKKKPB_K@Z=__imp__RaiseException@16"))
-#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?SetUnhandledExceptionFilter@win32@detail@signal_guard@_", "@quickcpplib@@YGP6GJPAU_EXCEPTION_POINTERS@@@ZP6GJ0@Z@Z=__imp__SetUnhandledExceptionFilter@4"))
-#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?AddVectoredContinueHandler@win32@detail@signal_guard@_", "@quickcpplib@@YGPAXKP6GJPAU_EXCEPTION_POINTERS@@@Z@Z=__imp__AddVectoredContinueHandler@8"))
-#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RemoveVectoredContinueHandler@win32@detail@signal_guard@_", "@quickcpplib@@YGKPAX@Z=__imp__RemoveVectoredContinueHandler@4"))
+#pragma comment(                                                                                                                                               \
+linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RaiseException@win32@detail@signal_guard@_", "@quickcpplib@@YGXKKKPB_K@Z=__imp__RaiseException@16"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?SetUnhandledExceptionFilter@win32@detail@signal_guard@_",                             \
+                                                        "@quickcpplib@@YGP6GJPAU_EXCEPTION_POINTERS@@@ZP6GJ0@Z@Z=__imp__SetUnhandledExceptionFilter@4"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?AddVectoredContinueHandler@win32@detail@signal_guard@_",                              \
+                                                        "@quickcpplib@@YGPAXKP6GJPAU_EXCEPTION_POINTERS@@@Z@Z=__imp__AddVectoredContinueHandler@8"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RemoveVectoredContinueHandler@win32@detail@signal_guard@_",                           \
+                                                        "@quickcpplib@@YGKPAX@Z=__imp__RemoveVectoredContinueHandler@4"))
 #endif
 #else
 #if defined(_WIN64)
 #pragma comment(linker, "/alternatename:?RaiseException@win32@detail@signal_guard@quickcpplib@@YAXKKKPEB_K@Z=RaiseException")
-#pragma comment(linker, "/alternatename:?SetUnhandledExceptionFilter@win32@detail@signal_guard@quickcpplib@@YAP6AJPEAU_EXCEPTION_POINTERS@12345@@ZP6AJ0@Z@Z=SetUnhandledExceptionFilter")
-#pragma comment(linker, "/alternatename:?AddVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YAPEAXKP6AJPEAU_EXCEPTION_POINTERS@12345@@Z@Z=AddVectoredContinueHandler")
+#pragma comment(                                                                                                                                               \
+linker,                                                                                                                                                        \
+"/alternatename:?SetUnhandledExceptionFilter@win32@detail@signal_guard@quickcpplib@@YAP6AJPEAU_EXCEPTION_POINTERS@12345@@ZP6AJ0@Z@Z=SetUnhandledExceptionFilter")
+#pragma comment(                                                                                                                                               \
+linker,                                                                                                                                                        \
+"/alternatename:?AddVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YAPEAXKP6AJPEAU_EXCEPTION_POINTERS@12345@@Z@Z=AddVectoredContinueHandler")
 #pragma comment(linker, "/alternatename:?RemoveVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YAKPEAX@Z=RemoveVectoredContinueHandler")
 #else
 #pragma comment(linker, "/alternatename:?RaiseException@win32@detail@signal_guard@quickcpplib@@YGXKKKPB_K@Z=__imp__RaiseException@16")
-#pragma comment(linker, "/alternatename:?SetUnhandledExceptionFilter@win32@detail@signal_guard@quickcpplib@@YGP6GJPAU_EXCEPTION_POINTERS@@@ZP6GJ0@Z@Z=__imp__SetUnhandledExceptionFilter@4")
-#pragma comment(linker, "/alternatename:?AddVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YGPAXKP6GJPAU_EXCEPTION_POINTERS@@@Z@Z=__imp__AddVectoredContinueHandler@8")
+#pragma comment(                                                                                                                                               \
+linker,                                                                                                                                                        \
+"/alternatename:?SetUnhandledExceptionFilter@win32@detail@signal_guard@quickcpplib@@YGP6GJPAU_EXCEPTION_POINTERS@@@ZP6GJ0@Z@Z=__imp__SetUnhandledExceptionFilter@4")
+#pragma comment(                                                                                                                                               \
+linker,                                                                                                                                                        \
+"/alternatename:?AddVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YGPAXKP6GJPAU_EXCEPTION_POINTERS@@@Z@Z=__imp__AddVectoredContinueHandler@8")
 #pragma comment(linker, "/alternatename:?RemoveVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YGKPAX@Z=__imp__RemoveVectoredContinueHandler@4")
 #endif
 #endif
@@ -436,7 +467,7 @@ namespace signal_guard
     }
     SIGNALGUARD_FUNC_DECL long win32_exception_filter_function(unsigned long code, win32::_EXCEPTION_POINTERS *ptrs) noexcept
     {
-      for(auto *shi = current_thread_local_signal_guard; shi != nullptr; shi = shi->previous)
+      for(auto *shi = current_thread_local_signal_handler(); shi != nullptr; shi = shi->previous)
       {
         if(set_siginfo(shi, code, ptrs->ExceptionRecord, ptrs->ContextRecord))
         {
@@ -599,7 +630,7 @@ namespace signal_guard
     inline void raw_signal_handler(int signo, siginfo_t *info, void *context)
     {
       // std::cout << "raw_signal_handler(" << signo << ", " << info << ", " << context << ") shi=" << shi << std::endl;
-      for(auto *shi = current_thread_local_signal_guard; shi != nullptr; shi = shi->previous)
+      for(auto *shi = current_thread_local_signal_handler(); shi != nullptr; shi = shi->previous)
       {
         if(set_siginfo(shi, signo, info, context))
         {

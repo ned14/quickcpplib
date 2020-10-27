@@ -1,5 +1,5 @@
 /* Signal guard support
-(C) 2018-2019 Niall Douglas <http://www.nedproductions.biz/> (4 commits)
+(C) 2018-2020 Niall Douglas <http://www.nedproductions.biz/> (4 commits)
 File Created: June 2018
 
 
@@ -445,8 +445,16 @@ namespace signal_guard
   namespace detail
   {
     struct thread_local_signal_guard;
+#ifdef __GNUC__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wattributes"
+#endif
     SIGNALGUARD_FUNC_DECL void push_thread_local_signal_handler(thread_local_signal_guard *) noexcept;
     SIGNALGUARD_FUNC_DECL void pop_thread_local_signal_handler(thread_local_signal_guard *) noexcept;
+    SIGNALGUARD_FUNC_DECL thread_local_signal_guard *current_thread_local_signal_handler() noexcept;
+#ifdef __GNUC__
+#pragma GCC diagnostic pop
+#endif
     struct thread_local_signal_guard
     {
       signalc_set guarded;
