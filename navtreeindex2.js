@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html#a688c3d6853f478b4fa083aa7af33f470":[4,0,4,0,10,0,2],
 "classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html#a915f8e3a5ab81bdeb41a3566f0a937bf":[4,0,4,0,10,0,6],
 "classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html#a99411813aa884102b6dbcf96937d45fc":[4,0,4,0,10,0,5],
 "classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html#aaa3464094935539659da96d99b003e54":[4,0,4,0,10,0,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX2 =
 "config_8hpp.html#a3ae948c9d2fe0de5935bffc1e93be1d6":[5,0,0,0,11,20],
 "config_8hpp.html#a3f6a7120abf6ac554e6a9ef4fe3000f2":[5,0,0,0,11,26],
 "config_8hpp.html#a453fbd070c7933461cb2b878c278e353":[5,0,0,0,11,12],
-"config_8hpp.html#a50591d5da06e6359d794d6039da14e1e":[5,0,0,0,11,36],
-"config_8hpp.html#a58275019aa6fab89f8309ea1fbbea2c6":[5,0,0,0,11,2]
+"config_8hpp.html#a50591d5da06e6359d794d6039da14e1e":[5,0,0,0,11,36]
 };

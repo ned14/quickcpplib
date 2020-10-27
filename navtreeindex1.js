@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#ad07ee479d7aa22a1a357707dd127bb1c":[4,0,4,0,23,2,0,5],
 "classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#ae73870163b0e105ef5d1135d9fe16651":[4,0,4,0,23,2,0,2],
 "classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html":[4,0,4,0,23,3,0],
 "classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#a11906d0f7bfcedd4c28e6c51c9477744":[4,0,4,0,23,3,0,6],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html":[4,0,4,0,10,0],
 "classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html#a0095f395e570d3365712de4cd0072606":[4,0,4,0,10,0,1],
 "classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html#a438b9568cdcef03a9c280a15f0bf76bd":[4,0,4,0,10,0,7],
-"classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html#a60e6a8b156f2038cfe75ca47f0b8a2f3":[4,0,4,0,10,0,3],
-"classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html#a688c3d6853f478b4fa083aa7af33f470":[4,0,4,0,10,0,2]
+"classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html#a60e6a8b156f2038cfe75ca47f0b8a2f3":[4,0,4,0,10,0,3]
 };

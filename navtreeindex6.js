@@ -1,5 +1,6 @@
 var NAVTREEINDEX6 =
 {
+"namespacequickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl.html":[3,0,4,0,13,1],
 "namespacequickcpplib_1_1__xxx_1_1pmr.html":[3,0,4,0,10],
 "namespacequickcpplib_1_1__xxx_1_1pmr.html":[4,0,4,0,10],
 "namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html":[4,0,4,0,14],
@@ -12,20 +13,20 @@ var NAVTREEINDEX6 =
 "namespacequickcpplib_1_1__xxx_1_1scope_1_1detail.html":[3,0,4,0,15,0],
 "namespacequickcpplib_1_1__xxx_1_1span.html":[4,0,4,0,16],
 "namespacequickcpplib_1_1__xxx_1_1span.html":[3,0,4,0,16],
-"namespacequickcpplib_1_1__xxx_1_1start__lifetime__as.html":[4,0,4,0,18],
 "namespacequickcpplib_1_1__xxx_1_1start__lifetime__as.html":[3,0,4,0,18],
+"namespacequickcpplib_1_1__xxx_1_1start__lifetime__as.html":[4,0,4,0,18],
 "namespacequickcpplib_1_1__xxx_1_1start__lifetime__as_1_1detail.html":[4,0,4,0,18,0],
 "namespacequickcpplib_1_1__xxx_1_1start__lifetime__as_1_1detail.html":[3,0,4,0,18,0],
-"namespacequickcpplib_1_1__xxx_1_1string__view.html":[4,0,4,0,19],
 "namespacequickcpplib_1_1__xxx_1_1string__view.html":[3,0,4,0,19],
+"namespacequickcpplib_1_1__xxx_1_1string__view.html":[4,0,4,0,19],
 "namespacequickcpplib_1_1__xxx_1_1string__view_1_1detail.html":[3,0,4,0,19,0],
 "namespacequickcpplib_1_1__xxx_1_1string__view_1_1detail.html":[4,0,4,0,19,0],
-"namespacequickcpplib_1_1__xxx_1_1tribool.html":[3,0,4,0,20],
 "namespacequickcpplib_1_1__xxx_1_1tribool.html":[4,0,4,0,20],
+"namespacequickcpplib_1_1__xxx_1_1tribool.html":[3,0,4,0,20],
 "namespacequickcpplib_1_1__xxx_1_1type__traits.html":[3,0,4,0,21],
 "namespacequickcpplib_1_1__xxx_1_1type__traits.html":[4,0,4,0,21],
-"namespacequickcpplib_1_1__xxx_1_1type__traits_1_1detail.html":[4,0,4,0,21,0],
 "namespacequickcpplib_1_1__xxx_1_1type__traits_1_1detail.html":[3,0,4,0,21,0],
+"namespacequickcpplib_1_1__xxx_1_1type__traits_1_1detail.html":[4,0,4,0,21,0],
 "namespacequickcpplib_1_1__xxx_1_1unit__test.html":[4,0,4,0,24],
 "namespacequickcpplib_1_1__xxx_1_1unit__test.html":[3,0,4,0,24],
 "namespacequickcpplib_1_1__xxx_1_1utils.html":[4,0,4,0,25],
@@ -248,6 +249,5 @@ var NAVTREEINDEX6 =
 "string__view_8hpp.html#a27b8fa5135326e104f89975952e067ac":[5,0,0,0,32,29],
 "string__view_8hpp.html#a2ab3bf9b481a96e480e96604b0c0dd9a":[5,0,0,0,32,32],
 "string__view_8hpp.html#a339120662a935013c1016353a1aa0351":[5,0,0,0,32,20],
-"string__view_8hpp.html#a358ce8fa94e556135021eaef6f00ddcf":[5,0,0,0,32,6],
-"string__view_8hpp.html#a458594c685c932ce54a9abaf2311765d":[5,0,0,0,32,8]
+"string__view_8hpp.html#a358ce8fa94e556135021eaef6f00ddcf":[5,0,0,0,32,6]
 };
