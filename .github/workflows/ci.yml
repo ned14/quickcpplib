@@ -13,6 +13,7 @@ jobs:
       matrix:
         compiler: [clang++, g++]
     env:
+      NAME: Linux-${{ matrix.compiler }}
       CXX: ${{ matrix.compiler }}
           
     steps:
@@ -24,6 +25,8 @@ jobs:
 
   MacOS:
     runs-on: macos-10.15
+    env:
+      NAME: MacOS
           
     steps:
     - uses: actions/checkout@v2
@@ -34,6 +37,8 @@ jobs:
 
   WinVS2019:
     runs-on: windows-2019
+    env:
+      NAME: WinVS2019
           
     steps:
     - uses: actions/checkout@v2
