@@ -4,7 +4,7 @@ Eliminate all the tedious hassle when making state-of-the-art C++ 14 - 23 librar
 
 (C) 2014-2020 Niall Douglas http://www.nedproductions.biz/
 
-Linux & MacOS: [![Build Status](https://travis-ci.org/ned14/quickcpplib.svg?branch=master)](https://travis-ci.org/ned14/quickcpplib) Windows: [![Build status](https://ci.appveyor.com/api/projects/status/8974h34i4i4233vy/branch/master?svg=true)](https://ci.appveyor.com/project/ned14/quickcpplib/branch/master)
+CI (Linux, MacOS, Windows): ![CI](https://github.com/ned14/quickcpplib/workflows/CI/badge.svg?branch=master)
 
 CTest dashboard: http://my.cdash.org/index.php?project=QuickCppLib
 
