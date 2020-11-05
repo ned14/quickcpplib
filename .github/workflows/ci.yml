@@ -7,7 +7,7 @@ on:
   - cron: '0 0 1 * *'
 
 jobs:
-  linux:
+  Ubuntu Linux 18.04:
     runs-on: ubuntu-18.04
     strategy:
       matrix:
@@ -22,7 +22,7 @@ jobs:
       shell: bash
       run: ctest -S .ci.cmake -V
 
-  macos:
+  Mac OS 10.15:
     runs-on: macos-10.15
           
     steps:
@@ -32,7 +32,7 @@ jobs:
       shell: bash
       run: ctest -S .ci.cmake -V -E noexcept
 
-  windows:
+  Microsoft Windows 2019 (VS2019):
     runs-on: windows-2019
           
     steps:
