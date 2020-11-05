@@ -1,0 +1,39 @@
+name: CI
+
+on: [push]
+
+jobs:
+  linux:
+    runs-on: ubuntu-18.04
+    strategy:
+      matrix:
+        compiler: [clang++, g++]
+    env:
+      CXX: ${{ matrix.compiler }}
+          
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: cmake tests linux
+      shell: bash
+      run: ctest -S .ci.cmake -V
+
+  macos:
+    runs-on: macos-10.15
+          
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: cmake tests osx
+      shell: bash
+      run: ctest -S .ci.cmake -V -E noexcept
+
+  windows:
+    runs-on: windows-2019
+          
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: cmake tests windows
+      shell: bash
+      run: ctest -S .ci.cmake -V
