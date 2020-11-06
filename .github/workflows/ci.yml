@@ -8,6 +8,7 @@ on:
 
 jobs:
   Linux:
+    name: Ubuntu 18.04
     runs-on: ubuntu-18.04
     strategy:
       matrix:
@@ -22,8 +23,16 @@ jobs:
     - name: cmake tests linux
       shell: bash
       run: ctest -S .ci.cmake -V
+      
+    - name: upload test results
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: Linux ${{ matrix.compiler }} test results
+        path: cmake_ci\merged_junit_results.xml
 
   MacOS:
+    name: Mac OS 10.15
     runs-on: macos-10.15
     env:
       NAME: MacOS
@@ -34,8 +43,16 @@ jobs:
     - name: cmake tests osx
       shell: bash
       run: ctest -S .ci.cmake -V -E noexcept
+      
+    - name: upload test results
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: Mac OS test results
+        path: cmake_ci\merged_junit_results.xml
 
   WinVS2019:
+    name: Windows VS2019
     runs-on: windows-2019
     env:
       NAME: WinVS2019
@@ -46,3 +63,30 @@ jobs:
     - name: cmake tests windows
       shell: bash
       run: ctest -S .ci.cmake -V
+      
+    - name: upload test results
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: Windows VS2019 test results
+        path: cmake_ci\merged_junit_results.xml
+
+  publish-test-results:
+    name: "Publish Unit Tests Results"
+    needs: [Linux, MacOS, WinVS2019]
+    runs-on: ubuntu-latest
+    # the build-and-test job might be skipped, we don't need to run this job then
+    if: success() || failure()
+
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          path: artifacts
+
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1.3
+        with:
+          check_name: Unit Test Results
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          files: '**/merged_junit_results.xml'
