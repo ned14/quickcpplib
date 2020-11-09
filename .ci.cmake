@@ -18,8 +18,6 @@ ctest_start("Experimental")
 ctest_update()
 ctest_configure()
 ctest_build()
-ctest_build(TARGET quickcpplib_dl)
-ctest_build(TARGET quickcpplib_sl)
 if(WIN32)
   if(EXISTS "prebuilt/bin/Release/quickcpplib_dl-0.1-Windows-x64-Release.dll")
     checked_execute_process("Tarring up binaries 1"

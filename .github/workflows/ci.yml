@@ -26,11 +26,11 @@ jobs:
       shell: bash
       run: ctest -S .ci.cmake -V
       
-    - name: Upload Prebuilt Binaries
-      uses: actions/upload-artifact@v2
-      with:
-        name: Linux ${{ matrix.compiler }} prebuilt binaries
-        path: quickcpplib-v0.1-binaries-linux-x64.tgz
+#    - name: Upload Prebuilt Binaries
+#      uses: actions/upload-artifact@v2
+#      with:
+#        name: Linux ${{ matrix.compiler }} prebuilt binaries
+#        path: quickcpplib-v0.1-binaries-linux-x64.tgz
       
     - name: Upload Test Results
       if: always()
@@ -52,11 +52,11 @@ jobs:
       shell: bash
       run: ctest -S .ci.cmake -V -E noexcept
       
-    - name: Upload Prebuilt Binaries
-      uses: actions/upload-artifact@v2
-      with:
-        name: Mac OS prebuilt binaries
-        path: quickcpplib-v0.1-binaries-darwin-x64.tgz
+#    - name: Upload Prebuilt Binaries
+#      uses: actions/upload-artifact@v2
+#      with:
+#        name: Mac OS prebuilt binaries
+#        path: quickcpplib-v0.1-binaries-darwin-x64.tgz
       
     - name: Upload Test Results
       if: always()
@@ -78,11 +78,11 @@ jobs:
       shell: bash
       run: ctest -S .ci.cmake -V
       
-    - name: Upload Prebuilt Binaries
-      uses: actions/upload-artifact@v2
-      with:
-        name: Windows VS2019 prebuilt binaries
-        path: quickcpplib-v0.1-binaries-win64.zip
+#    - name: Upload Prebuilt Binaries
+#      uses: actions/upload-artifact@v2
+#      with:
+#        name: Windows VS2019 prebuilt binaries
+#        path: quickcpplib-v0.1-binaries-win64.zip
       
     - name: Upload Test Results
       if: always()
@@ -112,6 +112,7 @@ jobs:
           files: '**/merged_junit_results.xml'
           
       - name: Generate Documentation
+        uses: actions/checkout@v2
         shell: bash
         run: |
          git config --global push.default simple
