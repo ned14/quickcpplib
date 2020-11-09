@@ -113,6 +113,9 @@ jobs:
           
       - name: Checkout Documentation
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          submodules: true
 
       - name: Regenerate Documentation
         shell: bash
