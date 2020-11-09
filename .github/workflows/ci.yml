@@ -111,8 +111,10 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           files: '**/merged_junit_results.xml'
           
-      - name: Generate Documentation
+      - name: Checkout Documentation
         uses: actions/checkout@v2
+
+      - name: Regenerate Documentation
         shell: bash
         run: |
          git config --global push.default simple
