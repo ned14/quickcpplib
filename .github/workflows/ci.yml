@@ -122,13 +122,13 @@ jobs:
       - name: Regenerate Documentation
         shell: bash
         run: |
+         sudo apt-get install -y doxygen graphviz
          git config --global push.default simple
          git config --global user.name "Jenkins nedprod CI"
          git config --global user.email "foo@nowhere"
          cd doc/html
          git checkout gh-pages
          cd ../..
-         git reset --hard
          ctest -S .docs.cmake -V
           
       - name: Publish Documentation
