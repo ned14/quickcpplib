@@ -37,7 +37,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: Linux ${{ matrix.compiler }} test results
-        path: cmake_ci/merged_junit_results.xml
+        path: prebuilt/merged_junit_results.xml
 
   MacOS:
     name: Mac OS 10.15
@@ -63,7 +63,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: Mac OS test results
-        path: cmake_ci/merged_junit_results.xml
+        path: prebuilt/merged_junit_results.xml
 
   WinVS2019:
     name: Windows VS2019
@@ -89,7 +89,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: Windows VS2019 test results
-        path: cmake_ci/merged_junit_results.xml
+        path: prebuilt/merged_junit_results.xml
 
   publish-test-results:
     name: "Publish Documentation and Unit Tests Results"
