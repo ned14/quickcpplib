@@ -101,6 +101,12 @@ jobs:
       NAME: Documentation
 
     steps:
+      - name: Checkout Documentation
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          submodules: true
+
       - name: Download Artifacts
         uses: actions/download-artifact@v2
         with:
@@ -113,22 +119,10 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           files: '**/merged_junit_results.xml'
           
-      - name: Checkout Documentation
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          submodules: true
-
       - name: Regenerate Documentation
         shell: bash
         run: |
          sudo apt-get install -y doxygen graphviz
-         git config --global push.default simple
-         git config --global user.name "Jenkins nedprod CI"
-         git config --global user.email "foo@nowhere"
-         cd doc/html
-         git checkout gh-pages
-         cd ../..
          ctest -S .docs.cmake -V
           
       - name: Publish Documentation
