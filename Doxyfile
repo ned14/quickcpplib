@@ -773,7 +773,6 @@ INPUT                  = Readme.md \
                          include/quickcpplib/algorithm \
                          include/quickcpplib/boost/test \
                          include/quickcpplib/byte/include/nonstd \
-                         include/quickcpplib/gsl-lite/include/gsl \
                          include/quickcpplib/optional \
                          include/quickcpplib/utils
 
@@ -2025,7 +2024,8 @@ INCLUDE_FILE_PATTERNS  =
 # recursively expanded use the := operator instead of the = operator.
 # This tag requires that the tag ENABLE_PREPROCESSING is set to YES.
 
-PREDEFINED             = DOXYGEN_IS_IN_THE_HOUSE=1 DOXYGEN_SHOULD_SKIP_THIS=1
+PREDEFINED             = DOXYGEN_IS_IN_THE_HOUSE=1 DOXYGEN_SHOULD_SKIP_THIS=1 \
+                         __cplusplus=202000L QUICKCPPLIB_USE_STD_SPAN=1
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then this
 # tag can be used to specify a list of macro names that should be expanded. The

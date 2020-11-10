@@ -213,6 +213,7 @@ typedef int raised_signal_error_code_t;
   all thread local handling is exhausted. Note that what you can safely do in the decider
   function is extremely limited, only async signal safe functions may be called.
   \return An opaque pointer to the registered decider. `NULL` if `malloc` failed.
+  \param guarded The set of signals to be guarded against.
   \param callfirst True if this decider should be called before any other. Otherwise
   call order is in the order of addition.
   \param decider A decider function, which must return `true` if execution is to resume,
