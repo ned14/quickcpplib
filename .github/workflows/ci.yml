@@ -101,12 +101,6 @@ jobs:
       NAME: Documentation
 
     steps:
-      - name: Checkout Documentation
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          submodules: true
-
       - name: Download Artifacts
         uses: actions/download-artifact@v2
         with:
@@ -119,9 +113,16 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           files: '**/merged_junit_results.xml'
           
+      - name: Checkout Documentation
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          submodules: true
+
       - name: Regenerate Documentation
         shell: bash
         run: |
+         git submodule update --init --recursive
          sudo apt-get install -y doxygen graphviz
          ctest -S .docs.cmake -V
           
