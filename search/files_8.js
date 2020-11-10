@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['import_2eh',['import.h',['../import_8h.html',1,'']]],
-  ['in_5fplace_5fdetach_5fattach_2ehpp',['in_place_detach_attach.hpp',['../in__place__detach__attach_8hpp.html',1,'']]]
+  ['mem_5fflush_5floads_5fstores_2ehpp',['mem_flush_loads_stores.hpp',['../mem__flush__loads__stores_8hpp.html',1,'']]],
+  ['memory_5fresource_2ehpp',['memory_resource.hpp',['../memory__resource_8hpp.html',1,'']]]
 ];

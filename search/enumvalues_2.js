@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['debug',['debug',['../namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2aad42f6697b035b7580e4fef93be20b4d',1,'quickcpplib::_xxx::ringbuffer_log']]],
-  ['default',['Default',['../namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#ab68128e48d1244d5374933086190d094a7a1920d61156abc05a60135aefe8bc67',1,'quickcpplib::_xxx::aligned_allocator::detail']]]
+  ['broken_5fpipe',['broken_pipe',['../namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a2f0338eed54503152be1d31c93c9c2f1',1,'quickcpplib::_xxx::signal_guard']]]
 ];

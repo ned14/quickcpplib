@@ -6,9 +6,9 @@ var classquickcpplib_1_1__xxx_1_1pmr_1_1polymorphic__allocator =
     [ "polymorphic_allocator", "classquickcpplib_1_1__xxx_1_1pmr_1_1polymorphic__allocator.html#a03cc229d89d4d9069d3c021102d91565", null ],
     [ "polymorphic_allocator", "classquickcpplib_1_1__xxx_1_1pmr_1_1polymorphic__allocator.html#ae8346134097cc827891a5b83c6a05add", null ],
     [ "operator=", "classquickcpplib_1_1__xxx_1_1pmr_1_1polymorphic__allocator.html#a5645f246200b75dd8ba8708de7baa4a3", null ],
-    [ "resource", "classquickcpplib_1_1__xxx_1_1pmr_1_1polymorphic__allocator.html#a752f70ab2b608a80994e72961e214c78", null ],
+    [ "resource", "classquickcpplib_1_1__xxx_1_1pmr_1_1polymorphic__allocator.html#a217318a6540fa158bb8c703b861c65d9", null ],
     [ "allocate", "classquickcpplib_1_1__xxx_1_1pmr_1_1polymorphic__allocator.html#adf5a17c66b5c1cc6b9598c557c7e7f1a", null ],
     [ "deallocate", "classquickcpplib_1_1__xxx_1_1pmr_1_1polymorphic__allocator.html#a1b95b9deed9c33f55ba58e4bbfdce5f4", null ],
-    [ "construct", "classquickcpplib_1_1__xxx_1_1pmr_1_1polymorphic__allocator.html#a38c9cf08b298f84109d6c9e469e62049", null ],
+    [ "construct", "classquickcpplib_1_1__xxx_1_1pmr_1_1polymorphic__allocator.html#a87ee5dc0514e302ff070785761745a23", null ],
     [ "destroy", "classquickcpplib_1_1__xxx_1_1pmr_1_1polymorphic__allocator.html#a82c1038850f093fa474e90e275e16d8b", null ]
 ];

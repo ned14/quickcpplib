@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['implicit',['implicit',['../gsl-lite-vc6_8hpp.html#a3539d59a0c0b1bc3dcf68dfb1bb42d21',1,'gsl-lite-vc6.hpp']]]
+  ['nonstd_5fbyte_5flite_5fhpp',['NONSTD_BYTE_LITE_HPP',['../byte_2include_2nonstd_2byte_8hpp.html#aa2c25a5660ed70c661af7b8dfd4ad2c5',1,'byte.hpp']]]
 ];

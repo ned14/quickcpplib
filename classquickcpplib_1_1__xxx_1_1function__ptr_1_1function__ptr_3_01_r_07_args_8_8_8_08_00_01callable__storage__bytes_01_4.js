@@ -14,9 +14,9 @@ var classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8
     [ "operator=", "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#a31edbc9fbcacbfe7bb1eef5328e5bae6", null ],
     [ "operator=", "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#acc5beef71dd85cb8df8900c7ec22900b", null ],
     [ "operator bool", "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#aceb816d36217cd9a92c2d558c93a8ac7", null ],
-    [ "ptr_type", "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#aff56fbb94ea8968c907be108e9036762", null ],
-    [ "operator()", "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#a3ba49c6aa2a2ab10004c1c623e22857c", null ],
+    [ "ptr_type", "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#acddd051da242a6dfc0b6f8c08b60aac4", null ],
+    [ "operator()", "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#ac5779e3d4b6031e225aaf07708d59c79", null ],
     [ "reset", "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#ac9d24c06e085e06be40b0fd880410b9f", null ],
-    [ "emplace_function_ptr", "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#aa9c21dfedc51a836a3fe320cc194e656", null ],
-    [ "emplace_function_ptr_nothrow", "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#a569f1e1f920d5e5c4bb5138062e92585", null ]
+    [ "emplace_function_ptr", "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#a0bad3c1393c6454fa5c9207895860e1e", null ],
+    [ "emplace_function_ptr_nothrow", "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#a2868a1d9c848aa8d966e6c56d7120631", null ]
 ];

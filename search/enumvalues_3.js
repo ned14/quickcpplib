@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['error',['error',['../namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acb5e100e5a9a3e7f6d1fd97512215282',1,'quickcpplib::_xxx::ringbuffer_log']]],
-  ['exit',['exit',['../namespacequickcpplib_1_1__xxx_1_1scope_1_1detail.html#aff58ddf2d65ee18a8b09c9c4eb077eb1af24f62eeb789199b9b2e467df3b1876b',1,'quickcpplib::_xxx::scope::detail']]],
-  ['external',['external',['../classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#ae35a4ad793f8d4734c0652fbe16fcadda3a9e67fa52dc7e6541c69935b0ac434b',1,'quickcpplib::_xxx::function_ptr::function_ptr&lt; R(Args...), callable_storage_bytes &gt;']]]
+  ['corrupt',['corrupt',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#aa0b1a4798c525be9f51c3051754ea40ca128b7d0d9ed4f27b2b8e32b028fe60f3',1,'quickcpplib::_xxx::algorithm::secded_ecc::secded_ecc']]]
 ];

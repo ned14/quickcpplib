@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['indeterminate',['indeterminate',['../group__tribool.html#ggafe26d2adc55c3e981fc0164e20ebeb9aa44560d82707cce3b8111a770924cf0e2',1,'quickcpplib::_xxx::tribool']]],
-  ['info',['info',['../namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c',1,'quickcpplib::_xxx::ringbuffer_log']]]
+  ['fail',['fail',['../namespacequickcpplib_1_1__xxx_1_1scope_1_1detail.html#aff58ddf2d65ee18a8b09c9c4eb077eb1ae11185b6e35c1b767174dc988aa0f179',1,'quickcpplib::_xxx::scope::detail']]],
+  ['false_5f',['false_',['../group__tribool.html#ggafe26d2adc55c3e981fc0164e20ebeb9aab1b5574e03193aa8d5307455b036c2d1',1,'quickcpplib::_xxx::tribool']]],
+  ['fatal',['fatal',['../namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2adf6402fd9ecc60f5a2159fdf45711cd4',1,'quickcpplib::_xxx::ringbuffer_log']]],
+  ['floating_5fpoint_5ferror',['floating_point_error',['../namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a66938d975a8e275dc893c7d5f6331fd3',1,'quickcpplib::_xxx::signal_guard']]]
 ];

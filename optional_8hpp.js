@@ -1,4 +1,4 @@
 var optional_8hpp =
 [
-    [ "optional", "optional_8hpp.html#a3ed8e13b536f158e4194ff16a35654e9", null ]
+    [ "optional", "optional_8hpp.html#a887b06044d4272844ff51c6f0e0b9865", null ]
 ];

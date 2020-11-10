@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['fail',['fail',['../namespacequickcpplib_1_1__xxx_1_1scope_1_1detail.html#aff58ddf2d65ee18a8b09c9c4eb077eb1ae11185b6e35c1b767174dc988aa0f179',1,'quickcpplib::_xxx::scope::detail']]],
-  ['false_5f',['false_',['../group__tribool.html#ggafe26d2adc55c3e981fc0164e20ebeb9aab1b5574e03193aa8d5307455b036c2d1',1,'quickcpplib::_xxx::tribool']]],
-  ['fatal',['fatal',['../namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2adf6402fd9ecc60f5a2159fdf45711cd4',1,'quickcpplib::_xxx::ringbuffer_log']]]
+  ['debug',['debug',['../namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2aad42f6697b035b7580e4fef93be20b4d',1,'quickcpplib::_xxx::ringbuffer_log']]],
+  ['default',['Default',['../namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#ab68128e48d1244d5374933086190d094a7a1920d61156abc05a60135aefe8bc67',1,'quickcpplib::_xxx::aligned_allocator::detail']]]
 ];

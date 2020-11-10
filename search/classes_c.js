@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['narrowing_5ferror',['narrowing_error',['../structgsl_1_1narrowing__error.html',1,'gsl']]],
   ['nasty',['Nasty',['../struct_nasty.html',1,'']]],
-  ['not_5fnull',['not_null',['../classgsl_1_1not__null.html',1,'gsl']]],
   ['nothrowassign',['NothrowAssign',['../struct_nothrow_assign.html',1,'']]],
   ['nothrowboth',['NothrowBoth',['../struct_nothrow_both.html',1,'']]],
   ['nothrowctor',['NothrowCtor',['../struct_nothrow_ctor.html',1,'']]],

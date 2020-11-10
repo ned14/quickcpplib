@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['signalguard_5fclass_5fdecl',['SIGNALGUARD_CLASS_DECL',['../signal__guard_8hpp.html#afc4c0d35b09e145b05c4a43a7a0aacc2',1,'signal_guard.hpp']]],
-  ['signalguard_5ffunc_5fdecl',['SIGNALGUARD_FUNC_DECL',['../signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8',1,'signal_guard.hpp']]],
-  ['signalguard_5fmemfunc_5fdecl',['SIGNALGUARD_MEMFUNC_DECL',['../signal__guard_8hpp.html#afb7cacdb873bcef99c80f51c266192aa',1,'signal_guard.hpp']]]
+  ['test',['TEST',['../test__optional_8cpp.html#a3a8dd86e1cab36109f7149282150152d',1,'test_optional.cpp']]],
+  ['tr2_5foptional_5fasserted_5fexpression',['TR2_OPTIONAL_ASSERTED_EXPRESSION',['../optional_2optional_8hpp.html#aba246528349d07cba40ef2d678e6fc78',1,'optional.hpp']]],
+  ['tr2_5foptional_5frequires',['TR2_OPTIONAL_REQUIRES',['../optional_2optional_8hpp.html#a2bc77cf029dcdedaf87668a8da6e899b',1,'optional.hpp']]]
 ];

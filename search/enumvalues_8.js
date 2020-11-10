@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['none',['none',['../classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#ae35a4ad793f8d4734c0652fbe16fcadda0f9a19a2991085801bd1a533d216b5e1',1,'quickcpplib::_xxx::function_ptr::function_ptr&lt; R(Args...), callable_storage_bytes &gt;::none()'],['../namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2a334c4a4c42fdb79d7ebc3e73b517e6f8',1,'quickcpplib::_xxx::ringbuffer_log::none()']]]
+  ['illegal_5finstruction',['illegal_instruction',['../namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790af02b25bbe33547687680941a577b46da',1,'quickcpplib::_xxx::signal_guard']]],
+  ['indeterminate',['indeterminate',['../group__tribool.html#ggafe26d2adc55c3e981fc0164e20ebeb9aa44560d82707cce3b8111a770924cf0e2',1,'quickcpplib::_xxx::tribool']]],
+  ['info',['info',['../namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c',1,'quickcpplib::_xxx::ringbuffer_log']]],
+  ['interrupt',['interrupt',['../namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a2414c252176310b2c04547257948c7b7',1,'quickcpplib::_xxx::signal_guard']]]
 ];
