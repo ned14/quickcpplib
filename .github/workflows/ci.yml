@@ -117,12 +117,11 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          submodules: true
+          submodules: recursive
 
       - name: Regenerate Documentation
         shell: bash
         run: |
-         git submodule update --init --recursive
          sudo apt-get install -y doxygen graphviz
          ctest -S .docs.cmake -V
           
