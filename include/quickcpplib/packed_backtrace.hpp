@@ -86,11 +86,11 @@ namespace packed_backtrace
       //! The iterator type
       using iterator = typename storage_type::iterator;
       //! The const iterator type
-      using const_iterator = typename storage_type::const_iterator;
+      using const_iterator = decltype(std::cbegin(std::declval<const storage_type>()));
       //! The reverse iterator type
       using reverse_iterator = typename storage_type::reverse_iterator;
       //! The const reverse iterator type
-      using const_reverse_iterator = typename storage_type::const_reverse_iterator;
+      using const_reverse_iterator = decltype(std::crbegin(std::declval<const storage_type>()));
 
       //! Returns true if the index is empty
       bool empty() const noexcept { return _storage.empty(); }
