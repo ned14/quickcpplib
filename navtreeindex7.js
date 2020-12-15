@@ -1,7 +1,5 @@
 var NAVTREEINDEX7 =
 {
-"structstd_1_1experimental_1_1detail___1_1has__overloaded__addressof.html":[5,0,2,0,0,0],
-"structstd_1_1experimental_1_1in__place__t.html":[5,0,2,0,4],
 "structstd_1_1experimental_1_1is__assignable.html":[5,0,2,0,5],
 "structstd_1_1experimental_1_1is__nothrow__move__assignable.html":[5,0,2,0,6],
 "structstd_1_1experimental_1_1is__nothrow__move__assignable_1_1has__nothrow__move__assign.html":[5,0,2,0,6,0],

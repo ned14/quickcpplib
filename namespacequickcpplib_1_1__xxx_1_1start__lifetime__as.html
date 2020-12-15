@@ -137,7 +137,7 @@ template&lt;class T &gt; </div>
 </div><div class="memdoc">
 
 <p><code>std::launder&lt;T&gt;</code> from C++ 17, or an emulation </p>
-<div class="fragment"><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as_1_1detail.html#aadff66bf552eb9c174af908de0ac2f81">detail::_launder</a>(p); }</div><div class="ttc" id="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as_1_1detail_html_aadff66bf552eb9c174af908de0ac2f81"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as_1_1detail.html#aadff66bf552eb9c174af908de0ac2f81">quickcpplib::_xxx::start_lifetime_as::detail::_launder</a></div><div class="ttdeci">constexpr T * _launder(T *p) noexcept</div><div class="ttdef"><b>Definition:</b> start_lifetime_as.hpp:42</div></div>
+<div class="fragment"><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as_1_1detail.html#aadff66bf552eb9c174af908de0ac2f81">detail::_launder</a>(p); }</div><div class="ttc" id="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as_1_1detail_html_aadff66bf552eb9c174af908de0ac2f81"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as_1_1detail.html#aadff66bf552eb9c174af908de0ac2f81">quickcpplib::_xxx::start_lifetime_as::detail::_launder</a></div><div class="ttdeci">constexpr T * _launder(T *p) noexcept</div><div class="ttdef"><b>Definition:</b> start_lifetime_as.hpp:41</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -168,7 +168,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p><code>std::start_lifetime_as&lt;T&gt;</code> from C++ 23, or an emulation </p>
-<div class="fragment"><div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;{ <span class="keywordflow">return</span> detail::_start_lifetime_as&lt;T&gt;(p); }</div></div><!-- fragment -->
+<div class="fragment"><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;{ <span class="keywordflow">return</span> detail::_start_lifetime_as&lt;T&gt;(p); }</div></div><!-- fragment -->
 </div>
 </div>
 <a id="a806c2b73a3d01fa4d2f553ce669dacef"></a>
@@ -198,7 +198,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p><code>std::start_lifetime_as&lt;T&gt;</code> from C++ 23, or an emulation </p>
-<div class="fragment"><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;{ <span class="keywordflow">return</span> detail::_start_lifetime_as&lt;T&gt;(p); }</div></div><!-- fragment -->
+<div class="fragment"><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  {</div><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordflow">return</span> detail::_start_lifetime_as&lt;const T&gt;(<span class="keyword">const_cast&lt;</span><span class="keywordtype">void</span> *<span class="keyword">&gt;</span>(p)); <span class="comment">/* works around a GCC bug */</span></div><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  }</div></div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->

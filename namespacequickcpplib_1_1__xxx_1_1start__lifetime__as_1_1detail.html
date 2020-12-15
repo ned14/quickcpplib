@@ -96,18 +96,12 @@ Functions</h2></td></tr>
 <tr class="memitem:aaf48c57af76a01bea2a6361ef0d011fc"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:aaf48c57af76a01bea2a6361ef0d011fc"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as_1_1detail.html#aaf48c57af76a01bea2a6361ef0d011fc">start_lifetime_as</a> (void *p,...)</td></tr>
 <tr class="separator:aaf48c57af76a01bea2a6361ef0d011fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee21b5b07410798dba4d2f8825d70893"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:aee21b5b07410798dba4d2f8825d70893"><td class="memTemplItemLeft" align="right" valign="top">const T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as_1_1detail.html#aee21b5b07410798dba4d2f8825d70893">start_lifetime_as</a> (const void *p,...)</td></tr>
-<tr class="separator:aee21b5b07410798dba4d2f8825d70893"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aadff66bf552eb9c174af908de0ac2f81"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
 <tr class="memitem:aadff66bf552eb9c174af908de0ac2f81"><td class="memTemplItemLeft" align="right" valign="top">constexpr T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as_1_1detail.html#aadff66bf552eb9c174af908de0ac2f81">_launder</a> (T *p) noexcept</td></tr>
 <tr class="separator:aadff66bf552eb9c174af908de0ac2f81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1637ace1d8a0d11de65c77b1c13e8d5"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:aa1637ace1d8a0d11de65c77b1c13e8d5"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as_1_1detail.html#aa1637ace1d8a0d11de65c77b1c13e8d5">_start_lifetime_as</a> (void *p)</td></tr>
 <tr class="separator:aa1637ace1d8a0d11de65c77b1c13e8d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af628743ec160ca5c902cb096ee3b1c6c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:af628743ec160ca5c902cb096ee3b1c6c"><td class="memTemplItemLeft" align="right" valign="top">const T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as_1_1detail.html#af628743ec160ca5c902cb096ee3b1c6c">_start_lifetime_as</a> (const void *p)</td></tr>
-<tr class="separator:af628743ec160ca5c902cb096ee3b1c6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a8254a05e5f407a64d893339eb6327fc4"></a>
@@ -149,7 +143,7 @@ template&lt;class T &gt; </div>
 </div>
 </div>
 <a id="aaf48c57af76a01bea2a6361ef0d011fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaf48c57af76a01bea2a6361ef0d011fc">&#9670;&nbsp;</a></span>start_lifetime_as() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf48c57af76a01bea2a6361ef0d011fc">&#9670;&nbsp;</a></span>start_lifetime_as()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -186,44 +180,6 @@ template&lt;typename T &gt; </div>
 <div class="fragment"><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;{ <span class="keywordflow">return</span> <span class="keyword">reinterpret_cast&lt;</span>T *<span class="keyword">&gt;</span>(p); }</div></div><!-- fragment -->
 </div>
 </div>
-<a id="aee21b5b07410798dba4d2f8825d70893"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee21b5b07410798dba4d2f8825d70893">&#9670;&nbsp;</a></span>start_lifetime_as() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const T* quickcpplib::_xxx::start_lifetime_as::detail::start_lifetime_as </td>
-          <td>(</td>
-          <td class="paramtype">const void *&#160;</td>
-          <td class="paramname"><em>p</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>...</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;{ <span class="keywordflow">return</span> launder&lt;T&gt;(<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span>T *<span class="keyword">&gt;</span>(p)); }</div></div><!-- fragment -->
-</div>
-</div>
 <a id="aadff66bf552eb9c174af908de0ac2f81"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aadff66bf552eb9c174af908de0ac2f81">&#9670;&nbsp;</a></span>_launder()</h2>
 
@@ -249,11 +205,11 @@ template&lt;class T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;{ <span class="keywordflow">return</span> launder&lt;T&gt;(p); }</div></div><!-- fragment -->
+<div class="fragment"><div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;{ <span class="keywordflow">return</span> launder&lt;T&gt;(p); }</div></div><!-- fragment -->
 </div>
 </div>
 <a id="aa1637ace1d8a0d11de65c77b1c13e8d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1637ace1d8a0d11de65c77b1c13e8d5">&#9670;&nbsp;</a></span>_start_lifetime_as() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1637ace1d8a0d11de65c77b1c13e8d5">&#9670;&nbsp;</a></span>_start_lifetime_as()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -277,35 +233,7 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;{ <span class="keywordflow">return</span> start_lifetime_as&lt;T&gt;(p); }</div></div><!-- fragment -->
-</div>
-</div>
-<a id="af628743ec160ca5c902cb096ee3b1c6c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af628743ec160ca5c902cb096ee3b1c6c">&#9670;&nbsp;</a></span>_start_lifetime_as() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const T* quickcpplib::_xxx::start_lifetime_as::detail::_start_lifetime_as </td>
-          <td>(</td>
-          <td class="paramtype">const void *&#160;</td>
-          <td class="paramname"><em>p</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;{ <span class="keywordflow">return</span> start_lifetime_as&lt;const T&gt;(p); }</div></div><!-- fragment -->
+<div class="fragment"><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;{ <span class="keywordflow">return</span> start_lifetime_as&lt;T&gt;(p); }</div></div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->
