@@ -37,11 +37,9 @@ namespace start_lifetime_as
     using namespace std;
     template <class T> constexpr inline T *launder(T *p, ...) noexcept { return p; }
     template <typename T> inline T *start_lifetime_as(void *p, ...) { return reinterpret_cast<T *>(p); }
-    template <typename T> inline const T *start_lifetime_as(const void *p, ...) { return launder<T>(reinterpret_cast<const T *>(p)); }
 
     template <class T> constexpr inline T *_launder(T *p) noexcept { return launder<T>(p); }
     template <typename T> inline T *_start_lifetime_as(void *p) { return start_lifetime_as<T>(p); }
-    template <typename T> inline const T *_start_lifetime_as(const void *p) { return start_lifetime_as<const T>(p); }
   }  // namespace detail
 
   //! `std::launder<T>` from C++ 17, or an emulation
@@ -49,7 +47,10 @@ namespace start_lifetime_as
   //! `std::start_lifetime_as<T>` from C++ 23, or an emulation
   template <typename T> QUICKCPPLIB_NODISCARD inline T *start_lifetime_as(void *p) { return detail::_start_lifetime_as<T>(p); }
   //! `std::start_lifetime_as<T>` from C++ 23, or an emulation
-  template <typename T> QUICKCPPLIB_NODISCARD inline const T *start_lifetime_as(const void *p) { return detail::_start_lifetime_as<T>(p); }
+  template <typename T> QUICKCPPLIB_NODISCARD inline const T *start_lifetime_as(const void *p)
+  {
+    return detail::_start_lifetime_as<const T>(const_cast<void *>(p)); /* works around a GCC bug */
+  }
 
 }  // namespace start_lifetime_as
 

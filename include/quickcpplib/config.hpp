@@ -109,7 +109,7 @@ namespace quickcpplib
 #if __has_feature(thread_sanitizer)
 #define QUICKCPPLIB_IN_THREAD_SANITIZER 1
 #endif
-#elif defined(__SANITIZE_ADDRESS__)
+#elif defined(__SANITIZE_THREAD__)
 #define QUICKCPPLIB_IN_THREAD_SANITIZER 1
 #endif
 #endif
