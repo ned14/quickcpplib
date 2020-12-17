@@ -104,6 +104,12 @@ for branch in ['develop', 'master']:
     while True:
         found = False
         commits_to_merge = []
+        # This tool cannot handle finding parents of parents, so use this hack to resume history merging
+        # at the correct place whenever one swaps source repo branches.
+        #if destcommit.hexsha == '39b94381e28c1076271fdbcda1a795c4b594275a':
+        #    print('Commit', destcommit, 'has merge parent', destcommit.parents[1])
+        #    destcommit.parents = (destcommit.parents[0], 'b10de5009274c00a1ce5b3167d405a9ce339f3e8')
+        #    print('Commit', destcommit, 'replaced merge parent with', destcommit.parents[1])
         if len(destcommit.parents) > 1:
             # Find the merge parent in srcbranch
             count = 0
@@ -114,12 +120,17 @@ for branch in ['develop', 'master']:
                 if destcommit.parents[1] == srccommit:
                     found = True
                     break
-                if count > 100 or not srccommit.parents:
+                if isinstance(destcommit.parents[1], str) and destcommit.parents[1] == srccommit.hexsha:
+                    found = True
+                    break
+                if count > 100:
+                    break
+                if not srccommit.parents:
                     break
                 srccommit = srccommit.parents[0]
         if found:
             commits_to_merge.reverse()
-            print(branch + ": Last source commit merged was", commits_to_merge[0])
+            print(branch + ": Last source commit merged was %s (%s) on %s" % (commits_to_merge[0].hexsha, commits_to_merge[0].message.replace('\n', ' '), commits_to_merge[0].authored_datetime))
             commits_to_merge = commits_to_merge[1:]
             print("Commits to merge now:")
             for commit in commits_to_merge:
@@ -149,3 +160,6 @@ for branch in ['develop', 'master']:
           author = commit.author,
           author_date = emailutils.formatdate(time.mktime(commit.authored_datetime.timetuple()))
         )
+    if not found and len(commits_to_merge) == 0:
+        print("WARNING: Could not find merge parent in original repo, so have merged nothing!\n")
+
