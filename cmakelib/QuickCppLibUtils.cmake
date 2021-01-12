@@ -290,6 +290,7 @@ endfunction()
 #       REQUIRED: fail if not found
 #          LOCAL: always git clone a local edition instead of using cmake package edition
 #        INBUILD: add the dependency as a part of this build instead of using the installed edition
+#    INCLUDE_ALL: don't use EXCLUDE_FROM_ALL in add_subdirectory()
 # GIT_REPOSITORY: git repository to clone if library not found
 #        GIT_TAG: git branch or tag or SHA to clone
 #
@@ -310,7 +311,7 @@ function(find_quickcpplib_library libraryname)
   else()
     set(siblingenabled OFF)
   endif()
-  cmake_parse_arguments(FINDLIB "QUIET;REQUIRED;LOCAL;INBUILD;IS_HEADER_ONLY" "GIT_REPOSITORY;GIT_TAG" "" ${ARGN})
+  cmake_parse_arguments(FINDLIB "QUIET;REQUIRED;LOCAL;INBUILD;INCLUDE_ALL;IS_HEADER_ONLY" "GIT_REPOSITORY;GIT_TAG" "" ${ARGN})
   if(FINDLIB_KEYWORDS_MISSING_VALUES)
     message(FATAL_ERROR "FATAL: No values given for keywords ${FINDLIB_KEYWORDS_MISSING_VALUES}")
   endif()
@@ -387,10 +388,16 @@ function(find_quickcpplib_library libraryname)
     if(FINDLIB_LOCAL_PATH)
       set(MESSAGE_INDENT "${MESSAGE_INDENT}  ")
       set(PROJECT_IS_DEPENDENCY TRUE)
-      add_subdirectory("${FINDLIB_LOCAL_PATH}"
-        "${QUICKCPPLIB_ROOT_BINARY_DIR}/${libraryname}_sibling"
-        EXCLUDE_FROM_ALL
-      )
+      if(FINDLIB_INCLUDE_ALL)
+        add_subdirectory("${FINDLIB_LOCAL_PATH}"
+          "${QUICKCPPLIB_ROOT_BINARY_DIR}/${libraryname}_sibling"
+        )
+      else()
+        add_subdirectory("${FINDLIB_LOCAL_PATH}"
+          "${QUICKCPPLIB_ROOT_BINARY_DIR}/${libraryname}_sibling"
+          EXCLUDE_FROM_ALL
+        )
+      endif()
       set(${libraryname}_DIR "${FINDLIB_LOCAL_PATH}")
       set(${libraryname}_FOUND TRUE)
       # Reset policies after using add_subdirectory() which usually means a cmake_minimum_required()
