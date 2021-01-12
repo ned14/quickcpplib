@@ -5,8 +5,8 @@ set(QuickCppLibUtilsIncluded ON)
 set(QuickCppLibCMakePath "${CMAKE_CURRENT_LIST_DIR}")
 include(FindGit)
 if(NOT GIT_FOUND)
-  message(FATAL_ERROR "FATAL: The quickcpplib infrastructure is very tightly integrated with git"
-                      " and requires it to be available")
+  message(WARNING "WARNING: The quickcpplib infrastructure is very tightly integrated with git"
+                  " and requires it to be available. Proceeding anyway.")
 endif()
 
 # Returns a path with forward slashes replaced with backslashes on WIN32
@@ -99,6 +99,10 @@ endfunction()
 
 # Determines if a git repo has changed
 function(git_repo_changed dir outvar)
+  if(NOT GIT_FOUND)
+    set(${outvar} TRUE PARENT_SCOPE)
+    return()
+  endif()
   execute_process(COMMAND "${GIT_EXECUTABLE}" status --porcelain
     WORKING_DIRECTORY "${dir}"
     OUTPUT_VARIABLE status
@@ -118,6 +122,9 @@ endfunction()
 
 # Gets the committed SHA in the index for some entry
 function(git_repo_get_entry_sha dir entry outvar)
+  if(NOT GIT_FOUND)
+    message(FATAL_ERROR "FATAL: Git executable not found")
+  endif()
   # git ls-files -s produces entries of the format:
   #   100644 e10ce7c26311e43f337b1f3929450e1804059adf 0       test/test.vcxproj
   execute_process(COMMAND "${GIT_EXECUTABLE}" ls-files -s
@@ -642,7 +649,10 @@ endfunction()
 
 function(ensure_git_subrepo path url)
   if(NOT EXISTS "${path}")
-    include(FindGit)
+    if(NOT GIT_FOUND)
+      message(WARNING "WARNING: git not found, so cannot ensure git subrepo ${path} is up to date.")
+      return()
+    endif()
     message(STATUS "NOTE: Due to missing ${path}, running ${GIT_EXECUTABLE} submodule update --init --recursive --depth 1 --jobs 8 ...")
     execute_process(COMMAND "${GIT_EXECUTABLE}" submodule update --init --recursive --depth 1 --jobs 8
       WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
