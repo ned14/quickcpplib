@@ -668,6 +668,7 @@ function(ensure_git_subrepo path url)
     if(retcode OR NOT EXISTS "${path}")
       # Try pulling repo directly from github
       get_filename_component(path "${path}" DIRECTORY)
+      file(REMOVE_RECURSE "${path}")
       get_filename_component(path "${path}" DIRECTORY)
       message(WARNING "WARNING: git submodule update failed with code ${retcode}, trying a direct git clone ...")
       execute_process(COMMAND "${GIT_EXECUTABLE}" clone --recurse-submodules --depth 1 --jobs 8 --shallow-submodules ${url} ${ARGN}
