@@ -665,7 +665,7 @@ function(ensure_git_subrepo path url)
       WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
       RESULT_VARIABLE retcode
     )
-    if(retcode)
+    if(retcode OR NOT EXISTS "${path}")
       # Try pulling repo directly from github
       get_filename_component(path "${path}" DIRECTORY)
       get_filename_component(path "${path}" DIRECTORY)
