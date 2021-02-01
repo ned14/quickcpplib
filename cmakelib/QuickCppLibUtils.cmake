@@ -3,7 +3,7 @@ if(QuickCppLibUtilsIncluded)
 endif()
 set(QuickCppLibUtilsIncluded ON)
 set(QuickCppLibCMakePath "${CMAKE_CURRENT_LIST_DIR}")
-include(FindGit)
+find_package(Git)
 if(NOT GIT_FOUND)
   message(WARNING "WARNING: The quickcpplib infrastructure is very tightly integrated with git"
                   " and requires it to be available. Proceeding anyway.")
