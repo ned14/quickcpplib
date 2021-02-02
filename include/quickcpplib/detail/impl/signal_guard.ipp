@@ -485,7 +485,7 @@ linker,                                                                         
       }
       return 0 /*EXCEPTION_CONTINUE_SEARCH*/;
     }
-    SIGNALGUARD_FUNC_DECL long win32_vectored_exception_function(win32::_EXCEPTION_POINTERS *ptrs) noexcept
+    SIGNALGUARD_FUNC_DECL long __stdcall win32_vectored_exception_function(win32::_EXCEPTION_POINTERS *ptrs) noexcept
     {
       lock.lock();
       if(global_signal_deciders_front != nullptr)
