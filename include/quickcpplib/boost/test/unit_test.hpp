@@ -662,10 +662,14 @@ extern inline int quickcpplib_unit_testing_main(int argc, const char* const argv
   int result = QUICKCPPLIB_BOOST_UNIT_TEST_RUN_TESTS(argc, argv);
   return result;
 }
-#if defined(_WIN64)
+#if(defined(__x86_64__) || defined(_M_X64)) || (defined(__aarch64__) || defined(_M_ARM64))
 #pragma comment(linker, "/alternatename:main=?quickcpplib_unit_testing_main@@YAHHQEBQEBD@Z")
-#else
+#elif defined(__x86__) || defined(_M_X86) || defined(__i386__)
 #pragma comment(linker, "/alternatename:_main=?quickcpplib_unit_testing_main@@YAHHQBQBD@Z")
+#elif defined(__arm__) || defined(_M_ARM)
+#pragma comment(linker, "/alternatename:main=?quickcpplib_unit_testing_main@@YAHHQBQBD@Z")
+#else
+#error Unknown architecture
 #endif
 #else
 BOOST_BINDLIB_ENABLE_MULTIPLE_DEFINITIONS int main(int argc, const char *const argv[])

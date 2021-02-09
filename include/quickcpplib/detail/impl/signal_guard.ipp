@@ -355,7 +355,7 @@ namespace signal_guard
 #define QUICKCPPLIB_SIGNAL_GUARD_SYMBOL2(a, b, c) a #b c
 #define QUICKCPPLIB_SIGNAL_GUARD_SYMBOL1(a, b, c) QUICKCPPLIB_SIGNAL_GUARD_SYMBOL2(a, b, c)
 #define QUICKCPPLIB_SIGNAL_GUARD_SYMBOL(a, b) QUICKCPPLIB_SIGNAL_GUARD_SYMBOL1(a, QUICKCPPLIB_PREVIOUS_COMMIT_UNIQUE, b)
-#if defined(_WIN64)
+#if(defined(__x86_64__) || defined(_M_X64)) || (defined(__aarch64__) || defined(_M_ARM64))
 #pragma comment(linker,                                                                                                                                        \
                 QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RaiseException@win32@detail@signal_guard@_", "@quickcpplib@@YAXKKKPEB_K@Z=RaiseException"))
 #pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?SetUnhandledExceptionFilter@win32@detail@signal_guard@_",                             \
@@ -364,7 +364,7 @@ namespace signal_guard
                                                         "@quickcpplib@@YAPEAXKP6AJPEAU_EXCEPTION_POINTERS@12345@@Z@Z=AddVectoredContinueHandler"))
 #pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RemoveVectoredContinueHandler@win32@detail@signal_guard@_",                           \
                                                         "@quickcpplib@@YAKPEAX@Z=RemoveVectoredContinueHandler"))
-#else
+#elif defined(__x86__) || defined(_M_X86) || defined(__i386__)
 #pragma comment(                                                                                                                                               \
 linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RaiseException@win32@detail@signal_guard@_", "@quickcpplib@@YGXKKKPB_K@Z=__imp__RaiseException@16"))
 #pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?SetUnhandledExceptionFilter@win32@detail@signal_guard@_",                             \
@@ -373,9 +373,20 @@ linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RaiseException@win32@de
                                                         "@quickcpplib@@YGPAXKP6GJPAU_EXCEPTION_POINTERS@12345@@Z@Z=__imp__AddVectoredContinueHandler@8"))
 #pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RemoveVectoredContinueHandler@win32@detail@signal_guard@_",                           \
                                                         "@quickcpplib@@YGKPAX@Z=__imp__RemoveVectoredContinueHandler@4"))
+#elif defined(__arm__) || defined(_M_ARM)
+#pragma comment(linker,                                                                                                                                        \
+                QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RaiseException@win32@detail@signal_guard@_", "@quickcpplib@@YAXKKKPB_K@Z=RaiseException"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?SetUnhandledExceptionFilter@win32@detail@signal_guard@_",                             \
+                                                        "@quickcpplib@@YAP6AJPAU_EXCEPTION_POINTERS@12345@@ZP6AJ0@Z@Z=SetUnhandledExceptionFilter"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?AddVectoredContinueHandler@win32@detail@signal_guard@_",                              \
+                                                        "@quickcpplib@@YAPAXKP6AJPAU_EXCEPTION_POINTERS@12345@@Z@Z=AddVectoredContinueHandler"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RemoveVectoredContinueHandler@win32@detail@signal_guard@_",                           \
+                                                        "@quickcpplib@@YAKPAX@Z=RemoveVectoredContinueHandler"))
+#else
+#error Unknown architecture
 #endif
 #else
-#if defined(_WIN64)
+#if(defined(__x86_64__) || defined(_M_X64)) || (defined(__aarch64__) || defined(_M_ARM64))
 #pragma comment(linker, "/alternatename:?RaiseException@win32@detail@signal_guard@quickcpplib@@YAXKKKPEB_K@Z=RaiseException")
 #pragma comment(                                                                                                                                               \
 linker,                                                                                                                                                        \
@@ -384,7 +395,7 @@ linker,                                                                         
 linker,                                                                                                                                                        \
 "/alternatename:?AddVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YAPEAXKP6AJPEAU_EXCEPTION_POINTERS@12345@@Z@Z=AddVectoredContinueHandler")
 #pragma comment(linker, "/alternatename:?RemoveVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YAKPEAX@Z=RemoveVectoredContinueHandler")
-#else
+#elif defined(__x86__) || defined(_M_X86) || defined(__i386__)
 #pragma comment(linker, "/alternatename:?RaiseException@win32@detail@signal_guard@quickcpplib@@YGXKKKPB_K@Z=__imp__RaiseException@16")
 #pragma comment(                                                                                                                                               \
 linker,                                                                                                                                                        \
@@ -393,6 +404,16 @@ linker,                                                                         
 linker,                                                                                                                                                        \
 "/alternatename:?AddVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YGPAXKP6GJPAU_EXCEPTION_POINTERS@@@Z@Z=__imp__AddVectoredContinueHandler@8")
 #pragma comment(linker, "/alternatename:?RemoveVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YGKPAX@Z=__imp__RemoveVectoredContinueHandler@4")
+#elif defined(__arm__) || defined(_M_ARM)
+#pragma comment(linker, "/alternatename:?RaiseException@win32@detail@signal_guard@quickcpplib@@YAXKKKPB_K@Z=RaiseException")
+#pragma comment(                                                                                                                                               \
+linker,                                                                                                                                                        \
+"/alternatename:?SetUnhandledExceptionFilter@win32@detail@signal_guard@quickcpplib@@YAP6AJPAU_EXCEPTION_POINTERS@12345@@ZP6AJ0@Z@Z=SetUnhandledExceptionFilter")
+#pragma comment(                                                                                                                                               \
+linker, "/alternatename:?AddVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YAPAXKP6AJPAU_EXCEPTION_POINTERS@12345@@Z@Z=AddVectoredContinueHandler")
+#pragma comment(linker, "/alternatename:?RemoveVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YAKPAX@Z=RemoveVectoredContinueHandler")
+#else
+#error Unknown architecture
 #endif
 #endif
     }  // namespace win32

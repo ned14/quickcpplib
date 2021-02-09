@@ -25,7 +25,11 @@ inline usCount GetUsCount()
       scalefactor = 1;
   }
   if(!QueryPerformanceCounter(&val))
+#if _WIN32_WINNT >= 0x600
+    return (usCount) GetTickCount64() * 1000000000;
+#else
     return (usCount) GetTickCount() * 1000000000;
+#endif
   return (usCount)(val.QuadPart / scalefactor);
 }
 #else
@@ -49,13 +53,13 @@ inline usCount GetUsCount()
 
 inline uint64_t ticksclock()
 {
+#if defined(__i386__) || defined(_M_IX86) || defined(__x86_64__) || defined(_M_X64)
 #ifdef _MSC_VER
   auto rdtscp = [] {
     unsigned x;
     return (uint64_t) __rdtscp(&x);
   };
-#else
-#if defined(__x86_64__)
+#elif defined(__x86_64__)
   auto rdtscp = [] {
     unsigned lo, hi, aux;
     asm volatile("rdtscp" : "=a"(lo), "=d"(hi), "=c"(aux));
@@ -68,13 +72,38 @@ inline uint64_t ticksclock()
     return (uint64_t) lo | ((uint64_t) hi << 32);
   };
 #endif
-#if __ARM_ARCH >= 6
+#elif defined(__aarch64__) || defined(_M_ARM64)
+#if !defined(_MSC_VER) || (defined(_MSC_VER) && defined(__clang__) && !defined(__c2__))
+  static const auto uint64_t _ReadStatusReg(int what) = []() {
+    uint64_t value = 0;
+    (void) what;
+    __asm__ __volatile__("mrs %0, PMCCNTR_EL0" : "=r"(value));  // NOLINT
+    return value;
+  };
+#endif
+  auto rdtscp = [] {
+    uint64_t count = _ReadStatusReg(ARM64_PMCCNTR_EL0);
+    return count;
+  };
+#elif defined(__arm__) || defined(_M_ARM)
+#if __ARM_ARCH >= 6 || defined(_MSC_VER)
+#if !defined(_MSC_VER) || (defined(_MSC_VER) && defined(__clang__) && !defined(__c2__))
+  static const auto unsigned int _MoveFromCoprocessor(unsigned int coproc, unsigned int opcode1, unsigned int crn, unsigned int crm,
+                                                      unsigned int opcode2) = []() {
+    unsigned int value = 0;
+    __asm__ __volatile__("MRC %1, %2, %0, %3, %4, %5" : "=r"(value) : "i"(coproc), "i"(opcode1), "i"(crn), "i"(crm), "i"(opcode2));  // NOLINT
+    return value;
+  };
+#endif
   auto rdtscp = [] {
     unsigned count;
-    asm volatile("MRC p15, 0, %0, c9, c13, 0" : "=r"(count));
+    // asm volatile("MRC p15, 0, %0, c9, c13, 0" : "=r"(count));
+    count = _MoveFromCoprocessor(15, 0, 9, 13, 0);
     return (uint64_t) count * 64;
   };
 #endif
+#else
+#error Unsupported platform
 #endif
   return rdtscp();
 }

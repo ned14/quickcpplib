@@ -35,21 +35,33 @@ namespace win32
   extern _Ret_maybenull_ void *__stdcall LoadLibraryA(_In_ const char *lpLibFileName);
   typedef int(__stdcall *GetProcAddress_returntype)();
   extern GetProcAddress_returntype __stdcall GetProcAddress(_In_ void *hModule, _In_ const char *lpProcName);
-  extern _Success_(return != 0) unsigned short __stdcall RtlCaptureStackBackTrace(_In_ unsigned long FramesToSkip, _In_ unsigned long FramesToCapture, _Out_writes_to_(FramesToCapture, return ) void **BackTrace, _Out_opt_ unsigned long *BackTraceHash);
+  extern _Success_(return != 0) unsigned short __stdcall RtlCaptureStackBackTrace(_In_ unsigned long FramesToSkip, _In_ unsigned long FramesToCapture,
+                                                                                  _Out_writes_to_(FramesToCapture, return ) void **BackTrace,
+                                                                                  _Out_opt_ unsigned long *BackTraceHash);
   extern _Success_(return != 0)
-  _When_((cchWideChar == -1) && (cbMultiByte != 0), _Post_equal_to_(_String_length_(lpMultiByteStr) + 1)) int __stdcall WideCharToMultiByte(_In_ unsigned int CodePage, _In_ unsigned long dwFlags, const wchar_t *lpWideCharStr, _In_ int cchWideChar, _Out_writes_bytes_to_opt_(cbMultiByte, return ) char *lpMultiByteStr,
-                                                                                                                                            _In_ int cbMultiByte, _In_opt_ const char *lpDefaultChar, _Out_opt_ int *lpUsedDefaultChar);
+  _When_((cchWideChar == -1) && (cbMultiByte != 0),
+         _Post_equal_to_(_String_length_(lpMultiByteStr) +
+                         1)) int __stdcall WideCharToMultiByte(_In_ unsigned int CodePage, _In_ unsigned long dwFlags, const wchar_t *lpWideCharStr,
+                                                               _In_ int cchWideChar, _Out_writes_bytes_to_opt_(cbMultiByte, return ) char *lpMultiByteStr,
+                                                               _In_ int cbMultiByte, _In_opt_ const char *lpDefaultChar, _Out_opt_ int *lpUsedDefaultChar);
 #pragma comment(lib, "kernel32.lib")
-#if defined(_WIN64)
+#if(defined(__x86_64__) || defined(_M_X64)) || (defined(__aarch64__) || defined(_M_ARM64))
 #pragma comment(linker, "/alternatename:?LoadLibraryA@win32@@YAPEAXPEBD@Z=LoadLibraryA")
 #pragma comment(linker, "/alternatename:?GetProcAddress@win32@@YAP6AHXZPEAXPEBD@Z=GetProcAddress")
 #pragma comment(linker, "/alternatename:?RtlCaptureStackBackTrace@win32@@YAGKKPEAPEAXPEAK@Z=RtlCaptureStackBackTrace")
 #pragma comment(linker, "/alternatename:?WideCharToMultiByte@win32@@YAHIKPEB_WHPEADHPEBDPEAH@Z=WideCharToMultiByte")
-#else
+#elif defined(__x86__) || defined(_M_X86) || defined(__i386__)
 #pragma comment(linker, "/alternatename:?LoadLibraryA@win32@@YGPAXPBD@Z=__imp__LoadLibraryA@4")
 #pragma comment(linker, "/alternatename:?GetProcAddress@win32@@YGP6GHXZPAXPBD@Z=__imp__GetProcAddress@8")
 #pragma comment(linker, "/alternatename:?RtlCaptureStackBackTrace@win32@@YGGKKPAPAXPAK@Z=__imp__RtlCaptureStackBackTrace@16")
 #pragma comment(linker, "/alternatename:?WideCharToMultiByte@win32@@YGHIKPB_WHPADHPBDPAH@Z=__imp__WideCharToMultiByte@32")
+#elif defined(__arm__) || defined(_M_ARM)
+#pragma comment(linker, "/alternatename:?LoadLibraryA@win32@@YAPAXPBD@Z=LoadLibraryA")
+#pragma comment(linker, "/alternatename:?GetProcAddress@win32@@YAP6AHXZPAXPBD@Z=GetProcAddress")
+#pragma comment(linker, "/alternatename:?RtlCaptureStackBackTrace@win32@@YAGKKPAPAXPAK@Z=RtlCaptureStackBackTrace")
+#pragma comment(linker, "/alternatename:?WideCharToMultiByte@win32@@YAHIKPB_WHPADHPBDPAH@Z=WideCharToMultiByte")
+#else
+#error Unknown architecture
 #endif
 }  // namespace win32
 #else
@@ -78,7 +90,8 @@ namespace
 
   typedef int(__stdcall *SymInitialize_t)(_In_ void *hProcess, _In_opt_ const wchar_t *UserSearchPath, _In_ int fInvadeProcess);
 
-  typedef int(__stdcall *SymGetLineFromAddr64_t)(_In_ void *hProcess, _In_ unsigned long long int dwAddr, _Out_ unsigned long *pdwDisplacement, _Out_ PIMAGEHLP_LINE64 Line);
+  typedef int(__stdcall *SymGetLineFromAddr64_t)(_In_ void *hProcess, _In_ unsigned long long int dwAddr, _Out_ unsigned long *pdwDisplacement,
+                                                 _Out_ PIMAGEHLP_LINE64 Line);
 
   static std::atomic<unsigned> dbghelp_init_lock;
 #if defined(__cplusplus) && !defined(__clang__)

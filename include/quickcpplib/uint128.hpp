@@ -92,13 +92,13 @@ namespace integers128
     // uint128 operator--() noexcept;
     // uint128 operator--(int) noexcept;
 
-    uint128 operator+(uint128 v) const noexcept
+    uint128 operator+(const uint128 &v) const noexcept
     {
       uint128 t(*this);
       t += v;
       return t;
     }
-    uint128 operator+=(uint128 v) noexcept
+    uint128 operator+=(const uint128 &v) noexcept
     {
 // Produces wrong result on GCC
 #if 0  // defined(__GNUC__) || defined(__clang__)
@@ -111,13 +111,13 @@ namespace integers128
       as_longlongs[1] += (as_longlongs[0] < o);
       return *this;
     }
-    uint128 operator-(uint128 v) const noexcept
+    uint128 operator-(const uint128 &v) const noexcept
     {
       uint128 t(*this);
       t -= v;
       return t;
     }
-    uint128 operator-=(uint128 v) noexcept
+    uint128 operator-=(const uint128 &v) noexcept
     {
 // Produces wrong result on GCC
 #if 0  // defined(__GNUC__) || defined(__clang__)
@@ -134,13 +134,13 @@ namespace integers128
     // uint128 operator*=(uint128 v) noexcept;
     // uint128 operator/(uint128 v) const noexcept;
     // uint128 operator/=(uint128 v) noexcept;
-    uint128 operator%(uint128 v) const noexcept
+    uint128 operator%(const uint128 &v) const noexcept
     {
       uint128 t(*this);
       t %= v;
       return t;
     }
-    uint128 operator%=(uint128 b)
+    uint128 operator%=(const uint128 &b)
     {
       if(!b)
         throw std::domain_error("divide by zero");

@@ -61,8 +61,10 @@ namespace mem_flush_loads_stores
     {
 #if defined(__i386__) || defined(_M_IX86) || defined(__x86_64__) || defined(_M_X64)
 #if !defined(_MSC_VER) || (defined(_MSC_VER) && defined(__clang__) && !defined(__c2__))
-      static const auto __cpuidex = [](int *cpuInfo, int func1, int func2) { __asm__ __volatile__("cpuid\n\t" : "=a"(cpuInfo[0]), "=b"(cpuInfo[1]), "=c"(cpuInfo[2]), "=d"(cpuInfo[3]) : "a"(func1), "c"(func2)); };  // NOLINT
-      // static constexpr auto _mm_clwb = [](const void *addr) { __asm__ __volatile__("clwb (%0)\n\t" : : "r"(addr)); };                                                                                                 // NOLINT
+      static const auto __cpuidex = [](int *cpuInfo, int func1, int func2) {
+        __asm__ __volatile__("cpuid\n\t" : "=a"(cpuInfo[0]), "=b"(cpuInfo[1]), "=c"(cpuInfo[2]), "=d"(cpuInfo[3]) : "a"(func1), "c"(func2));
+      };  // NOLINT
+      // static constexpr auto _mm_clwb = [](const void *addr) { __asm__ __volatile__("clwb (%0)\n\t" : : "r"(addr)); }; // NOLINT
       static const auto _mm_clwb = [](const void *addr) { __asm__ __volatile__(".byte 0x66, 0x0f, 0xae, 0x30\n\t" : : "a"(addr)); };  // NOLINT
       static const auto _mm_clflushopt = [](const void *addr) { __asm__ __volatile__("clflushopt (%0)\n\t" : : "r"(addr)); };         // NOLINT
       static const auto _mm_clflush = [](const void *addr) { __asm__ __volatile__("clflush (%0)\n\t" : : "r"(addr)); };               // NOLINT
@@ -120,48 +122,73 @@ namespace mem_flush_loads_stores
           return memory_flush_evict;
         };
       }
-#elif defined(__aarch64__)
+#elif defined(__aarch64__) || defined(_M_ARM64)
+#if !defined(_MSC_VER) || (defined(_MSC_VER) && defined(__clang__) && !defined(__c2__))
+      static const auto _dmb_ish() = []() { __asm__ __volatile__("dmb ish" : : : "memory"); };
+      static const auto _dc_cvac(const void *addr) = []() { __asm__ __volatile__("dc cvac, %0" : : "r"(addr) : "memory"); };
+      static const auto _dc_civac(const void *addr) = []() { __asm__ __volatile__("dc civac, %0" : : "r"(addr) : "memory"); };
+#else
+      static const auto _dmb_ish() = []() { __dmb(_ARM64_BARRIER_ISH); };
+      static const auto _dc_cvac(const void *addr) = []() {
+        (void) addr;
+        abort();  // currently MSVC doesn't have an intrinsic for this, could use __emit()?
+      };
+      static const auto _dc_civac(const void *addr) = []() {
+        (void) addr;
+        abort();  // currently MSVC doesn't have an intrinsic for this, could use __emit()?
+      };
+#endif
       return [](const void *addr, size_t bytes, memory_flush kind) -> memory_flush {
         if(kind == memory_flush_retain)
         {
           while(bytes > 0)
           {
-            __asm__ __volatile__("dc cvac, %0" : : "r"(addr) : "memory");
+            _dc_cvac(addr);
             addr = (void *) ((uintptr_t) addr + 64);
             bytes -= 64;
           }
-          __asm__ __volatile__("dmb ish" : : : "memory");
+          _dmb_ish();
           return memory_flush_retain;
         }
         while(bytes > 0)
         {
-          __asm__ __volatile__("dc civac, %0" : : "r"(addr) : "memory");
+          _dc_civac(addr);
           addr = (void *) ((uintptr_t) addr + 64);
           bytes -= 64;
         }
-        __asm__ __volatile__("dmb ish" : : : "memory");
+        _dmb_ish();
         return memory_flush_evict;
       };
-#elif defined(__arm__)
+#elif defined(__arm__) || defined(_M_ARM)
+#if !defined(_MSC_VER) || (defined(_MSC_VER) && defined(__clang__) && !defined(__c2__))
+      static const auto _MoveToCoprocessor(unsigned int value, unsigned int coproc, unsigned int opcode1, unsigned int crn, unsigned int crm,
+                                           unsigned int opcode2) = []() {
+        __asm__ __volatile__("MCR %1, %2, %0, %3, %4, %5" : : "r"(value), "i"(coproc), "i"(opcode1), "i"(crn), "i"(crm), "i"(opcode2) : "memory");  // NOLINT
+      };
+#endif
       return [](const void *addr, size_t bytes, memory_flush kind) -> memory_flush {
         if(kind == memory_flush_retain)
         {
           while(bytes > 0)
           {
-            __asm__ __volatile__("MCR p15, 0, %0, c7, c10, 1" : : "r"(addr) : "memory");
+            // __asm__ __volatile__("MCR p15, 0, %0, c7, c10, 1" : : "r"(addr) : "memory");
+            _MoveToCoprocessor((size_t) addr, 15, 0, 7, 10, 1);
             addr = (void *) ((uintptr_t) addr + 64);
             bytes -= 64;
           }
-          __asm__ __volatile__("mcr p15, 0, %0, c7, c10, 5" : : "r"(0) : "memory");
+          // __asm__ __volatile__("mcr p15, 0, %0, c7, c10, 5" : : "r"(0) : "memory");
+          _MoveToCoprocessor(0, 15, 0, 7, 10, 5);
           return memory_flush_retain;
         }
         while(bytes > 0)
         {
-          __asm__ __volatile__("MCR p15, 0, %0, c7, c14, 1" : : "r"(addr) : "memory");
+          // __asm__ __volatile__("MCR p15, 0, %0, c7, c14, 1" : : "r"(addr) : "memory");
+          _MoveToCoprocessor((size_t) addr, 15, 0, 7, 14, 1);
           addr = (void *) ((uintptr_t) addr + 64);
           bytes -= 64;
         }
-        __asm__ __volatile__("mcr p15, 0, %0, c7, c10, 5" : : "r"(0) : "memory");
+        // __asm__ __volatile__("mcr p15, 0, %0, c7, c10, 5" : : "r"(0) : "memory");
+        _MoveToCoprocessor(0, 15, 0, 7, 10, 5);
         return memory_flush_evict;
       };
 #else
@@ -205,7 +232,8 @@ namespace mem_flush_loads_stores
   nothing. Only `memory_flush_evict` evicts all the cache lines for the region
   of memory, thus ensuring that subsequent loads are from main memory.
   */
-  inline memory_flush mem_force_reload(const byte *data, size_t bytes, memory_flush kind = memory_flush_none, std::memory_order order = std::memory_order_acquire) noexcept
+  inline memory_flush mem_force_reload(const byte *data, size_t bytes, memory_flush kind = memory_flush_none,
+                                       std::memory_order order = std::memory_order_acquire) noexcept
   {
     memory_flush ret = kind;
     // Ensure reload elimination does not occur on our region by calling a
@@ -228,7 +256,12 @@ namespace mem_flush_loads_stores
   /*! \brief Sized C byte array overload for `mem_force_reload()`.
   \addtogroup P1631
   */
-  template <size_t N> inline memory_flush mem_force_reload(const byte (&region)[N], memory_flush kind = memory_flush_none, std::memory_order order = std::memory_order_acquire) noexcept { return mem_force_reload(region, N, kind, order); }
+  template <size_t N>
+  inline memory_flush mem_force_reload(const byte (&region)[N], memory_flush kind = memory_flush_none,
+                                       std::memory_order order = std::memory_order_acquire) noexcept
+  {
+    return mem_force_reload(region, N, kind, order);
+  }
 
   /*! \brief Ensures that dead store elimination does not happen for a region of
   memory, optionally synchronising the region with main memory.
@@ -247,7 +280,8 @@ namespace mem_flush_loads_stores
   some very poor performance. Check the value returned to see what kind of flush
   was actually performed.
   */
-  inline memory_flush mem_flush_stores(const byte *data, size_t bytes, memory_flush kind = memory_flush_none, std::memory_order order = std::memory_order_release) noexcept
+  inline memory_flush mem_flush_stores(const byte *data, size_t bytes, memory_flush kind = memory_flush_none,
+                                       std::memory_order order = std::memory_order_release) noexcept
   {
     // I really wish this would work on a region, not globally
     atomic_thread_fence(order);
@@ -270,7 +304,12 @@ namespace mem_flush_loads_stores
   /*! \brief Sized C byte array overload for `mem_flush_stores()`.
   \addtogroup P1631
   */
-  template <size_t N> inline memory_flush mem_flush_stores(const byte (&region)[N], memory_flush kind = memory_flush_none, std::memory_order order = std::memory_order_release) noexcept { return mem_flush_stores(region, N, kind, order); }
+  template <size_t N>
+  inline memory_flush mem_flush_stores(const byte (&region)[N], memory_flush kind = memory_flush_none,
+                                       std::memory_order order = std::memory_order_release) noexcept
+  {
+    return mem_flush_stores(region, N, kind, order);
+  }
 
 }  // namespace mem_flush_loads_stores
 
