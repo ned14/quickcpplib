@@ -664,7 +664,7 @@ extern inline int quickcpplib_unit_testing_main(int argc, const char* const argv
 }
 #if(defined(__x86_64__) || defined(_M_X64)) || (defined(__aarch64__) || defined(_M_ARM64))
 #pragma comment(linker, "/alternatename:main=?quickcpplib_unit_testing_main@@YAHHQEBQEBD@Z")
-#elif defined(__x86__) || defined(_M_X86) || defined(__i386__)
+#elif defined(__x86__) || defined(_M_IX86) || defined(__i386__)
 #pragma comment(linker, "/alternatename:_main=?quickcpplib_unit_testing_main@@YAHHQBQBD@Z")
 #elif defined(__arm__) || defined(_M_ARM)
 #pragma comment(linker, "/alternatename:main=?quickcpplib_unit_testing_main@@YAHHQBQBD@Z")

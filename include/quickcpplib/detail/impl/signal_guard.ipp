@@ -364,7 +364,7 @@ namespace signal_guard
                                                         "@quickcpplib@@YAPEAXKP6AJPEAU_EXCEPTION_POINTERS@12345@@Z@Z=AddVectoredContinueHandler"))
 #pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RemoveVectoredContinueHandler@win32@detail@signal_guard@_",                           \
                                                         "@quickcpplib@@YAKPEAX@Z=RemoveVectoredContinueHandler"))
-#elif defined(__x86__) || defined(_M_X86) || defined(__i386__)
+#elif defined(__x86__) || defined(_M_IX86) || defined(__i386__)
 #pragma comment(                                                                                                                                               \
 linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RaiseException@win32@detail@signal_guard@_", "@quickcpplib@@YGXKKKPB_K@Z=__imp__RaiseException@16"))
 #pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?SetUnhandledExceptionFilter@win32@detail@signal_guard@_",                             \
@@ -395,7 +395,7 @@ linker,                                                                         
 linker,                                                                                                                                                        \
 "/alternatename:?AddVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YAPEAXKP6AJPEAU_EXCEPTION_POINTERS@12345@@Z@Z=AddVectoredContinueHandler")
 #pragma comment(linker, "/alternatename:?RemoveVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YAKPEAX@Z=RemoveVectoredContinueHandler")
-#elif defined(__x86__) || defined(_M_X86) || defined(__i386__)
+#elif defined(__x86__) || defined(_M_IX86) || defined(__i386__)
 #pragma comment(linker, "/alternatename:?RaiseException@win32@detail@signal_guard@quickcpplib@@YGXKKKPB_K@Z=__imp__RaiseException@16")
 #pragma comment(                                                                                                                                               \
 linker,                                                                                                                                                        \
