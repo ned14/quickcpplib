@@ -1,5 +1,5 @@
 /* Ensuring no load nor dead store elimination
-(C) 2018 - 2019 Niall Douglas <http://www.nedproductions.biz/> (3 commits)
+(C) 2018 - 2021 Niall Douglas <http://www.nedproductions.biz/> (3 commits)
 File Created: April 2018
 
 
@@ -124,16 +124,16 @@ namespace mem_flush_loads_stores
       }
 #elif defined(__aarch64__) || defined(_M_ARM64)
 #if !defined(_MSC_VER) || (defined(_MSC_VER) && defined(__clang__) && !defined(__c2__))
-      static const auto _dmb_ish() = []() { __asm__ __volatile__("dmb ish" : : : "memory"); };
-      static const auto _dc_cvac(const void *addr) = []() { __asm__ __volatile__("dc cvac, %0" : : "r"(addr) : "memory"); };
-      static const auto _dc_civac(const void *addr) = []() { __asm__ __volatile__("dc civac, %0" : : "r"(addr) : "memory"); };
+      static const auto _dmb_ish = []() { __asm__ __volatile__("dmb ish" : : : "memory"); };
+      static const auto _dc_cvac = [](const void *addr) { __asm__ __volatile__("dc cvac, %0" : : "r"(addr) : "memory"); };
+      static const auto _dc_civac = [](const void *addr) { __asm__ __volatile__("dc civac, %0" : : "r"(addr) : "memory"); };
 #else
-      static const auto _dmb_ish() = []() { __dmb(_ARM64_BARRIER_ISH); };
-      static const auto _dc_cvac(const void *addr) = []() {
+      static const auto _dmb_ish = []() { __dmb(_ARM64_BARRIER_ISH); };
+      static const auto _dc_cvac = [](const void *addr) {
         (void) addr;
         abort();  // currently MSVC doesn't have an intrinsic for this, could use __emit()?
       };
-      static const auto _dc_civac(const void *addr) = []() {
+      static const auto _dc_civac = [](const void *addr) {
         (void) addr;
         abort();  // currently MSVC doesn't have an intrinsic for this, could use __emit()?
       };
@@ -161,8 +161,8 @@ namespace mem_flush_loads_stores
       };
 #elif defined(__arm__) || defined(_M_ARM)
 #if !defined(_MSC_VER) || (defined(_MSC_VER) && defined(__clang__) && !defined(__c2__))
-      static const auto _MoveToCoprocessor(unsigned int value, unsigned int coproc, unsigned int opcode1, unsigned int crn, unsigned int crm,
-                                           unsigned int opcode2) = []() {
+      static const auto _MoveToCoprocessor = [](unsigned int value, unsigned int coproc, unsigned int opcode1, unsigned int crn, unsigned int crm,
+                                                unsigned int opcode2) {
         __asm__ __volatile__("MCR %1, %2, %0, %3, %4, %5" : : "r"(value), "i"(coproc), "i"(opcode1), "i"(crn), "i"(crm), "i"(opcode2) : "memory");  // NOLINT
       };
 #endif

@@ -74,7 +74,7 @@ inline uint64_t ticksclock()
 #endif
 #elif defined(__aarch64__) || defined(_M_ARM64)
 #if !defined(_MSC_VER) || (defined(_MSC_VER) && defined(__clang__) && !defined(__c2__))
-  static const auto uint64_t _ReadStatusReg(int what) = []() {
+  static const auto uint64_t _ReadStatusReg = [](int what) {
     uint64_t value = 0;
     (void) what;
     __asm__ __volatile__("mrs %0, PMCCNTR_EL0" : "=r"(value));  // NOLINT
@@ -88,8 +88,8 @@ inline uint64_t ticksclock()
 #elif defined(__arm__) || defined(_M_ARM)
 #if __ARM_ARCH >= 6 || defined(_MSC_VER)
 #if !defined(_MSC_VER) || (defined(_MSC_VER) && defined(__clang__) && !defined(__c2__))
-  static const auto unsigned int _MoveFromCoprocessor(unsigned int coproc, unsigned int opcode1, unsigned int crn, unsigned int crm,
-                                                      unsigned int opcode2) = []() {
+  static const auto unsigned int _MoveFromCoprocessor = [](unsigned int coproc, unsigned int opcode1, unsigned int crn, unsigned int crm,
+                                                           unsigned int opcode2) {
     unsigned int value = 0;
     __asm__ __volatile__("MRC %1, %2, %0, %3, %4, %5" : "=r"(value) : "i"(coproc), "i"(opcode1), "i"(crn), "i"(crm), "i"(opcode2));  // NOLINT
     return value;
