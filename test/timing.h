@@ -88,12 +88,9 @@ inline uint64_t ticksclock()
 #elif defined(__arm__) || defined(_M_ARM)
 #if __ARM_ARCH >= 6 || defined(_MSC_VER)
 #if !defined(_MSC_VER) || (defined(_MSC_VER) && defined(__clang__) && !defined(__c2__))
-  static const auto unsigned int _MoveFromCoprocessor = [](unsigned int coproc, unsigned int opcode1, unsigned int crn, unsigned int crm,
-                                                           unsigned int opcode2) {
-    unsigned int value = 0;
-    __asm__ __volatile__("MRC %1, %2, %0, %3, %4, %5" : "=r"(value) : "i"(coproc), "i"(opcode1), "i"(crn), "i"(crm), "i"(opcode2));  // NOLINT
-    return value;
-  };
+#undef _MoveFromCoprocessor
+#define _MoveFromCoprocessor(coproc, opcode1, crn, crm, opcode2)                                                                                          \
+  ({ unsigned value; __asm__ __volatile__("MRC p" #coproc ", " #opcode1 ", %0, c" #crn ", c" #crm ", " #opcode2 : "=r"(value)); value; })  // NOLINT
 #endif
   auto rdtscp = [] {
     unsigned count;

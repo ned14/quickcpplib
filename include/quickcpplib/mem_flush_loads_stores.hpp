@@ -161,10 +161,9 @@ namespace mem_flush_loads_stores
       };
 #elif defined(__arm__) || defined(_M_ARM)
 #if !defined(_MSC_VER) || (defined(_MSC_VER) && defined(__clang__) && !defined(__c2__))
-      static const auto _MoveToCoprocessor = [](unsigned int value, unsigned int coproc, unsigned int opcode1, unsigned int crn, unsigned int crm,
-                                                unsigned int opcode2) {
-        __asm__ __volatile__("MCR %1, %2, %0, %3, %4, %5" : : "r"(value), "i"(coproc), "i"(opcode1), "i"(crn), "i"(crm), "i"(opcode2) : "memory");  // NOLINT
-      };
+#undef _MoveToCoprocessor
+#define _MoveToCoprocessor(value, coproc, opcode1, crn, crm, opcode2)                                                                                          \
+  __asm__ __volatile__("MCR p" #coproc ", " #opcode1 ", %0, c" #crn ", c" #crm ", " #opcode2 : : "r"(value) : "memory");  // NOLINT
 #endif
       return [](const void *addr, size_t bytes, memory_flush kind) -> memory_flush {
         if(kind == memory_flush_retain)
@@ -172,7 +171,7 @@ namespace mem_flush_loads_stores
           while(bytes > 0)
           {
             // __asm__ __volatile__("MCR p15, 0, %0, c7, c10, 1" : : "r"(addr) : "memory");
-            _MoveToCoprocessor((size_t) addr, 15, 0, 7, 10, 1);
+            _MoveToCoprocessor(addr, 15, 0, 7, 10, 1);
             addr = (void *) ((uintptr_t) addr + 64);
             bytes -= 64;
           }
@@ -183,7 +182,7 @@ namespace mem_flush_loads_stores
         while(bytes > 0)
         {
           // __asm__ __volatile__("MCR p15, 0, %0, c7, c14, 1" : : "r"(addr) : "memory");
-          _MoveToCoprocessor((size_t) addr, 15, 0, 7, 14, 1);
+          _MoveToCoprocessor(addr, 15, 0, 7, 14, 1);
           addr = (void *) ((uintptr_t) addr + 64);
           bytes -= 64;
         }
