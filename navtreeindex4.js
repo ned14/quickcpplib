@@ -1,5 +1,14 @@
 var NAVTREEINDEX4 =
 {
+"namespacemembers_p.html":[4,1,0,13],
+"namespacemembers_q.html":[4,1,0,14],
+"namespacemembers_r.html":[4,1,0,15],
+"namespacemembers_s.html":[4,1,0,16],
+"namespacemembers_t.html":[4,1,0,17],
+"namespacemembers_type.html":[4,1,3],
+"namespacemembers_u.html":[4,1,0,18],
+"namespacemembers_vars.html":[4,1,2],
+"namespacemembers_w.html":[4,1,0,19],
 "namespacemembers_y.html":[4,1,0,20],
 "namespacenonstd.html":[4,0,2],
 "namespacequickcpplib.html":[5,0,1],
@@ -67,8 +76,8 @@ var NAVTREEINDEX4 =
 "namespacequickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl.html":[4,0,3,0,15,1],
 "namespacequickcpplib_1_1__xxx_1_1pmr.html":[5,0,1,0,14],
 "namespacequickcpplib_1_1__xxx_1_1pmr.html":[4,0,3,0,16],
-"namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html":[4,0,3,0,17],
 "namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html":[5,0,1,0,15],
+"namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html":[4,0,3,0,17],
 "namespacequickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail.html":[4,0,3,0,17,0],
 "namespacequickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail.html":[5,0,1,0,15,0],
 "namespacequickcpplib_1_1__xxx_1_1scope.html":[4,0,3,0,18],
@@ -240,14 +249,5 @@ var NAVTREEINDEX4 =
 "scope_8hpp.html#ace2db86f11cd22af2babbd0100609282":[6,0,0,0,26,0],
 "scope_8hpp.html#ad282b62495f2e6348fc686accf1868f0":[6,0,0,0,26,1],
 "scope_8hpp.html#aff58ddf2d65ee18a8b09c9c4eb077eb1":[6,0,0,0,26,4],
-"scope_8hpp.html#aff58ddf2d65ee18a8b09c9c4eb077eb1a260ca9dd8a4577fc00b7bd5810298076":[6,0,0,0,26,4,2],
-"scope_8hpp.html#aff58ddf2d65ee18a8b09c9c4eb077eb1ae11185b6e35c1b767174dc988aa0f179":[6,0,0,0,26,4,1],
-"scope_8hpp.html#aff58ddf2d65ee18a8b09c9c4eb077eb1af24f62eeb789199b9b2e467df3b1876b":[6,0,0,0,26,4,0],
-"secded__ecc_8hpp.html":[6,0,0,0,0,3],
-"secded__ecc_8hpp.html#a13b8b088fbfa4b9c7ff4f2b2b47b7ec0":[6,0,0,0,0,3,1],
-"secded__ecc_8hpp.html#a5402ceb5f5a6f996c87f2282f012918f":[6,0,0,0,0,3,2],
-"signal__guard_8hpp.html":[6,0,0,0,27],
-"signal__guard_8hpp.html#a06cbc88f5bc098a33d1f6fb544f99d44":[6,0,0,0,27,31],
-"signal__guard_8hpp.html#a07c0b588e32fae9509fb187c85fcc3bb":[6,0,0,0,27,15],
-"signal__guard_8hpp.html#a12361db9ccab81c70c9055554e374540":[6,0,0,0,27,9]
+"scope_8hpp.html#aff58ddf2d65ee18a8b09c9c4eb077eb1a260ca9dd8a4577fc00b7bd5810298076":[6,0,0,0,26,4,2]
 };

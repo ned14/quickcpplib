@@ -1,5 +1,11 @@
 var NAVTREEINDEX2 =
 {
+"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html#ae41185e8563d3b50fa35001dc97fcf19":[5,0,1,0,15,2,0,18],
+"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html#ae9f6593a9610af99fef7c90944161a46":[5,0,1,0,15,2,0,23],
+"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html#aeecb15f35c82184e50e639b7f272b07e":[5,0,1,0,15,2,0,9],
+"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html#af1958e874cf758be8b2cf1fb4b801598":[5,0,1,0,15,2,0,27],
+"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html#af3cb6813a4c0d3859415c2cd4f9571e5":[5,0,1,0,15,2,0,20],
+"classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__global__decider.html":[5,0,1,0,17,0],
 "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__global__decider.html#a092c61274212911b46915d0bcbd72250":[5,0,1,0,17,0,4],
 "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__global__decider.html#a1ac8ba4f1fd8f346f872e93b93498400":[5,0,1,0,17,0,3],
 "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__global__decider.html#a7b18023f7a61e15a9be6e1404257e2e8":[5,0,1,0,17,0,5],
@@ -243,11 +249,5 @@ var NAVTREEINDEX2 =
 "functions_k.html":[5,3,0,10],
 "functions_l.html":[5,3,0,11],
 "functions_m.html":[5,3,0,12],
-"functions_n.html":[5,3,0,13],
-"functions_o.html":[5,3,0,14],
-"functions_p.html":[5,3,0,15],
-"functions_r.html":[5,3,0,16],
-"functions_rela.html":[5,3,6],
-"functions_s.html":[5,3,0,17],
-"functions_t.html":[5,3,0,18]
+"functions_n.html":[5,3,0,13]
 };
