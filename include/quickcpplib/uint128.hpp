@@ -28,6 +28,7 @@ Distributed under the Boost Software License, Version 1.0.
 #include "config.hpp"
 
 #include <cstdint>
+#include <stdexcept>  // for std::domain_error
 
 #if defined(__SSE2__) || defined(_M_X64) || (defined(_M_IX86_FP) && _M_IX86_FP >= 2)
 #include <emmintrin.h>  // for __m128i on VS2017
