@@ -518,7 +518,7 @@ namespace algorithm
       //! Hash input
       QUICKCPPLIB_TEMPLATE(class T)
       QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(sizeof(T) == 1), QUICKCPPLIB_TPRED(std::is_trivially_copyable<T>::value))
-      constexpr inline void add(const T *message, size_t length) noexcept
+      inline void add(const T *message, size_t length) noexcept
       {
         using namespace fash_hash_detail;
         uint64 h0, h1, h2, h3, h4, h5, h6, h7, h8, h9, h10, h11;
@@ -622,7 +622,7 @@ namespace algorithm
       }
 
       //! Finalise and return hash
-      constexpr inline uint128 finalise() noexcept
+      inline uint128 finalise() noexcept
       {
         using namespace fash_hash_detail;
         uint128 ret;
@@ -675,7 +675,7 @@ namespace algorithm
       //! Single shot hash of a sequence of bytes
       QUICKCPPLIB_TEMPLATE(class T)
       QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(sizeof(T) == 1), QUICKCPPLIB_TPRED(std::is_trivially_copyable<T>::value))
-      static constexpr inline uint128 hash(const T *message, size_t length, const uint128 &_ret = 0) noexcept
+      static inline uint128 hash(const T *message, size_t length, const uint128 &_ret = 0) noexcept
       {
         uint128 ret(_ret);
         using namespace fash_hash_detail;
