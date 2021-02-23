@@ -9,8 +9,5 @@ var hash_8hpp =
     [ "uint8", "hash_8hpp.html#ab9183446ba1e1d6982f457edc396f132", null ],
     [ "uint32", "hash_8hpp.html#a5e4058cdc8028143e859891fb98d502a", null ],
     [ "uint64", "hash_8hpp.html#aba7265cad2a1655202120b12e80c7151", null ],
-    [ "uint128", "hash_8hpp.html#a060ca1134fd68c8c9cb028d8c4f97104", null ],
-    [ "cmemcpy", "hash_8hpp.html#a8ffc483d72b72fa9cac2dbdb41403100", null ],
-    [ "cmemcmp", "hash_8hpp.html#a4213008e56735f240a38c292ae228a55", null ],
-    [ "cmemset", "hash_8hpp.html#ace9699c0fc4437862733241e0fdadd5c", null ]
+    [ "uint128", "hash_8hpp.html#a060ca1134fd68c8c9cb028d8c4f97104", null ]
 ];

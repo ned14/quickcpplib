@@ -1,6 +1,7 @@
 var dir_32c385b866dd7a60c2b68309c8f1bf3f =
 [
     [ "hash.hpp", "hash_8hpp.html", "hash_8hpp" ],
+    [ "memory.hpp", "memory_8hpp.html", "memory_8hpp" ],
     [ "open_hash_index.hpp", "open__hash__index_8hpp.html", "open__hash__index_8hpp" ],
     [ "prime_modulus.hpp", "prime__modulus_8hpp.html", "prime__modulus_8hpp" ],
     [ "secded_ecc.hpp", "secded__ecc_8hpp.html", "secded__ecc_8hpp" ],

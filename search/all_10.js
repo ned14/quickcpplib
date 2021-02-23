@@ -19,6 +19,7 @@ var searchData=
   ['quick_20c_2b_2b_20libraries',['Quick C++ Libraries',['../index.html',1,'']]],
   ['integers128',['integers128',['../namespacequickcpplib_1_1__xxx_1_1integers128.html',1,'quickcpplib::_xxx']]],
   ['mem_5fflush_5floads_5fstores',['mem_flush_loads_stores',['../namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html',1,'quickcpplib::_xxx']]],
+  ['memory',['memory',['../namespacequickcpplib_1_1__xxx_1_1algorithm_1_1memory.html',1,'quickcpplib::_xxx::algorithm']]],
   ['offset_5fptr',['offset_ptr',['../namespacequickcpplib_1_1__xxx_1_1offset__ptr.html',1,'quickcpplib::_xxx']]],
   ['open_5fhash_5findex',['open_hash_index',['../namespacequickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index.html',1,'quickcpplib::_xxx::algorithm']]],
   ['optional',['optional',['../namespacequickcpplib_1_1__xxx_1_1optional.html',1,'quickcpplib::_xxx']]],
