@@ -26,86 +26,15 @@ Distributed under the Boost Software License, Version 1.0.
 #define QUICKCPPLIB_ALGORITHM_HASH_HPP
 
 #include "../uint128.hpp"
+#include "memory.hpp"
 
 #include <cassert>
-#include <cstring>  // for memcpy
 #include <type_traits>
 
 QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace algorithm
 {
-  QUICKCPPLIB_TEMPLATE(class T)
-  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(sizeof(T) == 1), QUICKCPPLIB_TPRED(std::is_trivially_copyable<T>::value))
-  constexpr inline T *cmemcpy(T *dst, const T *src, size_t num)
-  {
-#if __cpp_lib_is_constant_evaluated >= 201811
-    if(std::is_constant_evaluated())
-    {
-#endif
-      for(size_t n = 0; n < num; n++)
-      {
-        dst[n] = src[n];
-      }
-#if __cpp_lib_is_constant_evaluated >= 201811
-    }
-    else
-    {
-      memcpy(dst, src, num);
-    }
-#endif
-    return dst;
-  }
-  QUICKCPPLIB_TEMPLATE(class T)
-  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(sizeof(T) == 1), QUICKCPPLIB_TPRED(std::is_trivially_copyable<T>::value))
-  constexpr inline int cmemcmp(const T *a, const T *b, size_t num)
-  {
-#if __cpp_lib_is_constant_evaluated >= 201811
-    if(std::is_constant_evaluated())
-    {
-#endif
-      for(size_t n = 0; n < num; n++)
-      {
-        if(a[n] < b[n])
-        {
-          return -1;
-        }
-        else if(a[n] > b[n])
-        {
-          return 1;
-        }
-      }
-      return 0;
-#if __cpp_lib_is_constant_evaluated >= 201811
-    }
-    else
-    {
-      return memcmp(a, b, num);
-    }
-#endif
-  }
-  QUICKCPPLIB_TEMPLATE(class T)
-  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(sizeof(T) == 1), QUICKCPPLIB_TPRED(std::is_trivially_copyable<T>::value))
-  constexpr inline T *cmemset(T *dst, T value, size_t num)
-  {
-#if __cpp_lib_is_constant_evaluated >= 201811
-    if(std::is_constant_evaluated())
-    {
-#endif
-      for(size_t n = 0; n < num; n++)
-      {
-        dst[n] = value;
-      }
-#if __cpp_lib_is_constant_evaluated >= 201811
-    }
-    else
-    {
-      memset(dst, (int) value, num);
-    }
-#endif
-    return dst;
-  }
-
   namespace hash
   {
     //! \brief A STL compatible hash which passes through its input
@@ -392,7 +321,7 @@ namespace algorithm
 
       QUICKCPPLIB_TEMPLATE(class T)
       QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(sizeof(T) == 1), QUICKCPPLIB_TPRED(std::is_trivially_copyable<T>::value))
-      static constexpr inline void short_(uint128 &hash, const T *message, size_t length) noexcept
+      static inline void short_(uint128 &hash, const T *message, size_t length) noexcept
       {
         using namespace fash_hash_detail;
         uint64 buf[2 * sc_numVars];
@@ -725,7 +654,7 @@ namespace algorithm
         // handle the last partial block of sc_blockSize bytes
         remainder = (length - ((const uint8 *) end - (const uint8 *) message));
         memcpy(buf, end, remainder);
-        cmemset(((uint8 *) buf) + remainder, (uint8) 0, sc_blockSize - remainder);
+        memory::cmemset(((uint8 *) buf) + remainder, (uint8) 0, sc_blockSize - remainder);
         ((uint8 *) buf)[sc_blockSize - 1] = (uint8) remainder;
 
         // do some final mixing
@@ -924,7 +853,7 @@ namespace algorithm
         space_in_chunk--;
         if(space_in_chunk < _TOTAL_LEN_LEN)
         {
-          cmemset(_chunk + _chunkidx, (uint8_t) 0, space_in_chunk);
+          memory::cmemset(_chunk + _chunkidx, (uint8_t) 0, space_in_chunk);
           _chunkidx += space_in_chunk;
           assert(_chunkidx == _CHUNK_SIZE);
           add((const uint8_t *) nullptr, 0);
@@ -934,7 +863,7 @@ namespace algorithm
         assert(space_in_chunk >= _TOTAL_LEN_LEN);
 
         const size_t left = space_in_chunk - _TOTAL_LEN_LEN;
-        cmemset(_chunk + _chunkidx, (uint8_t) 0, left);
+        memory::cmemset(_chunk + _chunkidx, (uint8_t) 0, left);
         _chunkidx += left;
 
         /* Storing of len * 8 as a big endian 64-bit without overflow. */

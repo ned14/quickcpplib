@@ -101,14 +101,23 @@ This lets one pack one byte of input into two bytes of output.
     QUICKCPPLIB_TEMPLATE(class CharType, class T)
     QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(sizeof(T) == 1), QUICKCPPLIB_TPRED(std::is_trivially_copyable<T>::value),
                           QUICKCPPLIB_TPRED(!std::is_const<CharType>::value))
-    inline size_t to_hex_string(span::span<CharType> out, const span::span<const T> in) { return to_hex_string(out.data(), out.size(), in.data(), in.size()); }
+    inline size_t to_hex_string(span::span<CharType> out, const span::span<T> in) { return to_hex_string(out.data(), out.size(), in.data(), in.size()); }
     //! \overload
     QUICKCPPLIB_TEMPLATE(class T)
     QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(sizeof(T) == 1), QUICKCPPLIB_TPRED(std::is_trivially_copyable<T>::value))
-    inline std::string to_hex_string(span::span<const T> in)
+    inline std::string to_hex_string(span::span<T> in)
     {
       std::string out(in.size() * 2, ' ');
       to_hex_string(const_cast<char *>(out.data()), out.size(), in.data(), in.size());
+      return out;
+    }
+    //! \overload
+    QUICKCPPLIB_TEMPLATE(class T)
+    QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(sizeof(T) == 1), QUICKCPPLIB_TPRED(std::is_trivially_copyable<T>::value))
+    inline std::string to_hex_string(const T *in, size_t len)
+    {
+      std::string out(len * 2, ' ');
+      to_hex_string(const_cast<char *>(out.data()), out.size(), in, len);
       return out;
     }
 
