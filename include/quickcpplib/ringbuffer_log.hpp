@@ -1,5 +1,5 @@
 /* Very fast threadsafe ring buffer log
-(C) 2016-2017 Niall Douglas <http://www.nedproductions.biz/> (21 commits)
+(C) 2016-2021 Niall Douglas <http://www.nedproductions.biz/> (21 commits)
 File Created: Mar 2016
 
 
@@ -275,12 +275,23 @@ namespace ringbuffer_log
                           {
                             break;
                           }
+                          // std::cerr << bt[n] << " dli_fname = " << info.dli_fname << " dli_fbase = " << info.dli_fbase
+                          //          << std::endl;
                           addrs.append(info.dli_fname);
                           addrs.append(" 0x");
-                          const char *end = strrchr(info.dli_fname, '/');
-                          if(end != nullptr /*&& strstr(end, ".so") != nullptr*/)
+                          const bool has_slash = (strrchr(info.dli_fname, '/') != nullptr);
+                          const bool is_dll = (strstr(info.dli_fname, ".so") != nullptr);
+                          if(has_slash)
                           {
-                            ssize_t diff = (char *) backtrace[n] - (char *) info.dli_fbase;
+                            ssize_t diff;
+                            if(is_dll)
+                            {
+                              diff = (char *) backtrace[n] - (char *) info.dli_fbase;
+                            }
+                            else
+                            {
+                              diff = (ssize_t) backtrace[n];
+                            }
                             char buffer[32];
                             sprintf(buffer, "%zx", diff);
                             addrs.append(buffer);
@@ -293,6 +304,7 @@ namespace ringbuffer_log
                           }
                           addrs.push_back('\n');
                         }
+                        // std::cerr << "\n\n---\n" << addrs << "---\n\n" << std::endl;
                         // Suppress SIGPIPE
                         sigset_t toblock, oldset;
                         sigemptyset(&toblock);
