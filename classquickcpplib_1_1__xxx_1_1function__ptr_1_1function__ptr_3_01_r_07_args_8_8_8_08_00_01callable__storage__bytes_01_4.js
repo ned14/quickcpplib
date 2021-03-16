@@ -17,6 +17,6 @@ var classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8
     [ "ptr_type", "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#acddd051da242a6dfc0b6f8c08b60aac4", null ],
     [ "operator()", "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#ac5779e3d4b6031e225aaf07708d59c79", null ],
     [ "reset", "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#ac9d24c06e085e06be40b0fd880410b9f", null ],
-    [ "emplace_function_ptr", "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#a0bad3c1393c6454fa5c9207895860e1e", null ],
-    [ "emplace_function_ptr_nothrow", "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#a2868a1d9c848aa8d966e6c56d7120631", null ]
+    [ "emplace_function_ptr", "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#a7c66f52c3bb001db7ba17173ecf6f99b", null ],
+    [ "emplace_function_ptr_nothrow", "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#a55734487c5edd7fb081405b5291227b9", null ]
 ];

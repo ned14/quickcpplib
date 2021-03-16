@@ -1,6 +1,7 @@
 var annotated_dup =
 [
     [ "algorithm", "namespacealgorithm.html", "namespacealgorithm" ],
+    [ "nonstd", "namespacenonstd.html", null ],
     [ "quickcpplib", "namespacequickcpplib.html", "namespacequickcpplib" ],
     [ "std", null, [
       [ "experimental", "namespacestd_1_1experimental.html", "namespacestd_1_1experimental" ],

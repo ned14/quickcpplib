@@ -1,15 +1,45 @@
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this file.
+
+Copyright (C) 1997-2019 by Dimitri van Heesch
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of version 2 of the GNU General Public License as published by
+the Free Software Foundation
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+@licend  The above is the entire license notice
+for the JavaScript code in this file
+*/
 var NAVTREE =
 [
   [ "QuickCppLib", "index.html", [
-    [ "Quick C++ Libraries", "index.html", null ],
-    [ "Optional", "md_include_quickcpplib_optional__r_e_a_d_m_e.html", null ],
+    [ "Quick C++ Libraries", "index.html", [
+      [ "Requirements:", "index.html#autotoc_md1", null ],
+      [ "Commits and tags in this git repository can be verified using:", "index.html#autotoc_md2", null ]
+    ] ],
+    [ "Optional", "md_include_quickcpplib_optional__r_e_a_d_m_e.html", [
+      [ "Usage", "md_include_quickcpplib_optional__r_e_a_d_m_e.html#autotoc_md6", null ],
+      [ "Supported compilers", "md_include_quickcpplib_optional__r_e_a_d_m_e.html#autotoc_md7", null ],
+      [ "Known Issues", "md_include_quickcpplib_optional__r_e_a_d_m_e.html#autotoc_md8", null ],
+      [ "License", "md_include_quickcpplib_optional__r_e_a_d_m_e.html#autotoc_md9", null ]
+    ] ],
     [ "Todo List", "todo.html", null ],
     [ "Modules", "modules.html", "modules" ],
-    [ "Namespaces", null, [
-      [ "Namespace List", "namespaces.html", "namespaces" ],
+    [ "Namespaces", "namespaces.html", [
+      [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
         [ "All", "namespacemembers.html", "namespacemembers_dup" ],
-        [ "Functions", "namespacemembers_func.html", null ],
+        [ "Functions", "namespacemembers_func.html", "namespacemembers_func" ],
         [ "Variables", "namespacemembers_vars.html", null ],
         [ "Typedefs", "namespacemembers_type.html", null ],
         [ "Enumerations", "namespacemembers_enum.html", null ]
@@ -29,8 +59,8 @@ var NAVTREE =
         [ "Related Functions", "functions_rela.html", null ]
       ] ]
     ] ],
-    [ "Files", null, [
-      [ "File List", "files.html", "files" ],
+    [ "Files", "files.html", [
+      [ "File List", "files.html", "files_dup" ],
       [ "File Members", "globals.html", [
         [ "All", "globals.html", "globals_dup" ],
         [ "Functions", "globals_func.html", null ],
@@ -47,13 +77,14 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 ".html",
-"classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#acddd051da242a6dfc0b6f8c08b60aac4",
-"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html#ae41185e8563d3b50fa35001dc97fcf19",
-"functions_o.html",
-"namespacemembers_o.html",
-"scope_8hpp.html#aff58ddf2d65ee18a8b09c9c4eb077eb1",
-"structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type.html#a0576d18f2aaa0381605b51e8471552cd",
-"structstd_1_1experimental_1_1_void_nothrow_both.html#a8ed2898a0bd1f3e70d7b532afa7366ca"
+"classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01void_00_01_align_00_01initialize_01_4.html#acce725e97fd733c9bea8523486730832",
+"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a9ebc3992615ee32cf3cf62032dcd513b",
+"function__ptr_8hpp.html#a0a042e98664a4b59937d1b2a680cea25",
+"md_include_quickcpplib_optional__r_e_a_d_m_e.html",
+"optional_2optional_8hpp.html#acd496ce7fb815b5ed07c64c3c50473a5",
+"structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1passthru__hash.html",
+"structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy.html#a0521a940033a44edc033f0dda30da32e",
+"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#a31679af5286ac9b52bb4bc4cd9bada5d"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

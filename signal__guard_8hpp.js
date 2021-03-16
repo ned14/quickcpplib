@@ -33,7 +33,7 @@ var signal__guard_8hpp =
     [ "signal_guard_decider_create", "signal__guard_8hpp.html#af3c6f651bfcc822d8e12c330858a9e61", null ],
     [ "signal_guard_decider_destroy", "signal__guard_8hpp.html#a9fa7645a3baffab74235e7edb6cbc24d", null ],
     [ "QUICKCPPLIB_BITFIELD_BEGIN_T", "signal__guard_8hpp.html#a24aefe1560e2bc5d78180c90e8b27a52", null ],
-    [ "signalc_to_string", "signal__guard_8hpp.html#a642df706deee4198eeb61b15d31c77fa", null ],
+    [ "signalc_to_string", "signal__guard_8hpp.html#a101955960759703f7f7e100c29823526", null ],
     [ "signal_guards_installed", "signal__guard_8hpp.html#ad29e94df82f1734f6f0a556d6514b1cd", null ],
     [ "make_signal_guard_global_decider", "signal__guard_8hpp.html#aaee5ee8095c91a043b353799da2a9c15", null ],
     [ "thrd_raise_signal", "signal__guard_8hpp.html#ae4b20dfa20a5b0d0eefb2a0760baff8b", null ],

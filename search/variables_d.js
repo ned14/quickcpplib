@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['passes',['passes',['../structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#af1dd0113b3bed1a2592766a4c45b3e86',1,'quickcpplib::_xxx::unit_test::test_case']]],
-  ['ptr_5fvalue',['ptr_value',['../unionraised__signal__info__value.html#afd0caa605544d3df19ebd6d46a6fb27d',1,'raised_signal_info_value']]]
+  ['oc_1553',['oc',['../namespaceconstexpr__optional__ref__and__arrow.html#ad9172ec025835d3fd2fbc7cf9485531e',1,'constexpr_optional_ref_and_arrow']]],
+  ['otherwise_1554',['OTHERWISE',['../_l_i_c_e_n_s_e__1__0_8txt.html#ae54af06b740f9d21cc1b1937117baf62',1,'LICENSE_1_0.txt']]]
 ];
