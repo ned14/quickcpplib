@@ -27,6 +27,7 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "../span.hpp"
 
+#include <algorithm>
 #include <locale>
 #include <string>
 

@@ -160,7 +160,12 @@ namespace ringbuffer_log
         {
           if(_function[0])
           {
-            strncpy(function, _function, sizeof(function));
+            size_t _functionlen = strlen(_function) + 1;
+            if(_functionlen > sizeof(function))
+            {
+              _functionlen = sizeof(function);
+            }
+            memcpy(function, _function, _functionlen);
             char temp[32], *e = function;
             for(size_t n = 0; n < sizeof(function) && *e != 0; n++, e++)
               ;

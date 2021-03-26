@@ -84,7 +84,7 @@ BOOST_AUTO_TEST_CASE(hash / fast_hash, "Tests that algorithm::fast_hash() works 
   {
     buf[i] = (uint8_t)((i + 128)&0xff);
     auto hash = QUICKCPPLIB_NAMESPACE::algorithm::hash::fast_hash::hash(buf, i);
-    printf("%3d: saw 0x%.8lx, expected 0x%.8lx\n", i, hash.as_ints[0], expected[i]);
+    printf("%3d: saw 0x%.8x, expected 0x%.8x\n", i, hash.as_ints[0], expected[i]);
     BOOST_CHECK(hash.as_ints[0] == expected[i]);
   }
 }
