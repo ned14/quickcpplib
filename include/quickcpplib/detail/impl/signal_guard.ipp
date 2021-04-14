@@ -1,5 +1,5 @@
 /* Signal guard support
-(C) 2018-2020 Niall Douglas <http://www.nedproductions.biz/> (4 commits)
+(C) 2018-2021 Niall Douglas <http://www.nedproductions.biz/> (4 commits)
 File Created: June 2018
 
 
@@ -315,6 +315,7 @@ namespace signal_guard
       }
       else
       {
+        lock.unlock();
         std::abort();
       }
     }
@@ -804,7 +805,9 @@ linker, "/alternatename:?AddVectoredContinueHandler@win32@detail@signal_guard@qu
           ret = sigaction(signo, &detail::handler_counts[signo].former, nullptr);
           if(ret == -1)
           {
+            detail::lock.unlock();
             abort();
+            detail::lock.lock();
           }
           sigaddset(&set, signo);
           setsigprocmask = true;
