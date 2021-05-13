@@ -183,15 +183,25 @@ extern "C"
         {
           // Keep offset till later
           ret[n] = (char *) ((char *) p - (char *) ret);
-          if(!SymGetLineFromAddr64 || !SymGetLineFromAddr64((void *) (size_t) -1 /*GetCurrentProcess()*/, (size_t) bt[n], &displ, &ihl))
           {
-            if(n == 0)
+            static std::atomic<unsigned> symlock(0);
+            while(symlock.exchange(1, std::memory_order_acq_rel))
+              ;
+            if(!SymGetLineFromAddr64 || !SymGetLineFromAddr64((void *) (size_t) -1 /*GetCurrentProcess()*/, (size_t) bt[n], &displ, &ihl))
             {
-              free(ret);
-              return NULL;
+              symlock.store(0, std::memory_order_release);
+              if(n == 0)
+              {
+                free(ret);
+                return NULL;
+              }
+              ihl.FileName = (wchar_t *) L"unknown";
+              ihl.LineNumber = 0;
             }
-            ihl.FileName = (wchar_t *) L"unknown";
-            ihl.LineNumber = 0;
+            else
+            {
+              symlock.store(0, std::memory_order_release);
+            }
           }
         retry:
           if(please_realloc)

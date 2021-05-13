@@ -522,11 +522,14 @@ namespace signal_guard
   of some operation, which cannot be fixed by the calling of `h`. The default `h` simply throws a `signal_raised`
   C++ exception.
 
-  \note Note that on POSIX, if a `signal_guard_install` is not already instanced for the guarded set,
+  \note On POSIX, if a `signal_guard_install` is not already instanced for the guarded set,
   one is temporarily installed, which is not quick. You are therefore very strongly recommended, when on POSIX,
   to call this function with a `signal_guard_install` already installed for all the signals you will ever guard.
   `signal_guard_install` is guaranteed to be composable and be safe to use within static data init, so a common
   use pattern is simply to place a guard install into your static data init.
+
+  \note On MSVC because `std::set_terminate()` is thread local, we ALWAYS install our termination handler for
+  every thread on creation and we never uninstall it.
   */
   QUICKCPPLIB_TEMPLATE(class F, class H, class C, class... Args, class R = decltype(std::declval<F>()(std::declval<Args>()...)))
   QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(std::is_constructible<R, decltype(std::declval<H>()(std::declval<const raised_signal_info *>()))>::value),  //

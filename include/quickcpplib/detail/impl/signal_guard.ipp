@@ -203,7 +203,11 @@ namespace signal_guard
     static configurable_spinlock::spinlock<uintptr_t> lock;
     static unsigned new_handler_count, terminate_handler_count;
     static std::new_handler new_handler_old;
+#ifdef _MSC_VER
+    static thread_local std::terminate_handler terminate_handler_old;
+#else
     static std::terminate_handler terminate_handler_old;
+#endif
     struct global_signal_decider
     {
       global_signal_decider *next, *prev;
@@ -241,16 +245,19 @@ namespace signal_guard
           size_t i = 0;
           for(d = global_signal_deciders_front; d != nullptr; d = d->next)
           {
-            if(i++ == n && (d->guarded & (1ULL << static_cast<int>(signalc::out_of_memory))))
+            if(i++ == n)
             {
-              rsi.value = d->value;
-              lock.unlock();
-              if(d->decider(&rsi))
+              if(d->guarded & (1ULL << static_cast<int>(signalc::out_of_memory)))
               {
-                // Cannot continue OOM
-                abort();
+                rsi.value = d->value;
+                lock.unlock();
+                if(d->decider(&rsi))
+                {
+                  // Cannot continue OOM
+                  abort();
+                }
+                lock.lock();
               }
-              lock.lock();
               break;
             }
           }
@@ -292,16 +299,19 @@ namespace signal_guard
           size_t i = 0;
           for(d = global_signal_deciders_front; d != nullptr; d = d->next)
           {
-            if(i++ == n && (d->guarded & (1ULL << static_cast<int>(signalc::termination))))
+            if(i++ == n)
             {
-              rsi.value = d->value;
-              lock.unlock();
-              if(d->decider(&rsi))
+              if(d->guarded & (1ULL << static_cast<int>(signalc::termination)))
               {
-                // Cannot continue termination
-                abort();
+                rsi.value = d->value;
+                lock.unlock();
+                if(d->decider(&rsi))
+                {
+                  // Cannot continue termination
+                  abort();
+                }
+                lock.lock();
               }
-              lock.lock();
               break;
             }
           }
@@ -319,6 +329,18 @@ namespace signal_guard
         std::abort();
       }
     }
+#ifdef _MSC_VER
+    static thread_local struct _win32_set_terminate_handler_per_thread_t
+    {
+      _win32_set_terminate_handler_per_thread_t()
+      {
+        // On MSVC, the terminate handler is thread local, so we have no choice but to always
+        // set it for every thread
+        terminate_handler_old = std::set_terminate(terminate_handler);
+      }
+    } _win32_set_terminate_handler_per_thread;
+#endif
+
 
 #ifdef _WIN32
     namespace win32
@@ -411,7 +433,8 @@ linker,                                                                         
 linker,                                                                                                                                                        \
 "/alternatename:?SetUnhandledExceptionFilter@win32@detail@signal_guard@quickcpplib@@YAP6AJPAU_EXCEPTION_POINTERS@12345@@ZP6AJ0@Z@Z=SetUnhandledExceptionFilter")
 #pragma comment(                                                                                                                                               \
-linker, "/alternatename:?AddVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YAPAXKP6AJPAU_EXCEPTION_POINTERS@12345@@Z@Z=AddVectoredContinueHandler")
+linker,                                                                                                                                                        \
+"/alternatename:?AddVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YAPAXKP6AJPAU_EXCEPTION_POINTERS@12345@@Z@Z=AddVectoredContinueHandler")
 #pragma comment(linker, "/alternatename:?RemoveVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YAKPAX@Z=RemoveVectoredContinueHandler")
 #else
 #error Unknown architecture
@@ -529,15 +552,18 @@ linker, "/alternatename:?AddVectoredContinueHandler@win32@detail@signal_guard@qu
           size_t i = 0;
           for(d = global_signal_deciders_front; d != nullptr; d = d->next)
           {
-            if(i++ == n && (d->guarded & signo_set))
+            if(i++ == n)
             {
-              rsi.value = d->value;
-              lock.unlock();
-              if(d->decider(&rsi))
+              if(d->guarded & signo_set)
               {
-                return (long) -1 /*EXCEPTION_CONTINUE_EXECUTION*/;
+                rsi.value = d->value;
+                lock.unlock();
+                if(d->decider(&rsi))
+                {
+                  return (long) -1 /*EXCEPTION_CONTINUE_EXECUTION*/;
+                }
+                lock.lock();
               }
-              lock.lock();
               break;
             }
           }
@@ -678,15 +704,18 @@ linker, "/alternatename:?AddVectoredContinueHandler@win32@detail@signal_guard@qu
           size_t i = 0;
           for(d = global_signal_deciders_front; d != nullptr; d = d->next)
           {
-            if(i++ == n && (d->guarded & (1ULL << signo)))
+            if(i++ == n)
             {
-              rsi.value = d->value;
-              lock.unlock();
-              if(d->decider(&rsi))
+              if(d->guarded & (1ULL << signo))
               {
-                return;  // resume execution
+                rsi.value = d->value;
+                lock.unlock();
+                if(d->decider(&rsi))
+                {
+                  return;  // resume execution
+                }
+                lock.lock();
               }
-              lock.lock();
               break;
             }
           }
@@ -761,7 +790,9 @@ linker, "/alternatename:?AddVectoredContinueHandler@win32@detail@signal_guard@qu
       {
         if(!detail::terminate_handler_count++)
         {
+#ifndef _MSC_VER
           detail::terminate_handler_old = std::set_terminate(detail::terminate_handler);
+#endif
         }
       }
       detail::lock.unlock();
@@ -784,7 +815,9 @@ linker, "/alternatename:?AddVectoredContinueHandler@win32@detail@signal_guard@qu
       {
         if(!--detail::terminate_handler_count)
         {
+#ifndef _MSC_VER
           std::set_terminate(detail::terminate_handler_old);
+#endif
         }
       }
       detail::lock.unlock();
