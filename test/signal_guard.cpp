@@ -51,7 +51,7 @@ BOOST_AUTO_TEST_SUITE(signal_guard)
 BOOST_AUTO_TEST_CASE(signal_guard / works / threadlocal, "Tests that signal_guard works as advertised (thread local)")
 {
   using namespace QUICKCPPLIB_NAMESPACE::signal_guard;
-  signal_guard_install i(signalc_set::segmentation_fault | signalc_set::termination);
+  signal_guard_install i(signalc_set::segmentation_fault | signalc_set::cxx_termination);
   std::cout << "1" << std::endl;
   {
     int ret = signal_guard(
@@ -70,7 +70,7 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / threadlocal, "Tests that signal_guar
   std::cout << "2" << std::endl;
   {
     int ret = signal_guard(
-    signalc_set::termination, []() -> int { std::terminate(); }, [](const raised_signal_info * /*unused*/) -> int { return 78; });
+    signalc_set::cxx_termination, []() -> int { std::terminate(); }, [](const raised_signal_info * /*unused*/) -> int { return 78; });
     BOOST_CHECK(ret == 78);
   }
   std::cout << "3" << std::endl;
@@ -92,7 +92,7 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / global, "Tests that signal_guard wor
   using namespace QUICKCPPLIB_NAMESPACE::signal_guard;
   std::cout << "1" << std::endl;
   jmp_buf buf;
-  auto decider = make_signal_guard_global_decider(signalc_set::segmentation_fault | signalc_set::termination,
+  auto decider = make_signal_guard_global_decider(signalc_set::segmentation_fault | signalc_set::cxx_termination,
                                                   [&buf](raised_signal_info * /*unused*/) -> bool { longjmp(buf, 78); });
   auto ret = setjmp(buf);
   if(!ret)
@@ -341,8 +341,8 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / multithreaded, "Tests that signal_gu
   auto handler = QUICKCPPLIB_NAMESPACE::signal_guard::make_signal_guard_global_decider(
   QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::abort_process | QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::undefined_memory_access |
   QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::illegal_instruction | QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::segmentation_fault |
-  QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::floating_point_error | QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::out_of_memory |
-  QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::termination,
+  QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::floating_point_error | QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::cxx_out_of_memory |
+  QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::cxx_termination,
   [](QUICKCPPLIB_NAMESPACE::signal_guard::raised_signal_info *rsi) -> bool {
     void *bt[64];
     auto btlen = ::backtrace(bt, 64);
@@ -367,7 +367,7 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / multithreaded, "Tests that signal_gu
     print("'. Backtrace:\n");
     _symbolise_stack_backtrace(print, {bt, (size_t) btlen});
     print("\n");
-    longjmp(buf, 10+done);
+    longjmp(buf, 10 + done);
   },
   false);
   std::vector<std::thread> threads;
@@ -450,7 +450,7 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / recursive, "Tests that signal_guard 
   },
   false);
   auto handler3 = QUICKCPPLIB_NAMESPACE::signal_guard::make_signal_guard_global_decider(
-  QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::out_of_memory,
+  QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::cxx_out_of_memory,
   [](QUICKCPPLIB_NAMESPACE::signal_guard::raised_signal_info * /*unused*/) -> bool {
     // Throw an exception within a noexcept to trigger termination
     print("During handle of segfault and handle of floating point error and handle of out of memory, causing termination\n");
@@ -458,7 +458,7 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / recursive, "Tests that signal_guard 
   },
   false);
   auto handler4 = QUICKCPPLIB_NAMESPACE::signal_guard::make_signal_guard_global_decider(
-  QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::termination,
+  QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::cxx_termination,
   [](QUICKCPPLIB_NAMESPACE::signal_guard::raised_signal_info * /*unused*/) -> bool {
     print("Abandoning handle of termination via longjmp to restart the loop\n");
     longjmp(buf, 10 + done);

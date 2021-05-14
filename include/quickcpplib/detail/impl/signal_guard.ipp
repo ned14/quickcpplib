@@ -172,8 +172,33 @@ namespace signal_guard
       {signalc::broken_pipe, "Signal broken pipe"},                          //
       {signalc::segmentation_fault, "Signal segmentation fault"},            //
       {signalc::floating_point_error, "Signal floating point error"},        //
-      {signalc::out_of_memory, "C++ out of memory"},                         //
-      {signalc::termination, "C++ termination"}                              //
+      {signalc::process_terminate, "Process termination requested"},         //
+
+#ifndef _WIN32
+      {signalc::timer_expire, "Timer has expired"},                     //
+      {signalc::child_exit, "Child has exited"},                        //
+      {signalc::process_continue, "Process is being continued"},        //
+      {signalc::tty_hangup, "Controlling terminal has hung up"},        //
+      {signalc::process_kill, "Process has received kill signal"},      //
+      {signalc::pollable_event, "i/o is now possible"},                 //
+      {signalc::profile_event, "Profiling timer expired"},              //
+      {signalc::process_quit, "Process is being quit"},                 //
+      {signalc::process_stop, "Process is being stopped"},              //
+      {signalc::tty_stop, "Terminal requests stop"},                    //
+      {signalc::bad_system_call, "Bad system call"},                    //
+      {signalc::process_trap, "Process has reached a breakpoint"},      //
+      {signalc::tty_input, "Terminal has input"},                       //
+      {signalc::tty_output, "Terminal ready for output"},               //
+      {signalc::urgent_condition, "Urgent condition"},                  //
+      {signalc::user_defined1, "User defined 1"},                       //
+      {signalc::user_defined2, "User defined 2"},                       //
+      {signalc::virtual_alarm_clock, "Virtual alarm clock"},            //
+      {signalc::cpu_time_limit_exceeded, "CPU time limit exceeded"},    //
+      {signalc::file_size_limit_exceeded, "File size limit exceeded"},  //
+#endif
+
+      {signalc::cxx_out_of_memory, "C++ out of memory"},  //
+      {signalc::cxx_termination, "C++ termination"}       //
       };
       for(auto &i : strings)
       {
@@ -217,15 +242,72 @@ namespace signal_guard
     };
     static global_signal_decider *global_signal_deciders_front, *global_signal_deciders_back;
 #ifdef _WIN32
+    static unsigned win32_console_ctrl_handler_count;
     static void *win32_global_signal_decider1;
     static void *win32_global_signal_decider2;
+
+    // WARNING: Always called from a separate thread!
+    inline int __stdcall win32_console_ctrl_handler(unsigned long dwCtrlType)
+    {
+      signalc signo;
+      switch(dwCtrlType)
+      {
+      case 0:  // CTRL_C_EVENT
+      case 1:  // CTRL_BREAK_EVENT
+      {
+        signo = signalc::interrupt;
+        break;
+      }
+      case 2:  // CTRL_CLOSE_EVENT
+      {
+        signo = signalc::process_terminate;
+        break;
+      }
+      default:
+        return 0;  // not handled
+      }
+      for(auto *shi = current_thread_local_signal_handler(); shi != nullptr; shi = shi->previous)
+      {
+        if(set_siginfo(shi, signo))
+        {
+          shi->call_continuer();
+        }
+      }
+      lock.lock();
+      if(global_signal_deciders_front != nullptr)
+      {
+        raised_signal_info rsi;
+        memset(&rsi, 0, sizeof(rsi));
+        rsi.signo = static_cast<int>(signo);
+        auto *d = global_signal_deciders_front;
+        for(size_t n = 0; d != nullptr; n++)
+        {
+          size_t i = 0;
+          for(d = global_signal_deciders_front; d != nullptr; d = d->next)
+          {
+            if(i++ == n)
+            {
+              if(d->guarded & (1ULL << static_cast<int>(signo)))
+              {
+                rsi.value = d->value;
+                lock.unlock();
+                d->decider(&rsi);
+                lock.lock();
+              }
+              break;
+            }
+          }
+        }
+      }
+      return 0;  // call other handlers
+    }
 #endif
 
     inline void new_handler()
     {
       for(auto *shi = current_thread_local_signal_handler(); shi != nullptr; shi = shi->previous)
       {
-        if(set_siginfo(shi, signalc::out_of_memory))
+        if(set_siginfo(shi, signalc::cxx_out_of_memory))
         {
           if(!shi->call_continuer())
           {
@@ -238,7 +320,7 @@ namespace signal_guard
       {
         raised_signal_info rsi;
         memset(&rsi, 0, sizeof(rsi));
-        rsi.signo = static_cast<int>(signalc::out_of_memory);
+        rsi.signo = static_cast<int>(signalc::cxx_out_of_memory);
         auto *d = global_signal_deciders_front;
         for(size_t n = 0; d != nullptr; n++)
         {
@@ -247,7 +329,7 @@ namespace signal_guard
           {
             if(i++ == n)
             {
-              if(d->guarded & (1ULL << static_cast<int>(signalc::out_of_memory)))
+              if(d->guarded & (1ULL << static_cast<int>(signalc::cxx_out_of_memory)))
               {
                 rsi.value = d->value;
                 lock.unlock();
@@ -279,7 +361,7 @@ namespace signal_guard
     {
       for(auto *shi = current_thread_local_signal_handler(); shi != nullptr; shi = shi->previous)
       {
-        if(set_siginfo(shi, signalc::termination))
+        if(set_siginfo(shi, signalc::cxx_termination))
         {
           if(!shi->call_continuer())
           {
@@ -292,7 +374,7 @@ namespace signal_guard
       {
         raised_signal_info rsi;
         memset(&rsi, 0, sizeof(rsi));
-        rsi.signo = static_cast<int>(signalc::termination);
+        rsi.signo = static_cast<int>(signalc::cxx_termination);
         auto *d = global_signal_deciders_front;
         for(size_t n = 0; d != nullptr; n++)
         {
@@ -301,7 +383,7 @@ namespace signal_guard
           {
             if(i++ == n)
             {
-              if(d->guarded & (1ULL << static_cast<int>(signalc::termination)))
+              if(d->guarded & (1ULL << static_cast<int>(signalc::cxx_termination)))
               {
                 rsi.value = d->value;
                 lock.unlock();
@@ -373,6 +455,10 @@ namespace signal_guard
       extern PVECTORED_EXCEPTION_HANDLER __stdcall SetUnhandledExceptionFilter(PVECTORED_EXCEPTION_HANDLER Handler);
       extern void *__stdcall AddVectoredContinueHandler(unsigned long First, PVECTORED_EXCEPTION_HANDLER Handler);
       extern unsigned long __stdcall RemoveVectoredContinueHandler(void *Handle);
+      extern unsigned long __stdcall GetLastError();
+      typedef int(__stdcall *PHANDLER_ROUTINE)(unsigned long dwCtrlType);
+      extern int __stdcall SetConsoleCtrlHandler(PHANDLER_ROUTINE HandlerRoutine, int Add);
+
 #pragma comment(lib, "kernel32.lib")
 #ifndef QUICKCPPLIB_DISABLE_ABI_PERMUTATION
 #define QUICKCPPLIB_SIGNAL_GUARD_SYMBOL2(a, b, c) a #b c
@@ -387,6 +473,9 @@ namespace signal_guard
                                                         "@quickcpplib@@YAPEAXKP6AJPEAU_EXCEPTION_POINTERS@12345@@Z@Z=AddVectoredContinueHandler"))
 #pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RemoveVectoredContinueHandler@win32@detail@signal_guard@_",                           \
                                                         "@quickcpplib@@YAKPEAX@Z=RemoveVectoredContinueHandler"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?GetLastError@win32@detail@signal_guard@_", "@quickcpplib@@YAKXZ=GetLastError"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?SetConsoleCtrlHandler@win32@detail@signal_guard@_",                                   \
+                                                        "@quickcpplib@@YAHP6AHK@ZH@Z=SetConsoleCtrlHandler"))
 #elif defined(__x86__) || defined(_M_IX86) || defined(__i386__)
 #pragma comment(                                                                                                                                               \
 linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RaiseException@win32@detail@signal_guard@_", "@quickcpplib@@YGXKKKPB_K@Z=__imp__RaiseException@16"))
@@ -396,6 +485,10 @@ linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RaiseException@win32@de
                                                         "@quickcpplib@@YGPAXKP6GJPAU_EXCEPTION_POINTERS@12345@@Z@Z=__imp__AddVectoredContinueHandler@8"))
 #pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RemoveVectoredContinueHandler@win32@detail@signal_guard@_",                           \
                                                         "@quickcpplib@@YGKPAX@Z=__imp__RemoveVectoredContinueHandler@4"))
+#pragma comment(linker,                                                                                                                                        \
+                QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?GetLastError@win32@detail@signal_guard@_", "@quickcpplib@@YGKXZ=__imp__GetLastError@0"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?SetConsoleCtrlHandler@win32@detail@signal_guard@_",                                   \
+                                                        "@quickcpplib@@YGHP6GHK@ZH@Z=__imp__SetConsoleCtrlHandler@8"))
 #elif defined(__arm__) || defined(_M_ARM)
 #pragma comment(linker,                                                                                                                                        \
                 QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RaiseException@win32@detail@signal_guard@_", "@quickcpplib@@YAXKKKPB_K@Z=RaiseException"))
@@ -405,6 +498,9 @@ linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RaiseException@win32@de
                                                         "@quickcpplib@@YAPAXKP6AJPAU_EXCEPTION_POINTERS@12345@@Z@Z=AddVectoredContinueHandler"))
 #pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RemoveVectoredContinueHandler@win32@detail@signal_guard@_",                           \
                                                         "@quickcpplib@@YAKPAX@Z=RemoveVectoredContinueHandler"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?GetLastError@win32@detail@signal_guard@_", "@quickcpplib@@YAKXZ=GetLastError"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?SetConsoleCtrlHandler@win32@detail@signal_guard@_",                                   \
+                                                        "@quickcpplib@@YAHP6AHK@ZH@Z=SetConsoleCtrlHandler"))
 #else
 #error Unknown architecture
 #endif
@@ -418,6 +514,8 @@ linker,                                                                         
 linker,                                                                                                                                                        \
 "/alternatename:?AddVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YAPEAXKP6AJPEAU_EXCEPTION_POINTERS@12345@@Z@Z=AddVectoredContinueHandler")
 #pragma comment(linker, "/alternatename:?RemoveVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YAKPEAX@Z=RemoveVectoredContinueHandler")
+#pragma comment(linker, "/alternatename:?GetLastError@win32@detail@signal_guard@quickcpplib@@YAKXZ=GetLastError")
+#pragma comment(linker, "/alternatename:?SetConsoleCtrlHandler@win32@detail@signal_guard@quickcpplib@@YAHP6AHK@ZH@Z=SetConsoleCtrlHandler")
 #elif defined(__x86__) || defined(_M_IX86) || defined(__i386__)
 #pragma comment(linker, "/alternatename:?RaiseException@win32@detail@signal_guard@quickcpplib@@YGXKKKPB_K@Z=__imp__RaiseException@16")
 #pragma comment(                                                                                                                                               \
@@ -427,6 +525,8 @@ linker,                                                                         
 linker,                                                                                                                                                        \
 "/alternatename:?AddVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YGPAXKP6GJPAU_EXCEPTION_POINTERS@@@Z@Z=__imp__AddVectoredContinueHandler@8")
 #pragma comment(linker, "/alternatename:?RemoveVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YGKPAX@Z=__imp__RemoveVectoredContinueHandler@4")
+#pragma comment(linker, "/alternatename:?GetLastError@win32@detail@signal_guard@quickcpplib@@YGKXZ=__imp__GetLastError@0")
+#pragma comment(linker, "/alternatename:?SetConsoleCtrlHandler@win32@detail@signal_guard@quickcpplib@@YGHP6GHK@ZH@Z=__imp__SetConsoleCtrlHandler@8")
 #elif defined(__arm__) || defined(_M_ARM)
 #pragma comment(linker, "/alternatename:?RaiseException@win32@detail@signal_guard@quickcpplib@@YAXKKKPB_K@Z=RaiseException")
 #pragma comment(                                                                                                                                               \
@@ -436,6 +536,8 @@ linker,                                                                         
 linker,                                                                                                                                                        \
 "/alternatename:?AddVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YAPAXKP6AJPAU_EXCEPTION_POINTERS@12345@@Z@Z=AddVectoredContinueHandler")
 #pragma comment(linker, "/alternatename:?RemoveVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YAKPAX@Z=RemoveVectoredContinueHandler")
+#pragma comment(linker, "/alternatename:?GetLastError@win32@detail@signal_guard@quickcpplib@@YAKXZ=GetLastError")
+#pragma comment(linker, "/alternatename:?SetConsoleCtrlHandler@win32@detail@signal_guard@quickcpplib@@YAHP6AHK@ZH@Z=SetConsoleCtrlHandler")
 #else
 #error Unknown architecture
 #endif
@@ -488,7 +590,7 @@ linker,                                                                         
       case((unsigned long) 0xC0000093L) /*EXCEPTION_FLT_UNDERFLOW*/:
         return signalc::floating_point_error;
       case((unsigned long) 0xC00000FDL) /*EXCEPTION_STACK_OVERFLOW*/:
-        return signalc::out_of_memory;
+        return signalc::cxx_out_of_memory;
       default:
         return signalc::none;
       }
@@ -776,17 +878,21 @@ linker,                                                                         
     detail::signal_guards_installed().store(detail::signal_guards_installed().load(std::memory_order_relaxed) | guarded, std::memory_order_relaxed);
     detail::lock.unlock();
 #endif
-    if((guarded & signalc_set::out_of_memory) || (guarded & signalc_set::termination))
+    if((guarded & signalc_set::cxx_out_of_memory) || (guarded & signalc_set::cxx_termination)
+#ifdef _WIN32
+       || (guarded & signalc_set::interrupt) || (guarded & signalc_set::process_terminate)
+#endif
+    )
     {
       detail::lock.lock();
-      if(guarded & signalc_set::out_of_memory)
+      if(guarded & signalc_set::cxx_out_of_memory)
       {
         if(!detail::new_handler_count++)
         {
           detail::new_handler_old = std::set_new_handler(detail::new_handler);
         }
       }
-      if(guarded & signalc_set::termination)
+      if(guarded & signalc_set::cxx_termination)
       {
         if(!detail::terminate_handler_count++)
         {
@@ -795,23 +901,39 @@ linker,                                                                         
 #endif
         }
       }
+#ifdef _WIN32
+      if((guarded & signalc_set::interrupt) || (guarded & signalc_set::process_terminate))
+      {
+        if(!detail::win32_console_ctrl_handler_count++)
+        {
+          if(!detail::win32::SetConsoleCtrlHandler(detail::win32_console_ctrl_handler, true))
+          {
+            throw std::system_error(detail::win32::GetLastError(), std::system_category());
+          }
+        }
+      }
+#endif
       detail::lock.unlock();
     }
   }
 
   SIGNALGUARD_MEMFUNC_DECL signal_guard_install::~signal_guard_install()
   {
-    if((_guarded & signalc_set::out_of_memory) || (_guarded & signalc_set::termination))
+    if((_guarded & signalc_set::cxx_out_of_memory) || (_guarded & signalc_set::cxx_termination)
+#ifdef _WIN32
+       || (_guarded & signalc_set::interrupt) || (_guarded & signalc_set::process_terminate)
+#endif
+    )
     {
       detail::lock.lock();
-      if(_guarded & signalc_set::out_of_memory)
+      if(_guarded & signalc_set::cxx_out_of_memory)
       {
         if(!--detail::new_handler_count)
         {
           std::set_new_handler(detail::new_handler_old);
         }
       }
-      if(_guarded & signalc_set::termination)
+      if(_guarded & signalc_set::cxx_termination)
       {
         if(!--detail::terminate_handler_count)
         {
@@ -820,6 +942,15 @@ linker,                                                                         
 #endif
         }
       }
+#ifdef _WIN32
+      if((_guarded & signalc_set::interrupt) || (_guarded & signalc_set::process_terminate))
+      {
+        if(!--detail::win32_console_ctrl_handler_count)
+        {
+          detail::win32::SetConsoleCtrlHandler(detail::win32_console_ctrl_handler, false);
+        }
+      }
+#endif
       detail::lock.unlock();
     }
 #ifndef _WIN32
@@ -853,11 +984,11 @@ linker,                                                                         
     }
     if(detail::new_handler_count > 0)
     {
-      handlers_installed |= signalc_set::out_of_memory;
+      handlers_installed |= signalc_set::cxx_out_of_memory;
     }
     if(detail::terminate_handler_count > 0)
     {
-      handlers_installed |= signalc_set::termination;
+      handlers_installed |= signalc_set::cxx_termination;
     }
     detail::signal_guards_installed().store(static_cast<signalc_set>(handlers_installed), std::memory_order_relaxed);
     detail::lock.unlock();
@@ -983,7 +1114,7 @@ linker,                                                                         
 
   SIGNALGUARD_FUNC_DECL bool thrd_raise_signal(signalc signo, void *_info, void *_context)
   {
-    if(signo == signalc::out_of_memory)
+    if(signo == signalc::cxx_out_of_memory)
     {
       if(std::get_new_handler() == nullptr)
       {
@@ -992,7 +1123,7 @@ linker,                                                                         
       std::get_new_handler()();
       return true;
     }
-    else if(signo == signalc::termination)
+    else if(signo == signalc::cxx_termination)
     {
       std::terminate();
     }
