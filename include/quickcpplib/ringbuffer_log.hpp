@@ -151,11 +151,12 @@ namespace ringbuffer_log
           , using_code64(false)
           , using_backtrace(!_function)
       {
-#ifdef _MSC_VER
-#pragma warning(push)
-#pragma warning(disable : 4996)  // use of strncpy
-#endif
-        strncpy(message, _message, sizeof(message));
+        size_t _messagelen = strlen(_message) + 1;
+        if(_messagelen > sizeof(message))
+        {
+          _messagelen = sizeof(message);
+        }
+        memcpy(message, _message, _messagelen);
         if(_function)
         {
           if(_function[0])
@@ -175,24 +176,26 @@ namespace ringbuffer_log
             snprintf(temp, sizeof(temp), "%u", lineno);
 #endif
             temp[31] = 0;
-            ptrdiff_t len = strlen(temp);
-            if(function + sizeof(function) - e >= len + 2)
+            ptrdiff_t len = strlen(temp) + 1;
+            if(function + sizeof(function) - e >= len + 1)
             {
               *e++ = ':';
               memcpy(e, temp, len);
             }
           }
+          else
+          {
+            function[0] = 0;
+          }
         }
         else
         {
+          function[0] = 0;
           const void *temp[16];
           memset(temp, 0, sizeof(temp));
           (void) ::backtrace((void **) temp, 16);
           packed_backtrace::make_packed_backtrace(backtrace, temp);
         }
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
       }
       bool operator==(const value_type &o) const noexcept { return memcmp(this, &o, sizeof(*this)) == 0; }
       bool operator!=(const value_type &o) const noexcept { return memcmp(this, &o, sizeof(*this)) != 0; }
