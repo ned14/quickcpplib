@@ -175,15 +175,15 @@ template&lt;class U , typename std::enable_if&lt;(std::is_constructible&lt; T, U
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">guarded</td><td>The signal set for which this decider ought to be called. </td></tr>
-    <tr><td class="paramname">f</td><td>A callable with prototype <code>bool(raised_signal_info *)</code>, which must return <code>true</code> if execution is to resume, <code>false</code> if the next decider function should be called. </td></tr>
+    <tr><td class="paramname">f</td><td>A callable with prototype <code>bool(raised_signal_info *)</code>, which must return <code>true</code> if execution is to resume, <code>false</code> if the next decider function should be called. Note that on Windows only, <code>interrupt</code> and <code>process_terminate</code> call <code>f</code> from some other kernel thread, and the return value is always treated as <code>false</code>. </td></tr>
     <tr><td class="paramname">callfirst</td><td>True if this decider should be called before any other. Otherwise call order is in the order of addition. </td></tr>
   </table>
   </dd>
 </dl>
-<div class="fragment"><div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;        : detail::signal_guard_global_decider_impl(guarded, callfirst)</div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;        , _f(<span class="keyword">static_cast&lt;</span>U &amp;&amp;<span class="keyword">&gt;</span>(f))</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    {</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;        : detail::signal_guard_global_decider_impl(guarded, callfirst)</div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;        , _f(<span class="keyword">static_cast&lt;</span>U &amp;&amp;<span class="keyword">&gt;</span>(f))</div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;    {</div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -324,11 +324,11 @@ template&lt;class T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;    {</div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;      this-&gt;<a class="code" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__global__decider.html#aa2aefe822703503b79f86b96f45b671d">~signal_guard_global_decider</a>();</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;      <span class="keyword">new</span>(<span class="keyword">this</span>) <a class="code" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__global__decider.html#a8ddb72df8d16342bef9c8f44ed8a517c">signal_guard_global_decider</a>(<span class="keyword">static_cast&lt;</span><a class="code" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__global__decider.html#a8ddb72df8d16342bef9c8f44ed8a517c">signal_guard_global_decider</a> &amp;&amp;<span class="keyword">&gt;</span>(o));</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;      <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;    {</div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;      this-&gt;<a class="code" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__global__decider.html#aa2aefe822703503b79f86b96f45b671d">~signal_guard_global_decider</a>();</div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;      <span class="keyword">new</span>(<span class="keyword">this</span>) <a class="code" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__global__decider.html#a8ddb72df8d16342bef9c8f44ed8a517c">signal_guard_global_decider</a>(<span class="keyword">static_cast&lt;</span><a class="code" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__global__decider.html#a8ddb72df8d16342bef9c8f44ed8a517c">signal_guard_global_decider</a> &amp;&amp;<span class="keyword">&gt;</span>(o));</div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;      <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -338,7 +338,7 @@ template&lt;class T &gt; </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__global__decider_html_aa2aefe822703503b79f86b96f45b671d"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__global__decider.html#aa2aefe822703503b79f86b96f45b671d">quickcpplib::_xxx::signal_guard::signal_guard_global_decider::~signal_guard_global_decider</a></div><div class="ttdeci">~signal_guard_global_decider()=default</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__global__decider_html_a8ddb72df8d16342bef9c8f44ed8a517c"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__global__decider.html#a8ddb72df8d16342bef9c8f44ed8a517c">quickcpplib::_xxx::signal_guard::signal_guard_global_decider::signal_guard_global_decider</a></div><div class="ttdeci">signal_guard_global_decider(signalc_set guarded, U &amp;&amp;f, bool callfirst)</div><div class="ttdoc">Constructs an instance.</div><div class="ttdef"><b>Definition:</b> signal_guard.hpp:392</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__global__decider_html_a8ddb72df8d16342bef9c8f44ed8a517c"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__global__decider.html#a8ddb72df8d16342bef9c8f44ed8a517c">quickcpplib::_xxx::signal_guard::signal_guard_global_decider::signal_guard_global_decider</a></div><div class="ttdeci">signal_guard_global_decider(signalc_set guarded, U &amp;&amp;f, bool callfirst)</div><div class="ttdoc">Constructs an instance.</div><div class="ttdef"><b>Definition:</b> signal_guard.hpp:450</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

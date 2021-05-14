@@ -1,4 +1,8 @@
 var searchData=
 [
-  ['warn_1713',['warn',['../namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2a1ea4c3ab05ee0c6d4de30740443769cb',1,'quickcpplib::_xxx::ringbuffer_log']]]
+  ['undefined_5fmemory_5faccess_1749',['undefined_memory_access',['../namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a72f8af2953718eaf9753915ce51fd4af',1,'quickcpplib::_xxx::signal_guard']]],
+  ['unknown_1750',['unknown',['../group__tribool.html#ggafe26d2adc55c3e981fc0164e20ebeb9aaad921d60486366258809553a3db49a4a',1,'quickcpplib::_xxx::tribool']]],
+  ['urgent_5fcondition_1751',['urgent_condition',['../namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a33d679fe9780c3a6223e443d44e6c509',1,'quickcpplib::_xxx::signal_guard']]],
+  ['user_5fdefined1_1752',['user_defined1',['../namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790ac5eb8e877c4f56bfdb368e1f29681a83',1,'quickcpplib::_xxx::signal_guard']]],
+  ['user_5fdefined2_1753',['user_defined2',['../namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790ac64807acaa55cc93063d98bd38289465',1,'quickcpplib::_xxx::signal_guard']]]
 ];
