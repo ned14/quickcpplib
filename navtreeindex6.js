@@ -1,6 +1,5 @@
 var NAVTREEINDEX6 =
 {
-"struct_nothrow_none.html":[5,0,18],
 "struct_nothrow_none.html#a8f035d3656568dc7dea9a6e8051a5b49":[5,0,18,1],
 "struct_nothrow_none.html#ad75a8e6ee8b238fad20cdeecc85b5677":[5,0,18,0],
 "struct_oracle.html":[5,0,19],
@@ -249,5 +248,6 @@ var NAVTREEINDEX6 =
 "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4.html#ab00704fd9dfd51612be919024e6fb196":[5,0,2,0,4,8,9],
 "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4.html#abe1f366180e70e4e4da9eaeeaa7cc7ce":[5,0,2,0,4,8,8],
 "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4.html#af86451cf824f9153c1963fcec1bea74e":[5,0,2,0,4,8,12],
-"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop.html":[5,0,2,0,4,9]
+"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop.html":[5,0,2,0,4,9],
+"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop_1_1policy.html":[5,0,2,0,4,9,0]
 };

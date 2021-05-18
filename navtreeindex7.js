@@ -1,6 +1,5 @@
 var NAVTREEINDEX7 =
 {
-"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop_1_1policy.html":[5,0,2,0,4,9,0],
 "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop_1_1policy.html#a15e735c556fe015edb9ba7a3bc0c4b51":[5,0,2,0,4,9,0,3],
 "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop_1_1policy.html#a294c7d1f09052e4c78049ba2e9f56bd8":[5,0,2,0,4,9,0,1],
 "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop_1_1policy.html#ad3883cedb39b80d93b0fbfccd87812eb":[5,0,2,0,4,9,0,0],
@@ -249,5 +248,6 @@ var NAVTREEINDEX7 =
 "tribool_8hpp.html#ga4f863d51e1a7f3bab3d3940ab9786e03":[6,0,0,0,32,7],
 "tribool_8hpp.html#ga71df8d6d81e2d617c8e56a948f760974":[6,0,0,0,32,6],
 "tribool_8hpp.html#ga732baebc1a0951b6f8d83fc458c1c6ea":[6,0,0,0,32,11],
-"tribool_8hpp.html#gad5d70aee11a836b80cdf9e3ed04c1cf1":[6,0,0,0,32,5]
+"tribool_8hpp.html#gad5d70aee11a836b80cdf9e3ed04c1cf1":[6,0,0,0,32,5],
+"tribool_8hpp.html#gadd8cf4ac334bfda6083c2371fcb8c1ee":[6,0,0,0,32,9]
 };

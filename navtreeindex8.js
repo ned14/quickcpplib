@@ -1,6 +1,5 @@
 var NAVTREEINDEX8 =
 {
-"tribool_8hpp.html#gadd8cf4ac334bfda6083c2371fcb8c1ee":[6,0,0,0,32,9],
 "tribool_8hpp.html#gae0f8dd6bff9547832b8ca41ead066d88":[6,0,0,0,32,2],
 "tribool_8hpp.html#gafb401124aa1324a5d95b4f558a87dd7f":[6,0,0,0,32,4],
 "tribool_8hpp.html#gafe26d2adc55c3e981fc0164e20ebeb9a":[6,0,0,0,32,0],

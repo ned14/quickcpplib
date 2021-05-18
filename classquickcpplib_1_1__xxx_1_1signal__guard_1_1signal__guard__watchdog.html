@@ -174,10 +174,10 @@ template&lt;class U , typename std::enable_if&lt;(std::is_constructible&lt; T, U
   </table>
   </dd>
 </dl>
-<div class="fragment"><div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;        : detail::signal_guard_watchdog_impl(ms)</div>
-<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;        , _f(<span class="keyword">static_cast&lt;</span>U &amp;&amp;<span class="keyword">&gt;</span>(f))</div>
-<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;    {</div>
-<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;        : detail::signal_guard_watchdog_impl(ms)</div>
+<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;        , _f(<span class="keyword">static_cast&lt;</span>U &amp;&amp;<span class="keyword">&gt;</span>(f))</div>
+<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;    {</div>
+<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -318,11 +318,11 @@ template&lt;class T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;    {</div>
-<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;      this-&gt;<a class="code" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog.html#a237cd2c097aebea6ad526a3e70ab2adf">~signal_guard_watchdog</a>();</div>
-<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;      <span class="keyword">new</span>(<span class="keyword">this</span>) <a class="code" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog.html#a51c6010389885b06180ee784e61b665a">signal_guard_watchdog</a>(<span class="keyword">static_cast&lt;</span><a class="code" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog.html#a51c6010389885b06180ee784e61b665a">signal_guard_watchdog</a> &amp;&amp;<span class="keyword">&gt;</span>(o));</div>
-<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;      <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;    {</div>
+<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;      this-&gt;<a class="code" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog.html#a237cd2c097aebea6ad526a3e70ab2adf">~signal_guard_watchdog</a>();</div>
+<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;      <span class="keyword">new</span>(<span class="keyword">this</span>) <a class="code" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog.html#a51c6010389885b06180ee784e61b665a">signal_guard_watchdog</a>(<span class="keyword">static_cast&lt;</span><a class="code" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog.html#a51c6010389885b06180ee784e61b665a">signal_guard_watchdog</a> &amp;&amp;<span class="keyword">&gt;</span>(o));</div>
+<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;      <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -332,7 +332,7 @@ template&lt;class T &gt; </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog_html_a237cd2c097aebea6ad526a3e70ab2adf"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog.html#a237cd2c097aebea6ad526a3e70ab2adf">quickcpplib::_xxx::signal_guard::signal_guard_watchdog::~signal_guard_watchdog</a></div><div class="ttdeci">~signal_guard_watchdog()=default</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog_html_a51c6010389885b06180ee784e61b665a"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog.html#a51c6010389885b06180ee784e61b665a">quickcpplib::_xxx::signal_guard::signal_guard_watchdog::signal_guard_watchdog</a></div><div class="ttdeci">signal_guard_watchdog(U &amp;&amp;f, unsigned ms)</div><div class="ttdoc">Constructs an instance.</div><div class="ttdef"><b>Definition:</b> signal_guard.hpp:596</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog_html_a51c6010389885b06180ee784e61b665a"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog.html#a51c6010389885b06180ee784e61b665a">quickcpplib::_xxx::signal_guard::signal_guard_watchdog::signal_guard_watchdog</a></div><div class="ttdeci">signal_guard_watchdog(U &amp;&amp;f, unsigned ms)</div><div class="ttdoc">Constructs an instance.</div><div class="ttdef"><b>Definition:</b> signal_guard.hpp:601</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

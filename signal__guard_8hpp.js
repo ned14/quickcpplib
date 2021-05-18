@@ -29,7 +29,6 @@ var signal__guard_8hpp =
       [ "process_continue", "signal__guard_8hpp.html#a31407e66b668f46e52933017eadcf790a4926d1d5f16443cbe8e443a43278ffe1", null ],
       [ "tty_hangup", "signal__guard_8hpp.html#a31407e66b668f46e52933017eadcf790a228065c0f726fc40bc8247370b5ffa3b", null ],
       [ "process_kill", "signal__guard_8hpp.html#a31407e66b668f46e52933017eadcf790a32def8616cfc38bb4c322483ae8395e4", null ],
-      [ "pollable_event", "signal__guard_8hpp.html#a31407e66b668f46e52933017eadcf790a2b51e4ab92e45cbe8d80dcbb4180651e", null ],
       [ "profile_event", "signal__guard_8hpp.html#a31407e66b668f46e52933017eadcf790a3d4ff91b0163960ae7a6968fa3eb5bfb", null ],
       [ "process_quit", "signal__guard_8hpp.html#a31407e66b668f46e52933017eadcf790a1f4f91447574eee1c2bf2b2d7d6a35fc", null ],
       [ "process_stop", "signal__guard_8hpp.html#a31407e66b668f46e52933017eadcf790ac21801e04dd251e7192a6d97ef8f708e", null ],
