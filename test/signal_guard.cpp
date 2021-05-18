@@ -473,10 +473,11 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / recursive, "Tests that signal_guard 
 #else
 #ifdef __APPLE__
     auto feenableexcept = [](int excepts) {
+      excepts = excepts & FE_ALL_EXCEPT;
       fenv_t fenv;
       fegetenv(&fenv);
-      fenv.__control &= ~new_excepts;
-      fenv.__mxcsr &= ~(new_excepts << 7);
+      fenv.__control &= ~excepts;
+      fenv.__mxcsr &= ~(excepts << 7);
       fesetenv(&fenv);
     };
 #endif
