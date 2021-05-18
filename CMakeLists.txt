@@ -45,7 +45,7 @@ all_compile_features(PUBLIC
 )
 # On Linux, things using me must link to libdl
 if(CMAKE_SYSTEM_NAME MATCHES "Linux")
-  all_link_libraries(PUBLIC dl)
+  all_link_libraries(PUBLIC dl rt)
 endif()
 # On FreeBSD, things using me must link to libexecinfo
 if(CMAKE_SYSTEM_NAME MATCHES "FreeBSD")

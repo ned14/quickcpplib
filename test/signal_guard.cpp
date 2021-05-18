@@ -125,6 +125,25 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / global, "Tests that signal_guard wor
   std::cout << "4" << std::endl;
 }
 
+BOOST_AUTO_TEST_CASE(signal_guard / works / watchdog, "Tests that the signal_guard_watchdog works as expected")
+{
+  using namespace QUICKCPPLIB_NAMESPACE::signal_guard;
+  {
+    std::atomic<bool> watchdog_ran{false};
+    auto watchdog = make_signal_guard_watchdog([&] { watchdog_ran = true; }, 500);
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    BOOST_CHECK(watchdog_ran == true);
+  }
+  {
+    std::atomic<bool> watchdog_ran{false};
+    auto watchdog = make_signal_guard_watchdog([&] { watchdog_ran = true; }, 500);
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    watchdog.release();
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    BOOST_CHECK(watchdog_ran == false);
+  }
+}
+
 // This routine is async signal safe, apart from malloc. Probably okay most of the time ?!?
 template <class Printer> inline void _symbolise_stack_backtrace(Printer &&print, QUICKCPPLIB_NAMESPACE::span::span<void *> bt)
 {
@@ -336,6 +355,9 @@ template <class Printer> inline void _symbolise_stack_backtrace(Printer &&print,
 
 BOOST_AUTO_TEST_CASE(signal_guard / works / multithreaded, "Tests that signal_guard works as advertised across multiple threads")
 {
+#if QUICKCPPLIB_IN_THREAD_SANITIZER
+  return;  // hangs tsan, indeed you can't even Ctrl-C out of it!
+#endif
   static thread_local jmp_buf buf;
   static std::atomic<bool> done(false);
   auto handler = QUICKCPPLIB_NAMESPACE::signal_guard::make_signal_guard_global_decider(
@@ -407,6 +429,9 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / multithreaded, "Tests that signal_gu
 
 BOOST_AUTO_TEST_CASE(signal_guard / works / recursive, "Tests that signal_guard works as advertised when being recursed into across multiple threads")
 {
+#if QUICKCPPLIB_IN_THREAD_SANITIZER
+  return;  // hangs tsan, indeed you can't even Ctrl-C out of it!
+#endif
   static thread_local jmp_buf buf;
   static std::atomic<bool> done(false);
   static auto print = [](const char *s, size_t len = (size_t) -1) {
@@ -500,8 +525,12 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / recursive, "Tests that signal_guard 
   BOOST_CHECK(count > 10);
 }
 
+
 BOOST_AUTO_TEST_CASE(signal_guard / performance / threadlocal, "Tests that the signal_guard has reasonable performance (thread local)")
 {
+#if QUICKCPPLIB_IN_THREAD_SANITIZER
+  return;  // hangs tsan, indeed you can't even Ctrl-C out of it!
+#endif
   using namespace QUICKCPPLIB_NAMESPACE::signal_guard;
   {
     auto begin = nanoclock();

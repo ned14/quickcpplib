@@ -261,11 +261,13 @@ namespace signal_guard
     abort_process = SIGABRT,           //!< The process is aborting (`SIGABRT`)
     undefined_memory_access = SIGBUS,  //!< Attempt to access a memory location which can't exist (`SIGBUS`)
     illegal_instruction = SIGILL,      //!< Execution of illegal instruction (`SIGILL`)
-    interrupt = SIGINT,                //!< The process is interrupted (`SIGINT`). Note on Windows the continuation decider is ALWAYS called from a separate thread, and the process exits after you return (or take too long executing).
-    broken_pipe = SIGPIPE,             //!< Reader on a pipe vanished (`SIGPIPE`). Note that Windows never raises this signal.
-    segmentation_fault = SIGSEGV,      //!< Attempt to access a memory page whose permissions disallow (`SIGSEGV`)
-    floating_point_error = SIGFPE,     //!< Floating point error (`SIGFPE`)
-    process_terminate = SIGTERM,       //!< Process termination requested (`SIGTERM`). Note on Windows the handler is ALWAYS called from a separate thread, and the process exits after you return (or take too long executing).
+    interrupt =
+    SIGINT,  //!< The process is interrupted (`SIGINT`). Note on Windows the continuation decider is ALWAYS called from a separate thread, and the process exits after you return (or take too long executing).
+    broken_pipe = SIGPIPE,          //!< Reader on a pipe vanished (`SIGPIPE`). Note that Windows never raises this signal.
+    segmentation_fault = SIGSEGV,   //!< Attempt to access a memory page whose permissions disallow (`SIGSEGV`)
+    floating_point_error = SIGFPE,  //!< Floating point error (`SIGFPE`)
+    process_terminate =
+    SIGTERM,  //!< Process termination requested (`SIGTERM`). Note on Windows the handler is ALWAYS called from a separate thread, and the process exits after you return (or take too long executing).
 
 #ifndef _WIN32
     timer_expire = SIGALRM,              //!< Timer has expired (`SIGALRM`). POSIX only.
@@ -307,11 +309,17 @@ namespace signal_guard
   abort_process = (1ULL << static_cast<int>(signalc::abort_process)),                      //!< The process is aborting (`SIGABRT`)
   undefined_memory_access = (1ULL << static_cast<int>(signalc::undefined_memory_access)),  //!< Attempt to access a memory location which can't exist (`SIGBUS`)
   illegal_instruction = (1ULL << static_cast<int>(signalc::illegal_instruction)),          //!< Execution of illegal instruction (`SIGILL`)
-  interrupt = (1ULL << static_cast<int>(signalc::interrupt)),                              //!< The process is interrupted (`SIGINT`). Note on Windows the handler is ALWAYS called from a separate thread, and the process exits after you return (or take too long executing).
-  broken_pipe = (1ULL << static_cast<int>(signalc::broken_pipe)),                          //!< Reader on a pipe vanished (`SIGPIPE`). Note that Windows never raises this signal.
+  interrupt =
+  (1ULL << static_cast<int>(
+   signalc::
+   interrupt)),  //!< The process is interrupted (`SIGINT`). Note on Windows the handler is ALWAYS called from a separate thread, and the process exits after you return (or take too long executing).
+  broken_pipe = (1ULL << static_cast<int>(signalc::broken_pipe)),  //!< Reader on a pipe vanished (`SIGPIPE`). Note that Windows never raises this signal.
   segmentation_fault = (1ULL << static_cast<int>(signalc::segmentation_fault)),      //!< Attempt to access a memory page whose permissions disallow (`SIGSEGV`)
   floating_point_error = (1ULL << static_cast<int>(signalc::floating_point_error)),  //!< Floating point error (`SIGFPE`)
-  process_terminate = (1ULL << static_cast<int>(signalc::process_terminate)),        //!< Process termination requested (`SIGTERM`). Note on Windows the handler is ALWAYS called from a separate thread, and the process exits after you return (or take too long executing).
+  process_terminate =
+  (1ULL << static_cast<int>(
+   signalc::
+   process_terminate)),  //!< Process termination requested (`SIGTERM`). Note on Windows the handler is ALWAYS called from a separate thread, and the process exits after you return (or take too long executing).
 
 
 #ifndef _WIN32
@@ -376,7 +384,8 @@ namespace signal_guard
   However this may also produce surprise e.g. infinite loops.
 
   \warning This class is threadsafe with respect to other concurrent executions of itself,
-  but is NOT threadsafe with respect to other code modifying the global signal handlers.
+  but is NOT threadsafe with respect to other code modifying the global signal handlers. It
+  is NOT async signal safe.
   */
   class SIGNALGUARD_CLASS_DECL signal_guard_install
   {
@@ -428,7 +437,15 @@ namespace signal_guard
   all thread local handling is exhausted. Note that what you can safely do in the decider
   callable is extremely limited, only async signal safe functions may be called.
 
-  A `signal_guard_install` is always instanced for every global decider.
+  A `signal_guard_install` is always instanced for every global decider, and creating and destroying
+  these is NOT async signal safe i.e. create and destroy these ONLY outside a signal handler.
+
+  On POSIX only, a global signal continuation decider is ALWAYS installed for `signalc::timer_expire`
+  (`SIGALRM`) in order to implement `signal_guard_watchdog`. Be aware that if any `signal_guard_watchdog`
+  exist and their expiry times indicate that they have expired, the `SIGALRM` will be consumed. You
+  may wish to install further global signal continuation deciders using `callfirst = true` if you wish
+  to be called before any `signal_guard_watchdog` processing. Note also that if no `signal_guard_watchdog`
+  expiry times have expired, then the default action for `SIGALRM` is taken.
   */
   template <class T> class signal_guard_global_decider : public detail::signal_guard_global_decider_impl
   {
@@ -440,7 +457,7 @@ namespace signal_guard
     \param guarded The signal set for which this decider ought to be called.
     \param f A callable with prototype `bool(raised_signal_info *)`, which must return
     `true` if execution is to resume, `false` if the next decider function should be called.
-    Note that on Windows only, `interrupt` and `process_terminate` call `f` from some other
+    Note that on Windows only, `signalc::interrupt` and `signalc::process_terminate` call `f` from some other
     kernel thread, and the return value is always treated as `false`.
     \param callfirst True if this decider should be called before any other. Otherwise
     call order is in the order of addition.
@@ -488,6 +505,122 @@ namespace signal_guard
   simply abort the process. Code donations implementing support are welcome.
   */
   SIGNALGUARD_FUNC_DECL bool thrd_raise_signal(signalc signo, void *raw_info = nullptr, void *raw_context = nullptr);
+
+  /*! \brief This initiates a fast fail process termination which immediately exits the process
+  without calling any handlers: on POSIX, this is `SIGKILL`, on Windows this is `TerminateProcess()`.
+
+  If `msg` is specified, it async signal safely prints that message before termination. If you don't
+  specify a message (`nullptr`), a default message is printed. A message of `""` prints nothing.
+  */
+  QUICKCPPLIB_NORETURN SIGNALGUARD_FUNC_DECL void terminate_process_immediately(const char *msg = nullptr) noexcept;
+
+  namespace detail
+  {
+    struct invoke_terminate_process_immediately
+    {
+      void operator()() const noexcept { terminate_process_immediately("signal_guard_watchdog expired"); }
+    };
+    class SIGNALGUARD_CLASS_DECL signal_guard_watchdog_impl
+    {
+      struct _signal_guard_watchdog_decider;
+      friend struct watchdog_decider_t;
+#ifdef _WIN32
+      void *_threadh{nullptr};
+#else
+      void *_timerid{nullptr};
+#endif
+      signal_guard_watchdog_impl *_prev{nullptr}, * _next{nullptr};
+      uint64_t _deadline_ms{0};
+      bool _inuse{false}, _alreadycalled{false};
+      virtual void _call() const noexcept = 0;
+
+      SIGNALGUARD_MEMFUNC_DECL void _detach() noexcept;
+    public:
+      SIGNALGUARD_MEMFUNC_DECL signal_guard_watchdog_impl(unsigned ms);
+      virtual ~signal_guard_watchdog_impl()
+      {
+        if(_inuse)
+        {
+          try
+          {
+            release();
+          }
+          catch(...)
+          {
+          }
+        }
+      }
+      signal_guard_watchdog_impl(const signal_guard_watchdog_impl &) = delete;
+      SIGNALGUARD_MEMFUNC_DECL signal_guard_watchdog_impl(signal_guard_watchdog_impl &&o) noexcept;
+      signal_guard_watchdog_impl &operator=(const signal_guard_watchdog_impl &) = delete;
+      signal_guard_watchdog_impl &operator=(signal_guard_watchdog_impl &&) = delete;
+      SIGNALGUARD_MEMFUNC_DECL void release();
+    };
+  }  // namespace detail
+
+  /*! \brief Call an optional specified routine after a period of time, possibly on another thread. Async signal safe.
+
+  In your signal handler, you may have no choice but to execute async signal unsafe code e.g. you
+  absolutely must call `malloc()` because third party code does so and there is no way to not
+  call that third party code. This can very often lead to hangs, whether due to infinite loops
+  or getting deadlocked by locking an already locked mutex.
+
+  This facility provides the ability to set a watchdog timer which will either call your specified
+  routine or the default routine after a period of time after construction, unless it is released
+  or destructed first. Your routine will be called via an async signal (`SIGALRM`) if on POSIX, or
+  from a separate thread if on Windows. Therefore, if on Windows, a kernel thread will be launched
+  on construction, and killed on destruction. On POSIX, a global signal continuation decider is
+  ALWAYS installed at process init for `signalc::timer_expire` (`SIGALRM`) in order to implement
+  `signal_guard_watchdog`, this is a filtering decider which only matches `signal_guard_watchdog`
+  whose timers have expired, otherwise it passes on the signal to other handlers.
+
+  If you don't specify a routine, the default routine is `terminate_process_immediately()`
+  which performs a fast fail process termination.
+  */
+  template <class T> class signal_guard_watchdog : public detail::signal_guard_watchdog_impl
+  {
+    T _f;
+    virtual void _call() const noexcept override final { _f(); }
+
+  public:
+    /*! \brief Constructs an instance.
+    \param f A callable with prototype `bool(raised_signal_info *)`, which must return
+    `true` if execution is to resume, `false` if the next decider function should be called.
+    Note that on Windows only, `signalc::interrupt` and `signalc::process_terminate` call `f` from some other
+    kernel thread, and the return value is always treated as `false`.
+    \param callfirst True if this decider should be called before any other. Otherwise
+    call order is in the order of addition.
+    */
+    QUICKCPPLIB_TEMPLATE(class U)
+    QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(std::is_constructible<T, U>::value), QUICKCPPLIB_TEXPR(std::declval<U>()()))
+    signal_guard_watchdog(U &&f, unsigned ms)
+        : detail::signal_guard_watchdog_impl(ms)
+        , _f(static_cast<U &&>(f))
+    {
+    }
+    ~signal_guard_watchdog() = default;
+    signal_guard_watchdog(const signal_guard_watchdog &) = delete;
+    signal_guard_watchdog(signal_guard_watchdog &&o) noexcept = default;
+    signal_guard_watchdog &operator=(const signal_guard_watchdog &) = delete;
+    signal_guard_watchdog &operator=(signal_guard_watchdog &&o) noexcept
+    {
+      this->~signal_guard_watchdog();
+      new(this) signal_guard_watchdog(static_cast<signal_guard_watchdog &&>(o));
+      return *this;
+    }
+  };
+  //! \brief Convenience instantiator of `signal_guard_watchdog`.
+  QUICKCPPLIB_TEMPLATE(class U)
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TEXPR(std::declval<U>()()))
+  inline signal_guard_watchdog<std::decay_t<U>> make_signal_guard_watchdog(U &&f, unsigned ms = 3000)
+  {
+    return signal_guard_watchdog<std::decay_t<U>>(static_cast<U &&>(f), ms);
+  }
+  //! \brief Convenience instantiator of `signal_guard_watchdog`.
+  inline signal_guard_watchdog<detail::invoke_terminate_process_immediately> make_signal_guard_watchdog(unsigned ms = 3000)
+  {
+    return signal_guard_watchdog<detail::invoke_terminate_process_immediately>(detail::invoke_terminate_process_immediately(), ms);
+  }
 
 
   //! \brief Thrown by the default signal handler to abort the current operation
@@ -570,7 +703,7 @@ namespace signal_guard
   1. `c`, which must have the prototype `bool(raised_signal_info *)`, is called with the signal which
   was raised. You can fix the cause of the signal and return `true` to continue execution, or else return `false`
   to halt execution. Note that the variety of code you can call in `c` is extremely limited, the same restrictions
-  as for signal handlers apply. Note that on Windows only, `interrupt` and `process_terminate` call `c` from
+  as for signal handlers apply. Note that on Windows only, `signalc::interrupt` and `signalc::process_terminate` call `c` from
   some other kernel thread, and the return value is always ignored (the process is always exited).
 
   2. If `c` returned `false`, the execution of `f` is halted **immediately** without stack unwind, the thread is returned

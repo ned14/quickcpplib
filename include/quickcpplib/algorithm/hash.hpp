@@ -755,9 +755,9 @@ namespace algorithm
         {
           tocopy = bytes;
         }
-        memcpy(_chunk + _chunkidx, data, tocopy);
         if(data != nullptr)
         {
+          memcpy(_chunk + _chunkidx, data, tocopy);
           _total_len += tocopy;
           data += tocopy;
           bytes -= tocopy;

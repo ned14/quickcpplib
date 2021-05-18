@@ -24,10 +24,16 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "../include/quickcpplib/signal_guard.hpp"
 
+#include "../include/quickcpplib/scope.hpp"
 #include "../include/quickcpplib/spinlock.hpp"
 
 #include <cstring>       // for memset etc
 #include <system_error>  // for system_error
+
+#ifndef _WIN32
+#include <time.h>    // for timers
+#include <unistd.h>  // for write()
+#endif
 
 #ifdef _MSC_VER
 #pragma warning(push)
@@ -293,8 +299,9 @@ namespace signal_guard
                 lock.unlock();
                 d->decider(&rsi);
                 lock.lock();
+                break;
               }
-              break;
+              n++;
             }
           }
         }
@@ -339,8 +346,9 @@ namespace signal_guard
                   abort();
                 }
                 lock.lock();
+                break;
               }
-              break;
+              n++;
             }
           }
         }
@@ -393,8 +401,9 @@ namespace signal_guard
                   abort();
                 }
                 lock.lock();
+                break;
               }
-              break;
+              n++;
             }
           }
         }
@@ -450,14 +459,33 @@ namespace signal_guard
 
       typedef long(__stdcall *PVECTORED_EXCEPTION_HANDLER)(struct _EXCEPTION_POINTERS *ExceptionInfo);
 
+      typedef int(__stdcall *PHANDLER_ROUTINE)(unsigned long dwCtrlType);
+
+      typedef struct _OVERLAPPED OVERLAPPED, *LPOVERLAPPED;
+
+      typedef struct _SECURITY_ATTRIBUTES SECURITY_ATTRIBUTES, *LPSECURITY_ATTRIBUTES;
+
+      typedef unsigned long(__stdcall *LPTHREAD_START_ROUTINE)(void *lpParameter);
+
+      typedef void(__stdcall *PAPCFUNC)(uintptr_t);
+
       extern void __stdcall RaiseException(unsigned long dwExceptionCode, unsigned long dwExceptionFlags, unsigned long nNumberOfArguments,
                                            const unsigned long long *lpArguments);
       extern PVECTORED_EXCEPTION_HANDLER __stdcall SetUnhandledExceptionFilter(PVECTORED_EXCEPTION_HANDLER Handler);
       extern void *__stdcall AddVectoredContinueHandler(unsigned long First, PVECTORED_EXCEPTION_HANDLER Handler);
       extern unsigned long __stdcall RemoveVectoredContinueHandler(void *Handle);
       extern unsigned long __stdcall GetLastError();
-      typedef int(__stdcall *PHANDLER_ROUTINE)(unsigned long dwCtrlType);
       extern int __stdcall SetConsoleCtrlHandler(PHANDLER_ROUTINE HandlerRoutine, int Add);
+      extern int __stdcall TerminateProcess(void *hProcess, unsigned int uExitCode);
+      extern void *__stdcall GetStdHandle(unsigned long);
+      extern int __stdcall WriteFile(void *hFile, const void *lpBuffer, unsigned long nNumberOfBytesToWrite, unsigned long *lpNumberOfBytesWritten,
+                                     OVERLAPPED *lpOverlapped);
+      extern void *__stdcall CreateThread(SECURITY_ATTRIBUTES *lpThreadAttributes, size_t dwStackSize, LPTHREAD_START_ROUTINE lpStartAddress, void *lpParameter,
+                                          unsigned long dwCreationFlags, unsigned long *lpThreadId);
+      extern unsigned long __stdcall QueueUserAPC(PAPCFUNC pfnAPC, void *hThread, uintptr_t dwData);
+      extern unsigned long __stdcall SleepEx(unsigned long dwMillseconds, int bAlertable);
+      extern int __stdcall CloseHandle(void *hObject);
+      extern unsigned long long __stdcall GetTickCount64();
 
 #pragma comment(lib, "kernel32.lib")
 #ifndef QUICKCPPLIB_DISABLE_ABI_PERMUTATION
@@ -476,6 +504,18 @@ namespace signal_guard
 #pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?GetLastError@win32@detail@signal_guard@_", "@quickcpplib@@YAKXZ=GetLastError"))
 #pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?SetConsoleCtrlHandler@win32@detail@signal_guard@_",                                   \
                                                         "@quickcpplib@@YAHP6AHK@ZH@Z=SetConsoleCtrlHandler"))
+#pragma comment(linker,                                                                                                                                        \
+                QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?TerminateProcess@win32@detail@signal_guard@_", "@quickcpplib@@YAHPEAXI@Z=TerminateProcess"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?GetStdHandle@win32@detail@signal_guard@_", "@quickcpplib@@YAPEAXK@Z=GetStdHandle"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?WriteFile@win32@detail@signal_guard@_",                                               \
+                                                        "@quickcpplib@@YAHPEAXPEBXKPEAKPEAU_OVERLAPPED@12345@@Z=WriteFile"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?CreateThread@win32@detail@signal_guard@_",                                            \
+                                                        "@quickcpplib@@YAPEAXPEAU_SECURITY_ATTRIBUTES@12345@_KP6AKPEAX@Z2KPEAK@Z=CreateThread"))
+#pragma comment(linker,                                                                                                                                        \
+                QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?QueueUserAPC@win32@detail@signal_guard@_", "@quickcpplib@@YAKP6AX_K@ZPEAX0@Z=QueueUserAPC"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?SleepEx@win32@detail@signal_guard@_", "@quickcpplib@@YAKKH@Z=SleepEx"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?CloseHandle@win32@detail@signal_guard@_", "@quickcpplib@@YAHPEAX@Z=CloseHandle"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?GetTickCount64@win32@detail@signal_guard@_", "@quickcpplib@@YA_KXZ=GetTickCount64"))
 #elif defined(__x86__) || defined(_M_IX86) || defined(__i386__)
 #pragma comment(                                                                                                                                               \
 linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RaiseException@win32@detail@signal_guard@_", "@quickcpplib@@YGXKKKPB_K@Z=__imp__RaiseException@16"))
@@ -489,6 +529,21 @@ linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RaiseException@win32@de
                 QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?GetLastError@win32@detail@signal_guard@_", "@quickcpplib@@YGKXZ=__imp__GetLastError@0"))
 #pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?SetConsoleCtrlHandler@win32@detail@signal_guard@_",                                   \
                                                         "@quickcpplib@@YGHP6GHK@ZH@Z=__imp__SetConsoleCtrlHandler@8"))
+#pragma comment(                                                                                                                                               \
+linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?TerminateProcess@win32@detail@signal_guard@_", "@quickcpplib@@YGHPAXI@Z=__imp__TerminateProcess@8"))
+#pragma comment(linker,                                                                                                                                        \
+                QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?GetStdHandle@win32@detail@signal_guard@_", "@quickcpplib@@YGPAXK@Z=__imp__GetStdHandle@4"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?WriteFile@win32@detail@signal_guard@_",                                               \
+                                                        "@quickcpplib@@YGHPAXPBXKPAKPAU_OVERLAPPED@12345@@Z=__imp__WriteFile@20"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?CreateThread@win32@detail@signal_guard@_",                                            \
+                                                        "@quickcpplib@@YGPAXPAU_SECURITY_ATTRIBUTES@12345@IP6GKPAX@Z1KPAK@Z=__imp__CreateThread@24"))
+#pragma comment(                                                                                                                                               \
+linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?QueueUserAPC@win32@detail@signal_guard@_", "@quickcpplib@@YGKP6GXI@ZPAXI@Z=__imp__QueueUserAPC@12"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?SleepEx@win32@detail@signal_guard@_", "@quickcpplib@@YGKKH@Z=__imp__SleepEx@8"))
+#pragma comment(linker,                                                                                                                                        \
+                QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?CloseHandle@win32@detail@signal_guard@_", "@quickcpplib@@YGHPAX@Z=__imp__CloseHandle@4"))
+#pragma comment(linker,                                                                                                                                        \
+                QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?GetTickCount64@win32@detail@signal_guard@_", "@quickcpplib@@YG_KXZ=__imp__GetTickCount64@0"))
 #elif defined(__arm__) || defined(_M_ARM)
 #pragma comment(linker,                                                                                                                                        \
                 QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RaiseException@win32@detail@signal_guard@_", "@quickcpplib@@YAXKKKPB_K@Z=RaiseException"))
@@ -501,6 +556,18 @@ linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?RaiseException@win32@de
 #pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?GetLastError@win32@detail@signal_guard@_", "@quickcpplib@@YAKXZ=GetLastError"))
 #pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?SetConsoleCtrlHandler@win32@detail@signal_guard@_",                                   \
                                                         "@quickcpplib@@YAHP6AHK@ZH@Z=SetConsoleCtrlHandler"))
+#pragma comment(linker,                                                                                                                                        \
+                QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?TerminateProcess@win32@detail@signal_guard@_", "@quickcpplib@@YAHPAXI@Z=TerminateProcess"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?GetStdHandle@win32@detail@signal_guard@_", "@quickcpplib@@YAPAXK@Z=GetStdHandle"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?WriteFile@win32@detail@signal_guard@_",                                               \
+                                                        "@quickcpplib@@YAHPAXPBXKPAKPAUOVERLAPPED@12345@@Z=WriteFile"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?CreateThread@win32@detail@signal_guard@_",                                            \
+                                                        "@quickcpplib@@YAPAXPAU_SECURITY_ATTRIBUTES@12345@IP6AKPAX@Z1KPAK@Z=CreateThread"))
+#pragma comment(linker,                                                                                                                                        \
+                QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?QueueUserAPC@win32@detail@signal_guard@_", "@quickcpplib@@YAKP6AXI@ZPAXI@Z=QueueUserAPC"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?SleepEx@win32@detail@signal_guard@_", "@quickcpplib@@YAKKH@Z=SleepEx"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?CloseHandle@win32@detail@signal_guard@_", "@quickcpplib@@YAHPAX@Z=CloseHandle"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?GetTickCount64@win32@detail@signal_guard@_", "@quickcpplib@@YA_KXZ=GetTickCount64"))
 #else
 #error Unknown architecture
 #endif
@@ -516,6 +583,15 @@ linker,                                                                         
 #pragma comment(linker, "/alternatename:?RemoveVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YAKPEAX@Z=RemoveVectoredContinueHandler")
 #pragma comment(linker, "/alternatename:?GetLastError@win32@detail@signal_guard@quickcpplib@@YAKXZ=GetLastError")
 #pragma comment(linker, "/alternatename:?SetConsoleCtrlHandler@win32@detail@signal_guard@quickcpplib@@YAHP6AHK@ZH@Z=SetConsoleCtrlHandler")
+#pragma comment(linker, "/alternatename:?TerminateProcess@win32@detail@signal_guard@quickcpplib@@YAHPEAXI@Z=TerminateProcess")
+#pragma comment(linker, "/alternatename:?GetStdHandle@win32@detail@signal_guard@quickcpplib@@YAPEAXK@Z=GetStdHandle")
+#pragma comment(linker, "/alternatename:?WriteFile@win32@detail@signal_guard@quickcpplib@@YAHPEAXPEBXKPEAKPEAU_OVERLAPPED@12345@@Z=WriteFile")
+#pragma comment(linker,                                                                                                                                        \
+                "/alternatename:?CreateThread@win32@detail@signal_guard@quickcpplib@@YAPEAXPEAU_SECURITY_ATTRIBUTES@12345@_KP6AKPEAX@Z2KPEAK@Z=CreateThread")
+#pragma comment(linker, "/alternatename:?QueueUserAPC@win32@detail@signal_guard@quickcpplib@@YAKP6AX_K@ZPEAX0@Z=QueueUserAPC")
+#pragma comment(linker, "/alternatename:?SleepEx@win32@detail@signal_guard@quickcpplib@@YAKKH@Z=SleepEx")
+#pragma comment(linker, "/alternatename:?CloseHandle@win32@detail@signal_guard@quickcpplib@@YAHPEAX@Z=CloseHandle")
+#pragma comment(linker, "/alternatename:?GetTickCount64@win32@detail@signal_guard@quickcpplib@@YA_KXZ=GetTickCount64")
 #elif defined(__x86__) || defined(_M_IX86) || defined(__i386__)
 #pragma comment(linker, "/alternatename:?RaiseException@win32@detail@signal_guard@quickcpplib@@YGXKKKPB_K@Z=__imp__RaiseException@16")
 #pragma comment(                                                                                                                                               \
@@ -527,6 +603,15 @@ linker,                                                                         
 #pragma comment(linker, "/alternatename:?RemoveVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YGKPAX@Z=__imp__RemoveVectoredContinueHandler@4")
 #pragma comment(linker, "/alternatename:?GetLastError@win32@detail@signal_guard@quickcpplib@@YGKXZ=__imp__GetLastError@0")
 #pragma comment(linker, "/alternatename:?SetConsoleCtrlHandler@win32@detail@signal_guard@quickcpplib@@YGHP6GHK@ZH@Z=__imp__SetConsoleCtrlHandler@8")
+#pragma comment(linker, "/alternatename:?TerminateProcess@win32@detail@signal_guard@quickcpplib@@YGHPAXI@Z=__imp__TerminateProcess@8")
+#pragma comment(linker, "/alternatename:?GetStdHandle@win32@detail@signal_guard@quickcpplib@@YGPAXK@Z=__imp__GetStdHandle@4")
+#pragma comment(linker, "/alternatename:?WriteFile@win32@detail@signal_guard@quickcpplib@@YGHPAXPBXKPAKPAU_OVERLAPPED@12345@@Z=__imp__WriteFile@20")
+#pragma comment(                                                                                                                                               \
+linker, "/alternatename:?CreateThread@win32@detail@signal_guard@quickcpplib@@YGPAXPAU_SECURITY_ATTRIBUTES@12345@IP6GKPAX@Z1KPAK@Z=__imp__CreateThread@24")
+#pragma comment(linker, "/alternatename:?QueueUserAPC@win32@detail@signal_guard@quickcpplib@@YGKP6GXI@ZPAXI@Z=__imp__QueueUserAPC@12")
+#pragma comment(linker, "/alternatename:?SleepEx@win32@detail@signal_guard@quickcpplib@@YGKKH@Z=__imp__SleepEx@8")
+#pragma comment(linker, "/alternatename:?CloseHandle@win32@detail@signal_guard@quickcpplib@@YGHPAX@Z=__imp__CloseHandle@4")
+#pragma comment(linker, "/alternatename:?GetTickCount64@win32@detail@signal_guard@quickcpplib@@YG_KXZ=__imp__GetTickCount64@0")
 #elif defined(__arm__) || defined(_M_ARM)
 #pragma comment(linker, "/alternatename:?RaiseException@win32@detail@signal_guard@quickcpplib@@YAXKKKPB_K@Z=RaiseException")
 #pragma comment(                                                                                                                                               \
@@ -538,6 +623,14 @@ linker,                                                                         
 #pragma comment(linker, "/alternatename:?RemoveVectoredContinueHandler@win32@detail@signal_guard@quickcpplib@@YAKPAX@Z=RemoveVectoredContinueHandler")
 #pragma comment(linker, "/alternatename:?GetLastError@win32@detail@signal_guard@quickcpplib@@YAKXZ=GetLastError")
 #pragma comment(linker, "/alternatename:?SetConsoleCtrlHandler@win32@detail@signal_guard@quickcpplib@@YAHP6AHK@ZH@Z=SetConsoleCtrlHandler")
+#pragma comment(linker, "/alternatename:?TerminateProcess@win32@detail@signal_guard@quickcpplib@@YAHPAXI@Z=TerminateProcess")
+#pragma comment(linker, "/alternatename:?GetStdHandle@win32@detail@signal_guard@quickcpplib@@YAPAXK@Z=GetStdHandle")
+#pragma comment(linker, "/alternatename:?WriteFile@win32@detail@signal_guard@quickcpplib@@YAHPAXPBXKPAKPAUOVERLAPPED@12345@@Z=WriteFile")
+#pragma comment(linker, "/alternatename:?CreateThread@win32@detail@signal_guard@quickcpplib@@YAPAXPAU_SECURITY_ATTRIBUTES@12345@IP6AKPAX@Z1KPAK@Z=CreateThread")
+#pragma comment(linker, "/alternatename:?QueueUserAPC@win32@detail@signal_guard@quickcpplib@@YAKP6AXI@ZPAXI@Z=QueueUserAPC")
+#pragma comment(linker, "/alternatename:?SleepEx@win32@detail@signal_guard@quickcpplib@@YAKKH@Z=SleepEx")
+#pragma comment(linker, "/alternatename:?CloseHandle@win32@detail@signal_guard@quickcpplib@@YAHPAX@Z=CloseHandle")
+#pragma comment(linker, "/alternatename:?GetTickCount64@win32@detail@signal_guard@quickcpplib@@YA_KXZ=GetTickCount64")
 #else
 #error Unknown architecture
 #endif
@@ -665,8 +758,9 @@ linker,                                                                         
                   return (long) -1 /*EXCEPTION_CONTINUE_EXECUTION*/;
                 }
                 lock.lock();
+                break;
               }
-              break;
+              n++;
             }
           }
         }
@@ -817,8 +911,9 @@ linker,                                                                         
                   return;  // resume execution
                 }
                 lock.lock();
+                break;
               }
-              break;
+              n++;
             }
           }
         }
@@ -1155,6 +1250,236 @@ linker,                                                                         
     return detail::do_raise_signal(static_cast<int>(signo), sa, info, _context);
 #endif
   }
+
+  SIGNALGUARD_FUNC_DECL void terminate_process_immediately(const char *msg) noexcept
+  {
+    static const char s[] = "\nProcess fail fast terminated\n";
+    if(msg == nullptr)
+    {
+      msg = s;
+    }
+#ifdef _WIN32
+    if(msg != nullptr && msg[0] != 0)
+    {
+      unsigned long written = 0;
+      (void) detail::win32::WriteFile(detail::win32::GetStdHandle((unsigned long) -12 /*STD_ERROR_HANDLE*/), msg, (unsigned long) strlen(msg), &written,
+                                      nullptr);
+    }
+    detail::win32::TerminateProcess((void *) -1, 1);
+#else
+    if(msg != nullptr && msg[0] != 0)
+    {
+      (void) ::write(2, msg, strlen(msg));
+    }
+    ::kill(0, SIGKILL);
+#endif
+    // We promised we would never, ever, return.
+    for(;;)
+    {
+    }
+  }
+
+  namespace detail
+  {
+    static struct watchdog_decider_t
+    {
+      configurable_spinlock::spinlock<uintptr_t> lock;
+      signal_guard_watchdog_impl *next{nullptr};
+      bool check() noexcept
+      {
+        bool ret = false;
+#ifdef _WIN32
+        auto now = detail::win32::GetTickCount64();
+#else
+        struct timespec ts;
+        memset(&ts, 0, sizeof(ts));
+        (void) ::clock_gettime(CLOCK_MONOTONIC, &ts);
+        auto now = ((uint64_t) ts.tv_sec * 1000ULL + (uint64_t) ts.tv_nsec / 1000000ULL);
+#endif
+        lock.lock();
+        auto *d = next;
+        for(size_t n = 0; d != nullptr; n++)
+        {
+          size_t i = 0;
+          for(d = next; d != nullptr; d = d->_next)
+          {
+            if(i++ == n)
+            {
+              if(now >= d->_deadline_ms && !d->_alreadycalled)
+              {
+                d->_alreadycalled = true;
+                lock.unlock();
+                d->_call();
+                ret = true;
+                lock.lock();
+                break;
+              }
+              n++;
+            }
+          }
+        }
+        lock.unlock();
+        return ret;
+      }
+    } watchdog_decider;
+#ifdef _WIN32
+    static thread_local bool _win32_signal_guard_watchdog_impl_apcfunc_called = false;
+    static inline void _win32_signal_guard_watchdog_impl_apcfunc(uintptr_t /*unused*/) { _win32_signal_guard_watchdog_impl_apcfunc_called = true; }
+    inline unsigned long _win32_signal_guard_watchdog_impl_thread(void *lpParameter)
+    {
+      detail::win32::SleepEx((unsigned long) (uintptr_t) lpParameter, true);
+      if(!_win32_signal_guard_watchdog_impl_apcfunc_called)
+      {
+        watchdog_decider.check();
+      }
+      return 0;
+    }
+#else
+    static auto posix_signal_guard_watchdog_decider_install =
+    make_signal_guard_global_decider(signalc_set::timer_expire, [](raised_signal_info * /*unused*/) -> bool { return watchdog_decider.check(); });
+#endif
+    SIGNALGUARD_MEMFUNC_DECL void signal_guard_watchdog_impl::_detach() noexcept
+    {
+      watchdog_decider.lock.lock();
+      if(_prev == nullptr)
+      {
+        assert(watchdog_decider.next == this);
+        watchdog_decider.next = _next;
+      }
+      else
+      {
+        assert(_prev->_next == this);
+        _prev->_next = _next;
+        _prev = nullptr;
+      }
+      if(_next != nullptr)
+      {
+        assert(_next->_prev == this);
+        _next->_prev = _prev;
+        _next = nullptr;
+      }
+      watchdog_decider.lock.unlock();
+    }
+    SIGNALGUARD_MEMFUNC_DECL signal_guard_watchdog_impl::signal_guard_watchdog_impl(unsigned ms)
+    {
+      watchdog_decider.lock.lock();
+      if(watchdog_decider.next != nullptr)
+      {
+        assert(watchdog_decider.next->_prev == nullptr);
+        watchdog_decider.next->_prev = this;
+        _next = watchdog_decider.next;
+        _prev = nullptr;
+        watchdog_decider.next = this;
+      }
+      else
+      {
+        _next = _prev = nullptr;
+        watchdog_decider.next = this;
+      }
+      watchdog_decider.lock.unlock();
+      auto uninstall = QUICKCPPLIB_NAMESPACE::scope::make_scope_fail([this]() noexcept { _detach(); });
+#ifdef _WIN32
+      unsigned long threadid;
+      _deadline_ms = detail::win32::GetTickCount64() + ms;
+      _threadh = detail::win32::CreateThread(nullptr, 0, _win32_signal_guard_watchdog_impl_thread, (void *) (uintptr_t) ms, 0, &threadid);
+      if(_threadh == nullptr)
+      {
+        throw std::system_error(detail::win32::GetLastError(), std::system_category());
+      }
+      _inuse = true;
+#else
+      struct timespec ts;
+      memset(&ts, 0, sizeof(ts));
+      if(-1 == ::clock_gettime(CLOCK_MONOTONIC, &ts))
+      {
+        throw std::system_error(errno, std::system_category());
+      }
+      timer_t timerid = nullptr;
+      if(-1 == ::timer_create(CLOCK_MONOTONIC, nullptr, &timerid))
+      {
+        throw std::system_error(errno, std::system_category());
+      }
+      _deadline_ms = ((uint64_t) ts.tv_sec * 1000ULL + (uint64_t) ts.tv_nsec / 1000000ULL) + ms;
+      _timerid = timerid;
+      _inuse = true;
+      struct itimerspec newtimer;
+      memset(&newtimer, 0, sizeof(newtimer));
+      newtimer.it_value.tv_sec = ms / 1000;
+      newtimer.it_value.tv_nsec = (ms % 1000) * 1000000LL;
+      if(-1 == ::timer_settime(timerid, 0, &newtimer, nullptr))
+      {
+        throw std::system_error(errno, std::system_category());
+      }
+#endif
+    }
+    SIGNALGUARD_MEMFUNC_DECL signal_guard_watchdog_impl::signal_guard_watchdog_impl(signal_guard_watchdog_impl &&o) noexcept
+        :
+#ifdef _WIN32
+        _threadh(o._threadh)
+#else
+        _timerid(o._timerid)
+#endif
+        , _prev(o._prev)
+        , _next(o._next)
+        , _deadline_ms(o._deadline_ms)
+        , _inuse(o._inuse)
+        , _alreadycalled(o._alreadycalled)
+    {
+      if(_inuse)
+      {
+        watchdog_decider.lock.lock();
+        if(_prev == nullptr)
+        {
+          assert(watchdog_decider.next == &o);
+          watchdog_decider.next = this;
+        }
+        else
+        {
+          assert(_prev->_next == &o);
+          _prev->_next = this;
+        }
+        if(_next != nullptr)
+        {
+          assert(_next->_prev == &o);
+          _next->_prev = this;
+        }
+        o._prev = o._next = nullptr;
+        o._inuse = false;
+#ifdef _WIN32
+        o._threadh = nullptr;
+#else
+        o._timerid = nullptr;
+#endif
+        watchdog_decider.lock.unlock();
+      }
+    }
+
+    SIGNALGUARD_MEMFUNC_DECL void signal_guard_watchdog_impl::release()
+    {
+      if(_inuse)
+      {
+#ifdef _WIN32
+        if(!detail::win32::QueueUserAPC(_win32_signal_guard_watchdog_impl_apcfunc, _threadh, 0))
+        {
+          throw std::system_error(detail::win32::GetLastError(), std::system_category());
+        }
+        if(!detail::win32::CloseHandle(_threadh))
+        {
+          throw std::system_error(detail::win32::GetLastError(), std::system_category());
+        }
+        _threadh = nullptr;
+#else
+        if(-1 == ::timer_delete(_timerid))
+        {
+          throw std::system_error(errno, std::system_category());
+        }
+        _timerid = nullptr;
+#endif
+        _inuse = false;
+        _detach();
+      }
+    }
+  }  // namespace detail
 
 }  // namespace signal_guard
 
