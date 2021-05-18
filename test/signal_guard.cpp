@@ -362,6 +362,12 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / multithreaded, "Tests that signal_gu
 #if QUICKCPPLIB_IN_THREAD_SANITIZER
   return;  // hangs tsan, indeed you can't even Ctrl-C out of it!
 #endif
+#ifdef _WIN32
+  if(getenv("CI") != nullptr)
+  {
+    return;
+  }
+#endif
   static thread_local jmp_buf buf;
   static std::atomic<bool> done(false);
   auto handler = QUICKCPPLIB_NAMESPACE::signal_guard::make_signal_guard_global_decider(
