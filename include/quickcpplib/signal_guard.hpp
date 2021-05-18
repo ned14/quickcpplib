@@ -270,12 +270,14 @@ namespace signal_guard
     SIGTERM,  //!< Process termination requested (`SIGTERM`). Note on Windows the handler is ALWAYS called from a separate thread, and the process exits after you return (or take too long executing).
 
 #ifndef _WIN32
-    timer_expire = SIGALRM,              //!< Timer has expired (`SIGALRM`). POSIX only.
-    child_exit = SIGCHLD,                //!< Child has exited (`SIGCHLD`). POSIX only.
-    process_continue = SIGCONT,          //!< Process is being continued (`SIGCONT`). POSIX only.
-    tty_hangup = SIGHUP,                 //!< Controlling terminal has hung up (`SIGHUP`). POSIX only.
-    process_kill = SIGKILL,              //!< Process has received kill signal (`SIGKILL`). POSIX only.
-    pollable_event = SIGPOLL,            //!< i/o is now possible (`SIGPOLL`). POSIX only.
+    timer_expire = SIGALRM,      //!< Timer has expired (`SIGALRM`). POSIX only.
+    child_exit = SIGCHLD,        //!< Child has exited (`SIGCHLD`). POSIX only.
+    process_continue = SIGCONT,  //!< Process is being continued (`SIGCONT`). POSIX only.
+    tty_hangup = SIGHUP,         //!< Controlling terminal has hung up (`SIGHUP`). POSIX only.
+    process_kill = SIGKILL,      //!< Process has received kill signal (`SIGKILL`). POSIX only.
+#ifdef SIGPOLL
+    pollable_event = SIGPOLL,  //!< i/o is now possible (`SIGPOLL`). POSIX only.
+#endif
     profile_event = SIGPROF,             //!< Profiling timer expired (`SIGPROF`). POSIX only.
     process_quit = SIGQUIT,              //!< Process is being quit (`SIGQUIT`). POSIX only.
     process_stop = SIGSTOP,              //!< Process is being stopped (`SIGSTOP`). POSIX only.
@@ -323,12 +325,14 @@ namespace signal_guard
 
 
 #ifndef _WIN32
-  timer_expire = (1ULL << static_cast<int>(signalc::timer_expire)),                          //!< Timer has expired (`SIGALRM`). POSIX only.
-  child_exit = (1ULL << static_cast<int>(signalc::child_exit)),                              //!< Child has exited (`SIGCHLD`). POSIX only.
-  process_continue = (1ULL << static_cast<int>(signalc::process_continue)),                  //!< Process is being continued (`SIGCONT`). POSIX only.
-  tty_hangup = (1ULL << static_cast<int>(signalc::tty_hangup)),                              //!< Controlling terminal has hung up (`SIGHUP`). POSIX only.
-  process_kill = (1ULL << static_cast<int>(signalc::process_kill)),                          //!< Process has received kill signal (`SIGKILL`). POSIX only.
-  pollable_event = (1ULL << static_cast<int>(signalc::pollable_event)),                      //!< i/o is now possible (`SIGPOLL`). POSIX only.
+  timer_expire = (1ULL << static_cast<int>(signalc::timer_expire)),          //!< Timer has expired (`SIGALRM`). POSIX only.
+  child_exit = (1ULL << static_cast<int>(signalc::child_exit)),              //!< Child has exited (`SIGCHLD`). POSIX only.
+  process_continue = (1ULL << static_cast<int>(signalc::process_continue)),  //!< Process is being continued (`SIGCONT`). POSIX only.
+  tty_hangup = (1ULL << static_cast<int>(signalc::tty_hangup)),              //!< Controlling terminal has hung up (`SIGHUP`). POSIX only.
+  process_kill = (1ULL << static_cast<int>(signalc::process_kill)),          //!< Process has received kill signal (`SIGKILL`). POSIX only.
+#ifdef SIGPOLL
+  pollable_event = (1ULL << static_cast<int>(signalc::pollable_event)),  //!< i/o is now possible (`SIGPOLL`). POSIX only.
+#endif
   profile_event = (1ULL << static_cast<int>(signalc::profile_event)),                        //!< Profiling timer expired (`SIGPROF`). POSIX only.
   process_quit = (1ULL << static_cast<int>(signalc::process_quit)),                          //!< Process is being quit (`SIGQUIT`). POSIX only.
   process_stop = (1ULL << static_cast<int>(signalc::process_stop)),                          //!< Process is being stopped (`SIGSTOP`). POSIX only.
@@ -529,12 +533,13 @@ namespace signal_guard
 #else
       void *_timerid{nullptr};
 #endif
-      signal_guard_watchdog_impl *_prev{nullptr}, * _next{nullptr};
+      signal_guard_watchdog_impl *_prev{nullptr}, *_next{nullptr};
       uint64_t _deadline_ms{0};
       bool _inuse{false}, _alreadycalled{false};
       virtual void _call() const noexcept = 0;
 
       SIGNALGUARD_MEMFUNC_DECL void _detach() noexcept;
+
     public:
       SIGNALGUARD_MEMFUNC_DECL signal_guard_watchdog_impl(unsigned ms);
       virtual ~signal_guard_watchdog_impl()

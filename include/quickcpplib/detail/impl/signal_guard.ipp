@@ -1394,6 +1394,9 @@ linker,                                                                         
       {
         throw std::system_error(errno, std::system_category());
       }
+#ifdef __APPLE__
+      throw std::runtime_error("signal_guard_watchdog not implemented on Mac OS due to lack of POSIX timers");
+#else
       timer_t timerid = nullptr;
       if(-1 == ::timer_create(CLOCK_MONOTONIC, nullptr, &timerid))
       {
@@ -1410,6 +1413,7 @@ linker,                                                                         
       {
         throw std::system_error(errno, std::system_category());
       }
+#endif
 #endif
     }
     SIGNALGUARD_MEMFUNC_DECL signal_guard_watchdog_impl::signal_guard_watchdog_impl(signal_guard_watchdog_impl &&o) noexcept
@@ -1469,10 +1473,12 @@ linker,                                                                         
         }
         _threadh = nullptr;
 #else
+#ifndef __APPLE__
         if(-1 == ::timer_delete(_timerid))
         {
           throw std::system_error(errno, std::system_category());
         }
+#endif
         _timerid = nullptr;
 #endif
         _inuse = false;

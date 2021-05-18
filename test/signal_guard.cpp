@@ -32,8 +32,12 @@ Distributed under the Boost Software License, Version 1.0.
 #include <dlfcn.h>
 #include <execinfo.h>
 #include <fcntl.h>
+#include <fenv.h>
 #include <spawn.h>
 #include <sys/wait.h>
+#if defined(__FreeBSD__) || defined(__APPLE__)
+extern "C" char **environ;
+#endif
 #endif
 
 #include "../include/quickcpplib/boost/test/unit_test.hpp"
@@ -415,7 +419,7 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / multithreaded, "Tests that signal_gu
   }
 #ifdef _MSC_VER
   // MSVC finds exception raises across many threads very slow to do
-  std::this_thread::sleep_for(std::chrono::seconds(3));
+  std::this_thread::sleep_for(std::chrono::seconds((getenv("CI") != nullptr) ? 1 : 3));
 #else
   std::this_thread::sleep_for(std::chrono::seconds(10));
 #endif
@@ -513,7 +517,7 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / recursive, "Tests that signal_guard 
   }
 #ifdef _MSC_VER
   // MSVC finds recursive exception raises across many threads very slow to do
-  std::this_thread::sleep_for(std::chrono::seconds(3));
+  std::this_thread::sleep_for(std::chrono::seconds((getenv("CI") != nullptr) ? 1 : 3));
 #else
   std::this_thread::sleep_for(std::chrono::seconds(10));
 #endif
