@@ -38,9 +38,6 @@ Distributed under the Boost Software License, Version 1.0.
 #if defined(__FreeBSD__) || defined(__APPLE__)
 extern "C" char **environ;
 #endif
-#ifdef __APPLE__
-#include <cfenv>
-#endif
 #endif
 
 #include "../include/quickcpplib/boost/test/unit_test.hpp"
@@ -472,16 +469,10 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / recursive, "Tests that signal_guard 
     _controlfp(0, _MCW_EM);
 #else
 #ifdef __APPLE__
-    auto feenableexcept = [](int excepts) {
-      excepts = excepts & FE_ALL_EXCEPT;
-      fenv_t fenv;
-      fegetenv(&fenv);
-      fenv.__control &= ~excepts;
-      fenv.__mxcsr &= ~(excepts << 7);
-      fesetenv(&fenv);
-    };
-#endif
+    std::get_new_handler()();
+#else
     feenableexcept(FE_DIVBYZERO);
+#endif
 #endif
     feraiseexcept(FE_DIVBYZERO);
     abort();
