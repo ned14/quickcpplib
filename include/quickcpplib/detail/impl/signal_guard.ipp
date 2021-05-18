@@ -511,8 +511,12 @@ namespace signal_guard
 #pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?GetStdHandle@win32@detail@signal_guard@_", "@quickcpplib@@YAPEAXK@Z=GetStdHandle"))
 #pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?WriteFile@win32@detail@signal_guard@_",                                               \
                                                         "@quickcpplib@@YAHPEAXPEBXKPEAKPEAU_OVERLAPPED@12345@@Z=WriteFile"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?WriteFile@win32@detail@signal_guard@_",                                               \
+                                                        "@quickcpplib@@YAHPEAXPEBXKPEAKPEAU_OVERLAPPED@@@Z=WriteFile"))
 #pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?CreateThread@win32@detail@signal_guard@_",                                            \
                                                         "@quickcpplib@@YAPEAXPEAU_SECURITY_ATTRIBUTES@12345@_KP6AKPEAX@Z2KPEAK@Z=CreateThread"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?CreateThread@win32@detail@signal_guard@_",                                            \
+                                                        "@quickcpplib@@YAPEAXPEAU_SECURITY_ATTRIBUTES@@_KP6AKPEAX@Z2KPEAK@Z=CreateThread"))
 #pragma comment(linker,                                                                                                                                        \
                 QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?QueueUserAPC@win32@detail@signal_guard@_", "@quickcpplib@@YAKP6AX_K@ZPEAX0@Z=QueueUserAPC"))
 #pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?SleepEx@win32@detail@signal_guard@_", "@quickcpplib@@YAKKH@Z=SleepEx"))
@@ -537,8 +541,12 @@ linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?TerminateProcess@win32@
                 QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?GetStdHandle@win32@detail@signal_guard@_", "@quickcpplib@@YGPAXK@Z=__imp__GetStdHandle@4"))
 #pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?WriteFile@win32@detail@signal_guard@_",                                               \
                                                         "@quickcpplib@@YGHPAXPBXKPAKPAU_OVERLAPPED@12345@@Z=__imp__WriteFile@20"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?WriteFile@win32@detail@signal_guard@_",                                               \
+                                                        "@quickcpplib@@YGHPAXPBXKPAKPAU_OVERLAPPED@@@Z=__imp__WriteFile@20"))
 #pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?CreateThread@win32@detail@signal_guard@_",                                            \
                                                         "@quickcpplib@@YGPAXPAU_SECURITY_ATTRIBUTES@12345@IP6GKPAX@Z1KPAK@Z=__imp__CreateThread@24"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?CreateThread@win32@detail@signal_guard@_",                                            \
+                                                        "@quickcpplib@@YGPAXPAU_SECURITY_ATTRIBUTES@@IP6GKPAX@Z1KPAK@Z=__imp__CreateThread@24"))
 #pragma comment(                                                                                                                                               \
 linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?QueueUserAPC@win32@detail@signal_guard@_", "@quickcpplib@@YGKP6GXI@ZPAXI@Z=__imp__QueueUserAPC@12"))
 #pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?SleepEx@win32@detail@signal_guard@_", "@quickcpplib@@YGKKH@Z=__imp__SleepEx@8"))
@@ -563,8 +571,12 @@ linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?QueueUserAPC@win32@deta
 #pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?GetStdHandle@win32@detail@signal_guard@_", "@quickcpplib@@YAPAXK@Z=GetStdHandle"))
 #pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?WriteFile@win32@detail@signal_guard@_",                                               \
                                                         "@quickcpplib@@YAHPAXPBXKPAKPAUOVERLAPPED@12345@@Z=WriteFile"))
+#pragma comment(                                                                                                                                               \
+linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?WriteFile@win32@detail@signal_guard@_", "@quickcpplib@@YAHPAXPBXKPAKPAUOVERLAPPED@@@Z=WriteFile"))
 #pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?CreateThread@win32@detail@signal_guard@_",                                            \
                                                         "@quickcpplib@@YAPAXPAU_SECURITY_ATTRIBUTES@12345@IP6AKPAX@Z1KPAK@Z=CreateThread"))
+#pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?CreateThread@win32@detail@signal_guard@_",                                            \
+                                                        "@quickcpplib@@YAPAXPAU_SECURITY_ATTRIBUTES@@IP6AKPAX@Z1KPAK@Z=CreateThread"))
 #pragma comment(linker,                                                                                                                                        \
                 QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?QueueUserAPC@win32@detail@signal_guard@_", "@quickcpplib@@YAKP6AXI@ZPAXI@Z=QueueUserAPC"))
 #pragma comment(linker, QUICKCPPLIB_SIGNAL_GUARD_SYMBOL("/alternatename:?SleepEx@win32@detail@signal_guard@_", "@quickcpplib@@YAKKH@Z=SleepEx"))
@@ -588,8 +600,10 @@ linker,                                                                         
 #pragma comment(linker, "/alternatename:?TerminateProcess@win32@detail@signal_guard@quickcpplib@@YAHPEAXI@Z=TerminateProcess")
 #pragma comment(linker, "/alternatename:?GetStdHandle@win32@detail@signal_guard@quickcpplib@@YAPEAXK@Z=GetStdHandle")
 #pragma comment(linker, "/alternatename:?WriteFile@win32@detail@signal_guard@quickcpplib@@YAHPEAXPEBXKPEAKPEAU_OVERLAPPED@1234@@Z=WriteFile")
+#pragma comment(linker, "/alternatename:?WriteFile@win32@detail@signal_guard@quickcpplib@@YAHPEAXPEBXKPEAKPEAU_OVERLAPPED@@@Z=WriteFile")
 #pragma comment(linker,                                                                                                                                        \
                 "/alternatename:?CreateThread@win32@detail@signal_guard@quickcpplib@@YAPEAXPEAU_SECURITY_ATTRIBUTES@1234@_KP6AKPEAX@Z2KPEAK@Z=CreateThread")
+#pragma comment(linker, "/alternatename:?CreateThread@win32@detail@signal_guard@quickcpplib@@YAPEAXPEAU_SECURITY_ATTRIBUTES@@_KP6AKPEAX@Z2KPEAK@Z=CreateThread")
 #pragma comment(linker, "/alternatename:?QueueUserAPC@win32@detail@signal_guard@quickcpplib@@YAKP6AX_K@ZPEAX0@Z=QueueUserAPC")
 #pragma comment(linker, "/alternatename:?SleepEx@win32@detail@signal_guard@quickcpplib@@YAKKH@Z=SleepEx")
 #pragma comment(linker, "/alternatename:?CloseHandle@win32@detail@signal_guard@quickcpplib@@YAHPEAX@Z=CloseHandle")
@@ -608,8 +622,11 @@ linker,                                                                         
 #pragma comment(linker, "/alternatename:?TerminateProcess@win32@detail@signal_guard@quickcpplib@@YGHPAXI@Z=__imp__TerminateProcess@8")
 #pragma comment(linker, "/alternatename:?GetStdHandle@win32@detail@signal_guard@quickcpplib@@YGPAXK@Z=__imp__GetStdHandle@4")
 #pragma comment(linker, "/alternatename:?WriteFile@win32@detail@signal_guard@quickcpplib@@YGHPAXPBXKPAKPAU_OVERLAPPED@1234@@Z=__imp__WriteFile@20")
+#pragma comment(linker, "/alternatename:?WriteFile@win32@detail@signal_guard@quickcpplib@@YGHPAXPBXKPAKPAU_OVERLAPPED@@@Z=__imp__WriteFile@20")
 #pragma comment(                                                                                                                                               \
 linker, "/alternatename:?CreateThread@win32@detail@signal_guard@quickcpplib@@YGPAXPAU_SECURITY_ATTRIBUTES@1234@IP6GKPAX@Z1KPAK@Z=__imp__CreateThread@24")
+#pragma comment(linker,                                                                                                                                        \
+                "/alternatename:?CreateThread@win32@detail@signal_guard@quickcpplib@@YGPAXPAU_SECURITY_ATTRIBUTES@@IP6GKPAX@Z1KPAK@Z=__imp__CreateThread@24")
 #pragma comment(linker, "/alternatename:?QueueUserAPC@win32@detail@signal_guard@quickcpplib@@YGKP6GXI@ZPAXI@Z=__imp__QueueUserAPC@12")
 #pragma comment(linker, "/alternatename:?SleepEx@win32@detail@signal_guard@quickcpplib@@YGKKH@Z=__imp__SleepEx@8")
 #pragma comment(linker, "/alternatename:?CloseHandle@win32@detail@signal_guard@quickcpplib@@YGHPAX@Z=__imp__CloseHandle@4")
@@ -628,7 +645,9 @@ linker,                                                                         
 #pragma comment(linker, "/alternatename:?TerminateProcess@win32@detail@signal_guard@quickcpplib@@YAHPAXI@Z=TerminateProcess")
 #pragma comment(linker, "/alternatename:?GetStdHandle@win32@detail@signal_guard@quickcpplib@@YAPAXK@Z=GetStdHandle")
 #pragma comment(linker, "/alternatename:?WriteFile@win32@detail@signal_guard@quickcpplib@@YAHPAXPBXKPAKPAUOVERLAPPED@1234@@Z=WriteFile")
+#pragma comment(linker, "/alternatename:?WriteFile@win32@detail@signal_guard@quickcpplib@@YAHPAXPBXKPAKPAUOVERLAPPED@@@Z=WriteFile")
 #pragma comment(linker, "/alternatename:?CreateThread@win32@detail@signal_guard@quickcpplib@@YAPAXPAU_SECURITY_ATTRIBUTES@1234@IP6AKPAX@Z1KPAK@Z=CreateThread")
+#pragma comment(linker, "/alternatename:?CreateThread@win32@detail@signal_guard@quickcpplib@@YAPAXPAU_SECURITY_ATTRIBUTES@@IP6AKPAX@Z1KPAK@Z=CreateThread")
 #pragma comment(linker, "/alternatename:?QueueUserAPC@win32@detail@signal_guard@quickcpplib@@YAKP6AXI@ZPAXI@Z=QueueUserAPC")
 #pragma comment(linker, "/alternatename:?SleepEx@win32@detail@signal_guard@quickcpplib@@YAKKH@Z=SleepEx")
 #pragma comment(linker, "/alternatename:?CloseHandle@win32@detail@signal_guard@quickcpplib@@YAHPAX@Z=CloseHandle")
