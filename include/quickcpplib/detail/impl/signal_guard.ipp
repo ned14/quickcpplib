@@ -181,12 +181,14 @@ namespace signal_guard
       {signalc::process_terminate, "Process termination requested"},         //
 
 #ifndef _WIN32
-      {signalc::timer_expire, "Timer has expired"},                     //
-      {signalc::child_exit, "Child has exited"},                        //
-      {signalc::process_continue, "Process is being continued"},        //
-      {signalc::tty_hangup, "Controlling terminal has hung up"},        //
-      {signalc::process_kill, "Process has received kill signal"},      //
-      {signalc::pollable_event, "i/o is now possible"},                 //
+      {signalc::timer_expire, "Timer has expired"},                 //
+      {signalc::child_exit, "Child has exited"},                    //
+      {signalc::process_continue, "Process is being continued"},    //
+      {signalc::tty_hangup, "Controlling terminal has hung up"},    //
+      {signalc::process_kill, "Process has received kill signal"},  //
+#ifdef SIGPOLL
+      {signalc::pollable_event, "i/o is now possible"},  //
+#endif
       {signalc::profile_event, "Profiling timer expired"},              //
       {signalc::process_quit, "Process is being quit"},                 //
       {signalc::process_stop, "Process is being stopped"},              //
