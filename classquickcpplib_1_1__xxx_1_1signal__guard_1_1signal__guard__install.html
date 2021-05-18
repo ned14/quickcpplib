@@ -118,7 +118,7 @@ Public Member Functions</h2></td></tr>
 POSIX only</h2>
 <p>Any existing global signal handlers are replaced with a filtering signal handler, which checks if the current kernel thread has installed a signal guard, and if so executes the guard. If no signal guard has been installed for the current kernel thread, global signal continuation handlers are executed. If none claims the signal, the previously installed signal handler is called.</p>
 <p>After the new signal handlers have been installed, the guarded signals are globally enabled for all threads of execution. Be aware that the handlers are installed with <code>SA_NODEFER</code> to avoid the need to perform an expensive syscall when a signal is handled. However this may also produce surprise e.g. infinite loops.</p>
-<dl class="section warning"><dt>Warning</dt><dd>This class is threadsafe with respect to other concurrent executions of itself, but is NOT threadsafe with respect to other code modifying the global signal handlers. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>This class is threadsafe with respect to other concurrent executions of itself, but is NOT threadsafe with respect to other code modifying the global signal handlers. It is NOT async signal safe. </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a633ccf06f597c6d5c204a239144fb37a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a633ccf06f597c6d5c204a239144fb37a">&#9670;&nbsp;</a></span>signal_guard_install() <span class="overload">[1/3]</span></h2>
@@ -212,10 +212,10 @@ POSIX only</h2>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;        : _guarded(o._guarded)</div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;    {</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;      o._guarded = signalc_set::none;</div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;        : _guarded(o._guarded)</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;    {</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;      o._guarded = signalc_set::none;</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -269,11 +269,11 @@ POSIX only</h2>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;    {</div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;      this-&gt;<a class="code" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__install.html#af5b3c5660814e58dc3fcc688a4193606">~signal_guard_install</a>();</div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;      <span class="keyword">new</span>(<span class="keyword">this</span>) <a class="code" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__install.html#a633ccf06f597c6d5c204a239144fb37a">signal_guard_install</a>(<span class="keyword">static_cast&lt;</span><a class="code" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__install.html#a633ccf06f597c6d5c204a239144fb37a">signal_guard_install</a> &amp;&amp;<span class="keyword">&gt;</span>(o));</div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;      <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;    {</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;      this-&gt;<a class="code" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__install.html#af5b3c5660814e58dc3fcc688a4193606">~signal_guard_install</a>();</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;      <span class="keyword">new</span>(<span class="keyword">this</span>) <a class="code" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__install.html#a633ccf06f597c6d5c204a239144fb37a">signal_guard_install</a>(<span class="keyword">static_cast&lt;</span><a class="code" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__install.html#a633ccf06f597c6d5c204a239144fb37a">signal_guard_install</a> &amp;&amp;<span class="keyword">&gt;</span>(o));</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;      <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>

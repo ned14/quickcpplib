@@ -1,5 +1,15 @@
 var NAVTREEINDEX6 =
 {
+"struct_nothrow_none.html":[5,0,18],
+"struct_nothrow_none.html#a8f035d3656568dc7dea9a6e8051a5b49":[5,0,18,1],
+"struct_nothrow_none.html#ad75a8e6ee8b238fad20cdeecc85b5677":[5,0,18,0],
+"struct_oracle.html":[5,0,19],
+"struct_oracle.html#a1007a7d810df8c1d77cc52583fd41831":[5,0,19,2],
+"struct_oracle.html#a19d4396250f41c1f54ad8bc1ac77116c":[5,0,19,4],
+"struct_oracle.html#a38a367b809442601df6a985d662fbb8d":[5,0,19,1],
+"struct_oracle.html#a45767744e7592ea0c502f34e24767c31":[5,0,19,6],
+"struct_oracle.html#a5c4f73d2d9b7f4579660a4fd90c249e2":[5,0,19,3],
+"struct_oracle.html#a63bc3bd56277326e673cfd053603e53d":[5,0,19,0],
 "struct_oracle.html#a63f2d56f040b0417faafb51e7811d0eb":[5,0,19,8],
 "struct_oracle.html#a774838b036c7a84e60e403a250e239fe":[5,0,19,9],
 "struct_oracle.html#ab4a8858ccb26911354345bed784e9d06":[5,0,19,7],
@@ -239,15 +249,5 @@ var NAVTREEINDEX6 =
 "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4.html#ab00704fd9dfd51612be919024e6fb196":[5,0,2,0,4,8,9],
 "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4.html#abe1f366180e70e4e4da9eaeeaa7cc7ce":[5,0,2,0,4,8,8],
 "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4.html#af86451cf824f9153c1963fcec1bea74e":[5,0,2,0,4,8,12],
-"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop.html":[5,0,2,0,4,9],
-"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop_1_1policy.html":[5,0,2,0,4,9,0],
-"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop_1_1policy.html#a15e735c556fe015edb9ba7a3bc0c4b51":[5,0,2,0,4,9,0,3],
-"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop_1_1policy.html#a294c7d1f09052e4c78049ba2e9f56bd8":[5,0,2,0,4,9,0,1],
-"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop_1_1policy.html#ad3883cedb39b80d93b0fbfccd87812eb":[5,0,2,0,4,9,0,0],
-"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop_1_1policy.html#afc173b4073f3df883af743d2b9cf7739":[5,0,2,0,4,9,0,2],
-"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep.html":[5,0,2,0,4,10],
-"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html":[5,0,2,0,4,10,0],
-"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html#a52f87acd97d07948f7f41e20863cc2b5":[5,0,2,0,4,10,0,3],
-"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html#a6271daaa7603b2c46bad58423866733e":[5,0,2,0,4,10,0,2],
-"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html#a9ecdfcfeacd55cc1baf2cbc210344c85":[5,0,2,0,4,10,0,0]
+"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop.html":[5,0,2,0,4,9]
 };

@@ -125,6 +125,9 @@ var hierarchy =
       [ "quickcpplib::_xxx::signal_guard::signal_guard_global_decider< T >", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__global__decider.html", null ]
     ] ],
     [ "quickcpplib::_xxx::signal_guard::signal_guard_install", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__install.html", null ],
+    [ "quickcpplib::_xxx::signal_guard::detail::signal_guard_watchdog_impl", null, [
+      [ "quickcpplib::_xxx::signal_guard::signal_guard_watchdog< T >", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog.html", null ]
+    ] ],
     [ "quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy< Bytes >", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy.html", null ],
     [ "quickcpplib::_xxx::algorithm::small_prng::small_prng", "classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html", null ],
     [ "std::span< T >", null, [
@@ -151,8 +154,8 @@ var hierarchy =
     [ "quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::unique_id", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1unique__id.html", null ],
     [ "std::experimental::Unsafe", "structstd_1_1experimental_1_1_unsafe.html", null ],
     [ "std::experimental::Val", "structstd_1_1experimental_1_1_val.html", null ],
-    [ "quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy< KeyType, T, LinearSearchLimit, LockType, KeyModulus, KeyCompare >::value_type", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type.html", null ],
     [ "quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html", null ],
+    [ "quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy< KeyType, T, LinearSearchLimit, LockType, KeyModulus, KeyCompare >::value_type", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type.html", null ],
     [ "quickcpplib::_xxx::algorithm::open_hash_index::linear_memory_policy< KeyType, T, LinearSearchLimit, KeyModulus, KeyCompare >::value_type", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html", null ],
     [ "VEC", "struct_v_e_c.html", null ],
     [ "std::experimental::VoidNothrowBoth", "structstd_1_1experimental_1_1_void_nothrow_both.html", null ]

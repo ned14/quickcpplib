@@ -79,12 +79,12 @@ var NAVTREEINDEX =
 ".html",
 "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01void_00_01_align_00_01initialize_01_4.html#acce725e97fd733c9bea8523486730832",
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a9ebc3992615ee32cf3cf62032dcd513b",
-"function__ptr_8hpp.html#a0a042e98664a4b59937d1b2a680cea25",
-"md_include_quickcpplib_optional__r_e_a_d_m_e.html",
-"optional_2optional_8hpp.html#acd496ce7fb815b5ed07c64c3c50473a5",
-"struct_oracle.html#a63f2d56f040b0417faafb51e7811d0eb",
-"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html#af1be6151dbf2c02aed9252b4c35971d2",
-"type__traits_8hpp.html#a1ecd811e65b4b6fcfbb12f3c84472b89"
+"execinfo__win64_8h.html#a74d180764c748819f56703822acc12c4",
+"in__place__detach__attach_8hpp.html#a5549c2e9a661d39865e579b587f41ea6",
+"optional_2optional_8hpp.html#ab0139892916a389ed15c89675d5512ac",
+"struct_nothrow_none.html",
+"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop_1_1policy.html",
+"tribool_8hpp.html#gadd8cf4ac334bfda6083c2371fcb8c1ee"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

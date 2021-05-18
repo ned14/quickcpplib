@@ -110,6 +110,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__install.html">signal_guard_install</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">On platforms where it is necessary (POSIX), installs, and potentially enables, the global signal handlers for the signals specified by <code>guarded</code>. Each signal installed is threadsafe reference counted, so this is safe to call from multiple threads or instantiate multiple times. It is also guaranteed safe to call from within static data init or deinit, so a very common use case is simply to place an instance into global static data. This ensures that dynamically loaded and unloaded shared objects compose signal guards appropriately.  <a href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__install.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog.html">signal_guard_watchdog</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call an optional specified routine after a period of time, possibly on another thread. Async signal safe.  <a href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__raised.html">signal_raised</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thrown by the default signal handler to abort the current operation.  <a href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__raised.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -127,12 +130,12 @@ Enumerations</h2></td></tr>
 <a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a72f8af2953718eaf9753915ce51fd4af">signalc::undefined_memory_access</a> = SIGBUS, 
 <a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790af02b25bbe33547687680941a577b46da">signalc::illegal_instruction</a> = SIGILL, 
 <br />
-&#160;&#160;<a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a2414c252176310b2c04547257948c7b7">signalc::interrupt</a> = SIGINT, 
+&#160;&#160;<a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a2414c252176310b2c04547257948c7b7">signalc::interrupt</a>, 
 <a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a2f0338eed54503152be1d31c93c9c2f1">signalc::broken_pipe</a> = SIGPIPE, 
 <a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a05de49fb26bd786688ca310c6fee826c">signalc::segmentation_fault</a> = SIGSEGV, 
 <a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a66938d975a8e275dc893c7d5f6331fd3">signalc::floating_point_error</a> = SIGFPE, 
 <br />
-&#160;&#160;<a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790ab301d33e2bea9550b89d53854f02969e">signalc::process_terminate</a> = SIGTERM, 
+&#160;&#160;<a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790ab301d33e2bea9550b89d53854f02969e">signalc::process_terminate</a>, 
 <a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a29a37bbcc5d90af766cbadea94d658ed">signalc::timer_expire</a> = SIGALRM, 
 <a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a6e5f4ffd160af47032bf328609b57d8b">signalc::child_exit</a> = SIGCHLD, 
 <a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a4926d1d5f16443cbe8e443a43278ffe1">signalc::process_continue</a> = SIGCONT, 
@@ -178,6 +181,16 @@ Functions</h2></td></tr>
 <tr class="memitem:ae4b20dfa20a5b0d0eefb2a0760baff8b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#ae4b20dfa20a5b0d0eefb2a0760baff8b">thrd_raise_signal</a> (<a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790">signalc</a> signo, void *raw_info=nullptr, void *raw_context=nullptr)</td></tr>
 <tr class="memdesc:ae4b20dfa20a5b0d0eefb2a0760baff8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call the currently installed signal handler for a signal (POSIX), or raise a Win32 structured exception (Windows), returning false if no handler was called due to the currently installed handler being <code>SIG_IGN</code> (POSIX).  <a href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#ae4b20dfa20a5b0d0eefb2a0760baff8b">More...</a><br /></td></tr>
 <tr class="separator:ae4b20dfa20a5b0d0eefb2a0760baff8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd98d6c6ea207d05458905cb4fefd34d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="config_8hpp.html#a12fd80b884ef35d73f050ea3a42e519d">QUICKCPPLIB_NORETURN</a> <a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#acd98d6c6ea207d05458905cb4fefd34d">terminate_process_immediately</a> (const char *msg=nullptr) noexcept</td></tr>
+<tr class="memdesc:acd98d6c6ea207d05458905cb4fefd34d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This initiates a fast fail process termination which immediately exits the process without calling any handlers: on POSIX, this is <code>SIGKILL</code>, on Windows this is <code>TerminateProcess()</code>.  <a href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#acd98d6c6ea207d05458905cb4fefd34d">More...</a><br /></td></tr>
+<tr class="separator:acd98d6c6ea207d05458905cb4fefd34d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42d3b3d57ef28f8be727e2498175d750"><td class="memTemplParams" colspan="2">template&lt;class U , typename  = decltype( std::declval&lt;U&gt;()() )&gt; </td></tr>
+<tr class="memitem:a42d3b3d57ef28f8be727e2498175d750"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog.html">signal_guard_watchdog</a>&lt; std::decay_t&lt; U &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a42d3b3d57ef28f8be727e2498175d750">make_signal_guard_watchdog</a> (U &amp;&amp;f, unsigned ms=3000)</td></tr>
+<tr class="memdesc:a42d3b3d57ef28f8be727e2498175d750"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience instantiator of <code>signal_guard_watchdog</code>.  <a href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a42d3b3d57ef28f8be727e2498175d750">More...</a><br /></td></tr>
+<tr class="separator:a42d3b3d57ef28f8be727e2498175d750"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93caa21ac2445a99991916ca6edce509"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog.html">signal_guard_watchdog</a>&lt; detail::invoke_terminate_process_immediately &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a93caa21ac2445a99991916ca6edce509">make_signal_guard_watchdog</a> (unsigned ms=3000)</td></tr>
+<tr class="memdesc:a93caa21ac2445a99991916ca6edce509"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience instantiator of <code>signal_guard_watchdog</code>.  <a href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a93caa21ac2445a99991916ca6edce509">More...</a><br /></td></tr>
+<tr class="separator:a93caa21ac2445a99991916ca6edce509"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81e58816107576cbfe0c84b0a477620c"><td class="memTemplParams" colspan="2">template&lt;class F , class H , class C , class... Args, class R  = decltype(std::declval&lt;F&gt;()(std::declval&lt;Args&gt;()...)), typename std::enable_if&lt;(std::is_constructible&lt; R, decltype(std::declval&lt; H &gt;()(std::declval&lt; const raised_signal_info * &gt;()))&gt;::value), bool &gt;::type  = true, typename std::enable_if&lt;(std::is_constructible&lt; bool, decltype(std::declval&lt; C &gt;()(std::declval&lt; raised_signal_info * &gt;()))&gt;::value), bool &gt;::type  = true&gt; </td></tr>
 <tr class="memitem:a81e58816107576cbfe0c84b0a477620c"><td class="memTemplItemLeft" align="right" valign="top">R&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a81e58816107576cbfe0c84b0a477620c">signal_guard</a> (signalc_set guarded, F &amp;&amp;f, H &amp;&amp;h, C &amp;&amp;c, Args &amp;&amp;...args)</td></tr>
 <tr class="separator:a81e58816107576cbfe0c84b0a477620c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -299,44 +312,46 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790aa22841e8bd002a67221a4ac8858ffc72">abort_process</a> = SIGABRT,           <span class="comment">//!&lt; The process is aborting (`SIGABRT`)</span></div>
 <div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a72f8af2953718eaf9753915ce51fd4af">undefined_memory_access</a> = SIGBUS,  <span class="comment">//!&lt; Attempt to access a memory location which can&#39;t exist (`SIGBUS`)</span></div>
 <div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790af02b25bbe33547687680941a577b46da">illegal_instruction</a> = SIGILL,      <span class="comment">//!&lt; Execution of illegal instruction (`SIGILL`)</span></div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a2414c252176310b2c04547257948c7b7">interrupt</a> = SIGINT,                <span class="comment">//!&lt; The process is interrupted (`SIGINT`). Note on Windows the continuation decider is ALWAYS called from a separate thread, and the process exits after you return (or take too long executing).</span></div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a2f0338eed54503152be1d31c93c9c2f1">broken_pipe</a> = SIGPIPE,             <span class="comment">//!&lt; Reader on a pipe vanished (`SIGPIPE`). Note that Windows never raises this signal.</span></div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a05de49fb26bd786688ca310c6fee826c">segmentation_fault</a> = SIGSEGV,      <span class="comment">//!&lt; Attempt to access a memory page whose permissions disallow (`SIGSEGV`)</span></div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a66938d975a8e275dc893c7d5f6331fd3">floating_point_error</a> = SIGFPE,     <span class="comment">//!&lt; Floating point error (`SIGFPE`)</span></div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790ab301d33e2bea9550b89d53854f02969e">process_terminate</a> = SIGTERM,       <span class="comment">//!&lt; Process termination requested (`SIGTERM`). Note on Windows the handler is ALWAYS called from a separate thread, and the process exits after you return (or take too long executing).</span></div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;<span class="preprocessor">#ifndef _WIN32</span></div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a29a37bbcc5d90af766cbadea94d658ed">timer_expire</a> = SIGALRM,              <span class="comment">//!&lt; Timer has expired (`SIGALRM`). POSIX only.</span></div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a6e5f4ffd160af47032bf328609b57d8b">child_exit</a> = SIGCHLD,                <span class="comment">//!&lt; Child has exited (`SIGCHLD`). POSIX only.</span></div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a4926d1d5f16443cbe8e443a43278ffe1">process_continue</a> = SIGCONT,          <span class="comment">//!&lt; Process is being continued (`SIGCONT`). POSIX only.</span></div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a228065c0f726fc40bc8247370b5ffa3b">tty_hangup</a> = SIGHUP,                 <span class="comment">//!&lt; Controlling terminal has hung up (`SIGHUP`). POSIX only.</span></div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a32def8616cfc38bb4c322483ae8395e4">process_kill</a> = SIGKILL,              <span class="comment">//!&lt; Process has received kill signal (`SIGKILL`). POSIX only.</span></div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a2b51e4ab92e45cbe8d80dcbb4180651e">pollable_event</a> = SIGPOLL,            <span class="comment">//!&lt; i/o is now possible (`SIGPOLL`). POSIX only.</span></div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a3d4ff91b0163960ae7a6968fa3eb5bfb">profile_event</a> = SIGPROF,             <span class="comment">//!&lt; Profiling timer expired (`SIGPROF`). POSIX only.</span></div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a1f4f91447574eee1c2bf2b2d7d6a35fc">process_quit</a> = SIGQUIT,              <span class="comment">//!&lt; Process is being quit (`SIGQUIT`). POSIX only.</span></div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790ac21801e04dd251e7192a6d97ef8f708e">process_stop</a> = SIGSTOP,              <span class="comment">//!&lt; Process is being stopped (`SIGSTOP`). POSIX only.</span></div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790ad32c122e885f71cde4c4740619867313">tty_stop</a> = SIGTSTP,                  <span class="comment">//!&lt; Terminal requests stop (`SIGTSTP`). POSIX only.</span></div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a537ba7ad3425bb63d64dd1e9f3563e86">bad_system_call</a> = SIGSYS,            <span class="comment">//!&lt; Bad system call (`SIGSYS`). POSIX only.</span></div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790aacdb950c0eadaa7d85e9732b26214e6f">process_trap</a> = SIGTRAP,              <span class="comment">//!&lt; Process has reached a breakpoint (`SIGTRAP`). POSIX only.</span></div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a57835b3ff9c01a587c6bf642b6b29137">tty_input</a> = SIGTTIN,                 <span class="comment">//!&lt; Terminal has input (`SIGTTIN`). POSIX only.</span></div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a0c001c9924affddb7c5aecd3d19e1be4">tty_output</a> = SIGTTOU,                <span class="comment">//!&lt; Terminal ready for output (`SIGTTOU`). POSIX only.</span></div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a33d679fe9780c3a6223e443d44e6c509">urgent_condition</a> = SIGURG,           <span class="comment">//!&lt; Urgent condition (`SIGURG`). POSIX only.</span></div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790ac5eb8e877c4f56bfdb368e1f29681a83">user_defined1</a> = SIGUSR1,             <span class="comment">//!&lt; User defined 1 (`SIGUSR1`). POSIX only.</span></div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790ac64807acaa55cc93063d98bd38289465">user_defined2</a> = SIGUSR2,             <span class="comment">//!&lt; User defined 2 (`SIGUSR2`). POSIX only.</span></div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790ad732d8696d88d785de5c006adeae958d">virtual_alarm_clock</a> = SIGVTALRM,     <span class="comment">//!&lt; Virtual alarm clock (`SIGVTALRM`). POSIX only.</span></div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790aa786c3f062f19d91562c573e0b6cbdc5">cpu_time_limit_exceeded</a> = SIGXCPU,   <span class="comment">//!&lt; CPU time limit exceeded (`SIGXCPU`). POSIX only.</span></div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a8efa0b2d7e2316e4cbb86360909f6b18">file_size_limit_exceeded</a> = SIGXFSZ,  <span class="comment">//!&lt; File size limit exceeded (`SIGXFSZ`). POSIX only.</span></div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;<span class="comment"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160; </div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    <span class="comment">/* C++ handlers</span></div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;<span class="comment">    On all the systems I examined, all signal numbers are &lt;= 30 in order to fit inside a sigset_t.</span></div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;<span class="comment">    Note that apparently IBM uses the full 32 bit range in its signal numbers.</span></div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a3cb0e80c0bd052b9140f2431fa9fd169">cxx_out_of_memory</a> = 32,  <span class="comment">//!&lt; A call to operator new failed, and a throw is about to occur</span></div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a52f93f521a00e90404d357c9762a3c92">cxx_termination</a> = 33,    <span class="comment">//!&lt; A call to std::terminate() was made. NOT `SIGTERM`.</span></div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790ad0b5c8fee5fb403009d3876a5c917888">_max_value</a></div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;  };</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a2414c252176310b2c04547257948c7b7">interrupt</a> =</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    SIGINT,  <span class="comment">//!&lt; The process is interrupted (`SIGINT`). Note on Windows the continuation decider is ALWAYS called from a separate thread, and the process exits after you return (or take too long executing).</span></div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a2f0338eed54503152be1d31c93c9c2f1">broken_pipe</a> = SIGPIPE,          <span class="comment">//!&lt; Reader on a pipe vanished (`SIGPIPE`). Note that Windows never raises this signal.</span></div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a05de49fb26bd786688ca310c6fee826c">segmentation_fault</a> = SIGSEGV,   <span class="comment">//!&lt; Attempt to access a memory page whose permissions disallow (`SIGSEGV`)</span></div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a66938d975a8e275dc893c7d5f6331fd3">floating_point_error</a> = SIGFPE,  <span class="comment">//!&lt; Floating point error (`SIGFPE`)</span></div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790ab301d33e2bea9550b89d53854f02969e">process_terminate</a> =</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    SIGTERM,  <span class="comment">//!&lt; Process termination requested (`SIGTERM`). Note on Windows the handler is ALWAYS called from a separate thread, and the process exits after you return (or take too long executing).</span></div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;<span class="preprocessor">#ifndef _WIN32</span></div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a29a37bbcc5d90af766cbadea94d658ed">timer_expire</a> = SIGALRM,              <span class="comment">//!&lt; Timer has expired (`SIGALRM`). POSIX only.</span></div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a6e5f4ffd160af47032bf328609b57d8b">child_exit</a> = SIGCHLD,                <span class="comment">//!&lt; Child has exited (`SIGCHLD`). POSIX only.</span></div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a4926d1d5f16443cbe8e443a43278ffe1">process_continue</a> = SIGCONT,          <span class="comment">//!&lt; Process is being continued (`SIGCONT`). POSIX only.</span></div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a228065c0f726fc40bc8247370b5ffa3b">tty_hangup</a> = SIGHUP,                 <span class="comment">//!&lt; Controlling terminal has hung up (`SIGHUP`). POSIX only.</span></div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a32def8616cfc38bb4c322483ae8395e4">process_kill</a> = SIGKILL,              <span class="comment">//!&lt; Process has received kill signal (`SIGKILL`). POSIX only.</span></div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a2b51e4ab92e45cbe8d80dcbb4180651e">pollable_event</a> = SIGPOLL,            <span class="comment">//!&lt; i/o is now possible (`SIGPOLL`). POSIX only.</span></div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a3d4ff91b0163960ae7a6968fa3eb5bfb">profile_event</a> = SIGPROF,             <span class="comment">//!&lt; Profiling timer expired (`SIGPROF`). POSIX only.</span></div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a1f4f91447574eee1c2bf2b2d7d6a35fc">process_quit</a> = SIGQUIT,              <span class="comment">//!&lt; Process is being quit (`SIGQUIT`). POSIX only.</span></div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790ac21801e04dd251e7192a6d97ef8f708e">process_stop</a> = SIGSTOP,              <span class="comment">//!&lt; Process is being stopped (`SIGSTOP`). POSIX only.</span></div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790ad32c122e885f71cde4c4740619867313">tty_stop</a> = SIGTSTP,                  <span class="comment">//!&lt; Terminal requests stop (`SIGTSTP`). POSIX only.</span></div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a537ba7ad3425bb63d64dd1e9f3563e86">bad_system_call</a> = SIGSYS,            <span class="comment">//!&lt; Bad system call (`SIGSYS`). POSIX only.</span></div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790aacdb950c0eadaa7d85e9732b26214e6f">process_trap</a> = SIGTRAP,              <span class="comment">//!&lt; Process has reached a breakpoint (`SIGTRAP`). POSIX only.</span></div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a57835b3ff9c01a587c6bf642b6b29137">tty_input</a> = SIGTTIN,                 <span class="comment">//!&lt; Terminal has input (`SIGTTIN`). POSIX only.</span></div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a0c001c9924affddb7c5aecd3d19e1be4">tty_output</a> = SIGTTOU,                <span class="comment">//!&lt; Terminal ready for output (`SIGTTOU`). POSIX only.</span></div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a33d679fe9780c3a6223e443d44e6c509">urgent_condition</a> = SIGURG,           <span class="comment">//!&lt; Urgent condition (`SIGURG`). POSIX only.</span></div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790ac5eb8e877c4f56bfdb368e1f29681a83">user_defined1</a> = SIGUSR1,             <span class="comment">//!&lt; User defined 1 (`SIGUSR1`). POSIX only.</span></div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790ac64807acaa55cc93063d98bd38289465">user_defined2</a> = SIGUSR2,             <span class="comment">//!&lt; User defined 2 (`SIGUSR2`). POSIX only.</span></div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790ad732d8696d88d785de5c006adeae958d">virtual_alarm_clock</a> = SIGVTALRM,     <span class="comment">//!&lt; Virtual alarm clock (`SIGVTALRM`). POSIX only.</span></div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790aa786c3f062f19d91562c573e0b6cbdc5">cpu_time_limit_exceeded</a> = SIGXCPU,   <span class="comment">//!&lt; CPU time limit exceeded (`SIGXCPU`). POSIX only.</span></div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a8efa0b2d7e2316e4cbb86360909f6b18">file_size_limit_exceeded</a> = SIGXFSZ,  <span class="comment">//!&lt; File size limit exceeded (`SIGXFSZ`). POSIX only.</span></div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;<span class="comment"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160; </div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    <span class="comment">/* C++ handlers</span></div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;<span class="comment">    On all the systems I examined, all signal numbers are &lt;= 30 in order to fit inside a sigset_t.</span></div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;<span class="comment">    Note that apparently IBM uses the full 32 bit range in its signal numbers.</span></div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;<span class="comment">    */</span></div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a3cb0e80c0bd052b9140f2431fa9fd169">cxx_out_of_memory</a> = 32,  <span class="comment">//!&lt; A call to operator new failed, and a throw is about to occur</span></div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;<span class="comment"></span>    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a52f93f521a00e90404d357c9762a3c92">cxx_termination</a> = 33,    <span class="comment">//!&lt; A call to std::terminate() was made. NOT `SIGTERM`.</span></div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790ad0b5c8fee5fb403009d3876a5c917888">_max_value</a></div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;  };</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -398,47 +413,53 @@ Functions</h2></td></tr>
 <p>&lt; File size limit exceeded (<code>SIGXFSZ</code>). POSIX only.</p>
 <p>&lt; A call to operator new failed, and a throw is about to occur</p>
 <p>&lt; A call to std::terminate() was made</p>
-<div class="fragment"><div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;                                                     {</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;  <a class="code" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2a334c4a4c42fdb79d7ebc3e73b517e6f8">none</a> = 0,</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160; </div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;  <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790aa22841e8bd002a67221a4ac8858ffc72">abort_process</a> = (1ULL &lt;&lt; static_cast&lt;int&gt;(signalc::abort_process)),                      <span class="comment">//!&lt; The process is aborting (`SIGABRT`)</span></div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;<span class="comment"></span>  undefined_memory_access = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::undefined_memory_access)),  <span class="comment">//!&lt; Attempt to access a memory location which can&#39;t exist (`SIGBUS`)</span></div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;<span class="comment"></span>  illegal_instruction = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::illegal_instruction)),          <span class="comment">//!&lt; Execution of illegal instruction (`SIGILL`)</span></div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;<span class="comment"></span>  interrupt = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::interrupt)),                              <span class="comment">//!&lt; The process is interrupted (`SIGINT`). Note on Windows the handler is ALWAYS called from a separate thread, and the process exits after you return (or take too long executing).</span></div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;<span class="comment"></span>  broken_pipe = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::broken_pipe)),                          <span class="comment">//!&lt; Reader on a pipe vanished (`SIGPIPE`). Note that Windows never raises this signal.</span></div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;<span class="comment"></span>  segmentation_fault = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::segmentation_fault)),      <span class="comment">//!&lt; Attempt to access a memory page whose permissions disallow (`SIGSEGV`)</span></div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;<span class="comment"></span>  floating_point_error = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::floating_point_error)),  <span class="comment">//!&lt; Floating point error (`SIGFPE`)</span></div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;<span class="comment"></span>  process_terminate = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::process_terminate)),        <span class="comment">//!&lt; Process termination requested (`SIGTERM`). Note on Windows the handler is ALWAYS called from a separate thread, and the process exits after you return (or take too long executing).</span></div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160; </div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;#ifndef _WIN32</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;  timer_expire = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::timer_expire)),                          <span class="comment">//!&lt; Timer has expired (`SIGALRM`). POSIX only.</span></div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="comment"></span>  child_exit = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::child_exit)),                              <span class="comment">//!&lt; Child has exited (`SIGCHLD`). POSIX only.</span></div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;<span class="comment"></span>  process_continue = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::process_continue)),                  <span class="comment">//!&lt; Process is being continued (`SIGCONT`). POSIX only.</span></div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;<span class="comment"></span>  tty_hangup = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::tty_hangup)),                              <span class="comment">//!&lt; Controlling terminal has hung up (`SIGHUP`). POSIX only.</span></div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;<span class="comment"></span>  process_kill = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::process_kill)),                          <span class="comment">//!&lt; Process has received kill signal (`SIGKILL`). POSIX only.</span></div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;<span class="comment"></span>  pollable_event = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::pollable_event)),                      <span class="comment">//!&lt; i/o is now possible (`SIGPOLL`). POSIX only.</span></div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;<span class="comment"></span>  profile_event = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::profile_event)),                        <span class="comment">//!&lt; Profiling timer expired (`SIGPROF`). POSIX only.</span></div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;<span class="comment"></span>  process_quit = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::process_quit)),                          <span class="comment">//!&lt; Process is being quit (`SIGQUIT`). POSIX only.</span></div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;<span class="comment"></span>  process_stop = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::process_stop)),                          <span class="comment">//!&lt; Process is being stopped (`SIGSTOP`). POSIX only.</span></div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;<span class="comment"></span>  tty_stop = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::tty_stop)),                                  <span class="comment">//!&lt; Terminal requests stop (`SIGTSTP`). POSIX only.</span></div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;<span class="comment"></span>  bad_system_call = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::bad_system_call)),                    <span class="comment">//!&lt; Bad system call (`SIGSYS`). POSIX only.</span></div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;<span class="comment"></span>  process_trap = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::process_trap)),                          <span class="comment">//!&lt; Process has reached a breakpoint (`SIGTRAP`). POSIX only.</span></div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;<span class="comment"></span>  tty_input = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::tty_input)),                                <span class="comment">//!&lt; Terminal has input (`SIGTTIN`). POSIX only.</span></div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;<span class="comment"></span>  tty_output = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::tty_output)),                              <span class="comment">//!&lt; Terminal ready for output (`SIGTTOU`). POSIX only.</span></div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;<span class="comment"></span>  urgent_condition = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::urgent_condition)),                  <span class="comment">//!&lt; Urgent condition (`SIGURG`). POSIX only.</span></div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;<span class="comment"></span>  user_defined1 = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::user_defined1)),                        <span class="comment">//!&lt; User defined 1 (`SIGUSR1`). POSIX only.</span></div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;<span class="comment"></span>  user_defined2 = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::user_defined2)),                        <span class="comment">//!&lt; User defined 2 (`SIGUSR2`). POSIX only.</span></div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;<span class="comment"></span>  virtual_alarm_clock = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::virtual_alarm_clock)),            <span class="comment">//!&lt; Virtual alarm clock (`SIGVTALRM`). POSIX only.</span></div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;<span class="comment"></span>  cpu_time_limit_exceeded = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::cpu_time_limit_exceeded)),    <span class="comment">//!&lt; CPU time limit exceeded (`SIGXCPU`). POSIX only.</span></div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;<span class="comment"></span>  file_size_limit_exceeded = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::file_size_limit_exceeded)),  <span class="comment">//!&lt; File size limit exceeded (`SIGXFSZ`). POSIX only.</span></div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;<span class="comment"></span>#endif</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160; </div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;  <span class="comment">// C++ handlers</span></div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;  cxx_out_of_memory = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::cxx_out_of_memory)),  <span class="comment">//!&lt; A call to operator new failed, and a throw is about to occur</span></div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;<span class="comment"></span>  cxx_termination = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::cxx_termination))       <span class="comment">//!&lt; A call to std::terminate() was made</span></div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;  } <a class="code" href="bitfield_8hpp.html#af73980f3fbafa65e93218ec34754f9a9">QUICKCPPLIB_BITFIELD_END</a>(signalc_set)</div>
+<div class="fragment"><div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;                                                     {</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;  <a class="code" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2a334c4a4c42fdb79d7ebc3e73b517e6f8">none</a> = 0,</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160; </div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;  <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790aa22841e8bd002a67221a4ac8858ffc72">abort_process</a> = (1ULL &lt;&lt; static_cast&lt;int&gt;(signalc::abort_process)),                      <span class="comment">//!&lt; The process is aborting (`SIGABRT`)</span></div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;<span class="comment"></span>  undefined_memory_access = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::undefined_memory_access)),  <span class="comment">//!&lt; Attempt to access a memory location which can&#39;t exist (`SIGBUS`)</span></div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;<span class="comment"></span>  illegal_instruction = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::illegal_instruction)),          <span class="comment">//!&lt; Execution of illegal instruction (`SIGILL`)</span></div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;<span class="comment"></span>  interrupt =</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;  (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;   <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790">signalc</a>::</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;   interrupt)),  <span class="comment">//!&lt; The process is interrupted (`SIGINT`). Note on Windows the handler is ALWAYS called from a separate thread, and the process exits after you return (or take too long executing).</span></div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;<span class="comment"></span>  broken_pipe = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::broken_pipe)),  <span class="comment">//!&lt; Reader on a pipe vanished (`SIGPIPE`). Note that Windows never raises this signal.</span></div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;<span class="comment"></span>  segmentation_fault = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::segmentation_fault)),      <span class="comment">//!&lt; Attempt to access a memory page whose permissions disallow (`SIGSEGV`)</span></div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="comment"></span>  floating_point_error = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::floating_point_error)),  <span class="comment">//!&lt; Floating point error (`SIGFPE`)</span></div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="comment"></span>  process_terminate =</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;  (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;   <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790">signalc</a>::</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;   process_terminate)),  <span class="comment">//!&lt; Process termination requested (`SIGTERM`). Note on Windows the handler is ALWAYS called from a separate thread, and the process exits after you return (or take too long executing).</span></div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160; </div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;#ifndef _WIN32</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;  timer_expire = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::timer_expire)),                          <span class="comment">//!&lt; Timer has expired (`SIGALRM`). POSIX only.</span></div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;<span class="comment"></span>  child_exit = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::child_exit)),                              <span class="comment">//!&lt; Child has exited (`SIGCHLD`). POSIX only.</span></div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;<span class="comment"></span>  process_continue = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::process_continue)),                  <span class="comment">//!&lt; Process is being continued (`SIGCONT`). POSIX only.</span></div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;<span class="comment"></span>  tty_hangup = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::tty_hangup)),                              <span class="comment">//!&lt; Controlling terminal has hung up (`SIGHUP`). POSIX only.</span></div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;<span class="comment"></span>  process_kill = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::process_kill)),                          <span class="comment">//!&lt; Process has received kill signal (`SIGKILL`). POSIX only.</span></div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;<span class="comment"></span>  pollable_event = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::pollable_event)),                      <span class="comment">//!&lt; i/o is now possible (`SIGPOLL`). POSIX only.</span></div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;<span class="comment"></span>  profile_event = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::profile_event)),                        <span class="comment">//!&lt; Profiling timer expired (`SIGPROF`). POSIX only.</span></div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;<span class="comment"></span>  process_quit = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::process_quit)),                          <span class="comment">//!&lt; Process is being quit (`SIGQUIT`). POSIX only.</span></div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;<span class="comment"></span>  process_stop = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::process_stop)),                          <span class="comment">//!&lt; Process is being stopped (`SIGSTOP`). POSIX only.</span></div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;<span class="comment"></span>  tty_stop = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::tty_stop)),                                  <span class="comment">//!&lt; Terminal requests stop (`SIGTSTP`). POSIX only.</span></div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;<span class="comment"></span>  bad_system_call = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::bad_system_call)),                    <span class="comment">//!&lt; Bad system call (`SIGSYS`). POSIX only.</span></div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;<span class="comment"></span>  process_trap = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::process_trap)),                          <span class="comment">//!&lt; Process has reached a breakpoint (`SIGTRAP`). POSIX only.</span></div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;<span class="comment"></span>  tty_input = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::tty_input)),                                <span class="comment">//!&lt; Terminal has input (`SIGTTIN`). POSIX only.</span></div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;<span class="comment"></span>  tty_output = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::tty_output)),                              <span class="comment">//!&lt; Terminal ready for output (`SIGTTOU`). POSIX only.</span></div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;<span class="comment"></span>  urgent_condition = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::urgent_condition)),                  <span class="comment">//!&lt; Urgent condition (`SIGURG`). POSIX only.</span></div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;<span class="comment"></span>  user_defined1 = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::user_defined1)),                        <span class="comment">//!&lt; User defined 1 (`SIGUSR1`). POSIX only.</span></div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;<span class="comment"></span>  user_defined2 = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::user_defined2)),                        <span class="comment">//!&lt; User defined 2 (`SIGUSR2`). POSIX only.</span></div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;<span class="comment"></span>  virtual_alarm_clock = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::virtual_alarm_clock)),            <span class="comment">//!&lt; Virtual alarm clock (`SIGVTALRM`). POSIX only.</span></div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;<span class="comment"></span>  cpu_time_limit_exceeded = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::cpu_time_limit_exceeded)),    <span class="comment">//!&lt; CPU time limit exceeded (`SIGXCPU`). POSIX only.</span></div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;<span class="comment"></span>  file_size_limit_exceeded = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::file_size_limit_exceeded)),  <span class="comment">//!&lt; File size limit exceeded (`SIGXFSZ`). POSIX only.</span></div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;<span class="comment"></span>#endif</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160; </div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;  <span class="comment">// C++ handlers</span></div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;  cxx_out_of_memory = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::cxx_out_of_memory)),  <span class="comment">//!&lt; A call to operator new failed, and a throw is about to occur</span></div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;<span class="comment"></span>  cxx_termination = (1ULL &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(signalc::cxx_termination))       <span class="comment">//!&lt; A call to std::terminate() was made</span></div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;  } <a class="code" href="bitfield_8hpp.html#af73980f3fbafa65e93218ec34754f9a9">QUICKCPPLIB_BITFIELD_END</a>(signalc_set)</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -485,9 +506,9 @@ template&lt;class U , typename  = decltype( std::declval&lt;U&gt;()((raised_sign
 </div><div class="memdoc">
 
 <p>Convenience instantiator of <code>signal_guard_global_decider</code>. </p>
-<div class="fragment"><div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;  {</div>
-<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;    <span class="keywordflow">return</span> signal_guard_global_decider&lt;std::decay_t&lt;U&gt;&gt;(guarded, <span class="keyword">static_cast&lt;</span>U &amp;&amp;<span class="keyword">&gt;</span>(f), callfirst);</div>
-<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;  }</div>
+<div class="fragment"><div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;  {</div>
+<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;    <span class="keywordflow">return</span> signal_guard_global_decider&lt;std::decay_t&lt;U&gt;&gt;(guarded, <span class="keyword">static_cast&lt;</span>U &amp;&amp;<span class="keyword">&gt;</span>(f), callfirst);</div>
+<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -528,6 +549,109 @@ template&lt;class U , typename  = decltype( std::declval&lt;U&gt;()((raised_sign
 <p>Note that on Windows, <code>raw_context</code> is ignored as there is no way to override the context thrown with a Win32 structured exception.</p>
 <p>[1]: We currently do not implement alternative stack switching. If a handler requests that, we simply abort the process. Code donations implementing support are welcome. </p>
 
+</div>
+</div>
+<a id="acd98d6c6ea207d05458905cb4fefd34d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd98d6c6ea207d05458905cb4fefd34d">&#9670;&nbsp;</a></span>terminate_process_immediately()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="config_8hpp.html#a12fd80b884ef35d73f050ea3a42e519d">QUICKCPPLIB_NORETURN</a> <a class="el" href="signal__guard_8hpp.html#a39634ac32b05085370ca8eae304b76c8">SIGNALGUARD_FUNC_DECL</a> void quickcpplib::_xxx::signal_guard::terminate_process_immediately </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>msg</em> = <code>nullptr</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>This initiates a fast fail process termination which immediately exits the process without calling any handlers: on POSIX, this is <code>SIGKILL</code>, on Windows this is <code>TerminateProcess()</code>. </p>
+<p>If <code>msg</code> is specified, it async signal safely prints that message before termination. If you don't specify a message (<code>nullptr</code>), a default message is printed. A message of <code>""</code> prints nothing. </p>
+
+</div>
+</div>
+<a id="a42d3b3d57ef28f8be727e2498175d750"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42d3b3d57ef28f8be727e2498175d750">&#9670;&nbsp;</a></span>make_signal_guard_watchdog() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class U , typename  = decltype( std::declval&lt;U&gt;()() )&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog.html">signal_guard_watchdog</a>&lt;std::decay_t&lt;U&gt; &gt; quickcpplib::_xxx::signal_guard::make_signal_guard_watchdog </td>
+          <td>(</td>
+          <td class="paramtype">U &amp;&amp;&#160;</td>
+          <td class="paramname"><em>f</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>ms</em> = <code>3000</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convenience instantiator of <code>signal_guard_watchdog</code>. </p>
+<div class="fragment"><div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;  {</div>
+<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;    <span class="keywordflow">return</span> signal_guard_watchdog&lt;std::decay_t&lt;U&gt;&gt;(<span class="keyword">static_cast&lt;</span>U &amp;&amp;<span class="keyword">&gt;</span>(f), ms);</div>
+<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;  }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a93caa21ac2445a99991916ca6edce509"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93caa21ac2445a99991916ca6edce509">&#9670;&nbsp;</a></span>make_signal_guard_watchdog() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog.html">signal_guard_watchdog</a>&lt;detail::invoke_terminate_process_immediately&gt; quickcpplib::_xxx::signal_guard::make_signal_guard_watchdog </td>
+          <td>(</td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>ms</em> = <code>3000</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convenience instantiator of <code>signal_guard_watchdog</code>. </p>
+<div class="fragment"><div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;  {</div>
+<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;    <span class="keywordflow">return</span> signal_guard_watchdog&lt;detail::invoke_terminate_process_immediately&gt;(detail::invoke_terminate_process_immediately(), ms);</div>
+<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;  }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a81e58816107576cbfe0c84b0a477620c"></a>
@@ -591,73 +715,73 @@ template&lt;class F , class H , class C , class... Args, class R  = decltype(std
 </ul>
 <p>If during the execution of <code>f</code>, any one of the signals <code>guarded</code> is raised:</p>
 <ol type="1">
-<li><code>c</code>, which must have the prototype <code>bool(raised_signal_info *)</code>, is called with the signal which was raised. You can fix the cause of the signal and return <code>true</code> to continue execution, or else return <code>false</code> to halt execution. Note that the variety of code you can call in <code>c</code> is extremely limited, the same restrictions as for signal handlers apply. Note that on Windows only, <code>interrupt</code> and <code>process_terminate</code> call <code>c</code> from some other kernel thread, and the return value is always ignored (the process is always exited).</li>
+<li><code>c</code>, which must have the prototype <code>bool(raised_signal_info *)</code>, is called with the signal which was raised. You can fix the cause of the signal and return <code>true</code> to continue execution, or else return <code>false</code> to halt execution. Note that the variety of code you can call in <code>c</code> is extremely limited, the same restrictions as for signal handlers apply. Note that on Windows only, <code>signalc::interrupt</code> and <code>signalc::process_terminate</code> call <code>c</code> from some other kernel thread, and the return value is always ignored (the process is always exited).</li>
 <li>If <code>c</code> returned <code>false</code>, the execution of <code>f</code> is halted <b>immediately</b> without stack unwind, the thread is returned to the state just before the calling of <code>f</code>, and the callable <code>g</code> is called with the specific signal which occurred. <code>g</code> must have the prototype <code>R(const raised_signal_info *)</code> where <code>R</code> is the return type of <code>f</code>. <code>g</code> is called with this signal guard removed, though a signal guard higher in the call chain may instead be active.</li>
 </ol>
 <p>Obviously all state which <code>f</code> may have been in the process of doing will be thrown away, in particular any stack allocated variables not marked <code>volatile</code> will have unspecified values. You should therefore make sure that <code>f</code> never causes side effects, including the interruption in the middle of some operation, which cannot be fixed by the calling of <code>h</code>. The default <code>h</code> simply throws a <code>signal_raised</code> C++ exception.</p>
 <dl class="section note"><dt>Note</dt><dd>On POSIX, if a <code>signal_guard_install</code> is not already instanced for the guarded set, one is temporarily installed, which is not quick. You are therefore very strongly recommended, when on POSIX, to call this function with a <code>signal_guard_install</code> already installed for all the signals you will ever guard. <code>signal_guard_install</code> is guaranteed to be composable and be safe to use within static data init, so a common use pattern is simply to place a guard install into your static data init.</dd>
 <dd>
 On MSVC because <code>std::set_terminate()</code> is thread local, we ALWAYS install our termination handler for every thread on creation and we never uninstall it. </dd></dl>
-<div class="fragment"><div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;  {</div>
-<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;    <span class="keyword">struct </span>signal_guard_installer final : detail::thread_local_signal_guard</div>
-<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;    {</div>
-<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;      <span class="keywordtype">char</span> _storage[<span class="keyword">sizeof</span>(signal_guard_install)];</div>
-<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;      signal_guard_install *sgi{<span class="keyword">nullptr</span>};</div>
-<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;      C &amp;continuer;</div>
-<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160; </div>
-<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;      signal_guard_installer(signalc_set guarded, C &amp;<a class="code" href="namespaceconstexpr__optional__ref__and__arrow.html#a6567284ae39647a083d074ed0579f885">c</a>)</div>
-<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;          : detail::thread_local_signal_guard(guarded)</div>
-<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;          , continuer(<a class="code" href="namespaceconstexpr__optional__ref__and__arrow.html#a6567284ae39647a083d074ed0579f885">c</a>)</div>
-<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;      {</div>
-<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;<span class="preprocessor">#ifndef _WIN32</span></div>
-<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;        uint64_t oldinstalled(<a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#ad29e94df82f1734f6f0a556d6514b1cd">detail::signal_guards_installed</a>().load(std::memory_order_relaxed));</div>
-<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;        uint64_t newinstalled = oldinstalled | uint64_t(guarded);</div>
-<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;        <span class="keywordflow">if</span>(newinstalled != oldinstalled)</div>
-<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;        {</div>
-<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;          <span class="comment">// Need a temporary signal guard install</span></div>
-<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;          sgi = <span class="keyword">new</span>(_storage) signal_guard_install(guarded);</div>
-<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;        }</div>
-<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;      }</div>
-<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;      ~signal_guard_installer() { reset(); }</div>
-<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;      <span class="keywordtype">void</span> reset()</div>
-<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;      {</div>
-<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;<span class="preprocessor">#ifndef _WIN32</span></div>
-<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">nullptr</span> != sgi)</div>
-<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;        {</div>
-<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;          sgi-&gt;~signal_guard_install();</div>
-<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160;        }</div>
-<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;      }</div>
-<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;      <span class="keywordtype">bool</span> call_continuer()<span class="keyword"> override </span>{ <span class="keywordflow">return</span> continuer(&amp;this-&gt;info); }</div>
-<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;    } sgi(guarded, <a class="code" href="namespaceconstexpr__optional__ref__and__arrow.html#a6567284ae39647a083d074ed0579f885">c</a>);</div>
-<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;    <span class="comment">// Nothing in the C++ standard says that the compiler cannot reorder reads and writes</span></div>
-<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;    <span class="comment">// around a setjmp(), so let&#39;s prevent that. This is the weak form affecting the</span></div>
-<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;    <span class="comment">// compiler reordering only.</span></div>
-<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;    std::atomic_signal_fence(std::memory_order_seq_cst);</div>
-<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;    <span class="keywordflow">if</span>(setjmp(sgi.info.buf))</div>
-<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;    {</div>
-<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;      <span class="comment">// returning from longjmp, so unset the TLS and call failure handler</span></div>
-<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;      sgi.reset();</div>
-<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;      <span class="keywordflow">return</span> h(&amp;sgi.info);</div>
-<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;    }</div>
-<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;    std::atomic_signal_fence(std::memory_order_seq_cst);</div>
-<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;<span class="preprocessor">#ifdef _WIN32</span></div>
-<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;    <span class="comment">// Cannot use __try in a function with non-trivial destructors</span></div>
-<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;    <span class="keywordflow">return</span> [&amp;] {</div>
-<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;      __try</div>
-<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;      {</div>
-<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;        <span class="keywordflow">return</span> f(<span class="keyword">static_cast&lt;</span>Args &amp;&amp;<span class="keyword">&gt;</span>(args)...);</div>
-<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;      }</div>
-<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160;      __except(detail::win32_exception_filter_function(_exception_code(), (<span class="keyword">struct</span> detail::win32::_EXCEPTION_POINTERS *) _exception_info()))</div>
-<div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160;      {</div>
-<div class="line"><a name="l00653"></a><span class="lineno">  653</span>&#160;        longjmp(sgi.info.buf, 1);</div>
-<div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160;      }</div>
-<div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160;    }();</div>
-<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;    <span class="keywordflow">return</span> f(<span class="keyword">static_cast&lt;</span>Args &amp;&amp;<span class="keyword">&gt;</span>(args)...);</div>
-<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;  }</div>
+<div class="fragment"><div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;  {</div>
+<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;    <span class="keyword">struct </span>signal_guard_installer final : detail::thread_local_signal_guard</div>
+<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;    {</div>
+<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;      <span class="keywordtype">char</span> _storage[<span class="keyword">sizeof</span>(signal_guard_install)];</div>
+<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;      signal_guard_install *sgi{<span class="keyword">nullptr</span>};</div>
+<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;      C &amp;continuer;</div>
+<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160; </div>
+<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;      signal_guard_installer(signalc_set guarded, C &amp;<a class="code" href="namespaceconstexpr__optional__ref__and__arrow.html#a6567284ae39647a083d074ed0579f885">c</a>)</div>
+<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;          : detail::thread_local_signal_guard(guarded)</div>
+<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;          , continuer(<a class="code" href="namespaceconstexpr__optional__ref__and__arrow.html#a6567284ae39647a083d074ed0579f885">c</a>)</div>
+<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;      {</div>
+<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;<span class="preprocessor">#ifndef _WIN32</span></div>
+<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;        uint64_t oldinstalled(<a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#ad29e94df82f1734f6f0a556d6514b1cd">detail::signal_guards_installed</a>().load(std::memory_order_relaxed));</div>
+<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;        uint64_t newinstalled = oldinstalled | uint64_t(guarded);</div>
+<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;        <span class="keywordflow">if</span>(newinstalled != oldinstalled)</div>
+<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;        {</div>
+<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;          <span class="comment">// Need a temporary signal guard install</span></div>
+<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;          sgi = <span class="keyword">new</span>(_storage) signal_guard_install(guarded);</div>
+<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;        }</div>
+<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;      }</div>
+<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;      ~signal_guard_installer() { reset(); }</div>
+<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;      <span class="keywordtype">void</span> reset()</div>
+<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;      {</div>
+<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;<span class="preprocessor">#ifndef _WIN32</span></div>
+<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">nullptr</span> != sgi)</div>
+<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;        {</div>
+<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;          sgi-&gt;~signal_guard_install();</div>
+<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;        }</div>
+<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;      }</div>
+<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;      <span class="keywordtype">bool</span> call_continuer()<span class="keyword"> override </span>{ <span class="keywordflow">return</span> continuer(&amp;this-&gt;info); }</div>
+<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;    } sgi(guarded, <a class="code" href="namespaceconstexpr__optional__ref__and__arrow.html#a6567284ae39647a083d074ed0579f885">c</a>);</div>
+<div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;    <span class="comment">// Nothing in the C++ standard says that the compiler cannot reorder reads and writes</span></div>
+<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;    <span class="comment">// around a setjmp(), so let&#39;s prevent that. This is the weak form affecting the</span></div>
+<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;    <span class="comment">// compiler reordering only.</span></div>
+<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;    std::atomic_signal_fence(std::memory_order_seq_cst);</div>
+<div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160;    <span class="keywordflow">if</span>(setjmp(sgi.info.buf))</div>
+<div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;    {</div>
+<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;      <span class="comment">// returning from longjmp, so unset the TLS and call failure handler</span></div>
+<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;      sgi.reset();</div>
+<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160;      <span class="keywordflow">return</span> h(&amp;sgi.info);</div>
+<div class="line"><a name="l00775"></a><span class="lineno">  775</span>&#160;    }</div>
+<div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;    std::atomic_signal_fence(std::memory_order_seq_cst);</div>
+<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;<span class="preprocessor">#ifdef _WIN32</span></div>
+<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;    <span class="comment">// Cannot use __try in a function with non-trivial destructors</span></div>
+<div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;    <span class="keywordflow">return</span> [&amp;] {</div>
+<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160;      __try</div>
+<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;      {</div>
+<div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;        <span class="keywordflow">return</span> f(<span class="keyword">static_cast&lt;</span>Args &amp;&amp;<span class="keyword">&gt;</span>(args)...);</div>
+<div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160;      }</div>
+<div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160;      __except(detail::win32_exception_filter_function(_exception_code(), (<span class="keyword">struct</span> detail::win32::_EXCEPTION_POINTERS *) _exception_info()))</div>
+<div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;      {</div>
+<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;        longjmp(sgi.info.buf, 1);</div>
+<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;      }</div>
+<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;    }();</div>
+<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;    <span class="keywordflow">return</span> f(<span class="keyword">static_cast&lt;</span>Args &amp;&amp;<span class="keyword">&gt;</span>(args)...);</div>
+<div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -698,9 +822,9 @@ template&lt;class F , class R  = decltype(std::declval&lt;F&gt;()())&gt; </div>
 </div><div class="memdoc">
 
 <p>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. </p>
-<div class="fragment"><div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;  {</div>
-<div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#aefe0cfd544ac327234681d4ae7b706f5">signal_guard</a>(guarded, <span class="keyword">static_cast&lt;</span>F &amp;&amp;<span class="keyword">&gt;</span>(f), detail::throw_signal_raised&lt;R&gt;, <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#ac2c66ccd24d574d61cfb576263f5f320">detail::continue_or_handle</a>);</div>
-<div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;  }</div>
+<div class="fragment"><div class="line"><a name="l00801"></a><span class="lineno">  801</span>&#160;  {</div>
+<div class="line"><a name="l00802"></a><span class="lineno">  802</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#aefe0cfd544ac327234681d4ae7b706f5">signal_guard</a>(guarded, <span class="keyword">static_cast&lt;</span>F &amp;&amp;<span class="keyword">&gt;</span>(f), detail::throw_signal_raised&lt;R&gt;, <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#ac2c66ccd24d574d61cfb576263f5f320">detail::continue_or_handle</a>);</div>
+<div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -747,9 +871,9 @@ template&lt;class F , class H , class R  = decltype(std::declval&lt;F&gt;()()), 
 </div><div class="memdoc">
 
 <p>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. </p>
-<div class="fragment"><div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;  {</div>
-<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#aefe0cfd544ac327234681d4ae7b706f5">signal_guard</a>(guarded, <span class="keyword">static_cast&lt;</span>F &amp;&amp;<span class="keyword">&gt;</span>(f), <span class="keyword">static_cast&lt;</span>H &amp;&amp;<span class="keyword">&gt;</span>(h), <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#ac2c66ccd24d574d61cfb576263f5f320">detail::continue_or_handle</a>);</div>
-<div class="line"><a name="l00677"></a><span class="lineno">  677</span>&#160;  }</div>
+<div class="fragment"><div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;  {</div>
+<div class="line"><a name="l00809"></a><span class="lineno">  809</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#aefe0cfd544ac327234681d4ae7b706f5">signal_guard</a>(guarded, <span class="keyword">static_cast&lt;</span>F &amp;&amp;<span class="keyword">&gt;</span>(f), <span class="keyword">static_cast&lt;</span>H &amp;&amp;<span class="keyword">&gt;</span>(h), <a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#ac2c66ccd24d574d61cfb576263f5f320">detail::continue_or_handle</a>);</div>
+<div class="line"><a name="l00810"></a><span class="lineno">  810</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -759,7 +883,7 @@ template&lt;class F , class H , class R  = decltype(std::declval&lt;F&gt;()()), 
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1signal__guard_html_a31407e66b668f46e52933017eadcf790a0c001c9924affddb7c5aecd3d19e1be4"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a0c001c9924affddb7c5aecd3d19e1be4">quickcpplib::_xxx::signal_guard::signalc::tty_output</a></div><div class="ttdeci">@ tty_output</div><div class="ttdoc">Terminal ready for output (SIGTTOU). POSIX only.</div></div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1ringbuffer__log_html_add4cc747a8c90cbfd538b0f07dfdd1e2a334c4a4c42fdb79d7ebc3e73b517e6f8"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2a334c4a4c42fdb79d7ebc3e73b517e6f8">quickcpplib::_xxx::ringbuffer_log::level::none</a></div><div class="ttdeci">@ none</div></div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1signal__guard_html_a31407e66b668f46e52933017eadcf790a29a37bbcc5d90af766cbadea94d658ed"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a29a37bbcc5d90af766cbadea94d658ed">quickcpplib::_xxx::signal_guard::signalc::timer_expire</a></div><div class="ttdeci">@ timer_expire</div><div class="ttdoc">Timer has expired (SIGALRM). POSIX only.</div></div>
-<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail_html_ac2c66ccd24d574d61cfb576263f5f320"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#ac2c66ccd24d574d61cfb576263f5f320">quickcpplib::_xxx::signal_guard::detail::continue_or_handle</a></div><div class="ttdeci">bool continue_or_handle(const raised_signal_info *) noexcept</div><div class="ttdef"><b>Definition:</b> signal_guard.hpp:543</div></div>
+<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail_html_ac2c66ccd24d574d61cfb576263f5f320"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#ac2c66ccd24d574d61cfb576263f5f320">quickcpplib::_xxx::signal_guard::detail::continue_or_handle</a></div><div class="ttdeci">bool continue_or_handle(const raised_signal_info *) noexcept</div><div class="ttdef"><b>Definition:</b> signal_guard.hpp:676</div></div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1signal__guard_html_a31407e66b668f46e52933017eadcf790a537ba7ad3425bb63d64dd1e9f3563e86"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a537ba7ad3425bb63d64dd1e9f3563e86">quickcpplib::_xxx::signal_guard::signalc::bad_system_call</a></div><div class="ttdeci">@ bad_system_call</div><div class="ttdoc">Bad system call (SIGSYS). POSIX only.</div></div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1signal__guard_html_a31407e66b668f46e52933017eadcf790a1f4f91447574eee1c2bf2b2d7d6a35fc"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a1f4f91447574eee1c2bf2b2d7d6a35fc">quickcpplib::_xxx::signal_guard::signalc::process_quit</a></div><div class="ttdeci">@ process_quit</div><div class="ttdoc">Process is being quit (SIGQUIT). POSIX only.</div></div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1signal__guard_html_a31407e66b668f46e52933017eadcf790a66938d975a8e275dc893c7d5f6331fd3"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a66938d975a8e275dc893c7d5f6331fd3">quickcpplib::_xxx::signal_guard::signalc::floating_point_error</a></div><div class="ttdeci">@ floating_point_error</div><div class="ttdoc">Floating point error (SIGFPE)</div></div>
@@ -780,8 +904,9 @@ template&lt;class F , class H , class R  = decltype(std::declval&lt;F&gt;()()), 
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1signal__guard_html_a31407e66b668f46e52933017eadcf790ac5eb8e877c4f56bfdb368e1f29681a83"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790ac5eb8e877c4f56bfdb368e1f29681a83">quickcpplib::_xxx::signal_guard::signalc::user_defined1</a></div><div class="ttdeci">@ user_defined1</div><div class="ttdoc">User defined 1 (SIGUSR1). POSIX only.</div></div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1signal__guard_html_a31407e66b668f46e52933017eadcf790af02b25bbe33547687680941a577b46da"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790af02b25bbe33547687680941a577b46da">quickcpplib::_xxx::signal_guard::signalc::illegal_instruction</a></div><div class="ttdeci">@ illegal_instruction</div><div class="ttdoc">Execution of illegal instruction (SIGILL)</div></div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1signal__guard_html_a31407e66b668f46e52933017eadcf790a3d4ff91b0163960ae7a6968fa3eb5bfb"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a3d4ff91b0163960ae7a6968fa3eb5bfb">quickcpplib::_xxx::signal_guard::signalc::profile_event</a></div><div class="ttdeci">@ profile_event</div><div class="ttdoc">Profiling timer expired (SIGPROF). POSIX only.</div></div>
+<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1signal__guard_html_a31407e66b668f46e52933017eadcf790"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790">quickcpplib::_xxx::signal_guard::signalc</a></div><div class="ttdeci">signalc</div><div class="ttdoc">The signals which are supported.</div><div class="ttdef"><b>Definition:</b> signal_guard.hpp:257</div></div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1signal__guard_html_a31407e66b668f46e52933017eadcf790a2414c252176310b2c04547257948c7b7"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a2414c252176310b2c04547257948c7b7">quickcpplib::_xxx::signal_guard::signalc::interrupt</a></div><div class="ttdeci">@ interrupt</div><div class="ttdoc">The process is interrupted (SIGINT). Note on Windows the continuation decider is ALWAYS called from a...</div></div>
-<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1signal__guard_html_aefe0cfd544ac327234681d4ae7b706f5"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#aefe0cfd544ac327234681d4ae7b706f5">quickcpplib::_xxx::signal_guard::signal_guard</a></div><div class="ttdeci">auto signal_guard(signalc_set guarded, F &amp;&amp;f, H &amp;&amp;h)</div><div class="ttdoc">This is an overloaded member function, provided for convenience. It differs from the above function o...</div><div class="ttdef"><b>Definition:</b> signal_guard.hpp:674</div></div>
+<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1signal__guard_html_aefe0cfd544ac327234681d4ae7b706f5"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#aefe0cfd544ac327234681d4ae7b706f5">quickcpplib::_xxx::signal_guard::signal_guard</a></div><div class="ttdeci">auto signal_guard(signalc_set guarded, F &amp;&amp;f, H &amp;&amp;h)</div><div class="ttdoc">This is an overloaded member function, provided for convenience. It differs from the above function o...</div><div class="ttdef"><b>Definition:</b> signal_guard.hpp:807</div></div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1signal__guard_html_a31407e66b668f46e52933017eadcf790a72f8af2953718eaf9753915ce51fd4af"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a72f8af2953718eaf9753915ce51fd4af">quickcpplib::_xxx::signal_guard::signalc::undefined_memory_access</a></div><div class="ttdeci">@ undefined_memory_access</div><div class="ttdoc">Attempt to access a memory location which can't exist (SIGBUS)</div></div>
 <div class="ttc" id="abitfield_8hpp_html_af73980f3fbafa65e93218ec34754f9a9"><div class="ttname"><a href="bitfield_8hpp.html#af73980f3fbafa65e93218ec34754f9a9">QUICKCPPLIB_BITFIELD_END</a></div><div class="ttdeci">#define QUICKCPPLIB_BITFIELD_END(type)</div></div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1signal__guard_html_a31407e66b668f46e52933017eadcf790ad732d8696d88d785de5c006adeae958d"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790ad732d8696d88d785de5c006adeae958d">quickcpplib::_xxx::signal_guard::signalc::virtual_alarm_clock</a></div><div class="ttdeci">@ virtual_alarm_clock</div><div class="ttdoc">Virtual alarm clock (SIGVTALRM). POSIX only.</div></div>
@@ -791,7 +916,7 @@ template&lt;class F , class H , class R  = decltype(std::declval&lt;F&gt;()()), 
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1signal__guard_html_a31407e66b668f46e52933017eadcf790ad0b5c8fee5fb403009d3876a5c917888"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790ad0b5c8fee5fb403009d3876a5c917888">quickcpplib::_xxx::signal_guard::signalc::_max_value</a></div><div class="ttdeci">@ _max_value</div></div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1signal__guard_html_a31407e66b668f46e52933017eadcf790a33d679fe9780c3a6223e443d44e6c509"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a33d679fe9780c3a6223e443d44e6c509">quickcpplib::_xxx::signal_guard::signalc::urgent_condition</a></div><div class="ttdeci">@ urgent_condition</div><div class="ttdoc">Urgent condition (SIGURG). POSIX only.</div></div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1signal__guard_html_a31407e66b668f46e52933017eadcf790a32def8616cfc38bb4c322483ae8395e4"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a32def8616cfc38bb4c322483ae8395e4">quickcpplib::_xxx::signal_guard::signalc::process_kill</a></div><div class="ttdeci">@ process_kill</div><div class="ttdoc">Process has received kill signal (SIGKILL). POSIX only.</div></div>
-<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail_html_ad29e94df82f1734f6f0a556d6514b1cd"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#ad29e94df82f1734f6f0a556d6514b1cd">quickcpplib::_xxx::signal_guard::detail::signal_guards_installed</a></div><div class="ttdeci">std::atomic&lt; signalc_set &gt; &amp; signal_guards_installed()</div><div class="ttdef"><b>Definition:</b> signal_guard.hpp:349</div></div>
+<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail_html_ad29e94df82f1734f6f0a556d6514b1cd"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#ad29e94df82f1734f6f0a556d6514b1cd">quickcpplib::_xxx::signal_guard::detail::signal_guards_installed</a></div><div class="ttdeci">std::atomic&lt; signalc_set &gt; &amp; signal_guards_installed()</div><div class="ttdef"><b>Definition:</b> signal_guard.hpp:357</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

@@ -93,7 +93,11 @@ $(document).ready(function(){initNavTree('namespacequickcpplib_1_1__xxx_1_1signa
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><b>invoke_terminate_process_immediately</b></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><b>signal_guard_global_decider_impl</b></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><b>signal_guard_watchdog_impl</b></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><b>thread_local_signal_guard</b></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -165,10 +169,10 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;    {</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;      <span class="keyword">static</span> std::atomic&lt;signalc_set&gt; v;</div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;      <span class="keywordflow">return</span> v;</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;    {</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;      <span class="keyword">static</span> std::atomic&lt;signalc_set&gt; v;</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;      <span class="keywordflow">return</span> v;</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -274,7 +278,7 @@ template&lt;class R &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;{ <span class="keywordflow">throw</span> signal_raised(<a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790">signalc</a>(1ULL &lt;&lt; i-&gt;<a class="code" href="structraised__signal__info.html#a909693dca5e336bed820178d23d4059d">signo</a>)); }</div>
+<div class="fragment"><div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;{ <span class="keywordflow">throw</span> signal_raised(<a class="code" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790">signalc</a>(1ULL &lt;&lt; i-&gt;<a class="code" href="structraised__signal__info.html#a909693dca5e336bed820178d23d4059d">signo</a>)); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -301,7 +305,7 @@ template&lt;class R &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;{ <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="fragment"><div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;{ <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
