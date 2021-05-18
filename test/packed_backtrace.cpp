@@ -80,7 +80,7 @@ BOOST_AUTO_TEST_CASE(packed_backtrace / random, "Tests that the packed_backtrace
   do
   {
     auto *_bt = (uint32_t *) bt;  // NOLINT
-    for(size_t n = 0; n < sizeof(bt) / sizeof(bt[0]); n++)
+    for(size_t n = 0; n < sizeof(bt) / (sizeof(uint32_t)); n++)
     {
       _bt[n] = rand();  // NOLINT
     }

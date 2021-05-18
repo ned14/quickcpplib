@@ -24,7 +24,9 @@ jobs:
 
     - name: CMake tests Linux
       shell: bash
-      run: ctest -S .ci.cmake -V
+      run:  |
+         sudo apt-get install -y libomp-dev
+         ctest -S .ci.cmake -V
       
 #    - name: Upload Prebuilt Binaries
 #      uses: actions/upload-artifact@v2
