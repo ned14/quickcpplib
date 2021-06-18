@@ -1,5 +1,5 @@
 /* Signal guard support
-(C) 2018-2020 Niall Douglas <http://www.nedproductions.biz/> (4 commits)
+(C) 2018-2021 Niall Douglas <http://www.nedproductions.biz/> (4 commits)
 File Created: June 2018
 
 
@@ -679,6 +679,12 @@ namespace signal_guard
 #endif
     template <class R> inline R throw_signal_raised(const raised_signal_info *i) { throw signal_raised(signalc(1ULL << i->signo)); }
     inline bool continue_or_handle(const raised_signal_info * /*unused*/) noexcept { return false; }
+    template <class R, class V> struct is_constructible_or_void : std::is_constructible<R, V>
+    {
+    };
+    template <> struct is_constructible_or_void<void, void> : std::true_type
+    {
+    };
   }  // namespace detail
 
 #if defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 6
@@ -730,12 +736,21 @@ namespace signal_guard
 
   \note On MSVC because `std::set_terminate()` is thread local, we ALWAYS install our termination handler for
   every thread on creation and we never uninstall it.
+
+  \note On MSVC, you cannot pass a type with a non-trivial destructor through `__try`, so this will limit the
+  complexity of types that can be returned directly by this function. You can usually work around this via an
+  intermediate `std::optional`.
   */
   QUICKCPPLIB_TEMPLATE(class F, class H, class C, class... Args, class R = decltype(std::declval<F>()(std::declval<Args>()...)))
-  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(std::is_constructible<R, decltype(std::declval<H>()(std::declval<const raised_signal_info *>()))>::value),  //
-                        QUICKCPPLIB_TPRED(std::is_constructible<bool, decltype(std::declval<C>()(std::declval<raised_signal_info *>()))>::value))
+  QUICKCPPLIB_TREQUIRES(
+  QUICKCPPLIB_TPRED(detail::is_constructible_or_void<R, decltype(std::declval<H>()(std::declval<const raised_signal_info *>()))>::value),  //
+  QUICKCPPLIB_TPRED(detail::is_constructible_or_void<bool, decltype(std::declval<C>()(std::declval<raised_signal_info *>()))>::value))
   inline R signal_guard(signalc_set guarded, F &&f, H &&h, C &&c, Args &&...args)
   {
+    if(guarded == signalc_set::none)
+    {
+      return f(static_cast<Args &&>(args)...);
+    }
     struct signal_guard_installer final : detail::thread_local_signal_guard
     {
       char _storage[sizeof(signal_guard_install)];
@@ -784,6 +799,8 @@ namespace signal_guard
     return [&] {
       __try
       {
+        static_assert(std::is_trivially_destructible<R>::value || std::is_void<R>::value,
+                      "On MSVC, the return type of F must be trivially destructible, otherwise the compiler will refuse to compile the code.");
         return f(static_cast<Args &&>(args)...);
       }
       __except(detail::win32_exception_filter_function(_exception_code(), (struct detail::win32::_EXCEPTION_POINTERS *) _exception_info()))
@@ -808,7 +825,7 @@ namespace signal_guard
   }
   //! \overload
   QUICKCPPLIB_TEMPLATE(class F, class H, class R = decltype(std::declval<F>()()))
-  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(std::is_constructible<R, decltype(std::declval<H>()(std::declval<const raised_signal_info *>()))>::value))
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::is_constructible_or_void<R, decltype(std::declval<H>()(std::declval<const raised_signal_info *>()))>::value))
   inline auto signal_guard(signalc_set guarded, F &&f, H &&h)
   {
     return signal_guard(guarded, static_cast<F &&>(f), static_cast<H &&>(h), detail::continue_or_handle);
