@@ -89,7 +89,6 @@ QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace signal_guard
 {
-
   namespace detail
   {
     struct signal_guard_decider_callable
@@ -135,28 +134,65 @@ namespace signal_guard
 {
   namespace detail
   {
-    static thread_local thread_local_signal_guard *_current_thread_local_signal_handler;
+    struct global_signal_decider
+    {
+      global_signal_decider *next, *prev;
+      signalc_set guarded;
+      thrd_signal_guard_decide_t decider;
+      raised_signal_info_value value;
+    };
+    extern QUICKCPPLIB_SYMBOL_VISIBLE inline thread_local_signal_guard *&_current_thread_local_signal_handler() noexcept
+    {
+      static thread_local thread_local_signal_guard *v;
+      return v;
+    }
+    extern QUICKCPPLIB_SYMBOL_VISIBLE inline std::terminate_handler &terminate_handler_old() noexcept
+    {
+#ifdef _MSC_VER
+      static thread_local std::terminate_handler v;
+#else
+      static std::terminate_handler v;
+#endif
+      return v;
+    }
+    struct _state_t
+    {
+      configurable_spinlock::spinlock<uintptr_t> lock;
+      unsigned new_handler_count{0}, terminate_handler_count{0};
+      std::new_handler new_handler_old{};
+      global_signal_decider *global_signal_deciders_front{nullptr}, *global_signal_deciders_back{nullptr};
+#ifdef _WIN32
+      unsigned win32_console_ctrl_handler_count{0};
+      void *win32_global_signal_decider1{nullptr};
+      void *win32_global_signal_decider2{nullptr};
+#endif
+    };
+    extern QUICKCPPLIB_SYMBOL_VISIBLE inline _state_t &_state() noexcept
+    {
+      static _state_t v;
+      return v;
+    }
 #ifdef __GNUC__
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wattributes"
 #endif
     SIGNALGUARD_FUNC_DECL QUICKCPPLIB_NOINLINE void push_thread_local_signal_handler(thread_local_signal_guard *g) noexcept
     {
-      g->previous = _current_thread_local_signal_handler;
-      _current_thread_local_signal_handler = g;
+      g->previous = _current_thread_local_signal_handler();
+      _current_thread_local_signal_handler() = g;
     }
     SIGNALGUARD_FUNC_DECL QUICKCPPLIB_NOINLINE void pop_thread_local_signal_handler(thread_local_signal_guard *g) noexcept
     {
-      assert(_current_thread_local_signal_handler == g);
-      if(_current_thread_local_signal_handler != g)
+      assert(_current_thread_local_signal_handler() == g);
+      if(_current_thread_local_signal_handler() != g)
       {
         abort();
       }
-      _current_thread_local_signal_handler = g->previous;
+      _current_thread_local_signal_handler() = g->previous;
     }
     SIGNALGUARD_FUNC_DECL QUICKCPPLIB_NOINLINE thread_local_signal_guard *current_thread_local_signal_handler() noexcept
     {
-      return _current_thread_local_signal_handler;
+      return _current_thread_local_signal_handler();
     }
 #ifdef __GNUC__
 #pragma GCC diagnostic pop
@@ -233,27 +269,7 @@ namespace signal_guard
       return false;
     }
 
-    static configurable_spinlock::spinlock<uintptr_t> lock;
-    static unsigned new_handler_count, terminate_handler_count;
-    static std::new_handler new_handler_old;
-#ifdef _MSC_VER
-    static thread_local std::terminate_handler terminate_handler_old;
-#else
-    static std::terminate_handler terminate_handler_old;
-#endif
-    struct global_signal_decider
-    {
-      global_signal_decider *next, *prev;
-      signalc_set guarded;
-      thrd_signal_guard_decide_t decider;
-      raised_signal_info_value value;
-    };
-    static global_signal_decider *global_signal_deciders_front, *global_signal_deciders_back;
 #ifdef _WIN32
-    static unsigned win32_console_ctrl_handler_count;
-    static void *win32_global_signal_decider1;
-    static void *win32_global_signal_decider2;
-
     // WARNING: Always called from a separate thread!
     inline int __stdcall win32_console_ctrl_handler(unsigned long dwCtrlType)
     {
@@ -281,26 +297,26 @@ namespace signal_guard
           shi->call_continuer();
         }
       }
-      lock.lock();
-      if(global_signal_deciders_front != nullptr)
+      _state().lock.lock();
+      if(_state().global_signal_deciders_front != nullptr)
       {
         raised_signal_info rsi;
         memset(&rsi, 0, sizeof(rsi));
         rsi.signo = static_cast<int>(signo);
-        auto *d = global_signal_deciders_front;
+        auto *d = _state().global_signal_deciders_front;
         for(size_t n = 0; d != nullptr; n++)
         {
           size_t i = 0;
-          for(d = global_signal_deciders_front; d != nullptr; d = d->next)
+          for(d = _state().global_signal_deciders_front; d != nullptr; d = d->next)
           {
             if(i++ == n)
             {
               if(d->guarded & (1ULL << static_cast<int>(signo)))
               {
                 rsi.value = d->value;
-                lock.unlock();
+                _state().lock.unlock();
                 d->decider(&rsi);
-                lock.lock();
+                _state().lock.lock();
                 break;
               }
               n++;
@@ -324,30 +340,30 @@ namespace signal_guard
           }
         }
       }
-      lock.lock();
-      if(global_signal_deciders_front != nullptr)
+      _state().lock.lock();
+      if(_state().global_signal_deciders_front != nullptr)
       {
         raised_signal_info rsi;
         memset(&rsi, 0, sizeof(rsi));
         rsi.signo = static_cast<int>(signalc::cxx_out_of_memory);
-        auto *d = global_signal_deciders_front;
+        auto *d = _state().global_signal_deciders_front;
         for(size_t n = 0; d != nullptr; n++)
         {
           size_t i = 0;
-          for(d = global_signal_deciders_front; d != nullptr; d = d->next)
+          for(d = _state().global_signal_deciders_front; d != nullptr; d = d->next)
           {
             if(i++ == n)
             {
               if(d->guarded & (1ULL << static_cast<int>(signalc::cxx_out_of_memory)))
               {
                 rsi.value = d->value;
-                lock.unlock();
+                _state().lock.unlock();
                 if(d->decider(&rsi))
                 {
                   // Cannot continue OOM
                   abort();
                 }
-                lock.lock();
+                _state().lock.lock();
                 break;
               }
               n++;
@@ -355,15 +371,15 @@ namespace signal_guard
           }
         }
       }
-      if(new_handler_old != nullptr)
+      if(_state().new_handler_old != nullptr)
       {
-        auto *h = new_handler_old;
-        lock.unlock();
+        auto *h = _state().new_handler_old;
+        _state().lock.unlock();
         h();
       }
       else
       {
-        lock.unlock();
+        _state().lock.unlock();
         throw std::bad_alloc();
       }
     }
@@ -379,30 +395,30 @@ namespace signal_guard
           }
         }
       }
-      lock.lock();
-      if(global_signal_deciders_front != nullptr)
+      _state().lock.lock();
+      if(_state().global_signal_deciders_front != nullptr)
       {
         raised_signal_info rsi;
         memset(&rsi, 0, sizeof(rsi));
         rsi.signo = static_cast<int>(signalc::cxx_termination);
-        auto *d = global_signal_deciders_front;
+        auto *d = _state().global_signal_deciders_front;
         for(size_t n = 0; d != nullptr; n++)
         {
           size_t i = 0;
-          for(d = global_signal_deciders_front; d != nullptr; d = d->next)
+          for(d = _state().global_signal_deciders_front; d != nullptr; d = d->next)
           {
             if(i++ == n)
             {
               if(d->guarded & (1ULL << static_cast<int>(signalc::cxx_termination)))
               {
                 rsi.value = d->value;
-                lock.unlock();
+                _state().lock.unlock();
                 if(d->decider(&rsi))
                 {
                   // Cannot continue termination
                   abort();
                 }
-                lock.lock();
+                _state().lock.lock();
                 break;
               }
               n++;
@@ -410,15 +426,15 @@ namespace signal_guard
           }
         }
       }
-      if(terminate_handler_old != nullptr)
+      if(terminate_handler_old() != nullptr)
       {
-        auto *h = terminate_handler_old;
-        lock.unlock();
+        auto *h = terminate_handler_old();
+        _state().lock.unlock();
         h();
       }
       else
       {
-        lock.unlock();
+        _state().lock.unlock();
         std::abort();
       }
     }
@@ -429,7 +445,7 @@ namespace signal_guard
       {
         // On MSVC, the terminate handler is thread local, so we have no choice but to always
         // set it for every thread
-        terminate_handler_old = std::set_terminate(terminate_handler);
+        terminate_handler_old() = std::set_terminate(terminate_handler);
       }
     } _win32_set_terminate_handler_per_thread;
 #endif
@@ -748,8 +764,8 @@ linker,                                                                         
     }
     SIGNALGUARD_FUNC_DECL long __stdcall win32_vectored_exception_function(win32::_EXCEPTION_POINTERS *ptrs) noexcept
     {
-      lock.lock();
-      if(global_signal_deciders_front != nullptr)
+      _state().lock.lock();
+      if(_state().global_signal_deciders_front != nullptr)
       {
         auto *raw_info = ptrs->ExceptionRecord;
         auto *raw_context = ptrs->ContextRecord;
@@ -762,23 +778,23 @@ linker,                                                                         
         rsi.addr = (void *) raw_info->ExceptionInformation[1];
         rsi.raw_info = raw_info;
         rsi.raw_context = raw_context;
-        auto *d = global_signal_deciders_front;
+        auto *d = _state().global_signal_deciders_front;
         for(size_t n = 0; d != nullptr; n++)
         {
           size_t i = 0;
-          for(d = global_signal_deciders_front; d != nullptr; d = d->next)
+          for(d = _state().global_signal_deciders_front; d != nullptr; d = d->next)
           {
             if(i++ == n)
             {
               if(d->guarded & signo_set)
               {
                 rsi.value = d->value;
-                lock.unlock();
+                _state().lock.unlock();
                 if(d->decider(&rsi))
                 {
                   return (long) -1 /*EXCEPTION_CONTINUE_EXECUTION*/;
                 }
-                lock.lock();
+                _state().lock.lock();
                 break;
               }
               n++;
@@ -786,7 +802,7 @@ linker,                                                                         
           }
         }
       }
-      lock.unlock();
+      _state().lock.unlock();
       return 0 /*EXCEPTION_CONTINUE_SEARCH*/;
     }
 #else
@@ -905,8 +921,8 @@ linker,                                                                         
           }
         }
       }
-      lock.lock();
-      if(global_signal_deciders_front != nullptr)
+      _state().lock.lock();
+      if(_state().global_signal_deciders_front != nullptr)
       {
         raised_signal_info rsi;
         memset(&rsi, 0, sizeof(rsi));
@@ -915,23 +931,23 @@ linker,                                                                         
         rsi.addr = (nullptr != info) ? info->si_addr : nullptr;
         rsi.raw_info = info;
         rsi.raw_context = context;
-        auto *d = global_signal_deciders_front;
+        auto *d = _state().global_signal_deciders_front;
         for(size_t n = 0; d != nullptr; n++)
         {
           size_t i = 0;
-          for(d = global_signal_deciders_front; d != nullptr; d = d->next)
+          for(d = _state().global_signal_deciders_front; d != nullptr; d = d->next)
           {
             if(i++ == n)
             {
               if(d->guarded & (1ULL << signo))
               {
                 rsi.value = d->value;
-                lock.unlock();
+                _state().lock.unlock();
                 if(d->decider(&rsi))
                 {
                   return;  // resume execution
                 }
-                lock.lock();
+                _state().lock.lock();
                 break;
               }
               n++;
@@ -944,12 +960,12 @@ linker,                                                                         
       {
         struct sigaction sa;
         sa = handler_counts[signo].former;
-        lock.unlock();
+        _state().lock.unlock();
         do_raise_signal(signo, sa, info, context);
       }
       else
       {
-        lock.unlock();
+        _state().lock.unlock();
       }
     }
 #endif
@@ -961,7 +977,7 @@ linker,                                                                         
 #ifndef _WIN32
     sigset_t set;
     sigemptyset(&set);
-    detail::lock.lock();
+    detail::_state().lock.lock();
     for(int signo = 0; signo < 32; signo++)
     {
       if((static_cast<uint64_t>(guarded) & (1 << signo)) != 0)
@@ -975,7 +991,7 @@ linker,                                                                         
           if(-1 == sigaction(signo, &sa, &detail::handler_counts[signo].former))
           {
             detail::handler_counts[signo].count--;
-            detail::lock.unlock();
+            detail::_state().lock.unlock();
             throw std::system_error(errno, std::system_category());
           }
         }
@@ -988,11 +1004,11 @@ linker,                                                                         
     // Globally enable all signals we have installed handlers for
     if(-1 == sigprocmask(SIG_UNBLOCK, &set, nullptr))
     {
-      detail::lock.unlock();
+      detail::_state().lock.unlock();
       throw std::system_error(errno, std::system_category());
     }
     detail::signal_guards_installed().store(detail::signal_guards_installed().load(std::memory_order_relaxed) | guarded, std::memory_order_relaxed);
-    detail::lock.unlock();
+    detail::_state().lock.unlock();
 #endif
     if((guarded & signalc_set::cxx_out_of_memory) || (guarded & signalc_set::cxx_termination)
 #ifdef _WIN32
@@ -1000,27 +1016,27 @@ linker,                                                                         
 #endif
     )
     {
-      detail::lock.lock();
+      detail::_state().lock.lock();
       if(guarded & signalc_set::cxx_out_of_memory)
       {
-        if(!detail::new_handler_count++)
+        if(!detail::_state().new_handler_count++)
         {
-          detail::new_handler_old = std::set_new_handler(detail::new_handler);
+          detail::_state().new_handler_old = std::set_new_handler(detail::new_handler);
         }
       }
       if(guarded & signalc_set::cxx_termination)
       {
-        if(!detail::terminate_handler_count++)
+        if(!detail::_state().terminate_handler_count++)
         {
 #ifndef _MSC_VER
-          detail::terminate_handler_old = std::set_terminate(detail::terminate_handler);
+          detail::terminate_handler_old() = std::set_terminate(detail::terminate_handler);
 #endif
         }
       }
 #ifdef _WIN32
       if((guarded & signalc_set::interrupt) || (guarded & signalc_set::process_terminate))
       {
-        if(!detail::win32_console_ctrl_handler_count++)
+        if(!detail::_state().win32_console_ctrl_handler_count++)
         {
           if(!detail::win32::SetConsoleCtrlHandler(detail::win32_console_ctrl_handler, true))
           {
@@ -1029,7 +1045,7 @@ linker,                                                                         
         }
       }
 #endif
-      detail::lock.unlock();
+      detail::_state().lock.unlock();
     }
   }
 
@@ -1041,40 +1057,40 @@ linker,                                                                         
 #endif
     )
     {
-      detail::lock.lock();
+      detail::_state().lock.lock();
       if(_guarded & signalc_set::cxx_out_of_memory)
       {
-        if(!--detail::new_handler_count)
+        if(!--detail::_state().new_handler_count)
         {
-          std::set_new_handler(detail::new_handler_old);
+          std::set_new_handler(detail::_state().new_handler_old);
         }
       }
       if(_guarded & signalc_set::cxx_termination)
       {
-        if(!--detail::terminate_handler_count)
+        if(!--detail::_state().terminate_handler_count)
         {
 #ifndef _MSC_VER
-          std::set_terminate(detail::terminate_handler_old);
+          std::set_terminate(detail::terminate_handler_old());
 #endif
         }
       }
 #ifdef _WIN32
       if((_guarded & signalc_set::interrupt) || (_guarded & signalc_set::process_terminate))
       {
-        if(!--detail::win32_console_ctrl_handler_count)
+        if(!--detail::_state().win32_console_ctrl_handler_count)
         {
           detail::win32::SetConsoleCtrlHandler(detail::win32_console_ctrl_handler, false);
         }
       }
 #endif
-      detail::lock.unlock();
+      detail::_state().lock.unlock();
     }
 #ifndef _WIN32
     uint64_t handlers_installed = 0;
     sigset_t set;
     sigemptyset(&set);
     bool setsigprocmask = false;
-    detail::lock.lock();
+    detail::_state().lock.lock();
     for(int signo = 0; signo < 32; signo++)
     {
       if((static_cast<uint64_t>(_guarded) & (1 << signo)) != 0)
@@ -1085,9 +1101,9 @@ linker,                                                                         
           ret = sigaction(signo, &detail::handler_counts[signo].former, nullptr);
           if(ret == -1)
           {
-            detail::lock.unlock();
+            detail::_state().lock.unlock();
             abort();
-            detail::lock.lock();
+            detail::_state().lock.lock();
           }
           sigaddset(&set, signo);
           setsigprocmask = true;
@@ -1098,16 +1114,16 @@ linker,                                                                         
         handlers_installed |= (1ULL << signo);
       }
     }
-    if(detail::new_handler_count > 0)
+    if(detail::_state().new_handler_count > 0)
     {
       handlers_installed |= signalc_set::cxx_out_of_memory;
     }
-    if(detail::terminate_handler_count > 0)
+    if(detail::_state().terminate_handler_count > 0)
     {
       handlers_installed |= signalc_set::cxx_termination;
     }
     detail::signal_guards_installed().store(static_cast<signalc_set>(handlers_installed), std::memory_order_relaxed);
-    detail::lock.unlock();
+    detail::_state().lock.unlock();
     if(setsigprocmask)
     {
       sigprocmask(SIG_BLOCK, &set, nullptr);
@@ -1130,29 +1146,29 @@ linker,                                                                         
       p->guarded = guarded;
       p->decider = signal_guard_global_decider_impl_indirect;
       p->value.ptr_value = this;
-      lock.lock();
+      _state().lock.lock();
       global_signal_decider **a, **b;
-      if(global_signal_deciders_front == nullptr)
+      if(_state().global_signal_deciders_front == nullptr)
       {
-        a = &global_signal_deciders_front;
-        b = &global_signal_deciders_back;
+        a = &_state().global_signal_deciders_front;
+        b = &_state().global_signal_deciders_back;
       }
       else if(callfirst)
       {
-        a = &global_signal_deciders_front;
-        b = &global_signal_deciders_front->prev;
+        a = &_state().global_signal_deciders_front;
+        b = &_state().global_signal_deciders_front->prev;
       }
       else
       {
-        a = &global_signal_deciders_back->next;
-        b = &global_signal_deciders_back;
+        a = &_state().global_signal_deciders_back->next;
+        b = &_state().global_signal_deciders_back;
       }
       p->next = *a;
       p->prev = *b;
       *a = p;
       *b = p;
 #ifdef _WIN32
-      if(nullptr == win32_global_signal_decider2)
+      if(nullptr == _state().win32_global_signal_decider2)
       {
         /* The interaction between AddVectoredContinueHandler, AddVectoredExceptionHandler,
         UnhandledExceptionFilter, and frame-based EH is completely undocumented in Microsoft
@@ -1184,21 +1200,21 @@ linker,                                                                         
         under a debugger, as the UnhandledExceptionFilter() function never calls the
         installed unhandled exception filter function if under a debugger.
         */
-        win32_global_signal_decider1 = (void *) win32::SetUnhandledExceptionFilter(win32_vectored_exception_function);
-        win32_global_signal_decider2 = (void *) win32::AddVectoredContinueHandler(1, win32_vectored_exception_function);
+        _state().win32_global_signal_decider1 = (void *) win32::SetUnhandledExceptionFilter(win32_vectored_exception_function);
+        _state().win32_global_signal_decider2 = (void *) win32::AddVectoredContinueHandler(1, win32_vectored_exception_function);
       }
 #endif
-      lock.unlock();
+      _state().lock.unlock();
     }
 
     SIGNALGUARD_MEMFUNC_DECL signal_guard_global_decider_impl::signal_guard_global_decider_impl(signal_guard_global_decider_impl &&o) noexcept
         : _install(static_cast<signal_guard_global_decider_impl &&>(o)._install)
         , _p(o._p)
     {
-      lock.lock();
+      _state().lock.lock();
       auto *p = (global_signal_decider *) _p;
       p->value.ptr_value = this;
-      lock.unlock();
+      _state().lock.unlock();
       o._p = nullptr;
     }
 
@@ -1207,21 +1223,21 @@ linker,                                                                         
       if(_p != nullptr)
       {
         auto *p = (global_signal_decider *) _p;
-        lock.lock();
-        global_signal_decider **a = (nullptr == p->prev) ? &global_signal_deciders_front : &p->prev->next;
-        global_signal_decider **b = (nullptr == p->next) ? &global_signal_deciders_back : &p->next->prev;
+        _state().lock.lock();
+        global_signal_decider **a = (nullptr == p->prev) ? &_state().global_signal_deciders_front : &p->prev->next;
+        global_signal_decider **b = (nullptr == p->next) ? &_state().global_signal_deciders_back : &p->next->prev;
         *a = p->next;
         *b = p->prev;
 #ifdef _WIN32
-        if(nullptr == global_signal_deciders_front)
+        if(nullptr == _state().global_signal_deciders_front)
         {
-          win32::RemoveVectoredContinueHandler(win32_global_signal_decider2);
-          win32::SetUnhandledExceptionFilter((win32::PVECTORED_EXCEPTION_HANDLER) win32_global_signal_decider1);
-          win32_global_signal_decider1 = nullptr;
-          win32_global_signal_decider2 = nullptr;
+          win32::RemoveVectoredContinueHandler(_state().win32_global_signal_decider2);
+          win32::SetUnhandledExceptionFilter((win32::PVECTORED_EXCEPTION_HANDLER) _state().win32_global_signal_decider1);
+          _state().win32_global_signal_decider1 = nullptr;
+          _state().win32_global_signal_decider2 = nullptr;
         }
 #endif
-        lock.unlock();
+        _state().lock.unlock();
         delete p;
         _p = nullptr;
       }
@@ -1290,7 +1306,11 @@ linker,                                                                         
 #else
     if(msg != nullptr && msg[0] != 0)
     {
-      (void) ::write(2, msg, strlen(msg));
+      if(-1 == ::write(2, msg, strlen(msg)))
+      {
+        volatile int a = 1;  // shut up GCC
+        (void) a;
+      }
     }
     ::kill(0, SIGKILL);
 #endif
