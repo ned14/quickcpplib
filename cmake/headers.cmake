@@ -15,7 +15,7 @@ set(quickcpplib_HEADERS
   "include/quickcpplib/byte.hpp"
   "include/quickcpplib/byte/include/nonstd/byte.hpp"
   "include/quickcpplib/byte/test/byte-main.t.hpp"
-  "include/quickcpplib/byte/test/lest_cpp03.hpp"
+  "include/quickcpplib/byte/test/lest/lest_cpp03.hpp"
   "include/quickcpplib/config.hpp"
   "include/quickcpplib/console_colours.hpp"
   "include/quickcpplib/cpp_feature.h"
