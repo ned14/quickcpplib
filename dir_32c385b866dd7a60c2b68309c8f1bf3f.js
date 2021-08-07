@@ -1,5 +1,6 @@
 var dir_32c385b866dd7a60c2b68309c8f1bf3f =
 [
+    [ "bitwise_trie.hpp", "bitwise__trie_8hpp.html", "bitwise__trie_8hpp" ],
     [ "hash.hpp", "hash_8hpp.html", "hash_8hpp" ],
     [ "memory.hpp", "memory_8hpp.html", "memory_8hpp" ],
     [ "open_hash_index.hpp", "open__hash__index_8hpp.html", "open__hash__index_8hpp" ],
