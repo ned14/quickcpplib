@@ -28,10 +28,10 @@ var NAVTREE =
       [ "Commits and tags in this git repository can be verified using:", "index.html#autotoc_md2", null ]
     ] ],
     [ "Optional", "md_include_quickcpplib_optional__r_e_a_d_m_e.html", [
-      [ "Usage", "md_include_quickcpplib_optional__r_e_a_d_m_e.html#autotoc_md6", null ],
-      [ "Supported compilers", "md_include_quickcpplib_optional__r_e_a_d_m_e.html#autotoc_md7", null ],
-      [ "Known Issues", "md_include_quickcpplib_optional__r_e_a_d_m_e.html#autotoc_md8", null ],
-      [ "License", "md_include_quickcpplib_optional__r_e_a_d_m_e.html#autotoc_md9", null ]
+      [ "Usage", "md_include_quickcpplib_optional__r_e_a_d_m_e.html#autotoc_md8", null ],
+      [ "Supported compilers", "md_include_quickcpplib_optional__r_e_a_d_m_e.html#autotoc_md9", null ],
+      [ "Known Issues", "md_include_quickcpplib_optional__r_e_a_d_m_e.html#autotoc_md10", null ],
+      [ "License", "md_include_quickcpplib_optional__r_e_a_d_m_e.html#autotoc_md11", null ]
     ] ],
     [ "Todo List", "todo.html", null ],
     [ "Modules", "modules.html", "modules" ],
@@ -77,14 +77,14 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 ".html",
-"classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_1_1iterator__.html#acb8ba3d9bc5a9f49a4e59be546a5be8f",
-"classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace.html#a8f6b6b9f29c2ed1d1e0156a4e4ceaa2d",
-"console__colours_8hpp.html#a5939a5f128a2aff319ff6a9e578f98a5",
-"group__unittesting.html#gadae801baf804b33f52b180d64dbf0340",
-"namespacequickcpplib_1_1__xxx_1_1start__lifetime__as.html",
-"start__lifetime__as_8hpp.html",
-"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lockable__ptr.html",
-"test__optional_8cpp.html#a5d74787dedbc4e11c1ab15bf487e61f8"
+"classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_1_1iterator__.html#a975116742a1088fd143b09d05a4383f5",
+"classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace.html#a6b79ff6424f8a5bedb53c7b0fd5665b0",
+"console__colours_8hpp.html#a26d5600fd813ec2b0b6b7695b79ccf21",
+"group__unittesting.html#gac21dabceebd6eed827d0255f0b3a317d",
+"namespacequickcpplib_1_1__xxx_1_1scope_1_1detail.html",
+"spinlock_8hpp.html#ab75872334aaa593836ecee74f3e18672",
+"structquickcpplib_1_1__xxx_1_1allocator__testing_1_1config.html#a259fc42c345e2451fd63373a76d08665",
+"test__optional_8cpp.html#a48ae89459d43e2c49d1b4f0218384eb8"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('md_include_quickcpplib_optional__r_e_a
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>A single-header header-only library for representing optional (nullable) objects for C++14 (and C++11 to some extent) and passing them by value. This is the reference implementation of proposal N3793 (see <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3793.html">http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3793.html</a>). Optional is now accepted into Library Fundamentals Technical Specification (see <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2014/n3848.html">http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2014/n3848.html</a>). The interface is based on Fernando Cacciola's Boost.Optional library (see <a href="http://www.boost.org/doc/libs/1_52_0/libs/optional/doc/html/index.html">http://www.boost.org/doc/libs/1_52_0/libs/optional/doc/html/index.html</a>)</p>
-<h1><a class="anchor" id="autotoc_md6"></a>
+<h1><a class="anchor" id="autotoc_md8"></a>
 Usage</h1>
 <div class="fragment"><div class="line">optional&lt;int&gt; readInt(); <span class="comment">// this function may return int or a not-an-int</span></div>
 <div class="line"> </div>
@@ -97,10 +97,10 @@ Usage</h1>
 <div class="line"><span class="keywordflow">else</span></div>
 <div class="line">  cout &lt;&lt; <span class="stringliteral">&quot;I have no int&quot;</span>;</div>
 </div><!-- fragment --><p>For more usage examples and the overview see <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3527.html">http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3527.html</a></p>
-<h1><a class="anchor" id="autotoc_md7"></a>
+<h1><a class="anchor" id="autotoc_md9"></a>
 Supported compilers</h1>
 <p>Clang 3.2, Clang 3.4, G++ 4.7.2, G++ 4.8.1. Tested only with libstdc++, versions 20130531, 20120920, 20110428. Others have reported it also works with libc++.</p>
-<h1><a class="anchor" id="autotoc_md8"></a>
+<h1><a class="anchor" id="autotoc_md10"></a>
 Known Issues</h1>
 <ul>
 <li>Currently, the reference (and the only known) implementation of certain pieces of functionality explore what C++11 identifies as undefined behavior (see national body comment FI 15: <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3770.html#FI15">http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3770.html#FI15</a>). This is mostly why Optional was removed from C++14 and put into Library Fundamentals TS. Luckily what the Standard identifies as UB is well defined on all known platforms. We expect that the C++14 wil fix this problem, so that our trick becomes well-defined.</li>
@@ -108,7 +108,7 @@ Known Issues</h1>
 <li>In G++ 4.7.2 and 4.8.0 member function <code>value_or</code> does not have rvalue reference overload. These compilers do not support rvalue overloding on <code>*this</code>.</li>
 <li>In order for the library to work with slightly older compilers, we emulate some missing type traits. On some platforms we cannot correctly detect the available features, and attempts at workarounds for missing type trait definitions can cause compile-time errors. Define macro <code>TR2_OPTIONAL_DISABLE_EMULATION_OF_TYPE_TRAITS</code> if you know that all the necessary type traits are defined, and no emulation is required.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md9"></a>
+<h1><a class="anchor" id="autotoc_md11"></a>
 License</h1>
 <p>Distributed under the <a href="http://www.boost.org/LICENSE_1_0.txt">Boost Software License, Version 1.0</a>. </p>
 </div></div><!-- contents -->
