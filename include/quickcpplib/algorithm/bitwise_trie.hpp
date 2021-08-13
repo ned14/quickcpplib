@@ -62,7 +62,7 @@ namespace algorithm
           return (unsigned) bitpos;
         }
 #elif defined(__GNUC__)
-        return sizeof(value) * CHAR_BIT - 1 - (unsigned) __builtin_clzl(value);
+        return sizeof(value) * 8 /*CHAR_BIT*/ - 1 - (unsigned) __builtin_clzl(value);
 #else
           /* The following code is illegal C, but it almost certainly will work.
           If not use the legal implementation below */
@@ -366,10 +366,11 @@ namespace algorithm
       static constexpr int nobble_direction = (NobbleDir < 0) ? -1 : ((NobbleDir > 0) ? 1 : 0);
 
     private:
+      static constexpr unsigned _key_type_bits = (unsigned) (8 * sizeof(key_type));
       static_assert(std::is_unsigned<key_type>::value, "key type must be unsigned");
       static_assert(std::is_unsigned<size_type>::value, "head_accessor size type must be unsigned");
 
-      bool _to_nobble() noexcept { detail::nobble_function_implementation<nobble_direction>(_head_accessors()); }
+      bool _to_nobble() noexcept { return detail::nobble_function_implementation<nobble_direction>(_head_accessors()); }
 
       struct _lock_unlock_branch
       {
@@ -393,7 +394,6 @@ namespace algorithm
 
       const_pointer _triemin() const noexcept
       {
-        static constexpr unsigned _key_type_bits = (unsigned) (8 * sizeof(key_type));
         auto head = _head_accessors();
         const_pointer node = 0, child;
         if(0 == head.size())
@@ -408,7 +408,6 @@ namespace algorithm
       pointer _triemin() noexcept { return const_cast<pointer>(static_cast<const bitwise_trie *>(this)->_triemin()); }
       const_pointer _triemax() const noexcept
       {
-        static constexpr unsigned _key_type_bits = (unsigned) (8 * sizeof(key_type));
         auto head = _head_accessors();
         const_pointer node = 0, child;
         if(0 == head.size())
@@ -437,7 +436,6 @@ namespace algorithm
 
       bool _trieinsert(pointer r) noexcept
       {
-        static constexpr unsigned _key_type_bits = (unsigned) (8 * sizeof(key_type));
         auto head = _head_accessors();
         if(head.size() + 1 < head.size())
         {
@@ -503,9 +501,8 @@ namespace algorithm
         return true;
       }
 
-      void trieremove(pointer r) noexcept
+      void _trieremove(pointer r) noexcept
       {
-        static constexpr unsigned _key_type_bits = (unsigned) (8 * sizeof(key_type));
         auto head = _head_accessors();
 
         pointer node = nullptr;
@@ -693,7 +690,6 @@ namespace algorithm
       }
       const_pointer _trieprev(const_pointer r) const noexcept
       {
-        static constexpr unsigned _key_type_bits = (unsigned) (8 * sizeof(key_type));
         auto head = _head_accessors();
         const_pointer node = nullptr, child = nullptr;
         auto nodelink = _item_accessors(node);
@@ -775,7 +771,6 @@ namespace algorithm
       }
       const_pointer _trienext(const_pointer r) const noexcept
       {
-        static constexpr unsigned _key_type_bits = (unsigned) (8 * sizeof(key_type));
         auto head = _head_accessors();
         const_pointer node = nullptr;
         auto rlink = _item_accessors(r);
@@ -797,6 +792,139 @@ namespace algorithm
         return node;
       }
       pointer _trienext(const_pointer r) noexcept { return const_cast<pointer>(static_cast<const bitwise_trie *>(this)->_trienext(r)); }
+
+      pointer _triefind(key_type rkey) const noexcept
+      {
+        auto head = _head_accessors();
+        if(0 == head.size())
+        {
+          return 0;
+        }
+
+        pointer node = nullptr;
+        auto nodelink = _item_accessors(node);
+
+        unsigned bitidx = detail::bitscanr(rkey);
+        /* Avoid unknown bit shifts where possible, their performance can suck */
+        key_type keybit = (key_type) 1 << bitidx;
+        assert(bitidx < _key_type_bits);
+        if(nullptr == (node = head->triebins[bitidx]))
+        {
+          return nullptr;
+        }
+        _lock_unlock_branch lock_unlock(this, rkey, false, bitidx);
+        for(pointer childnode = nullptr;; node = childnode)
+        {
+          nodelink = _item_accessors(node);
+          key_type nodekey = nodelink.key();
+          if(nodekey == rkey)
+          {
+            return node;
+          }
+          keybit >>= 1;
+          bool keybitset = !!(rkey & keybit);
+          childnode = nodelink.child(keybitset);
+          if(childnode == nullptr)
+          {
+            return nullptr;
+          }
+        }
+        return nullptr;
+      }
+      pointer _trieCfind(key_type rkey, int64_t rounds) const noexcept
+      {
+        auto head = _head_accessors();
+        if(0 == head.size())
+        {
+          return 0;
+        }
+
+        pointer node = nullptr, ret = nullptr;
+        auto nodelink = _item_accessors(node);
+
+        unsigned binbitidx = detail::bitscanr(rkey);
+        assert(binbitidx < _key_type_bits);
+        do
+        {
+          /* Keeping raising the bin until we find a larger key */
+          while(binbitidx < _key_type_bits && nullptr == (node = head.child(binbitidx)))
+          {
+            binbitidx++;
+          }
+          if(binbitidx >= _key_type_bits)
+          {
+            return nullptr;
+          }
+          unsigned bitidx = binbitidx;
+          /* Avoid unknown bit shifts where possible, their performance can suck */
+          key_type keybit = (key_type) 1 << bitidx;
+          _lock_unlock_branch lock_unlock(this, keybit, false, bitidx);
+          nodelink = _item_accessors(node);
+          key_type nodekey = nodelink.key();
+          /* If nodekey is a closer fit to search key, mark as best result so far */
+          size_t retkey = (size_t) -1;
+          if(nodekey >= rkey && nodekey - rkey < retkey)
+          {
+            ret = node;
+            retkey = nodekey - rkey;
+          }
+          if(rounds <= 0 && ret != nullptr)
+          {
+            return ret;
+          }
+          /* Search this branch */
+          for(pointer childnode = node; childnode != nullptr; node = childnode)
+          {
+            childnode = nullptr;
+            nodelink = _item_accessors(node);
+            /* If a child is a closer fit to search key, mark as best result so far */
+            if(nodelink.child(false) != nullptr)
+            {
+              nodekey = item_accessors(nodelink.child(false)).key();
+              if(nodekey >= rkey && nodekey - rkey < retkey)
+              {
+                ret = nodelink.child(false);
+                retkey = nodekey - rkey;
+              }
+            }
+            if(nodelink.child(true) != nullptr)
+            {
+              nodekey = item_accessors(nodelink.child(true)).key();
+              if(nodekey >= rkey && nodekey - rkey < retkey)
+              {
+                ret = nodelink->trie_child(true);
+                retkey = nodekey - rkey;
+              }
+            }
+            if(rounds <= 0 && ret != nullptr)
+            {
+              return ret;
+            }
+            /* Which child branch should we check? */
+            keybit >>= 1;
+            bool keybitset = !!(rkey & keybit);
+            childnode = nodelink->child(keybitset);
+            /* If no child and we were checking lowest, check highest */
+            if(childnode == nullptr && !keybitset)
+            {
+              childnode = nodelink->child(true);
+            }
+            --rounds;
+            /* If we have reached the end of this tree, go
+            sideways within this branch if possible */
+            if(nullptr == childnode)
+            {
+              childnode = _triebranchnext(node);
+            }
+          }
+          if(nullptr == ret)
+          { /* If we didn't find any node bigger than rkey, bump up a bin
+               and look for the smallest possible key in that */
+            binbitidx++;
+          }
+        } while(nullptr == ret);
+        return ret;
+      }
 
 #ifndef NDEBUG
       struct _trie_validity_state
@@ -849,7 +977,6 @@ namespace algorithm
       void _triecheckvalidity() const noexcept
       {
 #ifndef NDEBUG
-        static constexpr unsigned _key_type_bits = (unsigned) (8 * sizeof(key_type));
         auto head = _head_accessors();
         const_pointer node = nullptr, child = nullptr;
         _trie_validity_state state;
@@ -937,11 +1064,9 @@ namespace algorithm
       template <bool is_const, class Parent, class Pointer, class Reference> class iterator_
       {
         friend class bitwise_trie;
-        template <bool is_const, class Parent, class Pointer, class Reference> friend class iterator_;
+        template <bool _is_const, class _Parent, class _Pointer, class _Reference> friend class iterator_;
         Parent *_parent{nullptr};
         Pointer _p{nullptr};
-
-        static_assert(is_const == std::is_const<typename std::remove_reference<decltype(*_p)>::type>::value, "");
 
         iterator_ &_inc() noexcept
         {
@@ -967,18 +1092,30 @@ namespace algorithm
           return *this;
         }
 
-        constexpr iterator_(Parent *parent, Pointer &&p) noexcept
-            : _parent(parent)
-            , _p(std::move(p))
+        constexpr iterator_(const Parent *parent, Pointer p) noexcept
+            : _parent(const_cast<Parent *>(parent))
+            , _p(p)
         {
         }
-        constexpr iterator_(Parent *parent) noexcept
-            : _parent(parent)
+        constexpr iterator_(const Parent *parent) noexcept
+            : _parent(const_cast<Parent *>(parent))
             , _p(nullptr)
         {
         }
 
+        struct _implicit_nonconst_to_const_conversion
+        {
+        };
+        struct _explicit_const_to_nonconst_conversion
+        {
+        };
+
       public:
+        using difference_type = typename Parent::difference_type;
+        using value_type = typename Parent::value_type;
+        using pointer = Pointer;
+        using reference = Reference;
+        using iterator_category = std::bidirectional_iterator_tag;
         constexpr iterator_() noexcept
             : _parent(nullptr)
             , _p(nullptr)
@@ -988,19 +1125,18 @@ namespace algorithm
         constexpr iterator_(iterator_ &&) noexcept = default;
         constexpr iterator_ &operator=(const iterator_ &) = default;
         constexpr iterator_ &operator=(iterator_ &&) noexcept = default;
-        // Non-const to const iterator
-        template <class _Parent, class _Pointer, class _Reference,
-                  typename = typename std::enable_if<std::is_same<_Parent, _Parent>::value && is_const, _Parent>::type>
-        constexpr iterator_(const iterator_<false, _Parent, _Pointer, _Reference> &o) noexcept
+        // Implicit non-const to const iterator
+        constexpr iterator_(
+        const typename std::conditional<is_const, iterator_<false, Parent, Pointer, Reference>, _implicit_nonconst_to_const_conversion>::type &o) noexcept
             : _parent(o._parent)
             , _p(o._p)
         {
         }
-        template <class _Parent, class _Pointer, class _Reference,
-                  typename = typename std::enable_if<std::is_same<_Parent, _Parent>::value && is_const, _Parent>::type>
-        constexpr iterator_(iterator_<false, _Parent, _Pointer, _Reference> &&o) noexcept
-            : _parent(std::move(o._parent))
-            , _p(std::move(o._p))
+        // Explicit const to non-const iterator
+        explicit constexpr iterator_(
+        const typename std::conditional<!is_const, iterator_<true, Parent, Pointer, Reference>, _explicit_const_to_nonconst_conversion>::type &o) noexcept
+            : _parent(o._parent)
+            , _p(o._p)
         {
         }
         void swap(iterator_ &o) noexcept
@@ -1089,10 +1225,13 @@ namespace algorithm
       //! The const reverse iterator type
       using const_reverse_iterator = std::reverse_iterator<const_iterator>;
 
+      static_assert(std::is_convertible<iterator, const_iterator>::value, "iterator is not implicitly convertible to const_iterator");
+      static_assert(!std::is_convertible<const_iterator, iterator>::value, "iterator is implicitly convertible to const_iterator");
+      static_assert(std::is_constructible<iterator, const_iterator>::value, "iterator is not explicitly constructible from const_iterator");
+
       constexpr bitwise_trie() { clear(); }
       bitwise_trie(const bitwise_trie &o) noexcept
       {
-        static constexpr unsigned _key_type_bits = (unsigned) (8 * sizeof(key_type));
         auto myhead = _head_accessors();
         auto ohead = o._head_accessors();
         for(unsigned n = 0; n < _key_type_bits; n++)
@@ -1103,7 +1242,6 @@ namespace algorithm
       }
       bitwise_trie &operator=(const bitwise_trie &o) noexcept
       {
-        static constexpr unsigned _key_type_bits = (unsigned) (8 * sizeof(key_type));
         auto myhead = _head_accessors();
         auto ohead = o._head_accessors();
         for(unsigned n = 0; n < _key_type_bits; n++)
@@ -1117,7 +1255,6 @@ namespace algorithm
       //! Swaps the contents of the index
       void swap(bitwise_trie &o) noexcept
       {
-        static constexpr unsigned _key_type_bits = (unsigned) (8 * sizeof(key_type));
         auto myhead = _head_accessors();
         auto ohead = o._head_accessors();
         for(unsigned n = 0; n < _key_type_bits; n++)
@@ -1132,7 +1269,7 @@ namespace algorithm
       }
 
       //! True if the bitwise trie is empty
-      constexpr bool QUICKCPPLIB_NODISCARD empty() const noexcept { return size() == 0; }
+      QUICKCPPLIB_NODISCARD constexpr bool empty() const noexcept { return size() == 0; }
       //! Returns the number of items in the bitwise trie
       constexpr size_type size() const noexcept { return _head_accessors().size(); }
       //! Returns the maximum number of items in the index
@@ -1205,7 +1342,6 @@ namespace algorithm
       //! Clears the index.
       constexpr void clear() noexcept
       {
-        static constexpr unsigned _key_type_bits = (unsigned) (8 * sizeof(key_type));
         auto head = _head_accessors();
         for(unsigned n = 0; n < _key_type_bits; n++)
         {
@@ -1241,10 +1377,11 @@ namespace algorithm
       //! Erases an item.
       iterator erase(const_iterator it) noexcept
       {
+        assert(it != end());
         auto ret(it);
         ++ret;
         _trieremove(const_cast<pointer>(it._p));
-        return it;
+        return iterator(it);
       }
       //! Erases an item.
       iterator erase(key_type k) noexcept { return erase(find(k)); }
@@ -1255,29 +1392,29 @@ namespace algorithm
         {
           return iterator(this, p);
         }
-        return end();
+        return iterator(this);
       }
       //! Finds either an item with identical key, or an item with a larger key. The higher the value in `rounds`,
       //! the less average distance between the larger key and the key requested. The complexity of this function
       //! is bound by `rounds`.
-      iterator close_find(key_type k, size_t rounds) const noexcept
+      iterator close_find(key_type k, int64_t rounds) const noexcept
       {
-        if(auto p = _triecfind(k, rounds))
+        if(auto p = _trieCfind(k, rounds))
         {
           return iterator(this, p);
         }
-        return end();
+        return iterator(this);
       }
       //! Finds either an item with identical key, or an item with the guaranteed next largest key. This is
-      //! identical to `close_find(k, MAX_SIZE_T)` and its worst case complexity is `O(log N)` where `N` is
+      //! identical to `close_find(k, INT64_MAX)` and its worst case complexity is `O(log N)` where `N` is
       //! the number of items in the index with the same top bit set.
       iterator nearest_find(key_type k) const noexcept
       {
-        if(auto p = _triecfind(k, (size_t)-1))
+        if(auto p = _trieCfind(k, INT64_MAX))
         {
           return iterator(this, p);
         }
-        return end();
+        return iterator(this);
       }
       //! True if the index contains the key
       bool contains(key_type k) const noexcept { return nullptr != _triefind(k); }
