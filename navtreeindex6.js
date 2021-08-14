@@ -1,5 +1,6 @@
 var NAVTREEINDEX6 =
 {
+"spinlock_8hpp.html#ab45178c42fb15086f1671d05af9afdbf":[6,0,0,0,29,25],
 "spinlock_8hpp.html#ab75872334aaa593836ecee74f3e18672":[6,0,0,0,29,27],
 "spinlock_8hpp.html#ac71cc52ae3303c08c6b923576ccaa598":[6,0,0,0,29,29],
 "spinlock_8hpp.html#add387b168c5f035ba5ba3b62041a9943":[6,0,0,0,29,26],
@@ -248,6 +249,5 @@ var NAVTREEINDEX6 =
 "structquickcpplib_1_1__xxx_1_1allocator__testing_1_1allocator.html#aaede31e82e2a03722cd24a60b9bf631d":[5,0,2,0,2,0,4],
 "structquickcpplib_1_1__xxx_1_1allocator__testing_1_1allocator.html#ac45ee50242b6d37e8ded74ff2a395692":[5,0,2,0,2,0,3],
 "structquickcpplib_1_1__xxx_1_1allocator__testing_1_1allocator_1_1rebind.html":[5,0,2,0,2,0,0],
-"structquickcpplib_1_1__xxx_1_1allocator__testing_1_1allocator_1_1rebind.html#a6a947d8f58d2e4b7d1fedb228d1cffea":[5,0,2,0,2,0,0,0],
-"structquickcpplib_1_1__xxx_1_1allocator__testing_1_1config.html":[5,0,2,0,2,1]
+"structquickcpplib_1_1__xxx_1_1allocator__testing_1_1allocator_1_1rebind.html#a6a947d8f58d2e4b7d1fedb228d1cffea":[5,0,2,0,2,0,0,0]
 };

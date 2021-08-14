@@ -1,5 +1,6 @@
 var NAVTREEINDEX7 =
 {
+"structquickcpplib_1_1__xxx_1_1allocator__testing_1_1config.html":[5,0,2,0,2,1],
 "structquickcpplib_1_1__xxx_1_1allocator__testing_1_1config.html#a259fc42c345e2451fd63373a76d08665":[5,0,2,0,2,1,1],
 "structquickcpplib_1_1__xxx_1_1allocator__testing_1_1config.html#a97b529113f5c59b09c7224beeac9e545":[5,0,2,0,2,1,3],
 "structquickcpplib_1_1__xxx_1_1allocator__testing_1_1config.html#a9fc0e3d728ea089a5ebe3857b642bfa9":[5,0,2,0,2,1,2],
@@ -248,6 +249,5 @@ var NAVTREEINDEX7 =
 "test__optional_8cpp.html#a2e9c5136d19b1a95fc427e0852deab5c":[6,0,0,0,3,1,32],
 "test__optional_8cpp.html#a3a8dd86e1cab36109f7149282150152d":[6,0,0,0,3,1,20],
 "test__optional_8cpp.html#a3aef1153f4514fb5a798bc6e6df604e7":[6,0,0,0,3,1,81],
-"test__optional_8cpp.html#a3c5ef17a7d59d6b06464f9b715d081b8":[6,0,0,0,3,1,74],
-"test__optional_8cpp.html#a3e6ddfb37814b30fb5c0073170e4b7c9":[6,0,0,0,3,1,58]
+"test__optional_8cpp.html#a3c5ef17a7d59d6b06464f9b715d081b8":[6,0,0,0,3,1,74]
 };
