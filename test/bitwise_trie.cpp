@@ -23,7 +23,12 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "../include/quickcpplib/algorithm/bitwise_trie.hpp"
 
+#include "../include/quickcpplib/algorithm/small_prng.hpp"
+
 #include "../include/quickcpplib/boost/test/unit_test.hpp"
+
+#include <set>
+#include <vector>
 
 BOOST_AUTO_TEST_SUITE(bitwise_trie)
 
@@ -36,7 +41,14 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / works, "Tests that bitwise_trie works as adv
     foo_t *trie_parent;
     foo_t *trie_child[2];
     foo_t *trie_sibling[2];
-    size_t trie_key;
+    uint32_t trie_key{0};
+
+    foo_t() = default;
+
+    foo_t(uint32_t key)
+        : trie_key(key)
+    {
+    }
   };
   struct foo_tree_t
   {
@@ -46,25 +58,56 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / works, "Tests that bitwise_trie works as adv
   };
 
   bitwise_trie<foo_tree_t, foo_t> index;
-  foo_t a, b, c;
-
-  a.trie_key = 2;
-  index.insert(&a);
-  b.trie_key = 6;
-  index.insert(&b);
-  auto it = index.find(6);
-  BOOST_CHECK(it->trie_key == 6);
-  it = index.nearest_find(5);
-  BOOST_CHECK(it->trie_key == 6);
-  index.erase(2);
-  for(auto *i : index)
   {
-    std::cout << i << ", " << i->trie_key << "\n";
+    foo_t a, b;
+
+    a.trie_key = 2;
+    index.insert(&a);
+    b.trie_key = 6;
+    index.insert(&b);
+    auto it = index.find(6);
+    BOOST_CHECK(it->trie_key == 6);
+    it = index.nearest_find(5);
+    BOOST_CHECK(it->trie_key == 6);
+    index.erase(2);
+    for(auto *i : index)
+    {
+      std::cout << i << ", " << i->trie_key << "\n";
+    }
+    std::cout << std::flush;
+    auto it1 = it, it2 = it;
+    BOOST_CHECK(--it1 == index.end());
+    BOOST_CHECK(++it2 == index.end());
+    index.triecheckvalidity();
   }
-  std::cout << std::flush;
-  auto it1 = it, it2 = it;
-  BOOST_CHECK(--it1 == index.end());
-  BOOST_CHECK(++it2 == index.end());
+
+  static constexpr size_t ITEMS_COUNT = 1000000;
+  std::set<uint32_t> shouldbe;
+  std::vector<foo_t> storage;
+  storage.reserve(ITEMS_COUNT);
+  index.clear();
+  {
+    QUICKCPPLIB_NAMESPACE::algorithm::small_prng::small_prng rand;
+    for(size_t n = 0; n < ITEMS_COUNT; n++)
+    {
+      auto v = rand();
+      shouldbe.insert(v);
+      storage.emplace_back(v);
+      index.insert(&storage.back());
+      assert(index.end() != index.find(v));
+    }
+  }
+  index.triecheckvalidity();
+  {
+    QUICKCPPLIB_NAMESPACE::algorithm::small_prng::small_prng rand;
+    for(size_t n = 0; n < ITEMS_COUNT; n++)
+    {
+      auto v = rand();
+      auto it = index.find(v);
+      BOOST_REQUIRE(it != index.end());
+      BOOST_CHECK(it->trie_key == v);
+    }
+  }
 }
 
 BOOST_AUTO_TEST_SUITE_END()

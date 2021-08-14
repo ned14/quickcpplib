@@ -37,6 +37,10 @@ and some of the implementation code is lifted from that library.
 #include <iterator>
 #include <type_traits>
 
+#if __cpp_exceptions && !QUICKCPPLIB_ALGORITHM_BITWISE_TRIE_DISABLE_EXCEPTION_THROWS
+#include <stdexcept>
+#endif
+
 QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace algorithm
@@ -121,6 +125,7 @@ namespace algorithm
 
     /*! \struct bitwise_trie_item_accessors
     \brief Default accessor for a bitwise trie item.
+    \tparam ItemType The type of item indexed.
 
     This default accessor requires the following member variables in the trie item type:
 
@@ -156,7 +161,7 @@ namespace algorithm
       constexpr unsigned bit_index() const noexcept
       {
         assert(parent_is_index());
-        return ((unsigned) _v->trie_parent) >> 2;
+        return ((unsigned) (uintptr_t) _v->trie_parent) >> 2;
       }
       constexpr void set_parent_is_index(unsigned bit_index) noexcept { _v->trie_parent = (ItemType *) (((uintptr_t) bit_index << 2) | 3); }
 
@@ -166,7 +171,7 @@ namespace algorithm
 
       constexpr const ItemType *sibling(bool right) const noexcept { return _v->trie_sibling[right]; }
       constexpr ItemType *sibling(bool right) noexcept { return _v->trie_sibling[right]; }
-      constexpr void set_sibling(bool right, ItemType *x) noexcept { _v.trie_sibling[right] = x; }
+      constexpr void set_sibling(bool right, ItemType *x) noexcept { _v->trie_sibling[right] = x; }
 
       constexpr auto key() const noexcept { return _v->trie_key; }
 
@@ -179,6 +184,8 @@ namespace algorithm
 
     /*! \struct bitwise_trie_head_accessors
     \brief Default accessor for a bitwise trie index head.
+    \tparam HeadBaseType The type from which `bitwise_trie` inherits
+    \tparam ItemType The type of item indexed.
 
     This default accessor requires the following member variables in the trie index head type:
 
@@ -214,19 +221,23 @@ namespace algorithm
       constexpr ItemType *child(_index_type idx) noexcept { return _v->trie_children[idx]; }
       constexpr void set_child(_index_type idx, ItemType *x) noexcept { _v->trie_children[idx] = x; }
 
-      constexpr _index_type lock_branch(_key_type key, bool exclusive, unsigned bitidxhint = (unsigned) -1) noexcept  // note return type can be ANY type
+      constexpr _index_type lock_branch(_key_type key, bool exclusive, unsigned bitidxhint = (unsigned) -1) const noexcept  // note return type can be ANY type
       {
         (void) key;
+        (void) exclusive;
         (void) bitidxhint;
         return 0;
       }
-      constexpr void unlock_branch(_index_type /*unused*/, bool /*unused*/) noexcept {}
+      constexpr void unlock_branch(_index_type /*unused*/, bool /*unused*/) const noexcept {}
 
-      constexpr bool flip_nobbledir() noexcept { return (_v->nobbledir = !_v->trie_nobbledir); }
+      constexpr bool flip_nobbledir() noexcept { return (_v->trie_nobbledir = !_v->trie_nobbledir); }
     };
 
     /*! \struct bitwise_trie
     \brief Never-allocating bitwise Fredkin trie index head type.
+    \tparam Base The base type from which to inherit (and thus overlay the index member functions).
+    \tparam ItemType The type of item indexed.
+    \tparam NobbleDir -1 to nobble zeros, +1 to nobble ones, 0 to nobble both equally (see below).
 
     This uses the bitwise Fredkin trie algorithm to index a collection of items by an unsigned
     integral key (e.g. a `size_t` from `std::hash`), providing identical and constant time
@@ -342,6 +353,10 @@ namespace algorithm
         return bitwise_trie_item_accessors<const ItemType>(item);
       }
       static constexpr bitwise_trie_item_accessors<ItemType> _item_accessors(ItemType *item) noexcept { return bitwise_trie_item_accessors<ItemType>(item); }
+      template <class T> static constexpr bitwise_trie_item_accessors<T> _null_item_accessors(T * /*unused*/) noexcept
+      {
+        return bitwise_trie_item_accessors<T>(nullptr);
+      }
 
     public:
       //! Key type indexing the items
@@ -370,14 +385,14 @@ namespace algorithm
       static_assert(std::is_unsigned<key_type>::value, "key type must be unsigned");
       static_assert(std::is_unsigned<size_type>::value, "head_accessor size type must be unsigned");
 
-      bool _to_nobble() noexcept { return detail::nobble_function_implementation<nobble_direction>(_head_accessors()); }
+      bool _to_nobble() noexcept { return detail::nobble_function_implementation<nobble_direction>()(_head_accessors()); }
 
       struct _lock_unlock_branch
       {
-        bitwise_trie *_parent{nullptr};
+        const bitwise_trie *_parent{nullptr};
         bool _exclusive{false};
         decltype(bitwise_trie_head_accessors<const Base, const ItemType>(nullptr).lock_branch((key_type) 0, 0)) _v;
-        _lock_unlock_branch(bitwise_trie *parent, key_type key, bool exclusive, unsigned bitidxhint = (unsigned) -1) noexcept
+        _lock_unlock_branch(const bitwise_trie *parent, key_type key, bool exclusive, unsigned bitidxhint = (unsigned) -1) noexcept
             : _parent(parent)
             , _exclusive(exclusive)
             , _v(parent->_head_accessors().lock_branch(key, bitidxhint))
@@ -395,7 +410,7 @@ namespace algorithm
       const_pointer _triemin() const noexcept
       {
         auto head = _head_accessors();
-        const_pointer node = 0, child;
+        const_pointer node = nullptr;
         if(0 == head.size())
         {
           return nullptr;
@@ -437,7 +452,7 @@ namespace algorithm
       bool _trieinsert(pointer r) noexcept
       {
         auto head = _head_accessors();
-        if(head.size() + 1 < head.size())
+        if(head.size() >= head.max_size() -1)
         {
           return false;
         }
@@ -459,7 +474,7 @@ namespace algorithm
         if(nullptr == (node = head.child(bitidx)))
         { /* Set parent is index flag */
           rlink.set_parent_is_index(bitidx);
-          head.set_child(bitidx) = r;
+          head.set_child(bitidx, r);
           head.incr_size();
           return true;
         }
@@ -472,19 +487,9 @@ namespace algorithm
           { /* Insert into end of ring list */
             rlink.set_is_secondary_sibling();
             rlink.set_sibling(true, node);
-            if(auto p = nodelink.sibling(false))
-            {
-              rlink.set_sibling(false, p);
-            }
-            else
-            {
-              rlink.set_sibling(false, node);
-            }
+            rlink.set_sibling(false, nodelink.sibling(false));
+            _item_accessors(nodelink.sibling(false)).set_sibling(true, r);
             nodelink.set_sibling(false, r);
-            if(nullptr = nodelink.sibling(true))
-            {
-              nodelink.set_sibling(true, r);
-            }
             break;
           }
           keybit >>= 1;
@@ -524,7 +529,7 @@ namespace algorithm
           return;
         }
         /* I must therefore be part of the tree */
-        assert(rlink.parent() != nullptr);
+        assert(rlink.parent_is_index() || rlink.parent() != nullptr);
         assert(rlink.is_primary_sibling());
         auto set_parent = [&]() {  // sets rlink's parent to node, and node's parent to rlink's parent
           if(rlink.parent_is_index())
@@ -537,13 +542,13 @@ namespace algorithm
           }
           else
           {
-            if(rlink.parent()->child(false) == r)
+            if(_item_accessors(rlink.parent()).child(false) == r)
             {
-              rlink.parent()->set_child(false, node);
+              _item_accessors(rlink.parent()).set_child(false, node);
             }
             else
             {
-              rlink.parent()->set_child(true, node);
+              _item_accessors(rlink.parent()).set_child(true, node);
             }
             nodelink.set_parent(rlink.parent());
           }
@@ -574,13 +579,13 @@ namespace algorithm
           }
           else
           {
-            if(rlink.parent()->child(false) == r)
+            if(_item_accessors(rlink.parent()).child(false) == r)
             {
-              rlink.parent()->set_child(false, nullptr);
+              _item_accessors(rlink.parent()).set_child(false, nullptr);
             }
             else
             {
-              rlink.parent()->set_child(true, nullptr);
+              _item_accessors(rlink.parent()).set_child(true, nullptr);
             }
           }
           head.decr_size();
@@ -622,7 +627,7 @@ namespace algorithm
           break;
         }
         // Detach this grandchild from its parent
-        childnodelink.parent().set_child(parentchildidx, nullptr);
+        _item_accessors(childnodelink.parent()).set_child(parentchildidx, nullptr);
         node = childnode;
         nodelink = childnodelink;
         // Set the replacement node to my children, and their parent to the new node
@@ -652,7 +657,7 @@ namespace algorithm
         auto rlink = _item_accessors(r);
 
         /* Am I a leaf off the tree? */
-        if(rlink.sibling(false) != r && !_item_accessors(rlink.sibling(false)).is_primary_sibling())
+        if(rlink.is_secondary_sibling())
         {
           return rlink.sibling(false);
         }
@@ -696,7 +701,7 @@ namespace algorithm
         auto rlink = _item_accessors(r);
         _lock_unlock_branch lock_unlock(this, rlink.key(), false);
 
-        rlink = _item_accessors(nullptr);
+        rlink = _null_item_accessors(r);
         if((node = _triebranchprev(r, &rlink)) != nullptr || !rlink)
         {
           return node;
@@ -776,7 +781,7 @@ namespace algorithm
         auto rlink = _item_accessors(r);
         _lock_unlock_branch lock_unlock(this, rlink.key(), false);
 
-        rlink = _item_accessors(nullptr);
+        rlink = _null_item_accessors(r);
         if((node = _triebranchnext(r, &rlink)) != nullptr)
         {
           return node;
@@ -801,25 +806,25 @@ namespace algorithm
           return 0;
         }
 
-        pointer node = nullptr;
+        const_pointer node = nullptr;
         auto nodelink = _item_accessors(node);
 
         unsigned bitidx = detail::bitscanr(rkey);
         /* Avoid unknown bit shifts where possible, their performance can suck */
         key_type keybit = (key_type) 1 << bitidx;
         assert(bitidx < _key_type_bits);
-        if(nullptr == (node = head->triebins[bitidx]))
+        if(nullptr == (node = head.child(bitidx)))
         {
           return nullptr;
         }
         _lock_unlock_branch lock_unlock(this, rkey, false, bitidx);
-        for(pointer childnode = nullptr;; node = childnode)
+        for(const_pointer childnode = nullptr;; node = childnode)
         {
           nodelink = _item_accessors(node);
           key_type nodekey = nodelink.key();
           if(nodekey == rkey)
           {
-            return node;
+            return const_cast<pointer>(node);
           }
           keybit >>= 1;
           bool keybitset = !!(rkey & keybit);
@@ -839,7 +844,7 @@ namespace algorithm
           return 0;
         }
 
-        pointer node = nullptr, ret = nullptr;
+        const_pointer node = nullptr, ret = nullptr;
         auto nodelink = _item_accessors(node);
 
         unsigned binbitidx = detail::bitscanr(rkey);
@@ -870,17 +875,17 @@ namespace algorithm
           }
           if(rounds <= 0 && ret != nullptr)
           {
-            return ret;
+            return const_cast<pointer>(ret);
           }
           /* Search this branch */
-          for(pointer childnode = node; childnode != nullptr; node = childnode)
+          for(const_pointer childnode = node; childnode != nullptr; node = childnode)
           {
             childnode = nullptr;
             nodelink = _item_accessors(node);
             /* If a child is a closer fit to search key, mark as best result so far */
             if(nodelink.child(false) != nullptr)
             {
-              nodekey = item_accessors(nodelink.child(false)).key();
+              nodekey = _item_accessors(nodelink.child(false)).key();
               if(nodekey >= rkey && nodekey - rkey < retkey)
               {
                 ret = nodelink.child(false);
@@ -889,25 +894,25 @@ namespace algorithm
             }
             if(nodelink.child(true) != nullptr)
             {
-              nodekey = item_accessors(nodelink.child(true)).key();
+              nodekey = _item_accessors(nodelink.child(true)).key();
               if(nodekey >= rkey && nodekey - rkey < retkey)
               {
-                ret = nodelink->trie_child(true);
+                ret = nodelink.child(true);
                 retkey = nodekey - rkey;
               }
             }
             if(rounds <= 0 && ret != nullptr)
             {
-              return ret;
+              return const_cast<pointer>(ret);
             }
             /* Which child branch should we check? */
             keybit >>= 1;
             bool keybitset = !!(rkey & keybit);
-            childnode = nodelink->child(keybitset);
+            childnode = nodelink.child(keybitset);
             /* If no child and we were checking lowest, check highest */
             if(childnode == nullptr && !keybitset)
             {
-              childnode = nodelink->child(true);
+              childnode = nodelink.child(true);
             }
             --rounds;
             /* If we have reached the end of this tree, go
@@ -923,7 +928,7 @@ namespace algorithm
             binbitidx++;
           }
         } while(nullptr == ret);
-        return ret;
+        return const_cast<pointer>(ret);
       }
 
 #ifndef NDEBUG
@@ -935,28 +940,31 @@ namespace algorithm
 
       static void _triecheckvaliditybranch(const_pointer node, key_type bitidx, _trie_validity_state &state) noexcept
       {
-        const_pointer child;
         auto nodelink = _item_accessors(node);
         key_type nodekey = nodelink.key();
 
         if(nodekey < state.smallestkey)
+        {
           state.smallestkey = nodekey;
+        }
         if(nodekey > state.largestkey)
+        {
           state.largestkey = nodekey;
+        }
         assert(nodelink.parent() != nullptr);
         auto *child = nodelink.parent();
         auto childlink = _item_accessors(child);
         assert(childlink.child(0) == node || childlink.child(1) == node);
-        assert(node == childlink.child(!!(nodekey & ((size_t) 1 << bitidx))));
-        while((child = nodelink.sibling(true)).is_secondary_sibling())
+        assert(node == childlink.child(!!(nodekey & ((key_type) 1 << bitidx))));
+        while(_item_accessors(child = nodelink.sibling(true)).is_secondary_sibling())
         {
           state.leafs++;
           childlink = _item_accessors(child);
           assert(nullptr == childlink.parent());
           assert(nullptr == childlink.child(0));
           assert(nullptr == childlink.child(1));
-          assert(child == _item_accessors(child.sibling(false)).sibling(true));
-          assert(child == _item_accessors(child.sibling(true)).sibling(false));
+          assert(child == _item_accessors(childlink.sibling(false)).sibling(true));
+          assert(child == _item_accessors(childlink.sibling(true)).sibling(false));
           nodelink = childlink;
           state.count++;
         }
@@ -974,7 +982,8 @@ namespace algorithm
         }
       }
 #endif
-      void _triecheckvalidity() const noexcept
+    public:
+      void triecheckvalidity() const noexcept
       {
 #ifndef NDEBUG
         auto head = _head_accessors();
@@ -993,15 +1002,15 @@ namespace algorithm
             assert(bitidx == n);
             assert(head.child(bitidx) == node);
             assert(0 == nodekey || ((((size_t) -1) << bitidx) & nodekey) == ((size_t) 1 << bitidx));
-            while((child = nodelink.sibling(true)).is_secondary_sibling())
+            while(_item_accessors(child = nodelink.sibling(true)).is_secondary_sibling())
             {
               state.leafs++;
               auto childlink = _item_accessors(child);
               assert(nullptr == childlink.parent());
-              assert(nullptr == childlink.child(0));
-              assert(nullptr == childlink.child(1));
-              assert(child == _item_accessors(child.sibling(false)).sibling(true));
-              assert(child == _item_accessors(child.sibling(true)).sibling(false));
+              assert(nullptr == childlink.child(false));
+              assert(nullptr == childlink.child(true));
+              assert(child == _item_accessors(childlink.sibling(false)).sibling(true));
+              assert(child == _item_accessors(childlink.sibling(true)).sibling(false));
               nodelink = childlink;
               state.count++;
             }
@@ -1010,20 +1019,20 @@ namespace algorithm
             if(nodelink.child(0) != nullptr)
             {
               state.lefts++;
-              state.smallestkey = (size_t) -1;
+              state.smallestkey = (key_type) -1;
               state.largestkey = 0;
               _triecheckvaliditybranch(nodelink.child(0), bitidx - 1, state);
-              assert(0 == state.smallestkey || state.smallestkey >= (size_t) 1 << bitidx);
-              assert(state.largestkey < (size_t) 1 << (bitidx + 1));
+              assert(0 == state.smallestkey || state.smallestkey >= (key_type) 1 << bitidx);
+              assert(bitidx + 1 >= _key_type_bits || state.largestkey < (key_type) 1 << (bitidx + 1));
             }
             if(nodelink.child(1) != nullptr)
             {
               state.rights++;
-              state.smallestkey = (size_t) -1;
+              state.smallestkey = (key_type) -1;
               state.largestkey = 0;
               _triecheckvaliditybranch(nodelink.child(1), bitidx - 1, state);
-              assert(state.smallestkey >= (size_t) 1 << bitidx);
-              assert(state.largestkey < (size_t) 1 << (bitidx + 1));
+              assert(state.smallestkey >= (key_type) 1 << bitidx);
+              assert(bitidx + 1 >= _key_type_bits || state.largestkey < (key_type) 1 << (bitidx + 1));
             }
           }
         }
@@ -1126,17 +1135,19 @@ namespace algorithm
         constexpr iterator_ &operator=(const iterator_ &) = default;
         constexpr iterator_ &operator=(iterator_ &&) noexcept = default;
         // Implicit non-const to const iterator
-        constexpr iterator_(
-        const typename std::conditional<is_const, iterator_<false, Parent, Pointer, Reference>, _implicit_nonconst_to_const_conversion>::type &o) noexcept
+        QUICKCPPLIB_TEMPLATE(class _Parent, class _Pointer, class _Reference)
+        QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(is_const &&std::is_same<typename std::remove_const<Parent>::type, _Parent>::value))
+        constexpr iterator_(const iterator_<false, _Parent, _Pointer, _Reference> &o, _implicit_nonconst_to_const_conversion = {}) noexcept
             : _parent(o._parent)
             , _p(o._p)
         {
         }
         // Explicit const to non-const iterator
-        explicit constexpr iterator_(
-        const typename std::conditional<!is_const, iterator_<true, Parent, Pointer, Reference>, _explicit_const_to_nonconst_conversion>::type &o) noexcept
-            : _parent(o._parent)
-            , _p(o._p)
+        QUICKCPPLIB_TEMPLATE(class _Parent, class _Pointer, class _Reference)
+        QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(!is_const && std::is_same<typename std::remove_const<_Parent>::type, Parent>::value))
+        explicit constexpr iterator_(const iterator_<true, _Parent, _Pointer, _Reference> &o, _explicit_const_to_nonconst_conversion = {}) noexcept
+            : _parent(const_cast<Parent *>(o._parent))
+            , _p(const_cast<Pointer>(o._p))
         {
         }
         void swap(iterator_ &o) noexcept
@@ -1364,15 +1375,20 @@ namespace algorithm
         }
         return 0;
       }
-      //! Inserts a new item, returning an iterator to the new item. If the returned iterator is invalid,
-      //! there is no more space.
-      iterator insert(pointer p) noexcept
+      //! Inserts a new item, returning an iterator to the new item. If C++ exceptions are disabled
+      //! or `QUICKCPPLIB_ALGORITHM_BITWISE_TRIE_DISABLE_EXCEPTION_THROWS != 0`, the returned iterator
+      //! is invalid if there is no more space.
+      iterator insert(pointer p)
       {
         if(size() < max_size() && _trieinsert(p))
         {
           return iterator(this, p);
         }
+#if __cpp_exceptions && !QUICKCPPLIB_ALGORITHM_BITWISE_TRIE_DISABLE_EXCEPTION_THROWS
+        throw std::length_error("too many items");
+#else
         return end();
+#endif
       }
       //! Erases an item.
       iterator erase(const_iterator it) noexcept
