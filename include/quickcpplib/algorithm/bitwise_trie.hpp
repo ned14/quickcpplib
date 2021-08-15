@@ -34,6 +34,7 @@ and some of the implementation code is lifted from that library.
 #include "../config.hpp"
 
 #include <cassert>
+#include <cstring>  // for memset
 #include <iterator>
 #include <type_traits>
 
@@ -111,15 +112,27 @@ namespace algorithm
       }
       template <int Dir> struct nobble_function_implementation
       {
-        template <class T> bool operator()(T &&accessors) const noexcept { return accessors.flip_nobbledir(); }
+        template <class T> constexpr bool operator()(T &&accessors) const noexcept { return accessors.flip_nobbledir(); }
       };
       template <> struct nobble_function_implementation<-1>
       {
-        template <class T> bool operator()(T && /*unused*/) const noexcept { return false; }
+        template <class T> constexpr bool operator()(T && /*unused*/) const noexcept { return false; }
       };
       template <> struct nobble_function_implementation<1>
       {
-        template <class T> bool operator()(T && /*unused*/) const noexcept { return true; }
+        template <class T> constexpr bool operator()(T && /*unused*/) const noexcept { return true; }
+      };
+      template <class T, class ItemType, class = int> struct set_trie_sibling
+      {
+        constexpr bool operator()(T * /*unused*/, bool /*unused*/, ItemType * /*unused*/) const noexcept { return false; }
+      };
+      template <class T, class ItemType> struct set_trie_sibling<T, ItemType, decltype((void) ItemType::trie_sibling, 0)>
+      {
+        constexpr bool operator()(T *inst, bool right, ItemType *x) const noexcept
+        {
+          inst->trie_sibling[right] = x;
+          return true;
+        }
       };
     }  // namespace detail
 
@@ -171,7 +184,7 @@ namespace algorithm
 
       constexpr const ItemType *sibling(bool right) const noexcept { return _v->trie_sibling[right]; }
       constexpr ItemType *sibling(bool right) noexcept { return _v->trie_sibling[right]; }
-      constexpr void set_sibling(bool right, ItemType *x) noexcept { _v->trie_sibling[right] = x; }
+      constexpr bool set_sibling(bool right, ItemType *x) noexcept { return detail::set_trie_sibling<ItemType, ItemType>()(_v, right, x); }
 
       constexpr auto key() const noexcept { return _v->trie_key; }
 
@@ -234,7 +247,7 @@ namespace algorithm
     };
 
     /*! \struct bitwise_trie
-    \brief Never-allocating bitwise Fredkin trie index head type.
+    \brief Never-allocating in-place bitwise Fredkin trie index head type.
     \tparam Base The base type from which to inherit (and thus overlay the index member functions).
     \tparam ItemType The type of item indexed.
     \tparam NobbleDir -1 to nobble zeros, +1 to nobble ones, 0 to nobble both equally (see below).
@@ -242,15 +255,16 @@ namespace algorithm
     This uses the bitwise Fredkin trie algorithm to index a collection of items by an unsigned
     integral key (e.g. a `size_t` from `std::hash`), providing identical and constant time
     insertion, removal, and finds (i.e. insert, remove and find all take identical time, and
-    that is constant amount almost independent of items in the index). It is thus most like a
-    hash table, but it has more constant time overhead to a hash table for large collections
+    that is a constant amount almost independent of items in the index). It is thus most like a
+    hash table, but it has additional constant time overhead to a hash table for large collections
     exceeding the L3 cache. However it has a number of very useful characteristics which make
     it invaluable in certain use cases.
 
     Firstly, unlike a hash table, this algorithm requires no additional memory allocation
     whatsoever. It wholly and exclusively uses only the items added to the index, and the
     index head, for storage. This makes it invaluable for bootstrap type scenarios, such as
-    in memory allocators or first boot of a kernel.
+    in memory allocators or first boot of a kernel. It also works well with C++ exceptions
+    globally disabled.
 
     Secondly, unlike a hash table it provides a _bounded time_ close fit find,
     which is particularly useful for where you need an item closely matching what you need,
@@ -259,9 +273,10 @@ namespace algorithm
     than or equal to the size you are allocating.
 
     There is also a guaranteed closest rather than closely matching item find, however
-    it can have O(log N) worst case complexity, albeit this is rare in well distributed keys.
+    it has an `O(N)` complexity where N is the number of items with the same top bit set.
+    This is typically worse than a red-black tree, and is not a good use case for this algorithm.
 
-    As you can see, bitwise tries have almost all the same benefits of red-black trees,
+    As you can see, bitwise tries have most of the same benefits of red-black trees,
     but they approximate hash tables for performance of insert-find-remove-findclosefit on
     most CPUs. This makes them very compelling where red-black trees are too slow, or
     where some concurrency is desirable (concurrent modify is easy to implement for all
@@ -273,10 +288,10 @@ namespace algorithm
     can be a good sort algorithm depending on relationship of key increment to insertion
     order, but you shouldn't assume it to be so without empirically checking.
 
-    Items inserted with the same key preserve order of insertion. Performance is superb
+    Items inserted with the same key preserve order of insertion. Performance is great
     on all CPUs which have a single cycle opcode for finding the first set bit in a
     key. If your CPU has a slow bitscan opcode (e.g. older Intel Atom), performance is
-    merely good rather than superb.
+    merely good rather than great.
 
     The index is intrusive, as in, your types must provide the storage needed by the
     index for housekeeping. You can very tightly pack or compress or calculate those
@@ -299,7 +314,7 @@ namespace algorithm
 
       - `ItemType *trie_parent`
       - `ItemType *trie_child[2]`
-      - `ItemType *trie_sibling[2]`
+      - `ItemType *trie_sibling[2]` (if you allow multiple items with the same key value only)
       - `KeyType trie_key`
 
     Again, I stress that the above can be completely customised and packed tighter with
@@ -451,12 +466,12 @@ namespace algorithm
       }
       pointer _triemax() noexcept { return const_cast<pointer>(static_cast<const bitwise_trie *>(this)->_triemax()); }
 
-      bool _trieinsert(pointer r) noexcept
+      pointer _trieinsert(pointer r) noexcept
       {
         auto head = _head_accessors();
         if(head.size() >= head.max_size() - 1)
         {
-          return false;
+          return nullptr;
         }
 
         pointer node = nullptr;
@@ -478,7 +493,7 @@ namespace algorithm
           rlink.set_parent_is_index(bitidx);
           head.set_child(bitidx, r);
           head.incr_size();
-          return true;
+          return r;
         }
         _lock_unlock_branch lock_unlock(this, rkey, true, bitidx);
         for(pointer childnode = nullptr;; node = childnode)
@@ -488,7 +503,10 @@ namespace algorithm
           if(nodekey == rkey)
           { /* Insert into end of ring list */
             rlink.set_is_secondary_sibling();
-            rlink.set_sibling(true, node);
+            if(!rlink.set_sibling(true, node))
+            {
+              return node;
+            }
             rlink.set_sibling(false, nodelink.sibling(false));
             _item_accessors(nodelink.sibling(false)).set_sibling(true, r);
             nodelink.set_sibling(false, r);
@@ -506,7 +524,7 @@ namespace algorithm
           }
         }
         head.incr_size();
-        return true;
+        return r;
       }
 
       void _trieremove(pointer r) noexcept
@@ -853,12 +871,14 @@ namespace algorithm
 
         unsigned bitidx = detail::bitscanr(rkey);
         assert(bitidx < _key_type_bits);
+        bool search_lowest = false;
         do
         {
           /* Keeping raising the bin until we find a larger key */
           while(bitidx < _key_type_bits && nullptr == (node = head.child(bitidx)))
           {
             bitidx++;
+            search_lowest = true;
           }
           if(bitidx >= _key_type_bits)
           {
@@ -884,8 +904,7 @@ namespace algorithm
               return const_cast<pointer>(ret);
             }
             /* Which child branch should we check? */
-            keybit >>= 1;
-            const bool keybitset = !!(rkey & keybit);
+            const bool keybitset = !search_lowest && !!(rkey & (keybit>>=1));
             childnode = nodelink.child(keybitset);
             if(childnode == nullptr)
             {
@@ -917,6 +936,7 @@ namespace algorithm
             }
           } while(rounds > 0);
           bitidx++;
+          search_lowest = true;
         } while(nullptr == ret);
         return const_cast<pointer>(ret);
       }
@@ -975,6 +995,7 @@ namespace algorithm
     public:
       void triecheckvalidity(const key_type *tocheck = nullptr) const noexcept
       {
+        (void) tocheck;
 #ifndef NDEBUG
         auto head = _head_accessors();
         const_pointer node = nullptr, child = nullptr;
@@ -1379,20 +1400,30 @@ namespace algorithm
         }
         return 0;
       }
-      //! Inserts a new item, returning an iterator to the new item. If C++ exceptions are disabled
-      //! or `QUICKCPPLIB_ALGORITHM_BITWISE_TRIE_DISABLE_EXCEPTION_THROWS != 0`, the returned iterator
-      //! is invalid if there is no more space.
+      /*! Inserts a new item, returning an iterator to the new item if the key is new. If there
+      is an item with that key already, if sibling storage is enabled, insert a new item with
+      the same key. If sibling storage is disabled, return an iterator to the existing item.
+
+      If the maximum number of items has been inserted, if C++ exceptions are disabled
+      or `QUICKCPPLIB_ALGORITHM_BITWISE_TRIE_DISABLE_EXCEPTION_THROWS != 0`, the returned iterator
+      is invalid if there is no more space. Otherwise it throws `std::length_error`.
+      */
       iterator insert(pointer p)
       {
-        if(size() < max_size() && _trieinsert(p))
+        if(size() == max_size())
+        {
+#if __cpp_exceptions && !QUICKCPPLIB_ALGORITHM_BITWISE_TRIE_DISABLE_EXCEPTION_THROWS
+          throw std::length_error("too many items");
+#else
+          return end();
+#endif
+        }
+        p = _trieinsert(p);
+        if(p != nullptr)
         {
           return iterator(this, p);
         }
-#if __cpp_exceptions && !QUICKCPPLIB_ALGORITHM_BITWISE_TRIE_DISABLE_EXCEPTION_THROWS
-        throw std::length_error("too many items");
-#else
         return end();
-#endif
       }
       //! Erases an item.
       iterator erase(const_iterator it) noexcept
@@ -1418,9 +1449,17 @@ namespace algorithm
         }
         return iterator(this);
       }
-      //! Finds either an item with identical key, or an item with a larger key. The higher the value in `rounds`,
-      //! the less average distance between the larger key and the key requested. The complexity of this function
-      //! is bound by `rounds`.
+      /*! Finds either an item with identical key, or an item with a larger key. The higher the value in `rounds`,
+      the less average distance between the larger key and the key requested. The complexity of this function
+      is bound by `rounds`.
+
+      Some useful statistics about `rounds` values for ideally distributed keys:
+
+      - `rounds = 16` returns an item with key 99.9% close to the ideal key.
+      - `rounds = 6` returns an item with key 99.1% close to the ideal key.
+      - `rounds = 2` returns an item with key 95.3% close to the ideal key.
+      - `rounds = 1` returns an item with key 92% close to the ideal key.
+      */
       iterator close_find(key_type k, int64_t rounds) const noexcept
       {
         if(auto p = _trieCfind(k, rounds))
@@ -1430,7 +1469,7 @@ namespace algorithm
         return iterator(this);
       }
       //! Finds either an item with identical key, or an item with the guaranteed next largest key. This is
-      //! identical to `close_find(k, INT64_MAX)` and its worst case complexity is `O(log N)` where `N` is
+      //! identical to `close_find(k, INT64_MAX)` and its average case complexity is `O(N)` where `N` is
       //! the number of items in the index with the same top bit set. This is equivalent to `upper_bound(k - 1)`.
       iterator nearest_find(key_type k) const noexcept
       {

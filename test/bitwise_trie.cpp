@@ -208,7 +208,10 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / works, "Tests that bitwise_trie works as adv
         BOOST_CHECK(*it1 == it2->trie_key);
         if(*it1 != it2->trie_key)
         {
-          std::cout << *it1 << " " << it2->trie_key << std::endl;
+          std::cout << "upper bound on " << v << " should be " << *it1 << " got instead " << it2->trie_key << std::endl;
+          BOOST_CHECK(index.end() != index.find(*it1));
+          it2 = index.upper_bound(*it1-1);
+          BOOST_CHECK(it2->trie_key == *it1);
           it2 = index.upper_bound(v);
         }
       }
@@ -216,7 +219,7 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / works, "Tests that bitwise_trie works as adv
   }
   {
     QUICKCPPLIB_NAMESPACE::algorithm::small_prng::small_prng rand;
-    for(int rounds = 0; rounds < 10; rounds++)
+    for(int rounds = 0; rounds < 16; rounds++)
     {
       uint64_t acc_diff = 0, acc_count = 0;
       for(size_t n = 0; n < ITEMS_COUNT; n++)
