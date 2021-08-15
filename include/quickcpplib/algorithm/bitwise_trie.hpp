@@ -356,6 +356,8 @@ namespace algorithm
     tl;dr; If your key results from a hash function, choose `NobbleDir = 0`. If your key
     results from a pointer, or is some number which clusters on regular even boundaries,
     choose `NobbleDir = -1`.
+
+    \todo Implement `lower_bound()`.
     */
     template <class Base, class ItemType, int NobbleDir = 0> class bitwise_trie : public Base
     {
@@ -859,6 +861,35 @@ namespace algorithm
         }
         return nullptr;
       }
+      /* The algorithm for this is the most complex in here, so it's worth documenting
+      as it also documents the others.
+      
+      Firstly to describe the trie, it is a binary tree switching on each bit in the
+      key: if the bit is zero, we go left, if one, we go right. In parallel to this,
+      each node also stores a value, so during traversal down the tree we may well
+      encounter the value we seek on our way. We thus get two orderings during a
+      traversal, the first is somewhat randomly ordered, but we are guaranteed that
+      each node is ordered with respect to the bit switches which occurred previous
+      to encountering it i.e. the bit switches from the top of each branch will match
+      that of the value encountered. The second ordering is by key increasing from
+      left in the binary tree towards the right.
+
+      To create a close find for some given key value, we traverse down the trie,
+      same as we would for exact find. If we exact find, we return immediately.
+      Otherwise we reach the point at which the key would be inserted.
+
+      From the perspective of the second ordering, every node to the right of this
+      point will contain values greater than our origin point, so by traversing
+      right with _triebranchnext() one will find all the values greater than our
+      search key, by the second ordering. One therefore just traverses right
+      until one finds any leaf key.
+
+      But, in the path between our origin point and the first rightmost leaf key,
+      closer values to the search key may be encountered. We still need to find
+      the first rightmost leaf key, as that is our maximum bound, but in so doing
+      we should encounter all possible values between our search value and the
+      value of that first rightmost leaf key.
+      */
       pointer _trieCfind(key_type rkey, int64_t rounds) const noexcept
       {
         auto head = _head_accessors();
@@ -929,6 +960,10 @@ namespace algorithm
             {
               ret = node;
               retkey = nodekey - rkey;
+              if((retkey == 0 || rounds <= 0))
+              {
+                return const_cast<pointer>(ret);
+              }
             }
             if(ret != nullptr)
             {
@@ -1460,7 +1495,7 @@ namespace algorithm
       - `rounds = 2` returns an item with key 95.3% close to the ideal key.
       - `rounds = 1` returns an item with key 92% close to the ideal key.
       */
-      iterator close_find(key_type k, int64_t rounds) const noexcept
+      iterator find_equal_or_larger(key_type k, int64_t rounds) const noexcept
       {
         if(auto p = _trieCfind(k, rounds))
         {
@@ -1471,7 +1506,7 @@ namespace algorithm
       //! Finds either an item with identical key, or an item with the guaranteed next largest key. This is
       //! identical to `close_find(k, INT64_MAX)` and its average case complexity is `O(N)` where `N` is
       //! the number of items in the index with the same top bit set. This is equivalent to `upper_bound(k - 1)`.
-      iterator nearest_find(key_type k) const noexcept
+      iterator find_equal_or_next_largest(key_type k) const noexcept
       {
         if(auto p = _trieCfind(k, INT64_MAX))
         {
@@ -1479,7 +1514,7 @@ namespace algorithm
         }
         return iterator(this);
       }
-      //! Finds the item next larger than the key. This is equivalent to `nearest_find(k + 1)`.
+      //! Finds the item next larger than the key. This is equivalent to `find_equal_or_next_largest(k + 1)`.
       iterator upper_bound(key_type k) const noexcept
       {
         if(auto p = _trieCfind(k + 1, INT64_MAX))

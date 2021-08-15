@@ -67,7 +67,7 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / works, "Tests that bitwise_trie works as adv
     index.insert(&b);
     auto it = index.find(6);
     BOOST_CHECK(it->trie_key == 6);
-    it = index.nearest_find(5);
+    it = index.find_equal_or_next_largest(5);
     BOOST_CHECK(it->trie_key == 6);
     index.erase(2);
     for(auto *i : index)
@@ -117,6 +117,41 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / works, "Tests that bitwise_trie works as adv
     for(size_t n = 0; n < ITEMS_COUNT; n++)
     {
       auto v = rand();
+      if(!(v & 1))
+      {
+        index.erase(v);
+      }
+    }
+  }
+  index.triecheckvalidity();
+  {
+    QUICKCPPLIB_NAMESPACE::algorithm::small_prng::small_prng rand;
+    for(size_t n = 0; n < ITEMS_COUNT; n++)
+    {
+      auto v = rand();
+      auto it = index.find(v);
+      if(!(v & 1))
+      {
+        BOOST_CHECK(it == index.end());
+      }
+      else
+      {
+        BOOST_CHECK(it != index.end());
+      }
+    }
+  }
+  index.clear();
+  {
+    for(size_t n = 0; n < ITEMS_COUNT; n++)
+    {
+      index.insert(&storage[n]);
+    }
+  }
+  {
+    QUICKCPPLIB_NAMESPACE::algorithm::small_prng::small_prng rand;
+    for(size_t n = 0; n < ITEMS_COUNT; n++)
+    {
+      auto v = rand();
       if(v & 1)
       {
         index.erase(v);
@@ -140,6 +175,7 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / works, "Tests that bitwise_trie works as adv
       }
     }
   }
+
   std::multiset<uint32_t> shouldbe;
   index.clear();
   {
@@ -226,16 +262,12 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / works, "Tests that bitwise_trie works as adv
       {
         auto v = rand();
         auto it1 = shouldbe.upper_bound(v);
-        auto it2 = index.close_find(v + 1, rounds);
+        auto it2 = index.find_equal_or_larger(v + 1, rounds);
         if(it1 == shouldbe.end())
         {
           BOOST_CHECK(it2 == index.end());
         }
-        else if(it2 == index.end())
-        {
-          BOOST_CHECK(it1 == shouldbe.end());
-        }
-        else
+        else if(it2 != index.end())
         {
           BOOST_CHECK(it2->trie_key >= *it1);
           acc_diff += it2->trie_key - *it1;
