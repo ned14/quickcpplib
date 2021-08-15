@@ -81,8 +81,7 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / works, "Tests that bitwise_trie works as adv
     index.triecheckvalidity();
   }
 
-  static constexpr size_t ITEMS_COUNT = 1000000;
-  std::set<uint32_t> shouldbe;
+  static constexpr size_t ITEMS_COUNT = 100000;
   std::vector<foo_t> storage;
   storage.reserve(ITEMS_COUNT);
   index.clear();
@@ -91,12 +90,12 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / works, "Tests that bitwise_trie works as adv
     for(size_t n = 0; n < ITEMS_COUNT; n++)
     {
       auto v = rand();
-      shouldbe.insert(v);
       storage.emplace_back(v);
       index.insert(&storage.back());
       assert(index.end() != index.find(v));
     }
   }
+  BOOST_CHECK(index.size() == ITEMS_COUNT);
   index.triecheckvalidity();
   {
     QUICKCPPLIB_NAMESPACE::algorithm::small_prng::small_prng rand;
@@ -106,6 +105,142 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / works, "Tests that bitwise_trie works as adv
       auto it = index.find(v);
       BOOST_REQUIRE(it != index.end());
       BOOST_CHECK(it->trie_key == v);
+      auto count = index.count(it);
+      if(count > 1)
+      {
+        std::cout << "Key " << v << " has count = " << count << std::endl;
+      }
+    }
+  }
+  {
+    QUICKCPPLIB_NAMESPACE::algorithm::small_prng::small_prng rand;
+    for(size_t n = 0; n < ITEMS_COUNT; n++)
+    {
+      auto v = rand();
+      if(v & 1)
+      {
+        index.erase(v);
+      }
+    }
+  }
+  index.triecheckvalidity();
+  {
+    QUICKCPPLIB_NAMESPACE::algorithm::small_prng::small_prng rand;
+    for(size_t n = 0; n < ITEMS_COUNT; n++)
+    {
+      auto v = rand();
+      auto it = index.find(v);
+      if(v & 1)
+      {
+        BOOST_CHECK(it == index.end());
+      }
+      else
+      {
+        BOOST_CHECK(it != index.end());
+      }
+    }
+  }
+  std::multiset<uint32_t> shouldbe;
+  index.clear();
+  {
+    QUICKCPPLIB_NAMESPACE::algorithm::small_prng::small_prng rand;
+    for(size_t n = 0; n < ITEMS_COUNT; n++)
+    {
+      auto v = rand();
+      shouldbe.emplace(v);
+      index.insert(&storage[n]);
+    }
+    size_t in_order_count = 0, not_in_order_count = 0;
+    for(auto it = index.begin(); it != index.end();)
+    {
+      auto i = it++;
+      if(it == index.end())
+      {
+        break;
+      }
+      if(i->trie_key < it->trie_key)
+      {
+        in_order_count++;
+      }
+      else
+      {
+        not_in_order_count++;
+      }
+    }
+    std::cout << "Trie index was in ascending order for " << in_order_count << " items and not for " << not_in_order_count << " items." << std::endl;
+  }
+  {
+    QUICKCPPLIB_NAMESPACE::algorithm::small_prng::small_prng rand;
+    for(size_t n = 0; n < ITEMS_COUNT; n++)
+    {
+      auto v = rand();
+      auto shouldcount = shouldbe.count(v);
+      if(shouldcount > 1)
+      {
+        BOOST_CHECK(index.count(v) == shouldcount);
+        auto it = index.find(v);
+        for(size_t x = 0; x < shouldcount - 1; x++)
+        {
+          auto i = it++;
+          BOOST_CHECK(i->trie_key == it->trie_key);
+          BOOST_CHECK(*it > *i);  // insertion order preserved
+        }
+      }
+    }
+  }
+  {
+    QUICKCPPLIB_NAMESPACE::algorithm::small_prng::small_prng rand;
+    for(size_t n = 0; n < ITEMS_COUNT; n++)
+    {
+      auto v = rand();
+      auto it1 = shouldbe.upper_bound(v);
+      auto it2 = index.upper_bound(v);
+      if(it1 == shouldbe.end())
+      {
+        BOOST_CHECK(it2 == index.end());
+      }
+      else if(it2 == index.end())
+      {
+        BOOST_CHECK(it1 == shouldbe.end());
+      }
+      else
+      {
+        BOOST_CHECK(*it1 == it2->trie_key);
+        if(*it1 != it2->trie_key)
+        {
+          std::cout << *it1 << " " << it2->trie_key << std::endl;
+          it2 = index.upper_bound(v);
+        }
+      }
+    }
+  }
+  {
+    QUICKCPPLIB_NAMESPACE::algorithm::small_prng::small_prng rand;
+    for(int rounds = 0; rounds < 10; rounds++)
+    {
+      uint64_t acc_diff = 0, acc_count = 0;
+      for(size_t n = 0; n < ITEMS_COUNT; n++)
+      {
+        auto v = rand();
+        auto it1 = shouldbe.upper_bound(v);
+        auto it2 = index.close_find(v + 1, rounds);
+        if(it1 == shouldbe.end())
+        {
+          BOOST_CHECK(it2 == index.end());
+        }
+        else if(it2 == index.end())
+        {
+          BOOST_CHECK(it1 == shouldbe.end());
+        }
+        else
+        {
+          BOOST_CHECK(it2->trie_key >= *it1);
+          acc_diff += it2->trie_key - *it1;
+          acc_count++;
+        }
+      }
+      std::cout << "\nFor rounds = " << rounds << " close fit was an average of " << (100.0 * acc_diff / acc_count / UINT32_MAX) << "% from ideal."
+                << std::endl;
     }
   }
 }

@@ -267,9 +267,11 @@ namespace algorithm
     where some concurrency is desirable (concurrent modify is easy to implement for all
     keys whose topmost set bit differs).
 
-    The order of the items is *approximately* sorted by key incrementing. Note the
-    approximately, this is a nearly-sorted sequence suitable for say bubble sorting
-    if you need perfectly sorted.
+    The order of the items during iteration is *somewhat* sorted by key incrementing. Note the
+    somewhat, it is fully ordered for each top bit set increment, but within each of
+    those there is an interleave of insertion order and key increment. A bubble sort
+    can be a good sort algorithm depending on relationship of key increment to insertion
+    order, but you shouldn't assume it to be so without empirically checking.
 
     Items inserted with the same key preserve order of insertion. Performance is superb
     on all CPUs which have a single cycle opcode for finding the first set bit in a
@@ -452,7 +454,7 @@ namespace algorithm
       bool _trieinsert(pointer r) noexcept
       {
         auto head = _head_accessors();
-        if(head.size() >= head.max_size() -1)
+        if(head.size() >= head.max_size() - 1)
         {
           return false;
         }
@@ -498,6 +500,7 @@ namespace algorithm
           if(nullptr == childnode)
           { /* Insert here */
             rlink.set_parent(node);
+            rlink.set_is_primary_sibling();
             nodelink.set_child(keybitset, r);
             break;
           }
@@ -532,6 +535,21 @@ namespace algorithm
         assert(rlink.parent_is_index() || rlink.parent() != nullptr);
         assert(rlink.is_primary_sibling());
         auto set_parent = [&]() {  // sets rlink's parent to node, and node's parent to rlink's parent
+          // Set the replacement node to my children, and their parent to the new node
+          pointer childnode;
+          if(nullptr != (childnode = rlink.child(false)))
+          {
+            auto childnodelink = _item_accessors(childnode);
+            nodelink.set_child(false, childnode);
+            childnodelink.set_parent(node);
+          }
+          if(nullptr != (childnode = rlink.child(true)))
+          {
+            auto childnodelink = _item_accessors(childnode);
+            nodelink.set_child(true, childnode);
+            childnodelink.set_parent(node);
+          }
+          // Set the replacement node parent to my parent, and its child
           if(rlink.parent_is_index())
           {
             /* Extract my bitidx */
@@ -542,13 +560,15 @@ namespace algorithm
           }
           else
           {
-            if(_item_accessors(rlink.parent()).child(false) == r)
+            auto parentlink = _item_accessors(rlink.parent());
+            if(parentlink.child(false) == r)
             {
-              _item_accessors(rlink.parent()).set_child(false, node);
+              parentlink.set_child(false, node);
             }
             else
             {
-              _item_accessors(rlink.parent()).set_child(true, node);
+              assert(parentlink.child(true) == r);
+              parentlink.set_child(true, node);
             }
             nodelink.set_parent(rlink.parent());
           }
@@ -568,7 +588,7 @@ namespace algorithm
           return;
         }
         /* Can I simply remove myself from my parent? */
-        if(nullptr == rlink.child(0) && nullptr == rlink.child(1))
+        if(nullptr == rlink.child(false) && nullptr == rlink.child(true))
         {
           if(rlink.parent_is_index())
           {
@@ -579,13 +599,15 @@ namespace algorithm
           }
           else
           {
-            if(_item_accessors(rlink.parent()).child(false) == r)
+            auto parentlink = _item_accessors(rlink.parent());
+            if(parentlink.child(false) == r)
             {
-              _item_accessors(rlink.parent()).set_child(false, nullptr);
+              parentlink.set_child(false, nullptr);
             }
             else
             {
-              _item_accessors(rlink.parent()).set_child(true, nullptr);
+              assert(parentlink.child(true) == r);
+              parentlink.set_child(true, nullptr);
             }
           }
           head.decr_size();
@@ -630,21 +652,6 @@ namespace algorithm
         _item_accessors(childnodelink.parent()).set_child(parentchildidx, nullptr);
         node = childnode;
         nodelink = childnodelink;
-        // Set the replacement node to my children, and their parent to the new node
-        if(nullptr != rlink.child(false))
-        {
-          childnode = rlink.child(false);
-          childnodelink = _item_accessors(childnode);
-          nodelink.set_child(false, childnode);
-          childnodelink.set_parent(node);
-        }
-        if(nullptr != rlink.child(true))
-        {
-          childnode = rlink.child(true);
-          childnodelink = _item_accessors(childnode);
-          nodelink.set_child(true, childnode);
-          childnodelink.set_parent(node);
-        }
         // Set my parent to point at the replacement node
         set_parent();
         head.decr_size();
@@ -738,15 +745,14 @@ namespace algorithm
         auto rlink = _item_accessors(r);
 
         /* Am I a leaf off the tree? */
-        if(rlink.sibling(true) != node && !_item_accessors(rlink.sibling(true)).is_primary_sibling())
-        {
-          return rlink.sibling(true);
-        }
-        /* If I am the end leaf off a tree, put me back at my tree node */
-        while(!rlink.is_primary_sibling())
+        if(rlink.sibling(true) != node)
         {
           r = rlink.sibling(true);
           rlink = _item_accessors(r);
+          if(!rlink.is_primary_sibling())
+          {
+            return r;
+          }
         }
         /* Follow my children, preferring child[0] */
         if(nullptr != (node = (rlink.child(false) != nullptr) ? rlink.child(false) : rlink.child(true)))
@@ -803,11 +809,10 @@ namespace algorithm
         auto head = _head_accessors();
         if(0 == head.size())
         {
-          return 0;
+          return nullptr;
         }
 
         const_pointer node = nullptr;
-        auto nodelink = _item_accessors(node);
 
         unsigned bitidx = detail::bitscanr(rkey);
         /* Avoid unknown bit shifts where possible, their performance can suck */
@@ -820,14 +825,14 @@ namespace algorithm
         _lock_unlock_branch lock_unlock(this, rkey, false, bitidx);
         for(const_pointer childnode = nullptr;; node = childnode)
         {
-          nodelink = _item_accessors(node);
+          auto nodelink = _item_accessors(node);
           key_type nodekey = nodelink.key();
           if(nodekey == rkey)
           {
             return const_cast<pointer>(node);
           }
           keybit >>= 1;
-          bool keybitset = !!(rkey & keybit);
+          const bool keybitset = !!(rkey & keybit);
           childnode = nodelink.child(keybitset);
           if(childnode == nullptr)
           {
@@ -845,88 +850,73 @@ namespace algorithm
         }
 
         const_pointer node = nullptr, ret = nullptr;
-        auto nodelink = _item_accessors(node);
 
-        unsigned binbitidx = detail::bitscanr(rkey);
-        assert(binbitidx < _key_type_bits);
+        unsigned bitidx = detail::bitscanr(rkey);
+        assert(bitidx < _key_type_bits);
         do
         {
           /* Keeping raising the bin until we find a larger key */
-          while(binbitidx < _key_type_bits && nullptr == (node = head.child(binbitidx)))
+          while(bitidx < _key_type_bits && nullptr == (node = head.child(bitidx)))
           {
-            binbitidx++;
+            bitidx++;
           }
-          if(binbitidx >= _key_type_bits)
+          if(bitidx >= _key_type_bits)
           {
             return nullptr;
           }
-          unsigned bitidx = binbitidx;
           /* Avoid unknown bit shifts where possible, their performance can suck */
           key_type keybit = (key_type) 1 << bitidx;
           _lock_unlock_branch lock_unlock(this, keybit, false, bitidx);
-          nodelink = _item_accessors(node);
-          key_type nodekey = nodelink.key();
-          /* If nodekey is a closer fit to search key, mark as best result so far */
-          size_t retkey = (size_t) -1;
-          if(nodekey >= rkey && nodekey - rkey < retkey)
-          {
-            ret = node;
-            retkey = nodekey - rkey;
-          }
-          if(rounds <= 0 && ret != nullptr)
-          {
-            return const_cast<pointer>(ret);
-          }
+          key_type retkey = (key_type) -1;
           /* Search this branch */
-          for(const_pointer childnode = node; childnode != nullptr; node = childnode)
+          for(const_pointer childnode = nullptr;; node = childnode)
           {
-            childnode = nullptr;
-            nodelink = _item_accessors(node);
-            /* If a child is a closer fit to search key, mark as best result so far */
-            if(nodelink.child(false) != nullptr)
+            auto nodelink = _item_accessors(node);
+            auto nodekey = nodelink.key();
+            /* If nodekey is a closer fit to search key, mark as best result so far */
+            if(nodekey >= rkey && nodekey - rkey < retkey)
             {
-              nodekey = _item_accessors(nodelink.child(false)).key();
-              if(nodekey >= rkey && nodekey - rkey < retkey)
-              {
-                ret = nodelink.child(false);
-                retkey = nodekey - rkey;
-              }
+              ret = node;
+              retkey = nodekey - rkey;
             }
-            if(nodelink.child(true) != nullptr)
-            {
-              nodekey = _item_accessors(nodelink.child(true)).key();
-              if(nodekey >= rkey && nodekey - rkey < retkey)
-              {
-                ret = nodelink.child(true);
-                retkey = nodekey - rkey;
-              }
-            }
-            if(rounds <= 0 && ret != nullptr)
+            if((retkey == 0 || rounds <= 0) && ret != nullptr)
             {
               return const_cast<pointer>(ret);
             }
             /* Which child branch should we check? */
             keybit >>= 1;
-            bool keybitset = !!(rkey & keybit);
+            const bool keybitset = !!(rkey & keybit);
             childnode = nodelink.child(keybitset);
-            /* If no child and we were checking lowest, check highest */
-            if(childnode == nullptr && !keybitset)
+            if(childnode == nullptr)
             {
-              childnode = nodelink.child(true);
+              break;
             }
-            --rounds;
-            /* If we have reached the end of this tree, go
-            sideways within this branch if possible */
-            if(nullptr == childnode)
+            if(ret != nullptr)
             {
-              childnode = _triebranchnext(node);
+              --rounds;
             }
           }
-          if(nullptr == ret)
-          { /* If we didn't find any node bigger than rkey, bump up a bin
-               and look for the smallest possible key in that */
-            binbitidx++;
-          }
+          /* If we have reached the end of this tree, go
+          sideways within this branch if possible */
+          do
+          {
+            if(nullptr == (node = _triebranchnext(node)))
+            {
+              break;
+            }
+            auto nodelink = _item_accessors(node);
+            auto nodekey = nodelink.key();
+            if(nodekey >= rkey && nodekey - rkey < retkey)
+            {
+              ret = node;
+              retkey = nodekey - rkey;
+            }
+            if(ret != nullptr)
+            {
+              --rounds;
+            }
+          } while(rounds > 0);
+          bitidx++;
         } while(nullptr == ret);
         return const_cast<pointer>(ret);
       }
@@ -983,7 +973,7 @@ namespace algorithm
       }
 #endif
     public:
-      void triecheckvalidity() const noexcept
+      void triecheckvalidity(const key_type *tocheck = nullptr) const noexcept
       {
 #ifndef NDEBUG
         auto head = _head_accessors();
@@ -992,6 +982,13 @@ namespace algorithm
         memset(&state, 0, sizeof(state));
         for(unsigned n = 0; n < _key_type_bits; n++)
         {
+          if(tocheck != nullptr)
+          {
+            if((((key_type) -1 << n) & *tocheck) != ((key_type) 1 << n))
+            {
+              continue;
+            }
+          }
           if((node = head.child(n)) != nullptr)
           {
             auto nodelink = _item_accessors(node);
@@ -1036,7 +1033,11 @@ namespace algorithm
             }
           }
         }
-        assert(state.count == head.size());
+        if(tocheck == nullptr)
+        {
+          assert(state.count == head.size());
+        }
+#if 1
         for(state.count = 0, node = _triemin(); node != nullptr; (node = _trienext(node)), state.count++)
 #if 0
       printf("%p\n", node)
@@ -1067,6 +1068,7 @@ namespace algorithm
                  100.0 * rights / count, 100.0 * leafs / count);
 #endif
 #endif /* !NDEBUG */
+#endif
       }
 
     private:
@@ -1361,13 +1363,15 @@ namespace algorithm
         head.set_size(0);
       }
       //! Return how many items with key there are.
-      size_type count(key_type k) const noexcept
+      size_type count(key_type k) const noexcept { return count(find(k)); }
+      //! Return how many items with the same key as iterator there are.
+      size_type count(const_iterator it) const noexcept
       {
-        if(auto p = _triefind(k))
+        if(it != end())
         {
           size_type ret = 1;
-          auto plink = _item_accessors(p);
-          for(auto *i = plink.sibling(true); i != p; i = _item_accessors(i).sibling(true))
+          auto plink = _item_accessors(it._p);
+          for(auto *i = plink.sibling(true); i != it._p; i = _item_accessors(i).sibling(true))
           {
             ret++;
           }
@@ -1393,11 +1397,15 @@ namespace algorithm
       //! Erases an item.
       iterator erase(const_iterator it) noexcept
       {
-        assert(it != end());
-        auto ret(it);
+        if(it == end())
+        {
+          assert(it != end());
+          return end();
+        }
+        iterator ret(this, const_cast<pointer>(it._p));
         ++ret;
         _trieremove(const_cast<pointer>(it._p));
-        return iterator(it);
+        return ret;
       }
       //! Erases an item.
       iterator erase(key_type k) noexcept { return erase(find(k)); }
@@ -1423,10 +1431,19 @@ namespace algorithm
       }
       //! Finds either an item with identical key, or an item with the guaranteed next largest key. This is
       //! identical to `close_find(k, INT64_MAX)` and its worst case complexity is `O(log N)` where `N` is
-      //! the number of items in the index with the same top bit set.
+      //! the number of items in the index with the same top bit set. This is equivalent to `upper_bound(k - 1)`.
       iterator nearest_find(key_type k) const noexcept
       {
         if(auto p = _trieCfind(k, INT64_MAX))
+        {
+          return iterator(this, p);
+        }
+        return iterator(this);
+      }
+      //! Finds the item next larger than the key. This is equivalent to `nearest_find(k + 1)`.
+      iterator upper_bound(key_type k) const noexcept
+      {
+        if(auto p = _trieCfind(k + 1, INT64_MAX))
         {
           return iterator(this, p);
         }
