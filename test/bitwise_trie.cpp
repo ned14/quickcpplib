@@ -24,6 +24,7 @@ Distributed under the Boost Software License, Version 1.0.
 #include "../include/quickcpplib/algorithm/bitwise_trie.hpp"
 
 #include "../include/quickcpplib/algorithm/small_prng.hpp"
+#include "../include/quickcpplib/algorithm/hash.hpp"
 
 #include "../include/quickcpplib/boost/test/unit_test.hpp"
 
@@ -86,7 +87,7 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / works, "Tests that bitwise_trie works as adv
     index.triecheckvalidity();
   }
 
-  static constexpr size_t ITEMS_COUNT = 5000000;
+  static constexpr size_t ITEMS_COUNT = 500000;
   std::vector<foo_t> storage;
   storage.reserve(ITEMS_COUNT);
   index.clear();
@@ -291,7 +292,7 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / benchmark, "Benchmarks bitwise_trie against 
 {
   using namespace QUICKCPPLIB_NAMESPACE::algorithm::bitwise_trie;
   namespace pmr = QUICKCPPLIB_NAMESPACE::pmr;
-  static constexpr size_t ITEMS_BITSHIFT = 16;
+  static constexpr size_t ITEMS_BITSHIFT = 16;  // 26 uses 2Gb of RAM
   static constexpr size_t ITEMS_COUNT = 1 << ITEMS_BITSHIFT;
   static constexpr size_t bytes_per_item = 28;
   std::vector<uint32_t> randoms;
@@ -378,9 +379,9 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / benchmark, "Benchmarks bitwise_trie against 
     buffer.reserve(ITEMS_COUNT * bytes_per_item);
     std::cout << "\nAllocating " << (ITEMS_COUNT * bytes_per_item) << " bytes, " << bytes_per_item << " bytes per item seems acceptable." << std::endl;
     pmr::monotonic_buffer_resource mr(buffer.data(), buffer.capacity());
-    std::unordered_set<uint32_t, std::hash<uint32_t>, std::equal_to<uint32_t>, pmr::polymorphic_allocator<pmr::monotonic_buffer_resource>> cont{
+    std::unordered_set<uint32_t, QUICKCPPLIB_NAMESPACE::algorithm::hash::fnv1a_hash<uint32_t>, std::equal_to<uint32_t>, pmr::polymorphic_allocator<pmr::monotonic_buffer_resource>> cont{
     pmr::polymorphic_allocator<pmr::monotonic_buffer_resource>(&mr)};
-    cont.reserve(ITEMS_COUNT);
+    //cont.reserve(ITEMS_COUNT);
     std::vector<std::pair<size_t, uint64_t>> clocks;
     clocks.reserve(ITEMS_BITSHIFT + 1);
     size_t n = 0;

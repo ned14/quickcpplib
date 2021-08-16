@@ -346,11 +346,9 @@ namespace algorithm
     \tparam NobbleDir -1 to nobble zeros, +1 to nobble ones, 0 to nobble both equally (see below).
 
     This uses the bitwise Fredkin trie algorithm to index a collection of items by an unsigned
-    integral key (e.g. a `size_t` from `std::hash`), providing identical and constant time
-    insertion, removal, and finds (i.e. insert, remove and find all take identical time, and
-    that is a constant amount almost independent of items in the index). It is thus most like a
-    hash table, but it has additional constant time overhead to a hash table for large collections
-    exceeding the L3 cache. However it has a number of very useful characteristics which make
+    integral key (e.g. a `size_t` from `std::hash`), providing identical O(log2 N) time insertion,
+    removal, and finds (i.e. insert, remove and find all take identical time). It is thus most like a
+    red-black tree. However it has a number of very useful characteristics which make
     it invaluable in certain use cases.
 
     Firstly, unlike a hash table, this algorithm requires no additional memory allocation
@@ -366,8 +364,11 @@ namespace algorithm
     than or equal to the size you are allocating.
 
     There is also a guaranteed closest rather than closely matching item find, however
-    it has an `O(N)` complexity where N is the number of items with the same top bit set.
-    This is typically worse than a red-black tree, and is not a good use case for this algorithm.
+    it is more expensive than a red-black tree whose guaranteed sortedness makes finding
+    exact upper bounds easy.
+
+    Thirdly, unlike any other algorithm, this one is much faster for low key values than
+    large key values, so if you can keep most of your keys small, you will see more benefit.
 
     As you can see, bitwise tries have most of the same benefits of red-black trees,
     but they approximate hash tables for performance of insert-find-remove-findclosefit on
@@ -417,8 +418,7 @@ namespace algorithm
     memory map relocates in memory.
 
     Close and closest fit finds always find an item whose key is larger or equal to
-    the key sought. If you wish to find a smaller key, use a custom accessor to
-    invert the key used by the index.
+    the key sought. Lower bound is not implemented yet.
 
     Most of this implementation is lifted from https://github.com/ned14/nedtries, but
     it has been modernised for current C++ idomatic practice.
@@ -1017,13 +1017,9 @@ namespace algorithm
       deep for the same item count, and therefore there are half as many main
       memory stalls, for large item counts. For smaller item counts,
       branch predictors since Haswell are basically statistical bitfield
-      predictors, so you see performance similar to a hash table. Put
+      predictors, so you see O(1) performance similar to a hash table. Put
       simply, if all your binary tree fits inside L2 cache, the CPU can do
       four chained indirections in a similar time to a single indirection.
-      So as you'll see on the scalability graph, whilst not quite as fast
-      as a hash table, it is quite close to O(1) like a hash table for
-      smaller item counts, gradually decaying towards O(log2 N) as N
-      increases.
       */
       pointer _trieCfind(key_type rkey, int64_t rounds) const noexcept
       {
@@ -1694,7 +1690,7 @@ namespace algorithm
         return iterator(this);
       }
       //! Finds either an item with identical key, or an item with the guaranteed next largest key. This is
-      //! identical to `close_find(k, INT64_MAX)` and its average case complexity is `O(N)` where `N` is
+      //! identical to `close_find(k, INT64_MAX)` and its average case complexity is `O(log N)` where `N` is
       //! the number of items in the index with the same top bit set. This is equivalent to `upper_bound(k - 1)`.
       iterator find_equal_or_next_largest(key_type k) const noexcept
       {
@@ -1708,6 +1704,15 @@ namespace algorithm
       iterator upper_bound(key_type k) const noexcept
       {
         if(auto p = _trieCfind(k + 1, INT64_MAX))
+        {
+          return iterator(this, p);
+        }
+        return iterator(this);
+      }
+      //! Estimate the item next larger than the key. This is equivalent to `find_equal_or_larger(k + 1, rounds)`.
+      iterator upper_bound_estimate(key_type k, int64_t rounds) const noexcept
+      {
+        if(auto p = _trieCfind(k + 1, rounds))
         {
           return iterator(this, p);
         }
