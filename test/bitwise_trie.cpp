@@ -23,8 +23,8 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "../include/quickcpplib/algorithm/bitwise_trie.hpp"
 
-#include "../include/quickcpplib/algorithm/small_prng.hpp"
 #include "../include/quickcpplib/algorithm/hash.hpp"
+#include "../include/quickcpplib/algorithm/small_prng.hpp"
 
 #include "../include/quickcpplib/boost/test/unit_test.hpp"
 
@@ -353,8 +353,7 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / benchmark, "Benchmarks bitwise_trie against 
     buffer.reserve(ITEMS_COUNT * bytes_per_item);
     std::cout << "\nAllocating " << (ITEMS_COUNT * bytes_per_item) << " bytes, " << bytes_per_item << " bytes per item seems acceptable." << std::endl;
     pmr::monotonic_buffer_resource mr(buffer.data(), buffer.capacity());
-    std::set<uint32_t, std::less<uint32_t>, pmr::polymorphic_allocator<pmr::monotonic_buffer_resource>> cont{
-    pmr::polymorphic_allocator<pmr::monotonic_buffer_resource>(&mr)};
+    std::set<uint32_t, std::less<uint32_t>, pmr::polymorphic_allocator<uint32_t>> cont{pmr::polymorphic_allocator<uint32_t>(&mr)};
     std::vector<std::pair<size_t, uint64_t>> clocks;
     clocks.reserve(ITEMS_BITSHIFT + 1);
     size_t n = 0;
@@ -379,9 +378,9 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / benchmark, "Benchmarks bitwise_trie against 
     buffer.reserve(ITEMS_COUNT * bytes_per_item);
     std::cout << "\nAllocating " << (ITEMS_COUNT * bytes_per_item) << " bytes, " << bytes_per_item << " bytes per item seems acceptable." << std::endl;
     pmr::monotonic_buffer_resource mr(buffer.data(), buffer.capacity());
-    std::unordered_set<uint32_t, QUICKCPPLIB_NAMESPACE::algorithm::hash::fnv1a_hash<uint32_t>, std::equal_to<uint32_t>, pmr::polymorphic_allocator<pmr::monotonic_buffer_resource>> cont{
-    pmr::polymorphic_allocator<pmr::monotonic_buffer_resource>(&mr)};
-    //cont.reserve(ITEMS_COUNT);
+    std::unordered_set<uint32_t, QUICKCPPLIB_NAMESPACE::algorithm::hash::fnv1a_hash<uint32_t>, std::equal_to<uint32_t>, pmr::polymorphic_allocator<uint32_t>>
+    cont{pmr::polymorphic_allocator<uint32_t>(&mr)};
+    // cont.reserve(ITEMS_COUNT);
     std::vector<std::pair<size_t, uint64_t>> clocks;
     clocks.reserve(ITEMS_BITSHIFT + 1);
     size_t n = 0;
@@ -397,8 +396,7 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / benchmark, "Benchmarks bitwise_trie against 
     std::cout << "For unordered_set:";
     for(n = 1; n < clocks.size(); n++)
     {
-      std::cout << "\n   " << clocks[n].first << ": " << ((double) (clocks[n].second - clocks[0].second) / clocks[n].first)
-                << " ns per item insert";
+      std::cout << "\n   " << clocks[n].first << ": " << ((double) (clocks[n].second - clocks[0].second) / clocks[n].first) << " ns per item insert";
     }
     std::cout << std::endl;
   }
