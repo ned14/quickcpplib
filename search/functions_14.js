@@ -8,5 +8,6 @@ var searchData=
   ['unlock_5fshared_1522',['unlock_shared',['../structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlockbase.html#a046fe7296a3e6014c18bfdbbfd0406d1',1,'quickcpplib::_xxx::configurable_spinlock::shared_spinlockbase']]],
   ['unsafe_1523',['Unsafe',['../structstd_1_1experimental_1_1_unsafe.html#a976c33dc6b51ae6ff91df9dc166495c4',1,'std::experimental::Unsafe::Unsafe()'],['../structstd_1_1experimental_1_1_unsafe.html#ae6a5f9c26230f83616f8696863dc3170',1,'std::experimental::Unsafe::Unsafe(Unsafe const &amp;)'],['../structstd_1_1experimental_1_1_unsafe.html#a7492537c209567b665b106572a386b16',1,'std::experimental::Unsafe::Unsafe(Unsafe &amp;&amp;)']]],
   ['unused_1524',['unused',['../test__optional_8cpp.html#a9bb9826399fa3ae2d307b579d86dd4a0',1,'test_optional.cpp']]],
-  ['upper_5fbound_1525',['upper_bound',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a786a25ada1863415cb9faf5ff054ef20',1,'quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie']]]
+  ['upper_5fbound_1525',['upper_bound',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a786a25ada1863415cb9faf5ff054ef20',1,'quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie']]],
+  ['upper_5fbound_5festimate_1526',['upper_bound_estimate',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a35bcd912bf88d1270a98b3fdcbb9b9e4',1,'quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie']]]
 ];

@@ -9,7 +9,7 @@ var searchData=
   ['pop_5fthread_5flocal_5fsignal_5fhandler_1431',['pop_thread_local_signal_handler',['../namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#ae79b558dcc456cc3b4f551e575b58ffb',1,'quickcpplib::_xxx::signal_guard::detail']]],
   ['posix_5fmemalign_1432',['posix_memalign',['../namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#a3150bfc8ccf82de367e8dad3d9da95dd',1,'quickcpplib::_xxx::aligned_allocator::detail']]],
   ['potentially_5funknown_5fjump_1433',['potentially_unknown_jump',['../namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_1_1detail.html#af3ba6ad5f7bd5d5d27daed8df7cce6ae',1,'quickcpplib::_xxx::mem_flush_loads_stores::detail']]],
-  ['prime_5fmodulus_1434',['prime_modulus',['../namespacealgorithm_1_1prime__modulus.html#a2f46f40ecb599c9722c2ba98f0f60a7a',1,'algorithm::prime_modulus']]],
+  ['prime_5fmodulus_1434',['prime_modulus',['../namespacequickcpplib_1_1__xxx_1_1algorithm_1_1prime__modulus.html#a771e788b3f433bbb827001118196654f',1,'quickcpplib::_xxx::algorithm::prime_modulus']]],
   ['process_1435',['process',['../test__optional_8cpp.html#a2e9c5136d19b1a95fc427e0852deab5c',1,'process():&#160;test_optional.cpp'],['../test__optional_8cpp.html#a91261cec9faf70fb4f630e75c800d253',1,'process(int):&#160;test_optional.cpp']]],
   ['processnil_1436',['processNil',['../test__optional_8cpp.html#a1d8da32a32f5504051d8ca68c0aaa002',1,'test_optional.cpp']]],
   ['ptr_5ftype_1437',['ptr_type',['../classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html#acddd051da242a6dfc0b6f8c08b60aac4',1,'quickcpplib::_xxx::function_ptr::function_ptr&lt; R(Args...), callable_storage_bytes &gt;']]],

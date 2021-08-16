@@ -41,6 +41,7 @@ var classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie =
     [ "find_equal_or_larger", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#aa3260f8a6dbee702cac80bfdd1f1f119", null ],
     [ "find_equal_or_next_largest", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a6d464344be14e7621691618de0c9ffa8", null ],
     [ "upper_bound", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a786a25ada1863415cb9faf5ff054ef20", null ],
+    [ "upper_bound_estimate", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a35bcd912bf88d1270a98b3fdcbb9b9e4", null ],
     [ "contains", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a249183e258434427ff124fb181c40604", null ],
     [ "operator[]", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a16e56abd480ad525a04405278a6320a8", null ],
     [ "operator[]", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a667764932da2e24b7a793716188b5b13", null ]

@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['algorithm_1114',['algorithm',['../namespacealgorithm.html',1,'']]],
-  ['detail_1115',['detail',['../namespacealgorithm_1_1prime__modulus_1_1detail.html',1,'algorithm::prime_modulus']]],
-  ['prime_5fmodulus_1116',['prime_modulus',['../namespacealgorithm_1_1prime__modulus.html',1,'algorithm']]]
+  ['constexpr_5foptional_5fref_5fand_5farrow_1115',['constexpr_optional_ref_and_arrow',['../namespaceconstexpr__optional__ref__and__arrow.html',1,'']]]
 ];

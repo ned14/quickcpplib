@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['constexpr_5foptional_5fref_5fand_5farrow_1117',['constexpr_optional_ref_and_arrow',['../namespaceconstexpr__optional__ref__and__arrow.html',1,'']]]
+  ['detail_1116',['detail',['../namespacenonstd_1_1detail.html',1,'nonstd']]],
+  ['nonstd_1117',['nonstd',['../namespacenonstd.html',1,'']]]
 ];

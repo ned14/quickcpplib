@@ -96,6 +96,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html">memory_resource</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">memory_resource emulation  <a href="classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1pmr_1_1monotonic__buffer__resource.html">monotonic_buffer_resource</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A just barely good enough C++ 14 emulation of monotonic_buffer_resource.  <a href="classquickcpplib_1_1__xxx_1_1pmr_1_1monotonic__buffer__resource.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1pmr_1_1polymorphic__allocator.html">polymorphic_allocator</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The world's worst C++ 14 emulation of polymorphic_allocator, which maps onto std::allocator.  <a href="classquickcpplib_1_1__xxx_1_1pmr_1_1polymorphic__allocator.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -147,7 +150,7 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;{ <span class="keywordflow">return</span> a.do_is_equal(b); }</div>
+<div class="fragment"><div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;{ <span class="keywordflow">return</span> a.do_is_equal(b); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -184,7 +187,7 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;{ <span class="keywordflow">return</span> !a.do_is_equal(b); }</div>
+<div class="fragment"><div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;{ <span class="keywordflow">return</span> !a.do_is_equal(b); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -223,9 +226,9 @@ template&lt;class T1 , class T2 &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  {</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">return</span> *a.resource() == *b.resource();</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  }</div>
+<div class="fragment"><div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;  {</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keywordflow">return</span> *a.resource() == *b.resource();</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -264,9 +267,9 @@ template&lt;class T1 , class T2 &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  {</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordflow">return</span> *a.resource() != *b.resource();</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  }</div>
+<div class="fragment"><div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;  {</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="keywordflow">return</span> *a.resource() != *b.resource();</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>

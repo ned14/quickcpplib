@@ -1,6 +1,6 @@
 var prime__modulus_8hpp =
 [
-    [ "twos_power_prime", "prime__modulus_8hpp.html#acd0ba50d206e1709612942bbf1e4c072", null ],
-    [ "mod", "prime__modulus_8hpp.html#aac00ca1de14ea4dee467ae4e84941056", null ],
-    [ "prime_modulus", "prime__modulus_8hpp.html#a2f46f40ecb599c9722c2ba98f0f60a7a", null ]
+    [ "twos_power_prime", "prime__modulus_8hpp.html#ace92fec8181a21fdfd1ce272def169ef", null ],
+    [ "mod", "prime__modulus_8hpp.html#afc9fe608c3aea09d1b71f32fc2fc64f2", null ],
+    [ "prime_modulus", "prime__modulus_8hpp.html#a771e788b3f433bbb827001118196654f", null ]
 ];
