@@ -863,7 +863,7 @@ namespace algorithm
       }
       /* The algorithm for this is the most complex in here, so it's worth documenting
       as it also documents the others.
-      
+
       Firstly to describe the trie, it is a binary tree switching on each bit in the
       key: if the bit is zero, we go left, if one, we go right. In parallel to this,
       each node also stores a value, so during traversal down the tree we may well
@@ -874,21 +874,63 @@ namespace algorithm
       that of the value encountered. The second ordering is by key increasing from
       left in the binary tree towards the right.
 
+      If you think this through, for an equidistributed key, approximately half
+      the time keys will be found during traversal downwards, the other half of
+      the time keys will found at the end of traversal downwards in the leaf node.
+
       To create a close find for some given key value, we traverse down the trie,
       same as we would for exact find. If we exact find, we return immediately.
-      Otherwise we reach the point at which the key would be inserted.
+      Otherwise we reach the point at which the key would be inserted as a new leaf.
 
-      From the perspective of the second ordering, every node to the right of this
-      point will contain values greater than our origin point, so by traversing
-      right with _triebranchnext() one will find all the values greater than our
-      search key, by the second ordering. One therefore just traverses right
-      until one finds any leaf key.
+      From the perspective of the second ordering, every leaf node to the right
+      of this point will contain values greater than our origin point, so by
+      traversing right one will find all the values greater than our search key,
+      by the second ordering. One therefore just traverses right until one finds
+      the next rightmost leaf key.
 
       But, in the path between our origin point and the first rightmost leaf key,
       closer values to the search key may be encountered. We still need to find
       the first rightmost leaf key, as that is our maximum bound, but in so doing
       we should encounter all possible values between our search value and the
       value of that first rightmost leaf key.
+
+      It's a bit hard to estimate the complexities of this operation with rounds
+      approximating infinity. For an equidistributed key, the average should not
+      exceed O(log2 N) where N is the number of items with the same top bit set.
+      That's a worst case however. To estimate the average case, I still can't
+      do better than the original nedtries documentation from 2010: it depends
+      somewhat upon consecutive distance between keys. So, if the origin point
+      is at X, and we need to find the first rightmost leaf key and there are
+      say a run of six consecutive difference bits between the search key and
+      the next rightmost leaf key, then we would have to traverse three parents
+      upwards and three parents downwards to find the first rightmost leaf key.
+      However the probability of there being six consecutive difference bits is
+      identical to the probability of there being any other sequence of six bits,
+      so the probability of there being two consecutive same bits is 0.25, of
+      three consecutive same bits 0.125, of six consecutive same bits 0.015625.
+      Therefore, most of the time, there will be very little parent traversal.
+
+      It was a long time ago I did pure maths, but I vaguely remember that
+      summing a series of 0.25 + 0.125 + 0.0625 ... approaches 0.5. That's
+      a linear multiplier of bit difference which is one, so I'm going to
+      suggest the average complexity of nearest find is O(1) for an
+      equidistributed key. Email or other communications proving I am wrong is
+      welcomed.
+
+      Obviously, in the real world, this algorithm will mostly stall on
+      main memory just like any binary tree if the tree is not in CPU cache.
+      This is why bitwise Fredkin tries almost exactly approximate a 2x
+      performance increase over red-black trees, because they are half as
+      deep for the same item count, and therefore there are half as many main
+      memory stalls, for large item counts. For smaller item counts,
+      branch predictors since Haswell are basically statistical bitfield
+      predictors, so you see performance similar to a hash table. Put
+      simply, if all your binary tree fits inside L2 cache, the CPU can do
+      four chained indirections in a similar time to a single indirection.
+      So as you'll see on the scalability graph, whilst not quite as fast
+      as a hash table, it is quite close to O(1) like a hash table for
+      smaller item counts, gradually decaying towards O(log2 N) as N
+      increases.
       */
       pointer _trieCfind(key_type rkey, int64_t rounds) const noexcept
       {
@@ -902,14 +944,13 @@ namespace algorithm
 
         unsigned bitidx = detail::bitscanr(rkey);
         assert(bitidx < _key_type_bits);
-        bool search_lowest = false;
         do
         {
           /* Keeping raising the bin until we find a larger key */
           while(bitidx < _key_type_bits && nullptr == (node = head.child(bitidx)))
           {
             bitidx++;
-            search_lowest = true;
+            rkey = (key_type) 1 << bitidx;
           }
           if(bitidx >= _key_type_bits)
           {
@@ -919,10 +960,11 @@ namespace algorithm
           key_type keybit = (key_type) 1 << bitidx;
           _lock_unlock_branch lock_unlock(this, keybit, false, bitidx);
           key_type retkey = (key_type) -1;
-          /* Search this branch */
-          for(const_pointer childnode = nullptr;; node = childnode)
+          /* Find where we would insert this key */
+          auto nodelink = _item_accessors(node);
+          bool keybitset;
+          for(const_pointer childnode = nullptr;; node = childnode, nodelink = _item_accessors(node))
           {
-            auto nodelink = _item_accessors(node);
             auto nodekey = nodelink.key();
             /* If nodekey is a closer fit to search key, mark as best result so far */
             if(nodekey >= rkey && nodekey - rkey < retkey)
@@ -930,48 +972,102 @@ namespace algorithm
               ret = node;
               retkey = nodekey - rkey;
             }
+            if(ret != nullptr)
+            {
+              --rounds;
+            }
             if((retkey == 0 || rounds <= 0) && ret != nullptr)
             {
               return const_cast<pointer>(ret);
             }
             /* Which child branch should we check? */
-            const bool keybitset = !search_lowest && !!(rkey & (keybit>>=1));
+            keybit >>= 1;
+            keybitset = !!(rkey & keybit);
             childnode = nodelink.child(keybitset);
             if(childnode == nullptr)
             {
               break;
             }
-            if(ret != nullptr)
-            {
-              --rounds;
-            }
           }
-          /* If we have reached the end of this tree, go
-          sideways within this branch if possible */
-          do
+          /* node now points at where we would insert the key.
+          Find the rightmost leaf.
+          */
+          if(keybitset == false && nodelink.child(true) != nullptr)
           {
-            if(nullptr == (node = _triebranchnext(node)))
+            node = nodelink.child(true);
+            do
             {
-              break;
-            }
-            auto nodelink = _item_accessors(node);
+              nodelink = _item_accessors(node);
+              auto nodekey = nodelink.key();
+              if(nodekey >= rkey && nodekey - rkey < retkey)
+              {
+                ret = node;
+                retkey = nodekey - rkey;
+              }
+              if(ret != nullptr)
+              {
+                --rounds;
+              }
+              if(rounds <= 0 && ret != nullptr)
+              {
+                return const_cast<pointer>(ret);
+              }
+              node = (nodelink.child(false) != nullptr) ? nodelink.child(false) : nodelink.child(true);
+            } while(node != nullptr);
+            // We are at the rightmost leaf, so we have by now encountered the closest possible value
+            return const_cast<pointer>(ret);
+          }
+          auto *origin = node;
+          auto originlink = nodelink;
+          while(!originlink.parent_is_index())
+          {
+            node = originlink.parent();
+            nodelink = _item_accessors(node);
             auto nodekey = nodelink.key();
             if(nodekey >= rkey && nodekey - rkey < retkey)
             {
               ret = node;
               retkey = nodekey - rkey;
-              if((retkey == 0 || rounds <= 0))
-              {
-                return const_cast<pointer>(ret);
-              }
             }
             if(ret != nullptr)
             {
               --rounds;
             }
-          } while(rounds > 0);
+            if(rounds <= 0 && ret != nullptr)
+            {
+              return const_cast<pointer>(ret);
+            }
+            if(nodelink.child(false) == origin && nodelink.child(true) != nullptr)
+            {
+              node = nodelink.child(true);
+              do
+              {
+                nodelink = _item_accessors(node);
+                nodekey = nodelink.key();
+                if(nodekey >= rkey && nodekey - rkey < retkey)
+                {
+                  ret = node;
+                  retkey = nodekey - rkey;
+                }
+                if(ret != nullptr)
+                {
+                  --rounds;
+                }
+                node = (nodelink.child(false) != nullptr) ? nodelink.child(false) : nodelink.child(true);
+              } while(node != nullptr);
+              // We are at the rightmost leaf, so we have by now encountered the closest possible value
+              return const_cast<pointer>(ret);
+            }
+            else
+            {
+              origin = node;
+              originlink = nodelink;
+            }
+          }
+          /* Move up a branch, resetting key sought to the smallest
+          possible for that branch */
           bitidx++;
-          search_lowest = true;
+          rkey = (key_type) 1 << bitidx;
         } while(nullptr == ret);
         return const_cast<pointer>(ret);
       }
@@ -1488,12 +1584,13 @@ namespace algorithm
       the less average distance between the larger key and the key requested. The complexity of this function
       is bound by `rounds`.
 
-      Some useful statistics about `rounds` values for ideally distributed keys:
+      Some useful statistics about `rounds` values for five million ideally distributed keys:
 
-      - `rounds = 16` returns an item with key 99.9% close to the ideal key.
-      - `rounds = 6` returns an item with key 99.1% close to the ideal key.
-      - `rounds = 2` returns an item with key 95.3% close to the ideal key.
-      - `rounds = 1` returns an item with key 92% close to the ideal key.
+      - `rounds = 17` returns an item with key 99.99% close to the ideal key.
+      - `rounds = 12` returns an item with key 99.9% close to the ideal key.
+      - `rounds = 7` returns an item with key 99.1% close to the ideal key.
+      - `rounds = 3` returns an item with key 95.1% close to the ideal key.
+      - `rounds = 2` returns an item with key 92% close to the ideal key.
       */
       iterator find_equal_or_larger(key_type k, int64_t rounds) const noexcept
       {

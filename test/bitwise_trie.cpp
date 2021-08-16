@@ -81,7 +81,7 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / works, "Tests that bitwise_trie works as adv
     index.triecheckvalidity();
   }
 
-  static constexpr size_t ITEMS_COUNT = 100000;
+  static constexpr size_t ITEMS_COUNT = 5000000;
   std::vector<foo_t> storage;
   storage.reserve(ITEMS_COUNT);
   index.clear();
@@ -105,11 +105,13 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / works, "Tests that bitwise_trie works as adv
       auto it = index.find(v);
       BOOST_REQUIRE(it != index.end());
       BOOST_CHECK(it->trie_key == v);
+#if 0
       auto count = index.count(it);
       if(count > 1)
       {
         std::cout << "Key " << v << " has count = " << count << std::endl;
       }
+#endif
     }
   }
   {
@@ -246,7 +248,7 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / works, "Tests that bitwise_trie works as adv
         {
           std::cout << "upper bound on " << v << " should be " << *it1 << " got instead " << it2->trie_key << std::endl;
           BOOST_CHECK(index.end() != index.find(*it1));
-          it2 = index.upper_bound(*it1-1);
+          it2 = index.upper_bound(*it1 - 1);
           BOOST_CHECK(it2->trie_key == *it1);
           it2 = index.upper_bound(v);
         }
@@ -255,7 +257,7 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / works, "Tests that bitwise_trie works as adv
   }
   {
     QUICKCPPLIB_NAMESPACE::algorithm::small_prng::small_prng rand;
-    for(int rounds = 0; rounds < 16; rounds++)
+    for(int rounds = 0; rounds < 20; rounds++)
     {
       uint64_t acc_diff = 0, acc_count = 0;
       for(size_t n = 0; n < ITEMS_COUNT; n++)
