@@ -26,6 +26,97 @@ Distributed under the Boost Software License, Version 1.0.
 and some of the implementation code is lifted from that library.
 */
 
+/* On my Windows 10 laptop with VS2019:
+
+There are 1.99201 TSCs in 1 nanosecond and it takes 26 ticks per nanoclock().
+For bitwise_trie:
+   1: 700 ns per item insert
+   2: 405 ns per item insert
+   4: 221.25 ns per item insert
+   8: 124.5 ns per item insert
+   16: 86.1875 ns per item insert
+   32: 54.5938 ns per item insert
+   64: 40 ns per item insert
+   128: 67.8438 ns per item insert
+   256: 56.4453 ns per item insert
+   512: 50.1895 ns per item insert
+   1024: 49.541 ns per item insert
+   2048: 52.668 ns per item insert
+   4096: 54.4043 ns per item insert
+   8192: 58.7235 ns per item insert
+   16384: 65.7745 ns per item insert
+   32768: 64.5418 ns per item insert
+   65536: 77.3544 ns per item insert
+   131072: 136.162 ns per item insert
+   262144: 235.861 ns per item insert
+   524288: 327.583 ns per item insert
+   1048576: 487.093 ns per item insert
+   2097152: 618.338 ns per item insert
+   4194304: 775.045 ns per item insert
+   8388608: 960.853 ns per item insert
+   16777216: 1193.55 ns per item insert
+   33554432: 1449.82 ns per item insert
+
+Allocating 1879048192 bytes, 28 bytes per item seems acceptable.
+For set:
+   1: 360 ns per item insert
+   2: 256 ns per item insert
+   4: 167.75 ns per item insert
+   8: 138.5 ns per item insert
+   16: 116.812 ns per item insert
+   32: 96.7188 ns per item insert
+   64: 348.109 ns per item insert
+   128: 257.531 ns per item insert
+   256: 258.66 ns per item insert
+   512: 179.943 ns per item insert
+   1024: 143.746 ns per item insert
+   2048: 135.893 ns per item insert
+   4096: 127.59 ns per item insert
+   8192: 127.266 ns per item insert
+   16384: 137.855 ns per item insert
+   32768: 158.687 ns per item insert
+   65536: 177.508 ns per item insert
+   131072: 268.773 ns per item insert
+   262144: 321.283 ns per item insert
+   524288: 438.037 ns per item insert
+   1048576: 678.942 ns per item insert
+   2097152: 954.575 ns per item insert
+   4194304: 1229.11 ns per item insert
+   8388608: 1503.02 ns per item insert
+   16777216: 1830.15 ns per item insert
+   33554432: 2183.64 ns per item insert
+
+Allocating 1879048192 bytes, 28 bytes per item seems acceptable.
+For unordered_set:
+   1: 903 ns per item insert
+   2: 580.5 ns per item insert
+   4: 361.75 ns per item insert
+   8: 257.625 ns per item insert
+   16: 204.188 ns per item insert
+   32: 168.438 ns per item insert
+   64: 139.391 ns per item insert
+   128: 125.227 ns per item insert
+   256: 113.055 ns per item insert
+   512: 107.533 ns per item insert
+   1024: 104.273 ns per item insert
+   2048: 104.322 ns per item insert
+   4096: 101.578 ns per item insert
+   8192: 101.251 ns per item insert
+   16384: 98.8997 ns per item insert
+   32768: 99.8262 ns per item insert
+   65536: 96.0937 ns per item insert
+   131072: 93.246 ns per item insert
+   262144: 97.9117 ns per item insert
+   524288: 107.957 ns per item insert
+   1048576: 121.08 ns per item insert
+   2097152: 124.938 ns per item insert
+   4194304: 132.597 ns per item insert
+   8388608: 141.761 ns per item insert
+   16777216: 158.779 ns per item insert
+   33554432: 194.535 ns per item insert
+duration 134773 ms
+*/
+
 #ifndef QUICKCPPLIB_ALGORITHM_BITWISE_TRIE_HPP
 #define QUICKCPPLIB_ALGORITHM_BITWISE_TRIE_HPP
 
@@ -122,13 +213,15 @@ namespace algorithm
       {
         template <class T> constexpr bool operator()(T && /*unused*/) const noexcept { return true; }
       };
-      template <class T, class ItemType, class = int> struct set_trie_sibling
+      template <class T, class ItemType, class = int> struct trie_sibling
       {
-        constexpr bool operator()(T * /*unused*/, bool /*unused*/, ItemType * /*unused*/) const noexcept { return false; }
+        static constexpr ItemType *get(const T * /*unused*/, bool /*unused*/, ItemType *r) noexcept { return r; }
+        static constexpr bool set(T * /*unused*/, bool /*unused*/, ItemType * /*unused*/) noexcept { return false; }
       };
-      template <class T, class ItemType> struct set_trie_sibling<T, ItemType, decltype((void) ItemType::trie_sibling, 0)>
+      template <class T, class ItemType> struct trie_sibling<T, ItemType, decltype((void) ItemType::trie_sibling, 0)>
       {
-        constexpr bool operator()(T *inst, bool right, ItemType *x) const noexcept
+        static constexpr ItemType *get(const T *inst, bool right, const ItemType * /*unused*/) noexcept { return inst->trie_sibling[right]; }
+        static constexpr bool set(T *inst, bool right, ItemType *x) noexcept
         {
           inst->trie_sibling[right] = x;
           return true;
@@ -182,9 +275,9 @@ namespace algorithm
       constexpr ItemType *child(bool right) noexcept { return _v->trie_child[right]; }
       constexpr void set_child(bool right, ItemType *x) noexcept { _v->trie_child[right] = x; }
 
-      constexpr const ItemType *sibling(bool right) const noexcept { return _v->trie_sibling[right]; }
-      constexpr ItemType *sibling(bool right) noexcept { return _v->trie_sibling[right]; }
-      constexpr bool set_sibling(bool right, ItemType *x) noexcept { return detail::set_trie_sibling<ItemType, ItemType>()(_v, right, x); }
+      constexpr const ItemType *sibling(bool right) const noexcept { return detail::trie_sibling<ItemType, ItemType>::get(_v, right, _v); }
+      constexpr ItemType *sibling(bool right) noexcept { return detail::trie_sibling<ItemType, ItemType>::get(_v, right, _v); }
+      constexpr bool set_sibling(bool right, ItemType *x) noexcept { return detail::trie_sibling<ItemType, ItemType>::set(_v, right, x); }
 
       constexpr auto key() const noexcept { return _v->trie_key; }
 

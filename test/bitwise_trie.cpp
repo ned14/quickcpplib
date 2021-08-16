@@ -27,7 +27,12 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "../include/quickcpplib/boost/test/unit_test.hpp"
 
+#include "../include/quickcpplib/memory_resource.hpp"
+
+#include "timing.h"
+
 #include <set>
+#include <unordered_set>
 #include <vector>
 
 BOOST_AUTO_TEST_SUITE(bitwise_trie)
@@ -279,6 +284,122 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / works, "Tests that bitwise_trie works as adv
       std::cout << "\nFor rounds = " << rounds << " close fit was an average of " << (100.0 * acc_diff / acc_count / UINT32_MAX) << "% from ideal."
                 << std::endl;
     }
+  }
+}
+
+BOOST_AUTO_TEST_CASE(bitwise_trie / benchmark, "Benchmarks bitwise_trie against other algorithms")
+{
+  using namespace QUICKCPPLIB_NAMESPACE::algorithm::bitwise_trie;
+  namespace pmr = QUICKCPPLIB_NAMESPACE::pmr;
+  static constexpr size_t ITEMS_BITSHIFT = 16;
+  static constexpr size_t ITEMS_COUNT = 1 << ITEMS_BITSHIFT;
+  static constexpr size_t bytes_per_item = 28;
+  std::vector<uint32_t> randoms;
+  {
+    QUICKCPPLIB_NAMESPACE::algorithm::small_prng::small_prng rand;
+    randoms.reserve(ITEMS_COUNT);
+    for(size_t n = 0; n < ITEMS_COUNT; n++)
+    {
+      randoms.push_back(rand());
+    }
+  }
+  {
+    struct foo_t
+    {
+      foo_t *trie_parent;
+      foo_t *trie_child[2];
+      uint32_t trie_key{0};
+
+      foo_t() = default;
+
+      foo_t(uint32_t key)
+          : trie_key(key)
+      {
+      }
+    };
+    struct foo_tree_t
+    {
+      size_t trie_count;
+      bool trie_nobbledir;
+      foo_t *trie_children[8 * sizeof(size_t)];
+    };
+
+    bitwise_trie<foo_tree_t, foo_t> index;
+    std::vector<foo_t> storage;
+    storage.reserve(ITEMS_COUNT);
+    std::vector<std::pair<size_t, uint64_t>> clocks;
+    clocks.reserve(ITEMS_BITSHIFT + 1);
+    size_t n = 0;
+    for(size_t x = 0, m = 1; x < ITEMS_BITSHIFT; x++, m <<= 1)
+    {
+      clocks.emplace_back(n, nanoclock());
+      for(; n < m; n++)
+      {
+        storage.emplace_back(randoms[n]);
+        index.insert(&storage.back());
+      }
+    }
+    clocks.emplace_back(n, nanoclock());
+    std::cout << "For bitwise_trie:";
+    for(n = 1; n < clocks.size(); n++)
+    {
+      std::cout << "\n   " << clocks[n].first << ": " << ((double) (clocks[n].second - clocks[0].second) / clocks[n].first) << " ns per item insert";
+    }
+    std::cout << std::endl;
+  }
+  {
+    std::vector<char> buffer;
+    buffer.reserve(ITEMS_COUNT * bytes_per_item);
+    std::cout << "\nAllocating " << (ITEMS_COUNT * bytes_per_item) << " bytes, " << bytes_per_item << " bytes per item seems acceptable." << std::endl;
+    pmr::monotonic_buffer_resource mr(buffer.data(), buffer.capacity());
+    std::set<uint32_t, std::less<uint32_t>, pmr::polymorphic_allocator<pmr::monotonic_buffer_resource>> cont{
+    pmr::polymorphic_allocator<pmr::monotonic_buffer_resource>(&mr)};
+    std::vector<std::pair<size_t, uint64_t>> clocks;
+    clocks.reserve(ITEMS_BITSHIFT + 1);
+    size_t n = 0;
+    for(size_t x = 0, m = 1; x < ITEMS_BITSHIFT; x++, m <<= 1)
+    {
+      clocks.emplace_back(n, nanoclock());
+      for(; n < m; n++)
+      {
+        cont.insert(randoms[n]);
+      }
+    }
+    clocks.emplace_back(n, nanoclock());
+    std::cout << "For set:";
+    for(n = 1; n < clocks.size(); n++)
+    {
+      std::cout << "\n   " << clocks[n].first << ": " << ((double) (clocks[n].second - clocks[0].second) / clocks[n].first) << " ns per item insert";
+    }
+    std::cout << std::endl;
+  }
+  {
+    std::vector<char> buffer;
+    buffer.reserve(ITEMS_COUNT * bytes_per_item);
+    std::cout << "\nAllocating " << (ITEMS_COUNT * bytes_per_item) << " bytes, " << bytes_per_item << " bytes per item seems acceptable." << std::endl;
+    pmr::monotonic_buffer_resource mr(buffer.data(), buffer.capacity());
+    std::unordered_set<uint32_t, std::hash<uint32_t>, std::equal_to<uint32_t>, pmr::polymorphic_allocator<pmr::monotonic_buffer_resource>> cont{
+    pmr::polymorphic_allocator<pmr::monotonic_buffer_resource>(&mr)};
+    cont.reserve(ITEMS_COUNT);
+    std::vector<std::pair<size_t, uint64_t>> clocks;
+    clocks.reserve(ITEMS_BITSHIFT + 1);
+    size_t n = 0;
+    for(size_t x = 0, m = 1; x < ITEMS_BITSHIFT; x++, m <<= 1)
+    {
+      clocks.emplace_back(n, nanoclock());
+      for(; n < m; n++)
+      {
+        cont.insert(randoms[n]);
+      }
+    }
+    clocks.emplace_back(n, nanoclock());
+    std::cout << "For unordered_set:";
+    for(n = 1; n < clocks.size(); n++)
+    {
+      std::cout << "\n   " << clocks[n].first << ": " << ((double) (clocks[n].second - clocks[0].second) / clocks[n].first)
+                << " ns per item insert";
+    }
+    std::cout << std::endl;
   }
 }
 
