@@ -13,7 +13,7 @@ var classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__it
     [ "set_child", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html#a779f45fc9e2b0b0129bce60625de7a8d", null ],
     [ "sibling", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html#a821568b6fd31f53253ce26fe0d5d3327", null ],
     [ "sibling", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html#a3796547ba559c11517f5423d3d22e8f7", null ],
-    [ "set_sibling", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html#a81c0b61d35f774c96377119f2b72e836", null ],
+    [ "set_sibling", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html#a75d37c10060d8736c322472ae09e2bc5", null ],
     [ "key", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html#a0ceea862cb9af51c61ddfe136c32782a", null ],
     [ "is_primary_sibling", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html#a857741567dbad2baf45b93673463fd68", null ],
     [ "set_is_primary_sibling", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html#af731bff0581cc38649742b5aacef2bad", null ],

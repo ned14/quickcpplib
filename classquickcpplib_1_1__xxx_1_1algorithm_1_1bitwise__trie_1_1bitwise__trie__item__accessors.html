@@ -124,8 +124,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a821568b6fd31f53253ce26fe0d5d3327"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3796547ba559c11517f5423d3d22e8f7"><td class="memItemLeft" align="right" valign="top">constexpr ItemType *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html#a3796547ba559c11517f5423d3d22e8f7">sibling</a> (bool right) noexcept</td></tr>
 <tr class="separator:a3796547ba559c11517f5423d3d22e8f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81c0b61d35f774c96377119f2b72e836"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html#a81c0b61d35f774c96377119f2b72e836">set_sibling</a> (bool right, ItemType *x) noexcept</td></tr>
-<tr class="separator:a81c0b61d35f774c96377119f2b72e836"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75d37c10060d8736c322472ae09e2bc5"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html#a75d37c10060d8736c322472ae09e2bc5">set_sibling</a> (bool right, ItemType *x) noexcept</td></tr>
+<tr class="separator:a75d37c10060d8736c322472ae09e2bc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ceea862cb9af51c61ddfe136c32782a"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html#a0ceea862cb9af51c61ddfe136c32782a">key</a> () const noexcept</td></tr>
 <tr class="separator:a0ceea862cb9af51c61ddfe136c32782a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a857741567dbad2baf45b93673463fd68"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html#a857741567dbad2baf45b93673463fd68">is_primary_sibling</a> () const noexcept</td></tr>
@@ -181,9 +181,9 @@ template&lt;class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;          : _v(v)</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;      {</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;          : _v(v)</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;      {</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -212,7 +212,7 @@ template&lt;class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;{ <span class="keywordflow">return</span> _v != <span class="keyword">nullptr</span>; }</div>
+<div class="fragment"><div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;{ <span class="keywordflow">return</span> _v != <span class="keyword">nullptr</span>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -240,10 +240,10 @@ template&lt;class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;      {</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        assert(!<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html#a961fe1eea2cca8ad58b56f712a0d49f3">parent_is_index</a>());</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keywordflow">return</span> _v-&gt;trie_parent;</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;      {</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        assert(!<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html#a961fe1eea2cca8ad58b56f712a0d49f3">parent_is_index</a>());</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        <span class="keywordflow">return</span> _v-&gt;trie_parent;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -271,10 +271,10 @@ template&lt;class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;      {</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        assert(!<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html#a961fe1eea2cca8ad58b56f712a0d49f3">parent_is_index</a>());</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        <span class="keywordflow">return</span> _v-&gt;trie_parent;</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;      {</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        assert(!<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html#a961fe1eea2cca8ad58b56f712a0d49f3">parent_is_index</a>());</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        <span class="keywordflow">return</span> _v-&gt;trie_parent;</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -303,7 +303,7 @@ template&lt;class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;{ _v-&gt;trie_parent = x; }</div>
+<div class="fragment"><div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;{ _v-&gt;trie_parent = x; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -331,7 +331,7 @@ template&lt;class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;{ <span class="keywordflow">return</span> ((uintptr_t) _v-&gt;trie_parent &amp; 3) == 3; }</div>
+<div class="fragment"><div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;{ <span class="keywordflow">return</span> ((uintptr_t) _v-&gt;trie_parent &amp; 3) == 3; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -359,10 +359,10 @@ template&lt;class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;      {</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        assert(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html#a961fe1eea2cca8ad58b56f712a0d49f3">parent_is_index</a>());</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        <span class="keywordflow">return</span> ((<span class="keywordtype">unsigned</span>) (uintptr_t) _v-&gt;trie_parent) &gt;&gt; 2;</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;      {</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        assert(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html#a961fe1eea2cca8ad58b56f712a0d49f3">parent_is_index</a>());</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <span class="keywordflow">return</span> ((<span class="keywordtype">unsigned</span>) (uintptr_t) _v-&gt;trie_parent) &gt;&gt; 2;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -391,7 +391,7 @@ template&lt;class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;{ _v-&gt;trie_parent = (ItemType *) (((uintptr_t) <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html#adaa70350bc97543ba9dd6bf8cccbd308">bit_index</a> &lt;&lt; 2) | 3); }</div>
+<div class="fragment"><div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;{ _v-&gt;trie_parent = (ItemType *) (((uintptr_t) <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html#adaa70350bc97543ba9dd6bf8cccbd308">bit_index</a> &lt;&lt; 2) | 3); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -420,7 +420,7 @@ template&lt;class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;{ <span class="keywordflow">return</span> _v-&gt;trie_child[right]; }</div>
+<div class="fragment"><div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;{ <span class="keywordflow">return</span> _v-&gt;trie_child[right]; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -449,7 +449,7 @@ template&lt;class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;{ <span class="keywordflow">return</span> _v-&gt;trie_child[right]; }</div>
+<div class="fragment"><div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;{ <span class="keywordflow">return</span> _v-&gt;trie_child[right]; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -488,7 +488,7 @@ template&lt;class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;{ _v-&gt;trie_child[right] = x; }</div>
+<div class="fragment"><div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;{ _v-&gt;trie_child[right] = x; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -517,7 +517,7 @@ template&lt;class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;{ <span class="keywordflow">return</span> _v-&gt;trie_sibling[right]; }</div>
+<div class="fragment"><div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;{ <span class="keywordflow">return</span> _v-&gt;trie_sibling[right]; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -546,12 +546,12 @@ template&lt;class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;{ <span class="keywordflow">return</span> _v-&gt;trie_sibling[right]; }</div>
+<div class="fragment"><div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;{ <span class="keywordflow">return</span> _v-&gt;trie_sibling[right]; }</div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a81c0b61d35f774c96377119f2b72e836"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81c0b61d35f774c96377119f2b72e836">&#9670;&nbsp;</a></span>set_sibling()</h2>
+<a id="a75d37c10060d8736c322472ae09e2bc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75d37c10060d8736c322472ae09e2bc5">&#9670;&nbsp;</a></span>set_sibling()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -562,7 +562,7 @@ template&lt;class ItemType &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr void <a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie_item_accessors</a>&lt; ItemType &gt;::set_sibling </td>
+          <td class="memname">constexpr bool <a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie_item_accessors</a>&lt; ItemType &gt;::set_sibling </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>right</em>, </td>
@@ -585,7 +585,7 @@ template&lt;class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;{ _v-&gt;trie_sibling[right] = x; }</div>
+<div class="fragment"><div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;{ <span class="keywordflow">return</span> detail::set_trie_sibling&lt;ItemType, ItemType&gt;()(_v, right, x); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -613,7 +613,7 @@ template&lt;class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;{ <span class="keywordflow">return</span> _v-&gt;trie_key; }</div>
+<div class="fragment"><div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;{ <span class="keywordflow">return</span> _v-&gt;trie_key; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -641,7 +641,7 @@ template&lt;class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;{ <span class="keywordflow">return</span> _v-&gt;trie_parent != <span class="keyword">nullptr</span>; }  <span class="comment">// there is exactly one of these ever per key value</span></div>
+<div class="fragment"><div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;{ <span class="keywordflow">return</span> _v-&gt;trie_parent != <span class="keyword">nullptr</span>; }  <span class="comment">// there is exactly one of these ever per key value</span></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -669,7 +669,7 @@ template&lt;class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;{ assert(_v-&gt;trie_parent != <span class="keyword">nullptr</span>); }</div>
+<div class="fragment"><div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;{ assert(_v-&gt;trie_parent != <span class="keyword">nullptr</span>); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -697,7 +697,7 @@ template&lt;class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;{ <span class="keywordflow">return</span> _v-&gt;trie_parent == <span class="keyword">nullptr</span>; }  <span class="comment">// i.e. has same key as primary sibling</span></div>
+<div class="fragment"><div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;{ <span class="keywordflow">return</span> _v-&gt;trie_parent == <span class="keyword">nullptr</span>; }  <span class="comment">// i.e. has same key as primary sibling</span></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -725,7 +725,7 @@ template&lt;class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;{ _v-&gt;trie_parent = <span class="keyword">nullptr</span>; }</div>
+<div class="fragment"><div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;{ _v-&gt;trie_parent = <span class="keyword">nullptr</span>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -734,8 +734,8 @@ template&lt;class ItemType &gt; </div>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors_html_a961fe1eea2cca8ad58b56f712a0d49f3"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html#a961fe1eea2cca8ad58b56f712a0d49f3">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie_item_accessors::parent_is_index</a></div><div class="ttdeci">constexpr bool parent_is_index() const noexcept</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:160</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors_html_adaa70350bc97543ba9dd6bf8cccbd308"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html#adaa70350bc97543ba9dd6bf8cccbd308">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie_item_accessors::bit_index</a></div><div class="ttdeci">constexpr unsigned bit_index() const noexcept</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:161</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors_html_a961fe1eea2cca8ad58b56f712a0d49f3"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html#a961fe1eea2cca8ad58b56f712a0d49f3">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie_item_accessors::parent_is_index</a></div><div class="ttdeci">constexpr bool parent_is_index() const noexcept</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:173</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors_html_adaa70350bc97543ba9dd6bf8cccbd308"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html#adaa70350bc97543ba9dd6bf8cccbd308">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie_item_accessors::bit_index</a></div><div class="ttdeci">constexpr unsigned bit_index() const noexcept</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:174</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

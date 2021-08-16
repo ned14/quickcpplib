@@ -1,9 +1,11 @@
 var NAVTREEINDEX5 =
 {
+"namespacequickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail.html":[5,0,2,0,15,0],
+"namespacequickcpplib_1_1__xxx_1_1scope.html":[5,0,2,0,16],
 "namespacequickcpplib_1_1__xxx_1_1scope.html":[4,0,3,0,18],
 "namespacequickcpplib_1_1__xxx_1_1scope_1_1detail.html":[4,0,3,0,18,0],
-"namespacequickcpplib_1_1__xxx_1_1signal__guard.html":[5,0,2,0,17],
 "namespacequickcpplib_1_1__xxx_1_1signal__guard.html":[4,0,3,0,19],
+"namespacequickcpplib_1_1__xxx_1_1signal__guard.html":[5,0,2,0,17],
 "namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html":[4,0,3,0,19,0],
 "namespacequickcpplib_1_1__xxx_1_1span.html":[4,0,3,0,20],
 "namespacequickcpplib_1_1__xxx_1_1start__lifetime__as.html":[5,0,2,0,18],
@@ -247,7 +249,5 @@ var NAVTREEINDEX5 =
 "spinlock_8hpp.html#a283d2a54c3371823054980c76e3cae96":[6,0,0,0,29,22],
 "spinlock_8hpp.html#a4b258d826b4fcaaa7f7c0c5b3ffa5a0c":[6,0,0,0,29,18],
 "spinlock_8hpp.html#a62dc18cd59e37cb0b215367522db8a73":[6,0,0,0,29,24],
-"spinlock_8hpp.html#a6e4a705440f9c49fd41e71a4aa45cbff":[6,0,0,0,29,17],
-"spinlock_8hpp.html#a7086a549b5810cabcd5c51c1d875c51c":[6,0,0,0,29,21],
-"spinlock_8hpp.html#aa07e01213c54d15fd07c2731ca92295c":[6,0,0,0,29,28]
+"spinlock_8hpp.html#a6e4a705440f9c49fd41e71a4aa45cbff":[6,0,0,0,29,17]
 };

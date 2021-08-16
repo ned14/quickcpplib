@@ -1,5 +1,7 @@
 var NAVTREEINDEX3 =
 {
+"console__colours_8hpp.html#a149c857eadee7b5cf5f7e0b795e0c76f":[6,0,0,0,11,0],
+"console__colours_8hpp.html#a14ecbac6832a186cbf826c7f2122af75":[6,0,0,0,11,1],
 "console__colours_8hpp.html#a228155040fdf1c4e0dc792243b8bdf6e":[6,0,0,0,11,7],
 "console__colours_8hpp.html#a26d5600fd813ec2b0b6b7695b79ccf21":[6,0,0,0,11,5],
 "console__colours_8hpp.html#a2f1f438d015d42293891936da812d3b0":[6,0,0,0,11,13],
@@ -149,8 +151,8 @@ var NAVTREEINDEX3 =
 "globals_b.html":[6,1,0,2],
 "globals_c.html":[6,1,0,3],
 "globals_d.html":[6,1,0,4],
-"globals_defs.html":[6,1,6],
 "globals_defs.html":[6,1,6,0],
+"globals_defs.html":[6,1,6],
 "globals_defs_b.html":[6,1,6,1],
 "globals_defs_c.html":[6,1,6,2],
 "globals_defs_e.html":[6,1,6,3],
@@ -217,8 +219,8 @@ var NAVTREEINDEX3 =
 "group__unittesting.html#ga294ed052e62b061f189021d631f11751":[3,1,29],
 "group__unittesting.html#ga2b9f01d6c86780e4b8e81703b0ee90b7":[3,1,10],
 "group__unittesting.html#ga2b9f01d6c86780e4b8e81703b0ee90b7":[6,0,0,0,1,0,0,14],
-"group__unittesting.html#ga359b07148893747b6eaee225d4cc8b0e":[3,1,25],
 "group__unittesting.html#ga359b07148893747b6eaee225d4cc8b0e":[6,0,0,0,1,0,0,29],
+"group__unittesting.html#ga359b07148893747b6eaee225d4cc8b0e":[3,1,25],
 "group__unittesting.html#ga3d85dfd84e37f3e5e713012b2895c259":[3,1,5],
 "group__unittesting.html#ga3d85dfd84e37f3e5e713012b2895c259":[6,0,0,0,1,0,0,9],
 "group__unittesting.html#ga462c1562cdc25f263e4b307e5866bf62":[6,0,0,0,1,0,0,27],
@@ -247,7 +249,5 @@ var NAVTREEINDEX3 =
 "group__unittesting.html#ga9cdd2a02fde6abc23bd7a6adec0e8953":[6,0,0,0,1,0,0,30],
 "group__unittesting.html#gaae98a52c07719e338dd7422ff294ec23":[3,1,2],
 "group__unittesting.html#gaae98a52c07719e338dd7422ff294ec23":[6,0,0,0,1,0,0,6],
-"group__unittesting.html#gaafd4657b11bcceb70c65ff1183f82c37":[6,0,0,0,1,0,0,25],
-"group__unittesting.html#gaafd4657b11bcceb70c65ff1183f82c37":[3,1,21],
-"group__unittesting.html#gab7ba609bc6e1acbfc8861d1da0620532":[6,0,0,0,1,0,0,31]
+"group__unittesting.html#gaafd4657b11bcceb70c65ff1183f82c37":[6,0,0,0,1,0,0,25]
 };

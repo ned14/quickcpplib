@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['detail_1117',['detail',['../namespacenonstd_1_1detail.html',1,'nonstd']]],
-  ['nonstd_1118',['nonstd',['../namespacenonstd.html',1,'']]]
+  ['detail_1118',['detail',['../namespacenonstd_1_1detail.html',1,'nonstd']]],
+  ['nonstd_1119',['nonstd',['../namespacenonstd.html',1,'']]]
 ];
