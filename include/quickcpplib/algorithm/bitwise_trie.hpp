@@ -597,14 +597,103 @@ namespace algorithm
           key_type nodekey = nodelink.key();
           if(nodekey == rkey)
           { /* Insert into end of ring list */
+#if 0
+            {
+              auto *left = nodelink.sibling(false), *right = nodelink.sibling(true);
+              assert(left->trie_key == node->trie_key);
+              assert(right->trie_key == node->trie_key);
+              {
+                auto link = _item_accessors(right);
+                while(link.is_secondary_sibling())
+                {
+                  assert(_item_accessors(link.sibling(true)).sibling(false) == right);
+                  right = link.sibling(true);
+                  assert(right->trie_key == node->trie_key);
+                  link = _item_accessors(right);
+                }
+                assert(_item_accessors(link.sibling(true)).sibling(false) == right);
+              }
+              {
+                auto link = _item_accessors(left);
+                while(link.is_secondary_sibling())
+                {
+                  assert(_item_accessors(link.sibling(false)).sibling(true) == left);
+                  left = link.sibling(false);
+                  assert(left->trie_key == node->trie_key);
+                  link = _item_accessors(left);
+                }
+                assert(_item_accessors(link.sibling(false)).sibling(true) == left);
+              }
+              assert(left == right);
+            }
+#endif
             rlink.set_is_secondary_sibling();
             if(!rlink.set_sibling(true, node))
             {
               return node;
             }
-            rlink.set_sibling(false, nodelink.sibling(false));
-            _item_accessors(nodelink.sibling(false)).set_sibling(true, r);
+            auto *newest_sibling = nodelink.sibling(false);
+            _item_accessors(newest_sibling).set_sibling(true, r);
+            rlink.set_sibling(false, newest_sibling);
             nodelink.set_sibling(false, r);
+#if 0
+            {
+              auto *left = rlink.sibling(false), *right = rlink.sibling(true);
+              assert(left->trie_key == r->trie_key);
+              assert(right->trie_key == r->trie_key);
+              {
+                auto link = _item_accessors(right);
+                while(link.is_secondary_sibling())
+                {
+                  assert(_item_accessors(link.sibling(true)).sibling(false) == right);
+                  right = link.sibling(true);
+                  assert(right->trie_key == r->trie_key);
+                  link = _item_accessors(right);
+                }
+                assert(_item_accessors(link.sibling(true)).sibling(false) == right);
+              }
+              {
+                auto link = _item_accessors(left);
+                while(link.is_secondary_sibling())
+                {
+                  assert(_item_accessors(link.sibling(false)).sibling(true) == left);
+                  left = link.sibling(false);
+                  assert(left->trie_key == r->trie_key);
+                  link = _item_accessors(left);
+                }
+                assert(_item_accessors(link.sibling(false)).sibling(true) == left);
+              }
+              assert(left == right);
+            }
+            {
+              auto *left = nodelink.sibling(false), *right = nodelink.sibling(true);
+              assert(left->trie_key == node->trie_key);
+              assert(right->trie_key == node->trie_key);
+              {
+                auto link = _item_accessors(right);
+                while(link.is_secondary_sibling())
+                {
+                  assert(_item_accessors(link.sibling(true)).sibling(false) == right);
+                  right = link.sibling(true);
+                  assert(right->trie_key == node->trie_key);
+                  link = _item_accessors(right);
+                }
+                assert(_item_accessors(link.sibling(true)).sibling(false) == right);
+              }
+              {
+                auto link = _item_accessors(left);
+                while(link.is_secondary_sibling())
+                {
+                  assert(_item_accessors(link.sibling(false)).sibling(true) == left);
+                  left = link.sibling(false);
+                  assert(left->trie_key == node->trie_key);
+                  link = _item_accessors(left);
+                }
+                assert(_item_accessors(link.sibling(false)).sibling(true) == left);
+              }
+              assert(left == right);
+            }
+#endif
             break;
           }
           keybit >>= 1;
@@ -635,13 +724,74 @@ namespace algorithm
         if(rlink.is_secondary_sibling())
         { /* Remove from linked list */
           assert(rlink.parent() == nullptr);
-          node = rlink.sibling(false);
-          nodelink = _item_accessors(node);
-          nodelink.set_sibling(true, rlink.sibling(true));
-          node = rlink.sibling(true);
-          nodelink = _item_accessors(node);
-          nodelink.set_sibling(false, rlink.sibling(false));
+#if 0
+          {
+            auto *left = rlink.sibling(false), *right = rlink.sibling(true);
+            assert(left->trie_key == r->trie_key);
+            assert(right->trie_key == r->trie_key);
+            {
+              auto link = _item_accessors(right);
+              while(link.is_secondary_sibling())
+              {
+                assert(_item_accessors(link.sibling(true)).sibling(false) == right);
+                right = link.sibling(true);
+                assert(right->trie_key == r->trie_key);
+                link = _item_accessors(right);
+              }
+              assert(_item_accessors(link.sibling(true)).sibling(false) == right);
+            }
+            {
+              auto link = _item_accessors(left);
+              while(link.is_secondary_sibling())
+              {
+                assert(_item_accessors(link.sibling(false)).sibling(true) == left);
+                left = link.sibling(false);
+                assert(left->trie_key == r->trie_key);
+                link = _item_accessors(left);
+              }
+              assert(_item_accessors(link.sibling(false)).sibling(true) == left);
+            }
+            assert(left == right);
+          }
+#endif
+          auto *left = rlink.sibling(false), *right = rlink.sibling(true);
+          nodelink = _item_accessors(left);
+          nodelink.set_sibling(true, right);
+          nodelink = _item_accessors(right);
+          nodelink.set_sibling(false, left);
+#if 0
+          {
+            auto link = _item_accessors(right);
+            while(link.is_secondary_sibling())
+            {
+              assert(_item_accessors(link.sibling(true)).sibling(false) == right);
+              right = link.sibling(true);
+              assert(right->trie_key == r->trie_key);
+              link = _item_accessors(right);
+            }
+            assert(_item_accessors(link.sibling(true)).sibling(false) == right);
+          }
+          {
+            auto link = _item_accessors(left);
+            while(link.is_secondary_sibling())
+            {
+              assert(_item_accessors(link.sibling(false)).sibling(true) == left);
+              left = link.sibling(false);
+              assert(left->trie_key == r->trie_key);
+              link = _item_accessors(left);
+            }
+            assert(_item_accessors(link.sibling(false)).sibling(true) == left);
+          }
+          assert(left == right);
+#endif
           head.decr_size();
+#ifndef NDEBUG
+          rlink.set_parent(nullptr);
+          rlink.set_child(false, nullptr);
+          rlink.set_child(true, nullptr);
+          rlink.set_sibling(false, r);
+          rlink.set_sibling(true, r);
+#endif
           return;
         }
         /* I must therefore be part of the tree */
@@ -686,16 +836,80 @@ namespace algorithm
             nodelink.set_parent(rlink.parent());
           }
           nodelink.set_is_primary_sibling();
+#ifndef NDEBUG
+          assert(node->trie_key == nodelink.sibling(false)->trie_key);
+          rlink.set_parent(nullptr);
+          rlink.set_child(false, nullptr);
+          rlink.set_child(true, nullptr);
+          rlink.set_sibling(false, r);
+          rlink.set_sibling(true, r);
+#endif
         };
         /* Can I replace me with a sibling? */
         if(rlink.sibling(true) != r)
         {
-          node = rlink.sibling(false);
-          nodelink = _item_accessors(node);
-          nodelink.set_sibling(true, rlink.sibling(true));
-          node = rlink.sibling(true);
-          nodelink = _item_accessors(node);
-          nodelink.set_sibling(false, rlink.sibling(false));
+#if 0
+          {
+            auto *left = rlink.sibling(false), *right = rlink.sibling(true);
+            assert(left->trie_key == r->trie_key);
+            assert(right->trie_key == r->trie_key);
+            {
+              auto link = _item_accessors(right);
+              while(link.is_secondary_sibling())
+              {
+                assert(_item_accessors(link.sibling(true)).sibling(false) == right);
+                right = link.sibling(true);
+                assert(right->trie_key == r->trie_key);
+                link = _item_accessors(right);
+              }
+              assert(_item_accessors(link.sibling(true)).sibling(false) == right);
+            }
+            {
+              auto link = _item_accessors(left);
+              while(link.is_secondary_sibling())
+              {
+                assert(_item_accessors(link.sibling(false)).sibling(true) == left);
+                left = link.sibling(false);
+                assert(left->trie_key == r->trie_key);
+                link = _item_accessors(left);
+              }
+              assert(_item_accessors(link.sibling(false)).sibling(true) == left);
+            }
+            assert(left == right);
+          }
+#endif
+          auto *left = rlink.sibling(false), *right = rlink.sibling(true);
+          nodelink = _item_accessors(left);
+          nodelink.set_sibling(true, right);
+          nodelink = _item_accessors(right);
+          nodelink.set_sibling(false, left);
+#if 0
+          nodelink.set_parent_is_index(1);
+          {
+            auto link = _item_accessors(right);
+            while(link.is_secondary_sibling())
+            {
+              assert(_item_accessors(link.sibling(true)).sibling(false) == right);
+              right = link.sibling(true);
+              assert(right->trie_key == r->trie_key);
+              link = _item_accessors(right);
+            }
+            assert(_item_accessors(link.sibling(true)).sibling(false) == right);
+          }
+          {
+            auto link = _item_accessors(left);
+            while(link.is_secondary_sibling())
+            {
+              assert(_item_accessors(link.sibling(false)).sibling(true) == left);
+              left = link.sibling(false);
+              assert(left->trie_key == r->trie_key);
+              link = _item_accessors(left);
+            }
+            assert(_item_accessors(link.sibling(false)).sibling(true) == left);
+          }
+          assert(left == right);
+#endif
+          node = right;
           set_parent();
           head.decr_size();
           return;
@@ -724,6 +938,13 @@ namespace algorithm
             }
           }
           head.decr_size();
+#ifndef NDEBUG
+          rlink.set_parent(nullptr);
+          rlink.set_child(false, nullptr);
+          rlink.set_child(true, nullptr);
+          rlink.set_sibling(false, r);
+          rlink.set_sibling(true, r);
+#endif
           return;
         }
         /* I need someone to replace me in the trie, so simply find any
@@ -1584,14 +1805,40 @@ namespace algorithm
         }
         return const_iterator(this);
       }
+      //! Returns an iterator to the last item in the index.
+      reverse_iterator rbegin() noexcept
+      {
+        if(auto p = _triemax())
+        {
+          return reverse_iterator(iterator(this, p));
+        }
+        return reverse_iterator(iterator(this));
+      }
+      //! Returns an iterator to the last item in the index.
+      const_reverse_iterator rbegin() const noexcept
+      {
+        if(auto p = _triemax())
+        {
+          return const_reverse_iterator(const_iterator(this, p));
+        }
+        return const_reverse_iterator(const_iterator(this));
+      }
       //! Returns an iterator to the first item in the index.
       const_iterator cbegin() const noexcept { return begin(); }
+      //! Returns an iterator to the last item in the index.
+      const_reverse_iterator crbegin() const noexcept { return rbegin(); }
       //! Returns an iterator to the item after the last in the index.
       iterator end() noexcept { return iterator(this); }
-      //! Returns an iterator to the item after the last in the index.
+      //! Returns an iterator to the item before the first in the index.
       const_iterator end() const noexcept { return const_iterator(this); }
+      //! Returns an iterator to the item before the first in the index.
+      reverse_iterator rend() noexcept { return reverse_iterator(iterator(this)); }
+      //! Returns an iterator to the item before the first in the index.
+      const_reverse_iterator rend() const noexcept { return const_reverse_iterator(const_iterator(this)); }
       //! Returns an iterator to the item after the last in the index.
       const_iterator cend() const noexcept { return const_iterator(this); }
+      //! Returns an iterator to the item before the first in the index.
+      const_reverse_iterator crend() const noexcept { return const_reverse_iterator(const_iterator(this)); }
 
       //! Clears the index.
       constexpr void clear() noexcept
