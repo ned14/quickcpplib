@@ -1,5 +1,11 @@
 var NAVTREEINDEX5 =
 {
+"namespacequickcpplib_1_1__xxx_1_1offset__ptr.html":[4,0,2,0,13],
+"namespacequickcpplib_1_1__xxx_1_1offset__ptr_1_1detail.html":[4,0,2,0,13,0],
+"namespacequickcpplib_1_1__xxx_1_1optional.html":[4,0,2,0,14],
+"namespacequickcpplib_1_1__xxx_1_1packed__backtrace.html":[5,0,1,0,13],
+"namespacequickcpplib_1_1__xxx_1_1packed__backtrace.html":[4,0,2,0,15],
+"namespacequickcpplib_1_1__xxx_1_1packed__backtrace_1_1detail.html":[4,0,2,0,15,0],
 "namespacequickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl.html":[4,0,2,0,15,1],
 "namespacequickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl.html":[5,0,1,0,13,0],
 "namespacequickcpplib_1_1__xxx_1_1pmr.html":[5,0,1,0,14],
@@ -8,11 +14,11 @@ var NAVTREEINDEX5 =
 "namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html":[5,0,1,0,15],
 "namespacequickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail.html":[4,0,2,0,17,0],
 "namespacequickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail.html":[5,0,1,0,15,0],
-"namespacequickcpplib_1_1__xxx_1_1scope.html":[5,0,1,0,16],
 "namespacequickcpplib_1_1__xxx_1_1scope.html":[4,0,2,0,18],
+"namespacequickcpplib_1_1__xxx_1_1scope.html":[5,0,1,0,16],
 "namespacequickcpplib_1_1__xxx_1_1scope_1_1detail.html":[4,0,2,0,18,0],
-"namespacequickcpplib_1_1__xxx_1_1signal__guard.html":[5,0,1,0,17],
 "namespacequickcpplib_1_1__xxx_1_1signal__guard.html":[4,0,2,0,19],
+"namespacequickcpplib_1_1__xxx_1_1signal__guard.html":[5,0,1,0,17],
 "namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html":[4,0,2,0,19,0],
 "namespacequickcpplib_1_1__xxx_1_1span.html":[4,0,2,0,20],
 "namespacequickcpplib_1_1__xxx_1_1start__lifetime__as.html":[5,0,1,0,18],
@@ -243,11 +249,5 @@ var NAVTREEINDEX5 =
 "signal__guard_8hpp.html#ae4b20dfa20a5b0d0eefb2a0760baff8b":[6,0,0,0,27,25],
 "signal__guard_8hpp.html#ae79b558dcc456cc3b4f551e575b58ffb":[6,0,0,0,27,30],
 "signal__guard_8hpp.html#aefe0cfd544ac327234681d4ae7b706f5":[6,0,0,0,27,36],
-"signal__guard_8hpp.html#af3c6f651bfcc822d8e12c330858a9e61":[6,0,0,0,27,19],
-"signal__guard_8hpp.html#afb7cacdb873bcef99c80f51c266192aa":[6,0,0,0,27,8],
-"signal__guard_8hpp.html#afc4c0d35b09e145b05c4a43a7a0aacc2":[6,0,0,0,27,6],
-"small__prng_8hpp.html":[6,0,0,0,0,6],
-"small__prng_8hpp.html#a3bb97975d35cf80a7915b57477e4c7e6":[6,0,0,0,0,6,2],
-"small__prng_8hpp.html#a936f76639c37fa63b61f60251721247c":[6,0,0,0,0,6,1],
-"span_8hpp.html":[6,0,0,0,28]
+"signal__guard_8hpp.html#af3c6f651bfcc822d8e12c330858a9e61":[6,0,0,0,27,19]
 };
