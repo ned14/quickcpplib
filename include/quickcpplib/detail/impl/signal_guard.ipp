@@ -429,6 +429,7 @@ namespace signal_guard
       if(terminate_handler_old() != nullptr)
       {
         auto *h = terminate_handler_old();
+        assert(h != terminate_handler);
         _state().lock.unlock();
         h();
       }
@@ -445,7 +446,9 @@ namespace signal_guard
       {
         // On MSVC, the terminate handler is thread local, so we have no choice but to always
         // set it for every thread
-        terminate_handler_old() = std::set_terminate(terminate_handler);
+        if (std::get_terminate() != terminate_handler) {
+          terminate_handler_old() = std::set_terminate(terminate_handler);
+        }
       }
     } _win32_set_terminate_handler_per_thread;
 #endif
@@ -1029,7 +1032,10 @@ linker,                                                                         
         if(!detail::_state().terminate_handler_count++)
         {
 #ifndef _MSC_VER
-          detail::terminate_handler_old() = std::set_terminate(detail::terminate_handler);
+          if (std::get_terminate() != detail::terminate_handler)
+          {
+            detail::terminate_handler_old() = std::set_terminate(detail::terminate_handler);
+          }
 #endif
         }
       }
