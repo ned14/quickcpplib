@@ -1318,7 +1318,7 @@ linker,                                                                         
         (void) a;
       }
     }
-    ::kill(0, SIGKILL);
+    _exit(1);
 #endif
     // We promised we would never, ever, return.
     for(;;)
