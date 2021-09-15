@@ -1371,8 +1371,8 @@ linker,                                                                         
     } watchdog_decider;
 #ifdef _WIN32
     static thread_local bool _win32_signal_guard_watchdog_impl_apcfunc_called = false;
-    static inline void _win32_signal_guard_watchdog_impl_apcfunc(uintptr_t /*unused*/) { _win32_signal_guard_watchdog_impl_apcfunc_called = true; }
-    inline unsigned long _win32_signal_guard_watchdog_impl_thread(void *lpParameter)
+    static inline void __stdcall _win32_signal_guard_watchdog_impl_apcfunc(uintptr_t /*unused*/) { _win32_signal_guard_watchdog_impl_apcfunc_called = true; }
+    static inline unsigned long __stdcall _win32_signal_guard_watchdog_impl_thread(void *lpParameter)
     {
       detail::win32::SleepEx((unsigned long) (uintptr_t) lpParameter, true);
       if(!_win32_signal_guard_watchdog_impl_apcfunc_called)
