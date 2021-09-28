@@ -446,7 +446,8 @@ namespace signal_guard
       {
         // On MSVC, the terminate handler is thread local, so we have no choice but to always
         // set it for every thread
-        if (std::get_terminate() != terminate_handler) {
+        if(std::get_terminate() != terminate_handler)
+        {
           terminate_handler_old() = std::set_terminate(terminate_handler);
         }
       }
@@ -833,8 +834,83 @@ linker,                                                                         
       {
         // std::cout << "default" << std::endl;
         // Default action for these is to ignore
-        if(signo == SIGCHLD || signo == SIGURG)
+        if(signo == SIGCHLD || signo == SIGURG
+#ifdef SIGWINCH
+           || signo == SIGWINCH
+#endif
+#if !defined(__linux__) && defined(SIGIO)
+           || signo == SIGIO
+#endif
+#ifdef SIGINFO
+           || signo == SIGINFO
+#endif
+        )
           return false;
+#if 1
+        // Simulate invoke the default handler. We preserve semantics - ish.
+        // Default ignored signals already are handled above, so just disambiguate between core dumping, terminate, and immediate exit signals
+        switch(signo)
+        {
+        // Core dump signals
+        case SIGABRT:
+        case SIGBUS:
+        case SIGFPE:
+        case SIGILL:
+        case SIGQUIT:
+        case SIGSEGV:
+        case SIGSYS:
+        case SIGTRAP:
+#ifdef __linux__
+        case SIGXCPU:
+        case SIGXFSZ:
+#endif
+          // glibc's abort() implementation does a ton of stuff to ensure it always works no matter from where it is called :)
+          abort();
+
+        // Termination signals
+        case SIGSTOP:
+        case SIGTSTP:
+        case SIGTTIN:
+        case SIGTTOU:
+        case SIGPIPE:
+        case SIGALRM:
+        case SIGTERM:
+#ifdef __linux__
+        case SIGIO:
+#endif
+#if defined(__FreeBSD__) || defined(__APPLE__)
+        case SIGXCPU:
+        case SIGXFSZ:
+#endif
+#ifdef SIGVTALRM
+        case SIGVTALRM:
+#endif
+#ifdef SIGPROF
+        case SIGPROF:
+#endif
+        case SIGUSR1:
+        case SIGUSR2:
+#ifdef SIGTHR
+        case SIGTHR:
+#endif
+#ifdef SIGLIBRT
+        case SIGLIBRT:
+#endif
+#ifdef SIGEMT
+        case SIGEMT:
+#endif
+#ifdef SIGPWR
+        case SIGPWR:
+#endif
+          // Immediate exit without running cleanup
+          _exit(127);  // compatibility code with glibc's default signal handler
+
+        // Immediate exit running cleanup
+        default:
+          ::exit(EXIT_SUCCESS);
+        }
+#else
+        // This is the original implementation which appears to sometimes hang in pthread_kill() for no obvious reason
         // Ok, need to invoke the default handler. NOTE: The following code is racy wrt other threads manipulating the global signal handlers
         struct sigaction dfl, myformer;
         memset(&dfl, 0, sizeof(dfl));
@@ -849,7 +925,8 @@ linker,                                                                         
         // Raise this signal for this thread, invoking the default action
         pthread_kill(pthread_self(), signo);   // Very likely never returns
         sigaction(signo, &myformer, nullptr);  // but if it does, restore the previous action
-        return true;                           // and return true to indicate that we executed some signal handler
+#endif
+        return true;  // and return true to indicate that we executed some signal handler
       }
       else if(sa.sa_flags & SA_SIGINFO)
       {
@@ -1032,7 +1109,7 @@ linker,                                                                         
         if(!detail::_state().terminate_handler_count++)
         {
 #ifndef _MSC_VER
-          if (std::get_terminate() != detail::terminate_handler)
+          if(std::get_terminate() != detail::terminate_handler)
           {
             detail::terminate_handler_old() = std::set_terminate(detail::terminate_handler);
           }
