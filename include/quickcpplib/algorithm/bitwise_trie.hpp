@@ -229,7 +229,7 @@ namespace algorithm
       };
     }  // namespace detail
 
-    /*! \struct bitwise_trie_item_accessors
+    /*! \class bitwise_trie_item_accessors
     \brief Default accessor for a bitwise trie item.
     \tparam ItemType The type of item indexed.
 
@@ -288,7 +288,7 @@ namespace algorithm
       constexpr void set_is_secondary_sibling() noexcept { _v->trie_parent = nullptr; }
     };
 
-    /*! \struct bitwise_trie_head_accessors
+    /*! \class bitwise_trie_head_accessors
     \brief Default accessor for a bitwise trie index head.
     \tparam HeadBaseType The type from which `bitwise_trie` inherits
     \tparam ItemType The type of item indexed.
@@ -339,7 +339,7 @@ namespace algorithm
       constexpr bool flip_nobbledir() noexcept { return (_v->trie_nobbledir = !_v->trie_nobbledir); }
     };
 
-    /*! \struct bitwise_trie
+    /*! \class bitwise_trie
     \brief Never-allocating in-place bitwise Fredkin trie index head type.
     \tparam Base The base type from which to inherit (and thus overlay the index member functions).
     \tparam ItemType The type of item indexed.
