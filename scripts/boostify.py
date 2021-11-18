@@ -95,6 +95,7 @@ def do_transform(srcpath, destpath):
                         oh.write(line)
             else:
                 shutil.copyfile(path, destpath2)
+            shutil.copystat(path, destpath2)
         
 do_transform('.', destpath)
 for src, dest in overlay_files:
@@ -105,6 +106,7 @@ for src, dest in overlay_files:
             if not os.path.exists(os.path.dirname(destpath2)):
                 os.makedirs(os.path.dirname(destpath2))
             shutil.copyfile(srcpath2, destpath2)
+            shutil.copystat(srcpath2, destpath2)
 
 
 print("\n\nReplacing licences ...")
