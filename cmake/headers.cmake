@@ -20,6 +20,7 @@ set(quickcpplib_HEADERS
   "include/quickcpplib/config.hpp"
   "include/quickcpplib/console_colours.hpp"
   "include/quickcpplib/cpp_feature.h"
+  "include/quickcpplib/declval.hpp"
   "include/quickcpplib/detach_cast.hpp"
   "include/quickcpplib/detail/impl/execinfo_win64.ipp"
   "include/quickcpplib/detail/impl/signal_guard.ipp"

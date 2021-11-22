@@ -122,7 +122,7 @@ duration 134773 ms
 
 #define QUICKCPPLIB_ALGORITHM_BITWISE_TRIE_DEBUG 1
 
-#include "../config.hpp"
+#include "../declval.hpp"
 
 #include <cassert>
 #include <cstring>  // for memset
@@ -307,7 +307,7 @@ namespace algorithm
       static constexpr size_t _index_type_bits = 8 * sizeof(_index_type);
       using _child_array_type = decltype(_v->trie_children);
       static_assert(sizeof(_child_array_type) / sizeof(void *) >= _index_type_bits, "children array is not big enough");
-      using _key_type = decltype(static_cast<bitwise_trie_item_accessors<ItemType> *>(nullptr)->key());
+      using _key_type = decltype(declval<bitwise_trie_item_accessors<ItemType> *>()->key());
 
     public:
       constexpr bitwise_trie_head_accessors(HeadBaseType *v)

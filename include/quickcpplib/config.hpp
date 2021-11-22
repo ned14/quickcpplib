@@ -1,5 +1,5 @@
 /* Configure QuickCppLib
-(C) 2016-2017 Niall Douglas <http://www.nedproductions.biz/> (8 commits)
+(C) 2016-2021 Niall Douglas <http://www.nedproductions.biz/> (8 commits)
 
 
 Licensed under the Apache License, Version 2.0 (the "License");
