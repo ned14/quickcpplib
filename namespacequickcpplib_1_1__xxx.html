@@ -85,7 +85,8 @@ $(document).ready(function(){initNavTree('namespacequickcpplib_1_1__xxx.html',''
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">quickcpplib::_xxx Namespace Reference</div>  </div>
 </div><!--header-->
@@ -111,6 +112,8 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespacequickcpplib_1_1__xxx_1_1console__colours"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1console__colours.html">console_colours</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespacequickcpplib_1_1__xxx_1_1detach__cast"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1detach__cast.html">detach_cast</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacequickcpplib_1_1__xxx_1_1detail"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1detail.html">detail</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespacequickcpplib_1_1__xxx_1_1erasure__cast"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1erasure__cast.html">erasure_cast</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -159,10 +162,52 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structquickcpplib_1_1__xxx_1_1print__type.html">print_type</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the compiler to error out printing a type.  <a href="structquickcpplib_1_1__xxx_1_1print__type.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:aa47bc7d2d45da3c5e5f87d777e972927"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
+<tr class="memitem:aa47bc7d2d45da3c5e5f87d777e972927"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx.html#aa47bc7d2d45da3c5e5f87d777e972927">declval</a> () noexcept -&gt; decltype(<a class="el" href="namespacequickcpplib_1_1__xxx_1_1detail.html#a79d3020107f8b24524862e763b60397d">detail::declval_selector</a>&lt; T &gt;(0))</td></tr>
+<tr class="memdesc:aa47bc7d2d45da3c5e5f87d777e972927"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>std::declval</code> without <code>&lt;utility&gt;</code>  <a href="namespacequickcpplib_1_1__xxx.html#aa47bc7d2d45da3c5e5f87d777e972927">More...</a><br /></td></tr>
+<tr class="separator:aa47bc7d2d45da3c5e5f87d777e972927"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Per commit unique namespace to prevent different git submodule versions clashing. </p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="aa47bc7d2d45da3c5e5f87d777e972927"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa47bc7d2d45da3c5e5f87d777e972927">&#9670;&nbsp;</a></span>declval()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto quickcpplib::_xxx::declval </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> -&gt; decltype(<a class="el" href="namespacequickcpplib_1_1__xxx_1_1detail.html#a79d3020107f8b24524862e763b60397d">detail::declval_selector</a>&lt;T&gt;(0))
+</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>std::declval</code> without <code>&lt;utility&gt;</code> </p>
+<div class="fragment"><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;{</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  static_assert(!detail::declval_issame&lt;T, T&gt;::value, <span class="stringliteral">&quot;declval() must not be instanced!&quot;</span>);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  abort();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}</div>
+</div><!-- fragment -->
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
