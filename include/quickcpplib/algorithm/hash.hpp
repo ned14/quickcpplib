@@ -72,7 +72,7 @@ namespace algorithm
       using uint32 = unsigned int;
       using uint64 = unsigned long long;
       using uint128 = integers128::uint128;
-      static constexpr bool ALLOW_UNALIGNED_READS = true;
+      static constexpr bool ALLOW_UNALIGNED_READS = !QUICKCPPLIB_IN_UNDEFINED_SANITIZER;
 
       static inline QUICKCPPLIB_FORCEINLINE uint64 Rot64(uint64 x, int k) { return (x << k) | (x >> (64 - k)); }
       static inline QUICKCPPLIB_FORCEINLINE void Mix(const uint64 *data, uint64 &s0, uint64 &s1, uint64 &s2, uint64 &s3, uint64 &s4, uint64 &s5, uint64 &s6,

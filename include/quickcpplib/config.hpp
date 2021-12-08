@@ -104,6 +104,19 @@ namespace quickcpplib
 #define QUICKCPPLIB_RUNNING_ON_VALGRIND (0)
 #endif
 
+#ifndef QUICKCPPLIB_IN_ADDRESS_SANITIZER
+#if defined(__has_feature)
+#if __has_feature(address_sanitizer)
+#define QUICKCPPLIB_IN_ADDRESS_SANITIZER 1
+#endif
+#elif defined(__SANITIZE_ADDRESS__)
+#define QUICKCPPLIB_IN_ADDRESS_SANITIZER 1
+#endif
+#endif
+#ifndef QUICKCPPLIB_IN_ADDRESS_SANITIZER
+#define QUICKCPPLIB_IN_ADDRESS_SANITIZER 0
+#endif
+
 #ifndef QUICKCPPLIB_IN_THREAD_SANITIZER
 #if defined(__has_feature)
 #if __has_feature(thread_sanitizer)
@@ -117,10 +130,33 @@ namespace quickcpplib
 #define QUICKCPPLIB_IN_THREAD_SANITIZER 0
 #endif
 
+#ifndef QUICKCPPLIB_IN_UNDEFINED_SANITIZER
+#if defined(__has_feature)
+#if __has_feature(undefined_behavior_sanitizer)
+#define QUICKCPPLIB_IN_UNDEFINED_SANITIZER 1
+#endif
+#elif defined(__SANITIZE_UNDEFINED__) || (__GNUC__ <= 9 && defined(__SANITIZE_ADDRESS__))
+#define QUICKCPPLIB_IN_UNDEFINED_SANITIZER 1
+#endif
+#endif
+#ifndef QUICKCPPLIB_IN_UNDEFINED_SANITIZER
+#define QUICKCPPLIB_IN_UNDEFINED_SANITIZER 0
+#endif
+
 #if QUICKCPPLIB_IN_THREAD_SANITIZER
 #define QUICKCPPLIB_DISABLE_THREAD_SANITIZE __attribute__((no_sanitize_thread))
 #else
 #define QUICKCPPLIB_DISABLE_THREAD_SANITIZE
+#endif
+#if QUICKCPPLIB_IN_THREAD_SANITIZER
+#define QUICKCPPLIB_DISABLE_THREAD_SANITIZE __attribute__((no_sanitize_thread))
+#else
+#define QUICKCPPLIB_DISABLE_THREAD_SANITIZE
+#endif
+#if QUICKCPPLIB_IN_UNDEFINED_SANITIZER
+#define QUICKCPPLIB_DISABLE_UNDEFINED_SANITIZE __attribute__((no_sanitize_undefined))
+#else
+#define QUICKCPPLIB_DISABLE_UNDEFINED_SANITIZE
 #endif
 
 #ifndef QUICKCPPLIB_SMT_PAUSE
