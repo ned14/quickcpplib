@@ -151,7 +151,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initialise the hash. </p>
-<div class="fragment"><div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;{}</div>
+<div class="fragment"><div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;{}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -193,69 +193,69 @@ template&lt;class T , typename std::enable_if&lt;(sizeof(T)==1), bool &gt;::type
 </div><div class="memdoc">
 
 <p>Hash input. </p>
-<div class="fragment"><div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;      {</div>
-<div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> uint32_t *<span class="keyword">const</span> k = _k();</div>
-<div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160;        <span class="comment">/*</span></div>
-<div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;<span class="comment">         * Note 1: All integers (expect indexes) are 32-bit unsigned integers and addition is calculated modulo 2^32.</span></div>
-<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;<span class="comment">         * Note 2: For each round, there is one round constant k[i] and one entry in the message schedule array w[i], 0 = i = 63</span></div>
-<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;<span class="comment">         * Note 3: The compression function uses 8 working variables, a through h</span></div>
-<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;<span class="comment">         * Note 4: Big-endian convention is used when expressing the constants in this pseudocode,</span></div>
-<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;<span class="comment">         *     and when parsing message block data from bytes to words, for example,</span></div>
-<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;<span class="comment">         *     the first word of the input message &quot;abc&quot; after padding is 0x61626380</span></div>
-<div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;<span class="comment">         */</span></div>
-<div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160;        <span class="keywordflow">while</span>(<span class="keyword">const</span> uint8_t *p = _calc_chunk(data, bytes))</div>
-<div class="line"><a name="l00793"></a><span class="lineno">  793</span>&#160;        {</div>
-<div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160;          <span class="comment">/* Note that if we ever do support CPUID detection for the Intel SHA extensions, there is a public domain</span></div>
-<div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160;<span class="comment">          implementation of the SHA256 rounds at https://github.com/noloader/SHA-Intrinsics/blob/master/sha256-x86.c</span></div>
-<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160;<span class="comment">          */</span></div>
-<div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160;          <span class="keyword">alignas</span>(32) uint32_t ah[8];</div>
-<div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160; </div>
-<div class="line"><a name="l00799"></a><span class="lineno">  799</span>&#160;          <span class="comment">/* Initialize working variables to current hash value: */</span></div>
-<div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160;          memcpy(ah, _h.<a class="code" href="unionquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash_1_1result__type.html#a8492b52b2845dcc4fe5f698762767697">as_ints</a>, <span class="keyword">sizeof</span>(ah));</div>
-<div class="line"><a name="l00801"></a><span class="lineno">  801</span>&#160; </div>
-<div class="line"><a name="l00802"></a><span class="lineno">  802</span>&#160;          <span class="comment">/*</span></div>
-<div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160;<span class="comment">           * create a 64-entry message schedule array w[0..63] of 32-bit words</span></div>
-<div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160;<span class="comment">           * copy chunk into first 16 words w[0..15] of the message schedule array</span></div>
-<div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;<span class="comment">           */</span></div>
-<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160;          <span class="keyword">alignas</span>(32) uint32_t w[64];</div>
-<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160;          <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; 16; i++)</div>
-<div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;          {</div>
-<div class="line"><a name="l00809"></a><span class="lineno">  809</span>&#160;            w[i] = ((uint32_t) p[0] &lt;&lt; 24) | ((uint32_t) p[1] &lt;&lt; 16) | ((uint32_t) p[2] &lt;&lt; 8) | ((uint32_t) p[3]);</div>
-<div class="line"><a name="l00810"></a><span class="lineno">  810</span>&#160;            p += 4;</div>
-<div class="line"><a name="l00811"></a><span class="lineno">  811</span>&#160;          }</div>
-<div class="line"><a name="l00812"></a><span class="lineno">  812</span>&#160;          <span class="comment">/* Extend the first 16 words into the remaining 48 words w[16..63] of the message schedule array: */</span></div>
-<div class="line"><a name="l00813"></a><span class="lineno">  813</span>&#160;          <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 16; i &lt; 64; i++)</div>
+<div class="fragment"><div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;      {</div>
+<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> uint32_t *<span class="keyword">const</span> k = _k();</div>
+<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;        <span class="comment">/*</span></div>
+<div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;<span class="comment">         * Note 1: All integers (expect indexes) are 32-bit unsigned integers and addition is calculated modulo 2^32.</span></div>
+<div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160;<span class="comment">         * Note 2: For each round, there is one round constant k[i] and one entry in the message schedule array w[i], 0 = i = 63</span></div>
+<div class="line"><a name="l00793"></a><span class="lineno">  793</span>&#160;<span class="comment">         * Note 3: The compression function uses 8 working variables, a through h</span></div>
+<div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160;<span class="comment">         * Note 4: Big-endian convention is used when expressing the constants in this pseudocode,</span></div>
+<div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160;<span class="comment">         *     and when parsing message block data from bytes to words, for example,</span></div>
+<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160;<span class="comment">         *     the first word of the input message &quot;abc&quot; after padding is 0x61626380</span></div>
+<div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160;<span class="comment">         */</span></div>
+<div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160;        <span class="keywordflow">while</span>(<span class="keyword">const</span> uint8_t *p = _calc_chunk(data, bytes))</div>
+<div class="line"><a name="l00799"></a><span class="lineno">  799</span>&#160;        {</div>
+<div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160;          <span class="comment">/* Note that if we ever do support CPUID detection for the Intel SHA extensions, there is a public domain</span></div>
+<div class="line"><a name="l00801"></a><span class="lineno">  801</span>&#160;<span class="comment">          implementation of the SHA256 rounds at https://github.com/noloader/SHA-Intrinsics/blob/master/sha256-x86.c</span></div>
+<div class="line"><a name="l00802"></a><span class="lineno">  802</span>&#160;<span class="comment">          */</span></div>
+<div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160;          <span class="keyword">alignas</span>(32) uint32_t ah[8];</div>
+<div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160; </div>
+<div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;          <span class="comment">/* Initialize working variables to current hash value: */</span></div>
+<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160;          memcpy(ah, _h.<a class="code" href="unionquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash_1_1result__type.html#a8492b52b2845dcc4fe5f698762767697">as_ints</a>, <span class="keyword">sizeof</span>(ah));</div>
+<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160; </div>
+<div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;          <span class="comment">/*</span></div>
+<div class="line"><a name="l00809"></a><span class="lineno">  809</span>&#160;<span class="comment">           * create a 64-entry message schedule array w[0..63] of 32-bit words</span></div>
+<div class="line"><a name="l00810"></a><span class="lineno">  810</span>&#160;<span class="comment">           * copy chunk into first 16 words w[0..15] of the message schedule array</span></div>
+<div class="line"><a name="l00811"></a><span class="lineno">  811</span>&#160;<span class="comment">           */</span></div>
+<div class="line"><a name="l00812"></a><span class="lineno">  812</span>&#160;          <span class="keyword">alignas</span>(32) uint32_t w[64];</div>
+<div class="line"><a name="l00813"></a><span class="lineno">  813</span>&#160;          <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; 16; i++)</div>
 <div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160;          {</div>
-<div class="line"><a name="l00815"></a><span class="lineno">  815</span>&#160;            <span class="keyword">const</span> uint32_t s0 = _right_rot(w[i - 15], 7) ^ _right_rot(w[i - 15], 18) ^ (w[i - 15] &gt;&gt; 3);</div>
-<div class="line"><a name="l00816"></a><span class="lineno">  816</span>&#160;            <span class="keyword">const</span> uint32_t s1 = _right_rot(w[i - 2], 17) ^ _right_rot(w[i - 2], 19) ^ (w[i - 2] &gt;&gt; 10);</div>
-<div class="line"><a name="l00817"></a><span class="lineno">  817</span>&#160;            w[i] = w[i - 16] + s0 + w[i - 7] + s1;</div>
-<div class="line"><a name="l00818"></a><span class="lineno">  818</span>&#160;          }</div>
-<div class="line"><a name="l00819"></a><span class="lineno">  819</span>&#160; </div>
-<div class="line"><a name="l00820"></a><span class="lineno">  820</span>&#160;          <span class="comment">/* Compression function main loop: */</span></div>
-<div class="line"><a name="l00821"></a><span class="lineno">  821</span>&#160;          <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; 64; i++)</div>
-<div class="line"><a name="l00822"></a><span class="lineno">  822</span>&#160;          {</div>
-<div class="line"><a name="l00823"></a><span class="lineno">  823</span>&#160;            <span class="keyword">const</span> uint32_t s1 = _right_rot(ah[4], 6) ^ _right_rot(ah[4], 11) ^ _right_rot(ah[4], 25);</div>
-<div class="line"><a name="l00824"></a><span class="lineno">  824</span>&#160;            <span class="keyword">const</span> uint32_t ch = (ah[4] &amp; ah[5]) ^ (~ah[4] &amp; ah[6]);</div>
-<div class="line"><a name="l00825"></a><span class="lineno">  825</span>&#160;            <span class="keyword">const</span> uint32_t temp1 = ah[7] + s1 + ch + k[i] + w[i];</div>
-<div class="line"><a name="l00826"></a><span class="lineno">  826</span>&#160;            <span class="keyword">const</span> uint32_t s0 = _right_rot(ah[0], 2) ^ _right_rot(ah[0], 13) ^ _right_rot(ah[0], 22);</div>
-<div class="line"><a name="l00827"></a><span class="lineno">  827</span>&#160;            <span class="keyword">const</span> uint32_t maj = (ah[0] &amp; ah[1]) ^ (ah[0] &amp; ah[2]) ^ (ah[1] &amp; ah[2]);</div>
-<div class="line"><a name="l00828"></a><span class="lineno">  828</span>&#160;            <span class="keyword">const</span> uint32_t temp2 = s0 + maj;</div>
-<div class="line"><a name="l00829"></a><span class="lineno">  829</span>&#160; </div>
-<div class="line"><a name="l00830"></a><span class="lineno">  830</span>&#160;            ah[7] = ah[6];</div>
-<div class="line"><a name="l00831"></a><span class="lineno">  831</span>&#160;            ah[6] = ah[5];</div>
-<div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160;            ah[5] = ah[4];</div>
-<div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160;            ah[4] = ah[3] + temp1;</div>
-<div class="line"><a name="l00834"></a><span class="lineno">  834</span>&#160;            ah[3] = ah[2];</div>
-<div class="line"><a name="l00835"></a><span class="lineno">  835</span>&#160;            ah[2] = ah[1];</div>
-<div class="line"><a name="l00836"></a><span class="lineno">  836</span>&#160;            ah[1] = ah[0];</div>
-<div class="line"><a name="l00837"></a><span class="lineno">  837</span>&#160;            ah[0] = temp1 + temp2;</div>
-<div class="line"><a name="l00838"></a><span class="lineno">  838</span>&#160;          }</div>
-<div class="line"><a name="l00839"></a><span class="lineno">  839</span>&#160; </div>
-<div class="line"><a name="l00840"></a><span class="lineno">  840</span>&#160;          <span class="comment">/* Add the compressed chunk to the current hash value: */</span></div>
-<div class="line"><a name="l00841"></a><span class="lineno">  841</span>&#160;          <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; 8; i++)</div>
-<div class="line"><a name="l00842"></a><span class="lineno">  842</span>&#160;            _h.<a class="code" href="unionquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash_1_1result__type.html#a8492b52b2845dcc4fe5f698762767697">as_ints</a>[i] += ah[i];</div>
-<div class="line"><a name="l00843"></a><span class="lineno">  843</span>&#160;        }</div>
-<div class="line"><a name="l00844"></a><span class="lineno">  844</span>&#160;      }</div>
+<div class="line"><a name="l00815"></a><span class="lineno">  815</span>&#160;            w[i] = ((uint32_t) p[0] &lt;&lt; 24) | ((uint32_t) p[1] &lt;&lt; 16) | ((uint32_t) p[2] &lt;&lt; 8) | ((uint32_t) p[3]);</div>
+<div class="line"><a name="l00816"></a><span class="lineno">  816</span>&#160;            p += 4;</div>
+<div class="line"><a name="l00817"></a><span class="lineno">  817</span>&#160;          }</div>
+<div class="line"><a name="l00818"></a><span class="lineno">  818</span>&#160;          <span class="comment">/* Extend the first 16 words into the remaining 48 words w[16..63] of the message schedule array: */</span></div>
+<div class="line"><a name="l00819"></a><span class="lineno">  819</span>&#160;          <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 16; i &lt; 64; i++)</div>
+<div class="line"><a name="l00820"></a><span class="lineno">  820</span>&#160;          {</div>
+<div class="line"><a name="l00821"></a><span class="lineno">  821</span>&#160;            <span class="keyword">const</span> uint32_t s0 = _right_rot(w[i - 15], 7) ^ _right_rot(w[i - 15], 18) ^ (w[i - 15] &gt;&gt; 3);</div>
+<div class="line"><a name="l00822"></a><span class="lineno">  822</span>&#160;            <span class="keyword">const</span> uint32_t s1 = _right_rot(w[i - 2], 17) ^ _right_rot(w[i - 2], 19) ^ (w[i - 2] &gt;&gt; 10);</div>
+<div class="line"><a name="l00823"></a><span class="lineno">  823</span>&#160;            w[i] = w[i - 16] + s0 + w[i - 7] + s1;</div>
+<div class="line"><a name="l00824"></a><span class="lineno">  824</span>&#160;          }</div>
+<div class="line"><a name="l00825"></a><span class="lineno">  825</span>&#160; </div>
+<div class="line"><a name="l00826"></a><span class="lineno">  826</span>&#160;          <span class="comment">/* Compression function main loop: */</span></div>
+<div class="line"><a name="l00827"></a><span class="lineno">  827</span>&#160;          <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; 64; i++)</div>
+<div class="line"><a name="l00828"></a><span class="lineno">  828</span>&#160;          {</div>
+<div class="line"><a name="l00829"></a><span class="lineno">  829</span>&#160;            <span class="keyword">const</span> uint32_t s1 = _right_rot(ah[4], 6) ^ _right_rot(ah[4], 11) ^ _right_rot(ah[4], 25);</div>
+<div class="line"><a name="l00830"></a><span class="lineno">  830</span>&#160;            <span class="keyword">const</span> uint32_t ch = (ah[4] &amp; ah[5]) ^ (~ah[4] &amp; ah[6]);</div>
+<div class="line"><a name="l00831"></a><span class="lineno">  831</span>&#160;            <span class="keyword">const</span> uint32_t temp1 = ah[7] + s1 + ch + k[i] + w[i];</div>
+<div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160;            <span class="keyword">const</span> uint32_t s0 = _right_rot(ah[0], 2) ^ _right_rot(ah[0], 13) ^ _right_rot(ah[0], 22);</div>
+<div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160;            <span class="keyword">const</span> uint32_t maj = (ah[0] &amp; ah[1]) ^ (ah[0] &amp; ah[2]) ^ (ah[1] &amp; ah[2]);</div>
+<div class="line"><a name="l00834"></a><span class="lineno">  834</span>&#160;            <span class="keyword">const</span> uint32_t temp2 = s0 + maj;</div>
+<div class="line"><a name="l00835"></a><span class="lineno">  835</span>&#160; </div>
+<div class="line"><a name="l00836"></a><span class="lineno">  836</span>&#160;            ah[7] = ah[6];</div>
+<div class="line"><a name="l00837"></a><span class="lineno">  837</span>&#160;            ah[6] = ah[5];</div>
+<div class="line"><a name="l00838"></a><span class="lineno">  838</span>&#160;            ah[5] = ah[4];</div>
+<div class="line"><a name="l00839"></a><span class="lineno">  839</span>&#160;            ah[4] = ah[3] + temp1;</div>
+<div class="line"><a name="l00840"></a><span class="lineno">  840</span>&#160;            ah[3] = ah[2];</div>
+<div class="line"><a name="l00841"></a><span class="lineno">  841</span>&#160;            ah[2] = ah[1];</div>
+<div class="line"><a name="l00842"></a><span class="lineno">  842</span>&#160;            ah[1] = ah[0];</div>
+<div class="line"><a name="l00843"></a><span class="lineno">  843</span>&#160;            ah[0] = temp1 + temp2;</div>
+<div class="line"><a name="l00844"></a><span class="lineno">  844</span>&#160;          }</div>
+<div class="line"><a name="l00845"></a><span class="lineno">  845</span>&#160; </div>
+<div class="line"><a name="l00846"></a><span class="lineno">  846</span>&#160;          <span class="comment">/* Add the compressed chunk to the current hash value: */</span></div>
+<div class="line"><a name="l00847"></a><span class="lineno">  847</span>&#160;          <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; 8; i++)</div>
+<div class="line"><a name="l00848"></a><span class="lineno">  848</span>&#160;            _h.<a class="code" href="unionquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash_1_1result__type.html#a8492b52b2845dcc4fe5f698762767697">as_ints</a>[i] += ah[i];</div>
+<div class="line"><a name="l00849"></a><span class="lineno">  849</span>&#160;        }</div>
+<div class="line"><a name="l00850"></a><span class="lineno">  850</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -283,59 +283,59 @@ template&lt;class T , typename std::enable_if&lt;(sizeof(T)==1), bool &gt;::type
 </div><div class="memdoc">
 
 <p>Finalise and return hash. </p>
-<div class="fragment"><div class="line"><a name="l00848"></a><span class="lineno">  848</span>&#160;      {</div>
-<div class="line"><a name="l00849"></a><span class="lineno">  849</span>&#160;        <span class="comment">/*</span></div>
-<div class="line"><a name="l00850"></a><span class="lineno">  850</span>&#160;<span class="comment">         * Now:</span></div>
-<div class="line"><a name="l00851"></a><span class="lineno">  851</span>&#160;<span class="comment">         * - either there is enough space left for the total length, and we can conclude,</span></div>
-<div class="line"><a name="l00852"></a><span class="lineno">  852</span>&#160;<span class="comment">         * - or there is too little space left, and we have to pad the rest of this chunk with zeroes.</span></div>
-<div class="line"><a name="l00853"></a><span class="lineno">  853</span>&#160;<span class="comment">         * In the latter case, we will conclude at the next invokation of this function.</span></div>
-<div class="line"><a name="l00854"></a><span class="lineno">  854</span>&#160;<span class="comment">         */</span></div>
-<div class="line"><a name="l00855"></a><span class="lineno">  855</span>&#160;        <span class="keywordtype">size_t</span> space_in_chunk = _CHUNK_SIZE - _chunkidx;</div>
-<div class="line"><a name="l00856"></a><span class="lineno">  856</span>&#160;        assert(space_in_chunk &gt; 0);</div>
-<div class="line"><a name="l00857"></a><span class="lineno">  857</span>&#160;        _chunk[_chunkidx++] = 0x80;</div>
-<div class="line"><a name="l00858"></a><span class="lineno">  858</span>&#160;        space_in_chunk--;</div>
-<div class="line"><a name="l00859"></a><span class="lineno">  859</span>&#160;        <span class="keywordflow">if</span>(space_in_chunk &lt; _TOTAL_LEN_LEN)</div>
-<div class="line"><a name="l00860"></a><span class="lineno">  860</span>&#160;        {</div>
-<div class="line"><a name="l00861"></a><span class="lineno">  861</span>&#160;          <a class="code" href="namespacequickcpplib_1_1__xxx_1_1algorithm_1_1memory.html#a9631bbd6cae7caac0ed3ef428b23dc76">memory::cmemset</a>(_chunk + _chunkidx, (uint8_t) 0, space_in_chunk);</div>
-<div class="line"><a name="l00862"></a><span class="lineno">  862</span>&#160;          _chunkidx += space_in_chunk;</div>
-<div class="line"><a name="l00863"></a><span class="lineno">  863</span>&#160;          assert(_chunkidx == _CHUNK_SIZE);</div>
-<div class="line"><a name="l00864"></a><span class="lineno">  864</span>&#160;          <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash.html#a1ff0d186aece16b45f06f26eebc15215">add</a>((<span class="keyword">const</span> uint8_t *) <span class="keyword">nullptr</span>, 0);</div>
-<div class="line"><a name="l00865"></a><span class="lineno">  865</span>&#160;          assert(_chunkidx == 0);</div>
-<div class="line"><a name="l00866"></a><span class="lineno">  866</span>&#160;          space_in_chunk = _CHUNK_SIZE - _chunkidx;</div>
-<div class="line"><a name="l00867"></a><span class="lineno">  867</span>&#160;        }</div>
-<div class="line"><a name="l00868"></a><span class="lineno">  868</span>&#160;        assert(space_in_chunk &gt;= _TOTAL_LEN_LEN);</div>
-<div class="line"><a name="l00869"></a><span class="lineno">  869</span>&#160; </div>
-<div class="line"><a name="l00870"></a><span class="lineno">  870</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">size_t</span> left = space_in_chunk - _TOTAL_LEN_LEN;</div>
-<div class="line"><a name="l00871"></a><span class="lineno">  871</span>&#160;        <a class="code" href="namespacequickcpplib_1_1__xxx_1_1algorithm_1_1memory.html#a9631bbd6cae7caac0ed3ef428b23dc76">memory::cmemset</a>(_chunk + _chunkidx, (uint8_t) 0, left);</div>
-<div class="line"><a name="l00872"></a><span class="lineno">  872</span>&#160;        _chunkidx += left;</div>
-<div class="line"><a name="l00873"></a><span class="lineno">  873</span>&#160; </div>
-<div class="line"><a name="l00874"></a><span class="lineno">  874</span>&#160;        <span class="comment">/* Storing of len * 8 as a big endian 64-bit without overflow. */</span></div>
-<div class="line"><a name="l00875"></a><span class="lineno">  875</span>&#160;        <span class="keywordtype">size_t</span> <a class="code" href="execinfo__win64_8h.html#a74d180764c748819f56703822acc12c4">len</a> = _total_len;</div>
-<div class="line"><a name="l00876"></a><span class="lineno">  876</span>&#160;        _chunk[_chunkidx + 7] = (uint8_t)((<a class="code" href="execinfo__win64_8h.html#a74d180764c748819f56703822acc12c4">len</a> &lt;&lt; 3) &amp; 0xff);</div>
-<div class="line"><a name="l00877"></a><span class="lineno">  877</span>&#160;        <a class="code" href="execinfo__win64_8h.html#a74d180764c748819f56703822acc12c4">len</a> &gt;&gt;= 5;</div>
-<div class="line"><a name="l00878"></a><span class="lineno">  878</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 6; i &gt;= 0; i--)</div>
-<div class="line"><a name="l00879"></a><span class="lineno">  879</span>&#160;        {</div>
-<div class="line"><a name="l00880"></a><span class="lineno">  880</span>&#160;          _chunk[_chunkidx + i] = (uint8_t)(<a class="code" href="execinfo__win64_8h.html#a74d180764c748819f56703822acc12c4">len</a> &amp; 0xff);</div>
-<div class="line"><a name="l00881"></a><span class="lineno">  881</span>&#160;          <a class="code" href="execinfo__win64_8h.html#a74d180764c748819f56703822acc12c4">len</a> &gt;&gt;= 8;</div>
-<div class="line"><a name="l00882"></a><span class="lineno">  882</span>&#160;        }</div>
-<div class="line"><a name="l00883"></a><span class="lineno">  883</span>&#160;        _chunkidx += 8;</div>
-<div class="line"><a name="l00884"></a><span class="lineno">  884</span>&#160;        assert(_chunkidx == _CHUNK_SIZE);</div>
-<div class="line"><a name="l00885"></a><span class="lineno">  885</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash.html#a1ff0d186aece16b45f06f26eebc15215">add</a>((<span class="keyword">const</span> uint8_t *) <span class="keyword">nullptr</span>, 0);</div>
-<div class="line"><a name="l00886"></a><span class="lineno">  886</span>&#160;        assert(_chunkidx == 0);</div>
-<div class="line"><a name="l00887"></a><span class="lineno">  887</span>&#160; </div>
-<div class="line"><a name="l00888"></a><span class="lineno">  888</span>&#160;        result_type ret;</div>
-<div class="line"><a name="l00889"></a><span class="lineno">  889</span>&#160;        <span class="comment">/* Produce the final hash value (big-endian): */</span></div>
-<div class="line"><a name="l00890"></a><span class="lineno">  890</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0, j = 0; i &lt; 8; i++)</div>
-<div class="line"><a name="l00891"></a><span class="lineno">  891</span>&#160;        {</div>
-<div class="line"><a name="l00892"></a><span class="lineno">  892</span>&#160;          ret.as_bytes[j++] = (uint8_t)((_h.<a class="code" href="unionquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash_1_1result__type.html#a8492b52b2845dcc4fe5f698762767697">as_ints</a>[i] &gt;&gt; 24) &amp; 0xff);</div>
-<div class="line"><a name="l00893"></a><span class="lineno">  893</span>&#160;          ret.as_bytes[j++] = (uint8_t)((_h.<a class="code" href="unionquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash_1_1result__type.html#a8492b52b2845dcc4fe5f698762767697">as_ints</a>[i] &gt;&gt; 16) &amp; 0xff);</div>
-<div class="line"><a name="l00894"></a><span class="lineno">  894</span>&#160;          ret.as_bytes[j++] = (uint8_t)((_h.<a class="code" href="unionquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash_1_1result__type.html#a8492b52b2845dcc4fe5f698762767697">as_ints</a>[i] &gt;&gt; 8) &amp; 0xff);</div>
-<div class="line"><a name="l00895"></a><span class="lineno">  895</span>&#160;          ret.as_bytes[j++] = (uint8_t)(_h.<a class="code" href="unionquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash_1_1result__type.html#a8492b52b2845dcc4fe5f698762767697">as_ints</a>[i] &amp; 0xff);</div>
-<div class="line"><a name="l00896"></a><span class="lineno">  896</span>&#160;        }</div>
-<div class="line"><a name="l00897"></a><span class="lineno">  897</span>&#160;        _h = result_type{0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, 0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19};</div>
-<div class="line"><a name="l00898"></a><span class="lineno">  898</span>&#160;        _chunkidx = _total_len = 0;</div>
-<div class="line"><a name="l00899"></a><span class="lineno">  899</span>&#160;        <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l00900"></a><span class="lineno">  900</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00854"></a><span class="lineno">  854</span>&#160;      {</div>
+<div class="line"><a name="l00855"></a><span class="lineno">  855</span>&#160;        <span class="comment">/*</span></div>
+<div class="line"><a name="l00856"></a><span class="lineno">  856</span>&#160;<span class="comment">         * Now:</span></div>
+<div class="line"><a name="l00857"></a><span class="lineno">  857</span>&#160;<span class="comment">         * - either there is enough space left for the total length, and we can conclude,</span></div>
+<div class="line"><a name="l00858"></a><span class="lineno">  858</span>&#160;<span class="comment">         * - or there is too little space left, and we have to pad the rest of this chunk with zeroes.</span></div>
+<div class="line"><a name="l00859"></a><span class="lineno">  859</span>&#160;<span class="comment">         * In the latter case, we will conclude at the next invokation of this function.</span></div>
+<div class="line"><a name="l00860"></a><span class="lineno">  860</span>&#160;<span class="comment">         */</span></div>
+<div class="line"><a name="l00861"></a><span class="lineno">  861</span>&#160;        <span class="keywordtype">size_t</span> space_in_chunk = _CHUNK_SIZE - _chunkidx;</div>
+<div class="line"><a name="l00862"></a><span class="lineno">  862</span>&#160;        assert(space_in_chunk &gt; 0);</div>
+<div class="line"><a name="l00863"></a><span class="lineno">  863</span>&#160;        _chunk[_chunkidx++] = 0x80;</div>
+<div class="line"><a name="l00864"></a><span class="lineno">  864</span>&#160;        space_in_chunk--;</div>
+<div class="line"><a name="l00865"></a><span class="lineno">  865</span>&#160;        <span class="keywordflow">if</span>(space_in_chunk &lt; _TOTAL_LEN_LEN)</div>
+<div class="line"><a name="l00866"></a><span class="lineno">  866</span>&#160;        {</div>
+<div class="line"><a name="l00867"></a><span class="lineno">  867</span>&#160;          <a class="code" href="namespacequickcpplib_1_1__xxx_1_1algorithm_1_1memory.html#a9631bbd6cae7caac0ed3ef428b23dc76">memory::cmemset</a>(_chunk + _chunkidx, (uint8_t) 0, space_in_chunk);</div>
+<div class="line"><a name="l00868"></a><span class="lineno">  868</span>&#160;          _chunkidx += space_in_chunk;</div>
+<div class="line"><a name="l00869"></a><span class="lineno">  869</span>&#160;          assert(_chunkidx == _CHUNK_SIZE);</div>
+<div class="line"><a name="l00870"></a><span class="lineno">  870</span>&#160;          <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash.html#a1ff0d186aece16b45f06f26eebc15215">add</a>((<span class="keyword">const</span> uint8_t *) <span class="keyword">nullptr</span>, 0);</div>
+<div class="line"><a name="l00871"></a><span class="lineno">  871</span>&#160;          assert(_chunkidx == 0);</div>
+<div class="line"><a name="l00872"></a><span class="lineno">  872</span>&#160;          space_in_chunk = _CHUNK_SIZE - _chunkidx;</div>
+<div class="line"><a name="l00873"></a><span class="lineno">  873</span>&#160;        }</div>
+<div class="line"><a name="l00874"></a><span class="lineno">  874</span>&#160;        assert(space_in_chunk &gt;= _TOTAL_LEN_LEN);</div>
+<div class="line"><a name="l00875"></a><span class="lineno">  875</span>&#160; </div>
+<div class="line"><a name="l00876"></a><span class="lineno">  876</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">size_t</span> left = space_in_chunk - _TOTAL_LEN_LEN;</div>
+<div class="line"><a name="l00877"></a><span class="lineno">  877</span>&#160;        <a class="code" href="namespacequickcpplib_1_1__xxx_1_1algorithm_1_1memory.html#a9631bbd6cae7caac0ed3ef428b23dc76">memory::cmemset</a>(_chunk + _chunkidx, (uint8_t) 0, left);</div>
+<div class="line"><a name="l00878"></a><span class="lineno">  878</span>&#160;        _chunkidx += left;</div>
+<div class="line"><a name="l00879"></a><span class="lineno">  879</span>&#160; </div>
+<div class="line"><a name="l00880"></a><span class="lineno">  880</span>&#160;        <span class="comment">/* Storing of len * 8 as a big endian 64-bit without overflow. */</span></div>
+<div class="line"><a name="l00881"></a><span class="lineno">  881</span>&#160;        <span class="keywordtype">size_t</span> <a class="code" href="execinfo__win64_8h.html#a74d180764c748819f56703822acc12c4">len</a> = _total_len;</div>
+<div class="line"><a name="l00882"></a><span class="lineno">  882</span>&#160;        _chunk[_chunkidx + 7] = (uint8_t)((<a class="code" href="execinfo__win64_8h.html#a74d180764c748819f56703822acc12c4">len</a> &lt;&lt; 3) &amp; 0xff);</div>
+<div class="line"><a name="l00883"></a><span class="lineno">  883</span>&#160;        <a class="code" href="execinfo__win64_8h.html#a74d180764c748819f56703822acc12c4">len</a> &gt;&gt;= 5;</div>
+<div class="line"><a name="l00884"></a><span class="lineno">  884</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 6; i &gt;= 0; i--)</div>
+<div class="line"><a name="l00885"></a><span class="lineno">  885</span>&#160;        {</div>
+<div class="line"><a name="l00886"></a><span class="lineno">  886</span>&#160;          _chunk[_chunkidx + i] = (uint8_t)(<a class="code" href="execinfo__win64_8h.html#a74d180764c748819f56703822acc12c4">len</a> &amp; 0xff);</div>
+<div class="line"><a name="l00887"></a><span class="lineno">  887</span>&#160;          <a class="code" href="execinfo__win64_8h.html#a74d180764c748819f56703822acc12c4">len</a> &gt;&gt;= 8;</div>
+<div class="line"><a name="l00888"></a><span class="lineno">  888</span>&#160;        }</div>
+<div class="line"><a name="l00889"></a><span class="lineno">  889</span>&#160;        _chunkidx += 8;</div>
+<div class="line"><a name="l00890"></a><span class="lineno">  890</span>&#160;        assert(_chunkidx == _CHUNK_SIZE);</div>
+<div class="line"><a name="l00891"></a><span class="lineno">  891</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash.html#a1ff0d186aece16b45f06f26eebc15215">add</a>((<span class="keyword">const</span> uint8_t *) <span class="keyword">nullptr</span>, 0);</div>
+<div class="line"><a name="l00892"></a><span class="lineno">  892</span>&#160;        assert(_chunkidx == 0);</div>
+<div class="line"><a name="l00893"></a><span class="lineno">  893</span>&#160; </div>
+<div class="line"><a name="l00894"></a><span class="lineno">  894</span>&#160;        result_type ret;</div>
+<div class="line"><a name="l00895"></a><span class="lineno">  895</span>&#160;        <span class="comment">/* Produce the final hash value (big-endian): */</span></div>
+<div class="line"><a name="l00896"></a><span class="lineno">  896</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0, j = 0; i &lt; 8; i++)</div>
+<div class="line"><a name="l00897"></a><span class="lineno">  897</span>&#160;        {</div>
+<div class="line"><a name="l00898"></a><span class="lineno">  898</span>&#160;          ret.as_bytes[j++] = (uint8_t)((_h.<a class="code" href="unionquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash_1_1result__type.html#a8492b52b2845dcc4fe5f698762767697">as_ints</a>[i] &gt;&gt; 24) &amp; 0xff);</div>
+<div class="line"><a name="l00899"></a><span class="lineno">  899</span>&#160;          ret.as_bytes[j++] = (uint8_t)((_h.<a class="code" href="unionquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash_1_1result__type.html#a8492b52b2845dcc4fe5f698762767697">as_ints</a>[i] &gt;&gt; 16) &amp; 0xff);</div>
+<div class="line"><a name="l00900"></a><span class="lineno">  900</span>&#160;          ret.as_bytes[j++] = (uint8_t)((_h.<a class="code" href="unionquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash_1_1result__type.html#a8492b52b2845dcc4fe5f698762767697">as_ints</a>[i] &gt;&gt; 8) &amp; 0xff);</div>
+<div class="line"><a name="l00901"></a><span class="lineno">  901</span>&#160;          ret.as_bytes[j++] = (uint8_t)(_h.<a class="code" href="unionquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash_1_1result__type.html#a8492b52b2845dcc4fe5f698762767697">as_ints</a>[i] &amp; 0xff);</div>
+<div class="line"><a name="l00902"></a><span class="lineno">  902</span>&#160;        }</div>
+<div class="line"><a name="l00903"></a><span class="lineno">  903</span>&#160;        _h = result_type{0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, 0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19};</div>
+<div class="line"><a name="l00904"></a><span class="lineno">  904</span>&#160;        _chunkidx = _total_len = 0;</div>
+<div class="line"><a name="l00905"></a><span class="lineno">  905</span>&#160;        <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l00906"></a><span class="lineno">  906</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -376,11 +376,11 @@ template&lt;class T , typename std::enable_if&lt;(sizeof(T)==1), bool &gt;::type
 </div><div class="memdoc">
 
 <p>Single shot hash of a sequence of bytes. </p>
-<div class="fragment"><div class="line"><a name="l00906"></a><span class="lineno">  906</span>&#160;      {</div>
-<div class="line"><a name="l00907"></a><span class="lineno">  907</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash.html#a8b13d8f5cca184ec7565e528deef1635">sha256_hash</a> ret;</div>
-<div class="line"><a name="l00908"></a><span class="lineno">  908</span>&#160;        ret.add(data, bytes);</div>
-<div class="line"><a name="l00909"></a><span class="lineno">  909</span>&#160;        <span class="keywordflow">return</span> ret.finalise();</div>
-<div class="line"><a name="l00910"></a><span class="lineno">  910</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00912"></a><span class="lineno">  912</span>&#160;      {</div>
+<div class="line"><a name="l00913"></a><span class="lineno">  913</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash.html#a8b13d8f5cca184ec7565e528deef1635">sha256_hash</a> ret;</div>
+<div class="line"><a name="l00914"></a><span class="lineno">  914</span>&#160;        ret.add(data, bytes);</div>
+<div class="line"><a name="l00915"></a><span class="lineno">  915</span>&#160;        <span class="keywordflow">return</span> ret.finalise();</div>
+<div class="line"><a name="l00916"></a><span class="lineno">  916</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -389,11 +389,11 @@ template&lt;class T , typename std::enable_if&lt;(sizeof(T)==1), bool &gt;::type
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash_html_a1ff0d186aece16b45f06f26eebc15215"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash.html#a1ff0d186aece16b45f06f26eebc15215">quickcpplib::_xxx::algorithm::hash::sha256_hash::add</a></div><div class="ttdeci">void add(const T *data, size_t bytes) noexcept</div><div class="ttdoc">Hash input.</div><div class="ttdef"><b>Definition:</b> hash.hpp:781</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash_html_a1ff0d186aece16b45f06f26eebc15215"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash.html#a1ff0d186aece16b45f06f26eebc15215">quickcpplib::_xxx::algorithm::hash::sha256_hash::add</a></div><div class="ttdeci">void add(const T *data, size_t bytes) noexcept</div><div class="ttdoc">Hash input.</div><div class="ttdef"><b>Definition:</b> hash.hpp:787</div></div>
 <div class="ttc" id="aexecinfo__win64_8h_html_a74d180764c748819f56703822acc12c4"><div class="ttname"><a href="execinfo__win64_8h.html#a74d180764c748819f56703822acc12c4">len</a></div><div class="ttdeci">EXECINFO_DECL _Check_return_ _In_ size_t len</div><div class="ttdef"><b>Definition:</b> execinfo_win64.h:55</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash_html_a8b13d8f5cca184ec7565e528deef1635"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash.html#a8b13d8f5cca184ec7565e528deef1635">quickcpplib::_xxx::algorithm::hash::sha256_hash::sha256_hash</a></div><div class="ttdeci">constexpr sha256_hash() noexcept</div><div class="ttdoc">Initialise the hash.</div><div class="ttdef"><b>Definition:</b> hash.hpp:776</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash_html_a8b13d8f5cca184ec7565e528deef1635"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash.html#a8b13d8f5cca184ec7565e528deef1635">quickcpplib::_xxx::algorithm::hash::sha256_hash::sha256_hash</a></div><div class="ttdeci">constexpr sha256_hash() noexcept</div><div class="ttdoc">Initialise the hash.</div><div class="ttdef"><b>Definition:</b> hash.hpp:782</div></div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1algorithm_1_1memory_html_a9631bbd6cae7caac0ed3ef428b23dc76"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1algorithm_1_1memory.html#a9631bbd6cae7caac0ed3ef428b23dc76">quickcpplib::_xxx::algorithm::memory::cmemset</a></div><div class="ttdeci">constexpr T * cmemset(T *dst, T value, size_t num)</div><div class="ttdef"><b>Definition:</b> memory.hpp:89</div></div>
-<div class="ttc" id="aunionquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash_1_1result__type_html_a8492b52b2845dcc4fe5f698762767697"><div class="ttname"><a href="unionquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash_1_1result__type.html#a8492b52b2845dcc4fe5f698762767697">quickcpplib::_xxx::algorithm::hash::sha256_hash::result_type::as_ints</a></div><div class="ttdeci">uint32_t as_ints[8]</div><div class="ttdef"><b>Definition:</b> hash.hpp:706</div></div>
+<div class="ttc" id="aunionquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash_1_1result__type_html_a8492b52b2845dcc4fe5f698762767697"><div class="ttname"><a href="unionquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash_1_1result__type.html#a8492b52b2845dcc4fe5f698762767697">quickcpplib::_xxx::algorithm::hash::sha256_hash::result_type::as_ints</a></div><div class="ttdeci">uint32_t as_ints[8]</div><div class="ttdef"><b>Definition:</b> hash.hpp:712</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
