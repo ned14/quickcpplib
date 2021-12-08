@@ -40,6 +40,11 @@ DEALINGS IN THE SOFTWARE.
 #include <typeinfo>
 #include <vector>
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable : 4127)  // conditional expression is constant
+#endif
+
 QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace aligned_allocator
@@ -276,5 +281,9 @@ namespace aligned_allocator
 
 }
 QUICKCPPLIB_NAMESPACE_END
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 #endif
