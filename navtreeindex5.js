@@ -1,5 +1,9 @@
 var NAVTREEINDEX5 =
 {
+"namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1detail.html":[4,0,2,0,11,0],
+"namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1traits.html":[5,0,1,0,9,0],
+"namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1traits.html":[4,0,2,0,11,1],
+"namespacequickcpplib_1_1__xxx_1_1integers128.html":[5,0,1,0,10],
 "namespacequickcpplib_1_1__xxx_1_1integers128.html":[4,0,2,0,12],
 "namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html":[5,0,1,0,11],
 "namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html":[4,0,2,0,13],
@@ -8,8 +12,8 @@ var NAVTREEINDEX5 =
 "namespacequickcpplib_1_1__xxx_1_1offset__ptr.html":[4,0,2,0,14],
 "namespacequickcpplib_1_1__xxx_1_1offset__ptr_1_1detail.html":[4,0,2,0,14,0],
 "namespacequickcpplib_1_1__xxx_1_1optional.html":[4,0,2,0,15],
-"namespacequickcpplib_1_1__xxx_1_1packed__backtrace.html":[4,0,2,0,16],
 "namespacequickcpplib_1_1__xxx_1_1packed__backtrace.html":[5,0,1,0,13],
+"namespacequickcpplib_1_1__xxx_1_1packed__backtrace.html":[4,0,2,0,16],
 "namespacequickcpplib_1_1__xxx_1_1packed__backtrace_1_1detail.html":[4,0,2,0,16,0],
 "namespacequickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl.html":[4,0,2,0,16,1],
 "namespacequickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl.html":[5,0,1,0,13,0],
@@ -22,8 +26,8 @@ var NAVTREEINDEX5 =
 "namespacequickcpplib_1_1__xxx_1_1scope.html":[5,0,1,0,16],
 "namespacequickcpplib_1_1__xxx_1_1scope.html":[4,0,2,0,19],
 "namespacequickcpplib_1_1__xxx_1_1scope_1_1detail.html":[4,0,2,0,19,0],
-"namespacequickcpplib_1_1__xxx_1_1signal__guard.html":[4,0,2,0,20],
 "namespacequickcpplib_1_1__xxx_1_1signal__guard.html":[5,0,1,0,17],
+"namespacequickcpplib_1_1__xxx_1_1signal__guard.html":[4,0,2,0,20],
 "namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html":[4,0,2,0,20,0],
 "namespacequickcpplib_1_1__xxx_1_1span.html":[4,0,2,0,21],
 "namespacequickcpplib_1_1__xxx_1_1start__lifetime__as.html":[5,0,1,0,18],
@@ -245,9 +249,5 @@ var NAVTREEINDEX5 =
 "signal__guard_8hpp.html#a88307c108cb9a38f92fc4f1ef6e467d4":[6,0,0,0,28,32],
 "signal__guard_8hpp.html#a93caa21ac2445a99991916ca6edce509":[6,0,0,0,28,28],
 "signal__guard_8hpp.html#a95601e6c8a95db2668387289c2c6c01c":[6,0,0,0,28,11],
-"signal__guard_8hpp.html#a9fa7645a3baffab74235e7edb6cbc24d":[6,0,0,0,28,20],
-"signal__guard_8hpp.html#aaee5ee8095c91a043b353799da2a9c15":[6,0,0,0,28,24],
-"signal__guard_8hpp.html#ac2c66ccd24d574d61cfb576263f5f320":[6,0,0,0,28,33],
-"signal__guard_8hpp.html#acd98d6c6ea207d05458905cb4fefd34d":[6,0,0,0,28,26],
-"signal__guard_8hpp.html#ad0ff582f6fb91461af6daf94e45ca221":[6,0,0,0,28,31]
+"signal__guard_8hpp.html#a9fa7645a3baffab74235e7edb6cbc24d":[6,0,0,0,28,20]
 };

@@ -1,5 +1,9 @@
 var NAVTREEINDEX4 =
 {
+"group__unittesting.html#ga488f2c88deda4cedf108f5bf41b0c1f5":[3,1,3],
+"group__unittesting.html#ga488f2c88deda4cedf108f5bf41b0c1f5":[6,0,0,0,1,0,0,7],
+"group__unittesting.html#ga4eceeb6c35ebc01c1e28ef13932484e2":[6,0,0,0,1,0,0,32],
+"group__unittesting.html#ga4eceeb6c35ebc01c1e28ef13932484e2":[3,1,28],
 "group__unittesting.html#ga500d10132855bdb3337e0877d2aeffcc":[3,1,4],
 "group__unittesting.html#ga500d10132855bdb3337e0877d2aeffcc":[6,0,0,0,1,0,0,8],
 "group__unittesting.html#ga5fd0213ca76c458bc808251711e93cff":[3,1,8],
@@ -22,14 +26,14 @@ var NAVTREEINDEX4 =
 "group__unittesting.html#gaafd4657b11bcceb70c65ff1183f82c37":[3,1,21],
 "group__unittesting.html#gab7ba609bc6e1acbfc8861d1da0620532":[3,1,27],
 "group__unittesting.html#gab7ba609bc6e1acbfc8861d1da0620532":[6,0,0,0,1,0,0,31],
-"group__unittesting.html#gac21dabceebd6eed827d0255f0b3a317d":[6,0,0,0,1,0,0,17],
 "group__unittesting.html#gac21dabceebd6eed827d0255f0b3a317d":[3,1,13],
+"group__unittesting.html#gac21dabceebd6eed827d0255f0b3a317d":[6,0,0,0,1,0,0,17],
 "group__unittesting.html#gac3b1b9183dc53d2ab06cfaf8a693d5a5":[6,0,0,0,1,0,0,23],
 "group__unittesting.html#gac3b1b9183dc53d2ab06cfaf8a693d5a5":[3,1,19],
 "group__unittesting.html#gadae801baf804b33f52b180d64dbf0340":[3,1,11],
 "group__unittesting.html#gadae801baf804b33f52b180d64dbf0340":[6,0,0,0,1,0,0,15],
-"group__unittesting.html#gadbb244c7b75defd4bfa7c28ead512b0c":[6,0,0,0,1,0,0,13],
 "group__unittesting.html#gadbb244c7b75defd4bfa7c28ead512b0c":[3,1,9],
+"group__unittesting.html#gadbb244c7b75defd4bfa7c28ead512b0c":[6,0,0,0,1,0,0,13],
 "hash_8hpp.html":[6,0,0,0,0,1],
 "hash_8hpp.html#a060ca1134fd68c8c9cb028d8c4f97104":[6,0,0,0,0,1,9],
 "hash_8hpp.html#a5e4058cdc8028143e859891fb98d502a":[6,0,0,0,0,1,7],
@@ -245,9 +249,5 @@ var NAVTREEINDEX4 =
 "namespacequickcpplib_1_1__xxx_1_1function__ptr.html":[5,0,1,0,8],
 "namespacequickcpplib_1_1__xxx_1_1function__ptr.html":[4,0,2,0,10],
 "namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach.html":[5,0,1,0,9],
-"namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach.html":[4,0,2,0,11],
-"namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1detail.html":[4,0,2,0,11,0],
-"namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1traits.html":[5,0,1,0,9,0],
-"namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1traits.html":[4,0,2,0,11,1],
-"namespacequickcpplib_1_1__xxx_1_1integers128.html":[5,0,1,0,10]
+"namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach.html":[4,0,2,0,11]
 };
