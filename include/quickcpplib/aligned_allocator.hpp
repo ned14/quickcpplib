@@ -60,7 +60,7 @@ namespace aligned_allocator
       M256 = 32             //!< The alignment for a 256 bit vector.
     };
 #ifdef _WIN32
-    extern "C" void *_aligned_malloc(size_t size, size_t alignment);
+    extern "C" __declspec(allocator) __declspec(restrict) void *_aligned_malloc(size_t size, size_t alignment);
     extern "C" void _aligned_free(void *blk);
 #else
     extern "C" int posix_memalign(void **memptr, size_t alignment, size_t size);
