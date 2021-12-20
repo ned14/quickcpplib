@@ -15,7 +15,7 @@ var NAVTREEINDEX6 =
 "small__prng_8hpp.html#a3bb97975d35cf80a7915b57477e4c7e6":[6,0,0,0,0,6,2],
 "small__prng_8hpp.html#a936f76639c37fa63b61f60251721247c":[6,0,0,0,0,6,1],
 "span_8hpp.html":[6,0,0,0,29],
-"span_8hpp.html#a4338fe91c05ef10826d98a932fd1f72e":[6,0,0,0,29,0],
+"span_8hpp.html#a507a48685d37a1347f58e4495274aeb8":[6,0,0,0,29,0],
 "spinlock_8hpp.html":[6,0,0,0,30],
 "spinlock_8hpp.html#a10c572932a08be170b60aac4aa577882":[6,0,0,0,30,19],
 "spinlock_8hpp.html#a283d2a54c3371823054980c76e3cae96":[6,0,0,0,30,22],

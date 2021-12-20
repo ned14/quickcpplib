@@ -60,7 +60,7 @@ var searchData=
   ['smt_5fpause_3c_20true_20_3e_851',['smt_pause&lt; true &gt;',['../namespacequickcpplib_1_1__xxx_1_1configurable__spinlock_1_1detail.html#a62dc18cd59e37cb0b215367522db8a73',1,'quickcpplib::_xxx::configurable_spinlock::detail']]],
   ['so_852',['so',['../_l_i_c_e_n_s_e__1__0_8txt.html#a45dcdfe4df5baa1d8c3683eb8705c61a',1,'LICENSE_1_0.txt']]],
   ['software_853',['Software',['../_l_i_c_e_n_s_e__1__0_8txt.html#ace9c60d08acfe96bcb75cdf43fa5e678',1,'LICENSE_1_0.txt']]],
-  ['span_854',['span',['../namespacequickcpplib_1_1__xxx_1_1span.html#a4338fe91c05ef10826d98a932fd1f72e',1,'quickcpplib::_xxx::span']]],
+  ['span_854',['span',['../namespacequickcpplib_1_1__xxx_1_1span.html#a507a48685d37a1347f58e4495274aeb8',1,'quickcpplib::_xxx::span']]],
   ['span_2ehpp_855',['span.hpp',['../span_8hpp.html',1,'']]],
   ['spinlock_856',['spinlock',['../classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlock.html',1,'quickcpplib::_xxx::configurable_spinlock::spinlock&lt; T, spinpolicy2, spinpolicy3, spinpolicy4 &gt;'],['../classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlock.html#a9093f37d9ddf542c6bda89ef0b864957',1,'quickcpplib::_xxx::configurable_spinlock::spinlock::spinlock()'],['../classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlock.html#aa142a3cb38a8e70cab6ea4c3132afc03',1,'quickcpplib::_xxx::configurable_spinlock::spinlock::spinlock(const spinlock &amp;)=delete'],['../classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlock.html#ade37293131b9d884b5d9580cf7e5152b',1,'quickcpplib::_xxx::configurable_spinlock::spinlock::spinlock(spinlock &amp;&amp;o) noexcept']]],
   ['spinlock_2ehpp_857',['spinlock.hpp',['../spinlock_8hpp.html',1,'']]],
