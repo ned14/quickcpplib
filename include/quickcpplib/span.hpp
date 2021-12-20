@@ -35,12 +35,12 @@ QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace span
 {
-  template <class T> using span = std::span<T>;
+  template <class T, size_t Extent = std::dynamic_extent> using span = std::span<T, Extent>;
 }
 
 QUICKCPPLIB_NAMESPACE_END
 
-#elif (_HAS_CXX20 || __cplusplus >= 202000) && __has_include(<span>)
+#elif(_HAS_CXX20 || __cplusplus >= 202000) && __has_include(<span>)
 
 #include <span>
 
@@ -48,8 +48,11 @@ QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace span
 {
-  template <class T> using span = std::span<T>;
+  template <class T, size_t Extent = std::dynamic_extent> using span = std::span<T, Extent>;
 }
+
+#undef QUICKCPPLIB_USE_STD_SPAN
+#define QUICKCPPLIB_USE_STD_SPAN 1
 
 QUICKCPPLIB_NAMESPACE_END
 
