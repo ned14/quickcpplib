@@ -63,7 +63,11 @@ endforeach()
 # whatever, the next highest scope will be looked up
 set_property(GLOBAL PROPERTY CXX_EXCEPTIONS ON)
 set_property(GLOBAL PROPERTY CXX_RTTI ON)
-set_property(GLOBAL PROPERTY CXX_STATIC_RUNTIME OFF)
+if (NOT DEFINED CMAKE_MSVC_RUNTIME_LIBRARY OR CMAKE_MSVC_RUNTIME_LIBRARY MATCHES "^MultiThreaded.*DLL$")
+  set_property(GLOBAL PROPERTY CXX_STATIC_RUNTIME OFF)
+else()
+  set_property(GLOBAL PROPERTY CXX_STATIC_RUNTIME ON)
+endif()
 if(MSVC)
   # Purge unconditional use of these flags and remove all the ignored
   # cruft which cmake adds for the LLVM-vs* toolset.
