@@ -1,6 +1,7 @@
 # Note that this only installs this library, not any quickcpplib imported
 # dependencies. It is on the installation consumer to also install the
 # dependencies separately.
+include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)
 
 add_custom_target(install.core
@@ -64,10 +65,10 @@ if(TARGET ${PROJECT_NAME}_dl)
 endif()
 
 # Create and install a find package file
-configure_file(
+configure_package_config_file(
   "${CMAKE_CURRENT_LIST_DIR}/ProjectConfig.cmake.in"
   "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-  @ONLY
+  INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
 )
 install(FILES
   "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
