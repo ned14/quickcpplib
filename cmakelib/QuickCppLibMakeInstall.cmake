@@ -4,11 +4,13 @@
 include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)
 
-add_custom_target(install.core
-                  COMMAND
-                      "${CMAKE_COMMAND}" -DCMAKE_INSTALL_COMPONENT=core
-                      -P "${CMAKE_BINARY_DIR}/cmake_install.cmake"
-)
+if (NOT TARGET install.core)
+  add_custom_target(install.core
+                    COMMAND
+                        "${CMAKE_COMMAND}" -DCMAKE_INSTALL_COMPONENT=core
+                        -P "${CMAKE_BINARY_DIR}/cmake_install.cmake"
+  )
+endif()
 
 foreach(header ${${PROJECT_NAME}_HEADERS})
   get_filename_component(dir ${header} DIRECTORY)
@@ -39,12 +41,14 @@ if(TARGET ${PROJECT_NAME}_sl)
             RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
     )
   set_target_properties(${PROJECT_NAME}_sl PROPERTIES EXPORT_NAME sl)
-  add_custom_target(install.sl
-                    DEPENDS install.core ${PROJECT_NAME}_sl
-                    COMMAND
-                        "${CMAKE_COMMAND}" -DCMAKE_INSTALL_COMPONENT=sl
-                        -P "${CMAKE_BINARY_DIR}/cmake_install.cmake"
-  )
+  if(NOT TARGET install.sl)
+    add_custom_target(install.sl
+                      DEPENDS install.core ${PROJECT_NAME}_sl
+                      COMMAND
+                          "${CMAKE_COMMAND}" -DCMAKE_INSTALL_COMPONENT=sl
+                          -P "${CMAKE_BINARY_DIR}/cmake_install.cmake"
+    )
+  endif()
 endif()
 if(TARGET ${PROJECT_NAME}_dl)
     install(TARGETS ${PROJECT_NAME}_dl
@@ -56,12 +60,14 @@ if(TARGET ${PROJECT_NAME}_dl)
             RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
     )
   set_target_properties(${PROJECT_NAME}_dl PROPERTIES EXPORT_NAME dl)
-  add_custom_target(install.dl
-                    DEPENDS install.core ${PROJECT_NAME}_dl
-                    COMMAND
-                        "${CMAKE_COMMAND}" -DCMAKE_INSTALL_COMPONENT=dl
-                        -P "${CMAKE_BINARY_DIR}/cmake_install.cmake"
-  )
+  if(NOT TARGET install.dl)
+    add_custom_target(install.dl
+                      DEPENDS install.core ${PROJECT_NAME}_dl
+                      COMMAND
+                          "${CMAKE_COMMAND}" -DCMAKE_INSTALL_COMPONENT=dl
+                          -P "${CMAKE_BINARY_DIR}/cmake_install.cmake"
+    )
+  endif()
 endif()
 
 # Create and install a find package file
