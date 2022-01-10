@@ -25,6 +25,11 @@ Distributed under the Boost Software License, Version 1.0.
 #ifndef QUICKCPPLIB_SPAN_HPP
 #define QUICKCPPLIB_SPAN_HPP
 
+// `_HAS_CXX20` is defined in `<vcruntime.h>`, i.e. we need to drag it in (indirectly).
+// `<cstddef>` is inexpensive to include and would be included for `std::size_t` anyways.
+// It is also guaranteed to include the MS STL versioning machinery for `std::byte`.
+#include <cstddef>
+
 #include "config.hpp"
 
 #ifdef QUICKCPPLIB_USE_STD_SPAN
@@ -40,7 +45,7 @@ namespace span
 
 QUICKCPPLIB_NAMESPACE_END
 
-#elif(_HAS_CXX20 || __cplusplus >= 202000) && __has_include(<span>)
+#elif(_HAS_CXX20 || __cplusplus >= 202002) && __has_include(<span>)
 
 #include <span>
 
