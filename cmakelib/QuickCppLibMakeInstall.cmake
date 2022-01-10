@@ -70,11 +70,16 @@ if(TARGET ${PROJECT_NAME}_dl)
   endif()
 endif()
 
+if(NOT DEFINED PROJECT_CONFIG_TEMPLATE_PATH)
+  set(PROJECT_CONFIG_TEMPLATE_PATH "${CMAKE_CURRENT_LIST_DIR}/ProjectConfig.cmake.in")
+endif()
+
 # Create and install a find package file
 configure_package_config_file(
-  "${CMAKE_CURRENT_LIST_DIR}/ProjectConfig.cmake.in"
+  "${PROJECT_CONFIG_TEMPLATE_PATH}"
   "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
   INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
+  PATH_VARS ${PROJECT_PACKAGE_PATH_VARS}
 )
 install(FILES
   "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
