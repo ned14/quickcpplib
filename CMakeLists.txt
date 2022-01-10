@@ -96,10 +96,12 @@ include(QuickCppLibCacheLibrarySources)
 include(QuickCppLibMakeInstall)
 install(DIRECTORY
   "${CMAKE_CURRENT_SOURCE_DIR}/cmakelib"
+  COMPONENT headers
   DESTINATION "${CMAKE_INSTALL_DATADIR}"
 )
 install(DIRECTORY
   "${CMAKE_CURRENT_SOURCE_DIR}/scripts"
+  COMPONENT headers
   DESTINATION "${CMAKE_INSTALL_DATADIR}"
 )
 include(QuickCppLibMakeExport)
