@@ -4,10 +4,10 @@
 include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)
 
-if (NOT TARGET install.core)
-  add_custom_target(install.core
+if (NOT TARGET install.headers)
+  add_custom_target(install.headers
                     COMMAND
-                        "${CMAKE_COMMAND}" -DCMAKE_INSTALL_COMPONENT=core
+                        "${CMAKE_COMMAND}" -DCMAKE_INSTALL_COMPONENT=headers
                         -P "${CMAKE_BINARY_DIR}/cmake_install.cmake"
   )
 endif()
@@ -15,13 +15,13 @@ endif()
 foreach(header ${${PROJECT_NAME}_HEADERS})
   get_filename_component(dir ${header} DIRECTORY)
   install(FILES "${header}"
-    COMPONENT core
+    COMPONENT headers
     DESTINATION "${dir}"
   )
 endforeach()
 if(TARGET ${PROJECT_NAME}_hl)
     install(TARGETS ${PROJECT_NAME}_hl
-            COMPONENT core
+            COMPONENT headers
             EXPORT ${PROJECT_NAME}Exports
             INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
             ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
@@ -29,7 +29,7 @@ if(TARGET ${PROJECT_NAME}_hl)
             RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
     )
   set_target_properties(${PROJECT_NAME}_hl PROPERTIES EXPORT_NAME hl)
-  add_dependencies(install.core ${PROJECT_NAME}_hl)
+  add_dependencies(install.headers ${PROJECT_NAME}_hl)
 endif()
 if(TARGET ${PROJECT_NAME}_sl)
     install(TARGETS ${PROJECT_NAME}_sl
@@ -43,7 +43,7 @@ if(TARGET ${PROJECT_NAME}_sl)
   set_target_properties(${PROJECT_NAME}_sl PROPERTIES EXPORT_NAME sl)
   if(NOT TARGET install.sl)
     add_custom_target(install.sl
-                      DEPENDS install.core ${PROJECT_NAME}_sl
+                      DEPENDS install.headers ${PROJECT_NAME}_sl
                       COMMAND
                           "${CMAKE_COMMAND}" -DCMAKE_INSTALL_COMPONENT=sl
                           -P "${CMAKE_BINARY_DIR}/cmake_install.cmake"
@@ -62,7 +62,7 @@ if(TARGET ${PROJECT_NAME}_dl)
   set_target_properties(${PROJECT_NAME}_dl PROPERTIES EXPORT_NAME dl)
   if(NOT TARGET install.dl)
     add_custom_target(install.dl
-                      DEPENDS install.core ${PROJECT_NAME}_dl
+                      DEPENDS install.headers ${PROJECT_NAME}_dl
                       COMMAND
                           "${CMAKE_COMMAND}" -DCMAKE_INSTALL_COMPONENT=dl
                           -P "${CMAKE_BINARY_DIR}/cmake_install.cmake"
@@ -78,6 +78,6 @@ configure_package_config_file(
 )
 install(FILES
   "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-  COMPONENT core
+  COMPONENT headers
   DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
 )
