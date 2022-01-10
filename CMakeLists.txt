@@ -14,6 +14,9 @@ ensure_git_subrepo("${CMAKE_CURRENT_SOURCE_DIR}/include/quickcpplib/byte/include
 
 # Sets the usual PROJECT_NAME etc
 project(quickcpplib VERSION 0.1.0.0 LANGUAGES C CXX)
+include(CMakeDependentOption)
+option(QUICKCPPLIB_REQUIRE_CXX20 "Add cxx17 compile feature to the target which in turn makes byte-lite and gsl-lite optional." OFF)
+cmake_dependent_option(QUICKCPPLIB_REQUIRE_CXX17 "Add cxx17 compile feature to the target which in turn makes byte-lite optional." OFF "NOT QUICKCPPLIB_REQUIRE_CXX20" OFF)
 # quickcpplib does not provide a master header file
 set(quickcpplib_INTERFACE_DISABLED ON)
 # Also set a *cmake* namespace for this project
@@ -26,6 +29,12 @@ if(NOT PROJECT_IS_DEPENDENCY)
 endif()
 # Exclude any embedded CATCH
 list_filter(quickcpplib_HEADERS EXCLUDE REGEX "include/quickcpplib/CATCH")
+if (QUICKCPPLIB_REQUIRE_CXX20)
+  list_filter(quickcpplib_HEADERS EXCLUDE REGEX "include/quickcpplib/gsl-lite/")
+endif()
+if (QUICKCPPLIB_REQUIRE_CXX17 OR QUICKCPPLIB_REQUIRE_CXX20)
+  list_filter(quickcpplib_HEADERS EXCLUDE REGEX "include/quickcpplib/byte/")
+endif()
 # Make an interface only library so dependent CMakeLists can bring in this header-only library
 include(QuickCppLibMakeHeaderOnlyLibrary)
 # Make a docs target
@@ -34,15 +43,21 @@ include(QuickCppLibMakeDoxygen)
 # Set the standard definitions for these libraries and bring in the all_* helper functions
 include(QuickCppLibApplyDefaultDefinitions)
 # Set the C++ features this library requires
-all_compile_features(PUBLIC
-  cxx_alias_templates
-  cxx_variadic_templates
-  cxx_noexcept
-  cxx_constexpr
-#  cxx_thread_local          ## Technically a requirement, but not enforced due to Xcode 7
-  cxx_lambda_init_captures
-  cxx_generic_lambdas
-)
+if(QUICKCPPLIB_REQUIRE_CXX20)
+  all_compile_features(PUBLIC cxx_std_20)
+elseif(QUICKCPPLIB_REQUIRE_CXX17)
+  all_compile_features(PUBLIC cxx_std_17)
+else()
+  all_compile_features(PUBLIC
+    cxx_alias_templates
+    cxx_variadic_templates
+    cxx_noexcept
+    cxx_constexpr
+    #cxx_thread_local          ## Technically a requirement, but not enforced due to Xcode 7
+    cxx_lambda_init_captures
+    cxx_generic_lambdas
+  )
+endif()
 # On Linux, things using me must link to libdl
 if(CMAKE_SYSTEM_NAME MATCHES "Linux")
   all_link_libraries(PUBLIC dl rt)
