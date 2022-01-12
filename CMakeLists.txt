@@ -93,15 +93,20 @@ endif()
 include(QuickCppLibCacheLibrarySources)
 
 # Make available this library for install and export
+include(GNUInstallDirs)
+set(PROJECT_CONFIG_TEMPLATE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake/quickcpplibConfig.cmake.in")
+set(quickcpplib_CMAKELIB_DIR "${CMAKE_INSTALL_DATADIR}/cmakelib")
+set(quickcpplib_SCRIPTS_DIR "${CMAKE_INSTALL_DATADIR}/scripts")
+set(PROJECT_PACKAGE_PATH_VARS quickcpplib_CMAKELIB_DIR quickcpplib_SCRIPTS_DIR)
 include(QuickCppLibMakeInstall)
 install(DIRECTORY
-  "${CMAKE_CURRENT_SOURCE_DIR}/cmakelib"
+  "${CMAKE_CURRENT_SOURCE_DIR}/cmakelib/"
   COMPONENT headers
-  DESTINATION "${CMAKE_INSTALL_DATADIR}"
+  DESTINATION "${quickcpplib_CMAKELIB_DIR}"
 )
 install(DIRECTORY
-  "${CMAKE_CURRENT_SOURCE_DIR}/scripts"
+  "${CMAKE_CURRENT_SOURCE_DIR}/scripts/"
   COMPONENT headers
-  DESTINATION "${CMAKE_INSTALL_DATADIR}"
+  DESTINATION "${quickcpplib_SCRIPTS_DIR}"
 )
 include(QuickCppLibMakeExport)

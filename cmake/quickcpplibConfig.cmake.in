@@ -1,0 +1,14 @@
+@PACKAGE_INIT@
+
+set_and_check(quickcpplib_CMAKELIB_DIR "@PACKAGE_quickcpplib_CMAKELIB_DIR@")
+set_and_check(quickcpplib_SCRIPTS_DIR "@PACKAGE_quickcpplib_SCRIPTS_DIR@")
+
+include("${CMAKE_CURRENT_LIST_DIR}/quickcpplibExports.cmake")
+if (EXISTS "${CMAKE_CURRENT_LIST_DIR}/quickcpplibSlExports.cmake")
+  include("${CMAKE_CURRENT_LIST_DIR}/quickcpplibSlExports.cmake")
+endif()
+if (EXISTS "${CMAKE_CURRENT_LIST_DIR}/quickcpplibDlExports.cmake")
+  include("${CMAKE_CURRENT_LIST_DIR}/quickcpplibDlExports.cmake")
+endif()
+
+check_required_components(quickcpplib)
