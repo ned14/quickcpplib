@@ -272,14 +272,18 @@ endfunction()
 
 # Have cmake download, build, and install some git repo
 function(download_build_install)
-  cmake_parse_arguments(DBI "" "NAME;DESTINATION;GIT_REPOSITORY;GIT_TAG" "CMAKE_ARGS;EXTERNALPROJECT_ARGS" ${ARGN})
+  cmake_parse_arguments(DBI "" "NAME;DESTINATION;INSTALL_PREFIX;GIT_REPOSITORY;GIT_TAG" "CMAKE_ARGS;EXTERNALPROJECT_ARGS" ${ARGN})
   configure_file("${QuickCppLibCMakePath}/DownloadBuildInstall.cmake.in" "${DBI_DESTINATION}/CMakeLists.txt" @ONLY)
   checked_execute_process("Configure download, build and install of ${DBI_NAME} with ${DBI_CMAKE_ARGS}"
     COMMAND "${CMAKE_COMMAND}" .
     WORKING_DIRECTORY "${DBI_DESTINATION}"
   )
-  checked_execute_process("Execute download, build and install of ${DBI_NAME} with ${DBI_CMAKE_ARGS}" 
+  checked_execute_process("Build download, build and install of ${DBI_NAME} with ${DBI_CMAKE_ARGS}" 
     COMMAND "${CMAKE_COMMAND}" --build .
+    WORKING_DIRECTORY "${DBI_DESTINATION}"
+  )
+  checked_execute_process("Install download, build and install of ${DBI_NAME} with ${DBI_CMAKE_ARGS}" 
+    COMMAND "${CMAKE_COMMAND}" --install .
     WORKING_DIRECTORY "${DBI_DESTINATION}"
   )
 endfunction()
@@ -370,6 +374,7 @@ function(find_quickcpplib_library libraryname)
           GIT_REPOSITORY "${FINDLIB_GIT_REPOSITORY}"
           GIT_TAG "${FINDLIB_GIT_TAG}"
           DESTINATION "${QUICKCPPLIB_ROOT_BINARY_DIR}/${libraryname}"
+          INSTALL_PREFIX "${QUICKCPPLIB_ROOT_BINARY_DIR}/install"
         )
         if(FINDLIB_IS_HEADER_ONLY)
           break()
@@ -384,7 +389,8 @@ function(find_quickcpplib_library libraryname)
         # PATHS "${QUICKCPPLIB_ROOT_BINARY_DIR}/${libraryname}" were provided.
         # However, when CMAKE_SYSROOT is set, the paths provided by the PATHS option are assumed to be system paths
         # even when they are in the build directory, and get rewritten into the sysroot.
-        set(${libraryname}_DIR "${QUICKCPPLIB_ROOT_BINARY_DIR}/${libraryname}/${CMAKE_INSTALL_LIBDIR}/cmake/${libraryname}")
+        list(APPEND CMAKE_PREFIX_PATH "${QUICKCPPLIB_ROOT_BINARY_DIR}/install")
+        set(${libraryname}_DIR "${QUICKCPPLIB_ROOT_BINARY_DIR}/install/${CMAKE_INSTALL_LIBDIR}/cmake/${libraryname}")
         find_package(${libraryname} CONFIG REQUIRED NO_DEFAULT_PATH)
       endif()
     endif()
