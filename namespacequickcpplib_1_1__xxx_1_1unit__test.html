@@ -140,10 +140,10 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  {</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keyword">static</span> jmp_buf b;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordflow">return</span> b;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  }</div>
+<div class="fragment"><div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  {</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keyword">static</span> jmp_buf b;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordflow">return</span> b;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -169,10 +169,10 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;  {</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keyword">static</span> std::vector&lt;test_suite&gt; v;</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <span class="keywordflow">return</span> v;</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;  }</div>
+<div class="fragment"><div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;  {</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <span class="keyword">static</span> std::vector&lt;test_suite&gt; v;</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="keywordflow">return</span> v;</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -198,10 +198,10 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;  {</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <span class="keyword">static</span> test_suite *v;</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keywordflow">return</span> v;</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;  }</div>
+<div class="fragment"><div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;  {</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keyword">static</span> test_suite *v;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordflow">return</span> v;</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -227,11 +227,11 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;  {</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <span class="keyword">static</span> test_case default_test_case(<span class="stringliteral">&quot;unnamed&quot;</span>, <span class="stringliteral">&quot;Default test case for unit test which don&#39;t declare test cases&quot;</span>, <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keyword">static</span> test_case *v = &amp;default_test_case;</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <span class="keywordflow">return</span> v;</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;  }</div>
+<div class="fragment"><div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;  {</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keyword">static</span> test_case default_test_case(<span class="stringliteral">&quot;unnamed&quot;</span>, <span class="stringliteral">&quot;Default test case for unit test which don&#39;t declare test cases&quot;</span>, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <span class="keyword">static</span> test_case *v = &amp;default_test_case;</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <span class="keywordflow">return</span> v;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -268,203 +268,203 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;  {</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    std::regex enabled(<span class="stringliteral">&quot;.*&quot;</span>), disabled;</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    <span class="keywordtype">bool</span> list_tests = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    std::string output_xml;</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> n = 1; n &lt; argc; n++)</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    {</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;      <span class="comment">// Double -- means it&#39;s a flag</span></div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;      <span class="keywordflow">if</span>(argv[n][0] == <span class="charliteral">&#39;-&#39;</span> &amp;&amp; argv[n][1] == <span class="charliteral">&#39;-&#39;</span>)</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;      {</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;        <span class="keywordflow">if</span>(strstr(argv[n] + 2, <span class="stringliteral">&quot;help&quot;</span>))</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;        {</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;          std::cout &lt;&lt; <span class="stringliteral">&quot;\nQuickCppLib minimal unit test framework\n\n&quot;</span>                                                                      <span class="comment">//</span></div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;                    &lt;&lt; <span class="stringliteral">&quot;Usage: &quot;</span> &lt;&lt; argv[0] &lt;&lt; <span class="stringliteral">&quot; [options] [&lt;regex for tests to run, defaults to .*&gt;] [-&lt;regex for tests to not run&gt;]\n\n&quot;</span>  <span class="comment">//</span></div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;                    &lt;&lt; <span class="stringliteral">&quot;  --help              : Prints this help\n&quot;</span>                                                                         <span class="comment">//</span></div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;                    &lt;&lt; <span class="stringliteral">&quot;  --list-tests        : List matching tests\n&quot;</span>                                                                      <span class="comment">//</span></div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;                    &lt;&lt; <span class="stringliteral">&quot;  --reporter &lt;format&gt; : Reporter to use, only format possible is junit\n&quot;</span>                                           <span class="comment">//</span></div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                    &lt;&lt; <span class="stringliteral">&quot;  --out &lt;filename&gt;    : Write JUnit XML test report to filename\n&quot;</span>                                                  <span class="comment">//</span></div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;                    &lt;&lt; std::endl;</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;          <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        }</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(strstr(argv[n] + 2, <span class="stringliteral">&quot;list-tests&quot;</span>))</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        {</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;          list_tests = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        }</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(strstr(argv[n] + 2, <span class="stringliteral">&quot;reporter&quot;</span>))</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        {</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;          <span class="keywordflow">if</span>(n + 1 &gt;= argc || strcmp(argv[n + 1], <span class="stringliteral">&quot;junit&quot;</span>))</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;          {</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;            std::cerr &lt;&lt; <span class="stringliteral">&quot;--reporter must be followed by &#39;junit&#39;&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;            <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;          }</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;          n++;</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        }</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(strstr(argv[n] + 2, <span class="stringliteral">&quot;out&quot;</span>))</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;        {</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;          <span class="keywordflow">if</span>(n + 1 &gt;= argc)</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;          {</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;            std::cerr &lt;&lt; <span class="stringliteral">&quot;--out must be followed by the output filename&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;            <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;          }</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;          output_xml = argv[n + 1];</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;          n++;</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;        }</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;      }</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;      <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;      {</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;        <span class="comment">// -regex is disabled, otherwise it&#39;s an enabled</span></div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;        <span class="keywordflow">if</span>(argv[n][0] == <span class="charliteral">&#39;-&#39;</span>)</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;          disabled.assign(argv[n] + 1);</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;          enabled.assign(argv[n]);</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;      }</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    }</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    <span class="keywordflow">if</span>(list_tests)</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    {</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;      <span class="keywordtype">size_t</span> maxname = 0;</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;      <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;j : <a class="code" href="namespacequickcpplib_1_1__xxx_1_1unit__test.html#a744a99c37b7eb5c18ad4f6b63ee610c7">test_suites</a>())</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;      {</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;        <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;i : j.test_cases)</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;        {</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;          <span class="keywordflow">if</span>(strlen(i.name) &gt; maxname)</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;            maxname = strlen(i.name);</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;        }</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;      }</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;      <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;j : <a class="code" href="namespacequickcpplib_1_1__xxx_1_1unit__test.html#a744a99c37b7eb5c18ad4f6b63ee610c7">test_suites</a>())</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;      {</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;        std::cout &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span> &lt;&lt; j.name &lt;&lt; <span class="stringliteral">&quot;:\n&quot;</span>;</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;        <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;i : j.test_cases)</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;        {</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;          <span class="keywordflow">if</span>(std::regex_match(i.name, enabled) &amp;&amp; !std::regex_match(i.name, disabled))</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;          {</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;            std::string padding(maxname - strlen(i.name), <span class="charliteral">&#39; &#39;</span>);</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;            std::cout &lt;&lt; <span class="stringliteral">&quot;  &quot;</span> &lt;&lt; i.name &lt;&lt; padding &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> &lt;&lt; i.desc &lt;&lt; <span class="stringliteral">&quot;)\n&quot;</span>;</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;          }</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;        }</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;      }</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;      std::cout &lt;&lt; std::endl;</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;      <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    }</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    <span class="keywordflow">for</span>(<span class="keyword">auto</span> &amp;j : <a class="code" href="namespacequickcpplib_1_1__xxx_1_1unit__test.html#a744a99c37b7eb5c18ad4f6b63ee610c7">test_suites</a>())</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    {</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;      <span class="keywordflow">for</span>(<span class="keyword">auto</span> &amp;i : j.test_cases)</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;      {</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;        <span class="keywordflow">if</span>(std::regex_match(i.name, enabled) &amp;&amp; !std::regex_match(i.name, disabled))</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;        {</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;          <a class="code" href="namespacequickcpplib_1_1__xxx_1_1unit__test.html#ac482d7982dfc7591e066c2c11452ca10">current_test_case</a>() = &amp;i;</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;          std::cout &lt;&lt; std::endl &lt;&lt; <a class="code" href="namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#a0074c3eb18203e173a67f074183e6129">bold</a> &lt;&lt; <a class="code" href="namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#a4a4b532a8be175445aafa5837fa74817">blue</a> &lt;&lt; i.name &lt;&lt; <a class="code" href="namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#af6764029ca0d87ccbaf9d2059fe7870e">white</a> &lt;&lt; <span class="stringliteral">&quot; : &quot;</span> &lt;&lt; i.desc &lt;&lt; <a class="code" href="namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#a4655e084dda14bd61469e307e0dc8dbe">normal</a> &lt;&lt; std::endl;</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;          std::chrono::steady_clock::time_point begin, end;</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;<span class="preprocessor">#ifdef __cpp_exceptions</span></div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;          <span class="keywordflow">try</span></div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;          {</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;          <span class="keywordflow">if</span>(setjmp(<a class="code" href="namespacequickcpplib_1_1__xxx_1_1unit__test.html#af830eb869f495741513b8cc32a2fe708">test_case_failed</a>()))</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;          {</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;            end = std::chrono::steady_clock::now();</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;            i.requirement_failed = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;          }</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;          <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;            {</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;              begin = std::chrono::steady_clock::now();</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;              i.func();</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;              end = std::chrono::steady_clock::now();</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;            }</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;<span class="preprocessor">#ifdef __cpp_exceptions</span></div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;          }</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;          <span class="keywordflow">catch</span>(<span class="keyword">const</span> requirement_failed &amp;)</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;          {</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;            end = std::chrono::steady_clock::now();</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;            i.requirement_failed = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;          }</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;          <span class="keywordflow">catch</span>(<span class="keyword">const</span> std::exception &amp;e)</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;          {</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;            end = std::chrono::steady_clock::now();</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;            ++i.fails;</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;            std::cerr &lt;&lt; <a class="code" href="namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#a7fccccab473b3d346ed9159de184102f">red</a> &lt;&lt; <span class="stringliteral">&quot;FAILURE: std::exception &#39;&quot;</span> &lt;&lt; e.what() &lt;&lt; <span class="stringliteral">&quot;&#39; thrown out of test case&quot;</span> &lt;&lt; <a class="code" href="namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#a4655e084dda14bd61469e307e0dc8dbe">normal</a> &lt;&lt; std::endl;</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;          }</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;          <span class="keywordflow">catch</span>(...)</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;          {</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;            end = std::chrono::steady_clock::now();</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;            ++i.fails;</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;            std::cerr &lt;&lt; <a class="code" href="namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#a7fccccab473b3d346ed9159de184102f">red</a> &lt;&lt; <span class="stringliteral">&quot;FAILURE: Exception thrown out of test case&quot;</span> &lt;&lt; <a class="code" href="namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#a4655e084dda14bd61469e307e0dc8dbe">normal</a> &lt;&lt; std::endl;</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;          }</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;          i.duration = end - begin;</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;          <span class="keywordflow">if</span>(i.passes)</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;            std::cout &lt;&lt; <a class="code" href="namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#aaa351bd08f0cfeb49985369a992fe86c">green</a> &lt;&lt; i.passes &lt;&lt; <span class="stringliteral">&quot; checks passed  &quot;</span>;</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;          <span class="keywordflow">if</span>(i.fails)</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;            std::cout &lt;&lt; <a class="code" href="namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#a7fccccab473b3d346ed9159de184102f">red</a> &lt;&lt; i.fails &lt;&lt; <span class="stringliteral">&quot; checks failed  &quot;</span>;</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;          std::cout &lt;&lt; <a class="code" href="namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#a4655e084dda14bd61469e307e0dc8dbe">normal</a> &lt;&lt; <span class="stringliteral">&quot;duration &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(i.duration).count() &lt;&lt; <span class="stringliteral">&quot; ms&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;        }</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;        <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;          i.skipped = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;      }</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    }</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1unit__test.html#ac482d7982dfc7591e066c2c11452ca10">current_test_case</a>() = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    std::ofstream oh;</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    <span class="keywordflow">if</span>(!output_xml.empty())</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    {</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;      oh.open(output_xml);</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;      oh &lt;&lt; R<span class="stringliteral">&quot;(&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;<span class="stringliteral">&lt;testsuites&gt;</span></div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;<span class="stringliteral">)&quot;;</span></div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;<span class="stringliteral">    }</span></div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;<span class="stringliteral">    </span><span class="keywordtype">size_t</span> totalpassed = 0, totalfailed = 0, totalskipped = 0;</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    <span class="keywordtype">double</span> totaltime = 0;</div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;j : <a class="code" href="namespacequickcpplib_1_1__xxx_1_1unit__test.html#a744a99c37b7eb5c18ad4f6b63ee610c7">test_suites</a>())</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    {</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;      <span class="keywordtype">size_t</span> passed = 0, failed = 0, skipped = 0;</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;      <span class="keywordtype">double</span> time = 0;</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;      <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;i : j.test_cases)</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;      {</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;        <span class="keywordflow">if</span>(i.skipped)</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;          ++skipped;</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(i.fails)</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;          ++failed;</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;        <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;          ++passed;</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;        time += std::chrono::duration_cast&lt;std::chrono::duration&lt;double&gt;&gt;(i.duration).count();</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;      }</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;      <span class="keywordflow">if</span>(!output_xml.empty())</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;      {</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;        oh &lt;&lt; <span class="stringliteral">&quot;  &lt;testsuite name=\&quot;&quot;</span> &lt;&lt; j.name &lt;&lt; <span class="stringliteral">&quot;\&quot; errors=\&quot;&quot;</span> &lt;&lt; 0 &lt;&lt; <span class="stringliteral">&quot;\&quot; failures=\&quot;&quot;</span> &lt;&lt; failed &lt;&lt; <span class="stringliteral">&quot;\&quot; skipped=\&quot;&quot;</span> &lt;&lt; skipped &lt;&lt; <span class="stringliteral">&quot;\&quot; tests=\&quot;&quot;</span> &lt;&lt; j.test_cases.size() &lt;&lt; <span class="stringliteral">&quot;\&quot; hostname=\&quot;\&quot; time=\&quot;&quot;</span> &lt;&lt; time &lt;&lt; <span class="stringliteral">&quot;\&quot; timestamp=\&quot;\&quot;&gt;\n&quot;</span>;</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;        <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;i : j.test_cases)</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;        {</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;          oh &lt;&lt; <span class="stringliteral">&quot;    &lt;testcase classname=\&quot;\&quot; name=\&quot;&quot;</span> &lt;&lt; i.name &lt;&lt; <span class="stringliteral">&quot;\&quot; time=\&quot;&quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::duration&lt;double&gt;&gt;(i.duration).count() &lt;&lt; <span class="stringliteral">&quot;\&quot;&gt;&quot;</span>;</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;          <span class="keywordflow">if</span>(i.skipped)</div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;            oh &lt;&lt; <span class="stringliteral">&quot;&lt;skipped/&gt;&quot;</span>;</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;          <span class="keywordflow">else</span> <span class="keywordflow">if</span>(i.fails)</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;            oh &lt;&lt; <span class="stringliteral">&quot;&lt;failure/&gt;&quot;</span>;</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;          oh &lt;&lt; <span class="stringliteral">&quot;&lt;/testcase&gt;\n&quot;</span>;</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;        }</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;        oh &lt;&lt; <span class="stringliteral">&quot;  &lt;/testsuite&gt;\n&quot;</span>;</div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;      }</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;      totalpassed += passed;</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;      totalfailed += failed;</div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;      totalskipped += skipped;</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;      totaltime += time;</div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;    }</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;    <span class="keywordflow">if</span>(!output_xml.empty())</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;    {</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;      oh &lt;&lt; R<span class="stringliteral">&quot;(&lt;/testsuites&gt;</span></div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;<span class="stringliteral">)&quot;;</span></div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;<span class="stringliteral">    }</span></div>
+<div class="fragment"><div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;  {</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    std::regex enabled(<span class="stringliteral">&quot;.*&quot;</span>), disabled;</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <span class="keywordtype">bool</span> list_tests = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    std::string output_xml;</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> n = 1; n &lt; argc; n++)</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    {</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;      <span class="comment">// Double -- means it&#39;s a flag</span></div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;      <span class="keywordflow">if</span>(argv[n][0] == <span class="charliteral">&#39;-&#39;</span> &amp;&amp; argv[n][1] == <span class="charliteral">&#39;-&#39;</span>)</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;      {</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;        <span class="keywordflow">if</span>(strstr(argv[n] + 2, <span class="stringliteral">&quot;help&quot;</span>))</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        {</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;          std::cout &lt;&lt; <span class="stringliteral">&quot;\nQuickCppLib minimal unit test framework\n\n&quot;</span>                                                                      <span class="comment">//</span></div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;                    &lt;&lt; <span class="stringliteral">&quot;Usage: &quot;</span> &lt;&lt; argv[0] &lt;&lt; <span class="stringliteral">&quot; [options] [&lt;regex for tests to run, defaults to .*&gt;] [-&lt;regex for tests to not run&gt;]\n\n&quot;</span>  <span class="comment">//</span></div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;                    &lt;&lt; <span class="stringliteral">&quot;  --help              : Prints this help\n&quot;</span>                                                                         <span class="comment">//</span></div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;                    &lt;&lt; <span class="stringliteral">&quot;  --list-tests        : List matching tests\n&quot;</span>                                                                      <span class="comment">//</span></div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                    &lt;&lt; <span class="stringliteral">&quot;  --reporter &lt;format&gt; : Reporter to use, only format possible is junit\n&quot;</span>                                           <span class="comment">//</span></div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;                    &lt;&lt; <span class="stringliteral">&quot;  --out &lt;filename&gt;    : Write JUnit XML test report to filename\n&quot;</span>                                                  <span class="comment">//</span></div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;                    &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;          <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        }</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(strstr(argv[n] + 2, <span class="stringliteral">&quot;list-tests&quot;</span>))</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        {</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;          list_tests = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        }</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(strstr(argv[n] + 2, <span class="stringliteral">&quot;reporter&quot;</span>))</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        {</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;          <span class="keywordflow">if</span>(n + 1 &gt;= argc || strcmp(argv[n + 1], <span class="stringliteral">&quot;junit&quot;</span>))</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;          {</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;            std::cerr &lt;&lt; <span class="stringliteral">&quot;--reporter must be followed by &#39;junit&#39;&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;            <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;          }</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;          n++;</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;        }</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(strstr(argv[n] + 2, <span class="stringliteral">&quot;out&quot;</span>))</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;        {</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;          <span class="keywordflow">if</span>(n + 1 &gt;= argc)</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;          {</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;            std::cerr &lt;&lt; <span class="stringliteral">&quot;--out must be followed by the output filename&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;            <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;          }</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;          output_xml = argv[n + 1];</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;          n++;</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;        }</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;      }</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;      <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;      {</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;        <span class="comment">// -regex is disabled, otherwise it&#39;s an enabled</span></div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        <span class="keywordflow">if</span>(argv[n][0] == <span class="charliteral">&#39;-&#39;</span>)</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;          disabled.assign(argv[n] + 1);</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;          enabled.assign(argv[n]);</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;      }</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    }</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    <span class="keywordflow">if</span>(list_tests)</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    {</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;      <span class="keywordtype">size_t</span> maxname = 0;</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;      <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;j : <a class="code" href="namespacequickcpplib_1_1__xxx_1_1unit__test.html#a744a99c37b7eb5c18ad4f6b63ee610c7">test_suites</a>())</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;      {</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;        <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;i : j.test_cases)</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;        {</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;          <span class="keywordflow">if</span>(strlen(i.name) &gt; maxname)</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;            maxname = strlen(i.name);</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;        }</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;      }</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;      <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;j : <a class="code" href="namespacequickcpplib_1_1__xxx_1_1unit__test.html#a744a99c37b7eb5c18ad4f6b63ee610c7">test_suites</a>())</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;      {</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;        std::cout &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span> &lt;&lt; j.name &lt;&lt; <span class="stringliteral">&quot;:\n&quot;</span>;</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;        <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;i : j.test_cases)</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;        {</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;          <span class="keywordflow">if</span>(std::regex_match(i.name, enabled) &amp;&amp; !std::regex_match(i.name, disabled))</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;          {</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;            std::string padding(maxname - strlen(i.name), <span class="charliteral">&#39; &#39;</span>);</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;            std::cout &lt;&lt; <span class="stringliteral">&quot;  &quot;</span> &lt;&lt; i.name &lt;&lt; padding &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> &lt;&lt; i.desc &lt;&lt; <span class="stringliteral">&quot;)\n&quot;</span>;</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;          }</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;        }</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;      }</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;      std::cout &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;      <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    }</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    <span class="keywordflow">for</span>(<span class="keyword">auto</span> &amp;j : <a class="code" href="namespacequickcpplib_1_1__xxx_1_1unit__test.html#a744a99c37b7eb5c18ad4f6b63ee610c7">test_suites</a>())</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    {</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;      <span class="keywordflow">for</span>(<span class="keyword">auto</span> &amp;i : j.test_cases)</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;      {</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;        <span class="keywordflow">if</span>(std::regex_match(i.name, enabled) &amp;&amp; !std::regex_match(i.name, disabled))</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;        {</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;          <a class="code" href="namespacequickcpplib_1_1__xxx_1_1unit__test.html#ac482d7982dfc7591e066c2c11452ca10">current_test_case</a>() = &amp;i;</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;          std::cout &lt;&lt; std::endl &lt;&lt; <a class="code" href="namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#a0074c3eb18203e173a67f074183e6129">bold</a> &lt;&lt; <a class="code" href="namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#a4a4b532a8be175445aafa5837fa74817">blue</a> &lt;&lt; i.name &lt;&lt; <a class="code" href="namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#af6764029ca0d87ccbaf9d2059fe7870e">white</a> &lt;&lt; <span class="stringliteral">&quot; : &quot;</span> &lt;&lt; i.desc &lt;&lt; <a class="code" href="namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#a4655e084dda14bd61469e307e0dc8dbe">normal</a> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;          std::chrono::steady_clock::time_point begin, end;</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;<span class="preprocessor">#ifdef __cpp_exceptions</span></div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;          <span class="keywordflow">try</span></div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;          {</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;          <span class="keywordflow">if</span>(setjmp(<a class="code" href="namespacequickcpplib_1_1__xxx_1_1unit__test.html#af830eb869f495741513b8cc32a2fe708">test_case_failed</a>()))</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;          {</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;            end = std::chrono::steady_clock::now();</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;            i.requirement_failed = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;          }</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;          <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;            {</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;              begin = std::chrono::steady_clock::now();</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;              i.func();</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;              end = std::chrono::steady_clock::now();</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;            }</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;<span class="preprocessor">#ifdef __cpp_exceptions</span></div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;          }</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;          <span class="keywordflow">catch</span>(<span class="keyword">const</span> requirement_failed &amp;)</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;          {</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;            end = std::chrono::steady_clock::now();</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;            i.requirement_failed = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;          }</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;          <span class="keywordflow">catch</span>(<span class="keyword">const</span> std::exception &amp;e)</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;          {</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;            end = std::chrono::steady_clock::now();</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;            ++i.fails;</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;            std::cerr &lt;&lt; <a class="code" href="namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#a7fccccab473b3d346ed9159de184102f">red</a> &lt;&lt; <span class="stringliteral">&quot;FAILURE: std::exception &#39;&quot;</span> &lt;&lt; e.what() &lt;&lt; <span class="stringliteral">&quot;&#39; thrown out of test case&quot;</span> &lt;&lt; <a class="code" href="namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#a4655e084dda14bd61469e307e0dc8dbe">normal</a> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;          }</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;          <span class="keywordflow">catch</span>(...)</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;          {</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;            end = std::chrono::steady_clock::now();</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;            ++i.fails;</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;            std::cerr &lt;&lt; <a class="code" href="namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#a7fccccab473b3d346ed9159de184102f">red</a> &lt;&lt; <span class="stringliteral">&quot;FAILURE: Exception thrown out of test case&quot;</span> &lt;&lt; <a class="code" href="namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#a4655e084dda14bd61469e307e0dc8dbe">normal</a> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;          }</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;          i.duration = end - begin;</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;          <span class="keywordflow">if</span>(i.passes)</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;            std::cout &lt;&lt; <a class="code" href="namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#aaa351bd08f0cfeb49985369a992fe86c">green</a> &lt;&lt; i.passes &lt;&lt; <span class="stringliteral">&quot; checks passed  &quot;</span>;</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;          <span class="keywordflow">if</span>(i.fails)</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;            std::cout &lt;&lt; <a class="code" href="namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#a7fccccab473b3d346ed9159de184102f">red</a> &lt;&lt; i.fails &lt;&lt; <span class="stringliteral">&quot; checks failed  &quot;</span>;</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;          std::cout &lt;&lt; <a class="code" href="namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#a4655e084dda14bd61469e307e0dc8dbe">normal</a> &lt;&lt; <span class="stringliteral">&quot;duration &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(i.duration).count() &lt;&lt; <span class="stringliteral">&quot; ms&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;        }</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;          i.skipped = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;      }</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    }</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    <a class="code" href="namespacequickcpplib_1_1__xxx_1_1unit__test.html#ac482d7982dfc7591e066c2c11452ca10">current_test_case</a>() = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    std::ofstream oh;</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    <span class="keywordflow">if</span>(!output_xml.empty())</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;    {</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;      oh.open(output_xml);</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;      oh &lt;&lt; R<span class="stringliteral">&quot;(&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;<span class="stringliteral">&lt;testsuites&gt;</span></div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;<span class="stringliteral">)&quot;;</span></div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;<span class="stringliteral">    }</span></div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;<span class="stringliteral">    </span><span class="keywordtype">size_t</span> totalpassed = 0, totalfailed = 0, totalskipped = 0;</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    <span class="keywordtype">double</span> totaltime = 0;</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;j : <a class="code" href="namespacequickcpplib_1_1__xxx_1_1unit__test.html#a744a99c37b7eb5c18ad4f6b63ee610c7">test_suites</a>())</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    {</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;      <span class="keywordtype">size_t</span> passed = 0, failed = 0, skipped = 0;</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;      <span class="keywordtype">double</span> time = 0;</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;      <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;i : j.test_cases)</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;      {</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        <span class="keywordflow">if</span>(i.skipped)</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;          ++skipped;</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(i.fails)</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;          ++failed;</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;          ++passed;</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;        time += std::chrono::duration_cast&lt;std::chrono::duration&lt;double&gt;&gt;(i.duration).count();</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;      }</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;      <span class="keywordflow">if</span>(!output_xml.empty())</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;      {</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;        oh &lt;&lt; <span class="stringliteral">&quot;  &lt;testsuite name=\&quot;&quot;</span> &lt;&lt; j.name &lt;&lt; <span class="stringliteral">&quot;\&quot; errors=\&quot;&quot;</span> &lt;&lt; 0 &lt;&lt; <span class="stringliteral">&quot;\&quot; failures=\&quot;&quot;</span> &lt;&lt; failed &lt;&lt; <span class="stringliteral">&quot;\&quot; skipped=\&quot;&quot;</span> &lt;&lt; skipped &lt;&lt; <span class="stringliteral">&quot;\&quot; tests=\&quot;&quot;</span> &lt;&lt; j.test_cases.size() &lt;&lt; <span class="stringliteral">&quot;\&quot; hostname=\&quot;\&quot; time=\&quot;&quot;</span> &lt;&lt; time &lt;&lt; <span class="stringliteral">&quot;\&quot; timestamp=\&quot;\&quot;&gt;\n&quot;</span>;</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;        <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;i : j.test_cases)</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;        {</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;          oh &lt;&lt; <span class="stringliteral">&quot;    &lt;testcase classname=\&quot;\&quot; name=\&quot;&quot;</span> &lt;&lt; i.name &lt;&lt; <span class="stringliteral">&quot;\&quot; time=\&quot;&quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::duration&lt;double&gt;&gt;(i.duration).count() &lt;&lt; <span class="stringliteral">&quot;\&quot;&gt;&quot;</span>;</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;          <span class="keywordflow">if</span>(i.skipped)</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;            oh &lt;&lt; <span class="stringliteral">&quot;&lt;skipped/&gt;&quot;</span>;</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;          <span class="keywordflow">else</span> <span class="keywordflow">if</span>(i.fails)</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;            oh &lt;&lt; <span class="stringliteral">&quot;&lt;failure/&gt;&quot;</span>;</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;          oh &lt;&lt; <span class="stringliteral">&quot;&lt;/testcase&gt;\n&quot;</span>;</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;        }</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;        oh &lt;&lt; <span class="stringliteral">&quot;  &lt;/testsuite&gt;\n&quot;</span>;</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;      }</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;      totalpassed += passed;</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;      totalfailed += failed;</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;      totalskipped += skipped;</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;      totaltime += time;</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;    }</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;    <span class="keywordflow">if</span>(!output_xml.empty())</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;    {</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;      oh &lt;&lt; R<span class="stringliteral">&quot;(&lt;/testsuites&gt;</span></div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;<span class="stringliteral">)&quot;;</span></div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;<span class="stringliteral">    }</span></div>
 </div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail_html_af6764029ca0d87ccbaf9d2059fe7870e"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#af6764029ca0d87ccbaf9d2059fe7870e">quickcpplib::_xxx::console_colours::detail::white</a></div><div class="ttdeci">constexpr const char white[]</div><div class="ttdef"><b>Definition:</b> console_colours.hpp:134</div></div>
-<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1unit__test_html_af830eb869f495741513b8cc32a2fe708"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1unit__test.html#af830eb869f495741513b8cc32a2fe708">quickcpplib::_xxx::unit_test::test_case_failed</a></div><div class="ttdeci">jmp_buf &amp; test_case_failed()</div><div class="ttdef"><b>Definition:</b> unit_test.hpp:111</div></div>
-<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1unit__test_html_ac482d7982dfc7591e066c2c11452ca10"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1unit__test.html#ac482d7982dfc7591e066c2c11452ca10">quickcpplib::_xxx::unit_test::current_test_case</a></div><div class="ttdeci">test_case *&amp; current_test_case()</div><div class="ttdef"><b>Definition:</b> unit_test.hpp:172</div></div>
+<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1unit__test_html_af830eb869f495741513b8cc32a2fe708"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1unit__test.html#af830eb869f495741513b8cc32a2fe708">quickcpplib::_xxx::unit_test::test_case_failed</a></div><div class="ttdeci">jmp_buf &amp; test_case_failed()</div><div class="ttdef"><b>Definition:</b> unit_test.hpp:112</div></div>
+<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1unit__test_html_ac482d7982dfc7591e066c2c11452ca10"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1unit__test.html#ac482d7982dfc7591e066c2c11452ca10">quickcpplib::_xxx::unit_test::current_test_case</a></div><div class="ttdeci">test_case *&amp; current_test_case()</div><div class="ttdef"><b>Definition:</b> unit_test.hpp:173</div></div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail_html_a4655e084dda14bd61469e307e0dc8dbe"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#a4655e084dda14bd61469e307e0dc8dbe">quickcpplib::_xxx::console_colours::detail::normal</a></div><div class="ttdeci">constexpr const char normal[]</div><div class="ttdef"><b>Definition:</b> console_colours.hpp:136</div></div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail_html_a0074c3eb18203e173a67f074183e6129"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#a0074c3eb18203e173a67f074183e6129">quickcpplib::_xxx::console_colours::detail::bold</a></div><div class="ttdeci">constexpr const char bold[]</div><div class="ttdef"><b>Definition:</b> console_colours.hpp:135</div></div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail_html_a7fccccab473b3d346ed9159de184102f"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#a7fccccab473b3d346ed9159de184102f">quickcpplib::_xxx::console_colours::detail::red</a></div><div class="ttdeci">constexpr const char red[]</div><div class="ttdef"><b>Definition:</b> console_colours.hpp:128</div></div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail_html_aaa351bd08f0cfeb49985369a992fe86c"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#aaa351bd08f0cfeb49985369a992fe86c">quickcpplib::_xxx::console_colours::detail::green</a></div><div class="ttdeci">constexpr const char green[]</div><div class="ttdef"><b>Definition:</b> console_colours.hpp:129</div></div>
-<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1unit__test_html_a744a99c37b7eb5c18ad4f6b63ee610c7"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1unit__test.html#a744a99c37b7eb5c18ad4f6b63ee610c7">quickcpplib::_xxx::unit_test::test_suites</a></div><div class="ttdeci">std::vector&lt; test_suite &gt; &amp; test_suites()</div><div class="ttdef"><b>Definition:</b> unit_test.hpp:162</div></div>
+<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1unit__test_html_a744a99c37b7eb5c18ad4f6b63ee610c7"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1unit__test.html#a744a99c37b7eb5c18ad4f6b63ee610c7">quickcpplib::_xxx::unit_test::test_suites</a></div><div class="ttdeci">std::vector&lt; test_suite &gt; &amp; test_suites()</div><div class="ttdef"><b>Definition:</b> unit_test.hpp:163</div></div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail_html_a4a4b532a8be175445aafa5837fa74817"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#a4a4b532a8be175445aafa5837fa74817">quickcpplib::_xxx::console_colours::detail::blue</a></div><div class="ttdeci">constexpr const char blue[]</div><div class="ttdef"><b>Definition:</b> console_colours.hpp:130</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
