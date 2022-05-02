@@ -85,6 +85,7 @@ do checks concurrently.</dd>
 #if QUICKCPPLIB_BOOST_UNIT_TEST_IMPL == 0  // std::terminate
 #include <atomic>
 #include <chrono>
+#include <cstring>  // for strstr
 #include <fstream>
 #include <iostream>
 #include <regex>
