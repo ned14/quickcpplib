@@ -361,7 +361,7 @@ namespace unit_test
       oh << R"(</testsuites>
 )";
     }
-    std::cout << bold << white << "\n\nTest case summary: " << green << totalpassed << " passed " << red << totalfailed << " failed " << yellow << totalskipped << " skipped" << normal << std::endl;
+    std::cout << bold << white << "\n\nTest case summary: " << green << totalpassed << " passed " << red << totalfailed << " failed " << yellow << totalskipped << " skipped" << normal << "\nTotal duration: " << totaltime << " seconds." << std::endl;
     return totalfailed > 0;
   }
   struct test_suite_registration
