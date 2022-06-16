@@ -236,7 +236,7 @@ endfunction()
 function(target_uses_openmp target)
   find_package(OpenMP)
   if(OPENMP_FOUND)
-    if(MSVC AND CLANG)
+    if(MSVC AND CLANG OR APPLE)
       # Currently doesn't work
     elseif(MSVC)
       target_compile_options(${target} PRIVATE ${OpenMP_CXX_FLAGS})

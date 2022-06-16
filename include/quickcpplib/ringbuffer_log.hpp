@@ -217,7 +217,7 @@ namespace ringbuffer_log
         size_t len = 0;
         {
           packed_backtrace::packed_backtrace<> pb(v.backtrace);
-          for(const auto &i : pb)
+          for(const auto *i : pb)
           {
             backtrace[len] = i;
             len++;

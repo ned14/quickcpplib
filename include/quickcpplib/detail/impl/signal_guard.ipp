@@ -1519,6 +1519,7 @@ linker,                                                                         
         throw std::system_error(errno, std::system_category());
       }
 #ifdef __APPLE__
+      (void) ms;
       throw std::runtime_error("signal_guard_watchdog not implemented on Mac OS due to lack of POSIX timers");
 #else
       timer_t timerid = nullptr;
