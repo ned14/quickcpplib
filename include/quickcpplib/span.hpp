@@ -63,15 +63,13 @@ QUICKCPPLIB_NAMESPACE_END
 
 #else
 
-#define gsl_CONFIG_DEFAULTS_VERSION 1
-
-#include "gsl-lite/include/gsl/gsl-lite.hpp"
+#include "span-lite/include/nonstd/span.hpp"
 
 QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace span
 {
-  template <class T> using span = gsl_lite::span<T>;
+  template <class T> using span = nonstd::span<T>;
 }
 
 QUICKCPPLIB_NAMESPACE_END
