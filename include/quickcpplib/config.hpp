@@ -290,6 +290,12 @@ extern "C" void _mm_pause();
 #endif
 #endif
 
+#ifndef QUICKCPPLIB_DISABLE_EXECINFO
+#if defined(__EMSCRIPTEN__)
+#define QUICKCPPLIB_DISABLE_EXECINFO 1
+#endif
+#endif
+
 #include "detail/preprocessor_macro_overload.h"
 #if defined(__cpp_concepts) && !defined(QUICKCPPLIB_DISABLE_CONCEPTS_SUPPORT)
 #define QUICKCPPLIB_TREQUIRES_EXPAND8(a, b, c, d, e, f, g, h) a &&QUICKCPPLIB_TREQUIRES_EXPAND7(b, c, d, e, f, g, h)

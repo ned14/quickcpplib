@@ -64,7 +64,9 @@ Distributed under the Boost Software License, Version 1.0.
 #include "execinfo_win64.h"
 #else
 #include <dlfcn.h>
+#if !QUICKCPPLIB_DISABLE_EXECINFO
 #include <execinfo.h>
+#endif
 #include <fcntl.h>
 #include <limits.h>
 #include <signal.h>  // for siginfo_t
@@ -149,7 +151,11 @@ namespace ringbuffer_log
           , code32{_code1, _code2}
           , level(static_cast<uint8_t>(_level))
           , using_code64(false)
+#if !QUICKCPPLIB_DISABLE_EXECINFO
           , using_backtrace(!_function)
+#else
+          , using_backtrace{0}
+#endif
       {
         size_t _messagelen = strlen(_message) + 1;
         if(_messagelen > sizeof(message))
@@ -191,10 +197,12 @@ namespace ringbuffer_log
         else
         {
           function[0] = 0;
+#if !QUICKCPPLIB_DISABLE_EXECINFO
           const void *temp[16];
           memset(temp, 0, sizeof(temp));
           (void) ::backtrace((void **) temp, 16);
           packed_backtrace::make_packed_backtrace(backtrace, temp);
+#endif
         }
       }
       bool operator==(const value_type &o) const noexcept { return memcmp(this, &o, sizeof(*this)) == 0; }
@@ -382,7 +390,9 @@ namespace ringbuffer_log
         }
         if(!done)
 #endif
+
         {
+#if !QUICKCPPLIB_DISABLE_EXECINFO
           char **symbols = backtrace_symbols(backtrace, len);
           if(!symbols)
             ret.append("BACKTRACE FAILED!");
@@ -399,6 +409,7 @@ namespace ringbuffer_log
             }
             free(symbols);
           }
+#endif
         }
       }
       else
@@ -467,6 +478,7 @@ namespace ringbuffer_log
       s << temp << "\",\"";
       if(v.using_backtrace)
       {
+#if !QUICKCPPLIB_DISABLE_EXECINFO
         char **symbols = backtrace_symbols((void **) v.backtrace, sizeof(v.backtrace) / sizeof(v.backtrace[0]));
         if(!symbols)
           s << "BACKTRACE FAILED!";
@@ -483,6 +495,7 @@ namespace ringbuffer_log
           }
           free(symbols);
         }
+#endif
       }
       else
       {
