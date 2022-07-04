@@ -8,7 +8,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmakelib
 include(QuickCppLibRequireOutOfSourceBuild)
 include(QuickCppLibUtils)
 include(QuickCppLibPolicies)
-ensure_git_subrepo("${CMAKE_CURRENT_SOURCE_DIR}/include/quickcpplib/gsl-lite/include" "https://github.com/martinmoene/gsl-lite.git")
+ensure_git_subrepo("${CMAKE_CURRENT_SOURCE_DIR}/include/quickcpplib/span-lite/include" "https://github.com/martinmoene/span-lite.git")
 ensure_git_subrepo("${CMAKE_CURRENT_SOURCE_DIR}/include/quickcpplib/optional/optional.hpp" "https://github.com/akrzemi1/Optional.git" optional)
 ensure_git_subrepo("${CMAKE_CURRENT_SOURCE_DIR}/include/quickcpplib/byte/include" "https://github.com/martinmoene/byte-lite.git" byte)
 
@@ -30,10 +30,11 @@ endif()
 # Exclude any embedded CATCH
 list_filter(quickcpplib_HEADERS EXCLUDE REGEX "include/quickcpplib/CATCH")
 if (QUICKCPPLIB_REQUIRE_CXX20)
-  list_filter(quickcpplib_HEADERS EXCLUDE REGEX "include/quickcpplib/gsl-lite/")
+  list_filter(quickcpplib_HEADERS EXCLUDE REGEX "include/quickcpplib/span-lite/")
 endif()
 if (QUICKCPPLIB_REQUIRE_CXX17 OR QUICKCPPLIB_REQUIRE_CXX20)
   list_filter(quickcpplib_HEADERS EXCLUDE REGEX "include/quickcpplib/byte/")
+  list_filter(quickcpplib_HEADERS EXCLUDE REGEX "include/quickcpplib/optional/")
 endif()
 # Make an interface only library so dependent CMakeLists can bring in this header-only library
 include(QuickCppLibMakeHeaderOnlyLibrary)
