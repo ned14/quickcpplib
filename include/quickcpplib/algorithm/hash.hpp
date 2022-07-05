@@ -29,6 +29,7 @@ Distributed under the Boost Software License, Version 1.0.
 #include "memory.hpp"
 
 #include <cassert>
+#include <cstdint>
 #include <type_traits>
 
 QUICKCPPLIB_NAMESPACE_BEGIN
@@ -48,12 +49,12 @@ namespace algorithm
     {
       size_t operator()(T v) const
       {
-#if defined(__x86_64__) || defined(_M_X64) || defined(__aarch64__) || defined(__ia64__) || defined(_M_IA64) || defined(__ppc64__)
-        static constexpr size_t basis = 14695981039346656037ULL, prime = 1099511628211ULL;
-        static_assert(sizeof(size_t) == 8, "size_t is not 64 bit");
-#else
+#if SIZE_MAX == 0xffffffff
         static constexpr size_t basis = 2166136261U, prime = 16777619U;
         static_assert(sizeof(size_t) == 4, "size_t is not 32 bit");
+#else
+        static constexpr size_t basis = 14695981039346656037ULL, prime = 1099511628211ULL;
+        static_assert(sizeof(size_t) == 8, "size_t is not 64 bit");
 #endif
         const unsigned char *_v = (const unsigned char *) &v;
         size_t ret = basis;
