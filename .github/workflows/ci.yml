@@ -41,8 +41,8 @@ jobs:
         path: prebuilt/merged_junit_results.xml
 
   MacOS:
-    name: Mac OS 10.15
-    runs-on: macos-10.15
+    name: Mac OS
+    runs-on: macos-latest
     env:
       NAME: MacOS
           
@@ -108,7 +108,7 @@ jobs:
           path: artifacts
 
       - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1.3
+        uses: EnricoMi/publish-unit-test-result-action@v1.39
         with:
           check_name: Unit Test Results
           github_token: ${{ secrets.GITHUB_TOKEN }}

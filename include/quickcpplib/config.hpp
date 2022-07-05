@@ -296,6 +296,16 @@ extern "C" void _mm_pause();
 #endif
 #endif
 
+#ifndef QUICKCPPLIB_PLATFORM_NATIVE_BITLENGTH
+#if defined(__SIZEOF_POINTER__)
+#define QUICKCPPLIB_PLATFORM_NATIVE_BITLENGTH (__SIZEOF_POINTER__ * __CHAR_BIT__)
+#elif defined(_WIN64) || defined(__x86_64__) || defined(_M_X64) || defined(__aarch64__) || defined(_M_ARM64) || defined(__ia64__) || defined(_M_IA64) || defined(__ppc64__)
+#define QUICKCPPLIB_PLATFORM_NATIVE_BITLENGTH (64)
+#else
+#define QUICKCPPLIB_PLATFORM_NATIVE_BITLENGTH (32)
+#endif
+#endif
+
 #include "detail/preprocessor_macro_overload.h"
 #if defined(__cpp_concepts) && !defined(QUICKCPPLIB_DISABLE_CONCEPTS_SUPPORT)
 #define QUICKCPPLIB_TREQUIRES_EXPAND8(a, b, c, d, e, f, g, h) a &&QUICKCPPLIB_TREQUIRES_EXPAND7(b, c, d, e, f, g, h)
