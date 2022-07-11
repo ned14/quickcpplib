@@ -106,7 +106,7 @@ namespace quickcpplib
 
 #ifndef QUICKCPPLIB_IN_ADDRESS_SANITIZER
 #if defined(__has_feature)
-#if __has_feature(address_sanitizer)
+#if __has_feature(address_sanitizer) || defined(__SANITIZE_ADDRESS__)
 #define QUICKCPPLIB_IN_ADDRESS_SANITIZER 1
 #endif
 #elif defined(__SANITIZE_ADDRESS__)
@@ -119,7 +119,7 @@ namespace quickcpplib
 
 #ifndef QUICKCPPLIB_IN_THREAD_SANITIZER
 #if defined(__has_feature)
-#if __has_feature(thread_sanitizer)
+#if __has_feature(thread_sanitizer) || defined(__SANITIZE_THREAD__)
 #define QUICKCPPLIB_IN_THREAD_SANITIZER 1
 #endif
 #elif defined(__SANITIZE_THREAD__)
@@ -132,7 +132,7 @@ namespace quickcpplib
 
 #ifndef QUICKCPPLIB_IN_UNDEFINED_SANITIZER
 #if defined(__has_feature)
-#if __has_feature(undefined_behavior_sanitizer)
+#if __has_feature(undefined_behavior_sanitizer) || defined(__SANITIZE_UNDEFINED__) || (__GNUC__ <= 9 && defined(__SANITIZE_ADDRESS__))
 #define QUICKCPPLIB_IN_UNDEFINED_SANITIZER 1
 #endif
 #elif defined(__SANITIZE_UNDEFINED__) || (__GNUC__ <= 9 && defined(__SANITIZE_ADDRESS__))
