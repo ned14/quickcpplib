@@ -29,6 +29,7 @@ Distributed under the Boost Software License, Version 1.0.
 #include "memory.hpp"
 
 #include <cassert>
+#include <cstdint>
 #include <type_traits>
 
 QUICKCPPLIB_NAMESPACE_BEGIN
@@ -48,21 +49,25 @@ namespace algorithm
     {
       size_t operator()(T v) const
       {
-#if defined(__x86_64__) || defined(_M_X64) || defined(__aarch64__) || defined(__ia64__) || defined(_M_IA64) || defined(__ppc64__)
-        static constexpr size_t basis = 14695981039346656037ULL, prime = 1099511628211ULL;
-        static_assert(sizeof(size_t) == 8, "size_t is not 64 bit");
+#if QUICKCPPLIB_PLATFORM_NATIVE_BITLENGTH < 64
+        using working_type = uint32_t;
+        static constexpr working_type basis = 2166136261U, prime = 16777619U;
 #else
-        static constexpr size_t basis = 2166136261U, prime = 16777619U;
-        static_assert(sizeof(size_t) == 4, "size_t is not 32 bit");
+        using working_type = uint64_t;
+        static constexpr working_type basis = 14695981039346656037ULL, prime = 1099511628211ULL;
 #endif
         const unsigned char *_v = (const unsigned char *) &v;
-        size_t ret = basis;
+        working_type ret = basis;
         for(size_t n = 0; n < sizeof(T); n++)
         {
-          ret ^= (size_t) _v[n];
+          ret ^= (working_type) _v[n];
           ret *= prime;
         }
+#if !defined(__SIZEOF_SIZE_T__) || (__SIZEOF_SIZE_T__ * __CHAR_BIT__) < QUICKCPPLIB_PLATFORM_NATIVE_BITLENGTH
+        return size_t(ret);
+#else
         return ret;
+#endif
       }
     };
 
@@ -518,7 +523,7 @@ namespace algorithm
 
         // handle all whole blocks of sc_blockSize bytes
         end = u.p64 + (length / sc_blockSize) * sc_numVars;
-        remainder = (uint8)(length - ((const uint8 *) end - u.p8));
+        remainder = (uint8) (length - ((const uint8 *) end - u.p8));
         if(ALLOW_UNALIGNED_READS || (u.i & 0x7) == 0)
         {
           while(u.p64 < end)
@@ -879,11 +884,11 @@ namespace algorithm
 
         /* Storing of len * 8 as a big endian 64-bit without overflow. */
         size_t len = _total_len;
-        _chunk[_chunkidx + 7] = (uint8_t)((len << 3) & 0xff);
+        _chunk[_chunkidx + 7] = (uint8_t) ((len << 3) & 0xff);
         len >>= 5;
         for(int i = 6; i >= 0; i--)
         {
-          _chunk[_chunkidx + i] = (uint8_t)(len & 0xff);
+          _chunk[_chunkidx + i] = (uint8_t) (len & 0xff);
           len >>= 8;
         }
         _chunkidx += 8;
@@ -895,10 +900,10 @@ namespace algorithm
         /* Produce the final hash value (big-endian): */
         for(unsigned i = 0, j = 0; i < 8; i++)
         {
-          ret.as_bytes[j++] = (uint8_t)((_h.as_ints[i] >> 24) & 0xff);
-          ret.as_bytes[j++] = (uint8_t)((_h.as_ints[i] >> 16) & 0xff);
-          ret.as_bytes[j++] = (uint8_t)((_h.as_ints[i] >> 8) & 0xff);
-          ret.as_bytes[j++] = (uint8_t)(_h.as_ints[i] & 0xff);
+          ret.as_bytes[j++] = (uint8_t) ((_h.as_ints[i] >> 24) & 0xff);
+          ret.as_bytes[j++] = (uint8_t) ((_h.as_ints[i] >> 16) & 0xff);
+          ret.as_bytes[j++] = (uint8_t) ((_h.as_ints[i] >> 8) & 0xff);
+          ret.as_bytes[j++] = (uint8_t) (_h.as_ints[i] & 0xff);
         }
         _h = result_type{0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, 0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19};
         _chunkidx = _total_len = 0;
