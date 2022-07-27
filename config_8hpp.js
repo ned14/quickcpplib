@@ -37,6 +37,7 @@ var config_8hpp =
     [ "QUICKCPPLIB_SYMBOL_VISIBLE", "config_8hpp.html#a3269b0446557952ee91cf4d7fc2f219e", null ],
     [ "QUICKCPPLIB_SYMBOL_EXPORT", "config_8hpp.html#a2defa94a4b1fa646456a47b20be0087f", null ],
     [ "QUICKCPPLIB_SYMBOL_IMPORT", "config_8hpp.html#a7eba56292b0f74be2ab4a8bcdfeea8a8", null ],
+    [ "QUICKCPPLIB_PLATFORM_NATIVE_BITLENGTH", "config_8hpp.html#adb58eaf02c097bb81e728fce2e0a8edc", null ],
     [ "QUICKCPPLIB_TEMPLATE", "config_8hpp.html#a13e0bb97f017e9eabc3184d7085efec0", null ],
     [ "QUICKCPPLIB_TREQUIRES", "config_8hpp.html#ad0efd8ee70b45fd3bf3a924bbb07577e", null ],
     [ "QUICKCPPLIB_TEXPR", "config_8hpp.html#a13a8002e6ca691abb682df708d24d14e", null ],
