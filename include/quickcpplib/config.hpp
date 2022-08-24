@@ -162,7 +162,9 @@ namespace quickcpplib
 #ifndef QUICKCPPLIB_SMT_PAUSE
 #if !defined(__clang__) && defined(_MSC_VER) && _MSC_VER >= 1310 && (defined(_M_IX86) || defined(_M_X64))
 extern "C" void _mm_pause();
+#if !defined(_M_ARM64EC)
 #pragma intrinsic(_mm_pause)
+#endif
 #define QUICKCPPLIB_SMT_PAUSE _mm_pause();
 #elif !defined(__c2__) && defined(__GNUC__) && (defined(__i386__) || defined(__x86_64__))
 #define QUICKCPPLIB_SMT_PAUSE __asm__ __volatile__("rep; nop" : : : "memory");
