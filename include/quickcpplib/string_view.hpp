@@ -147,6 +147,13 @@ namespace string_view
     {
     }
 
+    template<size_t N>
+    constexpr basic_string_view(const charT (&str)[N])
+        : ptr_(str)
+        , len_(N - 1)
+    {
+    }
+
     // iterators
     constexpr const_iterator begin() const noexcept { return ptr_; }
     constexpr const_iterator cbegin() const noexcept { return ptr_; }
