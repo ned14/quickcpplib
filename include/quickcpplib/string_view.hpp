@@ -135,7 +135,9 @@ namespace string_view
     //           = delete;
     // #endif
 
-    constexpr basic_string_view(const charT *str)
+    QUICKCPPLIB_TEMPLATE(class T)
+    QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(std::is_pointer<T>::value && std::is_convertible<T, const_pointer>::value))  // exclude array to pointer
+    constexpr basic_string_view(T str)
         : ptr_(str)
         , len_(traits::length(str))
     {
