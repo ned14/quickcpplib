@@ -30,7 +30,7 @@ inline usCount GetUsCount()
 #else
     return (usCount) GetTickCount() * 1000000000;
 #endif
-  return (usCount)(val.QuadPart / scalefactor);
+  return (usCount) (val.QuadPart / scalefactor);
 }
 #else
 #include <sys/time.h>
@@ -55,18 +55,21 @@ inline uint64_t ticksclock()
 {
 #if defined(__i386__) || defined(_M_IX86) || defined(__x86_64__) || defined(_M_X64)
 #ifdef _MSC_VER
-  auto rdtscp = [] {
+  auto rdtscp = []
+  {
     unsigned x;
     return (uint64_t) __rdtscp(&x);
   };
 #elif defined(__x86_64__)
-  auto rdtscp = [] {
+  auto rdtscp = []
+  {
     unsigned lo, hi, aux;
     asm volatile("rdtscp" : "=a"(lo), "=d"(hi), "=c"(aux));
     return (uint64_t) lo | ((uint64_t) hi << 32);
   };
 #elif defined(__i386__)
-  auto rdtscp = [] {
+  auto rdtscp = []
+  {
     unsigned lo, hi, aux;
     asm volatile("rdtscp" : "=a"(lo), "=d"(hi), "=c"(aux));
     return (uint64_t) lo | ((uint64_t) hi << 32);
@@ -74,25 +77,32 @@ inline uint64_t ticksclock()
 #endif
 #elif defined(__aarch64__) || defined(_M_ARM64)
 #if !defined(_MSC_VER) || (defined(_MSC_VER) && defined(__clang__) && !defined(__c2__))
-  static const auto uint64_t _ReadStatusReg = [](int what) {
+  auto rdtscp = []
+  {
     uint64_t value = 0;
-    (void) what;
     __asm__ __volatile__("mrs %0, PMCCNTR_EL0" : "=r"(value));  // NOLINT
     return value;
   };
-#endif
-  auto rdtscp = [] {
+#else
+  auto rdtscp = []
+  {
     uint64_t count = _ReadStatusReg(ARM64_PMCCNTR_EL0);
     return count;
   };
+#endif
 #elif defined(__arm__) || defined(_M_ARM)
 #if __ARM_ARCH >= 6 || defined(_MSC_VER)
 #if !defined(_MSC_VER) || (defined(_MSC_VER) && defined(__clang__) && !defined(__c2__))
 #undef _MoveFromCoprocessor
-#define _MoveFromCoprocessor(coproc, opcode1, crn, crm, opcode2)                                                                                          \
-  ({ unsigned value; __asm__ __volatile__("MRC p" #coproc ", " #opcode1 ", %0, c" #crn ", c" #crm ", " #opcode2 : "=r"(value)); value; })  // NOLINT
+#define _MoveFromCoprocessor(coproc, opcode1, crn, crm, opcode2)                                                                                               \
+  ({                                                                                                                                                           \
+    unsigned value;                                                                                                                                            \
+    __asm__ __volatile__("MRC p" #coproc ", " #opcode1 ", %0, c" #crn ", c" #crm ", " #opcode2 : "=r"(value));                                                 \
+    value;                                                                                                                                                     \
+  })  // NOLINT
 #endif
-  auto rdtscp = [] {
+  auto rdtscp = []
+  {
     unsigned count;
     // asm volatile("MRC p15, 0, %0, c9, c13, 0" : "=r"(count));
     count = _MoveFromCoprocessor(15, 0, 9, 13, 0);
@@ -131,7 +141,7 @@ inline uint64_t nanoclock()
     std::cout << "There are " << ticks_per_sec << " TSCs in 1 nanosecond and it takes " << offset << " ticks per nanoclock()." << std::endl;
 #endif
   }
-  return (uint64_t)((ticksclock() - offset) / ticks_per_sec);
+  return (uint64_t) ((ticksclock() - offset) / ticks_per_sec);
 }
 #endif
 
