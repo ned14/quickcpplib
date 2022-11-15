@@ -309,13 +309,15 @@ namespace ringbuffer_log
                               diff = (ssize_t) backtrace[n];
                             }
                             char buffer[32];
-                            sprintf(buffer, "%zx", diff);
+                            snprintf(buffer, 32, "%zx", diff);
+                            buffer[31] = 0;
                             addrs.append(buffer);
                           }
                           else
                           {
                             char buffer[32];
-                            sprintf(buffer, "%zx", (uintptr_t) backtrace[n]);
+                            snprintf(buffer, 32, "%zx", (uintptr_t) backtrace[n]);
+                            buffer[31] = 0;
                             addrs.append(buffer);
                           }
                           addrs.push_back('\n');
