@@ -276,11 +276,11 @@ template&lt;class Parent , class Pointer , class Reference &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;          : _parent(<span class="keyword">nullptr</span>)</div>
-<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;          , _counter(0)</div>
-<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;          , _togo(0)</div>
-<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;      {</div>
-<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;          : _parent(<span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;          , _counter(0)</div>
+<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;          , _togo(0)</div>
+<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;      {</div>
+<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -367,11 +367,11 @@ template&lt;class Parent_ , class Pointer_ , class Reference_ , typename  = type
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;          : _parent(o._parent)</div>
-<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;          , _counter(o._counter)</div>
-<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;          , _togo(o._togo)</div>
-<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;      {</div>
-<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;          : _parent(o._parent)</div>
+<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;          , _counter(o._counter)</div>
+<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;          , _togo(o._togo)</div>
+<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;      {</div>
+<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -456,14 +456,14 @@ template&lt;class Parent , class Pointer , class Reference &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;      {</div>
-<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;        <span class="keywordflow">if</span>(_parent &amp;&amp; _togo)</div>
-<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;        {</div>
-<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;          --_counter;</div>
-<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;          --_togo;</div>
-<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;        }</div>
-<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;      {</div>
+<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;        <span class="keywordflow">if</span>(_parent &amp;&amp; _togo)</div>
+<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;        {</div>
+<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;          --_counter;</div>
+<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;          --_togo;</div>
+<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;        }</div>
+<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -492,11 +492,11 @@ template&lt;class Parent , class Pointer , class Reference &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;      {</div>
-<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160;        <a class="code" href="namespacestd_1_1experimental.html#acdfba2d2e9c79f689a34c9cea5c5682d">std::swap</a>(_parent, o._parent);</div>
-<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;        <a class="code" href="namespacestd_1_1experimental.html#acdfba2d2e9c79f689a34c9cea5c5682d">std::swap</a>(_counter, o._counter);</div>
-<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;        <a class="code" href="namespacestd_1_1experimental.html#acdfba2d2e9c79f689a34c9cea5c5682d">std::swap</a>(_togo, o._togo);</div>
-<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;      {</div>
+<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;        <a class="code" href="namespacestd_1_1experimental.html#acdfba2d2e9c79f689a34c9cea5c5682d">std::swap</a>(_parent, o._parent);</div>
+<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;        <a class="code" href="namespacestd_1_1experimental.html#acdfba2d2e9c79f689a34c9cea5c5682d">std::swap</a>(_counter, o._counter);</div>
+<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;        <a class="code" href="namespacestd_1_1experimental.html#acdfba2d2e9c79f689a34c9cea5c5682d">std::swap</a>(_togo, o._togo);</div>
+<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -524,11 +524,11 @@ template&lt;class Parent , class Pointer , class Reference &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;      {</div>
-<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;        <span class="keywordflow">if</span>(!_parent || !_togo)</div>
-<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;          <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;        <span class="keywordflow">return</span> &amp;_parent-&gt;_store[_parent-&gt;counter_to_idx(_counter)];</div>
-<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;      {</div>
+<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;        <span class="keywordflow">if</span>(!_parent || !_togo)</div>
+<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;          <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;        <span class="keywordflow">return</span> &amp;_parent-&gt;_store[_parent-&gt;counter_to_idx(_counter)];</div>
+<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -557,7 +557,7 @@ template&lt;class Parent , class Pointer , class Reference &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;{ <span class="keywordflow">return</span> _parent == o._parent &amp;&amp; _counter == o._counter &amp;&amp; _togo == o._togo; }</div>
+<div class="fragment"><div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;{ <span class="keywordflow">return</span> _parent == o._parent &amp;&amp; _counter == o._counter &amp;&amp; _togo == o._togo; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -586,7 +586,7 @@ template&lt;class Parent , class Pointer , class Reference &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;{ <span class="keywordflow">return</span> _parent != o._parent || _counter != o._counter || _togo != o._togo; }</div>
+<div class="fragment"><div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;{ <span class="keywordflow">return</span> _parent != o._parent || _counter != o._counter || _togo != o._togo; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -614,14 +614,14 @@ template&lt;class Parent , class Pointer , class Reference &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;      {</div>
-<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;        <span class="keywordflow">if</span>(!_parent || !_togo)</div>
-<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;        {</div>
-<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;          <span class="keyword">static</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html#a0b2f9acc37bd4f12c4c1fcb55d588490">value_type</a> v;</div>
-<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;          <span class="keywordflow">return</span> v;</div>
-<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;        }</div>
-<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;        <span class="keywordflow">return</span> _parent-&gt;_store[_parent-&gt;counter_to_idx(_counter)];</div>
-<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;      {</div>
+<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;        <span class="keywordflow">if</span>(!_parent || !_togo)</div>
+<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;        {</div>
+<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;          <span class="keyword">static</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html#a0b2f9acc37bd4f12c4c1fcb55d588490">value_type</a> v;</div>
+<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;          <span class="keywordflow">return</span> v;</div>
+<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;        }</div>
+<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;        <span class="keywordflow">return</span> _parent-&gt;_store[_parent-&gt;counter_to_idx(_counter)];</div>
+<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -650,15 +650,15 @@ template&lt;class Parent , class Pointer , class Reference &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;      {</div>
-<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html#a292d4c3b165ecb5a32c9ec02fa2f8604">iterator_</a> ret(*<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160;        <span class="keywordflow">if</span>(_parent &amp;&amp; _togo)</div>
-<div class="line"><a name="l00653"></a><span class="lineno">  653</span>&#160;        {</div>
-<div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160;          --_counter;</div>
-<div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160;          --_togo;</div>
-<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;        }</div>
-<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;        <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160;      {</div>
+<div class="line"><a name="l00653"></a><span class="lineno">  653</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html#a292d4c3b165ecb5a32c9ec02fa2f8604">iterator_</a> ret(*<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160;        <span class="keywordflow">if</span>(_parent &amp;&amp; _togo)</div>
+<div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160;        {</div>
+<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;          --_counter;</div>
+<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;          --_togo;</div>
+<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;        }</div>
+<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;        <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -686,14 +686,14 @@ template&lt;class Parent , class Pointer , class Reference &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;      {</div>
-<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;        <span class="keywordflow">if</span>(_parent &amp;&amp; _togo &lt; _parent-&gt;<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>())</div>
-<div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160;        {</div>
-<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;          ++_counter;</div>
-<div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160;          ++_togo;</div>
-<div class="line"><a name="l00665"></a><span class="lineno">  665</span>&#160;        }</div>
-<div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160;      {</div>
+<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;        <span class="keywordflow">if</span>(_parent &amp;&amp; _togo &lt; _parent-&gt;<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>())</div>
+<div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160;        {</div>
+<div class="line"><a name="l00665"></a><span class="lineno">  665</span>&#160;          ++_counter;</div>
+<div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160;          ++_togo;</div>
+<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160;        }</div>
+<div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -722,15 +722,15 @@ template&lt;class Parent , class Pointer , class Reference &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;      {</div>
-<div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html#a292d4c3b165ecb5a32c9ec02fa2f8604">iterator_</a> ret(*<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;        <span class="keywordflow">if</span>(_parent &amp;&amp; _togo &lt; _parent-&gt;<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>())</div>
-<div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;        {</div>
-<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;          ++_counter;</div>
-<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;          ++_togo;</div>
-<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;        }</div>
-<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;        <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l00677"></a><span class="lineno">  677</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;      {</div>
+<div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html#a292d4c3b165ecb5a32c9ec02fa2f8604">iterator_</a> ret(*<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;        <span class="keywordflow">if</span>(_parent &amp;&amp; _togo &lt; _parent-&gt;<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>())</div>
+<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;        {</div>
+<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;          ++_counter;</div>
+<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;          ++_togo;</div>
+<div class="line"><a name="l00677"></a><span class="lineno">  677</span>&#160;        }</div>
+<div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160;        <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -759,9 +759,9 @@ template&lt;class Parent , class Pointer , class Reference &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;      {</div>
-<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160;        <span class="keywordflow">return</span> _parent == o._parent &amp;&amp; _parent-&gt;counter_to_idx(_counter) &lt; o._parent-&gt;counter_to_idx(o._counter);</div>
-<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160;      {</div>
+<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160;        <span class="keywordflow">return</span> _parent == o._parent &amp;&amp; _parent-&gt;counter_to_idx(_counter) &lt; o._parent-&gt;counter_to_idx(o._counter);</div>
+<div class="line"><a name="l00683"></a><span class="lineno">  683</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -790,9 +790,9 @@ template&lt;class Parent , class Pointer , class Reference &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00683"></a><span class="lineno">  683</span>&#160;      {</div>
-<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160;        <span class="keywordflow">return</span> _parent == o._parent &amp;&amp; _parent-&gt;counter_to_idx(_counter) &gt; o._parent-&gt;counter_to_idx(o._counter);</div>
-<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160;      {</div>
+<div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160;        <span class="keywordflow">return</span> _parent == o._parent &amp;&amp; _parent-&gt;counter_to_idx(_counter) &gt; o._parent-&gt;counter_to_idx(o._counter);</div>
+<div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -821,9 +821,9 @@ template&lt;class Parent , class Pointer , class Reference &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160;      {</div>
-<div class="line"><a name="l00688"></a><span class="lineno">  688</span>&#160;        <span class="keywordflow">return</span> _parent == o._parent &amp;&amp; _parent-&gt;counter_to_idx(_counter) &lt;= o._parent-&gt;counter_to_idx(o._counter);</div>
-<div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160;      {</div>
+<div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160;        <span class="keywordflow">return</span> _parent == o._parent &amp;&amp; _parent-&gt;counter_to_idx(_counter) &lt;= o._parent-&gt;counter_to_idx(o._counter);</div>
+<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -852,9 +852,9 @@ template&lt;class Parent , class Pointer , class Reference &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;      {</div>
-<div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;        <span class="keywordflow">return</span> _parent == o._parent &amp;&amp; _parent-&gt;counter_to_idx(_counter) &gt;= o._parent-&gt;counter_to_idx(o._counter);</div>
-<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;      {</div>
+<div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;        <span class="keywordflow">return</span> _parent == o._parent &amp;&amp; _parent-&gt;counter_to_idx(_counter) &gt;= o._parent-&gt;counter_to_idx(o._counter);</div>
+<div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -883,16 +883,16 @@ template&lt;class Parent , class Pointer , class Reference &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160;      {</div>
-<div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;        <span class="keywordflow">if</span>(_parent &amp;&amp; _togo)</div>
-<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;        {</div>
-<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;          <span class="keywordflow">if</span>(v &gt; _togo)</div>
-<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;            v = _togo;</div>
-<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;          _counter -= v;</div>
-<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;          _togo -= v;</div>
-<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;        }</div>
-<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;      {</div>
+<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;        <span class="keywordflow">if</span>(_parent &amp;&amp; _togo)</div>
+<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;        {</div>
+<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;          <span class="keywordflow">if</span>(v &gt; _togo)</div>
+<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;            v = _togo;</div>
+<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;          _counter -= v;</div>
+<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;          _togo -= v;</div>
+<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;        }</div>
+<div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -921,17 +921,17 @@ template&lt;class Parent , class Pointer , class Reference &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;      {</div>
-<div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html#a292d4c3b165ecb5a32c9ec02fa2f8604">iterator_</a> ret(*<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;        <span class="keywordflow">if</span>(_parent &amp;&amp; _togo)</div>
-<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;        {</div>
-<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;          <span class="keywordflow">if</span>(v &gt; _togo)</div>
-<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;            v = _togo;</div>
-<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;          ret._counter -= v;</div>
-<div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160;          ret._togo -= v;</div>
-<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;        }</div>
-<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;        <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;      {</div>
+<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html#a292d4c3b165ecb5a32c9ec02fa2f8604">iterator_</a> ret(*<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;        <span class="keywordflow">if</span>(_parent &amp;&amp; _togo)</div>
+<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;        {</div>
+<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;          <span class="keywordflow">if</span>(v &gt; _togo)</div>
+<div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160;            v = _togo;</div>
+<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;          ret._counter -= v;</div>
+<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;          ret._togo -= v;</div>
+<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;        }</div>
+<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;        <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -960,16 +960,16 @@ template&lt;class Parent , class Pointer , class Reference &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;      {</div>
-<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;        <span class="keywordflow">if</span>(_parent &amp;&amp; _togo &lt; _parent-&gt;<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>())</div>
-<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;        {</div>
-<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;          <span class="keywordflow">if</span>(v &gt; _parent-&gt;size() - _togo)</div>
-<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;            v = _parent-&gt;size() - _togo;</div>
-<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;          _counter += v;</div>
-<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;          _togo += v;</div>
-<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;        }</div>
-<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;      {</div>
+<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;        <span class="keywordflow">if</span>(_parent &amp;&amp; _togo &lt; _parent-&gt;<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>())</div>
+<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;        {</div>
+<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;          <span class="keywordflow">if</span>(v &gt; _parent-&gt;size() - _togo)</div>
+<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;            v = _parent-&gt;size() - _togo;</div>
+<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;          _counter += v;</div>
+<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;          _togo += v;</div>
+<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;        }</div>
+<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -998,17 +998,17 @@ template&lt;class Parent , class Pointer , class Reference &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;      {</div>
-<div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html#a292d4c3b165ecb5a32c9ec02fa2f8604">iterator_</a> ret(*<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;        <span class="keywordflow">if</span>(_parent &amp;&amp; _togo &lt; _parent-&gt;<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>())</div>
-<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;        {</div>
-<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;          <span class="keywordflow">if</span>(v &gt; _parent-&gt;size() - _togo)</div>
-<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;            v = _parent-&gt;size() - _togo;</div>
-<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;          ret._counter += v;</div>
-<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;          ret._togo += v;</div>
-<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;        }</div>
-<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;        <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;      {</div>
+<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html#a292d4c3b165ecb5a32c9ec02fa2f8604">iterator_</a> ret(*<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;        <span class="keywordflow">if</span>(_parent &amp;&amp; _togo &lt; _parent-&gt;<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>())</div>
+<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;        {</div>
+<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;          <span class="keywordflow">if</span>(v &gt; _parent-&gt;size() - _togo)</div>
+<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;            v = _parent-&gt;size() - _togo;</div>
+<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;          ret._counter += v;</div>
+<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;          ret._togo += v;</div>
+<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;        }</div>
+<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;        <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1037,7 +1037,7 @@ template&lt;class Parent , class Pointer , class Reference &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;{ <span class="keywordflow">return</span> (<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html#a248fae5ef635bd8d789924c334815149">difference_type</a>)(o._counter - _counter); }</div>
+<div class="fragment"><div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;{ <span class="keywordflow">return</span> (<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html#a248fae5ef635bd8d789924c334815149">difference_type</a>)(o._counter - _counter); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1066,7 +1066,7 @@ template&lt;class Parent , class Pointer , class Reference &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;{ <span class="keywordflow">return</span> _parent-&gt;_store[_parent-&gt;counter_to_idx(_counter + v)]; }</div>
+<div class="fragment"><div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;{ <span class="keywordflow">return</span> _parent-&gt;_store[_parent-&gt;counter_to_idx(_counter + v)]; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1126,11 +1126,11 @@ template&lt;class Parent_ , class Pointer_ , class Reference_ &gt; </div>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator___html_a292d4c3b165ecb5a32c9ec02fa2f8604"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html#a292d4c3b165ecb5a32c9ec02fa2f8604">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::iterator_::iterator_</a></div><div class="ttdeci">friend class iterator_</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:580</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a5fba2454781e15a39d6be14b83a49e10"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::size</a></div><div class="ttdeci">size_type size() const noexcept</div><div class="ttdoc">Returns the number of items in the log.</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:802</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator___html_a0b2f9acc37bd4f12c4c1fcb55d588490"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html#a0b2f9acc37bd4f12c4c1fcb55d588490">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::iterator_::value_type</a></div><div class="ttdeci">typename container_type::value_type value_type</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:593</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator___html_a292d4c3b165ecb5a32c9ec02fa2f8604"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html#a292d4c3b165ecb5a32c9ec02fa2f8604">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::iterator_::iterator_</a></div><div class="ttdeci">friend class iterator_</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:582</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a5fba2454781e15a39d6be14b83a49e10"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::size</a></div><div class="ttdeci">size_type size() const noexcept</div><div class="ttdoc">Returns the number of items in the log.</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:804</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator___html_a0b2f9acc37bd4f12c4c1fcb55d588490"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html#a0b2f9acc37bd4f12c4c1fcb55d588490">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::iterator_::value_type</a></div><div class="ttdeci">typename container_type::value_type value_type</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:595</div></div>
 <div class="ttc" id="anamespacestd_1_1experimental_html_acdfba2d2e9c79f689a34c9cea5c5682d"><div class="ttname"><a href="namespacestd_1_1experimental.html#acdfba2d2e9c79f689a34c9cea5c5682d">std::experimental::swap</a></div><div class="ttdeci">void swap(optional&lt; T &gt; &amp;x, optional&lt; T &gt; &amp;y) noexcept(noexcept(x.swap(y)))</div><div class="ttdef"><b>Definition:</b> optional.hpp:1016</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator___html_a248fae5ef635bd8d789924c334815149"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html#a248fae5ef635bd8d789924c334815149">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::iterator_::difference_type</a></div><div class="ttdeci">typename container_type::difference_type difference_type</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:594</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator___html_a248fae5ef635bd8d789924c334815149"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html#a248fae5ef635bd8d789924c334815149">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::iterator_::difference_type</a></div><div class="ttdeci">typename container_type::difference_type difference_type</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:596</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

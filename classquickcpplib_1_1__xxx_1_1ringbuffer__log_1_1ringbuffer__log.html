@@ -517,12 +517,12 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>Default construction, passes through args to container_type. </p>
-<div class="fragment"><div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;        : <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>(std::forward&lt;Args&gt;(args)...)</div>
-<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;        , <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a64953163e739a152c3b1e7b902f4f059">_instance_level</a>(starting_level)</div>
-<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;        , <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>(0)</div>
-<div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160;        , <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a68727430c76153a2d7849b6f1e3f6974">_immediate</a>(<span class="keyword">nullptr</span>)</div>
-<div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;    {</div>
-<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;        : <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>(std::forward&lt;Args&gt;(args)...)</div>
+<div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160;        , <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a64953163e739a152c3b1e7b902f4f059">_instance_level</a>(starting_level)</div>
+<div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;        , <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>(0)</div>
+<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;        , <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a68727430c76153a2d7849b6f1e3f6974">_immediate</a>(<span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;    {</div>
+<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -606,7 +606,7 @@ template&lt;class... Args&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a645eaa2a834ef4bc7ebdabad2db7556d">max_items</a> ? (counter % <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a645eaa2a834ef4bc7ebdabad2db7556d">max_items</a>) : (counter % <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size()); }</div>
+<div class="fragment"><div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a645eaa2a834ef4bc7ebdabad2db7556d">max_items</a> ? (counter % <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a645eaa2a834ef4bc7ebdabad2db7556d">max_items</a>) : (counter % <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size()); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -691,14 +691,14 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>Swaps with another instance. </p>
-<div class="fragment"><div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160;    {</div>
-<div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160;      <a class="code" href="namespacestd_1_1experimental.html#acdfba2d2e9c79f689a34c9cea5c5682d">std::swap</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>, o._store);</div>
-<div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;      <span class="keyword">auto</span> t = o._instance_level.load(std::memory_order_relaxed);</div>
-<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;      o._instance_level.store(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a64953163e739a152c3b1e7b902f4f059">_instance_level</a>.load(std::memory_order_relaxed), std::memory_order_relaxed);</div>
-<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a64953163e739a152c3b1e7b902f4f059">_instance_level</a>.store(t, std::memory_order_relaxed);</div>
-<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;      <a class="code" href="namespacestd_1_1experimental.html#acdfba2d2e9c79f689a34c9cea5c5682d">std::swap</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>, o._counter);</div>
-<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;      <a class="code" href="namespacestd_1_1experimental.html#acdfba2d2e9c79f689a34c9cea5c5682d">std::swap</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a68727430c76153a2d7849b6f1e3f6974">_immediate</a>, o._immediate);</div>
-<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;    {</div>
+<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;      <a class="code" href="namespacestd_1_1experimental.html#acdfba2d2e9c79f689a34c9cea5c5682d">std::swap</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>, o._store);</div>
+<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;      <span class="keyword">auto</span> t = o._instance_level.load(std::memory_order_relaxed);</div>
+<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;      o._instance_level.store(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a64953163e739a152c3b1e7b902f4f059">_instance_level</a>.load(std::memory_order_relaxed), std::memory_order_relaxed);</div>
+<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a64953163e739a152c3b1e7b902f4f059">_instance_level</a>.store(t, std::memory_order_relaxed);</div>
+<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;      <a class="code" href="namespacestd_1_1experimental.html#acdfba2d2e9c79f689a34c9cea5c5682d">std::swap</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>, o._counter);</div>
+<div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;      <a class="code" href="namespacestd_1_1experimental.html#acdfba2d2e9c79f689a34c9cea5c5682d">std::swap</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a68727430c76153a2d7849b6f1e3f6974">_immediate</a>, o._immediate);</div>
+<div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -726,7 +726,7 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>THREADSAFE Returns the log level from the instance filtered by any <code>LogLevelChecker</code>. </p>
-<div class="fragment"><div class="line"><a name="l00793"></a><span class="lineno">  793</span>&#160;{ <span class="keywordflow">return</span> LogLevelChecker()(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a4bb75b5f5821aeb2a822c638a8f1effc">instance_log_level</a>()); }</div>
+<div class="fragment"><div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160;{ <span class="keywordflow">return</span> LogLevelChecker()(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a4bb75b5f5821aeb2a822c638a8f1effc">instance_log_level</a>()); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -754,7 +754,7 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>THREADSAFE Returns the current per-instance log level. </p>
-<div class="fragment"><div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a64953163e739a152c3b1e7b902f4f059">_instance_level</a>.load(std::memory_order_relaxed); }</div>
+<div class="fragment"><div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a64953163e739a152c3b1e7b902f4f059">_instance_level</a>.load(std::memory_order_relaxed); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -783,7 +783,7 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>THREADSAFE Sets the current per-instance log level. </p>
-<div class="fragment"><div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160;{ <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a64953163e739a152c3b1e7b902f4f059">_instance_level</a>.store(new_level, std::memory_order_relaxed); }</div>
+<div class="fragment"><div class="line"><a name="l00799"></a><span class="lineno">  799</span>&#160;{ <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a64953163e739a152c3b1e7b902f4f059">_instance_level</a>.store(new_level, std::memory_order_relaxed); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -811,7 +811,7 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns true if the log is empty. </p>
-<div class="fragment"><div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed) == 0; }</div>
+<div class="fragment"><div class="line"><a name="l00802"></a><span class="lineno">  802</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed) == 0; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -839,12 +839,12 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the number of items in the log. </p>
-<div class="fragment"><div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160;    {</div>
-<div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> ret = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed);</div>
-<div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;      <span class="keywordflow">if</span>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size() &lt; ret)</div>
-<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160;        ret = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size();</div>
-<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160;      <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;    {</div>
+<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> ret = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed);</div>
+<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160;      <span class="keywordflow">if</span>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size() &lt; ret)</div>
+<div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;        ret = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size();</div>
+<div class="line"><a name="l00809"></a><span class="lineno">  809</span>&#160;      <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l00810"></a><span class="lineno">  810</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -872,7 +872,7 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the maximum number of items in the log. </p>
-<div class="fragment"><div class="line"><a name="l00810"></a><span class="lineno">  810</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a645eaa2a834ef4bc7ebdabad2db7556d">max_items</a> ? <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a645eaa2a834ef4bc7ebdabad2db7556d">max_items</a> : <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size(); }</div>
+<div class="fragment"><div class="line"><a name="l00812"></a><span class="lineno">  812</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a645eaa2a834ef4bc7ebdabad2db7556d">max_items</a> ? <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a645eaa2a834ef4bc7ebdabad2db7556d">max_items</a> : <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size(); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -900,7 +900,7 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns any <code>std::ostream</code> immediately printed to when a new log entry is added. </p>
-<div class="fragment"><div class="line"><a name="l00812"></a><span class="lineno">  812</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a68727430c76153a2d7849b6f1e3f6974">_immediate</a>; }</div>
+<div class="fragment"><div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a68727430c76153a2d7849b6f1e3f6974">_immediate</a>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -929,7 +929,7 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>Set any <code>std::ostream</code> immediately printed to when a new log entry is added. </p>
-<div class="fragment"><div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160;{ <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a68727430c76153a2d7849b6f1e3f6974">_immediate</a> = s; }</div>
+<div class="fragment"><div class="line"><a name="l00816"></a><span class="lineno">  816</span>&#160;{ <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a68727430c76153a2d7849b6f1e3f6974">_immediate</a> = s; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -958,13 +958,13 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>True if a unique id is still valid. </p>
-<div class="fragment"><div class="line"><a name="l00827"></a><span class="lineno">  827</span>&#160;    {</div>
-<div class="line"><a name="l00828"></a><span class="lineno">  828</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> counter = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed);</div>
-<div class="line"><a name="l00829"></a><span class="lineno">  829</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = counter;</div>
-<div class="line"><a name="l00830"></a><span class="lineno">  830</span>&#160;      <span class="keywordflow">if</span>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size() &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>)</div>
-<div class="line"><a name="l00831"></a><span class="lineno">  831</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size();</div>
-<div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160;      <span class="keywordflow">return</span> <span class="keywordtype">id</span>.value &lt; counter &amp;&amp; <span class="keywordtype">id</span>.value &gt;= counter - <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>;</div>
-<div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00829"></a><span class="lineno">  829</span>&#160;    {</div>
+<div class="line"><a name="l00830"></a><span class="lineno">  830</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> counter = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed);</div>
+<div class="line"><a name="l00831"></a><span class="lineno">  831</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = counter;</div>
+<div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160;      <span class="keywordflow">if</span>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size() &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>)</div>
+<div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size();</div>
+<div class="line"><a name="l00834"></a><span class="lineno">  834</span>&#160;      <span class="keywordflow">return</span> <span class="keywordtype">id</span>.value &lt; counter &amp;&amp; <span class="keywordtype">id</span>.value &gt;= counter - <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>;</div>
+<div class="line"><a name="l00835"></a><span class="lineno">  835</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -992,7 +992,7 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the front of the ringbuffer. Be careful of races with concurrent modifies. </p>
-<div class="fragment"><div class="line"><a name="l00836"></a><span class="lineno">  836</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>[<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a3f84cd746bfd6a533ba3798c285c570d">counter_to_idx</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed) - 1)]; }</div>
+<div class="fragment"><div class="line"><a name="l00838"></a><span class="lineno">  838</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>[<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a3f84cd746bfd6a533ba3798c285c570d">counter_to_idx</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed) - 1)]; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1020,7 +1020,7 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the front of the ringbuffer. Be careful of races with concurrent modifies. </p>
-<div class="fragment"><div class="line"><a name="l00838"></a><span class="lineno">  838</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>[<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a3f84cd746bfd6a533ba3798c285c570d">counter_to_idx</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed) - 1)]; }</div>
+<div class="fragment"><div class="line"><a name="l00840"></a><span class="lineno">  840</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>[<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a3f84cd746bfd6a533ba3798c285c570d">counter_to_idx</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed) - 1)]; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1049,7 +1049,7 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns a reference to the specified element. Be careful of races with concurrent modifies. </p>
-<div class="fragment"><div class="line"><a name="l00870"></a><span class="lineno">  870</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>[<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a3f84cd746bfd6a533ba3798c285c570d">counter_to_idx</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed) - 1 - pos)]; }</div>
+<div class="fragment"><div class="line"><a name="l00872"></a><span class="lineno">  872</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>[<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a3f84cd746bfd6a533ba3798c285c570d">counter_to_idx</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed) - 1 - pos)]; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1078,7 +1078,7 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns a reference to the specified element. </p>
-<div class="fragment"><div class="line"><a name="l00872"></a><span class="lineno">  872</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>[<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a3f84cd746bfd6a533ba3798c285c570d">counter_to_idx</a>(<span class="keywordtype">id</span>.value)]; }</div>
+<div class="fragment"><div class="line"><a name="l00874"></a><span class="lineno">  874</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>[<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a3f84cd746bfd6a533ba3798c285c570d">counter_to_idx</a>(<span class="keywordtype">id</span>.value)]; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1107,7 +1107,7 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns a reference to the specified element. Be careful of races with concurrent modifies. </p>
-<div class="fragment"><div class="line"><a name="l00874"></a><span class="lineno">  874</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>[<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a3f84cd746bfd6a533ba3798c285c570d">counter_to_idx</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed) - 1 - pos)]; }</div>
+<div class="fragment"><div class="line"><a name="l00876"></a><span class="lineno">  876</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>[<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a3f84cd746bfd6a533ba3798c285c570d">counter_to_idx</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed) - 1 - pos)]; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1136,7 +1136,7 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns a reference to the specified element. </p>
-<div class="fragment"><div class="line"><a name="l00876"></a><span class="lineno">  876</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>[<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a3f84cd746bfd6a533ba3798c285c570d">counter_to_idx</a>(<span class="keywordtype">id</span>.value)]; }</div>
+<div class="fragment"><div class="line"><a name="l00878"></a><span class="lineno">  878</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>[<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a3f84cd746bfd6a533ba3798c285c570d">counter_to_idx</a>(<span class="keywordtype">id</span>.value)]; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1164,13 +1164,13 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the back of the ringbuffer. Be careful of races with concurrent modifies. </p>
-<div class="fragment"><div class="line"><a name="l00879"></a><span class="lineno">  879</span>&#160;    {</div>
-<div class="line"><a name="l00880"></a><span class="lineno">  880</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> counter = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed);</div>
-<div class="line"><a name="l00881"></a><span class="lineno">  881</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = counter;</div>
-<div class="line"><a name="l00882"></a><span class="lineno">  882</span>&#160;      <span class="keywordflow">if</span>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size() &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>)</div>
-<div class="line"><a name="l00883"></a><span class="lineno">  883</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size();</div>
-<div class="line"><a name="l00884"></a><span class="lineno">  884</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>[<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a3f84cd746bfd6a533ba3798c285c570d">counter_to_idx</a>(counter - <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>)];</div>
-<div class="line"><a name="l00885"></a><span class="lineno">  885</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00881"></a><span class="lineno">  881</span>&#160;    {</div>
+<div class="line"><a name="l00882"></a><span class="lineno">  882</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> counter = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed);</div>
+<div class="line"><a name="l00883"></a><span class="lineno">  883</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = counter;</div>
+<div class="line"><a name="l00884"></a><span class="lineno">  884</span>&#160;      <span class="keywordflow">if</span>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size() &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>)</div>
+<div class="line"><a name="l00885"></a><span class="lineno">  885</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size();</div>
+<div class="line"><a name="l00886"></a><span class="lineno">  886</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>[<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a3f84cd746bfd6a533ba3798c285c570d">counter_to_idx</a>(counter - <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>)];</div>
+<div class="line"><a name="l00887"></a><span class="lineno">  887</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1198,13 +1198,13 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the back of the ringbuffer. Be careful of races with concurrent modifies. </p>
-<div class="fragment"><div class="line"><a name="l00888"></a><span class="lineno">  888</span>&#160;    {</div>
-<div class="line"><a name="l00889"></a><span class="lineno">  889</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> counter = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed);</div>
-<div class="line"><a name="l00890"></a><span class="lineno">  890</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = counter;</div>
-<div class="line"><a name="l00891"></a><span class="lineno">  891</span>&#160;      <span class="keywordflow">if</span>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size() &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>)</div>
-<div class="line"><a name="l00892"></a><span class="lineno">  892</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size();</div>
-<div class="line"><a name="l00893"></a><span class="lineno">  893</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>[<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a3f84cd746bfd6a533ba3798c285c570d">counter_to_idx</a>(counter - <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>)];</div>
-<div class="line"><a name="l00894"></a><span class="lineno">  894</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00890"></a><span class="lineno">  890</span>&#160;    {</div>
+<div class="line"><a name="l00891"></a><span class="lineno">  891</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> counter = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed);</div>
+<div class="line"><a name="l00892"></a><span class="lineno">  892</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = counter;</div>
+<div class="line"><a name="l00893"></a><span class="lineno">  893</span>&#160;      <span class="keywordflow">if</span>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size() &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>)</div>
+<div class="line"><a name="l00894"></a><span class="lineno">  894</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size();</div>
+<div class="line"><a name="l00895"></a><span class="lineno">  895</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>[<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a3f84cd746bfd6a533ba3798c285c570d">counter_to_idx</a>(counter - <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>)];</div>
+<div class="line"><a name="l00896"></a><span class="lineno">  896</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1232,13 +1232,13 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the first item in the log. Be careful of races with concurrent modifies. </p>
-<div class="fragment"><div class="line"><a name="l00898"></a><span class="lineno">  898</span>&#160;    {</div>
-<div class="line"><a name="l00899"></a><span class="lineno">  899</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> counter = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed);</div>
-<div class="line"><a name="l00900"></a><span class="lineno">  900</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = counter;</div>
-<div class="line"><a name="l00901"></a><span class="lineno">  901</span>&#160;      <span class="keywordflow">if</span>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size() &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>)</div>
-<div class="line"><a name="l00902"></a><span class="lineno">  902</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size();</div>
-<div class="line"><a name="l00903"></a><span class="lineno">  903</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a3962d6737036c97ce4a6b10b435507d0">iterator</a>(<span class="keyword">this</span>, counter - 1, <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>);</div>
-<div class="line"><a name="l00904"></a><span class="lineno">  904</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00900"></a><span class="lineno">  900</span>&#160;    {</div>
+<div class="line"><a name="l00901"></a><span class="lineno">  901</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> counter = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed);</div>
+<div class="line"><a name="l00902"></a><span class="lineno">  902</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = counter;</div>
+<div class="line"><a name="l00903"></a><span class="lineno">  903</span>&#160;      <span class="keywordflow">if</span>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size() &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>)</div>
+<div class="line"><a name="l00904"></a><span class="lineno">  904</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size();</div>
+<div class="line"><a name="l00905"></a><span class="lineno">  905</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a3962d6737036c97ce4a6b10b435507d0">iterator</a>(<span class="keyword">this</span>, counter - 1, <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>);</div>
+<div class="line"><a name="l00906"></a><span class="lineno">  906</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1266,13 +1266,13 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the first item in the log. Be careful of races with concurrent modifies. </p>
-<div class="fragment"><div class="line"><a name="l00907"></a><span class="lineno">  907</span>&#160;    {</div>
-<div class="line"><a name="l00908"></a><span class="lineno">  908</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> counter = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed);</div>
-<div class="line"><a name="l00909"></a><span class="lineno">  909</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = counter;</div>
-<div class="line"><a name="l00910"></a><span class="lineno">  910</span>&#160;      <span class="keywordflow">if</span>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size() &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>)</div>
-<div class="line"><a name="l00911"></a><span class="lineno">  911</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size();</div>
-<div class="line"><a name="l00912"></a><span class="lineno">  912</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ac921a06d5c3319a23928b3809215add8">const_iterator</a>(<span class="keyword">this</span>, counter - 1, <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>);</div>
-<div class="line"><a name="l00913"></a><span class="lineno">  913</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00909"></a><span class="lineno">  909</span>&#160;    {</div>
+<div class="line"><a name="l00910"></a><span class="lineno">  910</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> counter = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed);</div>
+<div class="line"><a name="l00911"></a><span class="lineno">  911</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = counter;</div>
+<div class="line"><a name="l00912"></a><span class="lineno">  912</span>&#160;      <span class="keywordflow">if</span>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size() &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>)</div>
+<div class="line"><a name="l00913"></a><span class="lineno">  913</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size();</div>
+<div class="line"><a name="l00914"></a><span class="lineno">  914</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ac921a06d5c3319a23928b3809215add8">const_iterator</a>(<span class="keyword">this</span>, counter - 1, <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>);</div>
+<div class="line"><a name="l00915"></a><span class="lineno">  915</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1300,13 +1300,13 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the first item in the log. Be careful of races with concurrent modifies. </p>
-<div class="fragment"><div class="line"><a name="l00916"></a><span class="lineno">  916</span>&#160;    {</div>
-<div class="line"><a name="l00917"></a><span class="lineno">  917</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> counter = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed);</div>
-<div class="line"><a name="l00918"></a><span class="lineno">  918</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = counter;</div>
-<div class="line"><a name="l00919"></a><span class="lineno">  919</span>&#160;      <span class="keywordflow">if</span>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size() &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>)</div>
-<div class="line"><a name="l00920"></a><span class="lineno">  920</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size();</div>
-<div class="line"><a name="l00921"></a><span class="lineno">  921</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ac921a06d5c3319a23928b3809215add8">const_iterator</a>(<span class="keyword">this</span>, counter - 1, <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>);</div>
-<div class="line"><a name="l00922"></a><span class="lineno">  922</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00918"></a><span class="lineno">  918</span>&#160;    {</div>
+<div class="line"><a name="l00919"></a><span class="lineno">  919</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> counter = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed);</div>
+<div class="line"><a name="l00920"></a><span class="lineno">  920</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = counter;</div>
+<div class="line"><a name="l00921"></a><span class="lineno">  921</span>&#160;      <span class="keywordflow">if</span>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size() &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>)</div>
+<div class="line"><a name="l00922"></a><span class="lineno">  922</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size();</div>
+<div class="line"><a name="l00923"></a><span class="lineno">  923</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ac921a06d5c3319a23928b3809215add8">const_iterator</a>(<span class="keyword">this</span>, counter - 1, <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>);</div>
+<div class="line"><a name="l00924"></a><span class="lineno">  924</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1334,13 +1334,13 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the item after the last in the log. Be careful of races with concurrent modifies. </p>
-<div class="fragment"><div class="line"><a name="l00925"></a><span class="lineno">  925</span>&#160;    {</div>
-<div class="line"><a name="l00926"></a><span class="lineno">  926</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> counter = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed);</div>
-<div class="line"><a name="l00927"></a><span class="lineno">  927</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = counter;</div>
-<div class="line"><a name="l00928"></a><span class="lineno">  928</span>&#160;      <span class="keywordflow">if</span>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size() &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>)</div>
-<div class="line"><a name="l00929"></a><span class="lineno">  929</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size();</div>
-<div class="line"><a name="l00930"></a><span class="lineno">  930</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a3962d6737036c97ce4a6b10b435507d0">iterator</a>(<span class="keyword">this</span>, counter - 1 - <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>, 0);</div>
-<div class="line"><a name="l00931"></a><span class="lineno">  931</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00927"></a><span class="lineno">  927</span>&#160;    {</div>
+<div class="line"><a name="l00928"></a><span class="lineno">  928</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> counter = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed);</div>
+<div class="line"><a name="l00929"></a><span class="lineno">  929</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = counter;</div>
+<div class="line"><a name="l00930"></a><span class="lineno">  930</span>&#160;      <span class="keywordflow">if</span>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size() &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>)</div>
+<div class="line"><a name="l00931"></a><span class="lineno">  931</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size();</div>
+<div class="line"><a name="l00932"></a><span class="lineno">  932</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a3962d6737036c97ce4a6b10b435507d0">iterator</a>(<span class="keyword">this</span>, counter - 1 - <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>, 0);</div>
+<div class="line"><a name="l00933"></a><span class="lineno">  933</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1368,13 +1368,13 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the item after the last in the log. Be careful of races with concurrent modifies. </p>
-<div class="fragment"><div class="line"><a name="l00934"></a><span class="lineno">  934</span>&#160;    {</div>
-<div class="line"><a name="l00935"></a><span class="lineno">  935</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> counter = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed);</div>
-<div class="line"><a name="l00936"></a><span class="lineno">  936</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = counter;</div>
-<div class="line"><a name="l00937"></a><span class="lineno">  937</span>&#160;      <span class="keywordflow">if</span>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size() &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>)</div>
-<div class="line"><a name="l00938"></a><span class="lineno">  938</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size();</div>
-<div class="line"><a name="l00939"></a><span class="lineno">  939</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ac921a06d5c3319a23928b3809215add8">const_iterator</a>(<span class="keyword">this</span>, counter - 1 - <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>, 0);</div>
-<div class="line"><a name="l00940"></a><span class="lineno">  940</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00936"></a><span class="lineno">  936</span>&#160;    {</div>
+<div class="line"><a name="l00937"></a><span class="lineno">  937</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> counter = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed);</div>
+<div class="line"><a name="l00938"></a><span class="lineno">  938</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = counter;</div>
+<div class="line"><a name="l00939"></a><span class="lineno">  939</span>&#160;      <span class="keywordflow">if</span>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size() &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>)</div>
+<div class="line"><a name="l00940"></a><span class="lineno">  940</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size();</div>
+<div class="line"><a name="l00941"></a><span class="lineno">  941</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ac921a06d5c3319a23928b3809215add8">const_iterator</a>(<span class="keyword">this</span>, counter - 1 - <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>, 0);</div>
+<div class="line"><a name="l00942"></a><span class="lineno">  942</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1402,13 +1402,13 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the item after the last in the log. Be careful of races with concurrent modifies. </p>
-<div class="fragment"><div class="line"><a name="l00943"></a><span class="lineno">  943</span>&#160;    {</div>
-<div class="line"><a name="l00944"></a><span class="lineno">  944</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> counter = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed);</div>
-<div class="line"><a name="l00945"></a><span class="lineno">  945</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = counter;</div>
-<div class="line"><a name="l00946"></a><span class="lineno">  946</span>&#160;      <span class="keywordflow">if</span>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size() &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>)</div>
-<div class="line"><a name="l00947"></a><span class="lineno">  947</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size();</div>
-<div class="line"><a name="l00948"></a><span class="lineno">  948</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ac921a06d5c3319a23928b3809215add8">const_iterator</a>(<span class="keyword">this</span>, counter - 1 - <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>, 0);</div>
-<div class="line"><a name="l00949"></a><span class="lineno">  949</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00945"></a><span class="lineno">  945</span>&#160;    {</div>
+<div class="line"><a name="l00946"></a><span class="lineno">  946</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> counter = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.load(std::memory_order_relaxed);</div>
+<div class="line"><a name="l00947"></a><span class="lineno">  947</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = counter;</div>
+<div class="line"><a name="l00948"></a><span class="lineno">  948</span>&#160;      <span class="keywordflow">if</span>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size() &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>)</div>
+<div class="line"><a name="l00949"></a><span class="lineno">  949</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a> = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.size();</div>
+<div class="line"><a name="l00950"></a><span class="lineno">  950</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ac921a06d5c3319a23928b3809215add8">const_iterator</a>(<span class="keyword">this</span>, counter - 1 - <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">size</a>, 0);</div>
+<div class="line"><a name="l00951"></a><span class="lineno">  951</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1436,10 +1436,10 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>Clears the log. </p>
-<div class="fragment"><div class="line"><a name="l00953"></a><span class="lineno">  953</span>&#160;    {</div>
-<div class="line"><a name="l00954"></a><span class="lineno">  954</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.store(0, std::memory_order_relaxed);</div>
-<div class="line"><a name="l00955"></a><span class="lineno">  955</span>&#160;      std::fill(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.begin(), <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.end(), <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a065700524f0f473ccab020674450e1ff">value_type</a>());</div>
-<div class="line"><a name="l00956"></a><span class="lineno">  956</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00955"></a><span class="lineno">  955</span>&#160;    {</div>
+<div class="line"><a name="l00956"></a><span class="lineno">  956</span>&#160;      <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>.store(0, std::memory_order_relaxed);</div>
+<div class="line"><a name="l00957"></a><span class="lineno">  957</span>&#160;      std::fill(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.begin(), <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>.end(), <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a065700524f0f473ccab020674450e1ff">value_type</a>());</div>
+<div class="line"><a name="l00958"></a><span class="lineno">  958</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1468,18 +1468,18 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>THREADSAFE Logs a new item, returning its unique counter id. </p>
-<div class="fragment"><div class="line"><a name="l00959"></a><span class="lineno">  959</span>&#160;    {</div>
-<div class="line"><a name="l00960"></a><span class="lineno">  960</span>&#160;      <span class="keywordflow">if</span>(<span class="keyword">static_cast&lt;</span><a class="code" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2">level</a><span class="keyword">&gt;</span>(v.level) &lt;= <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a4e203df3fa59865cb642afd0534fe34c">log_level</a>())</div>
-<div class="line"><a name="l00961"></a><span class="lineno">  961</span>&#160;      {</div>
-<div class="line"><a name="l00962"></a><span class="lineno">  962</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a68727430c76153a2d7849b6f1e3f6974">_immediate</a>)</div>
-<div class="line"><a name="l00963"></a><span class="lineno">  963</span>&#160;          *<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a68727430c76153a2d7849b6f1e3f6974">_immediate</a> &lt;&lt; v &lt;&lt; std::endl;</div>
-<div class="line"><a name="l00964"></a><span class="lineno">  964</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> thisitem = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>++;</div>
-<div class="line"><a name="l00965"></a><span class="lineno">  965</span>&#160;        v.counter = thisitem;</div>
-<div class="line"><a name="l00966"></a><span class="lineno">  966</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>[<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a3f84cd746bfd6a533ba3798c285c570d">counter_to_idx</a>(thisitem)] = std::move(v);</div>
-<div class="line"><a name="l00967"></a><span class="lineno">  967</span>&#160;        <span class="keywordflow">return</span> thisitem;</div>
-<div class="line"><a name="l00968"></a><span class="lineno">  968</span>&#160;      }</div>
-<div class="line"><a name="l00969"></a><span class="lineno">  969</span>&#160;      <span class="keywordflow">return</span> (<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a>) -1;</div>
-<div class="line"><a name="l00970"></a><span class="lineno">  970</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00961"></a><span class="lineno">  961</span>&#160;    {</div>
+<div class="line"><a name="l00962"></a><span class="lineno">  962</span>&#160;      <span class="keywordflow">if</span>(<span class="keyword">static_cast&lt;</span><a class="code" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2">level</a><span class="keyword">&gt;</span>(v.level) &lt;= <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a4e203df3fa59865cb642afd0534fe34c">log_level</a>())</div>
+<div class="line"><a name="l00963"></a><span class="lineno">  963</span>&#160;      {</div>
+<div class="line"><a name="l00964"></a><span class="lineno">  964</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a68727430c76153a2d7849b6f1e3f6974">_immediate</a>)</div>
+<div class="line"><a name="l00965"></a><span class="lineno">  965</span>&#160;          *<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a68727430c76153a2d7849b6f1e3f6974">_immediate</a> &lt;&lt; v &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00966"></a><span class="lineno">  966</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> thisitem = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>++;</div>
+<div class="line"><a name="l00967"></a><span class="lineno">  967</span>&#160;        v.counter = thisitem;</div>
+<div class="line"><a name="l00968"></a><span class="lineno">  968</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>[<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a3f84cd746bfd6a533ba3798c285c570d">counter_to_idx</a>(thisitem)] = std::move(v);</div>
+<div class="line"><a name="l00969"></a><span class="lineno">  969</span>&#160;        <span class="keywordflow">return</span> thisitem;</div>
+<div class="line"><a name="l00970"></a><span class="lineno">  970</span>&#160;      }</div>
+<div class="line"><a name="l00971"></a><span class="lineno">  971</span>&#160;      <span class="keywordflow">return</span> (<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a>) -1;</div>
+<div class="line"><a name="l00972"></a><span class="lineno">  972</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1520,19 +1520,19 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>THREADSAFE Logs a new item, returning its unique counter id. </p>
-<div class="fragment"><div class="line"><a name="l00973"></a><span class="lineno">  973</span>&#160;    {</div>
-<div class="line"><a name="l00974"></a><span class="lineno">  974</span>&#160;      <span class="keywordflow">if</span>(__level &lt;= <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a4e203df3fa59865cb642afd0534fe34c">log_level</a>())</div>
-<div class="line"><a name="l00975"></a><span class="lineno">  975</span>&#160;      {</div>
-<div class="line"><a name="l00976"></a><span class="lineno">  976</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a065700524f0f473ccab020674450e1ff">value_type</a> v(__level, std::forward&lt;Args&gt;(args)...);</div>
-<div class="line"><a name="l00977"></a><span class="lineno">  977</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a68727430c76153a2d7849b6f1e3f6974">_immediate</a>)</div>
-<div class="line"><a name="l00978"></a><span class="lineno">  978</span>&#160;          *<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a68727430c76153a2d7849b6f1e3f6974">_immediate</a> &lt;&lt; v &lt;&lt; std::endl;</div>
-<div class="line"><a name="l00979"></a><span class="lineno">  979</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> thisitem = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>++;</div>
-<div class="line"><a name="l00980"></a><span class="lineno">  980</span>&#160;        v.counter = thisitem;</div>
-<div class="line"><a name="l00981"></a><span class="lineno">  981</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>[<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a3f84cd746bfd6a533ba3798c285c570d">counter_to_idx</a>(thisitem)] = std::move(v);</div>
-<div class="line"><a name="l00982"></a><span class="lineno">  982</span>&#160;        <span class="keywordflow">return</span> thisitem;</div>
-<div class="line"><a name="l00983"></a><span class="lineno">  983</span>&#160;      }</div>
-<div class="line"><a name="l00984"></a><span class="lineno">  984</span>&#160;      <span class="keywordflow">return</span> (<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a>) -1;</div>
-<div class="line"><a name="l00985"></a><span class="lineno">  985</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00975"></a><span class="lineno">  975</span>&#160;    {</div>
+<div class="line"><a name="l00976"></a><span class="lineno">  976</span>&#160;      <span class="keywordflow">if</span>(__level &lt;= <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a4e203df3fa59865cb642afd0534fe34c">log_level</a>())</div>
+<div class="line"><a name="l00977"></a><span class="lineno">  977</span>&#160;      {</div>
+<div class="line"><a name="l00978"></a><span class="lineno">  978</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a065700524f0f473ccab020674450e1ff">value_type</a> v(__level, std::forward&lt;Args&gt;(args)...);</div>
+<div class="line"><a name="l00979"></a><span class="lineno">  979</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a68727430c76153a2d7849b6f1e3f6974">_immediate</a>)</div>
+<div class="line"><a name="l00980"></a><span class="lineno">  980</span>&#160;          *<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a68727430c76153a2d7849b6f1e3f6974">_immediate</a> &lt;&lt; v &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00981"></a><span class="lineno">  981</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a> thisitem = <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">_counter</a>++;</div>
+<div class="line"><a name="l00982"></a><span class="lineno">  982</span>&#160;        v.counter = thisitem;</div>
+<div class="line"><a name="l00983"></a><span class="lineno">  983</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">_store</a>[<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a3f84cd746bfd6a533ba3798c285c570d">counter_to_idx</a>(thisitem)] = std::move(v);</div>
+<div class="line"><a name="l00984"></a><span class="lineno">  984</span>&#160;        <span class="keywordflow">return</span> thisitem;</div>
+<div class="line"><a name="l00985"></a><span class="lineno">  985</span>&#160;      }</div>
+<div class="line"><a name="l00986"></a><span class="lineno">  986</span>&#160;      <span class="keywordflow">return</span> (<a class="code" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">size_type</a>) -1;</div>
+<div class="line"><a name="l00987"></a><span class="lineno">  987</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1679,21 +1679,21 @@ template&lt;class Parent , class Pointer , class Reference &gt; </div>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a68727430c76153a2d7849b6f1e3f6974"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a68727430c76153a2d7849b6f1e3f6974">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::_immediate</a></div><div class="ttdeci">std::ostream * _immediate</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:759</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a4e203df3fa59865cb642afd0534fe34c"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a4e203df3fa59865cb642afd0534fe34c">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::log_level</a></div><div class="ttdeci">level log_level() const noexcept</div><div class="ttdoc">THREADSAFE Returns the log level from the instance filtered by any LogLevelChecker.</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:793</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a3962d6737036c97ce4a6b10b435507d0"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a3962d6737036c97ce4a6b10b435507d0">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::iterator</a></div><div class="ttdeci">iterator_&lt; ringbuffer_log, pointer, reference &gt; iterator</div><div class="ttdoc">The iterator type.</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:747</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_acd249a00e184218d760131396385e950"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::size_type</a></div><div class="ttdeci">typename container_type::size_type size_type</div><div class="ttdoc">The size type.</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:563</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a68727430c76153a2d7849b6f1e3f6974"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a68727430c76153a2d7849b6f1e3f6974">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::_immediate</a></div><div class="ttdeci">std::ostream * _immediate</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:761</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a4e203df3fa59865cb642afd0534fe34c"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a4e203df3fa59865cb642afd0534fe34c">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::log_level</a></div><div class="ttdeci">level log_level() const noexcept</div><div class="ttdoc">THREADSAFE Returns the log level from the instance filtered by any LogLevelChecker.</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:795</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a3962d6737036c97ce4a6b10b435507d0"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a3962d6737036c97ce4a6b10b435507d0">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::iterator</a></div><div class="ttdeci">iterator_&lt; ringbuffer_log, pointer, reference &gt; iterator</div><div class="ttdoc">The iterator type.</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:749</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_acd249a00e184218d760131396385e950"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#acd249a00e184218d760131396385e950">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::size_type</a></div><div class="ttdeci">typename container_type::size_type size_type</div><div class="ttdoc">The size type.</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:565</div></div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1ringbuffer__log_html_add4cc747a8c90cbfd538b0f07dfdd1e2"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2">quickcpplib::_xxx::ringbuffer_log::level</a></div><div class="ttdeci">level</div><div class="ttdoc">Level of logged item.</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:86</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a5fba2454781e15a39d6be14b83a49e10"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::size</a></div><div class="ttdeci">size_type size() const noexcept</div><div class="ttdoc">Returns the number of items in the log.</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:802</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a33cf8f8474092a4d1c43c9471b11e0ce"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::_counter</a></div><div class="ttdeci">std::atomic&lt; size_type &gt; _counter</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:758</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a5fba2454781e15a39d6be14b83a49e10"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a5fba2454781e15a39d6be14b83a49e10">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::size</a></div><div class="ttdeci">size_type size() const noexcept</div><div class="ttdoc">Returns the number of items in the log.</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:804</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a33cf8f8474092a4d1c43c9471b11e0ce"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a33cf8f8474092a4d1c43c9471b11e0ce">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::_counter</a></div><div class="ttdeci">std::atomic&lt; size_type &gt; _counter</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:760</div></div>
 <div class="ttc" id="anamespacestd_1_1experimental_html_acdfba2d2e9c79f689a34c9cea5c5682d"><div class="ttname"><a href="namespacestd_1_1experimental.html#acdfba2d2e9c79f689a34c9cea5c5682d">std::experimental::swap</a></div><div class="ttdeci">void swap(optional&lt; T &gt; &amp;x, optional&lt; T &gt; &amp;y) noexcept(noexcept(x.swap(y)))</div><div class="ttdef"><b>Definition:</b> optional.hpp:1016</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a3f84cd746bfd6a533ba3798c285c570d"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a3f84cd746bfd6a533ba3798c285c570d">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::counter_to_idx</a></div><div class="ttdeci">size_type counter_to_idx(size_type counter) const noexcept</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:761</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a645eaa2a834ef4bc7ebdabad2db7556d"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a645eaa2a834ef4bc7ebdabad2db7556d">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::max_items</a></div><div class="ttdeci">static constexpr size_t max_items</div><div class="ttdoc">The maximum items to store according to Policy::max_items. If zero, use container's size().</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:558</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_ac921a06d5c3319a23928b3809215add8"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ac921a06d5c3319a23928b3809215add8">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::const_iterator</a></div><div class="ttdeci">iterator_&lt; const ringbuffer_log, const_pointer, const_reference &gt; const_iterator</div><div class="ttdoc">The const iterator type.</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:749</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a065700524f0f473ccab020674450e1ff"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a065700524f0f473ccab020674450e1ff">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::value_type</a></div><div class="ttdeci">typename container_type::value_type value_type</div><div class="ttdoc">The log record type.</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:561</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a4bb75b5f5821aeb2a822c638a8f1effc"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a4bb75b5f5821aeb2a822c638a8f1effc">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::instance_log_level</a></div><div class="ttdeci">level instance_log_level() const noexcept</div><div class="ttdoc">THREADSAFE Returns the current per-instance log level.</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:795</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a6389961382f925f7649f403ccbbd377c"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::_store</a></div><div class="ttdeci">container_type _store</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:756</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a64953163e739a152c3b1e7b902f4f059"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a64953163e739a152c3b1e7b902f4f059">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::_instance_level</a></div><div class="ttdeci">std::atomic&lt; level &gt; _instance_level</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:757</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a3f84cd746bfd6a533ba3798c285c570d"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a3f84cd746bfd6a533ba3798c285c570d">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::counter_to_idx</a></div><div class="ttdeci">size_type counter_to_idx(size_type counter) const noexcept</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:763</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a645eaa2a834ef4bc7ebdabad2db7556d"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a645eaa2a834ef4bc7ebdabad2db7556d">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::max_items</a></div><div class="ttdeci">static constexpr size_t max_items</div><div class="ttdoc">The maximum items to store according to Policy::max_items. If zero, use container's size().</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:560</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_ac921a06d5c3319a23928b3809215add8"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ac921a06d5c3319a23928b3809215add8">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::const_iterator</a></div><div class="ttdeci">iterator_&lt; const ringbuffer_log, const_pointer, const_reference &gt; const_iterator</div><div class="ttdoc">The const iterator type.</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:751</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a065700524f0f473ccab020674450e1ff"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a065700524f0f473ccab020674450e1ff">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::value_type</a></div><div class="ttdeci">typename container_type::value_type value_type</div><div class="ttdoc">The log record type.</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:563</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a4bb75b5f5821aeb2a822c638a8f1effc"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a4bb75b5f5821aeb2a822c638a8f1effc">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::instance_log_level</a></div><div class="ttdeci">level instance_log_level() const noexcept</div><div class="ttdoc">THREADSAFE Returns the current per-instance log level.</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:797</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a6389961382f925f7649f403ccbbd377c"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6389961382f925f7649f403ccbbd377c">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::_store</a></div><div class="ttdeci">container_type _store</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:758</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a64953163e739a152c3b1e7b902f4f059"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a64953163e739a152c3b1e7b902f4f059">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::_instance_level</a></div><div class="ttdeci">std::atomic&lt; level &gt; _instance_level</div><div class="ttdef"><b>Definition:</b> ringbuffer_log.hpp:759</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
