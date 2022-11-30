@@ -1,6 +1,5 @@
 var NAVTREEINDEX5 =
 {
-"namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach.html":[4,0,2,0,11],
 "namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1detail.html":[4,0,2,0,11,0],
 "namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1traits.html":[5,0,1,0,9,0],
 "namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1traits.html":[4,0,2,0,11,1],
@@ -22,8 +21,8 @@ var NAVTREEINDEX5 =
 "namespacequickcpplib_1_1__xxx_1_1pmr.html":[4,0,2,0,17],
 "namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html":[4,0,2,0,18],
 "namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html":[5,0,1,0,15],
-"namespacequickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail.html":[5,0,1,0,15,0],
 "namespacequickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail.html":[4,0,2,0,18,0],
+"namespacequickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail.html":[5,0,1,0,15,0],
 "namespacequickcpplib_1_1__xxx_1_1scope.html":[5,0,1,0,16],
 "namespacequickcpplib_1_1__xxx_1_1scope.html":[4,0,2,0,19],
 "namespacequickcpplib_1_1__xxx_1_1scope_1_1detail.html":[4,0,2,0,19,0],
@@ -249,5 +248,6 @@ var NAVTREEINDEX5 =
 "signal__guard_8hpp.html#a81e58816107576cbfe0c84b0a477620c":[6,0,0,0,28,34],
 "signal__guard_8hpp.html#a88307c108cb9a38f92fc4f1ef6e467d4":[6,0,0,0,28,32],
 "signal__guard_8hpp.html#a93caa21ac2445a99991916ca6edce509":[6,0,0,0,28,28],
-"signal__guard_8hpp.html#a95601e6c8a95db2668387289c2c6c01c":[6,0,0,0,28,11]
+"signal__guard_8hpp.html#a95601e6c8a95db2668387289c2c6c01c":[6,0,0,0,28,11],
+"signal__guard_8hpp.html#a9fa7645a3baffab74235e7edb6cbc24d":[6,0,0,0,28,20]
 };

@@ -1,4 +1,4 @@
 var span_8hpp =
 [
-    [ "span", "span_8hpp.html#a507a48685d37a1347f58e4495274aeb8", null ]
+    [ "span", "span_8hpp.html#a6b8cfcfdcc8ce9428ff13c6c3272f9a8", null ]
 ];

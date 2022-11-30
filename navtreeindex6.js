@@ -1,6 +1,5 @@
 var NAVTREEINDEX6 =
 {
-"signal__guard_8hpp.html#a9fa7645a3baffab74235e7edb6cbc24d":[6,0,0,0,28,20],
 "signal__guard_8hpp.html#aaee5ee8095c91a043b353799da2a9c15":[6,0,0,0,28,24],
 "signal__guard_8hpp.html#ac2c66ccd24d574d61cfb576263f5f320":[6,0,0,0,28,33],
 "signal__guard_8hpp.html#acd98d6c6ea207d05458905cb4fefd34d":[6,0,0,0,28,26],
@@ -16,7 +15,7 @@ var NAVTREEINDEX6 =
 "small__prng_8hpp.html#a3bb97975d35cf80a7915b57477e4c7e6":[6,0,0,0,0,6,2],
 "small__prng_8hpp.html#a936f76639c37fa63b61f60251721247c":[6,0,0,0,0,6,1],
 "span_8hpp.html":[6,0,0,0,29],
-"span_8hpp.html#a507a48685d37a1347f58e4495274aeb8":[6,0,0,0,29,0],
+"span_8hpp.html#a6b8cfcfdcc8ce9428ff13c6c3272f9a8":[6,0,0,0,29,0],
 "spinlock_8hpp.html":[6,0,0,0,30],
 "spinlock_8hpp.html#a10c572932a08be170b60aac4aa577882":[6,0,0,0,30,19],
 "spinlock_8hpp.html#a283d2a54c3371823054980c76e3cae96":[6,0,0,0,30,22],
@@ -249,5 +248,6 @@ var NAVTREEINDEX6 =
 "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html#a17cf6a1f59a34cc3278b0df9e94721e1":[5,0,1,0,0,2,3,0,1],
 "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html#a1fec305fc32baa6f8208ae30e3d9e9e6":[5,0,1,0,0,2,3,0,15],
 "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html#a2797b9392e0e9d0f02ee9d093bee4086":[5,0,1,0,0,2,3,0,7],
-"structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html#a56f759a4e3e95e3e78372a66b6c8126e":[5,0,1,0,0,2,3,0,12]
+"structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html#a56f759a4e3e95e3e78372a66b6c8126e":[5,0,1,0,0,2,3,0,12],
+"structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html#a6a329ab1b4942cb7b0b59da2d7c67188":[5,0,1,0,0,2,3,0,0]
 };

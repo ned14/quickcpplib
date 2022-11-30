@@ -105,11 +105,11 @@ Functions</h2></td></tr>
 <tr class="memdesc:aefe911834bb2808131702ad6bfbbc9f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a number to a hex string. Out buffer can be same as in buffer.  <a href="namespacequickcpplib_1_1__xxx_1_1algorithm_1_1string.html#aefe911834bb2808131702ad6bfbbc9f6">More...</a><br /></td></tr>
 <tr class="separator:aefe911834bb2808131702ad6bfbbc9f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41120c76437973407d92578611d84999"><td class="memTemplParams" colspan="2">template&lt;class CharType , class T , typename std::enable_if&lt;(sizeof(T)==1), bool &gt;::type  = true, typename std::enable_if&lt;(std::is_trivially_copyable&lt; T &gt;::value), bool &gt;::type  = true, typename std::enable_if&lt;(!std::is_const&lt; CharType &gt;::value), bool &gt;::type  = true&gt; </td></tr>
-<tr class="memitem:a41120c76437973407d92578611d84999"><td class="memTemplItemLeft" align="right" valign="top">size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1algorithm_1_1string.html#a41120c76437973407d92578611d84999">to_hex_string</a> (<a class="el" href="namespacequickcpplib_1_1__xxx_1_1span.html#a507a48685d37a1347f58e4495274aeb8">span::span</a>&lt; CharType &gt; out, const <a class="el" href="namespacequickcpplib_1_1__xxx_1_1span.html#a507a48685d37a1347f58e4495274aeb8">span::span</a>&lt; T &gt; in)</td></tr>
+<tr class="memitem:a41120c76437973407d92578611d84999"><td class="memTemplItemLeft" align="right" valign="top">size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1algorithm_1_1string.html#a41120c76437973407d92578611d84999">to_hex_string</a> (<a class="el" href="namespacequickcpplib_1_1__xxx_1_1span.html#a6b8cfcfdcc8ce9428ff13c6c3272f9a8">span::span</a>&lt; CharType &gt; out, const <a class="el" href="namespacequickcpplib_1_1__xxx_1_1span.html#a6b8cfcfdcc8ce9428ff13c6c3272f9a8">span::span</a>&lt; T &gt; in)</td></tr>
 <tr class="memdesc:a41120c76437973407d92578611d84999"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.  <a href="namespacequickcpplib_1_1__xxx_1_1algorithm_1_1string.html#a41120c76437973407d92578611d84999">More...</a><br /></td></tr>
 <tr class="separator:a41120c76437973407d92578611d84999"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a225ba6d2d59efcbcdd2aea8ca7cd85d1"><td class="memTemplParams" colspan="2">template&lt;class T , typename std::enable_if&lt;(sizeof(T)==1), bool &gt;::type  = true, typename std::enable_if&lt;(std::is_trivially_copyable&lt; T &gt;::value), bool &gt;::type  = true&gt; </td></tr>
-<tr class="memitem:a225ba6d2d59efcbcdd2aea8ca7cd85d1"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1algorithm_1_1string.html#a225ba6d2d59efcbcdd2aea8ca7cd85d1">to_hex_string</a> (<a class="el" href="namespacequickcpplib_1_1__xxx_1_1span.html#a507a48685d37a1347f58e4495274aeb8">span::span</a>&lt; T &gt; in)</td></tr>
+<tr class="memitem:a225ba6d2d59efcbcdd2aea8ca7cd85d1"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1algorithm_1_1string.html#a225ba6d2d59efcbcdd2aea8ca7cd85d1">to_hex_string</a> (<a class="el" href="namespacequickcpplib_1_1__xxx_1_1span.html#a6b8cfcfdcc8ce9428ff13c6c3272f9a8">span::span</a>&lt; T &gt; in)</td></tr>
 <tr class="memdesc:a225ba6d2d59efcbcdd2aea8ca7cd85d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.  <a href="namespacequickcpplib_1_1__xxx_1_1algorithm_1_1string.html#a225ba6d2d59efcbcdd2aea8ca7cd85d1">More...</a><br /></td></tr>
 <tr class="separator:a225ba6d2d59efcbcdd2aea8ca7cd85d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a640a102719eb3db73ac898dfdeb0637c"><td class="memTemplParams" colspan="2">template&lt;class T , typename std::enable_if&lt;(sizeof(T)==1), bool &gt;::type  = true, typename std::enable_if&lt;(std::is_trivially_copyable&lt; T &gt;::value), bool &gt;::type  = true&gt; </td></tr>
@@ -269,13 +269,13 @@ template&lt;class CharType , class T , typename std::enable_if&lt;(sizeof(T)==1)
         <tr>
           <td class="memname">size_t quickcpplib::_xxx::algorithm::string::to_hex_string </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1span.html#a507a48685d37a1347f58e4495274aeb8">span::span</a>&lt; CharType &gt;&#160;</td>
+          <td class="paramtype"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1span.html#a6b8cfcfdcc8ce9428ff13c6c3272f9a8">span::span</a>&lt; CharType &gt;&#160;</td>
           <td class="paramname"><em>out</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespacequickcpplib_1_1__xxx_1_1span.html#a507a48685d37a1347f58e4495274aeb8">span::span</a>&lt; T &gt;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespacequickcpplib_1_1__xxx_1_1span.html#a6b8cfcfdcc8ce9428ff13c6c3272f9a8">span::span</a>&lt; T &gt;&#160;</td>
           <td class="paramname"><em>in</em>&#160;</td>
         </tr>
         <tr>
@@ -310,7 +310,7 @@ template&lt;class T , typename std::enable_if&lt;(sizeof(T)==1), bool &gt;::type
         <tr>
           <td class="memname">std::string quickcpplib::_xxx::algorithm::string::to_hex_string </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1span.html#a507a48685d37a1347f58e4495274aeb8">span::span</a>&lt; T &gt;&#160;</td>
+          <td class="paramtype"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1span.html#a6b8cfcfdcc8ce9428ff13c6c3272f9a8">span::span</a>&lt; T &gt;&#160;</td>
           <td class="paramname"><em>in</em></td><td>)</td>
           <td></td>
         </tr>

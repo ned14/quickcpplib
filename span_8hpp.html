@@ -92,7 +92,10 @@ $(document).ready(function(){initNavTree('span_8hpp.html',''); initResizable(); 
 <div class="contents">
 <div class="textblock"><code>#include &lt;cstddef&gt;</code><br />
 <code>#include &quot;<a class="el" href="config_8hpp.html">config.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="declval_8hpp.html">declval.hpp</a>&quot;</code><br />
 <code>#include &lt;span&gt;</code><br />
+<code>#include &lt;type_traits&gt;</code><br />
+<code>#include &quot;span-lite/include/nonstd/span.hpp&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -107,9 +110,9 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a507a48685d37a1347f58e4495274aeb8"><td class="memTemplParams" colspan="2">template&lt;class T , size_t Extent = std::dynamic_extent&gt; </td></tr>
-<tr class="memitem:a507a48685d37a1347f58e4495274aeb8"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1span.html#a507a48685d37a1347f58e4495274aeb8">quickcpplib::_xxx::span::span</a> = std::span&lt; T, Extent &gt;</td></tr>
-<tr class="separator:a507a48685d37a1347f58e4495274aeb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b8cfcfdcc8ce9428ff13c6c3272f9a8"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
+<tr class="memitem:a6b8cfcfdcc8ce9428ff13c6c3272f9a8"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1span.html#a6b8cfcfdcc8ce9428ff13c6c3272f9a8">quickcpplib::_xxx::span::span</a> = nonstd::span&lt; T &gt;</td></tr>
+<tr class="separator:a6b8cfcfdcc8ce9428ff13c6c3272f9a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

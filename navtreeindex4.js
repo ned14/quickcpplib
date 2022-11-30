@@ -1,6 +1,5 @@
 var NAVTREEINDEX4 =
 {
-"group__unittesting.html#ga4663f56d1fb50f330941938dae3bdf08":[6,0,0,0,1,0,0,5],
 "group__unittesting.html#ga488f2c88deda4cedf108f5bf41b0c1f5":[3,1,3],
 "group__unittesting.html#ga488f2c88deda4cedf108f5bf41b0c1f5":[6,0,0,0,1,0,0,7],
 "group__unittesting.html#ga4eceeb6c35ebc01c1e28ef13932484e2":[6,0,0,0,1,0,0,32],
@@ -199,8 +198,8 @@ var NAVTREEINDEX4 =
 "namespacenonstd_1_1detail.html":[4,0,1,0],
 "namespacequickcpplib.html":[4,0,2],
 "namespacequickcpplib.html":[5,0,1],
-"namespacequickcpplib_1_1__xxx.html":[4,0,2,0],
 "namespacequickcpplib_1_1__xxx.html":[5,0,1,0],
+"namespacequickcpplib_1_1__xxx.html":[4,0,2,0],
 "namespacequickcpplib_1_1__xxx_1_1algorithm.html":[4,0,2,0,0],
 "namespacequickcpplib_1_1__xxx_1_1algorithm.html":[5,0,1,0,0],
 "namespacequickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie.html":[4,0,2,0,0,0],
@@ -238,8 +237,8 @@ var NAVTREEINDEX4 =
 "namespacequickcpplib_1_1__xxx_1_1console__colours.html":[4,0,2,0,6],
 "namespacequickcpplib_1_1__xxx_1_1console__colours.html":[5,0,1,0,5],
 "namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html":[4,0,2,0,6,0],
-"namespacequickcpplib_1_1__xxx_1_1detach__cast.html":[4,0,2,0,7],
 "namespacequickcpplib_1_1__xxx_1_1detach__cast.html":[5,0,1,0,6],
+"namespacequickcpplib_1_1__xxx_1_1detach__cast.html":[4,0,2,0,7],
 "namespacequickcpplib_1_1__xxx_1_1detach__cast_1_1detail.html":[4,0,2,0,7,0],
 "namespacequickcpplib_1_1__xxx_1_1detach__cast_1_1traits.html":[5,0,1,0,6,0],
 "namespacequickcpplib_1_1__xxx_1_1detach__cast_1_1traits.html":[4,0,2,0,7,1],
@@ -249,5 +248,6 @@ var NAVTREEINDEX4 =
 "namespacequickcpplib_1_1__xxx_1_1erasure__cast_1_1detail.html":[4,0,2,0,9,0],
 "namespacequickcpplib_1_1__xxx_1_1function__ptr.html":[5,0,1,0,8],
 "namespacequickcpplib_1_1__xxx_1_1function__ptr.html":[4,0,2,0,10],
-"namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach.html":[5,0,1,0,9]
+"namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach.html":[5,0,1,0,9],
+"namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach.html":[4,0,2,0,11]
 };
