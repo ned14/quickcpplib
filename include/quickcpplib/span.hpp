@@ -32,28 +32,34 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "config.hpp"
 
-#ifdef QUICKCPPLIB_USE_STD_SPAN
+#if defined(QUICKCPPLIB_USE_STD_SPAN) || ((_HAS_CXX20 || __cplusplus >= 202002) && __has_include(<span>))
+
+#include "declval.hpp"
 
 #include <span>
+#include <type_traits>
 
 QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace span
 {
-  template <class T, size_t Extent = std::dynamic_extent> using span = std::span<T, Extent>;
-}
 
-QUICKCPPLIB_NAMESPACE_END
+  template <class T, size_t Extent = std::dynamic_extent> class span : public std::span<T, Extent>
+  {
+    using _base = std::span<T, Extent>;
 
-#elif(_HAS_CXX20 || __cplusplus >= 202002) && __has_include(<span>)
+    struct _implicit_contiguous_container_constructor {};
 
-#include <span>
+  public:
+    using _base::_base;
+    constexpr span(_base v) noexcept : _base(v) {}
 
-QUICKCPPLIB_NAMESPACE_BEGIN
-
-namespace span
-{
-  template <class T, size_t Extent = std::dynamic_extent> using span = std::span<T, Extent>;
+    // libc++ incorrectly makes the range consuming constructor explicit which breaks all implicit
+    // construction of spans from vectors. Let's add a constructor to fix that.
+    QUICKCPPLIB_TEMPLATE(class U)
+    QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TEXPR(declval<U>().data()), QUICKCPPLIB_TEXPR(declval<U>().size()))
+    constexpr span(U &&v, _implicit_contiguous_container_constructor = {}) noexcept : _base(v.data(), v.size()) {}
+  };
 }
 
 #undef QUICKCPPLIB_USE_STD_SPAN
