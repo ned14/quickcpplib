@@ -27,7 +27,9 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "config.hpp"
 
-#include <new>
+#include <memory>  // for start_lifetime_as
+#include <new>     // for launder
+#include <type_traits>
 
 QUICKCPPLIB_NAMESPACE_BEGIN
 namespace start_lifetime_as
@@ -35,21 +37,95 @@ namespace start_lifetime_as
   namespace detail
   {
     using namespace std;
-    template <class T> constexpr inline T *launder(T *p, ...) noexcept { return p; }
-    template <typename T> inline T *start_lifetime_as(void *p, ...) { return reinterpret_cast<T *>(p); }
+    template <class T> constexpr inline T *launder(T *p, ...) noexcept
+    {
+      return p;
+    }
+    template <typename T> inline T *start_lifetime_as(void *p, ...) noexcept
+    {
+      return reinterpret_cast<T *>(p);
+    }
+    template <typename T> inline const T *start_lifetime_as(const void *p, ...) noexcept
+    {
+      return reinterpret_cast<const T *>(p);
+    }
+    template <typename T> inline T *start_lifetime_as_array(void *p, size_t, ...) noexcept
+    {
+      return reinterpret_cast<T *>(p);
+    }
+    template <typename T> inline const T *start_lifetime_as_array(const void *p, size_t, ...) noexcept
+    {
+      return reinterpret_cast<const T *>(p);
+    }
 
-    template <class T> constexpr inline T *_launder(T *p) noexcept { return launder<T>(p); }
-    template <typename T> inline T *_start_lifetime_as(void *p) { return start_lifetime_as<T>(p); }
+    template <class T> constexpr inline T *_launder(T *p) noexcept
+    {
+      return launder<T>(p);
+    }
+    template <class T> struct _start_lifetime_as
+    {
+      constexpr T *operator()(void *p) const noexcept { return start_lifetime_as<T>(p); }
+      constexpr const T *operator()(const void *p) const noexcept { return start_lifetime_as<T>(p); }
+      constexpr T *operator()(void *p, size_t n) const noexcept { return start_lifetime_as_array<T>(p, n); }
+      constexpr const T *operator()(const void *p, size_t n) const noexcept { return start_lifetime_as_array<T>(p, n); }
+    };
+
+#if __cplusplus >= 202600L
+    template <class T> struct _has_implicit_lifetime : std::has_implicit_lifetime<T>
+    {
+    };
+#else
+    /* Note that this is broken in C++'s without the actual type trait as it's not possible to fully correctly
+    implement this. To be specific, aggregates with user provided destructors are reported to have implicit
+    lifetime, when they do not.
+    */
+    template <class T> struct _has_implicit_lifetime
+    {
+      static constexpr bool value = std::is_scalar<T>::value                                   //
+                                    || std::is_array<T>::value                                 //
+                                    || std::is_aggregate<T>::value                             //
+                                    || (std::is_trivially_destructible<T>::value               //
+                                        && (std::is_trivially_default_constructible<T>::value  //
+                                            || std::is_trivially_copy_constructible<T>::value  //
+                                            || std::is_trivially_move_constructible<T>::value));
+    };
+#endif
   }  // namespace detail
 
   //! `std::launder<T>` from C++ 17, or an emulation
-  template <class T> QUICKCPPLIB_NODISCARD constexpr inline T *launder(T *p) noexcept { return detail::_launder(p); }
-  //! `std::start_lifetime_as<T>` from C++ 23, or an emulation
-  template <typename T> QUICKCPPLIB_NODISCARD inline T *start_lifetime_as(void *p) { return detail::_start_lifetime_as<T>(p); }
-  //! `std::start_lifetime_as<T>` from C++ 23, or an emulation
-  template <typename T> QUICKCPPLIB_NODISCARD inline const T *start_lifetime_as(const void *p)
+  QUICKCPPLIB_TEMPLATE(class T)
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(!std::is_function<T>::value), QUICKCPPLIB_TPRED(!std::is_void<T>::value))
+  QUICKCPPLIB_NODISCARD constexpr inline T *launder(T *p) noexcept
   {
-    return detail::_start_lifetime_as<const T>(const_cast<void *>(p)); /* works around a GCC bug */
+    return detail::_launder(p);
+  }
+  //! `std::start_lifetime_as<T>` from C++ 23, or an emulation
+  QUICKCPPLIB_TEMPLATE(class T)
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::_has_implicit_lifetime<T>::value))
+  QUICKCPPLIB_NODISCARD constexpr inline auto *start_lifetime_as(void *p) noexcept
+  {
+    return detail::_start_lifetime_as<T>()(p);
+  }
+  //! `std::start_lifetime_as<T>` from C++ 23, or an emulation
+  QUICKCPPLIB_TEMPLATE(class T)
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::_has_implicit_lifetime<T>::value))
+  QUICKCPPLIB_NODISCARD constexpr inline auto *start_lifetime_as(const void *p) noexcept
+  {
+    return detail::_start_lifetime_as<T>()(p);
+  }
+  //! `std::start_lifetime_as_array<T>` from C++ 23, or an emulation
+  QUICKCPPLIB_TEMPLATE(class T)
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::_has_implicit_lifetime<T>::value))
+  QUICKCPPLIB_NODISCARD constexpr inline auto *start_lifetime_as_array(void *p, size_t n) noexcept
+  {
+    return detail::_start_lifetime_as<T>()(p, n);
+  }
+  //! `std::start_lifetime_as_array<T>` from C++ 23, or an emulation
+  QUICKCPPLIB_TEMPLATE(class T)
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::_has_implicit_lifetime<T>::value))
+  QUICKCPPLIB_NODISCARD constexpr inline auto *start_lifetime_as_array(const void *p, size_t n) noexcept
+  {
+    return detail::_start_lifetime_as<T>()(p, n);
   }
 
 }  // namespace start_lifetime_as

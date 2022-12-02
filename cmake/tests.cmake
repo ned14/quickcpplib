@@ -12,6 +12,7 @@ set(quickcpplib_TESTS
   "test/secded.cpp"
   "test/signal_guard.cpp"
   "test/spinlock_tribool.cpp"
+  "test/start_lifetime_as.cpp"
   "test/test_guard.hpp"
   "test/test_guard2.hpp"
   "test/timing.h"
