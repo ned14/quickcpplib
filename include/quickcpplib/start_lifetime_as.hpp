@@ -77,17 +77,19 @@ namespace start_lifetime_as
 #else
     /* Note that this is broken in C++'s without the actual type trait as it's not possible to fully correctly
     implement this. To be specific, aggregates with user provided destructors are reported to have implicit
-    lifetime, when they do not.
+    lifetime, when they do not. Also, the trait should be true for types with trivial constructors even if
+    they're not available to the public, which is undetectable in current C++.
     */
     template <class T> struct _has_implicit_lifetime
     {
-      static constexpr bool value = std::is_scalar<T>::value                                   //
-                                    || std::is_array<T>::value                                 //
-                                    || std::is_aggregate<T>::value                             //
-                                    || (std::is_trivially_destructible<T>::value               //
-                                        && (std::is_trivially_default_constructible<T>::value  //
-                                            || std::is_trivially_copy_constructible<T>::value  //
-                                            || std::is_trivially_move_constructible<T>::value));
+      using _type = typename std::remove_cv<T>::type;
+      static constexpr bool value = std::is_scalar<_type>::value                                   //
+                                    || std::is_array<_type>::value                                 //
+                                    || std::is_aggregate<_type>::value                             //
+                                    || (std::is_trivially_destructible<_type>::value               //
+                                        && (std::is_trivially_default_constructible<_type>::value  //
+                                            || std::is_trivially_copy_constructible<_type>::value  //
+                                            || std::is_trivially_move_constructible<_type>::value));
     };
 #endif
   }  // namespace detail
