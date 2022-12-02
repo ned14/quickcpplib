@@ -98,27 +98,35 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a6b809a5015723b61c125620c4484ec73"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
-<tr class="memitem:a6b809a5015723b61c125620c4484ec73"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="config_8hpp.html#aacf6c619b7e656b816b5b38aa5c2af2e">QUICKCPPLIB_NODISCARD</a> T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as.html#a6b809a5015723b61c125620c4484ec73">launder</a> (T *p) noexcept</td></tr>
-<tr class="memdesc:a6b809a5015723b61c125620c4484ec73"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>std::launder&lt;T&gt;</code> from C++ 17, or an emulation  <a href="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as.html#a6b809a5015723b61c125620c4484ec73">More...</a><br /></td></tr>
-<tr class="separator:a6b809a5015723b61c125620c4484ec73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65945661e4d18cb81f7f947df33d0d12"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a65945661e4d18cb81f7f947df33d0d12"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="config_8hpp.html#aacf6c619b7e656b816b5b38aa5c2af2e">QUICKCPPLIB_NODISCARD</a> T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as.html#a65945661e4d18cb81f7f947df33d0d12">start_lifetime_as</a> (void *p)</td></tr>
-<tr class="memdesc:a65945661e4d18cb81f7f947df33d0d12"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>std::start_lifetime_as&lt;T&gt;</code> from C++ 23, or an emulation  <a href="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as.html#a65945661e4d18cb81f7f947df33d0d12">More...</a><br /></td></tr>
-<tr class="separator:a65945661e4d18cb81f7f947df33d0d12"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7caa4ec472a078889c8a396c65aa3630"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a7caa4ec472a078889c8a396c65aa3630"><td class="memTemplItemLeft" align="right" valign="top">const <a class="el" href="config_8hpp.html#aacf6c619b7e656b816b5b38aa5c2af2e">QUICKCPPLIB_NODISCARD</a> T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as.html#a7caa4ec472a078889c8a396c65aa3630">start_lifetime_as</a> (const void *p)</td></tr>
-<tr class="memdesc:a7caa4ec472a078889c8a396c65aa3630"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>std::start_lifetime_as&lt;T&gt;</code> from C++ 23, or an emulation  <a href="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as.html#a7caa4ec472a078889c8a396c65aa3630">More...</a><br /></td></tr>
-<tr class="separator:a7caa4ec472a078889c8a396c65aa3630"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedc6ff3d3e797a9d6f6b94f3c6e9fbb0"><td class="memTemplParams" colspan="2">template&lt;class T , typename std::enable_if&lt;(!std::is_function&lt; T &gt;::value), bool &gt;::type  = true, typename std::enable_if&lt;(!std::is_void&lt; T &gt;::value), bool &gt;::type  = true&gt; </td></tr>
+<tr class="memitem:aedc6ff3d3e797a9d6f6b94f3c6e9fbb0"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="config_8hpp.html#aacf6c619b7e656b816b5b38aa5c2af2e">QUICKCPPLIB_NODISCARD</a> T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as.html#aedc6ff3d3e797a9d6f6b94f3c6e9fbb0">launder</a> (T *p) noexcept</td></tr>
+<tr class="memdesc:aedc6ff3d3e797a9d6f6b94f3c6e9fbb0"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>std::launder&lt;T&gt;</code> from C++ 17, or an emulation  <a href="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as.html#aedc6ff3d3e797a9d6f6b94f3c6e9fbb0">More...</a><br /></td></tr>
+<tr class="separator:aedc6ff3d3e797a9d6f6b94f3c6e9fbb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac541ee11b17af68bfe683c3f9af126cd"><td class="memTemplParams" colspan="2">template&lt;class T , typename std::enable_if&lt;(detail::_has_implicit_lifetime&lt; T &gt;::value), bool &gt;::type  = true&gt; </td></tr>
+<tr class="memitem:ac541ee11b17af68bfe683c3f9af126cd"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="config_8hpp.html#aacf6c619b7e656b816b5b38aa5c2af2e">QUICKCPPLIB_NODISCARD</a> auto *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as.html#ac541ee11b17af68bfe683c3f9af126cd">start_lifetime_as</a> (void *p) noexcept</td></tr>
+<tr class="memdesc:ac541ee11b17af68bfe683c3f9af126cd"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>std::start_lifetime_as&lt;T&gt;</code> from C++ 23, or an emulation  <a href="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as.html#ac541ee11b17af68bfe683c3f9af126cd">More...</a><br /></td></tr>
+<tr class="separator:ac541ee11b17af68bfe683c3f9af126cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11f38eb7103fa0d74e6b8e5e28e20690"><td class="memTemplParams" colspan="2">template&lt;class T , typename std::enable_if&lt;(detail::_has_implicit_lifetime&lt; T &gt;::value), bool &gt;::type  = true&gt; </td></tr>
+<tr class="memitem:a11f38eb7103fa0d74e6b8e5e28e20690"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="config_8hpp.html#aacf6c619b7e656b816b5b38aa5c2af2e">QUICKCPPLIB_NODISCARD</a> auto *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as.html#a11f38eb7103fa0d74e6b8e5e28e20690">start_lifetime_as</a> (const void *p) noexcept</td></tr>
+<tr class="memdesc:a11f38eb7103fa0d74e6b8e5e28e20690"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>std::start_lifetime_as&lt;T&gt;</code> from C++ 23, or an emulation  <a href="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as.html#a11f38eb7103fa0d74e6b8e5e28e20690">More...</a><br /></td></tr>
+<tr class="separator:a11f38eb7103fa0d74e6b8e5e28e20690"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10c123b32bd69b795e0d1ab9bfe1616d"><td class="memTemplParams" colspan="2">template&lt;class T , typename std::enable_if&lt;(detail::_has_implicit_lifetime&lt; T &gt;::value), bool &gt;::type  = true&gt; </td></tr>
+<tr class="memitem:a10c123b32bd69b795e0d1ab9bfe1616d"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="config_8hpp.html#aacf6c619b7e656b816b5b38aa5c2af2e">QUICKCPPLIB_NODISCARD</a> auto *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as.html#a10c123b32bd69b795e0d1ab9bfe1616d">start_lifetime_as_array</a> (void *p, size_t n) noexcept</td></tr>
+<tr class="memdesc:a10c123b32bd69b795e0d1ab9bfe1616d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>std::start_lifetime_as_array&lt;T&gt;</code> from C++ 23, or an emulation  <a href="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as.html#a10c123b32bd69b795e0d1ab9bfe1616d">More...</a><br /></td></tr>
+<tr class="separator:a10c123b32bd69b795e0d1ab9bfe1616d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4566e64906e54ec2b4fc5109b8503be"><td class="memTemplParams" colspan="2">template&lt;class T , typename std::enable_if&lt;(detail::_has_implicit_lifetime&lt; T &gt;::value), bool &gt;::type  = true&gt; </td></tr>
+<tr class="memitem:ad4566e64906e54ec2b4fc5109b8503be"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="config_8hpp.html#aacf6c619b7e656b816b5b38aa5c2af2e">QUICKCPPLIB_NODISCARD</a> auto *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as.html#ad4566e64906e54ec2b4fc5109b8503be">start_lifetime_as_array</a> (const void *p, size_t n) noexcept</td></tr>
+<tr class="memdesc:ad4566e64906e54ec2b4fc5109b8503be"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>std::start_lifetime_as_array&lt;T&gt;</code> from C++ 23, or an emulation  <a href="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as.html#ad4566e64906e54ec2b4fc5109b8503be">More...</a><br /></td></tr>
+<tr class="separator:ad4566e64906e54ec2b4fc5109b8503be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a6b809a5015723b61c125620c4484ec73"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b809a5015723b61c125620c4484ec73">&#9670;&nbsp;</a></span>launder()</h2>
+<a id="aedc6ff3d3e797a9d6f6b94f3c6e9fbb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedc6ff3d3e797a9d6f6b94f3c6e9fbb0">&#9670;&nbsp;</a></span>launder()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T &gt; </div>
+template&lt;class T , typename std::enable_if&lt;(!std::is_function&lt; T &gt;::value), bool &gt;::type  = true, typename std::enable_if&lt;(!std::is_void&lt; T &gt;::value), bool &gt;::type  = true&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -139,23 +147,25 @@ template&lt;class T &gt; </div>
 </div><div class="memdoc">
 
 <p><code>std::launder&lt;T&gt;</code> from C++ 17, or an emulation </p>
-<div class="fragment"><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as_1_1detail.html#aadff66bf552eb9c174af908de0ac2f81">detail::_launder</a>(p); }</div>
+<div class="fragment"><div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  {</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as_1_1detail.html#aadff66bf552eb9c174af908de0ac2f81">detail::_launder</a>(p);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a65945661e4d18cb81f7f947df33d0d12"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a65945661e4d18cb81f7f947df33d0d12">&#9670;&nbsp;</a></span>start_lifetime_as() <span class="overload">[1/2]</span></h2>
+<a id="ac541ee11b17af68bfe683c3f9af126cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac541ee11b17af68bfe683c3f9af126cd">&#9670;&nbsp;</a></span>start_lifetime_as() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;class T , typename std::enable_if&lt;(detail::_has_implicit_lifetime&lt; T &gt;::value), bool &gt;::type  = true&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="config_8hpp.html#aacf6c619b7e656b816b5b38aa5c2af2e">QUICKCPPLIB_NODISCARD</a> T* quickcpplib::_xxx::start_lifetime_as::start_lifetime_as </td>
+          <td class="memname">constexpr <a class="el" href="config_8hpp.html#aacf6c619b7e656b816b5b38aa5c2af2e">QUICKCPPLIB_NODISCARD</a> auto* quickcpplib::_xxx::start_lifetime_as::start_lifetime_as </td>
           <td>(</td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>p</em></td><td>)</td>
@@ -164,29 +174,31 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p><code>std::start_lifetime_as&lt;T&gt;</code> from C++ 23, or an emulation </p>
-<div class="fragment"><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;{ <span class="keywordflow">return</span> detail::_start_lifetime_as&lt;T&gt;(p); }</div>
+<div class="fragment"><div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  {</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordflow">return</span> detail::_start_lifetime_as&lt;T&gt;()(p);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a7caa4ec472a078889c8a396c65aa3630"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7caa4ec472a078889c8a396c65aa3630">&#9670;&nbsp;</a></span>start_lifetime_as() <span class="overload">[2/2]</span></h2>
+<a id="a11f38eb7103fa0d74e6b8e5e28e20690"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11f38eb7103fa0d74e6b8e5e28e20690">&#9670;&nbsp;</a></span>start_lifetime_as() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;class T , typename std::enable_if&lt;(detail::_has_implicit_lifetime&lt; T &gt;::value), bool &gt;::type  = true&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="config_8hpp.html#aacf6c619b7e656b816b5b38aa5c2af2e">QUICKCPPLIB_NODISCARD</a> T* quickcpplib::_xxx::start_lifetime_as::start_lifetime_as </td>
+          <td class="memname">constexpr <a class="el" href="config_8hpp.html#aacf6c619b7e656b816b5b38aa5c2af2e">QUICKCPPLIB_NODISCARD</a> auto* quickcpplib::_xxx::start_lifetime_as::start_lifetime_as </td>
           <td>(</td>
           <td class="paramtype">const void *&#160;</td>
           <td class="paramname"><em>p</em></td><td>)</td>
@@ -195,21 +207,107 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p><code>std::start_lifetime_as&lt;T&gt;</code> from C++ 23, or an emulation </p>
-<div class="fragment"><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordflow">return</span> detail::_start_lifetime_as&lt;const T&gt;(<span class="keyword">const_cast&lt;</span><span class="keywordtype">void</span> *<span class="keyword">&gt;</span>(p)); <span class="comment">/* works around a GCC bug */</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  }</div>
+<div class="fragment"><div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  {</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordflow">return</span> detail::_start_lifetime_as&lt;T&gt;()(p);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a10c123b32bd69b795e0d1ab9bfe1616d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10c123b32bd69b795e0d1ab9bfe1616d">&#9670;&nbsp;</a></span>start_lifetime_as_array() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename std::enable_if&lt;(detail::_has_implicit_lifetime&lt; T &gt;::value), bool &gt;::type  = true&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="config_8hpp.html#aacf6c619b7e656b816b5b38aa5c2af2e">QUICKCPPLIB_NODISCARD</a> auto* quickcpplib::_xxx::start_lifetime_as::start_lifetime_as_array </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>p</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>std::start_lifetime_as_array&lt;T&gt;</code> from C++ 23, or an emulation </p>
+<div class="fragment"><div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  {</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">return</span> detail::_start_lifetime_as&lt;T&gt;()(p, n);</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ad4566e64906e54ec2b4fc5109b8503be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4566e64906e54ec2b4fc5109b8503be">&#9670;&nbsp;</a></span>start_lifetime_as_array() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , typename std::enable_if&lt;(detail::_has_implicit_lifetime&lt; T &gt;::value), bool &gt;::type  = true&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="config_8hpp.html#aacf6c619b7e656b816b5b38aa5c2af2e">QUICKCPPLIB_NODISCARD</a> auto* quickcpplib::_xxx::start_lifetime_as::start_lifetime_as_array </td>
+          <td>(</td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>p</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>std::start_lifetime_as_array&lt;T&gt;</code> from C++ 23, or an emulation </p>
+<div class="fragment"><div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  {</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordflow">return</span> detail::_start_lifetime_as&lt;T&gt;()(p, n);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1start__lifetime__as_1_1detail_html_aadff66bf552eb9c174af908de0ac2f81"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as_1_1detail.html#aadff66bf552eb9c174af908de0ac2f81">quickcpplib::_xxx::start_lifetime_as::detail::_launder</a></div><div class="ttdeci">constexpr T * _launder(T *p) noexcept</div><div class="ttdef"><b>Definition:</b> start_lifetime_as.hpp:41</div></div>
+<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1start__lifetime__as_1_1detail_html_aadff66bf552eb9c174af908de0ac2f81"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1start__lifetime__as_1_1detail.html#aadff66bf552eb9c174af908de0ac2f81">quickcpplib::_xxx::start_lifetime_as::detail::_launder</a></div><div class="ttdeci">constexpr T * _launder(T *p) noexcept</div><div class="ttdef"><b>Definition:</b> start_lifetime_as.hpp:61</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
