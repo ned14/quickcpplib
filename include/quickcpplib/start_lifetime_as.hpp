@@ -71,21 +71,21 @@ namespace start_lifetime_as
     };
 
 #if __cplusplus >= 202600L
-    template <class T> struct _has_implicit_lifetime : std::has_implicit_lifetime<T>
-    {
-    };
+    template <class T> using _is_implicit_lifetime = std::is_implicit_lifetime<T>;
 #else
     /* Note that this is broken in C++'s without the actual type trait as it's not possible to fully correctly
     implement this. To be specific, aggregates with user provided destructors are reported to have implicit
     lifetime, when they do not. Also, the trait should be true for types with trivial constructors even if
     they're not available to the public, which is undetectable in current C++.
     */
-    template <class T> struct _has_implicit_lifetime
+    template <class T> struct _is_implicit_lifetime
     {
       using _type = typename std::remove_cv<T>::type;
       static constexpr bool value = std::is_scalar<_type>::value                                   //
                                     || std::is_array<_type>::value                                 //
+#if __cplusplus >= 201700LL || _HAS_CXX17
                                     || std::is_aggregate<_type>::value                             //
+#endif
                                     || (std::is_trivially_destructible<_type>::value               //
                                         && (std::is_trivially_default_constructible<_type>::value  //
                                             || std::is_trivially_copy_constructible<_type>::value  //
@@ -103,28 +103,28 @@ namespace start_lifetime_as
   }
   //! `std::start_lifetime_as<T>` from C++ 23, or an emulation
   QUICKCPPLIB_TEMPLATE(class T)
-  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::_has_implicit_lifetime<T>::value))
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::_is_implicit_lifetime<T>::value))
   QUICKCPPLIB_NODISCARD constexpr inline auto *start_lifetime_as(void *p) noexcept
   {
     return detail::_start_lifetime_as<T>()(p);
   }
   //! `std::start_lifetime_as<T>` from C++ 23, or an emulation
   QUICKCPPLIB_TEMPLATE(class T)
-  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::_has_implicit_lifetime<T>::value))
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::_is_implicit_lifetime<T>::value))
   QUICKCPPLIB_NODISCARD constexpr inline auto *start_lifetime_as(const void *p) noexcept
   {
     return detail::_start_lifetime_as<T>()(p);
   }
   //! `std::start_lifetime_as_array<T>` from C++ 23, or an emulation
   QUICKCPPLIB_TEMPLATE(class T)
-  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::_has_implicit_lifetime<T>::value))
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::_is_implicit_lifetime<T>::value))
   QUICKCPPLIB_NODISCARD constexpr inline auto *start_lifetime_as_array(void *p, size_t n) noexcept
   {
     return detail::_start_lifetime_as<T>()(p, n);
   }
   //! `std::start_lifetime_as_array<T>` from C++ 23, or an emulation
   QUICKCPPLIB_TEMPLATE(class T)
-  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::_has_implicit_lifetime<T>::value))
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::_is_implicit_lifetime<T>::value))
   QUICKCPPLIB_NODISCARD constexpr inline auto *start_lifetime_as_array(const void *p, size_t n) noexcept
   {
     return detail::_start_lifetime_as<T>()(p, n);
