@@ -58,7 +58,7 @@ namespace span
     // construction of spans from vectors. Let's add a constructor to fix that.
     QUICKCPPLIB_TEMPLATE(class U)
     QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TEXPR(declval<U>().data()), QUICKCPPLIB_TEXPR(declval<U>().size()))
-    constexpr span(U &&v, _implicit_contiguous_container_constructor = {}) noexcept : _base(v.data(), v.size()) {}
+    constexpr span(U &&v, _implicit_contiguous_container_constructor = {}, ...) noexcept : _base(v.data(), v.size()) {}
   };
 }
 
