@@ -192,13 +192,13 @@ extern "C" void _mm_pause();
 #endif
 
 #ifdef __has_cpp_attribute
-#define QUICKCPPLIB_HAS_CPP_ATTRIBUTE(attr) __has_cpp_attribute(attr)
+#define QUICKCPPLIB_HAS_CPP_ATTRIBUTE(attr, edition) (__has_cpp_attribute(attr) >= (edition) && __cplusplus >= (edition))
 #else
-#define QUICKCPPLIB_HAS_CPP_ATTRIBUTE(attr) (0)
+#define QUICKCPPLIB_HAS_CPP_ATTRIBUTE(attr, edition) (0)
 #endif
 
 #if !defined(QUICKCPPLIB_NORETURN)
-#if QUICKCPPLIB_HAS_CPP_ATTRIBUTE(noreturn)
+#if QUICKCPPLIB_HAS_CPP_ATTRIBUTE(noreturn, 201100)
 #define QUICKCPPLIB_NORETURN [[noreturn]]
 #elif defined(_MSC_VER)
 #define QUICKCPPLIB_NORETURN __declspec(noreturn)
@@ -215,21 +215,23 @@ extern "C" void _mm_pause();
 #endif
 #endif
 #ifndef QUICKCPPLIB_NODISCARD
-#if QUICKCPPLIB_HAS_CPP_ATTRIBUTE(nodiscard)
+#if QUICKCPPLIB_HAS_CPP_ATTRIBUTE(nodiscard, 201700) && (!defined(__GNUC__) || __cpp_concepts >= 202000L /* -fconcepts-ts and [[nodiscard]] don't mix on GCC   \
+                                                                                                          */)
 #define QUICKCPPLIB_NODISCARD [[nodiscard]]
 #elif defined(__clang__)  // deliberately not GCC
 #define QUICKCPPLIB_NODISCARD __attribute__((warn_unused_result))
 #elif defined(_MSC_VER)
 // _Must_inspect_result_ expands into this
-#define QUICKCPPLIB_NODISCARD                                                                                                                                                                                                                                                                                                  \
-  __declspec("SAL_name"                                                                                                                                                                                                                                                                                                        \
-             "("                                                                                                                                                                                                                                                                                                               \
-             "\"_Must_inspect_result_\""                                                                                                                                                                                                                                                                                       \
-             ","                                                                                                                                                                                                                                                                                                               \
-             "\"\""                                                                                                                                                                                                                                                                                                            \
-             ","                                                                                                                                                                                                                                                                                                               \
-             "\"2\""                                                                                                                                                                                                                                                                                                           \
-             ")") __declspec("SAL_begin") __declspec("SAL_post") __declspec("SAL_mustInspect") __declspec("SAL_post") __declspec("SAL_checkReturn") __declspec("SAL_end")
+#define QUICKCPPLIB_NODISCARD                                                                                                                                  \
+  __declspec(                                                                                                                                                  \
+  "SAL_name"                                                                                                                                                   \
+  "("                                                                                                                                                          \
+  "\"_Must_inspect_result_\""                                                                                                                                  \
+  ","                                                                                                                                                          \
+  "\"\""                                                                                                                                                       \
+  ","                                                                                                                                                          \
+  "\"2\""                                                                                                                                                      \
+  ")") __declspec("SAL_begin") __declspec("SAL_post") __declspec("SAL_mustInspect") __declspec("SAL_post") __declspec("SAL_checkReturn") __declspec("SAL_end")
 #endif
 #endif
 #ifndef QUICKCPPLIB_NODISCARD
@@ -301,7 +303,8 @@ extern "C" void _mm_pause();
 #ifndef QUICKCPPLIB_PLATFORM_NATIVE_BITLENGTH
 #if defined(__SIZEOF_POINTER__)
 #define QUICKCPPLIB_PLATFORM_NATIVE_BITLENGTH (__SIZEOF_POINTER__ * __CHAR_BIT__)
-#elif defined(_WIN64) || defined(__x86_64__) || defined(_M_X64) || defined(__aarch64__) || defined(_M_ARM64) || defined(__ia64__) || defined(_M_IA64) || defined(__ppc64__)
+#elif defined(_WIN64) || defined(__x86_64__) || defined(_M_X64) || defined(__aarch64__) || defined(_M_ARM64) || defined(__ia64__) || defined(_M_IA64) ||       \
+defined(__ppc64__)
 #define QUICKCPPLIB_PLATFORM_NATIVE_BITLENGTH (64)
 #else
 #define QUICKCPPLIB_PLATFORM_NATIVE_BITLENGTH (32)
@@ -323,8 +326,11 @@ extern "C" void _mm_pause();
 #define QUICKCPPLIB_TREQUIRES(...) requires QUICKCPPLIB_CALL_OVERLOAD(QUICKCPPLIB_TREQUIRES_EXPAND, __VA_ARGS__)
 
 #define QUICKCPPLIB_TEMPLATE(...) template <__VA_ARGS__>
-#define QUICKCPPLIB_TEXPR(...)                                                                                                                                                                                                                                                                                                 \
-  requires { (__VA_ARGS__); }
+#define QUICKCPPLIB_TEXPR(...)                                                                                                                                 \
+  requires                                                                                                                                                     \
+  {                                                                                                                                                            \
+    (__VA_ARGS__);                                                                                                                                             \
+  }
 #define QUICKCPPLIB_TPRED(...) (__VA_ARGS__)
 #if !defined(_MSC_VER) || _MSC_FULL_VER >= 192400000  // VS 2019 16.3 is broken here
 #define QUICKCPPLIB_REQUIRES(...) requires(__VA_ARGS__)
