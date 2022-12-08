@@ -1,9 +1,11 @@
 var searchData=
 [
-  ['raw_5fcontext_1679',['raw_context',['../structraised__signal__info.html#a8c34ddb84219d71fefb74760c76770cb',1,'raised_signal_info']]],
-  ['raw_5finfo_1680',['raw_info',['../structraised__signal__info.html#aa8e89b60b2001db1182b9e172bf95552',1,'raised_signal_info']]],
-  ['raw_5ftype_1681',['raw_type',['../structquickcpplib_1_1__xxx_1_1type__traits_1_1is__sequence_3_01_t_00_01bool_01_4.html#a3ebb54a52dd5f59785b997ee1a8983e1',1,'quickcpplib::_xxx::type_traits::is_sequence&lt; T, bool &gt;']]],
-  ['red_1682',['red',['../namespacequickcpplib_1_1__xxx_1_1console__colours_1_1detail.html#a7fccccab473b3d346ed9159de184102f',1,'quickcpplib::_xxx::console_colours::detail']]],
-  ['reproduce_1683',['reproduce',['../_l_i_c_e_n_s_e__1__0_8txt.html#aa76fd25bb5d9a82f351c0188325ddf19',1,'LICENSE_1_0.txt']]],
-  ['requirement_5ffailed_1684',['requirement_failed',['../structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#ae35149e2856793a5919fbc4b9855943e',1,'quickcpplib::_xxx::unit_test::test_case']]]
+  ['s_1597',['s',['../struct_oracle_val.html#a49e0b5ec286b358ddd124a70dc7c89cb',1,'OracleVal::s()'],['../struct_oracle.html#a774838b036c7a84e60e403a250e239fe',1,'Oracle::s()'],['../struct_explicit_str.html#a875965e405d2a3dd60c44d5b5183191b',1,'ExplicitStr::s()']]],
+  ['second_1598',['second',['../structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html#aa4b26f9e693851150164c61abb20ff5c',1,'quickcpplib::_xxx::algorithm::open_hash_index::linear_memory_policy::value_type::second()'],['../structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type.html#ae9957939eb88984b475c682ec0c99c50',1,'quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy::value_type::second()']]],
+  ['signo_1599',['signo',['../structraised__signal__info.html#a909693dca5e336bed820178d23d4059d',1,'raised_signal_info']]],
+  ['skipped_1600',['skipped',['../structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#afddc2037c663c31efcc595db3981f351',1,'quickcpplib::_xxx::unit_test::test_case']]],
+  ['spins_5fto_5floop_1601',['spins_to_loop',['../structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop_1_1policy.html#ac8087e4a68873a6bac5fc4542296cafb',1,'quickcpplib::_xxx::configurable_spinlock::spins_to_loop::policy']]],
+  ['spins_5fto_5fyield_1602',['spins_to_yield',['../structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield_1_1policy.html#a93a17f35e90f1036dd56c1f0cb9b3ab7',1,'quickcpplib::_xxx::configurable_spinlock::spins_to_yield::policy']]],
+  ['storage_5f_1603',['storage_',['../structstd_1_1experimental_1_1optional__base.html#aa7f2be708eddd8066eee64ef852e4314',1,'std::experimental::optional_base::storage_()'],['../structstd_1_1experimental_1_1constexpr__optional__base.html#a21e4f97ec2334b123f8e7c7a9d50c9b1',1,'std::experimental::constexpr_optional_base::storage_()']]],
+  ['suite_5fidx_1604',['suite_idx',['../structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case__registration.html#a953e697fee0b6dd20084782813c37f36',1,'quickcpplib::_xxx::unit_test::test_case_registration']]]
 ];

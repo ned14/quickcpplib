@@ -1,6 +1,5 @@
 var group__unittesting =
 [
-    [ "quickcpplib", "namespacequickcpplib.html", null ],
     [ "QUICKCPPLIB_BOOST_UNIT_TEST_IMPL", "group__unittesting.html#ga4663f56d1fb50f330941938dae3bdf08", null ],
     [ "QUICKCPPLIB_BOOST_UNIT_TEST_FAIL", "group__unittesting.html#gaae98a52c07719e338dd7422ff294ec23", null ],
     [ "QUICKCPPLIB_BOOST_UNIT_CHECK_FAIL", "group__unittesting.html#ga488f2c88deda4cedf108f5bf41b0c1f5", null ],

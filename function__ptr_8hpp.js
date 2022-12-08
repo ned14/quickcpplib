@@ -1,6 +1,5 @@
 var function__ptr_8hpp =
 [
-    [ "function_ptr", "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr.html", null ],
     [ "function_ptr< R(Args...), callable_storage_bytes >", "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4.html", "classquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callable__storage__bytes_01_4" ],
     [ "standin_t", "structquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callabffcad6204c45aba400a73981952055b6.html", "structquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callabffcad6204c45aba400a73981952055b6" ],
     [ "emplace_function_ptr", "function__ptr_8hpp.html#a92ced746f3f705083a119352c301439a", null ],

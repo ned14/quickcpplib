@@ -5,7 +5,6 @@ var optional_2optional_8hpp =
     [ "is_nothrow_move_assignable", "structstd_1_1experimental_1_1is__nothrow__move__assignable.html", "structstd_1_1experimental_1_1is__nothrow__move__assignable" ],
     [ "has_nothrow_move_assign", "structstd_1_1experimental_1_1is__nothrow__move__assignable_1_1has__nothrow__move__assign.html", null ],
     [ "has_nothrow_move_assign< X, true >", "structstd_1_1experimental_1_1is__nothrow__move__assignable_1_1has__nothrow__move__assign_3_01_x_00_01true_01_4.html", null ],
-    [ "optional", "classstd_1_1experimental_1_1optional.html", "classstd_1_1experimental_1_1optional" ],
     [ "has_overloaded_addressof", "structstd_1_1experimental_1_1detail___1_1has__overloaded__addressof.html", null ],
     [ "trivial_init_t", "structstd_1_1experimental_1_1trivial__init__t.html", null ],
     [ "in_place_t", "structstd_1_1experimental_1_1in__place__t.html", null ],

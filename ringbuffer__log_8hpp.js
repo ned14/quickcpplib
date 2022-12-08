@@ -1,11 +1,9 @@
 var ringbuffer__log_8hpp =
 [
     [ "default_ringbuffer_log_level_checker", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1default__ringbuffer__log__level__checker.html", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1default__ringbuffer__log__level__checker" ],
-    [ "ringbuffer_log", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log" ],
     [ "value_type", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type" ],
     [ "simple_ringbuffer_log_policy", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy.html", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy" ],
     [ "ringbuffer_log", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log" ],
-    [ "iterator_", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__" ],
     [ "iterator_", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__" ],
     [ "unique_id", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1unique__id.html", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1unique__id" ],
     [ "QUICKCPPLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES_DEBUG", "ringbuffer__log_8hpp.html#ae7d3063b719dddb9051b548fff6ad04a", null ],

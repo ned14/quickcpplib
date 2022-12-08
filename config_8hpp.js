@@ -31,7 +31,7 @@ var config_8hpp =
     [ "QUICKCPPLIB_DISABLE_UNDEFINED_SANITIZE", "config_8hpp.html#afc75be2d7581ee23d9997df225838cf1", null ],
     [ "QUICKCPPLIB_FORCEINLINE", "config_8hpp.html#ade19a82edb486c94d9e02db1512fac06", null ],
     [ "QUICKCPPLIB_NOINLINE", "config_8hpp.html#a3f6a7120abf6ac554e6a9ef4fe3000f2", null ],
-    [ "QUICKCPPLIB_HAS_CPP_ATTRIBUTE", "config_8hpp.html#a0626ea8699db968242fc703573266998", null ],
+    [ "QUICKCPPLIB_HAS_CPP_ATTRIBUTE", "config_8hpp.html#a0c1a109e84daaf965848b4d37ca45120", null ],
     [ "QUICKCPPLIB_NORETURN", "config_8hpp.html#a12fd80b884ef35d73f050ea3a42e519d", null ],
     [ "QUICKCPPLIB_NODISCARD", "config_8hpp.html#aacf6c619b7e656b816b5b38aa5c2af2e", null ],
     [ "QUICKCPPLIB_SYMBOL_VISIBLE", "config_8hpp.html#a3269b0446557952ee91cf4d7fc2f219e", null ],
