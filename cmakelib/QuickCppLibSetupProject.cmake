@@ -183,11 +183,11 @@ if(NOT MSVC)
   endforeach()
 
   # This fellow probably ought to be compiled into every executable
-  set(CMAKE_REQUIRED_FLAGS "-fsanitize=safestack")
+  set(CMAKE_REQUIRED_FLAGS "-fsanitize=safe-stack")
   check_cxx_source_compiles("int main() { return 0; }" COMPILER_HAS_SAFESTACK)
   if(COMPILER_HAS_SAFESTACK)
-    set(SAFESTACK_COMPILE_FLAGS -fsanitize=safestack)
-    set(SAFESTACKLINK_FLAGS -fsanitize=safestack)
+    set(SAFESTACK_COMPILE_FLAGS -fsanitize=safe-stack)
+    set(SAFESTACKLINK_FLAGS -fsanitize=safe-stack)
   endif()
   # This fellow probably should just always be turned on period
   set(CMAKE_REQUIRED_FLAGS "-fstack-protector-strong")
