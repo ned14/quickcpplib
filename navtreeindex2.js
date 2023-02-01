@@ -1,6 +1,5 @@
 var NAVTREEINDEX2 =
 {
-"classquickcpplib_1_1__xxx_1_1pmr_1_1monotonic__buffer__resource.html#a99411813aa884102b6dbcf96937d45fc":[5,0,0,0,11,1,5],
 "classquickcpplib_1_1__xxx_1_1pmr_1_1monotonic__buffer__resource.html#ab781353c5df324406849367ac28b36b3":[5,0,0,0,11,1,3],
 "classquickcpplib_1_1__xxx_1_1pmr_1_1monotonic__buffer__resource.html#afd3db130320ee64c3223ac2688301ba7":[5,0,0,0,11,1,4],
 "classquickcpplib_1_1__xxx_1_1pmr_1_1polymorphic__allocator.html":[5,0,0,0,11,2],
@@ -249,5 +248,6 @@ var NAVTREEINDEX2 =
 "cpp__feature_8h.html":[6,0,0,0,12],
 "cpp__feature_8h.html#a05f3b9f6f2309a16af9d6fd939d97493":[6,0,0,0,12,17],
 "cpp__feature_8h.html#a2b46de6050feed05210bef65feef9c42":[6,0,0,0,12,7],
-"cpp__feature_8h.html#a38782886ef0f9d68b695bcec1f396f38":[6,0,0,0,12,25]
+"cpp__feature_8h.html#a38782886ef0f9d68b695bcec1f396f38":[6,0,0,0,12,25],
+"cpp__feature_8h.html#a42c04530cde3529000b65eab84d6ef6b":[6,0,0,0,12,6]
 };

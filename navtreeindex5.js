@@ -1,6 +1,5 @@
 var NAVTREEINDEX5 =
 {
-"namespacequickcpplib_1_1__xxx_1_1console__colours.html#a39689cfa1d232a083ffa1d7c0d1bfbbe":[4,0,2,0,6,9],
 "namespacequickcpplib_1_1__xxx_1_1console__colours.html#a5939a5f128a2aff319ff6a9e578f98a5":[4,0,2,0,6,6],
 "namespacequickcpplib_1_1__xxx_1_1console__colours.html#a6d5211522ae2e8b3a6a0fa9a9d62504a":[4,0,2,0,6,4],
 "namespacequickcpplib_1_1__xxx_1_1console__colours.html#a9a6a6b5e5588e3831b89681dddfd3dee":[4,0,2,0,6,8],
@@ -249,5 +248,6 @@ var NAVTREEINDEX5 =
 "namespacestd_1_1experimental.html#a8f72219d1aa14acd377705b6c7a08ad0":[4,0,3,0,65],
 "namespacestd_1_1experimental.html#a92177d04a5c9fad94d42d36d94e1b6c6":[4,0,3,0,60],
 "namespacestd_1_1experimental.html#a924da3c7843283266e613737af3159d6":[4,0,3,0,57],
-"namespacestd_1_1experimental.html#a9bcca6a02f6e3005b3180962429c6feb":[4,0,3,0,22]
+"namespacestd_1_1experimental.html#a9bcca6a02f6e3005b3180962429c6feb":[4,0,3,0,22],
+"namespacestd_1_1experimental.html#a9dd11e02b37f5d3e9c09a29c7ea7024c":[4,0,3,0,52]
 };

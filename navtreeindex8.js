@@ -1,6 +1,5 @@
 var NAVTREEINDEX8 =
 {
-"structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_1_1rebind.html":[5,0,0,0,1,0,0],
 "structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_1_1rebind.html#a442afe30cd6b8901db8e93d80d694931":[5,0,0,0,1,0,0,0],
 "structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_alig38b3ce2fde59753f89f79b36dfe20c65.html":[5,0,0,0,1,3,0],
 "structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_alig38b3ce2fde59753f89f79b36dfe20c65.html#a7b0239ac3c86bcfa9736f9ce451fb0a6":[5,0,0,0,1,3,0,0],
@@ -249,5 +248,6 @@ var NAVTREEINDEX8 =
 "test__optional_8cpp.html#a07bdb92a5ccb4aeff0078e3637e5d6d7":[6,0,0,0,3,1,83],
 "test__optional_8cpp.html#a08ddc2ccef40748450f057b7055ea599":[6,0,0,0,3,1,31],
 "test__optional_8cpp.html#a0f45aa44a42080ab927203f011754a4c":[6,0,0,0,3,1,25],
-"test__optional_8cpp.html#a148a9fea045e144be2a2852144a3e49c":[6,0,0,0,3,1,36]
+"test__optional_8cpp.html#a148a9fea045e144be2a2852144a3e49c":[6,0,0,0,3,1,36],
+"test__optional_8cpp.html#a1d724aa32797cfc440aef7aeeacc27a4":[6,0,0,0,3,1,77]
 };
