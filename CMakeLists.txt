@@ -4,6 +4,7 @@ list(FIND CMAKE_MODULE_PATH "quickcpplib" quickcpplib_idx)
 if(${quickcpplib_idx} GREATER -1)
   return()
 endif()
+option(QUICKCPPLIB_ENABLE_DOXYGEN_DOCS_BUILD_SUPPORT "Enable doxygen docs build support" ON)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmakelib")
 include(QuickCppLibRequireOutOfSourceBuild)
 include(QuickCppLibUtils)
@@ -38,8 +39,11 @@ if (QUICKCPPLIB_REQUIRE_CXX17 OR QUICKCPPLIB_REQUIRE_CXX20)
 endif()
 # Make an interface only library so dependent CMakeLists can bring in this header-only library
 include(QuickCppLibMakeHeaderOnlyLibrary)
-# Make a docs target
-include(QuickCppLibMakeDoxygen)
+
+if(QUICKCPPLIB_ENABLE_DOXYGEN_DOCS_BUILD_SUPPORT)
+  # Make a docs target
+  include(QuickCppLibMakeDoxygen)
+endif()
 
 # Set the standard definitions for these libraries and bring in the all_* helper functions
 include(QuickCppLibApplyDefaultDefinitions)
