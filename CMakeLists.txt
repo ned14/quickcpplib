@@ -93,6 +93,25 @@ if(MSVC AND NOT CLANG)
     endif()
   endforeach()
 endif()
+# fast_atomic_128 may need to link in libatomic
+check_cxx_source_compiles("
+int main() {
+#if defined(__AVX__)
+i am not a number;
+#elif defined(_MSC_VER)
+i am not a number;
+#elif defined(__x86_64__) && defined(__GCC_HAVE_SYNC_COMPARE_AND_SWAP_16)
+i am not a number;
+#elif defined(__aarch64__) || defined(_M_ARM64)
+i am not a number;
+#else
+return 0;
+#endif
+}
+" FAST_ATOMIC_128_NEEDS_LIBATOMIC)
+if(FAST_ATOMIC_128_NEEDS_LIBATOMIC)
+  all_link_libraries(PUBLIC atomic)
+endif()
 
 # Cache this library's auto scanned sources for later reuse
 include(QuickCppLibCacheLibrarySources)
