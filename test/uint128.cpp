@@ -21,8 +21,8 @@ Distributed under the Boost Software License, Version 1.0.
           http://www.boost.org/LICENSE_1_0.txt)
 */
 
-#include "../include/quickcpplib/boost/test/unit_test.hpp"
 #include "../include/quickcpplib/uint128.hpp"
+#include "../include/quickcpplib/boost/test/unit_test.hpp"
 
 #include <array>
 #include <chrono>
@@ -75,8 +75,9 @@ BOOST_AUTO_TEST_CASE(uint128 / performance, "Tests that the uint128 has reasonab
     end = std::chrono::steady_clock::now();
     count += sizeof(uint128set2) / sizeof(uint128set2[0]);
   } while(std::chrono::duration_cast<std::chrono::seconds>(end - begin).count() < 5);
-  auto no = ((uint64_t) count * std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() / 1000000);  // NOLINT
-  std::cout << "Can do " << no << " 128-bit moduli/sec which is " << (1000000000 / no) << "ns/modulus" << std::endl;
+  auto no = ((uint64_t) count * 1000000.0 /
+             std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count());  // NOLINT
+  std::cout << "Can do " << no << " 128-bit moduli/sec which is " << (1000000000.0 / no) << "ns/modulus" << std::endl;
 }
 
 BOOST_AUTO_TEST_SUITE_END()

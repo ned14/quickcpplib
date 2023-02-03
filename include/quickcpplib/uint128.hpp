@@ -54,8 +54,7 @@ namespace integers128
     __m128i as_m128i;
 #endif
 #if defined(__GNUC__) || defined(__clang__)
-    typedef unsigned uint32_4_t __attribute__((vector_size(16)));
-    uint32_4_t as_uint32_4;
+    unsigned __int128 as_uint128;
 #endif
     //! Default constructor, no bits set
     constexpr uint128() noexcept : _empty() {}
@@ -101,9 +100,8 @@ namespace integers128
     }
     uint128 operator+=(const uint128 &v) noexcept
     {
-// Produces wrong result on GCC
-#if 0  // defined(__GNUC__) || defined(__clang__)
-      as_uint32_4 += v.as_uint32_4;
+#if defined(__GNUC__) || defined(__clang__)
+      as_uint128 += v.as_uint128;
       return *this;
 #endif
       auto o = as_longlongs[0];
@@ -120,9 +118,8 @@ namespace integers128
     }
     uint128 operator-=(const uint128 &v) noexcept
     {
-// Produces wrong result on GCC
-#if 0  // defined(__GNUC__) || defined(__clang__)
-      as_uint32_4 += v.as_uint32_4;
+#if defined(__GNUC__) || defined(__clang__)
+      as_uint128 -= v.as_uint128;
       return *this;
 #endif
       auto o = as_longlongs[0];
@@ -141,13 +138,16 @@ namespace integers128
       t %= v;
       return t;
     }
+    /*
+    On VS2019 on my 4.6Ghz laptop: 1.36879e+06 128-bit moduli/sec which is 730.572ns/modulus
+       On GCC on my 4.6Ghz laptop: 3.61544e+07 128-bit moduli/sec which is 27.6591ns/modulus (27x faster, thanks to the built in 128 bit integer support)
+    */
     uint128 operator%=(const uint128 &b)
     {
       if(!b)
         throw std::domain_error("divide by zero");
-// Looks like this fails with SIGFPE on both GCC and clang no matter what
-#if 0  // defined(__GNUC__) || defined(__clang__)
-      as_uint32_4 %= b.as_uint32_4;
+#if defined(__GNUC__) || defined(__clang__)
+      as_uint128 %= b.as_uint128;
       return *this;
 #endif
 
@@ -169,9 +169,8 @@ namespace integers128
     {
       if(!b)
         throw std::domain_error("divide by zero");
-// Looks like this fails with SIGFPE on both GCC and clang no matter what
-#if 0  // defined(__GNUC__) || defined(__clang__)
-      as_uint32_4 %= b;
+#if defined(__GNUC__) || defined(__clang__)
+      as_uint128 %= b;
       return *this;
 #endif
       uint64_t result = 0;
@@ -216,8 +215,8 @@ namespace integers128
     }
     uint128 operator<<=(uint8_t v) noexcept
     {
-#if 0  // defined(__GNUC__) || defined(__clang__)
-      as_uint32_4 <<= v;
+#if defined(__GNUC__) || defined(__clang__)
+      as_uint128 <<= v;
       return *this;
 #endif
       as_longlongs[1] <<= v;
@@ -233,8 +232,8 @@ namespace integers128
     }
     uint128 operator>>=(uint8_t v) noexcept
     {
-#if 0  // defined(__GNUC__) || defined(__clang__)
-      as_uint32_4 >>= v;
+#if defined(__GNUC__) || defined(__clang__)
+      as_uint128 >>= v;
       return *this;
 #endif
       as_longlongs[0] >>= v;
