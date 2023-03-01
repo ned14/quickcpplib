@@ -86,6 +86,7 @@ $(document).ready(function(){initNavTree('classquickcpplib_1_1__xxx_1_1in__place
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -164,9 +165,19 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:adf8e078d74a7b9fb64730e42ba37f191"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classquickcpplib_1_1__xxx_1_1span_1_1span.html">_base</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html#adf8e078d74a7b9fb64730e42ba37f191">as_span</a> () const noexcept</td></tr>
 <tr class="memdesc:adf8e078d74a7b9fb64730e42ba37f191"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the attached region as a plain span of <code>T</code>  <a href="classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html#adf8e078d74a7b9fb64730e42ba37f191">More...</a><br /></td></tr>
 <tr class="separator:adf8e078d74a7b9fb64730e42ba37f191"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9be72c25a7923615b026c3a3a29723eb"><td class="memItemLeft" align="right" valign="top">noexcept v&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html#a9be72c25a7923615b026c3a3a29723eb">size</a> ())</td></tr>
+<tr class="separator:a9be72c25a7923615b026c3a3a29723eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:ac050eb56aeb87c0821b7c8180ccd4f0d"><td class="memTemplParams" colspan="2">template&lt;class U &gt; </td></tr>
+<tr class="memitem:ac050eb56aeb87c0821b7c8180ccd4f0d"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1span_1_1span.html#ac050eb56aeb87c0821b7c8180ccd4f0d">requires</a> (!std::is_same_v&lt; U, <a class="el" href="classquickcpplib_1_1__xxx_1_1span_1_1span.html">_base</a> &gt; &amp;&amp;!std::is_same_v&lt; U, _const_base &gt; &amp;&amp;requires { <a class="el" href="namespacequickcpplib_1_1__xxx.html#aa47bc7d2d45da3c5e5f87d777e972927">declval</a>&lt; U &gt;().data();} &amp;&amp;requires { <a class="el" href="namespacequickcpplib_1_1__xxx.html#aa47bc7d2d45da3c5e5f87d777e972927">declval</a>&lt; U &gt;().<a class="el" href="classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html#a9be72c25a7923615b026c3a3a29723eb">size</a>();}) const expr <a class="el" href="classquickcpplib_1_1__xxx_1_1span_1_1span.html#a2696cb954aef59b30af23b3839016ef5">span</a>(U &amp;&amp;v</td></tr>
+<tr class="separator:ac050eb56aeb87c0821b7c8180ccd4f0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
+<tr class="memitem:a25237cd00030b178bb8d9adc4264f867"><td class="memItemLeft" align="right" valign="top">noexcept&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1span_1_1span.html#a25237cd00030b178bb8d9adc4264f867">__pad0__</a>: <a class="el" href="classquickcpplib_1_1__xxx_1_1span_1_1span.html">_base</a>(v.data()</td></tr>
+<tr class="separator:a25237cd00030b178bb8d9adc4264f867"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f3c0b901e524aa8eedaea916f2420ab"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><b>elements</b></td></tr>
 <tr class="memdesc:a1f3c0b901e524aa8eedaea916f2420ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">STL member.  <a href="classstd_1_1span.html#a1f3c0b901e524aa8eedaea916f2420ab">More...</a><br /></td></tr>
 <tr class="separator:a1f3c0b901e524aa8eedaea916f2420ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -641,7 +652,88 @@ template&lt;class T &gt; </div>
 </div><!-- fragment -->
 </div>
 </div>
+<a id="a9be72c25a7923615b026c3a3a29723eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9be72c25a7923615b026c3a3a29723eb">&#9670;&nbsp;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">noexcept v <a class="el" href="classquickcpplib_1_1__xxx_1_1span_1_1span.html">quickcpplib::_xxx::span::span</a>&lt; T, Extent &gt;::size</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        : _base(v.data(), v.size())</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    {</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ac050eb56aeb87c0821b7c8180ccd4f0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac050eb56aeb87c0821b7c8180ccd4f0d">&#9670;&nbsp;</a></span>requires()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , size_t Extent = std::dynamic_extent&gt; </div>
+<div class="memtemplate">
+template&lt;class U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classquickcpplib_1_1__xxx_1_1span_1_1span.html">quickcpplib::_xxx::span::span</a>&lt; T, Extent &gt;::requires </td>
+          <td>(</td>
+          <td class="paramtype">!std::is_same_v&lt; U, _base &gt; &amp;&amp;!std::is_same_v&lt; U, _const_base &gt; &amp;&amp;requires { <a class="el" href="namespacequickcpplib_1_1__xxx.html#aa47bc7d2d45da3c5e5f87d777e972927">declval</a>&lt; U &gt;().data();} &amp;&amp;requires { <a class="el" href="namespacequickcpplib_1_1__xxx.html#aa47bc7d2d45da3c5e5f87d777e972927">declval</a>&lt; U &gt;().<a class="el" href="classquickcpplib_1_1__xxx_1_1span_1_1span.html#a9be72c25a7923615b026c3a3a29723eb">size</a>();}&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const &amp;&amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a25237cd00030b178bb8d9adc4264f867"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25237cd00030b178bb8d9adc4264f867">&#9670;&nbsp;</a></span>__pad0__</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , size_t Extent = std::dynamic_extent&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">noexcept <a class="el" href="classquickcpplib_1_1__xxx_1_1span_1_1span.html">quickcpplib::_xxx::span::span</a>&lt; T, Extent &gt;::__pad0__</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a1f3c0b901e524aa8eedaea916f2420ab"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1f3c0b901e524aa8eedaea916f2420ab">&#9670;&nbsp;</a></span>elements</h2>
 

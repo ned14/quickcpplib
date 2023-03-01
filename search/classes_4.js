@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['date_968',['Date',['../struct_date.html',1,'']]],
-  ['default_5fringbuffer_5flog_5flevel_5fchecker_969',['default_ringbuffer_log_level_checker',['../structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1default__ringbuffer__log__level__checker.html',1,'quickcpplib::_xxx::ringbuffer_log']]],
-  ['disable_5fattached_5ffor_970',['disable_attached_for',['../structquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1traits_1_1disable__attached__for.html',1,'quickcpplib::_xxx::in_place_attach_detach::traits']]]
+  ['date_971',['Date',['../struct_date.html',1,'']]],
+  ['default_5fringbuffer_5flog_5flevel_5fchecker_972',['default_ringbuffer_log_level_checker',['../structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1default__ringbuffer__log__level__checker.html',1,'quickcpplib::_xxx::ringbuffer_log']]],
+  ['disable_5fattached_5ffor_973',['disable_attached_for',['../structquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1traits_1_1disable__attached__for.html',1,'quickcpplib::_xxx::in_place_attach_detach::traits']]]
 ];

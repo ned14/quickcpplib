@@ -172,7 +172,7 @@ template&lt;class T , typename  = decltype( detach_cast(std::declval&lt;T&gt;())
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      ret = QUICKCPPLIB_NAMESPACE::span::span&lt;byte_type&gt;((byte_type *) objects.data(), (byte_type *) objects.data());</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      <span class="keywordflow">return</span> ret;</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    }</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> n = 0; n &lt; objects.size(); n++)</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> n = 0; n &lt; objects.<a class="code" href="classquickcpplib_1_1__xxx_1_1span_1_1span.html#a9be72c25a7923615b026c3a3a29723eb">size</a>(); n++)</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    {</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      <span class="keyword">auto</span> &amp;d = <a class="code" href="namespacequickcpplib_1_1__xxx_1_1detach__cast.html#adca1010334ae384efb0b47b08ad46964">detach_cast</a>(objects[n]);</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      <span class="keywordflow">if</span>(0 == n)</div>
@@ -186,6 +186,7 @@ template&lt;class T , typename  = decltype( detach_cast(std::declval&lt;T&gt;())
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    }</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">return</span> ret;</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1span_1_1span_html_a9be72c25a7923615b026c3a3a29723eb"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1span_1_1span.html#a9be72c25a7923615b026c3a3a29723eb">quickcpplib::_xxx::span::span::size</a></div><div class="ttdeci">noexcept v size())</div><div class="ttdef"><b>Definition:</b> span.hpp:66</div></div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1detach__cast_html_adca1010334ae384efb0b47b08ad46964"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1detach__cast.html#adca1010334ae384efb0b47b08ad46964">quickcpplib::_xxx::detach_cast::detach_cast</a></div><div class="ttdeci">constexpr QUICKCPPLIB_NODISCARD byte_array_reference&lt; T &gt; detach_cast(const T &amp;,...) noexcept</div><div class="ttdoc">Detaches a live object into its detached byte representation, ending the lifetime of the input object...</div><div class="ttdef"><b>Definition:</b> detach_cast.hpp:116</div></div>
 </div><!-- fragment -->
 </div>
@@ -229,7 +230,7 @@ template&lt;class T , typename  = decltype( attach_cast&lt;T&gt;(std::declval&lt
 <p>An ADL customisation point for the in-place attachment of previously detached object representations, back into an array of live <code>T</code> objects. This overload is available if <code>attach_cast()</code> is available for <code>T</code>. </p>
 <div class="fragment"><div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                                                                                                                                                                                   {}) noexcept</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  {</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    QUICKCPPLIB_NAMESPACE::span::span&lt;detail::byte_array_wrapper&lt;T&gt;&gt; input = {(detail::byte_array_wrapper&lt;T&gt; *) bytearray.data(), bytearray.size() / <span class="keyword">sizeof</span>(T)};</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    QUICKCPPLIB_NAMESPACE::span::span&lt;detail::byte_array_wrapper&lt;T&gt;&gt; input = {(detail::byte_array_wrapper&lt;T&gt; *) bytearray.data(), bytearray.<a class="code" href="classquickcpplib_1_1__xxx_1_1span_1_1span.html#a9be72c25a7923615b026c3a3a29723eb">size</a>() / <span class="keyword">sizeof</span>(T)};</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    QUICKCPPLIB_NAMESPACE::span::span&lt;T&gt; ret;</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">if</span>(bytearray.empty())</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    {</div>

@@ -220,7 +220,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">  {                                                                                                                                                                                                                                                                                                                            \</div>
+<b>Value:</b><div class="fragment"><div class="line">  {                                                                                                                    \</div>
 <div class="line">    QUICKCPPLIB_NAMESPACE::configurable_spinlock::lock_guard&lt;decltype(lockable)&gt; __tsx_transaction(lockable);</div>
 </div><!-- fragment -->
 </div>
@@ -250,9 +250,10 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">  <span class="keywordflow">if</span>(lockable.lock(only_if_not_this))                                                                                                                                                                                                                                                                                          \</div>
-<div class="line">  {                                                                                                                                                                                                                                                                                                                            \</div>
-<div class="line">    QUICKCPPLIB_NAMESPACE::configurable_spinlock::lock_guard&lt;decltype(lockable)&gt; __tsx_transaction(lockable, QUICKCPPLIB_NAMESPACE::adopt_lock_t());</div>
+<b>Value:</b><div class="fragment"><div class="line">  <span class="keywordflow">if</span>(lockable.lock(only_if_not_this))                                                                                  \</div>
+<div class="line">  {                                                                                                                    \</div>
+<div class="line">    QUICKCPPLIB_NAMESPACE::configurable_spinlock::lock_guard&lt;decltype(lockable)&gt; __tsx_transaction(                    \</div>
+<div class="line">    lockable, QUICKCPPLIB_NAMESPACE::adopt_lock_t());</div>
 </div><!-- fragment -->
 </div>
 </div>

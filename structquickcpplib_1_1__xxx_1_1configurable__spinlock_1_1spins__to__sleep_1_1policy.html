@@ -135,7 +135,7 @@ template&lt;class parenttype &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;{}</div>
+<div class="fragment"><div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;{}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -192,7 +192,9 @@ template&lt;class parenttype &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;: parenttype(std::move(o)) {}</div>
+<div class="fragment"><div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;          : parenttype(std::move(o))</div>
+<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;      {</div>
+<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -222,12 +224,12 @@ template&lt;class parenttype &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;      {</div>
-<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;        <span class="keywordflow">if</span>(parenttype::int_yield(n))</div>
-<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;          <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;        this_thread::sleep_for(chrono::milliseconds(1));</div>
-<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;      {</div>
+<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;        <span class="keywordflow">if</span>(parenttype::int_yield(n))</div>
+<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;          <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;        this_thread::sleep_for(chrono::milliseconds(1));</div>
+<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>

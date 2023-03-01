@@ -143,7 +143,7 @@ template&lt;class parenttype &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;{}</div>
+<div class="fragment"><div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;{}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -204,7 +204,9 @@ template&lt;class parenttype &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;: parenttype(std::move(o)) {}</div>
+<div class="fragment"><div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;          : parenttype(std::move(o))</div>
+<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;      {</div>
+<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -236,14 +238,14 @@ template&lt;class parenttype &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;      {</div>
-<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;        <span class="keywordflow">if</span>(parenttype::int_yield(n))</div>
-<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;          <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;        <span class="keywordflow">if</span>(n &gt;= spins)</div>
-<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;          <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;        detail::smt_pause&lt;use_pause&gt;();</div>
-<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;      {</div>
+<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;        <span class="keywordflow">if</span>(parenttype::int_yield(n))</div>
+<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;          <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;        <span class="keywordflow">if</span>(n &gt;= spins)</div>
+<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;          <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;        detail::smt_pause&lt;use_pause&gt;();</div>
+<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>

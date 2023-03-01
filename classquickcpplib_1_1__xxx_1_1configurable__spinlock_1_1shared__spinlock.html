@@ -168,7 +168,7 @@ template&lt;typename T  = uintptr_t, template&lt; class &gt; class spinpolicy2 =
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;{}</div>
+<div class="fragment"><div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160;{}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -225,7 +225,9 @@ template&lt;typename T  = uintptr_t, template&lt; class &gt; class spinpolicy2 =
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;: parenttype(std::move(o)) {}</div>
+<div class="fragment"><div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160;        : parenttype(std::move(o))</div>
+<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160;    {</div>
+<div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -256,14 +258,14 @@ template&lt;typename T  = uintptr_t, template&lt; class &gt; class spinpolicy2 =
 </div><div class="memdoc">
 
 <p>Locks the spinlock for exclusive access. </p>
-<div class="fragment"><div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;    {</div>
-<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;      <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> n = 0;; n++)</div>
-<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;      {</div>
-<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;        <span class="keywordflow">if</span>(parenttype::try_lock())</div>
-<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;          <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;        parenttype::int_yield(n);</div>
-<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;      }</div>
-<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160;    {</div>
+<div class="line"><a name="l00801"></a><span class="lineno">  801</span>&#160;      <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> n = 0;; n++)</div>
+<div class="line"><a name="l00802"></a><span class="lineno">  802</span>&#160;      {</div>
+<div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160;        <span class="keywordflow">if</span>(parenttype::try_lock())</div>
+<div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160;          <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;        parenttype::int_yield(n);</div>
+<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160;      }</div>
+<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -293,14 +295,14 @@ template&lt;typename T  = uintptr_t, template&lt; class &gt; class spinpolicy2 =
 </div><div class="memdoc">
 
 <p>Locks the spinlock for shared access. </p>
-<div class="fragment"><div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;    {</div>
-<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;      <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> n = 0;; n++)</div>
-<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;      {</div>
-<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;        <span class="keywordflow">if</span>(parenttype::try_lock_shared())</div>
-<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;          <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;        parenttype::int_yield(n);</div>
-<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;      }</div>
-<div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00810"></a><span class="lineno">  810</span>&#160;    {</div>
+<div class="line"><a name="l00811"></a><span class="lineno">  811</span>&#160;      <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> n = 0;; n++)</div>
+<div class="line"><a name="l00812"></a><span class="lineno">  812</span>&#160;      {</div>
+<div class="line"><a name="l00813"></a><span class="lineno">  813</span>&#160;        <span class="keywordflow">if</span>(parenttype::try_lock_shared())</div>
+<div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160;          <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00815"></a><span class="lineno">  815</span>&#160;        parenttype::int_yield(n);</div>
+<div class="line"><a name="l00816"></a><span class="lineno">  816</span>&#160;      }</div>
+<div class="line"><a name="l00817"></a><span class="lineno">  817</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -327,12 +329,12 @@ template&lt;typename T  = uintptr_t, template&lt; class &gt; class spinpolicy2 =
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;      {</div>
-<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;        <span class="keywordflow">if</span>(parenttype::int_yield(n))</div>
-<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;          <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;        this_thread::sleep_for(chrono::milliseconds(1));</div>
-<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;      {</div>
+<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;        <span class="keywordflow">if</span>(parenttype::int_yield(n))</div>
+<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;          <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;        this_thread::sleep_for(chrono::milliseconds(1));</div>
+<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>

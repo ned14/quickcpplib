@@ -890,7 +890,7 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
 <div class="fragment"><div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;      {</div>
 <div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;        uintptr_type out = 0;</div>
 <div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;        <span class="keywordtype">size_t</span> idx = 0;</div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;        memset(_storage.data(), 0, _storage.size());</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;        memset(_storage.data(), 0, _storage.<a class="code" href="classquickcpplib_1_1__xxx_1_1span_1_1span.html#a9be72c25a7923615b026c3a3a29723eb">size</a>());</div>
 <div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;        _count = 0;</div>
 <div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;        <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;_i : input)</div>
 <div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;        {</div>
@@ -899,7 +899,7 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
 <div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;          uintptr_type delta = i &amp; bits63_43;</div>
 <div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;          <span class="keywordflow">if</span>((out &amp; bits63_43) != delta)</div>
 <div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;          {</div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;            <span class="keywordflow">if</span>(idx &gt; _storage.size() - 3)</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;            <span class="keywordflow">if</span>(idx &gt; _storage.<a class="code" href="classquickcpplib_1_1__xxx_1_1span_1_1span.html#a9be72c25a7923615b026c3a3a29723eb">size</a>() - 3)</div>
 <div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;              <span class="keywordflow">return</span>;</div>
 <div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;            <span class="comment">// std::cout &lt;&lt; &quot;For entry &quot; &lt;&lt; _i &lt;&lt; &quot; encoding bits 63-43: &quot; &lt;&lt; (void *) delta &lt;&lt; std::endl;</span></div>
 <div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;            _storage[idx++] = 0xc0 | ((delta &gt;&gt; 59) &amp; 0x3f);</div>
@@ -911,7 +911,7 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
 <div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;          delta = i &amp; bits42_21;</div>
 <div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;          <span class="keywordflow">if</span>((out &amp; bits42_21) != delta)</div>
 <div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;          {</div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;            <span class="keywordflow">if</span>(idx &gt; _storage.size() - 3)</div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;            <span class="keywordflow">if</span>(idx &gt; _storage.<a class="code" href="classquickcpplib_1_1__xxx_1_1span_1_1span.html#a9be72c25a7923615b026c3a3a29723eb">size</a>() - 3)</div>
 <div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;            {</div>
 <div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;              memset(_storage.data() + startidx, 0, idx - startidx);</div>
 <div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;              <span class="keywordflow">return</span>;</div>
@@ -926,7 +926,7 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
 <div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;          }</div>
 <div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;          <span class="keywordflow">if</span>(i - out &gt;= (1 &lt;&lt; 13) &amp;&amp; out - i &gt;= (1 &lt;&lt; 13))</div>
 <div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;          {</div>
-<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;            <span class="keywordflow">if</span>(idx &gt; _storage.size() - 3)</div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;            <span class="keywordflow">if</span>(idx &gt; _storage.<a class="code" href="classquickcpplib_1_1__xxx_1_1span_1_1span.html#a9be72c25a7923615b026c3a3a29723eb">size</a>() - 3)</div>
 <div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;            {</div>
 <div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;              memset(_storage.data() + startidx, 0, idx - startidx);</div>
 <div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;              <span class="keywordflow">return</span>;</div>
@@ -940,7 +940,7 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
 <div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;          }</div>
 <div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;          <span class="keywordflow">else</span></div>
 <div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;          {</div>
-<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;            <span class="keywordflow">if</span>(idx &gt; _storage.size() - 2)</div>
+<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;            <span class="keywordflow">if</span>(idx &gt; _storage.<a class="code" href="classquickcpplib_1_1__xxx_1_1span_1_1span.html#a9be72c25a7923615b026c3a3a29723eb">size</a>() - 2)</div>
 <div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;            {</div>
 <div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;              memset(_storage.data() + startidx, 0, idx - startidx);</div>
 <div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;              <span class="keywordflow">return</span>;</div>
@@ -954,6 +954,7 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
 <div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;          _count++;</div>
 <div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;        }</div>
 <div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;      }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1span_1_1span_html_a9be72c25a7923615b026c3a3a29723eb"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1span_1_1span.html#a9be72c25a7923615b026c3a3a29723eb">quickcpplib::_xxx::span::span::size</a></div><div class="ttdeci">noexcept v size())</div><div class="ttdef"><b>Definition:</b> span.hpp:66</div></div>
 </div><!-- fragment -->
 </div>
 </div>

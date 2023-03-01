@@ -172,7 +172,7 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;{}</div>
+<div class="fragment"><div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;{}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -231,7 +231,9 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Atomically move constructs. </p>
-<div class="fragment"><div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;{ v.store(o.v.exchange(<span class="keyword">nullptr</span>, memory_order_acq_rel), memory_order_release); }</div>
+<div class="fragment"><div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    {</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;      v.store(o.v.exchange(<span class="keyword">nullptr</span>, memory_order_acq_rel), memory_order_release);</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -318,7 +320,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the memory pointer part of the atomic. </p>
-<div class="fragment"><div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;{ <span class="keywordflow">return</span> v.get(); }</div>
+<div class="fragment"><div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;{ <span class="keywordflow">return</span> v.get(); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -346,8 +348,8 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4.html#a61f9e9ae9e3b3fcb5364246da7e45a40">get</a>(); }</div>
-<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4_html_a61f9e9ae9e3b3fcb5364246da7e45a40"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4.html#a61f9e9ae9e3b3fcb5364246da7e45a40">quickcpplib::_xxx::configurable_spinlock::spinlockbase&lt; lockable_ptr&lt; T &gt; &gt;::get</a></div><div class="ttdeci">T * get() noexcept</div><div class="ttdoc">Returns the memory pointer part of the atomic.</div><div class="ttdef"><b>Definition:</b> spinlock.hpp:256</div></div>
+<div class="fragment"><div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4.html#a61f9e9ae9e3b3fcb5364246da7e45a40">get</a>(); }</div>
+<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4_html_a61f9e9ae9e3b3fcb5364246da7e45a40"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4.html#a61f9e9ae9e3b3fcb5364246da7e45a40">quickcpplib::_xxx::configurable_spinlock::spinlockbase&lt; lockable_ptr&lt; T &gt; &gt;::get</a></div><div class="ttdeci">T * get() noexcept</div><div class="ttdoc">Returns the memory pointer part of the atomic.</div><div class="ttdef"><b>Definition:</b> spinlock.hpp:276</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -378,7 +380,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the raw atomic. </p>
-<div class="fragment"><div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;{ <span class="keywordflow">return</span> v.load(o); }</div>
+<div class="fragment"><div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;{ <span class="keywordflow">return</span> v.load(o); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -419,7 +421,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Sets the raw atomic. </p>
-<div class="fragment"><div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;{ v.store(a, o); }</div>
+<div class="fragment"><div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;{ v.store(a, o); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -447,18 +449,19 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    {</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;      <span class="keyword">union </span>{</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;        T *v;</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;        <span class="keywordtype">size_t</span> n;</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;      } value;</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;      value.v = v.load(memory_order_relaxed);</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;      <span class="keywordflow">if</span>(value.n &amp; 1)  <span class="comment">// Avoid unnecessary cache line invalidation traffic</span></div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;      T *expected = value.v;</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;      value.n |= 1;</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;      <span class="keywordflow">return</span> v.compare_exchange_weak(expected, value.v, memory_order_acquire, memory_order_relaxed);</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    {</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;      <span class="keyword">union</span></div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;      {</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;        T *v;</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;        <span class="keywordtype">size_t</span> n;</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;      } value;</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;      value.v = v.load(memory_order_relaxed);</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;      <span class="keywordflow">if</span>(value.n &amp; 1)  <span class="comment">// Avoid unnecessary cache line invalidation traffic</span></div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;      T *expected = value.v;</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;      value.n |= 1;</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;      <span class="keywordflow">return</span> v.compare_exchange_weak(expected, value.v, memory_order_acquire, memory_order_relaxed);</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -486,16 +489,17 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    {</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;      <span class="keyword">union </span>{</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        T *v;</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;        <span class="keywordtype">size_t</span> n;</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;      } value;</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;      value.v = v.load(memory_order_relaxed);</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;      <span class="comment">// assert(value.n &amp; 1);</span></div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;      value.n &amp;= ~(size_t) 1;</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;      v.store(value.v, memory_order_release);</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    {</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;      <span class="keyword">union</span></div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;      {</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;        T *v;</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;        <span class="keywordtype">size_t</span> n;</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;      } value;</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;      value.v = v.load(memory_order_relaxed);</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;      <span class="comment">// assert(value.n &amp; 1);</span></div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;      value.n &amp;= ~(size_t) 1;</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;      v.store(value.v, memory_order_release);</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -524,7 +528,7 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;{ <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="fragment"><div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;{ <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
