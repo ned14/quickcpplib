@@ -43,24 +43,31 @@ QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace span
 {
-
   template <class T, size_t Extent = std::dynamic_extent> class span : public std::span<T, Extent>
   {
     using _base = std::span<T, Extent>;
-
-    struct _implicit_contiguous_container_constructor {};
+    using _const_base = std::span<const T, Extent>;
 
   public:
     using _base::_base;
-    constexpr span(_base v) noexcept : _base(v) {}
+    constexpr span(_base v) noexcept
+        : _base(v)
+    {
+    }
 
     // libc++ incorrectly makes the range consuming constructor explicit which breaks all implicit
-    // construction of spans from vectors. Let's add a constructor to fix that.
-    QUICKCPPLIB_TEMPLATE(class U)
-    QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TEXPR(declval<U>().data()), QUICKCPPLIB_TEXPR(declval<U>().size()))
-    constexpr span(U &&v, _implicit_contiguous_container_constructor = {}, ...) noexcept : _base(v.data(), v.size()) {}
+    // construction of spans from vectors. Let's add a constructor to fix that, and make it lower
+    // priority than any other constructor via ...
+    template <class U>
+      requires(
+      !std::is_same_v<U, _base> && !std::is_same_v<U, _const_base> && requires { declval<U>().data(); } &&
+      requires { declval<U>().size(); })
+    constexpr span(U &&v, ...) noexcept
+        : _base(v.data(), v.size())
+    {
+    }
   };
-}
+}  // namespace span
 
 #undef QUICKCPPLIB_USE_STD_SPAN
 #define QUICKCPPLIB_USE_STD_SPAN 1

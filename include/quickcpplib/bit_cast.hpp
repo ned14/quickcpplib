@@ -61,10 +61,20 @@ namespace bit_cast
     };
   }  // namespace traits
 
+  namespace detail
+  {
+    template <class T>
+    using is_integral_or_enum = std::integral_constant<bool, std::is_integral<T>::value || std::is_enum<T>::value>;
+
+    template <class To, class From>
+    using is_static_castable =
+    std::integral_constant<bool, is_integral_or_enum<To>::value && is_integral_or_enum<From>::value>;
+
+  }  // namespace detail
+
 #if QUICKCPPLIB_USE_STD_BIT_CAST
   using std::bit_cast;
 #else
-
   namespace detail
   {
     /* A partially compliant implementation of C++20's std::bit_cast function contributed
@@ -75,15 +85,17 @@ namespace bit_cast
     we fall back to non-constexpr memmove.
     */
 
-    template <class T> using is_integral_or_enum = std::integral_constant<bool, std::is_integral<T>::value || std::is_enum<T>::value>;
+    template <class To, class From>
+    using is_union_castable = std::integral_constant<bool, !is_static_castable<To, From>::value &&
+                                                           !std::is_array<To>::value && !std::is_array<From>::value>;
 
-    template <class To, class From> using is_static_castable = std::integral_constant<bool, is_integral_or_enum<To>::value && is_integral_or_enum<From>::value>;
+    template <class To, class From>
+    using is_bit_castable =
+    std::integral_constant<bool, sizeof(To) == sizeof(From) && traits::is_move_relocating<To>::value &&
+                                 traits::is_move_relocating<From>::value>;
 
-    template <class To, class From> using is_union_castable = std::integral_constant<bool, !is_static_castable<To, From>::value && !std::is_array<To>::value && !std::is_array<From>::value>;
-
-    template <class To, class From> using is_bit_castable = std::integral_constant<bool, sizeof(To) == sizeof(From) && traits::is_move_relocating<To>::value && traits::is_move_relocating<From>::value>;
-
-    template <class To, class From> union bit_cast_union {
+    template <class To, class From> union bit_cast_union
+    {
       From source;
       To target;
     };
@@ -106,7 +118,10 @@ namespace bit_cast
   QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::is_bit_castable<To, From>::value       //
                                           &&detail::is_static_castable<To, From>::value  //
                                           && !detail::is_union_castable<To, From>::value))
-  constexpr inline To bit_cast(const From &from, detail::static_cast_overload = {}) noexcept { return static_cast<To>(from); }
+  constexpr inline To bit_cast(const From &from, detail::static_cast_overload = {}) noexcept
+  {
+    return static_cast<To>(from);
+  }
 
   /*! \brief Bit cast emulation chosen if types are move relocating or trivally copyable,
   have identical size, and are union castable. Constexpr.
@@ -115,7 +130,10 @@ namespace bit_cast
   QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::is_bit_castable<To, From>::value         //
                                           && !detail::is_static_castable<To, From>::value  //
                                           && detail::is_union_castable<To, From>::value))
-  constexpr inline To bit_cast(const From &from, detail::union_cast_overload = {}) noexcept { return detail::bit_cast_union<To, From>{from}.target; }
+  constexpr inline To bit_cast(const From &from, detail::union_cast_overload = {}) noexcept
+  {
+    return detail::bit_cast_union<To, From>{from}.target;
+  }
 
   /*! \brief Bit cast emulation chosen if an array of types which are move relocating or
   trivally copyable, and have identical size. NOT constexpr.

@@ -43,11 +43,11 @@ namespace configurable_spinlock
   namespace chrono = std::chrono;
   namespace this_thread = std::this_thread;
   using std::memory_order;
-  using std::memory_order_relaxed;
-  using std::memory_order_consume;
-  using std::memory_order_acquire;
-  using std::memory_order_release;
   using std::memory_order_acq_rel;
+  using std::memory_order_acquire;
+  using std::memory_order_consume;
+  using std::memory_order_relaxed;
+  using std::memory_order_release;
   using std::memory_order_seq_cst;
 
   template <class T> class lock_guard
@@ -56,10 +56,22 @@ namespace configurable_spinlock
 
   public:
     using mutex_type = T;
-    explicit lock_guard(mutex_type &m) noexcept : _m(&m) { _m->lock(); }
-    explicit lock_guard(mutex_type &&m) noexcept : _m(&m) { _m->lock(); }
+    explicit lock_guard(mutex_type &m) noexcept
+        : _m(&m)
+    {
+      _m->lock();
+    }
+    explicit lock_guard(mutex_type &&m) noexcept
+        : _m(&m)
+    {
+      _m->lock();
+    }
     lock_guard(const lock_guard &) = delete;
-    lock_guard(lock_guard &&o) noexcept : _m(std::move(o._m)) { o._m = nullptr; }
+    lock_guard(lock_guard &&o) noexcept
+        : _m(std::move(o._m))
+    {
+      o._m = nullptr;
+    }
     ~lock_guard()
     {
       if(_m)
@@ -99,7 +111,8 @@ namespace configurable_spinlock
     //! Returns the memory pointer part of the atomic
     T *get() noexcept
     {
-      union {
+      union
+      {
         T *v;
         size_t n;
       } value;
@@ -110,7 +123,8 @@ namespace configurable_spinlock
     //! Returns the memory pointer part of the atomic
     const T *get() const noexcept
     {
-      union {
+      union
+      {
         T *v;
         size_t n;
       } value;
@@ -134,7 +148,8 @@ namespace configurable_spinlock
 #ifndef QUICKCPPLIB_ENABLE_VALGRIND
     constexpr
 #endif
-    spinlockbase() noexcept : v(0)
+    spinlockbase() noexcept
+        : v(0)
     {
       QUICKCPPLIB_ANNOTATE_RWLOCK_CREATE(this);
 #if QUICKCPPLIB_IN_THREAD_SANITIZER
@@ -146,7 +161,8 @@ namespace configurable_spinlock
 #ifndef QUICKCPPLIB_ENABLE_VALGRIND
     constexpr
 #endif
-    spinlockbase(spinlockbase &&) noexcept : v(0)
+    spinlockbase(spinlockbase &&) noexcept
+        : v(0)
     {
       QUICKCPPLIB_ANNOTATE_RWLOCK_CREATE(this);
 // v.store(o.v.exchange(0, memory_order_acq_rel));
@@ -184,7 +200,8 @@ namespace configurable_spinlock
         return false;
 #endif
 #endif
-#if 0 /* Disabled as CMPXCHG seems to have sped up on recent Intel */  // defined(__i386__) || defined(_M_IX86) || defined(__x86_64__) || defined(_M_X64)
+#if 0 /* Disabled as CMPXCHG seems to have sped up on recent Intel */  // defined(__i386__) || defined(_M_IX86) ||
+                                                                       // defined(__x86_64__) || defined(_M_X64)
       // Intel is a lot quicker if you use XCHG instead of CMPXCHG. ARM is definitely not!
       T ret = v.exchange(1, memory_order_acquire);
       if(!ret)
@@ -249,7 +266,10 @@ namespace configurable_spinlock
     spinlockbase() noexcept {}
     spinlockbase(const spinlockbase &) = delete;
     //! Atomically move constructs
-    spinlockbase(spinlockbase &&o) noexcept { v.store(o.v.exchange(nullptr, memory_order_acq_rel), memory_order_release); }
+    spinlockbase(spinlockbase &&o) noexcept
+    {
+      v.store(o.v.exchange(nullptr, memory_order_acq_rel), memory_order_release);
+    }
     spinlockbase &operator=(const spinlockbase &) = delete;
     spinlockbase &operator=(spinlockbase &&) = delete;
     //! Returns the memory pointer part of the atomic
@@ -281,7 +301,8 @@ namespace configurable_spinlock
     void store(T *a, memory_order o = memory_order_seq_cst) noexcept { v.store(a, o); }
     bool try_lock() noexcept
     {
-      union {
+      union
+      {
         T *v;
         size_t n;
       } value;
@@ -294,7 +315,8 @@ namespace configurable_spinlock
     }
     void unlock() noexcept
     {
-      union {
+      union
+      {
         T *v;
         size_t n;
       } value;
@@ -319,7 +341,8 @@ namespace configurable_spinlock
 #pragma warning(push)
 #pragma warning(disable : 4201)  // nameless struct/union
 #endif
-    union _internals {
+    union _internals
+    {
       value_type uint;
       struct
       {
@@ -335,14 +358,16 @@ namespace configurable_spinlock
 #ifndef QUICKCPPLIB_ENABLE_VALGRIND
     constexpr
 #endif
-    ordered_spinlockbase() noexcept : _v(0)
+    ordered_spinlockbase() noexcept
+        : _v(0)
     {
       QUICKCPPLIB_ANNOTATE_RWLOCK_CREATE(this);
       // v.store(0, memory_order_release);
     }
     ordered_spinlockbase(const ordered_spinlockbase &) = delete;
     //! Atomically move constructs
-    ordered_spinlockbase(ordered_spinlockbase &&) noexcept : _v(0)
+    ordered_spinlockbase(ordered_spinlockbase &&) noexcept
+        : _v(0)
     {
       QUICKCPPLIB_ANNOTATE_RWLOCK_CREATE(this);
       // v.store(o.v.exchange(0, memory_order_acq_rel));
@@ -428,7 +453,8 @@ namespace configurable_spinlock
 #ifndef QUICKCPPLIB_ENABLE_VALGRIND
     constexpr
 #endif
-    shared_spinlockbase() noexcept : _v(0)
+    shared_spinlockbase() noexcept
+        : _v(0)
     {
       QUICKCPPLIB_ANNOTATE_RWLOCK_CREATE(this);
 #if QUICKCPPLIB_IN_THREAD_SANITIZER
@@ -437,7 +463,8 @@ namespace configurable_spinlock
     }
     shared_spinlockbase(const shared_spinlockbase &) = delete;
     //! Atomically move constructs
-    shared_spinlockbase(shared_spinlockbase &&) noexcept : _v(0)
+    shared_spinlockbase(shared_spinlockbase &&) noexcept
+        : _v(0)
     {
       QUICKCPPLIB_ANNOTATE_RWLOCK_CREATE(this);
 // v.store(o.v.exchange(0, memory_order_acq_rel));
@@ -517,8 +544,11 @@ namespace configurable_spinlock
         // For very heavily contended locks, stop thrashing the cache line
         if(n > 2)
         {
-          for(volatile size_t m = 0; m < 15000; m = m + 1)
-            ;
+          for(size_t m = 0; m < 15000; m = m + 1)
+          {
+            volatile int x = 1;
+            (void) x;
+          }
         }
       }
       QUICKCPPLIB_ANNOTATE_RWLOCK_RELEASED(this, false);
@@ -562,7 +592,10 @@ namespace configurable_spinlock
       static constexpr size_t spins_to_loop = spins;
       constexpr policy() {}
       policy(const policy &) = delete;
-      constexpr policy(policy &&o) noexcept : parenttype(std::move(o)) {}
+      constexpr policy(policy &&o) noexcept
+          : parenttype(std::move(o))
+      {
+      }
       constexpr inline bool int_yield(size_t n) noexcept
       {
         if(parenttype::int_yield(n))
@@ -582,7 +615,10 @@ namespace configurable_spinlock
       static constexpr size_t spins_to_yield = spins;
       constexpr policy() {}
       policy(const policy &) = delete;
-      constexpr policy(policy &&o) noexcept : parenttype(std::move(o)) {}
+      constexpr policy(policy &&o) noexcept
+          : parenttype(std::move(o))
+      {
+      }
       constexpr bool int_yield(size_t n) noexcept
       {
         if(parenttype::int_yield(n))
@@ -601,7 +637,10 @@ namespace configurable_spinlock
     {
       constexpr policy() {}
       policy(const policy &) = delete;
-      constexpr policy(policy &&o) noexcept : parenttype(std::move(o)) {}
+      constexpr policy(policy &&o) noexcept
+          : parenttype(std::move(o))
+      {
+      }
       constexpr bool int_yield(size_t n) noexcept
       {
         if(parenttype::int_yield(n))
@@ -648,14 +687,20 @@ namespace configurable_spinlock
   5. This spin lock can use a pointer to memory as the spin lock at the cost of some
   performance. It uses the bottom bit as the locked flag. See locked_ptr<T>.
   */
-  template <typename T, template <class> class spinpolicy2 = spins_to_loop<125>::policy, template <class> class spinpolicy3 = spins_to_yield<250>::policy, template <class> class spinpolicy4 = spins_to_sleep::policy> class spinlock : public spinpolicy4<spinpolicy3<spinpolicy2<spinlockbase<T>>>>
+  template <typename T, template <class> class spinpolicy2 = spins_to_loop<125>::policy,
+            template <class> class spinpolicy3 = spins_to_yield<250>::policy,
+            template <class> class spinpolicy4 = spins_to_sleep::policy>
+  class spinlock : public spinpolicy4<spinpolicy3<spinpolicy2<spinlockbase<T>>>>
   {
     typedef spinpolicy4<spinpolicy3<spinpolicy2<spinlockbase<T>>>> parenttype;
 
   public:
     constexpr spinlock() {}
     spinlock(const spinlock &) = delete;
-    constexpr spinlock(spinlock &&o) noexcept : parenttype(std::move(o)) {}
+    constexpr spinlock(spinlock &&o) noexcept
+        : parenttype(std::move(o))
+    {
+    }
     void lock() noexcept
     {
       for(size_t n = 0;; n++)
@@ -736,14 +781,20 @@ namespace configurable_spinlock
   For shared locks it is roughly one third that of `spinlock<uintptr_t>` due to performing
   twice as many atomic read-modify-updates.
   */
-  template <typename T = uintptr_t, template <class> class spinpolicy2 = spins_to_loop<125>::policy, template <class> class spinpolicy3 = spins_to_yield<250>::policy, template <class> class spinpolicy4 = spins_to_sleep::policy> class shared_spinlock : public spinpolicy4<spinpolicy3<spinpolicy2<shared_spinlockbase<T>>>>
+  template <typename T = uintptr_t, template <class> class spinpolicy2 = spins_to_loop<125>::policy,
+            template <class> class spinpolicy3 = spins_to_yield<250>::policy,
+            template <class> class spinpolicy4 = spins_to_sleep::policy>
+  class shared_spinlock : public spinpolicy4<spinpolicy3<spinpolicy2<shared_spinlockbase<T>>>>
   {
     typedef spinpolicy4<spinpolicy3<spinpolicy2<shared_spinlockbase<T>>>> parenttype;
 
   public:
     constexpr shared_spinlock() {}
     shared_spinlock(const shared_spinlock &) = delete;
-    shared_spinlock(shared_spinlock &&o) noexcept : parenttype(std::move(o)) {}
+    shared_spinlock(shared_spinlock &&o) noexcept
+        : parenttype(std::move(o))
+    {
+    }
     //! Locks the spinlock for exclusive access
     void lock() noexcept
     {
@@ -766,7 +817,8 @@ namespace configurable_spinlock
     }
   };
 
-  //! \brief Determines if a lockable is locked. Type specialise this for performance if your lockable allows examination.
+  //! \brief Determines if a lockable is locked. Type specialise this for performance if your lockable allows
+  //! examination.
   template <class T> inline bool is_lockable_locked(T &lockable) noexcept
   {
     if(lockable.try_lock())
@@ -777,7 +829,9 @@ namespace configurable_spinlock
     return true;
   }
   // For when used with a spinlock
-  template <class T, template <class> class spinpolicy2, template <class> class spinpolicy3, template <class> class spinpolicy4> constexpr inline T is_lockable_locked(spinlock<T, spinpolicy2, spinpolicy3, spinpolicy4> &lockable) noexcept
+  template <class T, template <class> class spinpolicy2, template <class> class spinpolicy3,
+            template <class> class spinpolicy4>
+  constexpr inline T is_lockable_locked(spinlock<T, spinpolicy2, spinpolicy3, spinpolicy4> &lockable) noexcept
   {
 #ifdef QUICKCPPLIB_HAVE_TRANSACTIONAL_MEMORY_COMPILER
     // Annoyingly the atomic ops are marked as unsafe for atomic transactions, so ...
@@ -787,7 +841,9 @@ namespace configurable_spinlock
 #endif
   }
   // For when used with a spinlock
-  template <class T, template <class> class spinpolicy2, template <class> class spinpolicy3, template <class> class spinpolicy4> constexpr inline T is_lockable_locked(const spinlock<T, spinpolicy2, spinpolicy3, spinpolicy4> &lockable) noexcept
+  template <class T, template <class> class spinpolicy2, template <class> class spinpolicy3,
+            template <class> class spinpolicy4>
+  constexpr inline T is_lockable_locked(const spinlock<T, spinpolicy2, spinpolicy3, spinpolicy4> &lockable) noexcept
   {
 #ifdef QUICKCPPLIB_HAVE_TRANSACTIONAL_MEMORY_COMPILER
     // Annoyingly the atomic ops are marked as unsafe for atomic transactions, so ...
@@ -797,7 +853,13 @@ namespace configurable_spinlock
 #endif
   }
   // For when used with a locked_ptr
-  template <class T, template <class> class spinpolicy2, template <class> class spinpolicy3, template <class> class spinpolicy4> constexpr inline bool is_lockable_locked(spinlock<lockable_ptr<T>, spinpolicy2, spinpolicy3, spinpolicy4> &lockable) noexcept { return ((size_t) lockable.load(memory_order_consume)) & 1; }
+  template <class T, template <class> class spinpolicy2, template <class> class spinpolicy3,
+            template <class> class spinpolicy4>
+  constexpr inline bool
+  is_lockable_locked(spinlock<lockable_ptr<T>, spinpolicy2, spinpolicy3, spinpolicy4> &lockable) noexcept
+  {
+    return ((size_t) lockable.load(memory_order_consume)) & 1;
+  }
 #if 0
   // For when used with an ordered spinlock
   template <class T, template <class> class spinpolicy2, template <class> class spinpolicy3, template <class> class spinpolicy4> constexpr inline bool is_lockable_locked(ordered_spinlock<T, spinpolicy2, spinpolicy3, spinpolicy4> &lockable) noexcept
@@ -820,7 +882,9 @@ namespace configurable_spinlock
   }
 #endif
   // For when used with a shared spinlock
-  template <class T, template <class> class spinpolicy2, template <class> class spinpolicy3, template <class> class spinpolicy4> constexpr inline T is_lockable_locked(shared_spinlock<T, spinpolicy2, spinpolicy3, spinpolicy4> &lockable) noexcept
+  template <class T, template <class> class spinpolicy2, template <class> class spinpolicy3,
+            template <class> class spinpolicy4>
+  constexpr inline T is_lockable_locked(shared_spinlock<T, spinpolicy2, spinpolicy3, spinpolicy4> &lockable) noexcept
   {
 #ifdef QUICKCPPLIB_HAVE_TRANSACTIONAL_MEMORY_COMPILER
     // Annoyingly the atomic ops are marked as unsafe for atomic transactions, so ...
@@ -833,18 +897,18 @@ namespace configurable_spinlock
 #ifndef QUICKCPPLIB_BEGIN_TRANSACT_LOCK
 #ifdef QUICKCPPLIB_HAVE_TRANSACTIONAL_MEMORY_COMPILER
 #undef QUICKCPPLIB_USING_INTEL_TSX
-#define QUICKCPPLIB_BEGIN_TRANSACT_LOCK(lockable)                                                                                                                                                                                                                                                                              \
-  __transaction_relaxed                                                                                                                                                                                                                                                                                                        \
-  {                                                                                                                                                                                                                                                                                                                            \
-    (void) QUICKCPPLIB_NAMESPACE::is_lockable_locked(lockable);                                                                                                                                                                                                                                                                \
+#define QUICKCPPLIB_BEGIN_TRANSACT_LOCK(lockable)                                                                      \
+  __transaction_relaxed                                                                                                \
+  {                                                                                                                    \
+    (void) QUICKCPPLIB_NAMESPACE::is_lockable_locked(lockable);                                                        \
     {
-#define QUICKCPPLIB_BEGIN_TRANSACT_LOCK_ONLY_IF_NOT(lockable, only_if_not_this)                                                                                                                                                                                                                                                \
-  __transaction_relaxed                                                                                                                                                                                                                                                                                                        \
-  {                                                                                                                                                                                                                                                                                                                            \
-    if((only_if_not_this) != QUICKCPPLIB_NAMESPACE::is_lockable_locked(lockable))                                                                                                                                                                                                                                              \
+#define QUICKCPPLIB_BEGIN_TRANSACT_LOCK_ONLY_IF_NOT(lockable, only_if_not_this)                                        \
+  __transaction_relaxed                                                                                                \
+  {                                                                                                                    \
+    if((only_if_not_this) != QUICKCPPLIB_NAMESPACE::is_lockable_locked(lockable))                                      \
     {
-#define QUICKCPPLIB_END_TRANSACT_LOCK(lockable)                                                                                                                                                                                                                                                                                \
-  }                                                                                                                                                                                                                                                                                                                            \
+#define QUICKCPPLIB_END_TRANSACT_LOCK(lockable)                                                                        \
+  }                                                                                                                    \
   }
 #define QUICKCPPLIB_BEGIN_NESTED_TRANSACT_LOCK(N) __transaction_relaxed
 #define QUICKCPPLIB_END_NESTED_TRANSACT_LOCK(N)
@@ -852,13 +916,14 @@ namespace configurable_spinlock
 #endif
 
 #ifndef QUICKCPPLIB_BEGIN_TRANSACT_LOCK
-#define QUICKCPPLIB_BEGIN_TRANSACT_LOCK(lockable)                                                                                                                                                                                                                                                                              \
-  {                                                                                                                                                                                                                                                                                                                            \
+#define QUICKCPPLIB_BEGIN_TRANSACT_LOCK(lockable)                                                                      \
+  {                                                                                                                    \
     QUICKCPPLIB_NAMESPACE::configurable_spinlock::lock_guard<decltype(lockable)> __tsx_transaction(lockable);
-#define QUICKCPPLIB_BEGIN_TRANSACT_LOCK_ONLY_IF_NOT(lockable, only_if_not_this)                                                                                                                                                                                                                                                \
-  if(lockable.lock(only_if_not_this))                                                                                                                                                                                                                                                                                          \
-  {                                                                                                                                                                                                                                                                                                                            \
-    QUICKCPPLIB_NAMESPACE::configurable_spinlock::lock_guard<decltype(lockable)> __tsx_transaction(lockable, QUICKCPPLIB_NAMESPACE::adopt_lock_t());
+#define QUICKCPPLIB_BEGIN_TRANSACT_LOCK_ONLY_IF_NOT(lockable, only_if_not_this)                                        \
+  if(lockable.lock(only_if_not_this))                                                                                  \
+  {                                                                                                                    \
+    QUICKCPPLIB_NAMESPACE::configurable_spinlock::lock_guard<decltype(lockable)> __tsx_transaction(                    \
+    lockable, QUICKCPPLIB_NAMESPACE::adopt_lock_t());
 #define QUICKCPPLIB_END_TRANSACT_LOCK(lockable) }
 #define QUICKCPPLIB_BEGIN_NESTED_TRANSACT_LOCK(N)
 #define QUICKCPPLIB_END_NESTED_TRANSACT_LOCK(N)

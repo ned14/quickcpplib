@@ -4,6 +4,7 @@ set(quickcpplib_TESTS
   "test/casts.cpp"
   "test/function_ptr.cpp"
   "test/hash.cpp"
+  "test/issue0040.cpp"
   "test/mem_flush_loads_stores.cpp"
   "test/offset_ptr.cpp"
   "test/open_hash_index.cpp"
