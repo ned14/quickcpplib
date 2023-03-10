@@ -18,8 +18,6 @@ var classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached =
     [ "operator=", "classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html#a97f9e8266991bc85e00a6c87fcdcdfe7", null ],
     [ "operator=", "classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html#aab5b43526daf678b7d800e8968fd893a", null ],
     [ "as_span", "classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html#adf8e078d74a7b9fb64730e42ba37f191", null ],
-    [ "size", "classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html#a9be72c25a7923615b026c3a3a29723eb", null ],
-    [ "requires", "classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html#ac050eb56aeb87c0821b7c8180ccd4f0d", null ],
-    [ "__pad0__", "classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html#a25237cd00030b178bb8d9adc4264f867", null ],
+    [ "requires", "classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html#a45b9e0dacb82196e740255eca51c909d", null ],
     [ "elements", "classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html#a1f3c0b901e524aa8eedaea916f2420ab", null ]
 ];

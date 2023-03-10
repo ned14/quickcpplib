@@ -80,14 +80,14 @@ var NAVTREEINDEX =
 [
 "",
 "classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#aea2db0fc9592529c12d68a7a85583733",
-"classquickcpplib_1_1__xxx_1_1pmr_1_1monotonic__buffer__resource.html#a1729e310d34f8ac1a84d35ba8847b292",
-"console__colours_8hpp.html#af6764029ca0d87ccbaf9d2059fe7870e",
-"group__unittesting.html#gaafd4657b11bcceb70c65ff1183f82c37",
-"namespacequickcpplib_1_1__xxx_1_1configurable__spinlock_1_1detail.html#ae6f2f43be203fdc8639dbc8ba60b698b",
-"namespacestd_1_1experimental.html#a8c661768ae1035ed3ab1218921e5c4dd",
-"small__prng_8hpp.html",
-"structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html#af4d1c3ec3df06f1c0054587ef9d6c923",
-"test__optional_8cpp.html#a0567a88eff33c2079f7cfe2d624f52b7"
+"classquickcpplib_1_1__xxx_1_1pmr_1_1monotonic__buffer__resource.html#a8b4e7f9074aea4c6dd95cc34775f609e",
+"cpp__feature_8h.html#a38782886ef0f9d68b695bcec1f396f38",
+"group__unittesting.html#gac21dabceebd6eed827d0255f0b3a317d",
+"namespacequickcpplib_1_1__xxx_1_1console__colours.html#a26d5600fd813ec2b0b6b7695b79ccf21",
+"namespacestd_1_1experimental.html#a9bcca6a02f6e3005b3180962429c6feb",
+"span_8hpp.html#aada3191051391c8142d52f4a9483a9c4",
+"structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1twos__power__modulus.html#a38ef7bf2a3cc62defa9decf0a97a9adc",
+"test__optional_8cpp.html#a148a9fea045e144be2a2852144a3e49c"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

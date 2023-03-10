@@ -1,9 +1,5 @@
 var NAVTREEINDEX5 =
 {
-"namespacequickcpplib_1_1__xxx_1_1configurable__spinlock_1_1detail.html#ae6f2f43be203fdc8639dbc8ba60b698b":[4,0,2,0,5,0,0],
-"namespacequickcpplib_1_1__xxx_1_1console__colours.html":[4,0,2,0,6],
-"namespacequickcpplib_1_1__xxx_1_1console__colours.html#a14ecbac6832a186cbf826c7f2122af75":[4,0,2,0,6,1],
-"namespacequickcpplib_1_1__xxx_1_1console__colours.html#a228155040fdf1c4e0dc792243b8bdf6e":[4,0,2,0,6,7],
 "namespacequickcpplib_1_1__xxx_1_1console__colours.html#a26d5600fd813ec2b0b6b7695b79ccf21":[4,0,2,0,6,5],
 "namespacequickcpplib_1_1__xxx_1_1console__colours.html#a39689cfa1d232a083ffa1d7c0d1bfbbe":[4,0,2,0,6,9],
 "namespacequickcpplib_1_1__xxx_1_1console__colours.html#a5939a5f128a2aff319ff6a9e578f98a5":[4,0,2,0,6,6],
@@ -249,5 +245,9 @@ var NAVTREEINDEX5 =
 "namespacestd_1_1experimental.html#a65194017839ffdd2eeeb2f8f510d9a84":[4,0,3,0,44],
 "namespacestd_1_1experimental.html#a7336045523ae9a10e7f54cd46493cad6":[4,0,3,0,81],
 "namespacestd_1_1experimental.html#a768f39fe88fcf07a351e8f45d6dfb1b3":[4,0,3,0,32],
-"namespacestd_1_1experimental.html#a80c8353dc956b844b2255d2c385c62f0":[4,0,3,0,75]
+"namespacestd_1_1experimental.html#a80c8353dc956b844b2255d2c385c62f0":[4,0,3,0,75],
+"namespacestd_1_1experimental.html#a8c661768ae1035ed3ab1218921e5c4dd":[4,0,3,0,54],
+"namespacestd_1_1experimental.html#a8f72219d1aa14acd377705b6c7a08ad0":[4,0,3,0,65],
+"namespacestd_1_1experimental.html#a92177d04a5c9fad94d42d36d94e1b6c6":[4,0,3,0,60],
+"namespacestd_1_1experimental.html#a924da3c7843283266e613737af3159d6":[4,0,3,0,57]
 };
