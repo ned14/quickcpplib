@@ -56,13 +56,14 @@ namespace span
     }
 
     // libc++ incorrectly makes the range consuming constructor explicit which breaks all implicit
-    // construction of spans from vectors. Let's add a constructor to fix that, and make it lower
-    // priority than any other constructor via ...
+    // construction of spans from vectors. Let's add a constructor to fix that, even though it'll
+    // break double implicit conversions :(
     template <class U>
       requires(
-      !std::is_same_v<U, _base> && !std::is_same_v<U, _const_base> && requires { declval<U>().data(); } &&
+      !std::is_same_v<std::decay_t<U>, span> && !std::is_same_v<std::decay_t<U>, _base> && !std::is_same_v<std::decay_t<U>, _const_base> &&
+      std::is_convertible<typename std::decay_t<U>::pointer, typename _base::pointer>::value && requires { declval<U>().data(); } &&
       requires { declval<U>().size(); })
-    constexpr span(U &&v, ...) noexcept
+    constexpr span(U &&v) noexcept
         : _base(v.data(), v.size())
     {
     }
