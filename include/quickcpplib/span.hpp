@@ -1,5 +1,5 @@
 /* span support
-(C) 2016-2017 Niall Douglas <http://www.nedproductions.biz/> (3 commits)
+(C) 2016-2023 Niall Douglas <http://www.nedproductions.biz/> (3 commits)
 File Created: Sept 2016
 
 
@@ -43,6 +43,9 @@ QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace span
 {
+#if QUICKCPPLIB_USE_UNPATCHED_STD_SPAN
+  template <class T, size_t Extent = std::dynamic_extent> using span = std::span<T, Extent>;
+#else
   template <class T, size_t Extent = std::dynamic_extent> class span : public std::span<T, Extent>
   {
     using _base = std::span<T, Extent>;
@@ -59,15 +62,15 @@ namespace span
     // construction of spans from vectors. Let's add a constructor to fix that, even though it'll
     // break double implicit conversions :(
     template <class U>
-      requires(
-      !std::is_same_v<std::decay_t<U>, span> && !std::is_same_v<std::decay_t<U>, _base> && !std::is_same_v<std::decay_t<U>, _const_base> &&
-      std::is_convertible<typename std::decay_t<U>::pointer, typename _base::pointer>::value && requires { declval<U>().data(); } &&
-      requires { declval<U>().size(); })
-    constexpr span(U &&v) noexcept
+    requires(
+    !std::is_same_v<std::decay_t<U>, span> && !std::is_same_v<std::decay_t<U>, _base> && !std::is_same_v<std::decay_t<U>, _const_base> &&
+    std::is_convertible<typename std::decay_t<U>::pointer, typename _base::pointer>::value && requires { declval<U>().data(); } &&
+    requires { declval<U>().size(); }) constexpr span(U &&v) noexcept
         : _base(v.data(), v.size())
     {
     }
   };
+#endif
 }  // namespace span
 
 #undef QUICKCPPLIB_USE_STD_SPAN
