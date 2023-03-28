@@ -35,6 +35,20 @@ Distributed under the Boost Software License, Version 1.0.
 #include <unistd.h>  // for write()
 #endif
 
+/* On Windows, the terminate handler is per thread, and therefore we need to install
+the handler upon creation of every new thread irrespective of whether terminations
+are ever handled using this facility. This has been found to cause unhelpful
+interactions with time travel debugging, so until the fix_signal_guard branch gets
+merged into trunk, we need to provide a facility for disabling the global per thread
+terminate handler.
+
+Obviously disabling this will cause signal_guard to no longer be able to intercept
+terminations on Windows.
+*/
+#ifndef QUICKCPPLIB_SIGNAL_GUARD_DISABLE_INSTALLING_GLOBAL_PER_THREAD_TERMINATE_HANDLER
+#define QUICKCPPLIB_SIGNAL_GUARD_DISABLE_INSTALLING_GLOBAL_PER_THREAD_TERMINATE_HANDLER 0
+#endif
+
 #ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable : 4190)  // C-linkage with UDTs
@@ -439,7 +453,7 @@ namespace signal_guard
         std::abort();
       }
     }
-#ifdef _MSC_VER
+#if defined(_MSC_VER) && QUICKCPPLIB_SIGNAL_GUARD_DISABLE_INSTALLING_GLOBAL_PER_THREAD_TERMINATE_HANDLER
     static thread_local struct _win32_set_terminate_handler_per_thread_t
     {
       _win32_set_terminate_handler_per_thread_t()
