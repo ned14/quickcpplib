@@ -1,5 +1,6 @@
 var NAVTREEINDEX7 =
 {
+"span_8hpp.html#aada3191051391c8142d52f4a9483a9c4":[6,0,0,0,29,1],
 "spinlock_8hpp.html":[6,0,0,0,30],
 "spinlock_8hpp.html#a10c572932a08be170b60aac4aa577882":[6,0,0,0,30,19],
 "spinlock_8hpp.html#a283d2a54c3371823054980c76e3cae96":[6,0,0,0,30,22],
@@ -248,6 +249,5 @@ var NAVTREEINDEX7 =
 "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html#af4d1c3ec3df06f1c0054587ef9d6c923":[5,0,0,0,0,2,2,0,14],
 "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html#af70c8313b19e9da3c7993707a3d3a41d":[5,0,0,0,0,2,2,0,10],
 "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html#afad9a0262ce35bf9d04a01f1965167db":[5,0,0,0,0,2,2,0,11],
-"structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1twos__power__modulus.html":[5,0,0,0,0,2,1],
-"structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1twos__power__modulus.html#a38ef7bf2a3cc62defa9decf0a97a9adc":[5,0,0,0,0,2,1,0]
+"structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1twos__power__modulus.html":[5,0,0,0,0,2,1]
 };
