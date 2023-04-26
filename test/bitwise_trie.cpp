@@ -40,13 +40,6 @@ BOOST_AUTO_TEST_SUITE(bitwise_trie)
 
 BOOST_AUTO_TEST_CASE(bitwise_trie / works, "Tests that bitwise_trie works as advertised")
 {
-#if defined(__clang__)
-  // Fails on CI only and I don't know why
-  if(getenv("CI") != nullptr)
-  {
-    return;
-  }
-#endif
   using namespace QUICKCPPLIB_NAMESPACE::algorithm::bitwise_trie;
   // Test converted from nedtries
   struct foo_t
