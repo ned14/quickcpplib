@@ -66,7 +66,7 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / works, "Tests that bitwise_trie works as adv
   struct foo_tree_t
   {
     size_t trie_count;
-    bool trie_nobbledir;
+    bool trie_nobbledir{false};
     foo_t *trie_children[8 * sizeof(size_t)];
   };
 
