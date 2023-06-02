@@ -1704,7 +1704,9 @@ namespace algorithm
       static_assert(!std::is_convertible<const_iterator, iterator>::value, "iterator is implicitly convertible to const_iterator");
       static_assert(std::is_constructible<iterator, const_iterator>::value, "iterator is not explicitly constructible from const_iterator");
 
-      constexpr bitwise_trie() { clear(); }
+      QUICKCPPLIB_TEMPLATE(class... Args)
+      QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(std::is_constructible<Base, Args...>::value))
+      constexpr bitwise_trie(Args&&... args) : Base(static_cast<Args&&>(args)...) { clear(); }
       bitwise_trie(const bitwise_trie &o) noexcept
       {
         auto myhead = _head_accessors();
