@@ -13,7 +13,7 @@ var classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie =
     [ "const_iterator", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a1a5a03539e40491462d46f5e169e96fb", null ],
     [ "reverse_iterator", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a7281b7389edfc69edb9dbf11e2644c37", null ],
     [ "const_reverse_iterator", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a514c2838e99d8efda8d30073c20c223a", null ],
-    [ "bitwise_trie", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#af704924328621d17d806507f746e3469", null ],
+    [ "bitwise_trie", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a1c137927d7a64f629b446ef8118e3164", null ],
     [ "bitwise_trie", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#acb1368171a73f1bbb100e3e7c642bee7", null ],
     [ "triecheckvalidity", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a0d7f25bdaf35001e02f45f38105f1864", null ],
     [ "operator=", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#af1d6d65a4b71a1d5733d31bc1be9f9a0", null ],
