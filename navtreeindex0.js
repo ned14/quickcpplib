@@ -1,5 +1,6 @@
 var NAVTREEINDEX0 =
 {
+"":[4,0,3],
 "aligned__allocator_8hpp.html":[6,0,0,0,5],
 "aligned__allocator_8hpp.html#a3150bfc8ccf82de367e8dad3d9da95dd":[6,0,0,0,5,7],
 "aligned__allocator_8hpp.html#a4965c49c0e0f13d62d0f9b96a8783d6e":[6,0,0,0,5,10],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#a4b51ba6166559fc20c838dabeb0e0055":[5,0,0,0,0,4,0,2],
 "classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#a4cf2ec5b0eb15c368f9b634cccc2ffe0":[5,0,0,0,0,4,0,3],
 "classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#ab52400d5142b2279c695a0a504b8c605":[5,0,0,0,0,4,0,5],
-"classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#ab94703102348a3b57103c95699139c28":[5,0,0,0,0,4,0,1],
-"classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#aea2db0fc9592529c12d68a7a85583733":[5,0,0,0,0,4,0,4]
+"classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#ab94703102348a3b57103c95699139c28":[5,0,0,0,0,4,0,1]
 };
