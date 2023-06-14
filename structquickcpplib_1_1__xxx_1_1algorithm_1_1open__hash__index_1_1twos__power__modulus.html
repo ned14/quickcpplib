@@ -91,9 +91,6 @@ $(document).ready(function(){initNavTree('structquickcpplib_1_1__xxx_1_1algorith
 </div><!--header-->
 <div class="contents">
 
-<p>Performs k &amp; (divisor-1) which is typically one or two CPU cycles. Suitable if divisor is always going to be a two's power.  
- <a href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1twos__power__modulus.html#details">More...</a></p>
-
 <p><code>#include &quot;open_hash_index.hpp&quot;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -142,7 +139,9 @@ template&lt;class KeyType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;{ <span class="keywordflow">return</span> divisor ? <span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(k &amp; (divisor - 1)) : 0; }</div>
+<div class="fragment"><div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;      {</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keywordflow">return</span> divisor ? <span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(k &amp; (divisor - 1)) : 0;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>

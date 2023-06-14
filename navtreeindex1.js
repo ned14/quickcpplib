@@ -1,7 +1,11 @@
 var NAVTREEINDEX1 =
 {
-"classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#aea2db0fc9592529c12d68a7a85583733":[5,0,0,0,0,4,0,4],
-"classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#aeb165301d821dc3be5e68ddd1867ed20":[5,0,0,0,0,4,0,0],
+"classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#a4b51ba6166559fc20c838dabeb0e0055":[5,0,0,0,0,5,0,2],
+"classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#a4cf2ec5b0eb15c368f9b634cccc2ffe0":[5,0,0,0,0,5,0,3],
+"classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#ab52400d5142b2279c695a0a504b8c605":[5,0,0,0,0,5,0,5],
+"classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#ab94703102348a3b57103c95699139c28":[5,0,0,0,0,5,0,1],
+"classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#aea2db0fc9592529c12d68a7a85583733":[5,0,0,0,0,5,0,4],
+"classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#aeb165301d821dc3be5e68ddd1867ed20":[5,0,0,0,0,5,0,0],
 "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator.html":[5,0,0,0,1,0],
 "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator.html#a02cd9b343835b79b1cfb630d26fd23c5":[5,0,0,0,1,0,14],
 "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator.html#a03a1536fd5e5b715e05d75a076470de0":[5,0,0,0,1,0,12],
@@ -245,9 +249,5 @@ var NAVTREEINDEX1 =
 "classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html#a688c3d6853f478b4fa083aa7af33f470":[5,0,0,0,11,0,2],
 "classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html#a915f8e3a5ab81bdeb41a3566f0a937bf":[5,0,0,0,11,0,6],
 "classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html#a99411813aa884102b6dbcf96937d45fc":[5,0,0,0,11,0,5],
-"classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html#aaa3464094935539659da96d99b003e54":[5,0,0,0,11,0,0],
-"classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html#afd3db130320ee64c3223ac2688301ba7":[5,0,0,0,11,0,4],
-"classquickcpplib_1_1__xxx_1_1pmr_1_1monotonic__buffer__resource.html":[5,0,0,0,11,1],
-"classquickcpplib_1_1__xxx_1_1pmr_1_1monotonic__buffer__resource.html#a1729e310d34f8ac1a84d35ba8847b292":[5,0,0,0,11,1,0],
-"classquickcpplib_1_1__xxx_1_1pmr_1_1monotonic__buffer__resource.html#a2c29562b055f5bacb8dd34d7ee7347f0":[5,0,0,0,11,1,1]
+"classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html#aaa3464094935539659da96d99b003e54":[5,0,0,0,11,0,0]
 };

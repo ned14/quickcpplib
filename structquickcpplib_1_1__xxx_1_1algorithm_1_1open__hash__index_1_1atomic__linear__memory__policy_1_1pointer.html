@@ -189,8 +189,10 @@ template&lt;class KeyType , class T , size_t LinearSearchLimit = 0, class LockTy
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;: <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#afe0b29f91d81a9715714ce6987807265">const_pointer</a>(v, <span class="keyword">true</span>) {}</div>
-<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer_html_afe0b29f91d81a9715714ce6987807265"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#afe0b29f91d81a9715714ce6987807265">quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy::const_pointer::const_pointer</a></div><div class="ttdeci">const_pointer(const value_type *v=nullptr, bool exclusive_locked=false) noexcept</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:298</div></div>
+<div class="fragment"><div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;            : <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#afe0b29f91d81a9715714ce6987807265">const_pointer</a>(v, <span class="keyword">true</span>)</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;        {</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;        }</div>
+<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer_html_afe0b29f91d81a9715714ce6987807265"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#afe0b29f91d81a9715714ce6987807265">quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy::const_pointer::const_pointer</a></div><div class="ttdeci">const_pointer(const value_type *v=nullptr, bool exclusive_locked=false) noexcept</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:348</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -219,7 +221,9 @@ template&lt;class KeyType , class T , size_t LinearSearchLimit = 0, class LockTy
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;: <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#afe0b29f91d81a9715714ce6987807265">const_pointer</a>(std::move(o)) {}</div>
+<div class="fragment"><div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;            : <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#afe0b29f91d81a9715714ce6987807265">const_pointer</a>(std::move(o))</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;        {</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -249,12 +253,12 @@ template&lt;class KeyType , class T , size_t LinearSearchLimit = 0, class LockTy
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;        {</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;          this-&gt;~<a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1pointer.html#aa33771735881720302b70fe6d689ff07">pointer</a>();</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;          <span class="keyword">new</span>(<span class="keyword">this</span>) <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1pointer.html#aa33771735881720302b70fe6d689ff07">pointer</a>(std::move(o));</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;          <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;        }</div>
-<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1pointer_html_aa33771735881720302b70fe6d689ff07"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1pointer.html#aa33771735881720302b70fe6d689ff07">quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy::pointer::pointer</a></div><div class="ttdeci">pointer(value_type *v=nullptr) noexcept</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:343</div></div>
+<div class="fragment"><div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;        {</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;          this-&gt;~<a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1pointer.html#aa33771735881720302b70fe6d689ff07">pointer</a>();</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;          <span class="keyword">new</span>(<span class="keyword">this</span>) <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1pointer.html#aa33771735881720302b70fe6d689ff07">pointer</a>(std::move(o));</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;          <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;        }</div>
+<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1pointer_html_aa33771735881720302b70fe6d689ff07"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1pointer.html#aa33771735881720302b70fe6d689ff07">quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy::pointer::pointer</a></div><div class="ttdeci">pointer(value_type *v=nullptr) noexcept</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:402</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -282,8 +286,8 @@ template&lt;class KeyType , class T , size_t LinearSearchLimit = 0, class LockTy
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;{ <span class="keywordflow">return</span> <span class="keyword">const_cast&lt;</span>value_type *<span class="keyword">&gt;</span>(this-&gt;<a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a>); }</div>
-<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer_html_aa8b14e171c9b77cd85a06c5598834043"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy::const_pointer::_v</a></div><div class="ttdeci">const value_type * _v</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:296</div></div>
+<div class="fragment"><div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;{ <span class="keywordflow">return</span> <span class="keyword">const_cast&lt;</span>value_type *<span class="keyword">&gt;</span>(this-&gt;<a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a>); }</div>
+<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer_html_aa8b14e171c9b77cd85a06c5598834043"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy::const_pointer::_v</a></div><div class="ttdeci">const value_type * _v</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:346</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -311,7 +315,7 @@ template&lt;class KeyType , class T , size_t LinearSearchLimit = 0, class LockTy
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;{ <span class="keywordflow">return</span> this-&gt;<a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a>; }</div>
+<div class="fragment"><div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;{ <span class="keywordflow">return</span> this-&gt;<a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -339,7 +343,7 @@ template&lt;class KeyType , class T , size_t LinearSearchLimit = 0, class LockTy
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;{ <span class="keywordflow">return</span> *<span class="keyword">const_cast&lt;</span>value_type *<span class="keyword">&gt;</span>(this-&gt;<a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a>); }</div>
+<div class="fragment"><div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;{ <span class="keywordflow">return</span> *<span class="keyword">const_cast&lt;</span>value_type *<span class="keyword">&gt;</span>(this-&gt;<a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a>); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -367,7 +371,7 @@ template&lt;class KeyType , class T , size_t LinearSearchLimit = 0, class LockTy
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;{ <span class="keywordflow">return</span> *this-&gt;<a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a>; }</div>
+<div class="fragment"><div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;{ <span class="keywordflow">return</span> *this-&gt;<a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -395,7 +399,7 @@ template&lt;class KeyType , class T , size_t LinearSearchLimit = 0, class LockTy
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;{ <span class="keywordflow">return</span> <span class="keyword">const_cast&lt;</span>value_type *<span class="keyword">&gt;</span>(this-&gt;<a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a>); }</div>
+<div class="fragment"><div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;{ <span class="keywordflow">return</span> <span class="keyword">const_cast&lt;</span>value_type *<span class="keyword">&gt;</span>(this-&gt;<a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a>); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -423,7 +427,7 @@ template&lt;class KeyType , class T , size_t LinearSearchLimit = 0, class LockTy
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;{ <span class="keywordflow">return</span> this-&gt;<a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a>; }</div>
+<div class="fragment"><div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;{ <span class="keywordflow">return</span> this-&gt;<a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -451,19 +455,19 @@ template&lt;class KeyType , class T , size_t LinearSearchLimit = 0, class LockTy
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;        {</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;          <span class="keywordflow">if</span>(<a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a>)</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;          {</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;            <span class="keywordflow">if</span>(2 == <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#ac8c230e8e656e7b464925c1f79a59f02">_locked_type</a>)</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;              <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a>-&gt;<a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type.html#af9908afbfd33744f65debcc951094e4a">lock</a>.unlock();</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span>(1 == <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#ac8c230e8e656e7b464925c1f79a59f02">_locked_type</a>)</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;              detail::unlock_shared_if&lt;lock_type_is_shared&gt;(<a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a>-&gt;<a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type.html#af9908afbfd33744f65debcc951094e4a">lock</a>);</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;            <span class="comment">// IMPORTANT: DO NOT RESET _v TO NULLPTR!</span></div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;            <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#ac8c230e8e656e7b464925c1f79a59f02">_locked_type</a> = 0;</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;          }</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;        }</div>
-<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer_html_ac8c230e8e656e7b464925c1f79a59f02"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#ac8c230e8e656e7b464925c1f79a59f02">quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy::const_pointer::_locked_type</a></div><div class="ttdeci">int _locked_type</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:297</div></div>
-<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type_html_af9908afbfd33744f65debcc951094e4a"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type.html#af9908afbfd33744f65debcc951094e4a">quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy::value_type::lock</a></div><div class="ttdeci">lock_type lock</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:244</div></div>
+<div class="fragment"><div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;        {</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;          <span class="keywordflow">if</span>(<a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a>)</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;          {</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;            <span class="keywordflow">if</span>(2 == <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#ac8c230e8e656e7b464925c1f79a59f02">_locked_type</a>)</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;              <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a>-&gt;<a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type.html#af9908afbfd33744f65debcc951094e4a">lock</a>.unlock();</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span>(1 == <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#ac8c230e8e656e7b464925c1f79a59f02">_locked_type</a>)</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;              detail::unlock_shared_if&lt;lock_type_is_shared&gt;(<a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a>-&gt;<a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type.html#af9908afbfd33744f65debcc951094e4a">lock</a>);</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;            <span class="comment">// IMPORTANT: DO NOT RESET _v TO NULLPTR!</span></div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;            <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#ac8c230e8e656e7b464925c1f79a59f02">_locked_type</a> = 0;</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;          }</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;        }</div>
+<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer_html_ac8c230e8e656e7b464925c1f79a59f02"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#ac8c230e8e656e7b464925c1f79a59f02">quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy::const_pointer::_locked_type</a></div><div class="ttdeci">int _locked_type</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:347</div></div>
+<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type_html_af9908afbfd33744f65debcc951094e4a"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1value__type.html#af9908afbfd33744f65debcc951094e4a">quickcpplib::_xxx::algorithm::open_hash_index::atomic_linear_memory_policy::value_type::lock</a></div><div class="ttdeci">lock_type lock</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:283</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -491,7 +495,7 @@ template&lt;class KeyType , class T , size_t LinearSearchLimit = 0, class LockTy
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;{ <span class="keywordflow">return</span> !!<a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a>; }</div>
+<div class="fragment"><div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;{ <span class="keywordflow">return</span> !!<a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -519,7 +523,7 @@ template&lt;class KeyType , class T , size_t LinearSearchLimit = 0, class LockTy
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;{ <span class="keywordflow">return</span> !<a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a>; }</div>
+<div class="fragment"><div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;{ <span class="keywordflow">return</span> !<a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -548,7 +552,7 @@ template&lt;class KeyType , class T , size_t LinearSearchLimit = 0, class LockTy
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a> == o._v; }</div>
+<div class="fragment"><div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a> == o._v; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -577,7 +581,7 @@ template&lt;class KeyType , class T , size_t LinearSearchLimit = 0, class LockTy
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a> == o; }</div>
+<div class="fragment"><div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a> == o; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -606,7 +610,7 @@ template&lt;class KeyType , class T , size_t LinearSearchLimit = 0, class LockTy
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a> != o._v; }</div>
+<div class="fragment"><div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a> != o._v; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -635,7 +639,7 @@ template&lt;class KeyType , class T , size_t LinearSearchLimit = 0, class LockTy
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a> != o; }</div>
+<div class="fragment"><div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a> != o; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -664,7 +668,7 @@ template&lt;class KeyType , class T , size_t LinearSearchLimit = 0, class LockTy
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a> &lt; o._v; }</div>
+<div class="fragment"><div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a> &lt; o._v; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -693,7 +697,7 @@ template&lt;class KeyType , class T , size_t LinearSearchLimit = 0, class LockTy
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a> &lt; o; }</div>
+<div class="fragment"><div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a> &lt; o; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -722,7 +726,7 @@ template&lt;class KeyType , class T , size_t LinearSearchLimit = 0, class LockTy
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a> &lt;= o._v; }</div>
+<div class="fragment"><div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a> &lt;= o._v; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -751,7 +755,7 @@ template&lt;class KeyType , class T , size_t LinearSearchLimit = 0, class LockTy
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a> &lt;= o; }</div>
+<div class="fragment"><div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a> &lt;= o; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -780,7 +784,7 @@ template&lt;class KeyType , class T , size_t LinearSearchLimit = 0, class LockTy
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a> &gt; o._v; }</div>
+<div class="fragment"><div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a> &gt; o._v; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -809,7 +813,7 @@ template&lt;class KeyType , class T , size_t LinearSearchLimit = 0, class LockTy
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a> &gt; o; }</div>
+<div class="fragment"><div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a> &gt; o; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -838,7 +842,7 @@ template&lt;class KeyType , class T , size_t LinearSearchLimit = 0, class LockTy
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a> &gt;= o._v; }</div>
+<div class="fragment"><div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a> &gt;= o._v; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -867,7 +871,7 @@ template&lt;class KeyType , class T , size_t LinearSearchLimit = 0, class LockTy
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a> &gt;= o; }</div>
+<div class="fragment"><div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a> &gt;= o; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -896,7 +900,7 @@ template&lt;class KeyType , class T , size_t LinearSearchLimit = 0, class LockTy
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a> - o; }</div>
+<div class="fragment"><div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy_1_1const__pointer.html#aa8b14e171c9b77cd85a06c5598834043">_v</a> - o; }</div>
 </div><!-- fragment -->
 </div>
 </div>

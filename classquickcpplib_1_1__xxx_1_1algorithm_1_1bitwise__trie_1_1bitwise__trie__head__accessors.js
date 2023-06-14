@@ -7,9 +7,9 @@ var classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__he
     [ "decr_size", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html#afa14a0d1d048e16b61da2867fa2b6e14", null ],
     [ "set_size", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html#a536c3da2a7ae03293d1bedad88948194", null ],
     [ "max_size", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html#ab924ac046e9586dff023d8d79e9374ef", null ],
-    [ "child", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html#ae211224f183070461553468bc24fb371", null ],
-    [ "child", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html#a1acaff309bcac1b8b79b567f559ffaeb", null ],
-    [ "set_child", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html#ac1f17aaddbdbedc36d4ce63aed9077af", null ],
+    [ "child", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html#a83cbb07ad19f37fb0353029c53afb5fe", null ],
+    [ "child", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html#ac858b64b91d2cd777f5c60699430a3dc", null ],
+    [ "set_child", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html#a52691b41f7582558484ac80370d84e17", null ],
     [ "lock_branch", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html#ad0f771c7fce9904d88d88c1a60a5950c", null ],
     [ "unlock_branch", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html#a90318c83d1f116c44fdbfd3d0a605270", null ],
     [ "flip_nobbledir", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html#afed3e53dee45bc335e0b035291ecc078", null ]

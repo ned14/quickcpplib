@@ -20,6 +20,7 @@ var hierarchy =
       [ "quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie< Base, ItemType, NobbleDir >", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html", null ]
     ] ],
     [ "quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index< Policy, ContiguousContainerType, disable_existing_key_check >", "classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html", null ],
+    [ "quickcpplib::_xxx::algorithm::bit_interleave::bit_deinterleave_result< T >", "structquickcpplib_1_1__xxx_1_1algorithm_1_1bit__interleave_1_1bit__deinterleave__result.html", null ],
     [ "quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie_head_accessors< HeadBaseType, ItemType >", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html", null ],
     [ "quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie_head_accessors< const Base, const ItemType >", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html", null ],
     [ "quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie_item_accessors< ItemType >", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html", null ],

@@ -112,12 +112,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a536c3da2a7ae03293d1bedad88948194"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab924ac046e9586dff023d8d79e9374ef"><td class="memItemLeft" align="right" valign="top">constexpr _index_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html#ab924ac046e9586dff023d8d79e9374ef">max_size</a> () const noexcept</td></tr>
 <tr class="separator:ab924ac046e9586dff023d8d79e9374ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae211224f183070461553468bc24fb371"><td class="memItemLeft" align="right" valign="top">constexpr const ItemType *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html#ae211224f183070461553468bc24fb371">child</a> (_index_type idx) const noexcept</td></tr>
-<tr class="separator:ae211224f183070461553468bc24fb371"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1acaff309bcac1b8b79b567f559ffaeb"><td class="memItemLeft" align="right" valign="top">constexpr ItemType *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html#a1acaff309bcac1b8b79b567f559ffaeb">child</a> (_index_type idx) noexcept</td></tr>
-<tr class="separator:a1acaff309bcac1b8b79b567f559ffaeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1f17aaddbdbedc36d4ce63aed9077af"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html#ac1f17aaddbdbedc36d4ce63aed9077af">set_child</a> (_index_type idx, ItemType *x) noexcept</td></tr>
-<tr class="separator:ac1f17aaddbdbedc36d4ce63aed9077af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83cbb07ad19f37fb0353029c53afb5fe"><td class="memItemLeft" align="right" valign="top">constexpr const ItemType *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html#a83cbb07ad19f37fb0353029c53afb5fe">child</a> (unsigned idx) const noexcept</td></tr>
+<tr class="separator:a83cbb07ad19f37fb0353029c53afb5fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac858b64b91d2cd777f5c60699430a3dc"><td class="memItemLeft" align="right" valign="top">constexpr ItemType *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html#ac858b64b91d2cd777f5c60699430a3dc">child</a> (unsigned idx) noexcept</td></tr>
+<tr class="separator:ac858b64b91d2cd777f5c60699430a3dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52691b41f7582558484ac80370d84e17"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html#a52691b41f7582558484ac80370d84e17">set_child</a> (unsigned idx, ItemType *x) noexcept</td></tr>
+<tr class="separator:a52691b41f7582558484ac80370d84e17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad0f771c7fce9904d88d88c1a60a5950c"><td class="memItemLeft" align="right" valign="top">constexpr _index_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html#ad0f771c7fce9904d88d88c1a60a5950c">lock_branch</a> (_key_type key, bool exclusive, unsigned bitidxhint=(unsigned) -1) const noexcept</td></tr>
 <tr class="separator:ad0f771c7fce9904d88d88c1a60a5950c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90318c83d1f116c44fdbfd3d0a605270"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html#a90318c83d1f116c44fdbfd3d0a605270">unlock_branch</a> (_index_type, bool) const noexcept</td></tr>
@@ -169,9 +169,9 @@ template&lt;class HeadBaseType , class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;          : _v(v)</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;      {</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;          : _v(v)</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;      {</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -200,7 +200,7 @@ template&lt;class HeadBaseType , class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;{ <span class="keywordflow">return</span> _v != <span class="keyword">nullptr</span>; }</div>
+<div class="fragment"><div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;{ <span class="keywordflow">return</span> _v != <span class="keyword">nullptr</span>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -228,7 +228,7 @@ template&lt;class HeadBaseType , class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;{ <span class="keywordflow">return</span> _v-&gt;trie_count; }</div>
+<div class="fragment"><div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;{ <span class="keywordflow">return</span> _v-&gt;trie_count; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -256,7 +256,7 @@ template&lt;class HeadBaseType , class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;{ ++_v-&gt;trie_count; }</div>
+<div class="fragment"><div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;{ ++_v-&gt;trie_count; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -284,7 +284,7 @@ template&lt;class HeadBaseType , class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;{ --_v-&gt;trie_count; }</div>
+<div class="fragment"><div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;{ --_v-&gt;trie_count; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -313,7 +313,7 @@ template&lt;class HeadBaseType , class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;{ _v-&gt;trie_count = x; }</div>
+<div class="fragment"><div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;{ _v-&gt;trie_count = x; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -341,12 +341,12 @@ template&lt;class HeadBaseType , class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;{ <span class="keywordflow">return</span> (_index_type) -1; }</div>
+<div class="fragment"><div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;{ <span class="keywordflow">return</span> (_index_type) -1; }</div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="ae211224f183070461553468bc24fb371"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae211224f183070461553468bc24fb371">&#9670;&nbsp;</a></span>child() <span class="overload">[1/2]</span></h2>
+<a id="a83cbb07ad19f37fb0353029c53afb5fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83cbb07ad19f37fb0353029c53afb5fe">&#9670;&nbsp;</a></span>child() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -359,7 +359,7 @@ template&lt;class HeadBaseType , class ItemType &gt; </div>
         <tr>
           <td class="memname">constexpr const ItemType* <a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie_head_accessors</a>&lt; HeadBaseType, ItemType &gt;::child </td>
           <td>(</td>
-          <td class="paramtype">_index_type&#160;</td>
+          <td class="paramtype">unsigned&#160;</td>
           <td class="paramname"><em>idx</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -370,12 +370,15 @@ template&lt;class HeadBaseType , class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;{ <span class="keywordflow">return</span> _v-&gt;trie_children[idx]; }</div>
+<div class="fragment"><div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;      {</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;        assert(idx &lt;= _index_type(-1));</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;        <span class="keywordflow">return</span> _v-&gt;trie_children[idx];</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a1acaff309bcac1b8b79b567f559ffaeb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1acaff309bcac1b8b79b567f559ffaeb">&#9670;&nbsp;</a></span>child() <span class="overload">[2/2]</span></h2>
+<a id="ac858b64b91d2cd777f5c60699430a3dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac858b64b91d2cd777f5c60699430a3dc">&#9670;&nbsp;</a></span>child() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -388,7 +391,7 @@ template&lt;class HeadBaseType , class ItemType &gt; </div>
         <tr>
           <td class="memname">constexpr ItemType* <a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie_head_accessors</a>&lt; HeadBaseType, ItemType &gt;::child </td>
           <td>(</td>
-          <td class="paramtype">_index_type&#160;</td>
+          <td class="paramtype">unsigned&#160;</td>
           <td class="paramname"><em>idx</em></td><td>)</td>
           <td></td>
         </tr>
@@ -399,12 +402,15 @@ template&lt;class HeadBaseType , class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;{ <span class="keywordflow">return</span> _v-&gt;trie_children[idx]; }</div>
+<div class="fragment"><div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;      {</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;        assert(idx &lt;= _index_type(-1));</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;        <span class="keywordflow">return</span> _v-&gt;trie_children[idx];</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="ac1f17aaddbdbedc36d4ce63aed9077af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac1f17aaddbdbedc36d4ce63aed9077af">&#9670;&nbsp;</a></span>set_child()</h2>
+<a id="a52691b41f7582558484ac80370d84e17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52691b41f7582558484ac80370d84e17">&#9670;&nbsp;</a></span>set_child()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -417,7 +423,7 @@ template&lt;class HeadBaseType , class ItemType &gt; </div>
         <tr>
           <td class="memname">constexpr void <a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie_head_accessors</a>&lt; HeadBaseType, ItemType &gt;::set_child </td>
           <td>(</td>
-          <td class="paramtype">_index_type&#160;</td>
+          <td class="paramtype">unsigned&#160;</td>
           <td class="paramname"><em>idx</em>, </td>
         </tr>
         <tr>
@@ -438,7 +444,10 @@ template&lt;class HeadBaseType , class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;{ _v-&gt;trie_children[idx] = x; }</div>
+<div class="fragment"><div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;      {</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;        assert(idx &lt;= _index_type(-1));</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;        _v-&gt;trie_children[idx] = x;</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -483,12 +492,12 @@ template&lt;class HeadBaseType , class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;      {</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        (void) key;</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;        (void) exclusive;</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;        (void) bitidxhint;</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;      {</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;        (void) key;</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;        (void) exclusive;</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;        (void) bitidxhint;</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -527,7 +536,7 @@ template&lt;class HeadBaseType , class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;{}</div>
+<div class="fragment"><div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;{}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -555,7 +564,7 @@ template&lt;class HeadBaseType , class ItemType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;{ <span class="keywordflow">return</span> (_v-&gt;trie_nobbledir = !_v-&gt;trie_nobbledir); }</div>
+<div class="fragment"><div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;{ <span class="keywordflow">return</span> (_v-&gt;trie_nobbledir = !_v-&gt;trie_nobbledir); }</div>
 </div><!-- fragment -->
 </div>
 </div>

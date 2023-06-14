@@ -103,7 +103,6 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs k % divisor which is up to 40 CPU cycles depending on architecture.  <a href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1arithmetic__modulus.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1twos__power__modulus.html">twos_power_modulus</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs k &amp; (divisor-1) which is typically one or two CPU cycles. Suitable if divisor is always going to be a two's power.  <a href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1twos__power__modulus.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy.html">linear_memory_policy</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The simplest possible open_hash_index memory policy, with just the key, value and a boolean marking if the item is in use. A linear scan is performed up to LinearSearchLimit either side of any collision.  <a href="structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy.html#details">More...</a><br /></td></tr>
@@ -159,13 +158,13 @@ template&lt;class Policy , template&lt; class &gt; class ContiguousContainerType
 </div><div class="memdoc">
 
 <p>std::ostream writer for an index </p>
-<div class="fragment"><div class="line"><a name="l00903"></a><span class="lineno">  903</span>&#160;    {</div>
-<div class="line"><a name="l00904"></a><span class="lineno">  904</span>&#160;      <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;i : l)</div>
-<div class="line"><a name="l00905"></a><span class="lineno">  905</span>&#160;      {</div>
-<div class="line"><a name="l00906"></a><span class="lineno">  906</span>&#160;        s &lt;&lt; i;</div>
-<div class="line"><a name="l00907"></a><span class="lineno">  907</span>&#160;      }</div>
-<div class="line"><a name="l00908"></a><span class="lineno">  908</span>&#160;      <span class="keywordflow">return</span> s;</div>
-<div class="line"><a name="l00909"></a><span class="lineno">  909</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l01018"></a><span class="lineno"> 1018</span>&#160;    {</div>
+<div class="line"><a name="l01019"></a><span class="lineno"> 1019</span>&#160;      <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;i : l)</div>
+<div class="line"><a name="l01020"></a><span class="lineno"> 1020</span>&#160;      {</div>
+<div class="line"><a name="l01021"></a><span class="lineno"> 1021</span>&#160;        s &lt;&lt; i;</div>
+<div class="line"><a name="l01022"></a><span class="lineno"> 1022</span>&#160;      }</div>
+<div class="line"><a name="l01023"></a><span class="lineno"> 1023</span>&#160;      <span class="keywordflow">return</span> s;</div>
+<div class="line"><a name="l01024"></a><span class="lineno"> 1024</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>

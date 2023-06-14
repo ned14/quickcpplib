@@ -3,6 +3,9 @@ var annotated_dup =
     [ "quickcpplib", "namespacequickcpplib.html", [
       [ "_xxx", "namespacequickcpplib_1_1__xxx.html", [
         [ "algorithm", "namespacequickcpplib_1_1__xxx_1_1algorithm.html", [
+          [ "bit_interleave", "namespacequickcpplib_1_1__xxx_1_1algorithm_1_1bit__interleave.html", [
+            [ "bit_deinterleave_result", "structquickcpplib_1_1__xxx_1_1algorithm_1_1bit__interleave_1_1bit__deinterleave__result.html", "structquickcpplib_1_1__xxx_1_1algorithm_1_1bit__interleave_1_1bit__deinterleave__result" ]
+          ] ],
           [ "bitwise_trie", "namespacequickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie.html", [
             [ "bitwise_trie_item_accessors", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors" ],
             [ "bitwise_trie_head_accessors", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors" ],

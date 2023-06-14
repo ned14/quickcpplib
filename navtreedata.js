@@ -78,16 +78,16 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"",
-"classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#aea2db0fc9592529c12d68a7a85583733",
-"classquickcpplib_1_1__xxx_1_1pmr_1_1monotonic__buffer__resource.html#a8b4e7f9074aea4c6dd95cc34775f609e",
-"cpp__feature_8h.html#a38782886ef0f9d68b695bcec1f396f38",
-"group__unittesting.html#gac21dabceebd6eed827d0255f0b3a317d",
-"namespacequickcpplib_1_1__xxx_1_1console__colours.html#a26d5600fd813ec2b0b6b7695b79ccf21",
-"namespacestd_1_1experimental.html#a9bcca6a02f6e3005b3180962429c6feb",
-"span_8hpp.html#aada3191051391c8142d52f4a9483a9c4",
-"structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1twos__power__modulus.html#a38ef7bf2a3cc62defa9decf0a97a9adc",
-"test__optional_8cpp.html#a148a9fea045e144be2a2852144a3e49c"
+"aligned__allocator_8hpp.html",
+"classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#a4b51ba6166559fc20c838dabeb0e0055",
+"classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html#afd3db130320ee64c3223ac2688301ba7",
+"console__colours_8hpp.html#af6764029ca0d87ccbaf9d2059fe7870e",
+"group__unittesting.html#gaafd4657b11bcceb70c65ff1183f82c37",
+"namespacequickcpplib_1_1__xxx_1_1configurable__spinlock.html#ac71cc52ae3303c08c6b923576ccaa598",
+"namespacestd_1_1experimental.html#a65194017839ffdd2eeeb2f8f510d9a84",
+"signal__guard_8hpp.html#aefe0cfd544ac327234681d4ae7b706f5",
+"structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html#a90e9c718dbf29b7f502d9f1300ad558e",
+"structstd_1_1hash_3_01std_1_1experimental_1_1optional_3_01_t_01_4_01_4.html#a990f41de75472068a98961bde97c9f6f"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

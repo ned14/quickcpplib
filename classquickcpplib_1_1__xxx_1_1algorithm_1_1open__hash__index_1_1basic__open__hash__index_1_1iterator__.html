@@ -188,7 +188,10 @@ template&lt;bool is_const, class Parent , class Pointer , class Reference &gt; <
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;: _parent(<span class="keyword">nullptr</span>), _p(<span class="keyword">nullptr</span>) {}</div>
+<div class="fragment"><div class="line"><a name="l00677"></a><span class="lineno">  677</span>&#160;            : _parent(<span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160;            , _p(<span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;        {</div>
+<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -281,7 +284,10 @@ template&lt;class _Parent , class _Pointer , class _Reference , typename  = type
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;: _parent(o._parent), _p(o._p) {}</div>
+<div class="fragment"><div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160;            : _parent(o._parent)</div>
+<div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160;            , _p(o._p)</div>
+<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;        {</div>
+<div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -314,7 +320,10 @@ template&lt;class _Parent , class _Pointer , class _Reference , typename  = type
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;: _parent(std::move(o._parent)), _p(std::move(o._p)) {}</div>
+<div class="fragment"><div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;            : _parent(std::move(o._parent))</div>
+<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;            , _p(std::move(o._p))</div>
+<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;        {</div>
+<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -406,10 +415,10 @@ template&lt;bool is_const, class Parent , class Pointer , class Reference &gt; <
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;        {</div>
-<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;          <a class="code" href="namespacestd_1_1experimental.html#acdfba2d2e9c79f689a34c9cea5c5682d">std::swap</a>(_parent, o._parent);</div>
-<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;          <a class="code" href="namespacestd_1_1experimental.html#acdfba2d2e9c79f689a34c9cea5c5682d">std::swap</a>(_p, o._p);</div>
-<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;        }</div>
+<div class="fragment"><div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;        {</div>
+<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;          <a class="code" href="namespacestd_1_1experimental.html#acdfba2d2e9c79f689a34c9cea5c5682d">std::swap</a>(_parent, o._parent);</div>
+<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;          <a class="code" href="namespacestd_1_1experimental.html#acdfba2d2e9c79f689a34c9cea5c5682d">std::swap</a>(_p, o._p);</div>
+<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;        }</div>
 <div class="ttc" id="anamespacestd_1_1experimental_html_acdfba2d2e9c79f689a34c9cea5c5682d"><div class="ttname"><a href="namespacestd_1_1experimental.html#acdfba2d2e9c79f689a34c9cea5c5682d">std::experimental::swap</a></div><div class="ttdeci">void swap(optional&lt; T &gt; &amp;x, optional&lt; T &gt; &amp;y) noexcept(noexcept(x.swap(y)))</div><div class="ttdef"><b>Definition:</b> optional.hpp:1016</div></div>
 </div><!-- fragment -->
 </div>
@@ -440,7 +449,7 @@ template&lt;bool is_const, class Parent , class Pointer , class Reference &gt; <
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;{ <span class="keywordflow">return</span> _parent &amp;&amp; _p; }</div>
+<div class="fragment"><div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;{ <span class="keywordflow">return</span> _parent &amp;&amp; _p; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -470,7 +479,7 @@ template&lt;bool is_const, class Parent , class Pointer , class Reference &gt; <
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;{ <span class="keywordflow">return</span> !_parent || !_p; }</div>
+<div class="fragment"><div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160;{ <span class="keywordflow">return</span> !_parent || !_p; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -500,12 +509,12 @@ template&lt;bool is_const, class Parent , class Pointer , class Reference &gt; <
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;        {</div>
-<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;          <span class="keywordflow">if</span>(!_parent || !_p || _p &lt; _parent-&gt;<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.data() || _p &gt;= (_parent-&gt;_store.data() + _parent-&gt;_store.size()))</div>
-<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;          <span class="keywordflow">return</span> underlying_pointer_type(_p);</div>
-<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;        }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_a0687bb0c5e586806e0a19fb7693951cf"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::_store</a></div><div class="ttdeci">container_type _store</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:683</div></div>
+<div class="fragment"><div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;        {</div>
+<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;          <span class="keywordflow">if</span>(!_parent || !_p || _p &lt; _parent-&gt;<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.data() || _p &gt;= (_parent-&gt;_store.data() + _parent-&gt;_store.size()))</div>
+<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;          <span class="keywordflow">return</span> underlying_pointer_type(_p);</div>
+<div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160;        }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_a0687bb0c5e586806e0a19fb7693951cf"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::_store</a></div><div class="ttdeci">container_type _store</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:790</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -535,11 +544,11 @@ template&lt;bool is_const, class Parent , class Pointer , class Reference &gt; <
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;        {</div>
-<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;          <span class="keywordflow">if</span>(!_parent || !_p || _p &lt; _parent-&gt;<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.data() || _p &gt;= (_parent-&gt;_store.data() + _parent-&gt;_store.size()))</div>
-<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;          <span class="keywordflow">return</span> const_underlying_pointer_type(_p);</div>
-<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;        }</div>
+<div class="fragment"><div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;        {</div>
+<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;          <span class="keywordflow">if</span>(!_parent || !_p || _p &lt; _parent-&gt;<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.data() || _p &gt;= (_parent-&gt;_store.data() + _parent-&gt;_store.size()))</div>
+<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;          <span class="keywordflow">return</span> const_underlying_pointer_type(_p);</div>
+<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -570,7 +579,7 @@ template&lt;bool is_const, class Parent , class Pointer , class Reference &gt; <
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;{ <span class="keywordflow">return</span> _parent == o._parent &amp;&amp; _p == o._p; }</div>
+<div class="fragment"><div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;{ <span class="keywordflow">return</span> _parent == o._parent &amp;&amp; _p == o._p; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -601,7 +610,7 @@ template&lt;bool is_const, class Parent , class Pointer , class Reference &gt; <
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;{ <span class="keywordflow">return</span> _parent != o._parent || _p != o._p; }</div>
+<div class="fragment"><div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;{ <span class="keywordflow">return</span> _parent != o._parent || _p != o._p; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -631,13 +640,13 @@ template&lt;bool is_const, class Parent , class Pointer , class Reference &gt; <
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;        {</div>
-<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;          <span class="keywordflow">if</span>(!_parent || !_p || _p &lt; _parent-&gt;<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.data() || _p &gt;= (_parent-&gt;_store.data() + _parent-&gt;_store.size()))</div>
-<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;          {</div>
-<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;            abort();</div>
-<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;          }</div>
-<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;          <span class="keywordflow">return</span> *_p;</div>
-<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;        }</div>
+<div class="fragment"><div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;        {</div>
+<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;          <span class="keywordflow">if</span>(!_parent || !_p || _p &lt; _parent-&gt;<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.data() || _p &gt;= (_parent-&gt;_store.data() + _parent-&gt;_store.size()))</div>
+<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;          {</div>
+<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;            abort();</div>
+<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;          }</div>
+<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;          <span class="keywordflow">return</span> *_p;</div>
+<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -667,13 +676,13 @@ template&lt;bool is_const, class Parent , class Pointer , class Reference &gt; <
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;        {</div>
-<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;          <span class="keywordflow">if</span>(!_parent || !_p || _p &lt; _parent-&gt;<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.data() || _p &gt;= (_parent-&gt;_store.data() + _parent-&gt;_store.size()))</div>
-<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;          {</div>
-<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;            abort();</div>
-<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160;          }</div>
-<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;          <span class="keywordflow">return</span> *_p;</div>
-<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;        }</div>
+<div class="fragment"><div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;        {</div>
+<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;          <span class="keywordflow">if</span>(!_parent || !_p || _p &lt; _parent-&gt;<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.data() || _p &gt;= (_parent-&gt;_store.data() + _parent-&gt;_store.size()))</div>
+<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;          {</div>
+<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;            abort();</div>
+<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;          }</div>
+<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;          <span class="keywordflow">return</span> *_p;</div>
+<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -703,7 +712,7 @@ template&lt;bool is_const, class Parent , class Pointer , class Reference &gt; <
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;{ <span class="keywordflow">return</span> _inc(); }</div>
+<div class="fragment"><div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;{ <span class="keywordflow">return</span> _inc(); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -734,12 +743,12 @@ template&lt;bool is_const, class Parent , class Pointer , class Reference &gt; <
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;        {</div>
-<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;          <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_1_1iterator__.html#a56a7d92e46dc79c76d1e668c2673ed61">iterator_</a> ret(*<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;          ++*<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;          <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;        }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_1_1iterator___html_a56a7d92e46dc79c76d1e668c2673ed61"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_1_1iterator__.html#a56a7d92e46dc79c76d1e668c2673ed61">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::iterator_::iterator_</a></div><div class="ttdeci">friend class iterator_</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:534</div></div>
+<div class="fragment"><div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;        {</div>
+<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;          <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_1_1iterator__.html#a56a7d92e46dc79c76d1e668c2673ed61">iterator_</a> ret(*<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;          ++*<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;          <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;        }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_1_1iterator___html_a56a7d92e46dc79c76d1e668c2673ed61"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_1_1iterator__.html#a56a7d92e46dc79c76d1e668c2673ed61">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::iterator_::iterator_</a></div><div class="ttdeci">friend class iterator_</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:617</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -769,7 +778,7 @@ template&lt;bool is_const, class Parent , class Pointer , class Reference &gt; <
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;{ <span class="keywordflow">return</span> _dec(); }</div>
+<div class="fragment"><div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;{ <span class="keywordflow">return</span> _dec(); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -800,11 +809,11 @@ template&lt;bool is_const, class Parent , class Pointer , class Reference &gt; <
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;        {</div>
-<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;          <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_1_1iterator__.html#a56a7d92e46dc79c76d1e668c2673ed61">iterator_</a> ret(*<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;          --*<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;          <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;        }</div>
+<div class="fragment"><div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;        {</div>
+<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;          <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_1_1iterator__.html#a56a7d92e46dc79c76d1e668c2673ed61">iterator_</a> ret(*<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;          --*<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;          <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -835,11 +844,11 @@ template&lt;bool is_const, class Parent , class Pointer , class Reference &gt; <
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;        {</div>
-<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;          <span class="keywordflow">if</span>(_parent != o._parent)</div>
-<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;            abort();</div>
-<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;          <span class="keywordflow">return</span> !!_p &amp;&amp; (!o._p || _p &lt; o._p);</div>
-<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;        }</div>
+<div class="fragment"><div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;        {</div>
+<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;          <span class="keywordflow">if</span>(_parent != o._parent)</div>
+<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;            abort();</div>
+<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;          <span class="keywordflow">return</span> !!_p &amp;&amp; (!o._p || _p &lt; o._p);</div>
+<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -870,11 +879,11 @@ template&lt;bool is_const, class Parent , class Pointer , class Reference &gt; <
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160;        {</div>
-<div class="line"><a name="l00653"></a><span class="lineno">  653</span>&#160;          <span class="keywordflow">if</span>(_parent != o._parent)</div>
-<div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160;            abort();</div>
-<div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160;          <span class="keywordflow">return</span> !!o._p &amp;&amp; (!_p || _p &gt; o._p);</div>
-<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;        }</div>
+<div class="fragment"><div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;        {</div>
+<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;          <span class="keywordflow">if</span>(_parent != o._parent)</div>
+<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;            abort();</div>
+<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;          <span class="keywordflow">return</span> !!o._p &amp;&amp; (!_p || _p &gt; o._p);</div>
+<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -905,11 +914,11 @@ template&lt;bool is_const, class Parent , class Pointer , class Reference &gt; <
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;        {</div>
-<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;          <span class="keywordflow">if</span>(_parent != o._parent)</div>
-<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;            abort();</div>
-<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;          <span class="keywordflow">return</span> !(o &gt; *<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160;        }</div>
+<div class="fragment"><div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;        {</div>
+<div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;          <span class="keywordflow">if</span>(_parent != o._parent)</div>
+<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;            abort();</div>
+<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;          <span class="keywordflow">return</span> !(o &gt; *<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -940,11 +949,11 @@ template&lt;bool is_const, class Parent , class Pointer , class Reference &gt; <
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160;        {</div>
-<div class="line"><a name="l00665"></a><span class="lineno">  665</span>&#160;          <span class="keywordflow">if</span>(_parent != o._parent)</div>
-<div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160;            abort();</div>
-<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160;          <span class="keywordflow">return</span> !(o &lt; *<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;        }</div>
+<div class="fragment"><div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;        {</div>
+<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;          <span class="keywordflow">if</span>(_parent != o._parent)</div>
+<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;            abort();</div>
+<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160;          <span class="keywordflow">return</span> !(o &lt; *<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00775"></a><span class="lineno">  775</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -1,5 +1,6 @@
 var namespacequickcpplib_1_1__xxx_1_1algorithm =
 [
+    [ "bit_interleave", "namespacequickcpplib_1_1__xxx_1_1algorithm_1_1bit__interleave.html", "namespacequickcpplib_1_1__xxx_1_1algorithm_1_1bit__interleave" ],
     [ "bitwise_trie", "namespacequickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie.html", "namespacequickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie" ],
     [ "hash", "namespacequickcpplib_1_1__xxx_1_1algorithm_1_1hash.html", "namespacequickcpplib_1_1__xxx_1_1algorithm_1_1hash" ],
     [ "memory", "namespacequickcpplib_1_1__xxx_1_1algorithm_1_1memory.html", [
