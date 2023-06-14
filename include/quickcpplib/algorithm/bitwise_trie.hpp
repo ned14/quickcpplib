@@ -203,7 +203,10 @@ namespace algorithm
       }
       template <int Dir> struct nobble_function_implementation
       {
-        template <class T> constexpr bool operator()(T &&accessors) const noexcept { return accessors.flip_nobbledir(); }
+        template <class T> constexpr bool operator()(T &&accessors) const noexcept
+        {
+          return accessors.flip_nobbledir();
+        }
       };
       template <> struct nobble_function_implementation<-1>
       {
@@ -220,7 +223,10 @@ namespace algorithm
       };
       template <class T, class ItemType> struct trie_sibling<T, ItemType, decltype((void) ItemType::trie_sibling, 0)>
       {
-        static constexpr ItemType *get(const T *inst, bool right, const ItemType * /*unused*/) noexcept { return inst->trie_sibling[right]; }
+        static constexpr ItemType *get(const T *inst, bool right, const ItemType * /*unused*/) noexcept
+        {
+          return inst->trie_sibling[right];
+        }
         static constexpr bool set(T *inst, bool right, ItemType *x) noexcept
         {
           inst->trie_sibling[right] = x;
@@ -269,22 +275,40 @@ namespace algorithm
         assert(parent_is_index());
         return ((unsigned) (uintptr_t) _v->trie_parent) >> 2;
       }
-      constexpr void set_parent_is_index(unsigned bit_index) noexcept { _v->trie_parent = (ItemType *) (((uintptr_t) bit_index << 2) | 3); }
+      constexpr void set_parent_is_index(unsigned bit_index) noexcept
+      {
+        _v->trie_parent = (ItemType *) (((uintptr_t) bit_index << 2) | 3);
+      }
 
       constexpr const ItemType *child(bool right) const noexcept { return _v->trie_child[right]; }
       constexpr ItemType *child(bool right) noexcept { return _v->trie_child[right]; }
       constexpr void set_child(bool right, ItemType *x) noexcept { _v->trie_child[right] = x; }
 
-      constexpr const ItemType *sibling(bool right) const noexcept { return detail::trie_sibling<ItemType, ItemType>::get(_v, right, _v); }
-      constexpr ItemType *sibling(bool right) noexcept { return detail::trie_sibling<ItemType, ItemType>::get(_v, right, _v); }
-      constexpr bool set_sibling(bool right, ItemType *x) noexcept { return detail::trie_sibling<ItemType, ItemType>::set(_v, right, x); }
+      constexpr const ItemType *sibling(bool right) const noexcept
+      {
+        return detail::trie_sibling<ItemType, ItemType>::get(_v, right, _v);
+      }
+      constexpr ItemType *sibling(bool right) noexcept
+      {
+        return detail::trie_sibling<ItemType, ItemType>::get(_v, right, _v);
+      }
+      constexpr bool set_sibling(bool right, ItemType *x) noexcept
+      {
+        return detail::trie_sibling<ItemType, ItemType>::set(_v, right, x);
+      }
 
       constexpr auto key() const noexcept { return _v->trie_key; }
 
-      constexpr bool is_primary_sibling() const noexcept { return _v->trie_parent != nullptr; }  // there is exactly one of these ever per key value
+      constexpr bool is_primary_sibling() const noexcept
+      {
+        return _v->trie_parent != nullptr;
+      }  // there is exactly one of these ever per key value
       constexpr void set_is_primary_sibling() noexcept { assert(_v->trie_parent != nullptr); }
 
-      constexpr bool is_secondary_sibling() const noexcept { return _v->trie_parent == nullptr; }  // i.e. has same key as primary sibling
+      constexpr bool is_secondary_sibling() const noexcept
+      {
+        return _v->trie_parent == nullptr;
+      }  // i.e. has same key as primary sibling
       constexpr void set_is_secondary_sibling() noexcept { _v->trie_parent = nullptr; }
     };
 
@@ -323,11 +347,25 @@ namespace algorithm
 
       constexpr _index_type max_size() const noexcept { return (_index_type) -1; }
 
-      constexpr const ItemType *child(_index_type idx) const noexcept { return _v->trie_children[idx]; }
-      constexpr ItemType *child(_index_type idx) noexcept { return _v->trie_children[idx]; }
-      constexpr void set_child(_index_type idx, ItemType *x) noexcept { _v->trie_children[idx] = x; }
+      constexpr const ItemType *child(unsigned idx) const noexcept
+      {
+        assert(idx <= _index_type(-1));
+        return _v->trie_children[idx];
+      }
+      constexpr ItemType *child(unsigned idx) noexcept
+      {
+        assert(idx <= _index_type(-1));
+        return _v->trie_children[idx];
+      }
+      constexpr void set_child(unsigned idx, ItemType *x) noexcept
+      {
+        assert(idx <= _index_type(-1));
+        _v->trie_children[idx] = x;
+      }
 
-      constexpr _index_type lock_branch(_key_type key, bool exclusive, unsigned bitidxhint = (unsigned) -1) const noexcept  // note return type can be ANY type
+      constexpr _index_type
+      lock_branch(_key_type key, bool exclusive,
+                  unsigned bitidxhint = (unsigned) -1) const noexcept  // note return type can be ANY type
       {
         (void) key;
         (void) exclusive;
@@ -458,13 +496,19 @@ namespace algorithm
       {
         return bitwise_trie_head_accessors<const Base, const ItemType>(this);
       }
-      constexpr bitwise_trie_head_accessors<Base, ItemType> _head_accessors() noexcept { return bitwise_trie_head_accessors<Base, ItemType>(this); }
+      constexpr bitwise_trie_head_accessors<Base, ItemType> _head_accessors() noexcept
+      {
+        return bitwise_trie_head_accessors<Base, ItemType>(this);
+      }
 
       static constexpr bitwise_trie_item_accessors<const ItemType> _item_accessors(const ItemType *item) noexcept
       {
         return bitwise_trie_item_accessors<const ItemType>(item);
       }
-      static constexpr bitwise_trie_item_accessors<ItemType> _item_accessors(ItemType *item) noexcept { return bitwise_trie_item_accessors<ItemType>(item); }
+      static constexpr bitwise_trie_item_accessors<ItemType> _item_accessors(ItemType *item) noexcept
+      {
+        return bitwise_trie_item_accessors<ItemType>(item);
+      }
       template <class T> static constexpr bitwise_trie_item_accessors<T> _null_item_accessors(T * /*unused*/) noexcept
       {
         return bitwise_trie_item_accessors<T>(nullptr);
@@ -482,7 +526,7 @@ namespace algorithm
       //! The type of a difference between pointers to the type of item indexed
       using difference_type = ptrdiff_t;
       //! A reference to the type of item indexed
-      using reference = value_type;
+      using reference = ItemType &;
       //! A const reference to the type of item indexed
       using const_reference = const ItemType;
       //! A pointer to the type of item indexed
@@ -497,14 +541,18 @@ namespace algorithm
       static_assert(std::is_unsigned<key_type>::value, "key type must be unsigned");
       static_assert(std::is_unsigned<size_type>::value, "head_accessor size type must be unsigned");
 
-      bool _to_nobble() noexcept { return detail::nobble_function_implementation<nobble_direction>()(_head_accessors()); }
+      bool _to_nobble() noexcept
+      {
+        return detail::nobble_function_implementation<nobble_direction>()(_head_accessors());
+      }
 
       struct _lock_unlock_branch
       {
         const bitwise_trie *_parent{nullptr};
         bool _exclusive{false};
         decltype(bitwise_trie_head_accessors<const Base, const ItemType>(nullptr).lock_branch((key_type) 0, 0)) _v;
-        _lock_unlock_branch(const bitwise_trie *parent, key_type key, bool exclusive, unsigned bitidxhint = (unsigned) -1) noexcept
+        _lock_unlock_branch(const bitwise_trie *parent, key_type key, bool exclusive,
+                            unsigned bitidxhint = (unsigned) -1) noexcept
             : _parent(parent)
             , _exclusive(exclusive)
             , _v(parent->_head_accessors().lock_branch(key, bitidxhint))
@@ -991,7 +1039,8 @@ namespace algorithm
         head.decr_size();
       }
 
-      static const_pointer _triebranchprev(const_pointer r, bitwise_trie_item_accessors<const ItemType> *rlinkaddr = nullptr) noexcept
+      static const_pointer _triebranchprev(const_pointer r,
+                                           bitwise_trie_item_accessors<const ItemType> *rlinkaddr = nullptr) noexcept
       {
         const_pointer node = nullptr, child = nullptr;
         auto nodelink = _item_accessors(node);
@@ -1070,9 +1119,13 @@ namespace algorithm
         }
         return node;
       }
-      pointer _trieprev(const_pointer r) noexcept { return const_cast<pointer>(static_cast<const bitwise_trie *>(this)->_trieprev(r)); }
+      pointer _trieprev(const_pointer r) noexcept
+      {
+        return const_cast<pointer>(static_cast<const bitwise_trie *>(this)->_trieprev(r));
+      }
 
-      static const_pointer _triebranchnext(const_pointer r, bitwise_trie_item_accessors<const ItemType> *rlinkaddr = nullptr) noexcept
+      static const_pointer _triebranchnext(const_pointer r,
+                                           bitwise_trie_item_accessors<const ItemType> *rlinkaddr = nullptr) noexcept
       {
         const_pointer node = nullptr;
         auto nodelink = _item_accessors(node);
@@ -1136,7 +1189,10 @@ namespace algorithm
         }
         return node;
       }
-      pointer _trienext(const_pointer r) noexcept { return const_cast<pointer>(static_cast<const bitwise_trie *>(this)->_trienext(r)); }
+      pointer _trienext(const_pointer r) noexcept
+      {
+        return const_cast<pointer>(static_cast<const bitwise_trie *>(this)->_trienext(r));
+      }
 
       pointer _triefind(key_type rkey) const noexcept
       {
@@ -1526,8 +1582,8 @@ namespace algorithm
 #endif
 #if !defined(NDEBUG) && 0
         if(count > 50)
-          printf("Of count %u, tops %.2lf%%, lefts %.2lf%%, rights %.2lf%%, leafs %.2lf%%\n", count, 100.0 * tops / count, 100.0 * lefts / count,
-                 100.0 * rights / count, 100.0 * leafs / count);
+          printf("Of count %u, tops %.2lf%%, lefts %.2lf%%, rights %.2lf%%, leafs %.2lf%%\n", count,
+                 100.0 * tops / count, 100.0 * lefts / count, 100.0 * rights / count, 100.0 * leafs / count);
 #endif
 #endif /* !NDEBUG */
 #endif
@@ -1600,16 +1656,20 @@ namespace algorithm
         constexpr iterator_ &operator=(iterator_ &&) noexcept = default;
         // Implicit non-const to const iterator
         QUICKCPPLIB_TEMPLATE(class _Parent, class _Pointer, class _Reference)
-        QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(is_const &&std::is_same<typename std::remove_const<Parent>::type, _Parent>::value))
-        constexpr iterator_(const iterator_<false, _Parent, _Pointer, _Reference> &o, _implicit_nonconst_to_const_conversion = {}) noexcept
+        QUICKCPPLIB_TREQUIRES(
+        QUICKCPPLIB_TPRED(is_const &&std::is_same<typename std::remove_const<Parent>::type, _Parent>::value))
+        constexpr iterator_(const iterator_<false, _Parent, _Pointer, _Reference> &o,
+                            _implicit_nonconst_to_const_conversion = {}) noexcept
             : _parent(o._parent)
             , _p(o._p)
         {
         }
         // Explicit const to non-const iterator
         QUICKCPPLIB_TEMPLATE(class _Parent, class _Pointer, class _Reference)
-        QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(!is_const && std::is_same<typename std::remove_const<_Parent>::type, Parent>::value))
-        explicit constexpr iterator_(const iterator_<true, _Parent, _Pointer, _Reference> &o, _explicit_const_to_nonconst_conversion = {}) noexcept
+        QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(!is_const &&
+                                                std::is_same<typename std::remove_const<_Parent>::type, Parent>::value))
+        explicit constexpr iterator_(const iterator_<true, _Parent, _Pointer, _Reference> &o,
+                                     _explicit_const_to_nonconst_conversion = {}) noexcept
             : _parent(const_cast<Parent *>(o._parent))
             , _p(const_cast<Pointer>(o._p))
         {
@@ -1632,7 +1692,7 @@ namespace algorithm
           {
             abort();
           }
-          return _p;
+          return *_p;
         }
         const Reference operator*() const noexcept
         {
@@ -1640,7 +1700,7 @@ namespace algorithm
           {
             abort();
           }
-          return _p;
+          return *_p;
         }
         iterator_ &operator++() noexcept { return _inc(); }
         iterator_ operator++(int) noexcept
@@ -1700,13 +1760,21 @@ namespace algorithm
       //! The const reverse iterator type
       using const_reverse_iterator = std::reverse_iterator<const_iterator>;
 
-      static_assert(std::is_convertible<iterator, const_iterator>::value, "iterator is not implicitly convertible to const_iterator");
-      static_assert(!std::is_convertible<const_iterator, iterator>::value, "iterator is implicitly convertible to const_iterator");
-      static_assert(std::is_constructible<iterator, const_iterator>::value, "iterator is not explicitly constructible from const_iterator");
+      static_assert(std::is_convertible<iterator, const_iterator>::value,
+                    "iterator is not implicitly convertible to const_iterator");
+      static_assert(!std::is_convertible<const_iterator, iterator>::value,
+                    "iterator is implicitly convertible to const_iterator");
+      static_assert(std::is_constructible<iterator, const_iterator>::value,
+                    "iterator is not explicitly constructible from const_iterator");
 
-      QUICKCPPLIB_TEMPLATE(class... Args)
-      QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(std::is_constructible<Base, Args...>::value))
-      constexpr bitwise_trie(Args&&... args) : Base(static_cast<Args&&>(args)...) { clear(); }
+      constexpr bitwise_trie() { clear(); }
+      QUICKCPPLIB_TEMPLATE(class Arg, class... Args)
+      QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(std::is_constructible<Base, Arg, Args...>::value))
+      constexpr explicit bitwise_trie(Arg &&arg, Args &&...args)
+          : Base(static_cast<Arg &&>(arg), static_cast<Args &&>(args)...)
+      {
+        clear();
+      }
       bitwise_trie(const bitwise_trie &o) noexcept
       {
         auto myhead = _head_accessors();

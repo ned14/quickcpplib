@@ -76,9 +76,9 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / works, "Tests that bitwise_trie works as adv
     it = index.find_equal_or_next_largest(5);
     BOOST_CHECK(it->trie_key == 6);
     index.erase(2);
-    for(auto *i : index)
+    for(auto &i : index)
     {
-      std::cout << i << ", " << i->trie_key << "\n";
+      std::cout << &i << ", " << i.trie_key << "\n";
     }
     std::cout << std::flush;
     auto it1 = it, it2 = it;
@@ -211,7 +211,8 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / works, "Tests that bitwise_trie works as adv
         not_in_order_count++;
       }
     }
-    std::cout << "Trie index was in ascending order for " << in_order_count << " items and not for " << not_in_order_count << " items." << std::endl;
+    std::cout << "Trie index was in ascending order for " << in_order_count << " items and not for "
+              << not_in_order_count << " items." << std::endl;
   }
   {
     QUICKCPPLIB_NAMESPACE::algorithm::small_prng::small_prng rand;
@@ -227,7 +228,7 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / works, "Tests that bitwise_trie works as adv
         {
           auto i = it++;
           BOOST_CHECK(i->trie_key == it->trie_key);
-          BOOST_CHECK(*it > *i);  // insertion order preserved
+          BOOST_CHECK(&*it > &*i);  // insertion order preserved
         }
       }
     }
@@ -282,8 +283,8 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / works, "Tests that bitwise_trie works as adv
           acc_count++;
         }
       }
-      std::cout << "\nFor rounds = " << rounds << " close fit was an average of " << (100.0 * acc_diff / acc_count / UINT32_MAX) << "% from ideal."
-                << std::endl;
+      std::cout << "\nFor rounds = " << rounds << " close fit was an average of "
+                << (100.0 * acc_diff / acc_count / UINT32_MAX) << "% from ideal." << std::endl;
     }
   }
 }
@@ -351,16 +352,19 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / benchmark, "Benchmarks bitwise_trie against 
     std::cout << "For bitwise_trie:";
     for(n = 1; n < clocks.size(); n++)
     {
-      std::cout << "\n   " << clocks[n].first << ": " << ((double) (clocks[n].second - clocks[0].second) / clocks[n].first) << " ns per item insert";
+      std::cout << "\n   " << clocks[n].first << ": "
+                << ((double) (clocks[n].second - clocks[0].second) / clocks[n].first) << " ns per item insert";
     }
     std::cout << std::endl;
   }
   {
     std::vector<char> buffer;
     buffer.reserve(ITEMS_COUNT * bytes_per_item);
-    std::cout << "\nAllocating " << (ITEMS_COUNT * bytes_per_item) << " bytes, " << bytes_per_item << " bytes per item seems acceptable." << std::endl;
+    std::cout << "\nAllocating " << (ITEMS_COUNT * bytes_per_item) << " bytes, " << bytes_per_item
+              << " bytes per item seems acceptable." << std::endl;
     pmr::monotonic_buffer_resource mr(buffer.data(), buffer.capacity());
-    std::set<uint32_t, std::less<uint32_t>, pmr::polymorphic_allocator<uint32_t>> cont{pmr::polymorphic_allocator<uint32_t>(&mr)};
+    std::set<uint32_t, std::less<uint32_t>, pmr::polymorphic_allocator<uint32_t>> cont{
+    pmr::polymorphic_allocator<uint32_t>(&mr)};
     std::vector<std::pair<size_t, uint64_t>> clocks;
     clocks.reserve(ITEMS_BITSHIFT + 1);
     size_t n = 0;
@@ -376,16 +380,19 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / benchmark, "Benchmarks bitwise_trie against 
     std::cout << "For set:";
     for(n = 1; n < clocks.size(); n++)
     {
-      std::cout << "\n   " << clocks[n].first << ": " << ((double) (clocks[n].second - clocks[0].second) / clocks[n].first) << " ns per item insert";
+      std::cout << "\n   " << clocks[n].first << ": "
+                << ((double) (clocks[n].second - clocks[0].second) / clocks[n].first) << " ns per item insert";
     }
     std::cout << std::endl;
   }
   {
     std::vector<char> buffer;
     buffer.reserve(ITEMS_COUNT * bytes_per_item);
-    std::cout << "\nAllocating " << (ITEMS_COUNT * bytes_per_item) << " bytes, " << bytes_per_item << " bytes per item seems acceptable." << std::endl;
+    std::cout << "\nAllocating " << (ITEMS_COUNT * bytes_per_item) << " bytes, " << bytes_per_item
+              << " bytes per item seems acceptable." << std::endl;
     pmr::monotonic_buffer_resource mr(buffer.data(), buffer.capacity());
-    std::unordered_set<uint32_t, QUICKCPPLIB_NAMESPACE::algorithm::hash::fnv1a_hash<uint32_t>, std::equal_to<uint32_t>, pmr::polymorphic_allocator<uint32_t>>
+    std::unordered_set<uint32_t, QUICKCPPLIB_NAMESPACE::algorithm::hash::fnv1a_hash<uint32_t>, std::equal_to<uint32_t>,
+                       pmr::polymorphic_allocator<uint32_t>>
     cont{pmr::polymorphic_allocator<uint32_t>(&mr)};
     // cont.reserve(ITEMS_COUNT);
     std::vector<std::pair<size_t, uint64_t>> clocks;
@@ -403,7 +410,8 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / benchmark, "Benchmarks bitwise_trie against 
     std::cout << "For unordered_set:";
     for(n = 1; n < clocks.size(); n++)
     {
-      std::cout << "\n   " << clocks[n].first << ": " << ((double) (clocks[n].second - clocks[0].second) / clocks[n].first) << " ns per item insert";
+      std::cout << "\n   " << clocks[n].first << ": "
+                << ((double) (clocks[n].second - clocks[0].second) / clocks[n].first) << " ns per item insert";
     }
     std::cout << std::endl;
   }
