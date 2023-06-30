@@ -1613,7 +1613,7 @@ linker,                                                                         
         _threadh = nullptr;
 #else
 #ifndef __APPLE__
-        if(-1 == ::timer_delete(_timerid))
+        if(-1 == ::timer_delete(static_cast<timer_t>(_timerid)))
         {
           throw std::system_error(errno, std::system_category());
         }
