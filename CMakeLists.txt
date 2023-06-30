@@ -65,11 +65,18 @@ else()
 endif()
 # On Linux, things using me must link to libdl
 if(CMAKE_SYSTEM_NAME MATCHES "Linux")
-  all_link_libraries(PUBLIC dl rt)
+  all_link_libraries(PUBLIC dl)
 endif()
 # On FreeBSD, things using me must link to libexecinfo
 if(CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
   all_link_libraries(PUBLIC execinfo)
+endif()
+if (NOT (WIN32 OR APPLE))
+  include(CheckLibraryExists)
+  check_library_exists(rt timer_create "" HAVE_LIB_RT)
+  if (HAVE_LIB_RT)
+    all_link_libraries(PUBLIC rt)
+  endif()
 endif()
 
 # For all possible configurations of this library, add each test
