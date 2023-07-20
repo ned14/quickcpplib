@@ -151,7 +151,7 @@ function(all_target_properties)
   endif()
 endfunction()
 
-if(NOT PROJECT_IS_DEPENDENCY AND CMAKE_GENERATOR MATCHES "Visual Studio")
+if(NOT ${PROJECT_NAME}_IS_DEPENDENCY AND CMAKE_GENERATOR MATCHES "Visual Studio")
   # Ensure project files maintain the file hierarchy
   function(preserve_structure dependency)
     if(dependency)

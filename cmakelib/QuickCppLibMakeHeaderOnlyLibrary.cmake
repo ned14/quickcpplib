@@ -49,7 +49,7 @@ endfunction()
 
 if(${PROJECT_NAME}_INTERFACE_DISABLED)
   default_header_only_interface_library()
-elseif(NOT PROJECT_IS_DEPENDENCY)
+elseif(NOT ${PROJECT_NAME}_IS_DEPENDENCY)
   if(COMMAND target_precompile_headers)
     default_header_only_interface_library()
     set(pch_sources ${${PROJECT_NAME}_INTERFACE})

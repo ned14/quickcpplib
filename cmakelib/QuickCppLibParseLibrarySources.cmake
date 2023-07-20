@@ -12,7 +12,7 @@
 # 
 # Outputs:
 #  *                   PROJECT_DIR: PROJECT_NAMESPACE with any :: replaced with a / followed by PROJECT_NAME
-#  *         PROJECT_IS_DEPENDENCY: ON if this this project is a dependency of a higher level project
+#  * ${PROJECT_NAME}_IS_DEPENDENCY: ON if this this project is a dependency of a higher level project
 #
 # Cached outputs:
 #  *               ${PROJECT_NAME}_PATH: ${CMAKE_CURRENT_SOURCE_DIR}
@@ -29,11 +29,11 @@ else()
   set(PROJECT_DIR)
 endif()
 set(PROJECT_DIR ${PROJECT_DIR}${PROJECT_NAME})
-if(NOT DEFINED PROJECT_IS_DEPENDENCY)
+if(NOT DEFINED ${PROJECT_NAME}_IS_DEPENDENCY)
   if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
-    set(PROJECT_IS_DEPENDENCY OFF)
+    set(${PROJECT_NAME}_IS_DEPENDENCY OFF)
   else()
-    set(PROJECT_IS_DEPENDENCY ON)
+    set(${PROJECT_NAME}_IS_DEPENDENCY ON)
   endif()
 endif()
 

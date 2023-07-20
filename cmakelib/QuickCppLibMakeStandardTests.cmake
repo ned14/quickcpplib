@@ -3,7 +3,7 @@
 #
 # Sets ${PROJECT_NAME}_TEST_TARGETS to the test targets generated
 
-if(NOT PROJECT_IS_DEPENDENCY)
+if(NOT ${PROJECT_NAME}_IS_DEPENDENCY AND (NOT DEFINED BUILD_TESTING OR BUILD_TESTING))
   if(DEFINED ${PROJECT_NAME}_TESTS)
     enable_testing()
     function(generate_tests)

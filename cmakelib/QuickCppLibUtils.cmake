@@ -357,7 +357,7 @@ function(find_quickcpplib_library libraryname)
     if(NOT ${libraryname}_FOUND)
       foreach(config Debug Release RelWithDebInfo MinSizeRel)
         indented_message(STATUS "Superbuilding missing dependency ${libraryname} with config ${config}, this may take a while ...")
-        set(cmakeargs "-DCMAKE_BUILD_TYPE=${config} -G \"${CMAKE_GENERATOR}\" -DPROJECT_IS_DEPENDENCY=TRUE \"-DQUICKCPPLIB_ROOT_BINARY_DIR=${QUICKCPPLIB_ROOT_BINARY_DIR}\"")
+        set(cmakeargs "-DCMAKE_BUILD_TYPE=${config} -G \"${CMAKE_GENERATOR}\" -DBUILD_TESTING=OFF \"-DQUICKCPPLIB_ROOT_BINARY_DIR=${QUICKCPPLIB_ROOT_BINARY_DIR}\"")
         if(DEFINED CMAKE_TOOLCHAIN_FILE)
           set(cmakeargs "${cmakeargs} \"-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}\"")
         endif()
@@ -397,7 +397,6 @@ function(find_quickcpplib_library libraryname)
     
     if(FINDLIB_LOCAL_PATH)
       set(MESSAGE_INDENT "${MESSAGE_INDENT}  ")
-      set(PROJECT_IS_DEPENDENCY TRUE)
       if(FINDLIB_INCLUDE_ALL)
         add_subdirectory("${FINDLIB_LOCAL_PATH}"
           "${QUICKCPPLIB_ROOT_BINARY_DIR}/${libraryname}_sibling"

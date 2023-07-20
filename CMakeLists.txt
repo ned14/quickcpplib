@@ -24,7 +24,7 @@ set(quickcpplib_INTERFACE_DISABLED ON)
 unset(PROJECT_NAMESPACE)
 # Setup this cmake environment for this project
 include(QuickCppLibSetupProject)
-if(NOT PROJECT_IS_DEPENDENCY)
+if(NOT ${PROJECT_NAME}_IS_DEPENDENCY)
   # This file should be updated with the last git SHA next commit
   UpdateRevisionHppFromGit("${CMAKE_CURRENT_SOURCE_DIR}/include/quickcpplib/revision.hpp")
 endif()
