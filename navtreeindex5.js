@@ -1,6 +1,5 @@
 var NAVTREEINDEX5 =
 {
-"namespacequickcpplib_1_1__xxx_1_1configurable__spinlock.html#ab75872334aaa593836ecee74f3e18672":[4,0,2,0,5,16],
 "namespacequickcpplib_1_1__xxx_1_1configurable__spinlock.html#ac71cc52ae3303c08c6b923576ccaa598":[4,0,2,0,5,18],
 "namespacequickcpplib_1_1__xxx_1_1configurable__spinlock.html#add387b168c5f035ba5ba3b62041a9943":[4,0,2,0,5,15],
 "namespacequickcpplib_1_1__xxx_1_1configurable__spinlock_1_1detail.html":[4,0,2,0,5,0],
@@ -249,5 +248,6 @@ var NAVTREEINDEX5 =
 "namespacestd_1_1experimental.html#a4f15144833bc5951b01fbd4b4bfdb6fb":[4,0,3,0,30],
 "namespacestd_1_1experimental.html#a5068ce23a9370274ddefed457526adca":[4,0,3,0,73],
 "namespacestd_1_1experimental.html#a517ac223b65a2fbc7f2b5f74e17b4a17":[4,0,3,0,67],
-"namespacestd_1_1experimental.html#a6014c651e66cd9a53b7f98fd984162fb":[4,0,3,0,71]
+"namespacestd_1_1experimental.html#a6014c651e66cd9a53b7f98fd984162fb":[4,0,3,0,71],
+"namespacestd_1_1experimental.html#a628e7738044638bfc7434975bd369d7e":[4,0,3,0,74]
 };
