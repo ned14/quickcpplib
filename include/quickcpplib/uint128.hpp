@@ -41,7 +41,8 @@ namespace integers128
   /*! \union uint128
   \brief An unsigned 128 bit value
   */
-  union alignas(16) uint128 {
+  union alignas(16) uint128
+  {
     struct empty_type
     {
     } _empty;
@@ -53,21 +54,42 @@ namespace integers128
 #if defined(__SSE2__) || defined(_M_X64) || (defined(_M_IX86_FP) && _M_IX86_FP >= 2)
     __m128i as_m128i;
 #endif
-#if defined(__GNUC__) || defined(__clang__)
+#if(defined(__GNUC__) || defined(__clang__)) && __SIZEOF_INT128__ > 0
     unsigned __int128 as_uint128;
 #endif
     //! Default constructor, no bits set
-    constexpr uint128() noexcept : _empty() {}
+    constexpr uint128() noexcept
+        : _empty()
+    {
+    }
     //! Construct from a number
-    constexpr uint128(uint64_t v) noexcept : as_longlongs{v, 0} {}
+    constexpr uint128(uint64_t v) noexcept
+        : as_longlongs{v, 0}
+    {
+    }
     //! Construct from input
-    constexpr uint128(uint8_t v0, uint8_t v1, uint8_t v2, uint8_t v3, uint8_t v4, uint8_t v5, uint8_t v6, uint8_t v7, uint8_t v8, uint8_t v9, uint8_t v10, uint8_t v11, uint8_t v12, uint8_t v13, uint8_t v14, uint8_t v15) noexcept : as_bytes{v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15} {}
+    constexpr uint128(uint8_t v0, uint8_t v1, uint8_t v2, uint8_t v3, uint8_t v4, uint8_t v5, uint8_t v6, uint8_t v7,
+                      uint8_t v8, uint8_t v9, uint8_t v10, uint8_t v11, uint8_t v12, uint8_t v13, uint8_t v14,
+                      uint8_t v15) noexcept
+        : as_bytes{v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15}
+    {
+    }
     //! Construct from input
-    constexpr uint128(uint16_t v0, uint16_t v1, uint16_t v2, uint16_t v3, uint16_t v4, uint16_t v5, uint16_t v6, uint16_t v7) noexcept : as_shorts{v0, v1, v2, v3, v4, v5, v6, v7} {}
+    constexpr uint128(uint16_t v0, uint16_t v1, uint16_t v2, uint16_t v3, uint16_t v4, uint16_t v5, uint16_t v6,
+                      uint16_t v7) noexcept
+        : as_shorts{v0, v1, v2, v3, v4, v5, v6, v7}
+    {
+    }
     //! Construct from input
-    constexpr uint128(uint32_t v0, uint32_t v1, uint32_t v2, uint32_t v3) noexcept : as_ints{v0, v1, v2, v3} {}
+    constexpr uint128(uint32_t v0, uint32_t v1, uint32_t v2, uint32_t v3) noexcept
+        : as_ints{v0, v1, v2, v3}
+    {
+    }
     //! Construct from input
-    constexpr uint128(uint64_t v0, uint64_t v1) noexcept : as_longlongs{v0, v1} {}
+    constexpr uint128(uint64_t v0, uint64_t v1) noexcept
+        : as_longlongs{v0, v1}
+    {
+    }
     //! Return the bottom unsigned short bits of the number
     explicit operator unsigned short() const noexcept { return static_cast<unsigned short>(as_longlongs[0]); }
     //! Return the bottom unsigned bits of the number
@@ -76,6 +98,7 @@ namespace integers128
     explicit operator unsigned long() const noexcept { return static_cast<unsigned long>(as_longlongs[0]); }
     //! Return the bottom long long bits of the number
     explicit operator unsigned long long() const noexcept { return static_cast<unsigned long long>(as_longlongs[0]); }
+
   private:
     static const uint128 &_allbitszero()
     {
@@ -100,7 +123,7 @@ namespace integers128
     }
     uint128 operator+=(const uint128 &v) noexcept
     {
-#if defined(__GNUC__) || defined(__clang__)
+#if(defined(__GNUC__) || defined(__clang__)) && __SIZEOF_INT128__ > 0
       as_uint128 += v.as_uint128;
       return *this;
 #endif
@@ -118,7 +141,7 @@ namespace integers128
     }
     uint128 operator-=(const uint128 &v) noexcept
     {
-#if defined(__GNUC__) || defined(__clang__)
+#if(defined(__GNUC__) || defined(__clang__)) && __SIZEOF_INT128__ > 0
       as_uint128 -= v.as_uint128;
       return *this;
 #endif
@@ -140,13 +163,14 @@ namespace integers128
     }
     /*
     On VS2019 on my 4.6Ghz laptop: 1.36879e+06 128-bit moduli/sec which is 730.572ns/modulus
-       On GCC on my 4.6Ghz laptop: 3.61544e+07 128-bit moduli/sec which is 27.6591ns/modulus (27x faster, thanks to the built in 128 bit integer support)
+       On GCC on my 4.6Ghz laptop: 3.61544e+07 128-bit moduli/sec which is 27.6591ns/modulus (27x faster, thanks to the
+    built in 128 bit integer support)
     */
     uint128 operator%=(const uint128 &b)
     {
       if(!b)
         throw std::domain_error("divide by zero");
-#if defined(__GNUC__) || defined(__clang__)
+#if(defined(__GNUC__) || defined(__clang__)) && __SIZEOF_INT128__ > 0
       as_uint128 %= b.as_uint128;
       return *this;
 #endif
@@ -169,7 +193,7 @@ namespace integers128
     {
       if(!b)
         throw std::domain_error("divide by zero");
-#if defined(__GNUC__) || defined(__clang__)
+#if(defined(__GNUC__) || defined(__clang__)) && __SIZEOF_INT128__ > 0
       as_uint128 %= b;
       return *this;
 #endif
@@ -215,7 +239,7 @@ namespace integers128
     }
     uint128 operator<<=(uint8_t v) noexcept
     {
-#if defined(__GNUC__) || defined(__clang__)
+#if(defined(__GNUC__) || defined(__clang__)) && __SIZEOF_INT128__ > 0
       as_uint128 <<= v;
       return *this;
 #endif
@@ -232,7 +256,7 @@ namespace integers128
     }
     uint128 operator>>=(uint8_t v) noexcept
     {
-#if defined(__GNUC__) || defined(__clang__)
+#if(defined(__GNUC__) || defined(__clang__)) && __SIZEOF_INT128__ > 0
       as_uint128 >>= v;
       return *this;
 #endif
@@ -242,21 +266,43 @@ namespace integers128
       return *this;
     }
 
-    bool operator==(const uint128 &o) const noexcept { return as_longlongs[1] == o.as_longlongs[1] && as_longlongs[0] == o.as_longlongs[0]; }
-    bool operator!=(const uint128 &o) const noexcept { return as_longlongs[1] != o.as_longlongs[1] || as_longlongs[0] != o.as_longlongs[0]; }
-    bool operator<(const uint128 &o) const noexcept { return as_longlongs[1] < o.as_longlongs[1] || (as_longlongs[1] == o.as_longlongs[1] && as_longlongs[0] < o.as_longlongs[0]); }
-    bool operator<=(const uint128 &o) const noexcept { return as_longlongs[1] < o.as_longlongs[1] || (as_longlongs[1] == o.as_longlongs[1] && as_longlongs[0] <= o.as_longlongs[0]); }
-    bool operator>(const uint128 &o) const noexcept { return as_longlongs[1] > o.as_longlongs[1] || (as_longlongs[1] == o.as_longlongs[1] && as_longlongs[0] > o.as_longlongs[0]); }
-    bool operator>=(const uint128 &o) const noexcept { return as_longlongs[1] > o.as_longlongs[1] || (as_longlongs[1] == o.as_longlongs[1] && as_longlongs[0] >= o.as_longlongs[0]); }
+    bool operator==(const uint128 &o) const noexcept
+    {
+      return as_longlongs[1] == o.as_longlongs[1] && as_longlongs[0] == o.as_longlongs[0];
+    }
+    bool operator!=(const uint128 &o) const noexcept
+    {
+      return as_longlongs[1] != o.as_longlongs[1] || as_longlongs[0] != o.as_longlongs[0];
+    }
+    bool operator<(const uint128 &o) const noexcept
+    {
+      return as_longlongs[1] < o.as_longlongs[1] ||
+             (as_longlongs[1] == o.as_longlongs[1] && as_longlongs[0] < o.as_longlongs[0]);
+    }
+    bool operator<=(const uint128 &o) const noexcept
+    {
+      return as_longlongs[1] < o.as_longlongs[1] ||
+             (as_longlongs[1] == o.as_longlongs[1] && as_longlongs[0] <= o.as_longlongs[0]);
+    }
+    bool operator>(const uint128 &o) const noexcept
+    {
+      return as_longlongs[1] > o.as_longlongs[1] ||
+             (as_longlongs[1] == o.as_longlongs[1] && as_longlongs[0] > o.as_longlongs[0]);
+    }
+    bool operator>=(const uint128 &o) const noexcept
+    {
+      return as_longlongs[1] > o.as_longlongs[1] ||
+             (as_longlongs[1] == o.as_longlongs[1] && as_longlongs[0] >= o.as_longlongs[0]);
+    }
   };
   static_assert(sizeof(uint128) == 16, "uint128 is not 16 bytes long!");
   static_assert(alignof(uint128) == 16, "uint128 is not aligned to 16 byte multiples!");
   //! \brief Hashes a uint128
   struct uint128_hasher
   {
-    size_t operator()(const uint128 &v) const { return (size_t)(v.as_longlongs[0] ^ v.as_longlongs[1]); }
+    size_t operator()(const uint128 &v) const { return (size_t) (v.as_longlongs[0] ^ v.as_longlongs[1]); }
   };
-}
+}  // namespace integers128
 
 QUICKCPPLIB_NAMESPACE_END
 
