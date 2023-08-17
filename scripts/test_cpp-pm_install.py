@@ -10,13 +10,13 @@ from git import Repo
 
 resourcepath = os.path.join(os.path.dirname(__file__), 'cpp-pm')
 
-if len(sys.argv) < 5:
-    print(sys.argv[0], " <test-cpp> [<subrepo> <cmake-link-target> <git url> <branch>]+", file=sys.stderr)
+if len(sys.argv) < 6:
+    print(sys.argv[0], " <test-cpp> [<subrepo> <cmake-link-target> <git url> <branch> <cmake args>]+", file=sys.stderr)
     sys.exit(1)
 testcpppath = sys.argv[1]
 dependencies = []
-for n in range(2, len(sys.argv), 4):
-    dependencies += [(sys.argv[n + 0], sys.argv[n + 1], sys.argv[n + 2], sys.argv[n + 3])]
+for n in range(2, len(sys.argv), 5):
+    dependencies += [(sys.argv[n + 0], sys.argv[n + 1], sys.argv[n + 2], sys.argv[n + 3], sys.argv[n + 4])]
 
 def copytree(src, dst, symlinks=False):
     names = os.listdir(src)
@@ -45,7 +45,7 @@ for dependency in dependencies:
 os.makedirs('test_cpp-pm_install/cmake/Hunter', exist_ok = True)
 with open('test_cpp-pm_install/cmake/Hunter/config.cmake', 'w') as oh:
     for dependency in dependencies:
-        oh.write('hunter_config(' + dependency[0] + ' GIT_SUBMODULE "' + dependency[0] + '" ${' + dependency[0] + '_CMAKE_ARGS})\n')
+        oh.write('hunter_config(' + dependency[0] + ' GIT_SUBMODULE "' + dependency[0] + '" CMAKE_ARGS="' + dependency[4] + '")\n')
 
 with open('test_cpp-pm_install/CMakeLists.txt', 'a') as oh:
     for dependency in dependencies:
