@@ -45,7 +45,7 @@ for dependency in dependencies:
 os.makedirs('test_cpp-pm_install/cmake/Hunter', exist_ok = True)
 with open('test_cpp-pm_install/cmake/Hunter/config.cmake', 'w') as oh:
     for dependency in dependencies:
-        oh.write('hunter_config(' + dependency[0] + ' GIT_SUBMODULE "' + dependency[0] + '" CMAKE_ARGS="' + dependency[4] + '")\n')
+        oh.write('hunter_config(' + dependency[0] + ' GIT_SUBMODULE "' + dependency[0] + '" CMAKE_ARGS ' + dependency[4] + ')\n')
 
 with open('test_cpp-pm_install/CMakeLists.txt', 'a') as oh:
     for dependency in dependencies:
