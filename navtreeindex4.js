@@ -1,6 +1,5 @@
 var NAVTREEINDEX4 =
 {
-"group__unittesting.html#gaafd4657b11bcceb70c65ff1183f82c37":[6,0,0,0,1,0,0,25],
 "group__unittesting.html#gaafd4657b11bcceb70c65ff1183f82c37":[3,1,20],
 "group__unittesting.html#gab7ba609bc6e1acbfc8861d1da0620532":[6,0,0,0,1,0,0,31],
 "group__unittesting.html#gab7ba609bc6e1acbfc8861d1da0620532":[3,1,26],
@@ -249,5 +248,6 @@ var NAVTREEINDEX4 =
 "namespacequickcpplib_1_1__xxx_1_1configurable__spinlock.html":[4,0,2,0,5],
 "namespacequickcpplib_1_1__xxx_1_1configurable__spinlock.html#a283d2a54c3371823054980c76e3cae96":[4,0,2,0,5,13],
 "namespacequickcpplib_1_1__xxx_1_1configurable__spinlock.html#aa07e01213c54d15fd07c2731ca92295c":[4,0,2,0,5,17],
-"namespacequickcpplib_1_1__xxx_1_1configurable__spinlock.html#ab45178c42fb15086f1671d05af9afdbf":[4,0,2,0,5,14]
+"namespacequickcpplib_1_1__xxx_1_1configurable__spinlock.html#ab45178c42fb15086f1671d05af9afdbf":[4,0,2,0,5,14],
+"namespacequickcpplib_1_1__xxx_1_1configurable__spinlock.html#ab75872334aaa593836ecee74f3e18672":[4,0,2,0,5,16]
 };
