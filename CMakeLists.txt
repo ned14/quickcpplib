@@ -16,8 +16,10 @@ ensure_git_subrepo("${CMAKE_CURRENT_SOURCE_DIR}/include/quickcpplib/byte/include
 # Sets the usual PROJECT_NAME etc
 project(quickcpplib VERSION 0.1.0.0 LANGUAGES C CXX)
 include(CMakeDependentOption)
-option(QUICKCPPLIB_REQUIRE_CXX20 "Add cxx17 compile feature to the target which in turn makes byte-lite and gsl-lite optional." OFF)
-cmake_dependent_option(QUICKCPPLIB_REQUIRE_CXX17 "Add cxx17 compile feature to the target which in turn makes byte-lite optional." OFF "NOT QUICKCPPLIB_REQUIRE_CXX20" OFF)
+option(QUICKCPPLIB_REQUIRE_CXX20 "Add cxx20 compile feature to the target which in turn makes byte-lite, span-lite and akrzemi1/Optional optional." OFF)
+cmake_dependent_option(QUICKCPPLIB_REQUIRE_CXX17 "Add cxx17 compile feature to the target which in turn makes akrzemi1/Optional optional." OFF "NOT QUICKCPPLIB_REQUIRE_CXX20" OFF)
+cmake_dependent_option(QUICKCPPLIB_EMBEDDED_BYTELITE "Whether to use embedded nonstd::byte-lite. Used by various package managers such as vcpkg." ON "NOT QUICKCPPLIB_REQUIRE_CXX20" OFF)
+cmake_dependent_option(QUICKCPPLIB_EMBEDDED_SPANLITE "Whether to use embedded nonstd::span-lite. Used by various package managers such as vcpkg." ON "NOT QUICKCPPLIB_REQUIRE_CXX20" OFF)
 # quickcpplib does not provide a master header file
 set(quickcpplib_INTERFACE_DISABLED ON)
 # Also set a *cmake* namespace for this project
@@ -63,6 +65,21 @@ else()
     cxx_generic_lambdas
   )
 endif()
+
+if(NOT QUICKCPPLIB_EMBEDDED_BYTELITE)
+  find_package(byte-lite REQUIRED)
+  target_link_libraries(${PROJECT_NAME}_hl INTERFACE nonstd::byte-lite)
+  all_compile_definitions(PUBLIC QUICKCPPLIB_USE_SYSTEM_NONSTD_BYTE=1)
+  list_filter(${PROJECT_NAME}_HEADERS EXCLUDE REGEX include/quickcpplib/byte/)
+endif()
+
+if(NOT QUICKCPPLIB_EMBEDDED_SPANLITE)
+  find_package(span-lite REQUIRED)
+  target_link_libraries(${PROJECT_NAME}_hl INTERFACE nonstd::span-lite)
+  all_compile_definitions(PUBLIC QUICKCPPLIB_USE_SYSTEM_NONSTD_SPAN=1)
+  list_filter(${PROJECT_NAME}_HEADERS EXCLUDE REGEX include/quickcpplib/span-lite/)
+endif()
+
 # On Linux, things using me must link to libdl
 if(CMAKE_SYSTEM_NAME MATCHES "Linux")
   all_link_libraries(PUBLIC dl)

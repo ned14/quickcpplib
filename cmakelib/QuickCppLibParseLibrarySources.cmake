@@ -124,11 +124,17 @@ else()
        "${CMAKE_CURRENT_SOURCE_DIR}/include/*.ipp"
        "${CMAKE_CURRENT_SOURCE_DIR}/include/*.natvis"
        )
+  message(STATUS "1: ${${PROJECT_NAME}_HEADERS}")
   list(SORT ${PROJECT_NAME}_HEADERS)
+  message(STATUS "2: ${${PROJECT_NAME}_HEADERS}")
   set(${PROJECT_NAME}_HEADERS_FILTER ${${PROJECT_NAME}_HEADERS})
+  message(STATUS "3: ${${PROJECT_NAME}_HEADERS}")
   list_filter(${PROJECT_NAME}_HEADERS_FILTER INCLUDE REGEX "\\.quickcpplib$")
+  message(STATUS "4: ${${PROJECT_NAME}_HEADERS}")
   prune_quickcpplib_libraries(${PROJECT_NAME}_HEADERS_FILTER ${PROJECT_NAME}_HEADERS)
+  message(STATUS "5: ${${PROJECT_NAME}_HEADERS}")
   unset(${PROJECT_NAME}_HEADERS_FILTER)
+  message(STATUS "6: ${${PROJECT_NAME}_HEADERS}")
 
   # Identify source files for the interface library to be linked into all consumers
   # MSVC has a cool feature where .natvis files tell the debugger how to display a type
