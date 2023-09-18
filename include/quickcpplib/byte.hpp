@@ -54,12 +54,10 @@ QUICKCPPLIB_NAMESPACE_END
 
 #else
 
-#if __PCPP_ALWAYS_TRUE__
-#include "byte/include/nonstd/byte.hpp"
-#elif !QUICKCPPLIB_USE_SYSTEM_NONSTD_BYTE && __has_include("byte/include/nonstd/byte.hpp")
-#include "byte/include/nonstd/byte.hpp"
+#if defined(QUICKCPPLIB_OVERRIDE_NONSTD_BYTE_HEADER)
+#include QUICKCPPLIB_OVERRIDE_NONSTD_BYTE_HEADER
 #else
-#include <nonstd/byte.hpp>
+#include "byte/include/nonstd/byte.hpp"
 #endif
 
 QUICKCPPLIB_NAMESPACE_BEGIN

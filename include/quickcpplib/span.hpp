@@ -80,12 +80,10 @@ QUICKCPPLIB_NAMESPACE_END
 
 #else
 
-#if __PCPP_ALWAYS_TRUE__
-#include "span-lite/include/nonstd/span.hpp"
-#elif !QUICKCPPLIB_USE_SYSTEM_NONSTD_SPAN && __has_include("span-lite/include/nonstd/span.hpp")
-#include "span-lite/include/nonstd/span.hpp"
+#if defined(QUICKCPPLIB_OVERRIDE_NONSTD_SPAN_HEADER)
+#include QUICKCPPLIB_OVERRIDE_NONSTD_SPAN_HEADER
 #else
-#include <nonstd/span.hpp>
+#include "span-lite/include/nonstd/span.hpp"
 #endif
 
 QUICKCPPLIB_NAMESPACE_BEGIN
