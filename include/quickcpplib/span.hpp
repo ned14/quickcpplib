@@ -32,7 +32,15 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "config.hpp"
 
-#if defined(QUICKCPPLIB_USE_STD_SPAN) || ((_HAS_CXX20 || __cplusplus >= 202002) && __has_include(<span>))
+#if !defined(QUICKCPPLIB_USE_STD_SPAN)
+#if (_HAS_CXX20 || __cplusplus >= 202002L) && __cpp_lib_span >= 202002L
+#define QUICKCPPLIB_USE_STD_SPAN 1
+#else
+#define QUICKCPPLIB_USE_STD_SPAN 0
+#endif
+#endif
+
+#if QUICKCPPLIB_USE_STD_SPAN
 
 #include "declval.hpp"
 
@@ -78,10 +86,10 @@ namespace span
 
 QUICKCPPLIB_NAMESPACE_END
 
-#else
+#else // ^^^ QUICKCPPLIB_USE_STD_SPAN / not QUICKCPPLIB_USE_STD_SPAN vvv
 
-#if defined(QUICKCPPLIB_OVERRIDE_NONSTD_SPAN_HEADER)
-#include QUICKCPPLIB_OVERRIDE_NONSTD_SPAN_HEADER
+#if QUICKCPPLIB_USE_SYSTEM_SPAN_LITE
+#include <nonstd/span.hpp>
 #else
 #include "span-lite/include/nonstd/span.hpp"
 #endif
@@ -95,6 +103,6 @@ namespace span
 
 QUICKCPPLIB_NAMESPACE_END
 
-#endif
+#endif // ^^^ not QUICKCPPLIB_USE_STD_SPAN ^^^
 
 #endif

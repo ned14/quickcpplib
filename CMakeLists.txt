@@ -17,9 +17,9 @@ ensure_git_subrepo("${CMAKE_CURRENT_SOURCE_DIR}/include/quickcpplib/byte/include
 project(quickcpplib VERSION 0.1.0.0 LANGUAGES C CXX)
 include(CMakeDependentOption)
 option(QUICKCPPLIB_REQUIRE_CXX20 "Add cxx20 compile feature to the target which in turn makes byte-lite, span-lite and akrzemi1/Optional optional." OFF)
-cmake_dependent_option(QUICKCPPLIB_REQUIRE_CXX17 "Add cxx17 compile feature to the target which in turn makes akrzemi1/Optional optional." OFF "NOT QUICKCPPLIB_REQUIRE_CXX20" OFF)
-cmake_dependent_option(QUICKCPPLIB_EMBEDDED_BYTELITE "Whether to use embedded nonstd::byte-lite. Used by various package managers such as vcpkg." ON "NOT QUICKCPPLIB_REQUIRE_CXX20" OFF)
-cmake_dependent_option(QUICKCPPLIB_EMBEDDED_SPANLITE "Whether to use embedded nonstd::span-lite. Used by various package managers such as vcpkg." ON "NOT QUICKCPPLIB_REQUIRE_CXX20" OFF)
+cmake_dependent_option(QUICKCPPLIB_REQUIRE_CXX17 "Add cxx17 compile feature to the target which in turn makes akrzemi1/Optional optional." OFF "NOT QUICKCPPLIB_REQUIRE_CXX20" ON)
+cmake_dependent_option(QUICKCPPLIB_USE_SYSTEM_BYTE_LITE "Whether to use embedded nonstd::byte-lite. Used by various package managers such as vcpkg." OFF "NOT QUICKCPPLIB_REQUIRE_CXX17" OFF)
+cmake_dependent_option(QUICKCPPLIB_USE_SYSTEM_SPAN_LITE "Whether to use embedded nonstd::span-lite. Used by various package managers such as vcpkg." OFF "NOT QUICKCPPLIB_REQUIRE_CXX20" OFF)
 # quickcpplib does not provide a master header file
 set(quickcpplib_INTERFACE_DISABLED ON)
 # Also set a *cmake* namespace for this project
@@ -32,11 +32,14 @@ if(NOT ${PROJECT_NAME}_IS_DEPENDENCY)
 endif()
 # Exclude any embedded CATCH
 list_filter(quickcpplib_HEADERS EXCLUDE REGEX "include/quickcpplib/CATCH")
-if (QUICKCPPLIB_REQUIRE_CXX20)
+list_filter(quickcpplib_HEADERS EXCLUDE REGEX "include/quickcpplib/detail/config\\.hpp")
+if (QUICKCPPLIB_USE_SYSTEM_SPAN_LITE OR QUICKCPPLIB_REQUIRE_CXX20)
   list_filter(quickcpplib_HEADERS EXCLUDE REGEX "include/quickcpplib/span-lite/")
 endif()
-if (QUICKCPPLIB_REQUIRE_CXX17 OR QUICKCPPLIB_REQUIRE_CXX20)
+if (QUICKCPPLIB_USE_SYSTEM_BYTE_LITE OR QUICKCPPLIB_REQUIRE_CXX17)
   list_filter(quickcpplib_HEADERS EXCLUDE REGEX "include/quickcpplib/byte/")
+endif()
+if (QUICKCPPLIB_REQUIRE_CXX17)
   list_filter(quickcpplib_HEADERS EXCLUDE REGEX "include/quickcpplib/optional/")
 endif()
 # Make an interface only library so dependent CMakeLists can bring in this header-only library
@@ -47,13 +50,20 @@ if(QUICKCPPLIB_ENABLE_DOXYGEN_DOCS_BUILD_SUPPORT)
   include(QuickCppLibMakeDoxygen)
 endif()
 
+file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/generated/include/quickcpplib/detail")
+target_include_directories(${PROJECT_NAME}_hl BEFORE INTERFACE
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/generated/include>
+)
+
 # Set the standard definitions for these libraries and bring in the all_* helper functions
 include(QuickCppLibApplyDefaultDefinitions)
 # Set the C++ features this library requires
 if(QUICKCPPLIB_REQUIRE_CXX20)
   all_compile_features(PUBLIC cxx_std_20)
+  set(QUICKCPPLIB_REQUIRE_CXX_STANDARD 202002L)
 elseif(QUICKCPPLIB_REQUIRE_CXX17)
   all_compile_features(PUBLIC cxx_std_17)
+  set(QUCIKCPPLIB_REQUIRE_CXX_STANDARD 201703L)
 else()
   all_compile_features(PUBLIC
     cxx_alias_templates
@@ -64,20 +74,16 @@ else()
     cxx_lambda_init_captures
     cxx_generic_lambdas
   )
+  set(QUICKCPPLIB_REQUIRE_CXX_STANDARD 201402L)
 endif()
 
-if(NOT QUICKCPPLIB_EMBEDDED_BYTELITE)
+if(QUICKCPPLIB_USE_SYSTEM_BYTE_LITE)
   find_package(byte-lite REQUIRED)
-  target_link_libraries(${PROJECT_NAME}_hl INTERFACE nonstd::byte-lite)
-  all_compile_definitions(PUBLIC QUICKCPPLIB_OVERRIDE_NONSTD_BYTE_HEADER="nonstd/byte.hpp")
-  list_filter(${PROJECT_NAME}_HEADERS EXCLUDE REGEX include/quickcpplib/byte/)
+  all_link_libraries(PUBLIC nonstd::byte-lite)
 endif()
-
-if(NOT QUICKCPPLIB_EMBEDDED_SPANLITE)
+if(QUICKCPPLIB_USE_SYSTEM_SPAN_LITE)
   find_package(span-lite REQUIRED)
-  target_link_libraries(${PROJECT_NAME}_hl INTERFACE nonstd::span-lite)
-  all_compile_definitions(PUBLIC QUICKCPPLIB_OVERRIDE_NONSTD_SPAN_HEADER="nonstd/span.hpp")
-  list_filter(${PROJECT_NAME}_HEADERS EXCLUDE REGEX include/quickcpplib/span-lite/)
+  all_link_libraries(PUBLIC nonstd::span-lite)
 endif()
 
 # On Linux, things using me must link to libdl
@@ -121,6 +127,8 @@ endif()
 # Cache this library's auto scanned sources for later reuse
 include(QuickCppLibCacheLibrarySources)
 
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/cmake/config.hpp.in" "${CMAKE_CURRENT_BINARY_DIR}/generated/include/quickcpplib/detail/config.hpp")
+
 # Make available this library for install and export
 include(GNUInstallDirs)
 set(PROJECT_CONFIG_TEMPLATE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmakelib/quickcpplibConfig.override.cmake.in")
@@ -137,5 +145,9 @@ install(DIRECTORY
   "${CMAKE_CURRENT_SOURCE_DIR}/scripts/"
   COMPONENT headers
   DESTINATION "${quickcpplib_SCRIPTS_DIR}"
+)
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/generated/include/quickcpplib/detail/config.hpp"
+  COMPONENT headers
+  DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/quickcpplib/detail/"
 )
 include(QuickCppLibMakeExport)
