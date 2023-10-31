@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.9 FATAL_ERROR)
 # If necessary bring in the quickcpplib cmake tooling
 list(FIND CMAKE_MODULE_PATH "quickcpplib" quickcpplib_idx)
 if(${quickcpplib_idx} GREATER -1)
