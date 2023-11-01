@@ -16,8 +16,10 @@ ensure_git_subrepo("${CMAKE_CURRENT_SOURCE_DIR}/include/quickcpplib/byte/include
 # Sets the usual PROJECT_NAME etc
 project(quickcpplib VERSION 0.1.0.0 LANGUAGES C CXX)
 include(CMakeDependentOption)
-option(QUICKCPPLIB_REQUIRE_CXX20 "Add cxx17 compile feature to the target which in turn makes byte-lite and gsl-lite optional." OFF)
-cmake_dependent_option(QUICKCPPLIB_REQUIRE_CXX17 "Add cxx17 compile feature to the target which in turn makes byte-lite optional." OFF "NOT QUICKCPPLIB_REQUIRE_CXX20" OFF)
+option(QUICKCPPLIB_REQUIRE_CXX20 "Add cxx20 compile feature to the target which in turn makes byte-lite, span-lite and akrzemi1/Optional optional." OFF)
+cmake_dependent_option(QUICKCPPLIB_REQUIRE_CXX17 "Add cxx17 compile feature to the target which in turn makes akrzemi1/Optional optional." OFF "NOT QUICKCPPLIB_REQUIRE_CXX20" ON)
+cmake_dependent_option(QUICKCPPLIB_USE_SYSTEM_BYTE_LITE "Whether to use embedded nonstd::byte-lite. Used by various package managers such as vcpkg." OFF "NOT QUICKCPPLIB_REQUIRE_CXX17" OFF)
+cmake_dependent_option(QUICKCPPLIB_USE_SYSTEM_SPAN_LITE "Whether to use embedded nonstd::span-lite. Used by various package managers such as vcpkg." OFF "NOT QUICKCPPLIB_REQUIRE_CXX20" OFF)
 # quickcpplib does not provide a master header file
 set(quickcpplib_INTERFACE_DISABLED ON)
 # Also set a *cmake* namespace for this project
@@ -30,11 +32,14 @@ if(NOT ${PROJECT_NAME}_IS_DEPENDENCY)
 endif()
 # Exclude any embedded CATCH
 list_filter(quickcpplib_HEADERS EXCLUDE REGEX "include/quickcpplib/CATCH")
-if (QUICKCPPLIB_REQUIRE_CXX20)
+list_filter(quickcpplib_HEADERS EXCLUDE REGEX "include/quickcpplib/detail/config\\.hpp")
+if (QUICKCPPLIB_USE_SYSTEM_SPAN_LITE OR QUICKCPPLIB_REQUIRE_CXX20)
   list_filter(quickcpplib_HEADERS EXCLUDE REGEX "include/quickcpplib/span-lite/")
 endif()
-if (QUICKCPPLIB_REQUIRE_CXX17 OR QUICKCPPLIB_REQUIRE_CXX20)
+if (QUICKCPPLIB_USE_SYSTEM_BYTE_LITE OR QUICKCPPLIB_REQUIRE_CXX17)
   list_filter(quickcpplib_HEADERS EXCLUDE REGEX "include/quickcpplib/byte/")
+endif()
+if (QUICKCPPLIB_REQUIRE_CXX17)
   list_filter(quickcpplib_HEADERS EXCLUDE REGEX "include/quickcpplib/optional/")
 endif()
 # Make an interface only library so dependent CMakeLists can bring in this header-only library
@@ -50,8 +55,10 @@ include(QuickCppLibApplyDefaultDefinitions)
 # Set the C++ features this library requires
 if(QUICKCPPLIB_REQUIRE_CXX20)
   all_compile_features(PUBLIC cxx_std_20)
+  set(QUICKCPPLIB_REQUIRE_CXX_STANDARD 202002L)
 elseif(QUICKCPPLIB_REQUIRE_CXX17)
   all_compile_features(PUBLIC cxx_std_17)
+  set(QUICKCPPLIB_REQUIRE_CXX_STANDARD 201703L)
 else()
   all_compile_features(PUBLIC
     cxx_alias_templates
@@ -62,7 +69,25 @@ else()
     cxx_lambda_init_captures
     cxx_generic_lambdas
   )
+  set(QUICKCPPLIB_REQUIRE_CXX_STANDARD 201402L)
 endif()
+
+if(QUICKCPPLIB_USE_SYSTEM_BYTE_LITE)
+  find_package(byte-lite REQUIRED)
+  all_link_libraries(PUBLIC nonstd::byte-lite)
+endif()
+if(QUICKCPPLIB_USE_SYSTEM_SPAN_LITE)
+  find_package(span-lite REQUIRED)
+  all_link_libraries(PUBLIC nonstd::span-lite)
+endif()
+
+# these need to be kept in sync with the definitions in cmake/config.hpp.in
+all_compile_definitions(PUBLIC
+  $<BUILD_INTERFACE:QUICKCPPLIB_REQUIRE_CXX_STANDARD=${QUICKCPPLIB_REQUIRE_CXX_STANDARD}>
+  $<BUILD_INTERFACE:QUICKCPPLIB_USE_SYSTEM_BYTE_LITE=$<BOOL:${QUICKCPPLIB_USE_SYSTEM_BYTE_LITE}>>
+  $<BUILD_INTERFACE:QUICKCPPLIB_USE_SYSTEM_SPAN_LITE=$<BOOL:${QUICKCPPLIB_USE_SYSTEM_SPAN_LITE}>>
+)
+
 # On Linux, things using me must link to libdl
 if(CMAKE_SYSTEM_NAME MATCHES "Linux")
   all_link_libraries(PUBLIC dl)
@@ -104,6 +129,9 @@ endif()
 # Cache this library's auto scanned sources for later reuse
 include(QuickCppLibCacheLibrarySources)
 
+file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/generated/include/quickcpplib/detail")
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/cmake/config.hpp.in" "${CMAKE_CURRENT_BINARY_DIR}/generated/include/quickcpplib/detail/config.hpp")
+
 # Make available this library for install and export
 include(GNUInstallDirs)
 set(PROJECT_CONFIG_TEMPLATE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmakelib/quickcpplibConfig.override.cmake.in")
@@ -120,5 +148,9 @@ install(DIRECTORY
   "${CMAKE_CURRENT_SOURCE_DIR}/scripts/"
   COMPONENT headers
   DESTINATION "${quickcpplib_SCRIPTS_DIR}"
+)
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/generated/include/quickcpplib/detail/config.hpp"
+  COMPONENT headers
+  DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/quickcpplib/detail/"
 )
 include(QuickCppLibMakeExport)
