@@ -47,22 +47,30 @@ namespace algorithm
     //! \brief A STL compatible hash based on the high quality FNV1 hash algorithm
     template <class T> struct fnv1a_hash
     {
-      size_t operator()(T v) const
-      {
 #if QUICKCPPLIB_PLATFORM_NATIVE_BITLENGTH < 64
-        using working_type = uint32_t;
-        static constexpr working_type basis = 2166136261U, prime = 16777619U;
+      using working_type = uint32_t;
+      static constexpr working_type basis = 2166136261U, prime = 16777619U;
 #else
-        using working_type = uint64_t;
-        static constexpr working_type basis = 14695981039346656037ULL, prime = 1099511628211ULL;
+      using working_type = uint64_t;
+      static constexpr working_type basis = 14695981039346656037ULL, prime = 1099511628211ULL;
 #endif
+      static constexpr working_type begin() noexcept
+      {
+        return basis;
+      }
+      static constexpr void add(working_type &ret, T v) noexcept
+      {
         const unsigned char *_v = (const unsigned char *) &v;
-        working_type ret = basis;
         for(size_t n = 0; n < sizeof(T); n++)
         {
           ret ^= (working_type) _v[n];
           ret *= prime;
         }
+      }
+      size_t operator()(T v) const
+      {
+        auto ret = begin();
+        add(ret, v);
 #if !defined(__SIZEOF_SIZE_T__) || (__SIZEOF_SIZE_T__ * __CHAR_BIT__) < QUICKCPPLIB_PLATFORM_NATIVE_BITLENGTH
         return size_t(ret);
 #else

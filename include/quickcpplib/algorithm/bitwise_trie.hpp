@@ -885,7 +885,7 @@ namespace algorithm
           }
           nodelink.set_is_primary_sibling();
 #ifndef NDEBUG
-          assert(node->trie_key == nodelink.sibling(false)->trie_key);
+          assert(nodelink.key() == _item_accessors(nodelink.sibling(false)).key());
           rlink.set_parent(nullptr);
           rlink.set_child(false, nullptr);
           rlink.set_child(true, nullptr);
@@ -1975,6 +1975,8 @@ namespace algorithm
         _trieremove(const_cast<pointer>(it._p));
         return ret;
       }
+      //! Erases an item.
+      void erase(pointer p) noexcept { _trieremove(p); }
       //! Erases an item.
       iterator erase(key_type k) noexcept { return erase(find(k)); }
       //! Finds an item

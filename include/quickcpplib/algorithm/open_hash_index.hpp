@@ -30,6 +30,7 @@ Distributed under the Boost Software License, Version 1.0.
 #include <cstddef>  // for ptrdiff_t etc
 #include <cstdint>  // for uint32_t etc
 #include <cstdlib>  // for abort()
+#include <iterator>
 
 QUICKCPPLIB_NAMESPACE_BEGIN
 
@@ -609,12 +610,19 @@ namespace algorithm
 
     protected:
       template <bool is_const, class Parent, class Pointer, class Reference> class iterator_;
-      template <bool is_const, class Parent, class Pointer, class Reference>
-      class iterator_
-          : public std::iterator<std::bidirectional_iterator_tag, value_type, difference_type, pointer, reference>
+      template <bool is_const, class Parent, class Pointer, class Reference> class iterator_
       {
         friend class basic_open_hash_index;
         template <bool is_const_, class Parent_, class Pointer_, class Reference_> friend class iterator_;
+
+      public:
+        using iterator_category = std::bidirectional_iterator_tag;
+        using value_type = typename basic_open_hash_index::value_type;
+        using difference_type = typename basic_open_hash_index::difference_type;
+        using pointer = typename basic_open_hash_index::pointer;
+        using reference = typename basic_open_hash_index::reference;
+
+      private:
         Parent *_parent;
         Pointer _p;
 
