@@ -50,11 +50,6 @@ if(QUICKCPPLIB_ENABLE_DOXYGEN_DOCS_BUILD_SUPPORT)
   include(QuickCppLibMakeDoxygen)
 endif()
 
-file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/generated/include/quickcpplib/detail")
-target_include_directories(${PROJECT_NAME}_hl BEFORE INTERFACE
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/generated/include>
-)
-
 # Set the standard definitions for these libraries and bring in the all_* helper functions
 include(QuickCppLibApplyDefaultDefinitions)
 # Set the C++ features this library requires
@@ -63,7 +58,7 @@ if(QUICKCPPLIB_REQUIRE_CXX20)
   set(QUICKCPPLIB_REQUIRE_CXX_STANDARD 202002L)
 elseif(QUICKCPPLIB_REQUIRE_CXX17)
   all_compile_features(PUBLIC cxx_std_17)
-  set(QUCIKCPPLIB_REQUIRE_CXX_STANDARD 201703L)
+  set(QUICKCPPLIB_REQUIRE_CXX_STANDARD 201703L)
 else()
   all_compile_features(PUBLIC
     cxx_alias_templates
@@ -85,6 +80,13 @@ if(QUICKCPPLIB_USE_SYSTEM_SPAN_LITE)
   find_package(span-lite REQUIRED)
   all_link_libraries(PUBLIC nonstd::span-lite)
 endif()
+
+# these need to be kept in sync with the definitions in cmake/config.hpp.in
+all_compile_definitions(PUBLIC
+  $<BUILD_INTERFACE:QUICKCPPLIB_REQUIRE_CXX_STANDARD=${QUICKCPPLIB_REQUIRE_CXX_STANDARD}>
+  $<BUILD_INTERFACE:QUICKCPPLIB_USE_SYSTEM_BYTE_LITE=$<BOOL:${QUICKCPPLIB_USE_SYSTEM_BYTE_LITE}>>
+  $<BUILD_INTERFACE:QUICKCPPLIB_USE_SYSTEM_SPAN_LITE=$<BOOL:${QUICKCPPLIB_USE_SYSTEM_SPAN_LITE}>>
+)
 
 # On Linux, things using me must link to libdl
 if(CMAKE_SYSTEM_NAME MATCHES "Linux")
@@ -127,6 +129,7 @@ endif()
 # Cache this library's auto scanned sources for later reuse
 include(QuickCppLibCacheLibrarySources)
 
+file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/generated/include/quickcpplib/detail")
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/cmake/config.hpp.in" "${CMAKE_CURRENT_BINARY_DIR}/generated/include/quickcpplib/detail/config.hpp")
 
 # Make available this library for install and export
