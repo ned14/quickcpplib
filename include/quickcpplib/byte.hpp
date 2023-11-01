@@ -28,7 +28,7 @@ Distributed under the Boost Software License, Version 1.0.
 #include "config.hpp"
 
 #ifndef QUICKCPPLIB_USE_STD_BYTE
-#if _HAS_CXX17 || __cplusplus >= 201700
+#if _HAS_CXX17 || __cplusplus >= 201700L
 #define QUICKCPPLIB_USE_STD_BYTE 1
 #else
 #define QUICKCPPLIB_USE_STD_BYTE 0
@@ -52,9 +52,13 @@ namespace byte
 
 QUICKCPPLIB_NAMESPACE_END
 
-#else
+#else // ^^^ QUICKCPPLIB_USE_STD_BYTE / not QUICKCPPLIB_USE_STD_BYTE vvv
 
+#if QUICKCPPLIB_USE_SYSTEM_BYTE_LITE
+#include <nonstd/byte.hpp>
+#else
 #include "byte/include/nonstd/byte.hpp"
+#endif
 
 QUICKCPPLIB_NAMESPACE_BEGIN
 
@@ -66,6 +70,6 @@ namespace byte
 
 QUICKCPPLIB_NAMESPACE_END
 
-#endif
+#endif // ^^^ not QUICKCPPLIB_USE_STD_BYTE ^^^
 
 #endif

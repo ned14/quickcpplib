@@ -27,33 +27,28 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "config.hpp"
 
-#ifdef QUICKCPPLIB_USE_STD_OPTIONAL
-
-#include <optional>
-
-QUICKCPPLIB_NAMESPACE_BEGIN
-
-namespace optional
-{
-  template <class T> using optional = std::optional<T>;
-}
-
-QUICKCPPLIB_NAMESPACE_END
-
-#elif _HAS_CXX17 || (__cplusplus >= 201700 && (!defined(__APPLE__) || _LIBCPP_VERSION > 7000 /* approx end of 2017 */))
-
-#include <optional>
-
-QUICKCPPLIB_NAMESPACE_BEGIN
-
-namespace optional
-{
-  template <class T> using optional = std::optional<T>;
-}
-
-QUICKCPPLIB_NAMESPACE_END
-
+#if !defined(QUICKCPPLIB_USE_STD_OPTIONAL)
+#if _HAS_CXX17 || (__cplusplus >= 201700 && (!defined(__APPLE__) || _LIBCPP_VERSION > 7000 /* approx end of 2017 */))
+#define QUICKCPPLIB_USE_STD_OPTIONAL 1
 #else
+#define QUICKCPPLIB_USE_STD_OPTIONAL 0
+#endif
+#endif
+
+#if QUICKCPPLIB_USE_STD_OPTIONAL
+
+#include <optional>
+
+QUICKCPPLIB_NAMESPACE_BEGIN
+
+namespace optional
+{
+  template <class T> using optional = std::optional<T>;
+}
+
+QUICKCPPLIB_NAMESPACE_END
+
+#else // ^^^ QUICKCPPLIB_USE_STD_OPTIONAL / not QUICKCPPLIB_USE_STD_OPTIONAL vvv
 
 #ifdef _MSC_VER
 #pragma warning(push)
@@ -73,6 +68,6 @@ namespace optional
 
 QUICKCPPLIB_NAMESPACE_END
 
-#endif
+#endif // ^^^ not QUICKCPPLIB_USE_STD_OPTIONAL ^^^
 
 #endif
