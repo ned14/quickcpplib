@@ -143,9 +143,9 @@ template&lt;class T , size_t Extent = std::dynamic_extent&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        : _base(v)</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        : _base(v)</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    {</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -177,13 +177,13 @@ template&lt;class U &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                                                                                             { declval&lt;U&gt;().data(); } &amp;&amp;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <a class="code" href="classquickcpplib_1_1__xxx_1_1span_1_1span.html#a45b9e0dacb82196e740255eca51c909d">requires</a> { declval&lt;U&gt;().size(); }) constexpr <a class="code" href="classquickcpplib_1_1__xxx_1_1span_1_1span.html#a2696cb954aef59b30af23b3839016ef5">span</a>(U &amp;&amp;v) noexcept</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        : _base(v.data(), v.size())</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    {</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1span_1_1span_html_a2696cb954aef59b30af23b3839016ef5"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1span_1_1span.html#a2696cb954aef59b30af23b3839016ef5">quickcpplib::_xxx::span::span::span</a></div><div class="ttdeci">constexpr span(_base v) noexcept</div><div class="ttdef"><b>Definition:</b> span.hpp:56</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1span_1_1span_html_a45b9e0dacb82196e740255eca51c909d"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1span_1_1span.html#a45b9e0dacb82196e740255eca51c909d">quickcpplib::_xxx::span::span::requires</a></div><div class="ttdeci">requires(!std::is_same_v&lt; std::decay_t&lt; U &gt;, span &gt; &amp;&amp;!std::is_same_v&lt; std::decay_t&lt; U &gt;, _base &gt; &amp;&amp;!std::is_same_v&lt; std::decay_t&lt; U &gt;, _const_base &gt; &amp;&amp;std::is_convertible&lt; typename std::decay_t&lt; U &gt;::pointer, typename _base::pointer &gt;::value &amp;&amp;requires { declval&lt; U &gt;().data();} &amp;&amp;requires { declval&lt; U &gt;().size();}) const expr span(U &amp;&amp;v) noexcept</div><div class="ttdef"><b>Definition:</b> span.hpp:65</div></div>
+<div class="fragment"><div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                                                                                             { declval&lt;U&gt;().data(); } &amp;&amp;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="classquickcpplib_1_1__xxx_1_1span_1_1span.html#a45b9e0dacb82196e740255eca51c909d">requires</a> { declval&lt;U&gt;().size(); }) constexpr <a class="code" href="classquickcpplib_1_1__xxx_1_1span_1_1span.html#a2696cb954aef59b30af23b3839016ef5">span</a>(U &amp;&amp;v) noexcept</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        : _base(v.data(), v.size())</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1span_1_1span_html_a2696cb954aef59b30af23b3839016ef5"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1span_1_1span.html#a2696cb954aef59b30af23b3839016ef5">quickcpplib::_xxx::span::span::span</a></div><div class="ttdeci">constexpr span(_base v) noexcept</div><div class="ttdef"><b>Definition:</b> span.hpp:64</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1span_1_1span_html_a45b9e0dacb82196e740255eca51c909d"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1span_1_1span.html#a45b9e0dacb82196e740255eca51c909d">quickcpplib::_xxx::span::span::requires</a></div><div class="ttdeci">requires(!std::is_same_v&lt; std::decay_t&lt; U &gt;, span &gt; &amp;&amp;!std::is_same_v&lt; std::decay_t&lt; U &gt;, _base &gt; &amp;&amp;!std::is_same_v&lt; std::decay_t&lt; U &gt;, _const_base &gt; &amp;&amp;std::is_convertible&lt; typename std::decay_t&lt; U &gt;::pointer, typename _base::pointer &gt;::value &amp;&amp;requires { declval&lt; U &gt;().data();} &amp;&amp;requires { declval&lt; U &gt;().size();}) const expr span(U &amp;&amp;v) noexcept</div><div class="ttdef"><b>Definition:</b> span.hpp:73</div></div>
 </div><!-- fragment -->
 </div>
 </div>
