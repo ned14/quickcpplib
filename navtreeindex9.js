@@ -1,5 +1,13 @@
 var NAVTREEINDEX9 =
 {
+"structstd_1_1experimental_1_1optional__base.html#aa0df221e8ebf3abc45c0e78d0b963c01":[5,0,1,0,11,6],
+"structstd_1_1experimental_1_1optional__base.html#aa5983374de32e763d1b676ccfe834d05":[5,0,1,0,11,3],
+"structstd_1_1experimental_1_1optional__base.html#aa7f2be708eddd8066eee64ef852e4314":[5,0,1,0,11,7],
+"structstd_1_1experimental_1_1optional__base.html#ad4839801777f8cfeb048f16b02df4c44":[5,0,1,0,11,2],
+"structstd_1_1experimental_1_1optional__base.html#ad89678b8ebde087b1f3f61466a7436b9":[5,0,1,0,11,5],
+"structstd_1_1experimental_1_1optional__base.html#ae63b6e3b01c36339007f52f4069c1f4f":[5,0,1,0,11,4],
+"structstd_1_1experimental_1_1optional__base.html#af47cc844bf9d32ad4361be9934c20939":[5,0,1,0,11,1],
+"structstd_1_1experimental_1_1trivial__init__t.html":[5,0,1,0,5],
 "structstd_1_1hash_3_01std_1_1experimental_1_1optional_3_01_t_01_4_01_4.html":[5,0,1,1],
 "structstd_1_1hash_3_01std_1_1experimental_1_1optional_3_01_t_01_4_01_4.html#a1ffc134496ff2e1dedb167899d460b6b":[5,0,1,1,0],
 "structstd_1_1hash_3_01std_1_1experimental_1_1optional_3_01_t_01_4_01_4.html#a3fbf26e96a387fac81dc1fcaf163ce3c":[5,0,1,1,2],
@@ -100,8 +108,8 @@ var NAVTREEINDEX9 =
 "thread_8hpp.html#a63a09beca8498e70f7741e844c2ea5c7":[6,0,0,0,4,0,0],
 "todo.html":[2],
 "tribool_8hpp.html":[6,0,0,0,33],
-"tribool_8hpp.html#a12de9dc944b5d94d14a2b4984da3bce5":[4,0,3,4],
 "tribool_8hpp.html#a12de9dc944b5d94d14a2b4984da3bce5":[6,0,0,0,33,13],
+"tribool_8hpp.html#a12de9dc944b5d94d14a2b4984da3bce5":[4,0,3,4],
 "tribool_8hpp.html#a382ce17f74580522b3a4b100a61e3e36":[4,0,3,3],
 "tribool_8hpp.html#a382ce17f74580522b3a4b100a61e3e36":[6,0,0,0,33,12],
 "tribool_8hpp.html#ga133f2e8532508c1bca4fdb8d5a7a8043":[6,0,0,0,33,1],
@@ -194,6 +202,5 @@ var NAVTREEINDEX9 =
 "unit__test_8hpp.html#a744a99c37b7eb5c18ad4f6b63ee610c7":[6,0,0,0,1,0,0,35],
 "unit__test_8hpp.html#ab65df9b369444d8385f0ea05b8e0214d":[6,0,0,0,1,0,0,36],
 "unit__test_8hpp.html#ac482d7982dfc7591e066c2c11452ca10":[6,0,0,0,1,0,0,37],
-"unit__test_8hpp.html#af830eb869f495741513b8cc32a2fe708":[6,0,0,0,1,0,0,34],
-"":[4,0,3]
+"unit__test_8hpp.html#af830eb869f495741513b8cc32a2fe708":[6,0,0,0,1,0,0,34]
 };

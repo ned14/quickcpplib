@@ -1,8 +1,15 @@
 var NAVTREEINDEX4 =
 {
+"group__unittesting.html#ga8c09a93d328cbe466b58f6fd17f783bb":[3,1,21],
+"group__unittesting.html#ga8c09a93d328cbe466b58f6fd17f783bb":[6,0,0,0,1,0,0,26],
+"group__unittesting.html#ga8eb486cd9992c108ade6a78384fb7f6a":[6,0,0,0,1,0,0,39],
+"group__unittesting.html#ga8eb486cd9992c108ade6a78384fb7f6a":[3,1,29],
+"group__unittesting.html#ga9cdd2a02fde6abc23bd7a6adec0e8953":[6,0,0,0,1,0,0,30],
+"group__unittesting.html#ga9cdd2a02fde6abc23bd7a6adec0e8953":[3,1,25],
+"group__unittesting.html#gaae98a52c07719e338dd7422ff294ec23":[3,1,1],
 "group__unittesting.html#gaae98a52c07719e338dd7422ff294ec23":[6,0,0,0,1,0,0,6],
-"group__unittesting.html#gaafd4657b11bcceb70c65ff1183f82c37":[6,0,0,0,1,0,0,25],
 "group__unittesting.html#gaafd4657b11bcceb70c65ff1183f82c37":[3,1,20],
+"group__unittesting.html#gaafd4657b11bcceb70c65ff1183f82c37":[6,0,0,0,1,0,0,25],
 "group__unittesting.html#gab7ba609bc6e1acbfc8861d1da0620532":[6,0,0,0,1,0,0,31],
 "group__unittesting.html#gab7ba609bc6e1acbfc8861d1da0620532":[3,1,26],
 "group__unittesting.html#gac21dabceebd6eed827d0255f0b3a317d":[3,1,12],
@@ -242,12 +249,5 @@ var NAVTREEINDEX4 =
 "namespacequickcpplib_1_1__xxx_1_1bit__cast_1_1detail.html":[4,0,2,0,3,0],
 "namespacequickcpplib_1_1__xxx_1_1bit__cast_1_1detail.html#a6130300b3bed0299ee5c1f6a4133fd44":[4,0,2,0,3,0,1],
 "namespacequickcpplib_1_1__xxx_1_1bit__cast_1_1detail.html#a67f922f5565dfe203bb9178213d2f86a":[4,0,2,0,3,0,2],
-"namespacequickcpplib_1_1__xxx_1_1bit__cast_1_1detail.html#ac9c5b9f25deff58391dc20185886790e":[4,0,2,0,3,0,0],
-"namespacequickcpplib_1_1__xxx_1_1bit__cast_1_1detail.html#aeea50b7d77ccbf751450ff50592bb9b0":[4,0,2,0,3,0,3],
-"namespacequickcpplib_1_1__xxx_1_1bit__cast_1_1traits.html":[4,0,2,0,3,1],
-"namespacequickcpplib_1_1__xxx_1_1byte.html":[4,0,2,0,4],
-"namespacequickcpplib_1_1__xxx_1_1byte.html#a8fa6df1f92812f37be376f356c410a89":[4,0,2,0,4,0],
-"namespacequickcpplib_1_1__xxx_1_1configurable__spinlock.html":[4,0,2,0,5],
-"namespacequickcpplib_1_1__xxx_1_1configurable__spinlock.html#a283d2a54c3371823054980c76e3cae96":[4,0,2,0,5,13],
-"namespacequickcpplib_1_1__xxx_1_1configurable__spinlock.html#aa07e01213c54d15fd07c2731ca92295c":[4,0,2,0,5,17]
+"namespacequickcpplib_1_1__xxx_1_1bit__cast_1_1detail.html#ac9c5b9f25deff58391dc20185886790e":[4,0,2,0,3,0,0]
 };

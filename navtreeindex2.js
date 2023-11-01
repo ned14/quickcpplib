@@ -1,5 +1,12 @@
 var NAVTREEINDEX2 =
 {
+"classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html#a0095f395e570d3365712de4cd0072606":[5,0,0,0,11,0,1],
+"classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html#a438b9568cdcef03a9c280a15f0bf76bd":[5,0,0,0,11,0,7],
+"classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html#a60e6a8b156f2038cfe75ca47f0b8a2f3":[5,0,0,0,11,0,3],
+"classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html#a688c3d6853f478b4fa083aa7af33f470":[5,0,0,0,11,0,2],
+"classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html#a915f8e3a5ab81bdeb41a3566f0a937bf":[5,0,0,0,11,0,6],
+"classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html#a99411813aa884102b6dbcf96937d45fc":[5,0,0,0,11,0,5],
+"classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html#aaa3464094935539659da96d99b003e54":[5,0,0,0,11,0,0],
 "classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html#afd3db130320ee64c3223ac2688301ba7":[5,0,0,0,11,0,4],
 "classquickcpplib_1_1__xxx_1_1pmr_1_1monotonic__buffer__resource.html":[5,0,0,0,11,1],
 "classquickcpplib_1_1__xxx_1_1pmr_1_1monotonic__buffer__resource.html#a1729e310d34f8ac1a84d35ba8847b292":[5,0,0,0,11,1,0],
@@ -242,12 +249,5 @@ var NAVTREEINDEX2 =
 "console__colours_8hpp.html#a2f1f438d015d42293891936da812d3b0":[6,0,0,0,11,13],
 "console__colours_8hpp.html#a39689cfa1d232a083ffa1d7c0d1bfbbe":[6,0,0,0,11,9],
 "console__colours_8hpp.html#a4655e084dda14bd61469e307e0dc8dbe":[6,0,0,0,11,18],
-"console__colours_8hpp.html#a4a4b532a8be175445aafa5837fa74817":[6,0,0,0,11,12],
-"console__colours_8hpp.html#a5939a5f128a2aff319ff6a9e578f98a5":[6,0,0,0,11,6],
-"console__colours_8hpp.html#a6d5211522ae2e8b3a6a0fa9a9d62504a":[6,0,0,0,11,4],
-"console__colours_8hpp.html#a721e49348d55821e39087574d0dec904":[6,0,0,0,11,14],
-"console__colours_8hpp.html#a7fccccab473b3d346ed9159de184102f":[6,0,0,0,11,10],
-"console__colours_8hpp.html#a9a6a6b5e5588e3831b89681dddfd3dee":[6,0,0,0,11,8],
-"console__colours_8hpp.html#aa2840e8ff202a8a794fd5192ea8b2840":[6,0,0,0,11,15],
-"console__colours_8hpp.html#aaa351bd08f0cfeb49985369a992fe86c":[6,0,0,0,11,11]
+"console__colours_8hpp.html#a4a4b532a8be175445aafa5837fa74817":[6,0,0,0,11,12]
 };

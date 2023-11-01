@@ -539,12 +539,12 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>Default construction, passes through args to container_type. </p>
-<div class="fragment"><div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160;          : <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>(std::forward&lt;Args&gt;(args)...)</div>
-<div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160;          , <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aaed7b6867003cb1ba6364d02190f1c3b">_count</a>(0)</div>
-<div class="line"><a name="l00799"></a><span class="lineno">  799</span>&#160;      {</div>
-<div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160;      }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_a0687bb0c5e586806e0a19fb7693951cf"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::_store</a></div><div class="ttdeci">container_type _store</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:790</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_aaed7b6867003cb1ba6364d02190f1c3b"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aaed7b6867003cb1ba6364d02190f1c3b">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::_count</a></div><div class="ttdeci">Policy::items_count_type _count</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:791</div></div>
+<div class="fragment"><div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;          : <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>(std::forward&lt;Args&gt;(args)...)</div>
+<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160;          , <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aaed7b6867003cb1ba6364d02190f1c3b">_count</a>(0)</div>
+<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160;      {</div>
+<div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;      }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_a0687bb0c5e586806e0a19fb7693951cf"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::_store</a></div><div class="ttdeci">container_type _store</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:798</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_aaed7b6867003cb1ba6364d02190f1c3b"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aaed7b6867003cb1ba6364d02190f1c3b">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::_count</a></div><div class="ttdeci">Policy::items_count_type _count</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:799</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -576,10 +576,10 @@ template&lt;class Policy , template&lt; class &gt; class ContiguousContainerType
 </div><div class="memdoc">
 
 <p>Swaps with another instance. </p>
-<div class="fragment"><div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160;      {</div>
-<div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160;        <a class="code" href="namespacestd_1_1experimental.html#acdfba2d2e9c79f689a34c9cea5c5682d">std::swap</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>, o._store);</div>
-<div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;        <a class="code" href="namespacestd_1_1experimental.html#acdfba2d2e9c79f689a34c9cea5c5682d">std::swap</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aaed7b6867003cb1ba6364d02190f1c3b">_count</a>, o._count);</div>
-<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00811"></a><span class="lineno">  811</span>&#160;      {</div>
+<div class="line"><a name="l00812"></a><span class="lineno">  812</span>&#160;        <a class="code" href="namespacestd_1_1experimental.html#acdfba2d2e9c79f689a34c9cea5c5682d">std::swap</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>, o._store);</div>
+<div class="line"><a name="l00813"></a><span class="lineno">  813</span>&#160;        <a class="code" href="namespacestd_1_1experimental.html#acdfba2d2e9c79f689a34c9cea5c5682d">std::swap</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aaed7b6867003cb1ba6364d02190f1c3b">_count</a>, o._count);</div>
+<div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160;      }</div>
 <div class="ttc" id="anamespacestd_1_1experimental_html_acdfba2d2e9c79f689a34c9cea5c5682d"><div class="ttname"><a href="namespacestd_1_1experimental.html#acdfba2d2e9c79f689a34c9cea5c5682d">std::experimental::swap</a></div><div class="ttdeci">void swap(optional&lt; T &gt; &amp;x, optional&lt; T &gt; &amp;y) noexcept(noexcept(x.swap(y)))</div><div class="ttdef"><b>Definition:</b> optional.hpp:1016</div></div>
 </div><!-- fragment -->
 </div>
@@ -610,8 +610,8 @@ template&lt;class Policy , template&lt; class &gt; class ContiguousContainerType
 </div><div class="memdoc">
 
 <p>Returns true if the index is empty. </p>
-<div class="fragment"><div class="line"><a name="l00809"></a><span class="lineno">  809</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a3556009b38b0a7b37f4c247c74b6eda6">size_type</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aaed7b6867003cb1ba6364d02190f1c3b">_count</a>) == 0; }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_a3556009b38b0a7b37f4c247c74b6eda6"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a3556009b38b0a7b37f4c247c74b6eda6">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::size_type</a></div><div class="ttdeci">typename Policy::size_type size_type</div><div class="ttdoc">The size type.</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:593</div></div>
+<div class="fragment"><div class="line"><a name="l00817"></a><span class="lineno">  817</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a3556009b38b0a7b37f4c247c74b6eda6">size_type</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aaed7b6867003cb1ba6364d02190f1c3b">_count</a>) == 0; }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_a3556009b38b0a7b37f4c247c74b6eda6"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a3556009b38b0a7b37f4c247c74b6eda6">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::size_type</a></div><div class="ttdeci">typename Policy::size_type size_type</div><div class="ttdoc">The size type.</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:594</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -641,7 +641,7 @@ template&lt;class Policy , template&lt; class &gt; class ContiguousContainerType
 </div><div class="memdoc">
 
 <p>Returns the number of items in the index. </p>
-<div class="fragment"><div class="line"><a name="l00811"></a><span class="lineno">  811</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a3556009b38b0a7b37f4c247c74b6eda6">size_type</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aaed7b6867003cb1ba6364d02190f1c3b">_count</a>); }</div>
+<div class="fragment"><div class="line"><a name="l00819"></a><span class="lineno">  819</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a3556009b38b0a7b37f4c247c74b6eda6">size_type</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aaed7b6867003cb1ba6364d02190f1c3b">_count</a>); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -671,7 +671,7 @@ template&lt;class Policy , template&lt; class &gt; class ContiguousContainerType
 </div><div class="memdoc">
 
 <p>Returns the maximum number of items in the index. </p>
-<div class="fragment"><div class="line"><a name="l00813"></a><span class="lineno">  813</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.size(); }</div>
+<div class="fragment"><div class="line"><a name="l00821"></a><span class="lineno">  821</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.size(); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -701,7 +701,7 @@ template&lt;class Policy , template&lt; class &gt; class ContiguousContainerType
 </div><div class="memdoc">
 
 <p>Returns the capacity of the index, which is half of the maximum size. </p>
-<div class="fragment"><div class="line"><a name="l00815"></a><span class="lineno">  815</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.size() / 2; }</div>
+<div class="fragment"><div class="line"><a name="l00823"></a><span class="lineno">  823</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.size() / 2; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -731,7 +731,7 @@ template&lt;class Policy , template&lt; class &gt; class ContiguousContainerType
 </div><div class="memdoc">
 
 <p>Returns the STL container backing the store of this index. </p>
-<div class="fragment"><div class="line"><a name="l00817"></a><span class="lineno">  817</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>; }</div>
+<div class="fragment"><div class="line"><a name="l00825"></a><span class="lineno">  825</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -761,7 +761,7 @@ template&lt;class Policy , template&lt; class &gt; class ContiguousContainerType
 </div><div class="memdoc">
 
 <p>Returns the STL container backing the store of this index. </p>
-<div class="fragment"><div class="line"><a name="l00819"></a><span class="lineno">  819</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>; }</div>
+<div class="fragment"><div class="line"><a name="l00827"></a><span class="lineno">  827</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -791,14 +791,14 @@ template&lt;class Policy , template&lt; class &gt; class ContiguousContainerType
 </div><div class="memdoc">
 
 <p>Returns the front of the index. </p>
-<div class="fragment"><div class="line"><a name="l00823"></a><span class="lineno">  823</span>&#160;      {</div>
-<div class="line"><a name="l00824"></a><span class="lineno">  824</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> idx = 0; idx &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.size(); idx++)</div>
-<div class="line"><a name="l00825"></a><span class="lineno">  825</span>&#160;        {</div>
-<div class="line"><a name="l00826"></a><span class="lineno">  826</span>&#160;          <span class="keywordflow">if</span>(Policy::is_inuse(&amp;<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>[idx]))</div>
-<div class="line"><a name="l00827"></a><span class="lineno">  827</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>[idx];</div>
-<div class="line"><a name="l00828"></a><span class="lineno">  828</span>&#160;        }</div>
-<div class="line"><a name="l00829"></a><span class="lineno">  829</span>&#160;        abort();</div>
-<div class="line"><a name="l00830"></a><span class="lineno">  830</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00831"></a><span class="lineno">  831</span>&#160;      {</div>
+<div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> idx = 0; idx &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.size(); idx++)</div>
+<div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160;        {</div>
+<div class="line"><a name="l00834"></a><span class="lineno">  834</span>&#160;          <span class="keywordflow">if</span>(Policy::is_inuse(&amp;<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>[idx]))</div>
+<div class="line"><a name="l00835"></a><span class="lineno">  835</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>[idx];</div>
+<div class="line"><a name="l00836"></a><span class="lineno">  836</span>&#160;        }</div>
+<div class="line"><a name="l00837"></a><span class="lineno">  837</span>&#160;        abort();</div>
+<div class="line"><a name="l00838"></a><span class="lineno">  838</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -828,14 +828,14 @@ template&lt;class Policy , template&lt; class &gt; class ContiguousContainerType
 </div><div class="memdoc">
 
 <p>Returns the front of the index. </p>
-<div class="fragment"><div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160;      {</div>
-<div class="line"><a name="l00834"></a><span class="lineno">  834</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> idx = 0; idx &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.size(); idx++)</div>
-<div class="line"><a name="l00835"></a><span class="lineno">  835</span>&#160;        {</div>
-<div class="line"><a name="l00836"></a><span class="lineno">  836</span>&#160;          <span class="keywordflow">if</span>(Policy::is_inuse(&amp;<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>[idx]))</div>
-<div class="line"><a name="l00837"></a><span class="lineno">  837</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>[idx];</div>
-<div class="line"><a name="l00838"></a><span class="lineno">  838</span>&#160;        }</div>
-<div class="line"><a name="l00839"></a><span class="lineno">  839</span>&#160;        abort();</div>
-<div class="line"><a name="l00840"></a><span class="lineno">  840</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00841"></a><span class="lineno">  841</span>&#160;      {</div>
+<div class="line"><a name="l00842"></a><span class="lineno">  842</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> idx = 0; idx &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.size(); idx++)</div>
+<div class="line"><a name="l00843"></a><span class="lineno">  843</span>&#160;        {</div>
+<div class="line"><a name="l00844"></a><span class="lineno">  844</span>&#160;          <span class="keywordflow">if</span>(Policy::is_inuse(&amp;<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>[idx]))</div>
+<div class="line"><a name="l00845"></a><span class="lineno">  845</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>[idx];</div>
+<div class="line"><a name="l00846"></a><span class="lineno">  846</span>&#160;        }</div>
+<div class="line"><a name="l00847"></a><span class="lineno">  847</span>&#160;        abort();</div>
+<div class="line"><a name="l00848"></a><span class="lineno">  848</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -865,14 +865,14 @@ template&lt;class Policy , template&lt; class &gt; class ContiguousContainerType
 </div><div class="memdoc">
 
 <p>Returns the back of the index. </p>
-<div class="fragment"><div class="line"><a name="l00843"></a><span class="lineno">  843</span>&#160;      {</div>
-<div class="line"><a name="l00844"></a><span class="lineno">  844</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> idx = <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.size() - 1; idx &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.size(); idx--)</div>
-<div class="line"><a name="l00845"></a><span class="lineno">  845</span>&#160;        {</div>
-<div class="line"><a name="l00846"></a><span class="lineno">  846</span>&#160;          <span class="keywordflow">if</span>(Policy::is_inuse(&amp;<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>[idx]))</div>
-<div class="line"><a name="l00847"></a><span class="lineno">  847</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>[idx];</div>
-<div class="line"><a name="l00848"></a><span class="lineno">  848</span>&#160;        }</div>
-<div class="line"><a name="l00849"></a><span class="lineno">  849</span>&#160;        abort();</div>
-<div class="line"><a name="l00850"></a><span class="lineno">  850</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00851"></a><span class="lineno">  851</span>&#160;      {</div>
+<div class="line"><a name="l00852"></a><span class="lineno">  852</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> idx = <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.size() - 1; idx &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.size(); idx--)</div>
+<div class="line"><a name="l00853"></a><span class="lineno">  853</span>&#160;        {</div>
+<div class="line"><a name="l00854"></a><span class="lineno">  854</span>&#160;          <span class="keywordflow">if</span>(Policy::is_inuse(&amp;<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>[idx]))</div>
+<div class="line"><a name="l00855"></a><span class="lineno">  855</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>[idx];</div>
+<div class="line"><a name="l00856"></a><span class="lineno">  856</span>&#160;        }</div>
+<div class="line"><a name="l00857"></a><span class="lineno">  857</span>&#160;        abort();</div>
+<div class="line"><a name="l00858"></a><span class="lineno">  858</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -902,14 +902,14 @@ template&lt;class Policy , template&lt; class &gt; class ContiguousContainerType
 </div><div class="memdoc">
 
 <p>Returns the back of the index. </p>
-<div class="fragment"><div class="line"><a name="l00853"></a><span class="lineno">  853</span>&#160;      {</div>
-<div class="line"><a name="l00854"></a><span class="lineno">  854</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> idx = <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.size() - 1; idx &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.size(); idx--)</div>
-<div class="line"><a name="l00855"></a><span class="lineno">  855</span>&#160;        {</div>
-<div class="line"><a name="l00856"></a><span class="lineno">  856</span>&#160;          <span class="keywordflow">if</span>(Policy::is_inuse(&amp;<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>[idx]))</div>
-<div class="line"><a name="l00857"></a><span class="lineno">  857</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>[idx];</div>
-<div class="line"><a name="l00858"></a><span class="lineno">  858</span>&#160;        }</div>
-<div class="line"><a name="l00859"></a><span class="lineno">  859</span>&#160;        abort();</div>
-<div class="line"><a name="l00860"></a><span class="lineno">  860</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00861"></a><span class="lineno">  861</span>&#160;      {</div>
+<div class="line"><a name="l00862"></a><span class="lineno">  862</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> idx = <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.size() - 1; idx &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.size(); idx--)</div>
+<div class="line"><a name="l00863"></a><span class="lineno">  863</span>&#160;        {</div>
+<div class="line"><a name="l00864"></a><span class="lineno">  864</span>&#160;          <span class="keywordflow">if</span>(Policy::is_inuse(&amp;<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>[idx]))</div>
+<div class="line"><a name="l00865"></a><span class="lineno">  865</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>[idx];</div>
+<div class="line"><a name="l00866"></a><span class="lineno">  866</span>&#160;        }</div>
+<div class="line"><a name="l00867"></a><span class="lineno">  867</span>&#160;        abort();</div>
+<div class="line"><a name="l00868"></a><span class="lineno">  868</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -939,18 +939,18 @@ template&lt;class Policy , template&lt; class &gt; class ContiguousContainerType
 </div><div class="memdoc">
 
 <p>Returns an iterator to the first item in the index. </p>
-<div class="fragment"><div class="line"><a name="l00864"></a><span class="lineno">  864</span>&#160;      {</div>
-<div class="line"><a name="l00865"></a><span class="lineno">  865</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a5dcc74a3015e3745031c644be16265f6">pointer</a> p;</div>
-<div class="line"><a name="l00866"></a><span class="lineno">  866</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> idx = 0; idx &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.size(); idx++)</div>
-<div class="line"><a name="l00867"></a><span class="lineno">  867</span>&#160;        {</div>
-<div class="line"><a name="l00868"></a><span class="lineno">  868</span>&#160;          p = Policy::if_inuse_to_pointer(&amp;<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>[idx]);</div>
-<div class="line"><a name="l00869"></a><span class="lineno">  869</span>&#160;          <span class="keywordflow">if</span>(p)</div>
-<div class="line"><a name="l00870"></a><span class="lineno">  870</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a18f8627e234e2429cdbb85ea99dd68db">iterator</a>(<span class="keyword">this</span>, std::move(p));</div>
-<div class="line"><a name="l00871"></a><span class="lineno">  871</span>&#160;        }</div>
-<div class="line"><a name="l00872"></a><span class="lineno">  872</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a18f8627e234e2429cdbb85ea99dd68db">iterator</a>(<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00873"></a><span class="lineno">  873</span>&#160;      }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_a18f8627e234e2429cdbb85ea99dd68db"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a18f8627e234e2429cdbb85ea99dd68db">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::iterator</a></div><div class="ttdeci">iterator_&lt; false, basic_open_hash_index, pointer, reference &gt; iterator</div><div class="ttdoc">The iterator type.</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:781</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_a5dcc74a3015e3745031c644be16265f6"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a5dcc74a3015e3745031c644be16265f6">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::pointer</a></div><div class="ttdeci">typename Policy::pointer pointer</div><div class="ttdoc">The pointer type. May be a smart pointer which unlocks things on destruction.</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:601</div></div>
+<div class="fragment"><div class="line"><a name="l00872"></a><span class="lineno">  872</span>&#160;      {</div>
+<div class="line"><a name="l00873"></a><span class="lineno">  873</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a5dcc74a3015e3745031c644be16265f6">pointer</a> p;</div>
+<div class="line"><a name="l00874"></a><span class="lineno">  874</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> idx = 0; idx &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.size(); idx++)</div>
+<div class="line"><a name="l00875"></a><span class="lineno">  875</span>&#160;        {</div>
+<div class="line"><a name="l00876"></a><span class="lineno">  876</span>&#160;          p = Policy::if_inuse_to_pointer(&amp;<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>[idx]);</div>
+<div class="line"><a name="l00877"></a><span class="lineno">  877</span>&#160;          <span class="keywordflow">if</span>(p)</div>
+<div class="line"><a name="l00878"></a><span class="lineno">  878</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a18f8627e234e2429cdbb85ea99dd68db">iterator</a>(<span class="keyword">this</span>, std::move(p));</div>
+<div class="line"><a name="l00879"></a><span class="lineno">  879</span>&#160;        }</div>
+<div class="line"><a name="l00880"></a><span class="lineno">  880</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a18f8627e234e2429cdbb85ea99dd68db">iterator</a>(<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00881"></a><span class="lineno">  881</span>&#160;      }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_a18f8627e234e2429cdbb85ea99dd68db"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a18f8627e234e2429cdbb85ea99dd68db">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::iterator</a></div><div class="ttdeci">iterator_&lt; false, basic_open_hash_index, pointer, reference &gt; iterator</div><div class="ttdoc">The iterator type.</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:789</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_a5dcc74a3015e3745031c644be16265f6"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a5dcc74a3015e3745031c644be16265f6">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::pointer</a></div><div class="ttdeci">typename Policy::pointer pointer</div><div class="ttdoc">The pointer type. May be a smart pointer which unlocks things on destruction.</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:602</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -980,18 +980,18 @@ template&lt;class Policy , template&lt; class &gt; class ContiguousContainerType
 </div><div class="memdoc">
 
 <p>Returns an iterator to the first item in the index. </p>
-<div class="fragment"><div class="line"><a name="l00876"></a><span class="lineno">  876</span>&#160;      {</div>
-<div class="line"><a name="l00877"></a><span class="lineno">  877</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aa08da28b0211b4aa1105ef3e775db88a">const_pointer</a> p;</div>
-<div class="line"><a name="l00878"></a><span class="lineno">  878</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> idx = 0; idx &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.size(); idx++)</div>
-<div class="line"><a name="l00879"></a><span class="lineno">  879</span>&#160;        {</div>
-<div class="line"><a name="l00880"></a><span class="lineno">  880</span>&#160;          p = Policy::if_inuse_to_pointer(&amp;<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>[idx]);</div>
-<div class="line"><a name="l00881"></a><span class="lineno">  881</span>&#160;          <span class="keywordflow">if</span>(p)</div>
-<div class="line"><a name="l00882"></a><span class="lineno">  882</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aafa7b2ca612f37a77d8ce0940bc0240a">const_iterator</a>(<span class="keyword">this</span>, std::move(p));</div>
-<div class="line"><a name="l00883"></a><span class="lineno">  883</span>&#160;        }</div>
-<div class="line"><a name="l00884"></a><span class="lineno">  884</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aafa7b2ca612f37a77d8ce0940bc0240a">const_iterator</a>(<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00885"></a><span class="lineno">  885</span>&#160;      }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_aa08da28b0211b4aa1105ef3e775db88a"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aa08da28b0211b4aa1105ef3e775db88a">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::const_pointer</a></div><div class="ttdeci">typename Policy::const_pointer const_pointer</div><div class="ttdoc">The const pointer type. May be a smart pointer which unlocks things on destruction.</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:603</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_aafa7b2ca612f37a77d8ce0940bc0240a"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aafa7b2ca612f37a77d8ce0940bc0240a">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::const_iterator</a></div><div class="ttdeci">iterator_&lt; true, const basic_open_hash_index, const_pointer, const_reference &gt; const_iterator</div><div class="ttdoc">The const iterator type.</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:783</div></div>
+<div class="fragment"><div class="line"><a name="l00884"></a><span class="lineno">  884</span>&#160;      {</div>
+<div class="line"><a name="l00885"></a><span class="lineno">  885</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aa08da28b0211b4aa1105ef3e775db88a">const_pointer</a> p;</div>
+<div class="line"><a name="l00886"></a><span class="lineno">  886</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> idx = 0; idx &lt; <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.size(); idx++)</div>
+<div class="line"><a name="l00887"></a><span class="lineno">  887</span>&#160;        {</div>
+<div class="line"><a name="l00888"></a><span class="lineno">  888</span>&#160;          p = Policy::if_inuse_to_pointer(&amp;<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>[idx]);</div>
+<div class="line"><a name="l00889"></a><span class="lineno">  889</span>&#160;          <span class="keywordflow">if</span>(p)</div>
+<div class="line"><a name="l00890"></a><span class="lineno">  890</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aafa7b2ca612f37a77d8ce0940bc0240a">const_iterator</a>(<span class="keyword">this</span>, std::move(p));</div>
+<div class="line"><a name="l00891"></a><span class="lineno">  891</span>&#160;        }</div>
+<div class="line"><a name="l00892"></a><span class="lineno">  892</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aafa7b2ca612f37a77d8ce0940bc0240a">const_iterator</a>(<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00893"></a><span class="lineno">  893</span>&#160;      }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_aa08da28b0211b4aa1105ef3e775db88a"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aa08da28b0211b4aa1105ef3e775db88a">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::const_pointer</a></div><div class="ttdeci">typename Policy::const_pointer const_pointer</div><div class="ttdoc">The const pointer type. May be a smart pointer which unlocks things on destruction.</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:604</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_aafa7b2ca612f37a77d8ce0940bc0240a"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aafa7b2ca612f37a77d8ce0940bc0240a">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::const_iterator</a></div><div class="ttdeci">iterator_&lt; true, const basic_open_hash_index, const_pointer, const_reference &gt; const_iterator</div><div class="ttdoc">The const iterator type.</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:791</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1021,8 +1021,8 @@ template&lt;class Policy , template&lt; class &gt; class ContiguousContainerType
 </div><div class="memdoc">
 
 <p>Returns an iterator to the first item in the index. </p>
-<div class="fragment"><div class="line"><a name="l00887"></a><span class="lineno">  887</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a482a5786e3645a461dd5df1a7b9ef870">begin</a>(); }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_a482a5786e3645a461dd5df1a7b9ef870"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a482a5786e3645a461dd5df1a7b9ef870">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::begin</a></div><div class="ttdeci">iterator begin() noexcept</div><div class="ttdoc">Returns an iterator to the first item in the index.</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:863</div></div>
+<div class="fragment"><div class="line"><a name="l00895"></a><span class="lineno">  895</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a482a5786e3645a461dd5df1a7b9ef870">begin</a>(); }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_a482a5786e3645a461dd5df1a7b9ef870"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a482a5786e3645a461dd5df1a7b9ef870">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::begin</a></div><div class="ttdeci">iterator begin() noexcept</div><div class="ttdoc">Returns an iterator to the first item in the index.</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:871</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1052,7 +1052,7 @@ template&lt;class Policy , template&lt; class &gt; class ContiguousContainerType
 </div><div class="memdoc">
 
 <p>Returns an iterator to the item after the last in the index. </p>
-<div class="fragment"><div class="line"><a name="l00889"></a><span class="lineno">  889</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a18f8627e234e2429cdbb85ea99dd68db">iterator</a>(<span class="keyword">this</span>); }</div>
+<div class="fragment"><div class="line"><a name="l00897"></a><span class="lineno">  897</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a18f8627e234e2429cdbb85ea99dd68db">iterator</a>(<span class="keyword">this</span>); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1082,7 +1082,7 @@ template&lt;class Policy , template&lt; class &gt; class ContiguousContainerType
 </div><div class="memdoc">
 
 <p>Returns an iterator to the item after the last in the index. </p>
-<div class="fragment"><div class="line"><a name="l00891"></a><span class="lineno">  891</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aafa7b2ca612f37a77d8ce0940bc0240a">const_iterator</a>(<span class="keyword">this</span>); }</div>
+<div class="fragment"><div class="line"><a name="l00899"></a><span class="lineno">  899</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aafa7b2ca612f37a77d8ce0940bc0240a">const_iterator</a>(<span class="keyword">this</span>); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1112,7 +1112,7 @@ template&lt;class Policy , template&lt; class &gt; class ContiguousContainerType
 </div><div class="memdoc">
 
 <p>Returns an iterator to the item after the last in the index. </p>
-<div class="fragment"><div class="line"><a name="l00893"></a><span class="lineno">  893</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aafa7b2ca612f37a77d8ce0940bc0240a">const_iterator</a>(<span class="keyword">this</span>); }</div>
+<div class="fragment"><div class="line"><a name="l00901"></a><span class="lineno">  901</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aafa7b2ca612f37a77d8ce0940bc0240a">const_iterator</a>(<span class="keyword">this</span>); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1142,12 +1142,12 @@ template&lt;class Policy , template&lt; class &gt; class ContiguousContainerType
 </div><div class="memdoc">
 
 <p>Clears the log. </p>
-<div class="fragment"><div class="line"><a name="l00897"></a><span class="lineno">  897</span>&#160;      {</div>
-<div class="line"><a name="l00898"></a><span class="lineno">  898</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aaed7b6867003cb1ba6364d02190f1c3b">_count</a> = <span class="keyword">typename</span> Policy::items_count_type(0);</div>
-<div class="line"><a name="l00899"></a><span class="lineno">  899</span>&#160;        <span class="keyword">auto</span> oldsize = <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.size();</div>
-<div class="line"><a name="l00900"></a><span class="lineno">  900</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.clear();</div>
-<div class="line"><a name="l00901"></a><span class="lineno">  901</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.resize(oldsize);</div>
-<div class="line"><a name="l00902"></a><span class="lineno">  902</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00905"></a><span class="lineno">  905</span>&#160;      {</div>
+<div class="line"><a name="l00906"></a><span class="lineno">  906</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aaed7b6867003cb1ba6364d02190f1c3b">_count</a> = <span class="keyword">typename</span> Policy::items_count_type(0);</div>
+<div class="line"><a name="l00907"></a><span class="lineno">  907</span>&#160;        <span class="keyword">auto</span> oldsize = <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.size();</div>
+<div class="line"><a name="l00908"></a><span class="lineno">  908</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.clear();</div>
+<div class="line"><a name="l00909"></a><span class="lineno">  909</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>.resize(oldsize);</div>
+<div class="line"><a name="l00910"></a><span class="lineno">  910</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1177,17 +1177,17 @@ template&lt;class Policy , template&lt; class &gt; class ContiguousContainerType
 </table>
 </div><div class="memdoc">
 <p>Inserts a new item, returning an iterator to the new item if the bool is true, else an iterator to existing item. If the returned iterator is invalid, there is no more space. </p>
-<div class="fragment"><div class="line"><a name="l00906"></a><span class="lineno">  906</span>&#160;      {</div>
-<div class="line"><a name="l00907"></a><span class="lineno">  907</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a5dcc74a3015e3745031c644be16265f6">pointer</a> p(!disable_existing_key_check ? Policy::find_exclusive(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>, v.first) : <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a5dcc74a3015e3745031c644be16265f6">pointer</a>(<span class="keyword">nullptr</span>));</div>
-<div class="line"><a name="l00908"></a><span class="lineno">  908</span>&#160;        <span class="keywordflow">if</span>(p)</div>
-<div class="line"><a name="l00909"></a><span class="lineno">  909</span>&#160;          <span class="keywordflow">return</span> std::make_pair(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a18f8627e234e2429cdbb85ea99dd68db">iterator</a>(<span class="keyword">this</span>, std::move(p)), <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00910"></a><span class="lineno">  910</span>&#160;        p = Policy::insert(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>, std::move(v));</div>
-<div class="line"><a name="l00911"></a><span class="lineno">  911</span>&#160;        <span class="keywordflow">if</span>(!p)</div>
-<div class="line"><a name="l00912"></a><span class="lineno">  912</span>&#160;          <span class="keywordflow">return</span> std::make_pair(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0f04e3381b7402fd47cf6e5ebac4dd79">end</a>(), <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00913"></a><span class="lineno">  913</span>&#160;        ++<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aaed7b6867003cb1ba6364d02190f1c3b">_count</a>;</div>
-<div class="line"><a name="l00914"></a><span class="lineno">  914</span>&#160;        <span class="keywordflow">return</span> std::make_pair(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a18f8627e234e2429cdbb85ea99dd68db">iterator</a>(<span class="keyword">this</span>, std::move(p)), <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00915"></a><span class="lineno">  915</span>&#160;      }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_a0f04e3381b7402fd47cf6e5ebac4dd79"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0f04e3381b7402fd47cf6e5ebac4dd79">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::end</a></div><div class="ttdeci">iterator end() noexcept</div><div class="ttdoc">Returns an iterator to the item after the last in the index.</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:889</div></div>
+<div class="fragment"><div class="line"><a name="l00914"></a><span class="lineno">  914</span>&#160;      {</div>
+<div class="line"><a name="l00915"></a><span class="lineno">  915</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a5dcc74a3015e3745031c644be16265f6">pointer</a> p(!disable_existing_key_check ? Policy::find_exclusive(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>, v.first) : <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a5dcc74a3015e3745031c644be16265f6">pointer</a>(<span class="keyword">nullptr</span>));</div>
+<div class="line"><a name="l00916"></a><span class="lineno">  916</span>&#160;        <span class="keywordflow">if</span>(p)</div>
+<div class="line"><a name="l00917"></a><span class="lineno">  917</span>&#160;          <span class="keywordflow">return</span> std::make_pair(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a18f8627e234e2429cdbb85ea99dd68db">iterator</a>(<span class="keyword">this</span>, std::move(p)), <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00918"></a><span class="lineno">  918</span>&#160;        p = Policy::insert(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>, std::move(v));</div>
+<div class="line"><a name="l00919"></a><span class="lineno">  919</span>&#160;        <span class="keywordflow">if</span>(!p)</div>
+<div class="line"><a name="l00920"></a><span class="lineno">  920</span>&#160;          <span class="keywordflow">return</span> std::make_pair(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0f04e3381b7402fd47cf6e5ebac4dd79">end</a>(), <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00921"></a><span class="lineno">  921</span>&#160;        ++<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aaed7b6867003cb1ba6364d02190f1c3b">_count</a>;</div>
+<div class="line"><a name="l00922"></a><span class="lineno">  922</span>&#160;        <span class="keywordflow">return</span> std::make_pair(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a18f8627e234e2429cdbb85ea99dd68db">iterator</a>(<span class="keyword">this</span>, std::move(p)), <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00923"></a><span class="lineno">  923</span>&#160;      }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_a0f04e3381b7402fd47cf6e5ebac4dd79"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0f04e3381b7402fd47cf6e5ebac4dd79">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::end</a></div><div class="ttdeci">iterator end() noexcept</div><div class="ttdoc">Returns an iterator to the item after the last in the index.</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:897</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1229,20 +1229,20 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 <p>Inserts a new item or assigns to an existing one, returning an iterator to the new or existing item. If the returned iterator is invalid, there is no more space. </p>
-<div class="fragment"><div class="line"><a name="l00919"></a><span class="lineno">  919</span>&#160;      {</div>
-<div class="line"><a name="l00920"></a><span class="lineno">  920</span>&#160;        <span class="keyword">auto</span> p = Policy::find_exclusive(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>, k);</div>
-<div class="line"><a name="l00921"></a><span class="lineno">  921</span>&#160;        <span class="keywordflow">if</span>(p)</div>
-<div class="line"><a name="l00922"></a><span class="lineno">  922</span>&#160;        {</div>
-<div class="line"><a name="l00923"></a><span class="lineno">  923</span>&#160;          p-&gt;second = std::forward&lt;T&gt;(t);</div>
-<div class="line"><a name="l00924"></a><span class="lineno">  924</span>&#160;          <span class="keywordflow">return</span> std::make_pair(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a18f8627e234e2429cdbb85ea99dd68db">iterator</a>(<span class="keyword">this</span>, std::move(p)), <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00925"></a><span class="lineno">  925</span>&#160;        }</div>
-<div class="line"><a name="l00926"></a><span class="lineno">  926</span>&#160;        p = Policy::insert(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>, <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a19c0e67c049ab7a8fd87d17cd54301ef">value_type</a>(k, std::forward&lt;T&gt;(t)));</div>
-<div class="line"><a name="l00927"></a><span class="lineno">  927</span>&#160;        <span class="keywordflow">if</span>(!p)</div>
-<div class="line"><a name="l00928"></a><span class="lineno">  928</span>&#160;          <span class="keywordflow">return</span> std::make_pair(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0f04e3381b7402fd47cf6e5ebac4dd79">end</a>(), <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00929"></a><span class="lineno">  929</span>&#160;        ++<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aaed7b6867003cb1ba6364d02190f1c3b">_count</a>;</div>
-<div class="line"><a name="l00930"></a><span class="lineno">  930</span>&#160;        <span class="keywordflow">return</span> std::make_pair(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a18f8627e234e2429cdbb85ea99dd68db">iterator</a>(<span class="keyword">this</span>, std::move(p)), <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00931"></a><span class="lineno">  931</span>&#160;      }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_a19c0e67c049ab7a8fd87d17cd54301ef"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a19c0e67c049ab7a8fd87d17cd54301ef">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::value_type</a></div><div class="ttdeci">typename Policy::value_type value_type</div><div class="ttdoc">The type stored in the container.</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:591</div></div>
+<div class="fragment"><div class="line"><a name="l00927"></a><span class="lineno">  927</span>&#160;      {</div>
+<div class="line"><a name="l00928"></a><span class="lineno">  928</span>&#160;        <span class="keyword">auto</span> p = Policy::find_exclusive(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>, k);</div>
+<div class="line"><a name="l00929"></a><span class="lineno">  929</span>&#160;        <span class="keywordflow">if</span>(p)</div>
+<div class="line"><a name="l00930"></a><span class="lineno">  930</span>&#160;        {</div>
+<div class="line"><a name="l00931"></a><span class="lineno">  931</span>&#160;          p-&gt;second = std::forward&lt;T&gt;(t);</div>
+<div class="line"><a name="l00932"></a><span class="lineno">  932</span>&#160;          <span class="keywordflow">return</span> std::make_pair(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a18f8627e234e2429cdbb85ea99dd68db">iterator</a>(<span class="keyword">this</span>, std::move(p)), <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00933"></a><span class="lineno">  933</span>&#160;        }</div>
+<div class="line"><a name="l00934"></a><span class="lineno">  934</span>&#160;        p = Policy::insert(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>, <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a19c0e67c049ab7a8fd87d17cd54301ef">value_type</a>(k, std::forward&lt;T&gt;(t)));</div>
+<div class="line"><a name="l00935"></a><span class="lineno">  935</span>&#160;        <span class="keywordflow">if</span>(!p)</div>
+<div class="line"><a name="l00936"></a><span class="lineno">  936</span>&#160;          <span class="keywordflow">return</span> std::make_pair(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0f04e3381b7402fd47cf6e5ebac4dd79">end</a>(), <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00937"></a><span class="lineno">  937</span>&#160;        ++<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aaed7b6867003cb1ba6364d02190f1c3b">_count</a>;</div>
+<div class="line"><a name="l00938"></a><span class="lineno">  938</span>&#160;        <span class="keywordflow">return</span> std::make_pair(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a18f8627e234e2429cdbb85ea99dd68db">iterator</a>(<span class="keyword">this</span>, std::move(p)), <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00939"></a><span class="lineno">  939</span>&#160;      }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_a19c0e67c049ab7a8fd87d17cd54301ef"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a19c0e67c049ab7a8fd87d17cd54301ef">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::value_type</a></div><div class="ttdeci">typename Policy::value_type value_type</div><div class="ttdoc">The type stored in the container.</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:592</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1275,10 +1275,10 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>Emplaces a new item, returning an iterator to the new item. </p>
-<div class="fragment"><div class="line"><a name="l00934"></a><span class="lineno">  934</span>&#160;      {</div>
-<div class="line"><a name="l00935"></a><span class="lineno">  935</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a1d43b99df5a2f4994b0b126b913318f4">insert</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a19c0e67c049ab7a8fd87d17cd54301ef">value_type</a>(std::forward&lt;Args&gt;(args)...));</div>
-<div class="line"><a name="l00936"></a><span class="lineno">  936</span>&#160;      }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_a1d43b99df5a2f4994b0b126b913318f4"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a1d43b99df5a2f4994b0b126b913318f4">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::insert</a></div><div class="ttdeci">std::pair&lt; iterator, bool &gt; insert(value_type &amp;&amp;v) noexcept</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:905</div></div>
+<div class="fragment"><div class="line"><a name="l00942"></a><span class="lineno">  942</span>&#160;      {</div>
+<div class="line"><a name="l00943"></a><span class="lineno">  943</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a1d43b99df5a2f4994b0b126b913318f4">insert</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a19c0e67c049ab7a8fd87d17cd54301ef">value_type</a>(std::forward&lt;Args&gt;(args)...));</div>
+<div class="line"><a name="l00944"></a><span class="lineno">  944</span>&#160;      }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_a1d43b99df5a2f4994b0b126b913318f4"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a1d43b99df5a2f4994b0b126b913318f4">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::insert</a></div><div class="ttdeci">std::pair&lt; iterator, bool &gt; insert(value_type &amp;&amp;v) noexcept</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:913</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1321,17 +1321,17 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>Emplaces a new item, returning an iterator to the new item. </p>
-<div class="fragment"><div class="line"><a name="l00939"></a><span class="lineno">  939</span>&#160;      {</div>
-<div class="line"><a name="l00940"></a><span class="lineno">  940</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a5dcc74a3015e3745031c644be16265f6">pointer</a> p(!disable_existing_key_check ? Policy::find_exclusive(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>, k) : <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a5dcc74a3015e3745031c644be16265f6">pointer</a>(<span class="keyword">nullptr</span>));</div>
-<div class="line"><a name="l00941"></a><span class="lineno">  941</span>&#160;        <span class="keywordflow">if</span>(p)</div>
-<div class="line"><a name="l00942"></a><span class="lineno">  942</span>&#160;          <span class="keywordflow">return</span> std::make_pair(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a18f8627e234e2429cdbb85ea99dd68db">iterator</a>(<span class="keyword">this</span>, std::move(p)), <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00943"></a><span class="lineno">  943</span>&#160;        p = Policy::insert(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>, <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a19c0e67c049ab7a8fd87d17cd54301ef">value_type</a>(k, <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#af30b6d38bc362d7f448b0e2397c48671">mapped_type</a>(std::forward&lt;Args&gt;(args)...)));</div>
-<div class="line"><a name="l00944"></a><span class="lineno">  944</span>&#160;        <span class="keywordflow">if</span>(!p)</div>
-<div class="line"><a name="l00945"></a><span class="lineno">  945</span>&#160;          <span class="keywordflow">return</span> std::make_pair(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0f04e3381b7402fd47cf6e5ebac4dd79">end</a>(), <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00946"></a><span class="lineno">  946</span>&#160;        ++<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aaed7b6867003cb1ba6364d02190f1c3b">_count</a>;</div>
-<div class="line"><a name="l00947"></a><span class="lineno">  947</span>&#160;        <span class="keywordflow">return</span> std::make_pair(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a18f8627e234e2429cdbb85ea99dd68db">iterator</a>(<span class="keyword">this</span>, std::move(p)), <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00948"></a><span class="lineno">  948</span>&#160;      }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_af30b6d38bc362d7f448b0e2397c48671"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#af30b6d38bc362d7f448b0e2397c48671">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::mapped_type</a></div><div class="ttdeci">typename Policy::mapped_type mapped_type</div><div class="ttdoc">The type looked up by a key.</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:589</div></div>
+<div class="fragment"><div class="line"><a name="l00947"></a><span class="lineno">  947</span>&#160;      {</div>
+<div class="line"><a name="l00948"></a><span class="lineno">  948</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a5dcc74a3015e3745031c644be16265f6">pointer</a> p(!disable_existing_key_check ? Policy::find_exclusive(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>, k) : <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a5dcc74a3015e3745031c644be16265f6">pointer</a>(<span class="keyword">nullptr</span>));</div>
+<div class="line"><a name="l00949"></a><span class="lineno">  949</span>&#160;        <span class="keywordflow">if</span>(p)</div>
+<div class="line"><a name="l00950"></a><span class="lineno">  950</span>&#160;          <span class="keywordflow">return</span> std::make_pair(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a18f8627e234e2429cdbb85ea99dd68db">iterator</a>(<span class="keyword">this</span>, std::move(p)), <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00951"></a><span class="lineno">  951</span>&#160;        p = Policy::insert(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>, <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a19c0e67c049ab7a8fd87d17cd54301ef">value_type</a>(k, <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#af30b6d38bc362d7f448b0e2397c48671">mapped_type</a>(std::forward&lt;Args&gt;(args)...)));</div>
+<div class="line"><a name="l00952"></a><span class="lineno">  952</span>&#160;        <span class="keywordflow">if</span>(!p)</div>
+<div class="line"><a name="l00953"></a><span class="lineno">  953</span>&#160;          <span class="keywordflow">return</span> std::make_pair(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0f04e3381b7402fd47cf6e5ebac4dd79">end</a>(), <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00954"></a><span class="lineno">  954</span>&#160;        ++<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aaed7b6867003cb1ba6364d02190f1c3b">_count</a>;</div>
+<div class="line"><a name="l00955"></a><span class="lineno">  955</span>&#160;        <span class="keywordflow">return</span> std::make_pair(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a18f8627e234e2429cdbb85ea99dd68db">iterator</a>(<span class="keyword">this</span>, std::move(p)), <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00956"></a><span class="lineno">  956</span>&#160;      }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_af30b6d38bc362d7f448b0e2397c48671"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#af30b6d38bc362d7f448b0e2397c48671">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::mapped_type</a></div><div class="ttdeci">typename Policy::mapped_type mapped_type</div><div class="ttdoc">The type looked up by a key.</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:590</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1362,16 +1362,16 @@ template&lt;class Policy , template&lt; class &gt; class ContiguousContainerType
 </div><div class="memdoc">
 
 <p>Erases an item. Note takes an iterator not a const_iterator as the STL would. </p>
-<div class="fragment"><div class="line"><a name="l00951"></a><span class="lineno">  951</span>&#160;      {</div>
-<div class="line"><a name="l00952"></a><span class="lineno">  952</span>&#160;        <span class="keywordflow">if</span>(it._parent != <span class="keyword">this</span>)</div>
-<div class="line"><a name="l00953"></a><span class="lineno">  953</span>&#160;          abort();</div>
-<div class="line"><a name="l00954"></a><span class="lineno">  954</span>&#160;        <span class="keyword">auto</span> v = Policy::erase(it._p);</div>
-<div class="line"><a name="l00955"></a><span class="lineno">  955</span>&#160;        <span class="keywordflow">if</span>(v.second)</div>
-<div class="line"><a name="l00956"></a><span class="lineno">  956</span>&#160;          --<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aaed7b6867003cb1ba6364d02190f1c3b">_count</a>;</div>
-<div class="line"><a name="l00957"></a><span class="lineno">  957</span>&#160;        <span class="comment">// it._p is still valid but now unlocked</span></div>
-<div class="line"><a name="l00958"></a><span class="lineno">  958</span>&#160;        ++it;</div>
-<div class="line"><a name="l00959"></a><span class="lineno">  959</span>&#160;        <span class="keywordflow">return</span> it;</div>
-<div class="line"><a name="l00960"></a><span class="lineno">  960</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00959"></a><span class="lineno">  959</span>&#160;      {</div>
+<div class="line"><a name="l00960"></a><span class="lineno">  960</span>&#160;        <span class="keywordflow">if</span>(it._parent != <span class="keyword">this</span>)</div>
+<div class="line"><a name="l00961"></a><span class="lineno">  961</span>&#160;          abort();</div>
+<div class="line"><a name="l00962"></a><span class="lineno">  962</span>&#160;        <span class="keyword">auto</span> v = Policy::erase(it._p);</div>
+<div class="line"><a name="l00963"></a><span class="lineno">  963</span>&#160;        <span class="keywordflow">if</span>(v.second)</div>
+<div class="line"><a name="l00964"></a><span class="lineno">  964</span>&#160;          --<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aaed7b6867003cb1ba6364d02190f1c3b">_count</a>;</div>
+<div class="line"><a name="l00965"></a><span class="lineno">  965</span>&#160;        <span class="comment">// it._p is still valid but now unlocked</span></div>
+<div class="line"><a name="l00966"></a><span class="lineno">  966</span>&#160;        ++it;</div>
+<div class="line"><a name="l00967"></a><span class="lineno">  967</span>&#160;        <span class="keywordflow">return</span> it;</div>
+<div class="line"><a name="l00968"></a><span class="lineno">  968</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1402,11 +1402,11 @@ template&lt;class Policy , template&lt; class &gt; class ContiguousContainerType
 </div><div class="memdoc">
 
 <p>Erases an item. Note this implementation does not return an iterator as per the STL. </p>
-<div class="fragment"><div class="line"><a name="l00963"></a><span class="lineno">  963</span>&#160;      {</div>
-<div class="line"><a name="l00964"></a><span class="lineno">  964</span>&#160;        <span class="keyword">auto</span> v = Policy::erase(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>, k);</div>
-<div class="line"><a name="l00965"></a><span class="lineno">  965</span>&#160;        <span class="keywordflow">if</span>(v.second)</div>
-<div class="line"><a name="l00966"></a><span class="lineno">  966</span>&#160;          --<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aaed7b6867003cb1ba6364d02190f1c3b">_count</a>;</div>
-<div class="line"><a name="l00967"></a><span class="lineno">  967</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00971"></a><span class="lineno">  971</span>&#160;      {</div>
+<div class="line"><a name="l00972"></a><span class="lineno">  972</span>&#160;        <span class="keyword">auto</span> v = Policy::erase(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>, k);</div>
+<div class="line"><a name="l00973"></a><span class="lineno">  973</span>&#160;        <span class="keywordflow">if</span>(v.second)</div>
+<div class="line"><a name="l00974"></a><span class="lineno">  974</span>&#160;          --<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aaed7b6867003cb1ba6364d02190f1c3b">_count</a>;</div>
+<div class="line"><a name="l00975"></a><span class="lineno">  975</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1437,12 +1437,12 @@ template&lt;class Policy , template&lt; class &gt; class ContiguousContainerType
 </div><div class="memdoc">
 
 <p>Finds an item. </p>
-<div class="fragment"><div class="line"><a name="l00970"></a><span class="lineno">  970</span>&#160;      {</div>
-<div class="line"><a name="l00971"></a><span class="lineno">  971</span>&#160;        <span class="keyword">auto</span> p = Policy::find_exclusive(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>, k);</div>
-<div class="line"><a name="l00972"></a><span class="lineno">  972</span>&#160;        <span class="keywordflow">if</span>(p)</div>
-<div class="line"><a name="l00973"></a><span class="lineno">  973</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a18f8627e234e2429cdbb85ea99dd68db">iterator</a>(<span class="keyword">this</span>, std::move(p));</div>
-<div class="line"><a name="l00974"></a><span class="lineno">  974</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0f04e3381b7402fd47cf6e5ebac4dd79">end</a>();</div>
-<div class="line"><a name="l00975"></a><span class="lineno">  975</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00978"></a><span class="lineno">  978</span>&#160;      {</div>
+<div class="line"><a name="l00979"></a><span class="lineno">  979</span>&#160;        <span class="keyword">auto</span> p = Policy::find_exclusive(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>, k);</div>
+<div class="line"><a name="l00980"></a><span class="lineno">  980</span>&#160;        <span class="keywordflow">if</span>(p)</div>
+<div class="line"><a name="l00981"></a><span class="lineno">  981</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a18f8627e234e2429cdbb85ea99dd68db">iterator</a>(<span class="keyword">this</span>, std::move(p));</div>
+<div class="line"><a name="l00982"></a><span class="lineno">  982</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0f04e3381b7402fd47cf6e5ebac4dd79">end</a>();</div>
+<div class="line"><a name="l00983"></a><span class="lineno">  983</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1473,13 +1473,13 @@ template&lt;class Policy , template&lt; class &gt; class ContiguousContainerType
 </div><div class="memdoc">
 
 <p>Finds an item. </p>
-<div class="fragment"><div class="line"><a name="l00978"></a><span class="lineno">  978</span>&#160;      {</div>
-<div class="line"><a name="l00979"></a><span class="lineno">  979</span>&#160;        <span class="keyword">auto</span> p = Policy::find_shared(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>, k);</div>
-<div class="line"><a name="l00980"></a><span class="lineno">  980</span>&#160;        <span class="keywordflow">if</span>(p)</div>
-<div class="line"><a name="l00981"></a><span class="lineno">  981</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aafa7b2ca612f37a77d8ce0940bc0240a">const_iterator</a>(<span class="keyword">this</span>, std::move(p));</div>
-<div class="line"><a name="l00982"></a><span class="lineno">  982</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a5b092084baa711c1898a7338ec739ddd">cend</a>();</div>
-<div class="line"><a name="l00983"></a><span class="lineno">  983</span>&#160;      }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_a5b092084baa711c1898a7338ec739ddd"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a5b092084baa711c1898a7338ec739ddd">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::cend</a></div><div class="ttdeci">const_iterator cend() const noexcept</div><div class="ttdoc">Returns an iterator to the item after the last in the index.</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:893</div></div>
+<div class="fragment"><div class="line"><a name="l00986"></a><span class="lineno">  986</span>&#160;      {</div>
+<div class="line"><a name="l00987"></a><span class="lineno">  987</span>&#160;        <span class="keyword">auto</span> p = Policy::find_shared(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>, k);</div>
+<div class="line"><a name="l00988"></a><span class="lineno">  988</span>&#160;        <span class="keywordflow">if</span>(p)</div>
+<div class="line"><a name="l00989"></a><span class="lineno">  989</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aafa7b2ca612f37a77d8ce0940bc0240a">const_iterator</a>(<span class="keyword">this</span>, std::move(p));</div>
+<div class="line"><a name="l00990"></a><span class="lineno">  990</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a5b092084baa711c1898a7338ec739ddd">cend</a>();</div>
+<div class="line"><a name="l00991"></a><span class="lineno">  991</span>&#160;      }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_a5b092084baa711c1898a7338ec739ddd"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a5b092084baa711c1898a7338ec739ddd">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::cend</a></div><div class="ttdeci">const_iterator cend() const noexcept</div><div class="ttdoc">Returns an iterator to the item after the last in the index.</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:901</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1510,8 +1510,8 @@ template&lt;class Policy , template&lt; class &gt; class ContiguousContainerType
 </div><div class="memdoc">
 
 <p>Finds an item (exclusive) </p>
-<div class="fragment"><div class="line"><a name="l00985"></a><span class="lineno">  985</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a2174a98c3300078cbd09b2c5d314c94a">find_exclusive</a>(k); }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_a2174a98c3300078cbd09b2c5d314c94a"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a2174a98c3300078cbd09b2c5d314c94a">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::find_exclusive</a></div><div class="ttdeci">iterator find_exclusive(const key_type &amp;k) noexcept</div><div class="ttdoc">Finds an item.</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:969</div></div>
+<div class="fragment"><div class="line"><a name="l00993"></a><span class="lineno">  993</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a2174a98c3300078cbd09b2c5d314c94a">find_exclusive</a>(k); }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_a2174a98c3300078cbd09b2c5d314c94a"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a2174a98c3300078cbd09b2c5d314c94a">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::find_exclusive</a></div><div class="ttdeci">iterator find_exclusive(const key_type &amp;k) noexcept</div><div class="ttdoc">Finds an item.</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:977</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1542,8 +1542,8 @@ template&lt;class Policy , template&lt; class &gt; class ContiguousContainerType
 </div><div class="memdoc">
 
 <p>Finds an item (shared) </p>
-<div class="fragment"><div class="line"><a name="l00987"></a><span class="lineno">  987</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a73829fdbd72728f9736d6a318d696472">find_shared</a>(k); }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_a73829fdbd72728f9736d6a318d696472"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a73829fdbd72728f9736d6a318d696472">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::find_shared</a></div><div class="ttdeci">const_iterator find_shared(const key_type &amp;k) const noexcept</div><div class="ttdoc">Finds an item.</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:977</div></div>
+<div class="fragment"><div class="line"><a name="l00995"></a><span class="lineno">  995</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a73829fdbd72728f9736d6a318d696472">find_shared</a>(k); }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index_html_a73829fdbd72728f9736d6a318d696472"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a73829fdbd72728f9736d6a318d696472">quickcpplib::_xxx::algorithm::open_hash_index::basic_open_hash_index::find_shared</a></div><div class="ttdeci">const_iterator find_shared(const key_type &amp;k) const noexcept</div><div class="ttdoc">Finds an item.</div><div class="ttdef"><b>Definition:</b> open_hash_index.hpp:985</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1574,18 +1574,18 @@ template&lt;class Policy , template&lt; class &gt; class ContiguousContainerType
 </div><div class="memdoc">
 
 <p>Returns a reference to the specified element, inserting an empty mapped type if necessary. </p>
-<div class="fragment"><div class="line"><a name="l00990"></a><span class="lineno">  990</span>&#160;      {</div>
-<div class="line"><a name="l00991"></a><span class="lineno">  991</span>&#160;        <span class="keyword">auto</span> p = Policy::find_exclusive(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>, k);</div>
-<div class="line"><a name="l00992"></a><span class="lineno">  992</span>&#160;        <span class="keywordflow">if</span>(p)</div>
-<div class="line"><a name="l00993"></a><span class="lineno">  993</span>&#160;          <span class="keywordflow">return</span> p-&gt;second;</div>
-<div class="line"><a name="l00994"></a><span class="lineno">  994</span>&#160;        p = Policy::insert(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>, <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a19c0e67c049ab7a8fd87d17cd54301ef">value_type</a>(k, <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#af30b6d38bc362d7f448b0e2397c48671">mapped_type</a>()));</div>
-<div class="line"><a name="l00995"></a><span class="lineno">  995</span>&#160;        <span class="keywordflow">if</span>(p)</div>
-<div class="line"><a name="l00996"></a><span class="lineno">  996</span>&#160;        {</div>
-<div class="line"><a name="l00997"></a><span class="lineno">  997</span>&#160;          ++<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aaed7b6867003cb1ba6364d02190f1c3b">_count</a>;</div>
-<div class="line"><a name="l00998"></a><span class="lineno">  998</span>&#160;          <span class="keywordflow">return</span> p-&gt;second;</div>
-<div class="line"><a name="l00999"></a><span class="lineno">  999</span>&#160;        }</div>
-<div class="line"><a name="l01000"></a><span class="lineno"> 1000</span>&#160;        abort();</div>
-<div class="line"><a name="l01001"></a><span class="lineno"> 1001</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l00998"></a><span class="lineno">  998</span>&#160;      {</div>
+<div class="line"><a name="l00999"></a><span class="lineno">  999</span>&#160;        <span class="keyword">auto</span> p = Policy::find_exclusive(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>, k);</div>
+<div class="line"><a name="l01000"></a><span class="lineno"> 1000</span>&#160;        <span class="keywordflow">if</span>(p)</div>
+<div class="line"><a name="l01001"></a><span class="lineno"> 1001</span>&#160;          <span class="keywordflow">return</span> p-&gt;second;</div>
+<div class="line"><a name="l01002"></a><span class="lineno"> 1002</span>&#160;        p = Policy::insert(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>, <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a19c0e67c049ab7a8fd87d17cd54301ef">value_type</a>(k, <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#af30b6d38bc362d7f448b0e2397c48671">mapped_type</a>()));</div>
+<div class="line"><a name="l01003"></a><span class="lineno"> 1003</span>&#160;        <span class="keywordflow">if</span>(p)</div>
+<div class="line"><a name="l01004"></a><span class="lineno"> 1004</span>&#160;        {</div>
+<div class="line"><a name="l01005"></a><span class="lineno"> 1005</span>&#160;          ++<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aaed7b6867003cb1ba6364d02190f1c3b">_count</a>;</div>
+<div class="line"><a name="l01006"></a><span class="lineno"> 1006</span>&#160;          <span class="keywordflow">return</span> p-&gt;second;</div>
+<div class="line"><a name="l01007"></a><span class="lineno"> 1007</span>&#160;        }</div>
+<div class="line"><a name="l01008"></a><span class="lineno"> 1008</span>&#160;        abort();</div>
+<div class="line"><a name="l01009"></a><span class="lineno"> 1009</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1616,15 +1616,15 @@ template&lt;class Policy , template&lt; class &gt; class ContiguousContainerType
 </div><div class="memdoc">
 
 <p>Returns a reference to the specified element. </p>
-<div class="fragment"><div class="line"><a name="l01004"></a><span class="lineno"> 1004</span>&#160;      {</div>
-<div class="line"><a name="l01005"></a><span class="lineno"> 1005</span>&#160;        <span class="keyword">auto</span> p = Policy::find_exclusive(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>, k);</div>
-<div class="line"><a name="l01006"></a><span class="lineno"> 1006</span>&#160;        <span class="keywordflow">if</span>(p)</div>
-<div class="line"><a name="l01007"></a><span class="lineno"> 1007</span>&#160;        {</div>
-<div class="line"><a name="l01008"></a><span class="lineno"> 1008</span>&#160;          ++<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aaed7b6867003cb1ba6364d02190f1c3b">_count</a>;</div>
-<div class="line"><a name="l01009"></a><span class="lineno"> 1009</span>&#160;          <span class="keywordflow">return</span> p-&gt;second;</div>
-<div class="line"><a name="l01010"></a><span class="lineno"> 1010</span>&#160;        }</div>
-<div class="line"><a name="l01011"></a><span class="lineno"> 1011</span>&#160;        abort();</div>
-<div class="line"><a name="l01012"></a><span class="lineno"> 1012</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l01012"></a><span class="lineno"> 1012</span>&#160;      {</div>
+<div class="line"><a name="l01013"></a><span class="lineno"> 1013</span>&#160;        <span class="keyword">auto</span> p = Policy::find_exclusive(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a0687bb0c5e586806e0a19fb7693951cf">_store</a>, k);</div>
+<div class="line"><a name="l01014"></a><span class="lineno"> 1014</span>&#160;        <span class="keywordflow">if</span>(p)</div>
+<div class="line"><a name="l01015"></a><span class="lineno"> 1015</span>&#160;        {</div>
+<div class="line"><a name="l01016"></a><span class="lineno"> 1016</span>&#160;          ++<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#aaed7b6867003cb1ba6364d02190f1c3b">_count</a>;</div>
+<div class="line"><a name="l01017"></a><span class="lineno"> 1017</span>&#160;          <span class="keywordflow">return</span> p-&gt;second;</div>
+<div class="line"><a name="l01018"></a><span class="lineno"> 1018</span>&#160;        }</div>
+<div class="line"><a name="l01019"></a><span class="lineno"> 1019</span>&#160;        abort();</div>
+<div class="line"><a name="l01020"></a><span class="lineno"> 1020</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>

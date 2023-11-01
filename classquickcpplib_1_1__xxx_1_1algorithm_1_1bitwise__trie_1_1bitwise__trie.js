@@ -43,6 +43,7 @@ var classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie =
     [ "count", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#abd8dc37e4bdc0c1959aa2983e976c463", null ],
     [ "insert", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a331845e6366f15da5fe4c4375cc5da42", null ],
     [ "erase", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a83244dfe9114ad14b69ac3ed8fbdae5b", null ],
+    [ "erase", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a61fc52223ebaaa5834c4aa5f44ca9f9a", null ],
     [ "erase", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#aae261680beae524e4918fe3ad2b1e4ca", null ],
     [ "find", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#aff4143d9160846a980eb35cd78c34293", null ],
     [ "find_equal_or_larger", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#aa3260f8a6dbee702cac80bfdd1f1f119", null ],
