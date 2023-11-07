@@ -3,6 +3,7 @@
 set_and_check(quickcpplib_CMAKELIB_DIR "@PACKAGE_quickcpplib_CMAKELIB_DIR@")
 set_and_check(quickcpplib_SCRIPTS_DIR "@PACKAGE_quickcpplib_SCRIPTS_DIR@")
 
+include(CMakeFindDependencyMacro)
 if (@QUICKCPPLIB_USE_SYSTEM_BYTE_LITE@) # QUICKCPPLIB_USE_SYSTEM_BYTE_LITE
   find_dependency(byte-lite)
 endif()
