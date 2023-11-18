@@ -235,7 +235,7 @@ extern "C" void _mm_pause();
 #endif
 #endif
 #ifndef QUICKCPPLIB_NODISCARD
-#if QUICKCPPLIB_HAS_CPP_ATTRIBUTE(nodiscard, 201700) && (!defined(__GNUC__) || __cpp_concepts >= 202000L /* -fconcepts-ts and [[nodiscard]] don't mix on GCC   \
+#if QUICKCPPLIB_HAS_CPP_ATTRIBUTE(nodiscard, 201700) && (!defined(__GNUC__) || !defined(__cpp_concepts) || __cpp_concepts >= 202000L /* -fconcepts-ts and [[nodiscard]] don't mix on GCC   \
                                                                                                           */)
 #define QUICKCPPLIB_NODISCARD [[nodiscard]]
 #elif defined(__clang__)  // deliberately not GCC
