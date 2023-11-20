@@ -32,6 +32,12 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "detail/config.hpp"
 
+#if defined(min)
+#error "You must not define min() as a macro, because this is unsupported and known to break e.g. LLFIO"
+#elif defined(max)
+#error "You must not define max() as a macro, because this is unsupported and known to break e.g. LLFIO"
+#endif
+
 #define QUICKCPPLIB_VERSION_GLUE2(a, b) a##b
 #define QUICKCPPLIB_VERSION_GLUE(a, b) QUICKCPPLIB_VERSION_GLUE2(a, b)
 
