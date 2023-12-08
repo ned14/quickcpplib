@@ -1433,6 +1433,10 @@ namespace algorithm
           /* Move up a branch, resetting key sought to the smallest
           possible for that branch */
           bitidx++;
+          if(bitidx >= _key_type_bits)
+          {
+            return const_cast<pointer>(ret);
+          }
           rkey = (key_type) 1 << bitidx;
         } while(nullptr == ret);
         return const_cast<pointer>(ret);
