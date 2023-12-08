@@ -579,8 +579,8 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l01770"></a><span class="lineno"> 1770</span>&#160;{ <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a11958ad2015ba240013f3b32095adc32">clear</a>(); }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_a11958ad2015ba240013f3b32095adc32"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a11958ad2015ba240013f3b32095adc32">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::clear</a></div><div class="ttdeci">constexpr void clear() noexcept</div><div class="ttdoc">Clears the index.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:1914</div></div>
+<div class="fragment"><div class="line"><a name="l01774"></a><span class="lineno"> 1774</span>&#160;{ <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a11958ad2015ba240013f3b32095adc32">clear</a>(); }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_a11958ad2015ba240013f3b32095adc32"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a11958ad2015ba240013f3b32095adc32">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::clear</a></div><div class="ttdeci">constexpr void clear() noexcept</div><div class="ttdoc">Clears the index.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:1918</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -621,10 +621,10 @@ template&lt;class Arg , class... Args, typename std::enable_if&lt;(std::is_const
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l01774"></a><span class="lineno"> 1774</span>&#160;          : Base(<span class="keyword">static_cast&lt;</span>Arg &amp;&amp;<span class="keyword">&gt;</span>(arg), <span class="keyword">static_cast&lt;</span>Args &amp;&amp;<span class="keyword">&gt;</span>(args)...)</div>
-<div class="line"><a name="l01775"></a><span class="lineno"> 1775</span>&#160;      {</div>
-<div class="line"><a name="l01776"></a><span class="lineno"> 1776</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a11958ad2015ba240013f3b32095adc32">clear</a>();</div>
-<div class="line"><a name="l01777"></a><span class="lineno"> 1777</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l01778"></a><span class="lineno"> 1778</span>&#160;          : Base(<span class="keyword">static_cast&lt;</span>Arg &amp;&amp;<span class="keyword">&gt;</span>(arg), <span class="keyword">static_cast&lt;</span>Args &amp;&amp;<span class="keyword">&gt;</span>(args)...)</div>
+<div class="line"><a name="l01779"></a><span class="lineno"> 1779</span>&#160;      {</div>
+<div class="line"><a name="l01780"></a><span class="lineno"> 1780</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a11958ad2015ba240013f3b32095adc32">clear</a>();</div>
+<div class="line"><a name="l01781"></a><span class="lineno"> 1781</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -653,15 +653,15 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l01779"></a><span class="lineno"> 1779</span>&#160;      {</div>
-<div class="line"><a name="l01780"></a><span class="lineno"> 1780</span>&#160;        <span class="keyword">auto</span> myhead = _head_accessors();</div>
-<div class="line"><a name="l01781"></a><span class="lineno"> 1781</span>&#160;        <span class="keyword">auto</span> ohead = o._head_accessors();</div>
-<div class="line"><a name="l01782"></a><span class="lineno"> 1782</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> n = 0; n &lt; _key_type_bits; n++)</div>
-<div class="line"><a name="l01783"></a><span class="lineno"> 1783</span>&#160;        {</div>
-<div class="line"><a name="l01784"></a><span class="lineno"> 1784</span>&#160;          myhead.set_child(n, ohead.child(n));</div>
-<div class="line"><a name="l01785"></a><span class="lineno"> 1785</span>&#160;        }</div>
-<div class="line"><a name="l01786"></a><span class="lineno"> 1786</span>&#160;        myhead.set_size(ohead.size());</div>
-<div class="line"><a name="l01787"></a><span class="lineno"> 1787</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l01783"></a><span class="lineno"> 1783</span>&#160;      {</div>
+<div class="line"><a name="l01784"></a><span class="lineno"> 1784</span>&#160;        <span class="keyword">auto</span> myhead = _head_accessors();</div>
+<div class="line"><a name="l01785"></a><span class="lineno"> 1785</span>&#160;        <span class="keyword">auto</span> ohead = o._head_accessors();</div>
+<div class="line"><a name="l01786"></a><span class="lineno"> 1786</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> n = 0; n &lt; _key_type_bits; n++)</div>
+<div class="line"><a name="l01787"></a><span class="lineno"> 1787</span>&#160;        {</div>
+<div class="line"><a name="l01788"></a><span class="lineno"> 1788</span>&#160;          myhead.set_child(n, ohead.child(n));</div>
+<div class="line"><a name="l01789"></a><span class="lineno"> 1789</span>&#160;        }</div>
+<div class="line"><a name="l01790"></a><span class="lineno"> 1790</span>&#160;        myhead.set_size(ohead.size());</div>
+<div class="line"><a name="l01791"></a><span class="lineno"> 1791</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -691,105 +691,105 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l01494"></a><span class="lineno"> 1494</span>&#160;      {</div>
-<div class="line"><a name="l01495"></a><span class="lineno"> 1495</span>&#160;        (void) tocheck;</div>
-<div class="line"><a name="l01496"></a><span class="lineno"> 1496</span>&#160;<span class="preprocessor">#ifndef NDEBUG</span></div>
-<div class="line"><a name="l01497"></a><span class="lineno"> 1497</span>&#160;        <span class="keyword">auto</span> head = _head_accessors();</div>
-<div class="line"><a name="l01498"></a><span class="lineno"> 1498</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#abc43396af8f836dc9db4b2c035377af6">const_pointer</a> node = <span class="keyword">nullptr</span>, child = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l01499"></a><span class="lineno"> 1499</span>&#160;        _trie_validity_state state;</div>
-<div class="line"><a name="l01500"></a><span class="lineno"> 1500</span>&#160;        memset(&amp;state, 0, <span class="keyword">sizeof</span>(state));</div>
-<div class="line"><a name="l01501"></a><span class="lineno"> 1501</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> n = 0; n &lt; _key_type_bits; n++)</div>
-<div class="line"><a name="l01502"></a><span class="lineno"> 1502</span>&#160;        {</div>
-<div class="line"><a name="l01503"></a><span class="lineno"> 1503</span>&#160;          <span class="keywordflow">if</span>(tocheck != <span class="keyword">nullptr</span>)</div>
-<div class="line"><a name="l01504"></a><span class="lineno"> 1504</span>&#160;          {</div>
-<div class="line"><a name="l01505"></a><span class="lineno"> 1505</span>&#160;            <span class="keywordflow">if</span>((((<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a4564a2d4d1c84d15b8a1824ad8bf867d">key_type</a>) -1 &lt;&lt; n) &amp; *tocheck) != ((<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a4564a2d4d1c84d15b8a1824ad8bf867d">key_type</a>) 1 &lt;&lt; n))</div>
-<div class="line"><a name="l01506"></a><span class="lineno"> 1506</span>&#160;            {</div>
-<div class="line"><a name="l01507"></a><span class="lineno"> 1507</span>&#160;              <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l01508"></a><span class="lineno"> 1508</span>&#160;            }</div>
-<div class="line"><a name="l01509"></a><span class="lineno"> 1509</span>&#160;          }</div>
-<div class="line"><a name="l01510"></a><span class="lineno"> 1510</span>&#160;          <span class="keywordflow">if</span>((node = head.child(n)) != <span class="keyword">nullptr</span>)</div>
-<div class="line"><a name="l01511"></a><span class="lineno"> 1511</span>&#160;          {</div>
-<div class="line"><a name="l01512"></a><span class="lineno"> 1512</span>&#160;            <span class="keyword">auto</span> nodelink = _item_accessors(node);</div>
-<div class="line"><a name="l01513"></a><span class="lineno"> 1513</span>&#160;            <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a4564a2d4d1c84d15b8a1824ad8bf867d">key_type</a> nodekey = nodelink.key();</div>
-<div class="line"><a name="l01514"></a><span class="lineno"> 1514</span>&#160;            _lock_unlock_branch lock_unlock(<span class="keyword">this</span>, nodekey, <span class="keyword">false</span>, n);</div>
-<div class="line"><a name="l01515"></a><span class="lineno"> 1515</span>&#160;            state.tops++;</div>
-<div class="line"><a name="l01516"></a><span class="lineno"> 1516</span>&#160;            <span class="keyword">auto</span> bitidx = nodelink.bit_index();</div>
-<div class="line"><a name="l01517"></a><span class="lineno"> 1517</span>&#160;            assert(bitidx == n);</div>
-<div class="line"><a name="l01518"></a><span class="lineno"> 1518</span>&#160;            assert(head.child(bitidx) == node);</div>
-<div class="line"><a name="l01519"></a><span class="lineno"> 1519</span>&#160;            assert(0 == nodekey || ((((<span class="keywordtype">size_t</span>) -1) &lt;&lt; bitidx) &amp; nodekey) == ((<span class="keywordtype">size_t</span>) 1 &lt;&lt; bitidx));</div>
-<div class="line"><a name="l01520"></a><span class="lineno"> 1520</span>&#160;            <span class="keywordflow">while</span>(_item_accessors(child = nodelink.sibling(<span class="keyword">true</span>)).is_secondary_sibling())</div>
-<div class="line"><a name="l01521"></a><span class="lineno"> 1521</span>&#160;            {</div>
-<div class="line"><a name="l01522"></a><span class="lineno"> 1522</span>&#160;              state.leafs++;</div>
-<div class="line"><a name="l01523"></a><span class="lineno"> 1523</span>&#160;              <span class="keyword">auto</span> childlink = _item_accessors(child);</div>
-<div class="line"><a name="l01524"></a><span class="lineno"> 1524</span>&#160;              assert(<span class="keyword">nullptr</span> == childlink.parent());</div>
-<div class="line"><a name="l01525"></a><span class="lineno"> 1525</span>&#160;              assert(<span class="keyword">nullptr</span> == childlink.child(<span class="keyword">false</span>));</div>
-<div class="line"><a name="l01526"></a><span class="lineno"> 1526</span>&#160;              assert(<span class="keyword">nullptr</span> == childlink.child(<span class="keyword">true</span>));</div>
-<div class="line"><a name="l01527"></a><span class="lineno"> 1527</span>&#160;              assert(child == _item_accessors(childlink.sibling(<span class="keyword">false</span>)).sibling(<span class="keyword">true</span>));</div>
-<div class="line"><a name="l01528"></a><span class="lineno"> 1528</span>&#160;              assert(child == _item_accessors(childlink.sibling(<span class="keyword">true</span>)).sibling(<span class="keyword">false</span>));</div>
-<div class="line"><a name="l01529"></a><span class="lineno"> 1529</span>&#160;              nodelink = childlink;</div>
-<div class="line"><a name="l01530"></a><span class="lineno"> 1530</span>&#160;              state.count++;</div>
-<div class="line"><a name="l01531"></a><span class="lineno"> 1531</span>&#160;            }</div>
-<div class="line"><a name="l01532"></a><span class="lineno"> 1532</span>&#160;            nodelink = _item_accessors(node);</div>
-<div class="line"><a name="l01533"></a><span class="lineno"> 1533</span>&#160;            state.count++;</div>
-<div class="line"><a name="l01534"></a><span class="lineno"> 1534</span>&#160;            <span class="keywordflow">if</span>(nodelink.child(0) != <span class="keyword">nullptr</span>)</div>
-<div class="line"><a name="l01535"></a><span class="lineno"> 1535</span>&#160;            {</div>
-<div class="line"><a name="l01536"></a><span class="lineno"> 1536</span>&#160;              state.lefts++;</div>
-<div class="line"><a name="l01537"></a><span class="lineno"> 1537</span>&#160;              state.smallestkey = (<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a4564a2d4d1c84d15b8a1824ad8bf867d">key_type</a>) -1;</div>
-<div class="line"><a name="l01538"></a><span class="lineno"> 1538</span>&#160;              state.largestkey = 0;</div>
-<div class="line"><a name="l01539"></a><span class="lineno"> 1539</span>&#160;              _triecheckvaliditybranch(nodelink.child(0), bitidx - 1, state);</div>
-<div class="line"><a name="l01540"></a><span class="lineno"> 1540</span>&#160;              assert(0 == state.smallestkey || state.smallestkey &gt;= (<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a4564a2d4d1c84d15b8a1824ad8bf867d">key_type</a>) 1 &lt;&lt; bitidx);</div>
-<div class="line"><a name="l01541"></a><span class="lineno"> 1541</span>&#160;              assert(bitidx + 1 &gt;= _key_type_bits || state.largestkey &lt; (<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a4564a2d4d1c84d15b8a1824ad8bf867d">key_type</a>) 1 &lt;&lt; (bitidx + 1));</div>
-<div class="line"><a name="l01542"></a><span class="lineno"> 1542</span>&#160;            }</div>
-<div class="line"><a name="l01543"></a><span class="lineno"> 1543</span>&#160;            <span class="keywordflow">if</span>(nodelink.child(1) != <span class="keyword">nullptr</span>)</div>
-<div class="line"><a name="l01544"></a><span class="lineno"> 1544</span>&#160;            {</div>
-<div class="line"><a name="l01545"></a><span class="lineno"> 1545</span>&#160;              state.rights++;</div>
-<div class="line"><a name="l01546"></a><span class="lineno"> 1546</span>&#160;              state.smallestkey = (<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a4564a2d4d1c84d15b8a1824ad8bf867d">key_type</a>) -1;</div>
-<div class="line"><a name="l01547"></a><span class="lineno"> 1547</span>&#160;              state.largestkey = 0;</div>
-<div class="line"><a name="l01548"></a><span class="lineno"> 1548</span>&#160;              _triecheckvaliditybranch(nodelink.child(1), bitidx - 1, state);</div>
-<div class="line"><a name="l01549"></a><span class="lineno"> 1549</span>&#160;              assert(state.smallestkey &gt;= (<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a4564a2d4d1c84d15b8a1824ad8bf867d">key_type</a>) 1 &lt;&lt; bitidx);</div>
-<div class="line"><a name="l01550"></a><span class="lineno"> 1550</span>&#160;              assert(bitidx + 1 &gt;= _key_type_bits || state.largestkey &lt; (<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a4564a2d4d1c84d15b8a1824ad8bf867d">key_type</a>) 1 &lt;&lt; (bitidx + 1));</div>
-<div class="line"><a name="l01551"></a><span class="lineno"> 1551</span>&#160;            }</div>
-<div class="line"><a name="l01552"></a><span class="lineno"> 1552</span>&#160;          }</div>
-<div class="line"><a name="l01553"></a><span class="lineno"> 1553</span>&#160;        }</div>
-<div class="line"><a name="l01554"></a><span class="lineno"> 1554</span>&#160;        <span class="keywordflow">if</span>(tocheck == <span class="keyword">nullptr</span>)</div>
-<div class="line"><a name="l01555"></a><span class="lineno"> 1555</span>&#160;        {</div>
-<div class="line"><a name="l01556"></a><span class="lineno"> 1556</span>&#160;          assert(state.count == head.size());</div>
+<div class="fragment"><div class="line"><a name="l01498"></a><span class="lineno"> 1498</span>&#160;      {</div>
+<div class="line"><a name="l01499"></a><span class="lineno"> 1499</span>&#160;        (void) tocheck;</div>
+<div class="line"><a name="l01500"></a><span class="lineno"> 1500</span>&#160;<span class="preprocessor">#ifndef NDEBUG</span></div>
+<div class="line"><a name="l01501"></a><span class="lineno"> 1501</span>&#160;        <span class="keyword">auto</span> head = _head_accessors();</div>
+<div class="line"><a name="l01502"></a><span class="lineno"> 1502</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#abc43396af8f836dc9db4b2c035377af6">const_pointer</a> node = <span class="keyword">nullptr</span>, child = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l01503"></a><span class="lineno"> 1503</span>&#160;        _trie_validity_state state;</div>
+<div class="line"><a name="l01504"></a><span class="lineno"> 1504</span>&#160;        memset(&amp;state, 0, <span class="keyword">sizeof</span>(state));</div>
+<div class="line"><a name="l01505"></a><span class="lineno"> 1505</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> n = 0; n &lt; _key_type_bits; n++)</div>
+<div class="line"><a name="l01506"></a><span class="lineno"> 1506</span>&#160;        {</div>
+<div class="line"><a name="l01507"></a><span class="lineno"> 1507</span>&#160;          <span class="keywordflow">if</span>(tocheck != <span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l01508"></a><span class="lineno"> 1508</span>&#160;          {</div>
+<div class="line"><a name="l01509"></a><span class="lineno"> 1509</span>&#160;            <span class="keywordflow">if</span>((((<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a4564a2d4d1c84d15b8a1824ad8bf867d">key_type</a>) -1 &lt;&lt; n) &amp; *tocheck) != ((<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a4564a2d4d1c84d15b8a1824ad8bf867d">key_type</a>) 1 &lt;&lt; n))</div>
+<div class="line"><a name="l01510"></a><span class="lineno"> 1510</span>&#160;            {</div>
+<div class="line"><a name="l01511"></a><span class="lineno"> 1511</span>&#160;              <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l01512"></a><span class="lineno"> 1512</span>&#160;            }</div>
+<div class="line"><a name="l01513"></a><span class="lineno"> 1513</span>&#160;          }</div>
+<div class="line"><a name="l01514"></a><span class="lineno"> 1514</span>&#160;          <span class="keywordflow">if</span>((node = head.child(n)) != <span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l01515"></a><span class="lineno"> 1515</span>&#160;          {</div>
+<div class="line"><a name="l01516"></a><span class="lineno"> 1516</span>&#160;            <span class="keyword">auto</span> nodelink = _item_accessors(node);</div>
+<div class="line"><a name="l01517"></a><span class="lineno"> 1517</span>&#160;            <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a4564a2d4d1c84d15b8a1824ad8bf867d">key_type</a> nodekey = nodelink.key();</div>
+<div class="line"><a name="l01518"></a><span class="lineno"> 1518</span>&#160;            _lock_unlock_branch lock_unlock(<span class="keyword">this</span>, nodekey, <span class="keyword">false</span>, n);</div>
+<div class="line"><a name="l01519"></a><span class="lineno"> 1519</span>&#160;            state.tops++;</div>
+<div class="line"><a name="l01520"></a><span class="lineno"> 1520</span>&#160;            <span class="keyword">auto</span> bitidx = nodelink.bit_index();</div>
+<div class="line"><a name="l01521"></a><span class="lineno"> 1521</span>&#160;            assert(bitidx == n);</div>
+<div class="line"><a name="l01522"></a><span class="lineno"> 1522</span>&#160;            assert(head.child(bitidx) == node);</div>
+<div class="line"><a name="l01523"></a><span class="lineno"> 1523</span>&#160;            assert(0 == nodekey || ((((<span class="keywordtype">size_t</span>) -1) &lt;&lt; bitidx) &amp; nodekey) == ((<span class="keywordtype">size_t</span>) 1 &lt;&lt; bitidx));</div>
+<div class="line"><a name="l01524"></a><span class="lineno"> 1524</span>&#160;            <span class="keywordflow">while</span>(_item_accessors(child = nodelink.sibling(<span class="keyword">true</span>)).is_secondary_sibling())</div>
+<div class="line"><a name="l01525"></a><span class="lineno"> 1525</span>&#160;            {</div>
+<div class="line"><a name="l01526"></a><span class="lineno"> 1526</span>&#160;              state.leafs++;</div>
+<div class="line"><a name="l01527"></a><span class="lineno"> 1527</span>&#160;              <span class="keyword">auto</span> childlink = _item_accessors(child);</div>
+<div class="line"><a name="l01528"></a><span class="lineno"> 1528</span>&#160;              assert(<span class="keyword">nullptr</span> == childlink.parent());</div>
+<div class="line"><a name="l01529"></a><span class="lineno"> 1529</span>&#160;              assert(<span class="keyword">nullptr</span> == childlink.child(<span class="keyword">false</span>));</div>
+<div class="line"><a name="l01530"></a><span class="lineno"> 1530</span>&#160;              assert(<span class="keyword">nullptr</span> == childlink.child(<span class="keyword">true</span>));</div>
+<div class="line"><a name="l01531"></a><span class="lineno"> 1531</span>&#160;              assert(child == _item_accessors(childlink.sibling(<span class="keyword">false</span>)).sibling(<span class="keyword">true</span>));</div>
+<div class="line"><a name="l01532"></a><span class="lineno"> 1532</span>&#160;              assert(child == _item_accessors(childlink.sibling(<span class="keyword">true</span>)).sibling(<span class="keyword">false</span>));</div>
+<div class="line"><a name="l01533"></a><span class="lineno"> 1533</span>&#160;              nodelink = childlink;</div>
+<div class="line"><a name="l01534"></a><span class="lineno"> 1534</span>&#160;              state.count++;</div>
+<div class="line"><a name="l01535"></a><span class="lineno"> 1535</span>&#160;            }</div>
+<div class="line"><a name="l01536"></a><span class="lineno"> 1536</span>&#160;            nodelink = _item_accessors(node);</div>
+<div class="line"><a name="l01537"></a><span class="lineno"> 1537</span>&#160;            state.count++;</div>
+<div class="line"><a name="l01538"></a><span class="lineno"> 1538</span>&#160;            <span class="keywordflow">if</span>(nodelink.child(0) != <span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l01539"></a><span class="lineno"> 1539</span>&#160;            {</div>
+<div class="line"><a name="l01540"></a><span class="lineno"> 1540</span>&#160;              state.lefts++;</div>
+<div class="line"><a name="l01541"></a><span class="lineno"> 1541</span>&#160;              state.smallestkey = (<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a4564a2d4d1c84d15b8a1824ad8bf867d">key_type</a>) -1;</div>
+<div class="line"><a name="l01542"></a><span class="lineno"> 1542</span>&#160;              state.largestkey = 0;</div>
+<div class="line"><a name="l01543"></a><span class="lineno"> 1543</span>&#160;              _triecheckvaliditybranch(nodelink.child(0), bitidx - 1, state);</div>
+<div class="line"><a name="l01544"></a><span class="lineno"> 1544</span>&#160;              assert(0 == state.smallestkey || state.smallestkey &gt;= (<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a4564a2d4d1c84d15b8a1824ad8bf867d">key_type</a>) 1 &lt;&lt; bitidx);</div>
+<div class="line"><a name="l01545"></a><span class="lineno"> 1545</span>&#160;              assert(bitidx + 1 &gt;= _key_type_bits || state.largestkey &lt; (<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a4564a2d4d1c84d15b8a1824ad8bf867d">key_type</a>) 1 &lt;&lt; (bitidx + 1));</div>
+<div class="line"><a name="l01546"></a><span class="lineno"> 1546</span>&#160;            }</div>
+<div class="line"><a name="l01547"></a><span class="lineno"> 1547</span>&#160;            <span class="keywordflow">if</span>(nodelink.child(1) != <span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l01548"></a><span class="lineno"> 1548</span>&#160;            {</div>
+<div class="line"><a name="l01549"></a><span class="lineno"> 1549</span>&#160;              state.rights++;</div>
+<div class="line"><a name="l01550"></a><span class="lineno"> 1550</span>&#160;              state.smallestkey = (<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a4564a2d4d1c84d15b8a1824ad8bf867d">key_type</a>) -1;</div>
+<div class="line"><a name="l01551"></a><span class="lineno"> 1551</span>&#160;              state.largestkey = 0;</div>
+<div class="line"><a name="l01552"></a><span class="lineno"> 1552</span>&#160;              _triecheckvaliditybranch(nodelink.child(1), bitidx - 1, state);</div>
+<div class="line"><a name="l01553"></a><span class="lineno"> 1553</span>&#160;              assert(state.smallestkey &gt;= (<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a4564a2d4d1c84d15b8a1824ad8bf867d">key_type</a>) 1 &lt;&lt; bitidx);</div>
+<div class="line"><a name="l01554"></a><span class="lineno"> 1554</span>&#160;              assert(bitidx + 1 &gt;= _key_type_bits || state.largestkey &lt; (<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a4564a2d4d1c84d15b8a1824ad8bf867d">key_type</a>) 1 &lt;&lt; (bitidx + 1));</div>
+<div class="line"><a name="l01555"></a><span class="lineno"> 1555</span>&#160;            }</div>
+<div class="line"><a name="l01556"></a><span class="lineno"> 1556</span>&#160;          }</div>
 <div class="line"><a name="l01557"></a><span class="lineno"> 1557</span>&#160;        }</div>
-<div class="line"><a name="l01558"></a><span class="lineno"> 1558</span>&#160;<span class="preprocessor">#if 1</span></div>
-<div class="line"><a name="l01559"></a><span class="lineno"> 1559</span>&#160;        <span class="keywordflow">for</span>(state.count = 0, node = _triemin(); node != <span class="keyword">nullptr</span>; (node = _trienext(node)), state.count++)</div>
-<div class="line"><a name="l01560"></a><span class="lineno"> 1560</span>&#160;<span class="preprocessor">#if 0</span></div>
-<div class="line"><a name="l01561"></a><span class="lineno"> 1561</span>&#160;      printf(<span class="stringliteral">&quot;%p\n&quot;</span>, node)</div>
-<div class="line"><a name="l01562"></a><span class="lineno"> 1562</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01563"></a><span class="lineno"> 1563</span>&#160;          ;</div>
-<div class="line"><a name="l01564"></a><span class="lineno"> 1564</span>&#160;        <span class="keywordflow">if</span>(state.count != head.size())</div>
-<div class="line"><a name="l01565"></a><span class="lineno"> 1565</span>&#160;        {</div>
-<div class="line"><a name="l01566"></a><span class="lineno"> 1566</span>&#160;          assert(state.count == head.size());</div>
-<div class="line"><a name="l01567"></a><span class="lineno"> 1567</span>&#160;        }</div>
-<div class="line"><a name="l01568"></a><span class="lineno"> 1568</span>&#160;<span class="preprocessor">#if 0</span></div>
-<div class="line"><a name="l01569"></a><span class="lineno"> 1569</span>&#160;    printf(<span class="stringliteral">&quot;\n&quot;</span>);</div>
-<div class="line"><a name="l01570"></a><span class="lineno"> 1570</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01571"></a><span class="lineno"> 1571</span>&#160;        <span class="keywordflow">for</span>(state.count = 0, node = _triemax(); node != <span class="keyword">nullptr</span>; (node = _trieprev(node)), state.count++)</div>
+<div class="line"><a name="l01558"></a><span class="lineno"> 1558</span>&#160;        <span class="keywordflow">if</span>(tocheck == <span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l01559"></a><span class="lineno"> 1559</span>&#160;        {</div>
+<div class="line"><a name="l01560"></a><span class="lineno"> 1560</span>&#160;          assert(state.count == head.size());</div>
+<div class="line"><a name="l01561"></a><span class="lineno"> 1561</span>&#160;        }</div>
+<div class="line"><a name="l01562"></a><span class="lineno"> 1562</span>&#160;<span class="preprocessor">#if 1</span></div>
+<div class="line"><a name="l01563"></a><span class="lineno"> 1563</span>&#160;        <span class="keywordflow">for</span>(state.count = 0, node = _triemin(); node != <span class="keyword">nullptr</span>; (node = _trienext(node)), state.count++)</div>
+<div class="line"><a name="l01564"></a><span class="lineno"> 1564</span>&#160;<span class="preprocessor">#if 0</span></div>
+<div class="line"><a name="l01565"></a><span class="lineno"> 1565</span>&#160;      printf(<span class="stringliteral">&quot;%p\n&quot;</span>, node)</div>
+<div class="line"><a name="l01566"></a><span class="lineno"> 1566</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01567"></a><span class="lineno"> 1567</span>&#160;          ;</div>
+<div class="line"><a name="l01568"></a><span class="lineno"> 1568</span>&#160;        <span class="keywordflow">if</span>(state.count != head.size())</div>
+<div class="line"><a name="l01569"></a><span class="lineno"> 1569</span>&#160;        {</div>
+<div class="line"><a name="l01570"></a><span class="lineno"> 1570</span>&#160;          assert(state.count == head.size());</div>
+<div class="line"><a name="l01571"></a><span class="lineno"> 1571</span>&#160;        }</div>
 <div class="line"><a name="l01572"></a><span class="lineno"> 1572</span>&#160;<span class="preprocessor">#if 0</span></div>
-<div class="line"><a name="l01573"></a><span class="lineno"> 1573</span>&#160;      printf(<span class="stringliteral">&quot;%p\n&quot;</span>, node)</div>
+<div class="line"><a name="l01573"></a><span class="lineno"> 1573</span>&#160;    printf(<span class="stringliteral">&quot;\n&quot;</span>);</div>
 <div class="line"><a name="l01574"></a><span class="lineno"> 1574</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01575"></a><span class="lineno"> 1575</span>&#160;          ;</div>
-<div class="line"><a name="l01576"></a><span class="lineno"> 1576</span>&#160;        <span class="keywordflow">if</span>(state.count != head.size())</div>
-<div class="line"><a name="l01577"></a><span class="lineno"> 1577</span>&#160;        {</div>
-<div class="line"><a name="l01578"></a><span class="lineno"> 1578</span>&#160;          assert(state.count == head.size());</div>
-<div class="line"><a name="l01579"></a><span class="lineno"> 1579</span>&#160;        }</div>
-<div class="line"><a name="l01580"></a><span class="lineno"> 1580</span>&#160;<span class="preprocessor">#if 0</span></div>
-<div class="line"><a name="l01581"></a><span class="lineno"> 1581</span>&#160;    printf(<span class="stringliteral">&quot;\n&quot;</span>);</div>
-<div class="line"><a name="l01582"></a><span class="lineno"> 1582</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01583"></a><span class="lineno"> 1583</span>&#160;<span class="preprocessor">#if !defined(NDEBUG) &amp;&amp; 0</span></div>
-<div class="line"><a name="l01584"></a><span class="lineno"> 1584</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a62db1c06d35d6b7cfd31689775acf683">count</a> &gt; 50)</div>
-<div class="line"><a name="l01585"></a><span class="lineno"> 1585</span>&#160;          printf(<span class="stringliteral">&quot;Of count %u, tops %.2lf%%, lefts %.2lf%%, rights %.2lf%%, leafs %.2lf%%\n&quot;</span>, <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a62db1c06d35d6b7cfd31689775acf683">count</a>,</div>
-<div class="line"><a name="l01586"></a><span class="lineno"> 1586</span>&#160;                 100.0 * tops / <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a62db1c06d35d6b7cfd31689775acf683">count</a>, 100.0 * lefts / <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a62db1c06d35d6b7cfd31689775acf683">count</a>, 100.0 * rights / <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a62db1c06d35d6b7cfd31689775acf683">count</a>, 100.0 * leafs / <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a62db1c06d35d6b7cfd31689775acf683">count</a>);</div>
-<div class="line"><a name="l01587"></a><span class="lineno"> 1587</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01588"></a><span class="lineno"> 1588</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* !NDEBUG */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l01589"></a><span class="lineno"> 1589</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01590"></a><span class="lineno"> 1590</span>&#160;      }</div>
+<div class="line"><a name="l01575"></a><span class="lineno"> 1575</span>&#160;        <span class="keywordflow">for</span>(state.count = 0, node = _triemax(); node != <span class="keyword">nullptr</span>; (node = _trieprev(node)), state.count++)</div>
+<div class="line"><a name="l01576"></a><span class="lineno"> 1576</span>&#160;<span class="preprocessor">#if 0</span></div>
+<div class="line"><a name="l01577"></a><span class="lineno"> 1577</span>&#160;      printf(<span class="stringliteral">&quot;%p\n&quot;</span>, node)</div>
+<div class="line"><a name="l01578"></a><span class="lineno"> 1578</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01579"></a><span class="lineno"> 1579</span>&#160;          ;</div>
+<div class="line"><a name="l01580"></a><span class="lineno"> 1580</span>&#160;        <span class="keywordflow">if</span>(state.count != head.size())</div>
+<div class="line"><a name="l01581"></a><span class="lineno"> 1581</span>&#160;        {</div>
+<div class="line"><a name="l01582"></a><span class="lineno"> 1582</span>&#160;          assert(state.count == head.size());</div>
+<div class="line"><a name="l01583"></a><span class="lineno"> 1583</span>&#160;        }</div>
+<div class="line"><a name="l01584"></a><span class="lineno"> 1584</span>&#160;<span class="preprocessor">#if 0</span></div>
+<div class="line"><a name="l01585"></a><span class="lineno"> 1585</span>&#160;    printf(<span class="stringliteral">&quot;\n&quot;</span>);</div>
+<div class="line"><a name="l01586"></a><span class="lineno"> 1586</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01587"></a><span class="lineno"> 1587</span>&#160;<span class="preprocessor">#if !defined(NDEBUG) &amp;&amp; 0</span></div>
+<div class="line"><a name="l01588"></a><span class="lineno"> 1588</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a62db1c06d35d6b7cfd31689775acf683">count</a> &gt; 50)</div>
+<div class="line"><a name="l01589"></a><span class="lineno"> 1589</span>&#160;          printf(<span class="stringliteral">&quot;Of count %u, tops %.2lf%%, lefts %.2lf%%, rights %.2lf%%, leafs %.2lf%%\n&quot;</span>, <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a62db1c06d35d6b7cfd31689775acf683">count</a>,</div>
+<div class="line"><a name="l01590"></a><span class="lineno"> 1590</span>&#160;                 100.0 * tops / <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a62db1c06d35d6b7cfd31689775acf683">count</a>, 100.0 * lefts / <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a62db1c06d35d6b7cfd31689775acf683">count</a>, 100.0 * rights / <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a62db1c06d35d6b7cfd31689775acf683">count</a>, 100.0 * leafs / <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a62db1c06d35d6b7cfd31689775acf683">count</a>);</div>
+<div class="line"><a name="l01591"></a><span class="lineno"> 1591</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01592"></a><span class="lineno"> 1592</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* !NDEBUG */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l01593"></a><span class="lineno"> 1593</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01594"></a><span class="lineno"> 1594</span>&#160;      }</div>
 <div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_a4564a2d4d1c84d15b8a1824ad8bf867d"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a4564a2d4d1c84d15b8a1824ad8bf867d">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::key_type</a></div><div class="ttdeci">decltype(_item_accessors(static_cast&lt; ItemType * &gt;(nullptr)).key()) key_type</div><div class="ttdoc">Key type indexing the items.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:519</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_a62db1c06d35d6b7cfd31689775acf683"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a62db1c06d35d6b7cfd31689775acf683">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::count</a></div><div class="ttdeci">size_type count(key_type k) const noexcept</div><div class="ttdoc">Return how many items with key there are.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:1924</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_a62db1c06d35d6b7cfd31689775acf683"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a62db1c06d35d6b7cfd31689775acf683">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::count</a></div><div class="ttdeci">size_type count(key_type k) const noexcept</div><div class="ttdoc">Return how many items with key there are.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:1928</div></div>
 <div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_abc43396af8f836dc9db4b2c035377af6"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#abc43396af8f836dc9db4b2c035377af6">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::const_pointer</a></div><div class="ttdeci">const ItemType * const_pointer</div><div class="ttdoc">A const pointer to the type of item indexed.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:535</div></div>
 </div><!-- fragment -->
 </div>
@@ -819,16 +819,16 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l01789"></a><span class="lineno"> 1789</span>&#160;      {</div>
-<div class="line"><a name="l01790"></a><span class="lineno"> 1790</span>&#160;        <span class="keyword">auto</span> myhead = _head_accessors();</div>
-<div class="line"><a name="l01791"></a><span class="lineno"> 1791</span>&#160;        <span class="keyword">auto</span> ohead = o._head_accessors();</div>
-<div class="line"><a name="l01792"></a><span class="lineno"> 1792</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> n = 0; n &lt; _key_type_bits; n++)</div>
-<div class="line"><a name="l01793"></a><span class="lineno"> 1793</span>&#160;        {</div>
-<div class="line"><a name="l01794"></a><span class="lineno"> 1794</span>&#160;          myhead.set_child(n, ohead.child(n));</div>
-<div class="line"><a name="l01795"></a><span class="lineno"> 1795</span>&#160;        }</div>
-<div class="line"><a name="l01796"></a><span class="lineno"> 1796</span>&#160;        myhead.set_size(ohead.size());</div>
-<div class="line"><a name="l01797"></a><span class="lineno"> 1797</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l01798"></a><span class="lineno"> 1798</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l01793"></a><span class="lineno"> 1793</span>&#160;      {</div>
+<div class="line"><a name="l01794"></a><span class="lineno"> 1794</span>&#160;        <span class="keyword">auto</span> myhead = _head_accessors();</div>
+<div class="line"><a name="l01795"></a><span class="lineno"> 1795</span>&#160;        <span class="keyword">auto</span> ohead = o._head_accessors();</div>
+<div class="line"><a name="l01796"></a><span class="lineno"> 1796</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> n = 0; n &lt; _key_type_bits; n++)</div>
+<div class="line"><a name="l01797"></a><span class="lineno"> 1797</span>&#160;        {</div>
+<div class="line"><a name="l01798"></a><span class="lineno"> 1798</span>&#160;          myhead.set_child(n, ohead.child(n));</div>
+<div class="line"><a name="l01799"></a><span class="lineno"> 1799</span>&#160;        }</div>
+<div class="line"><a name="l01800"></a><span class="lineno"> 1800</span>&#160;        myhead.set_size(ohead.size());</div>
+<div class="line"><a name="l01801"></a><span class="lineno"> 1801</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l01802"></a><span class="lineno"> 1802</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -859,19 +859,19 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Swaps the contents of the index. </p>
-<div class="fragment"><div class="line"><a name="l01802"></a><span class="lineno"> 1802</span>&#160;      {</div>
-<div class="line"><a name="l01803"></a><span class="lineno"> 1803</span>&#160;        <span class="keyword">auto</span> myhead = _head_accessors();</div>
-<div class="line"><a name="l01804"></a><span class="lineno"> 1804</span>&#160;        <span class="keyword">auto</span> ohead = o._head_accessors();</div>
-<div class="line"><a name="l01805"></a><span class="lineno"> 1805</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> n = 0; n &lt; _key_type_bits; n++)</div>
-<div class="line"><a name="l01806"></a><span class="lineno"> 1806</span>&#160;        {</div>
-<div class="line"><a name="l01807"></a><span class="lineno"> 1807</span>&#160;          <span class="keyword">auto</span> t = myhead.child(n);</div>
-<div class="line"><a name="l01808"></a><span class="lineno"> 1808</span>&#160;          myhead.set_child(n, ohead.child(n));</div>
-<div class="line"><a name="l01809"></a><span class="lineno"> 1809</span>&#160;          ohead.set_child(n, t);</div>
-<div class="line"><a name="l01810"></a><span class="lineno"> 1810</span>&#160;        }</div>
-<div class="line"><a name="l01811"></a><span class="lineno"> 1811</span>&#160;        <span class="keyword">auto</span> t = myhead.size();</div>
-<div class="line"><a name="l01812"></a><span class="lineno"> 1812</span>&#160;        myhead.set_size(ohead.size());</div>
-<div class="line"><a name="l01813"></a><span class="lineno"> 1813</span>&#160;        ohead.set_size(t);</div>
-<div class="line"><a name="l01814"></a><span class="lineno"> 1814</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l01806"></a><span class="lineno"> 1806</span>&#160;      {</div>
+<div class="line"><a name="l01807"></a><span class="lineno"> 1807</span>&#160;        <span class="keyword">auto</span> myhead = _head_accessors();</div>
+<div class="line"><a name="l01808"></a><span class="lineno"> 1808</span>&#160;        <span class="keyword">auto</span> ohead = o._head_accessors();</div>
+<div class="line"><a name="l01809"></a><span class="lineno"> 1809</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> n = 0; n &lt; _key_type_bits; n++)</div>
+<div class="line"><a name="l01810"></a><span class="lineno"> 1810</span>&#160;        {</div>
+<div class="line"><a name="l01811"></a><span class="lineno"> 1811</span>&#160;          <span class="keyword">auto</span> t = myhead.child(n);</div>
+<div class="line"><a name="l01812"></a><span class="lineno"> 1812</span>&#160;          myhead.set_child(n, ohead.child(n));</div>
+<div class="line"><a name="l01813"></a><span class="lineno"> 1813</span>&#160;          ohead.set_child(n, t);</div>
+<div class="line"><a name="l01814"></a><span class="lineno"> 1814</span>&#160;        }</div>
+<div class="line"><a name="l01815"></a><span class="lineno"> 1815</span>&#160;        <span class="keyword">auto</span> t = myhead.size();</div>
+<div class="line"><a name="l01816"></a><span class="lineno"> 1816</span>&#160;        myhead.set_size(ohead.size());</div>
+<div class="line"><a name="l01817"></a><span class="lineno"> 1817</span>&#160;        ohead.set_size(t);</div>
+<div class="line"><a name="l01818"></a><span class="lineno"> 1818</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -901,8 +901,8 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>True if the bitwise trie is empty. </p>
-<div class="fragment"><div class="line"><a name="l01817"></a><span class="lineno"> 1817</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a97276d58c6725903af27de781a068e88">size</a>() == 0; }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_a97276d58c6725903af27de781a068e88"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a97276d58c6725903af27de781a068e88">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::size</a></div><div class="ttdeci">constexpr size_type size() const noexcept</div><div class="ttdoc">Returns the number of items in the bitwise trie.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:1819</div></div>
+<div class="fragment"><div class="line"><a name="l01821"></a><span class="lineno"> 1821</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a97276d58c6725903af27de781a068e88">size</a>() == 0; }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_a97276d58c6725903af27de781a068e88"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a97276d58c6725903af27de781a068e88">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::size</a></div><div class="ttdeci">constexpr size_type size() const noexcept</div><div class="ttdoc">Returns the number of items in the bitwise trie.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:1823</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -932,7 +932,7 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the number of items in the bitwise trie. </p>
-<div class="fragment"><div class="line"><a name="l01819"></a><span class="lineno"> 1819</span>&#160;{ <span class="keywordflow">return</span> _head_accessors().<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html#ab80110039137c1e700e230aee06b3480">size</a>(); }</div>
+<div class="fragment"><div class="line"><a name="l01823"></a><span class="lineno"> 1823</span>&#160;{ <span class="keywordflow">return</span> _head_accessors().<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html#ab80110039137c1e700e230aee06b3480">size</a>(); }</div>
 <div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors_html_ab80110039137c1e700e230aee06b3480"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html#ab80110039137c1e700e230aee06b3480">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie_head_accessors::size</a></div><div class="ttdeci">constexpr _index_type size() const noexcept</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:343</div></div>
 </div><!-- fragment -->
 </div>
@@ -963,7 +963,7 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the maximum number of items in the index. </p>
-<div class="fragment"><div class="line"><a name="l01821"></a><span class="lineno"> 1821</span>&#160;{ <span class="keywordflow">return</span> _head_accessors().<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html#ab924ac046e9586dff023d8d79e9374ef">max_size</a>(); }</div>
+<div class="fragment"><div class="line"><a name="l01825"></a><span class="lineno"> 1825</span>&#160;{ <span class="keywordflow">return</span> _head_accessors().<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html#ab924ac046e9586dff023d8d79e9374ef">max_size</a>(); }</div>
 <div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors_html_ab924ac046e9586dff023d8d79e9374ef"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html#ab924ac046e9586dff023d8d79e9374ef">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie_head_accessors::max_size</a></div><div class="ttdeci">constexpr _index_type max_size() const noexcept</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:348</div></div>
 </div><!-- fragment -->
 </div>
@@ -994,13 +994,13 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the front of the index. </p>
-<div class="fragment"><div class="line"><a name="l01825"></a><span class="lineno"> 1825</span>&#160;      {</div>
-<div class="line"><a name="l01826"></a><span class="lineno"> 1826</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _triemin())</div>
-<div class="line"><a name="l01827"></a><span class="lineno"> 1827</span>&#160;        {</div>
-<div class="line"><a name="l01828"></a><span class="lineno"> 1828</span>&#160;          <span class="keywordflow">return</span> *p;</div>
-<div class="line"><a name="l01829"></a><span class="lineno"> 1829</span>&#160;        }</div>
-<div class="line"><a name="l01830"></a><span class="lineno"> 1830</span>&#160;        abort();</div>
-<div class="line"><a name="l01831"></a><span class="lineno"> 1831</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l01829"></a><span class="lineno"> 1829</span>&#160;      {</div>
+<div class="line"><a name="l01830"></a><span class="lineno"> 1830</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _triemin())</div>
+<div class="line"><a name="l01831"></a><span class="lineno"> 1831</span>&#160;        {</div>
+<div class="line"><a name="l01832"></a><span class="lineno"> 1832</span>&#160;          <span class="keywordflow">return</span> *p;</div>
+<div class="line"><a name="l01833"></a><span class="lineno"> 1833</span>&#160;        }</div>
+<div class="line"><a name="l01834"></a><span class="lineno"> 1834</span>&#160;        abort();</div>
+<div class="line"><a name="l01835"></a><span class="lineno"> 1835</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1030,13 +1030,13 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the front of the index. </p>
-<div class="fragment"><div class="line"><a name="l01834"></a><span class="lineno"> 1834</span>&#160;      {</div>
-<div class="line"><a name="l01835"></a><span class="lineno"> 1835</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _triemin())</div>
-<div class="line"><a name="l01836"></a><span class="lineno"> 1836</span>&#160;        {</div>
-<div class="line"><a name="l01837"></a><span class="lineno"> 1837</span>&#160;          <span class="keywordflow">return</span> *p;</div>
-<div class="line"><a name="l01838"></a><span class="lineno"> 1838</span>&#160;        }</div>
-<div class="line"><a name="l01839"></a><span class="lineno"> 1839</span>&#160;        abort();</div>
-<div class="line"><a name="l01840"></a><span class="lineno"> 1840</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l01838"></a><span class="lineno"> 1838</span>&#160;      {</div>
+<div class="line"><a name="l01839"></a><span class="lineno"> 1839</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _triemin())</div>
+<div class="line"><a name="l01840"></a><span class="lineno"> 1840</span>&#160;        {</div>
+<div class="line"><a name="l01841"></a><span class="lineno"> 1841</span>&#160;          <span class="keywordflow">return</span> *p;</div>
+<div class="line"><a name="l01842"></a><span class="lineno"> 1842</span>&#160;        }</div>
+<div class="line"><a name="l01843"></a><span class="lineno"> 1843</span>&#160;        abort();</div>
+<div class="line"><a name="l01844"></a><span class="lineno"> 1844</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1066,13 +1066,13 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the back of the index. </p>
-<div class="fragment"><div class="line"><a name="l01843"></a><span class="lineno"> 1843</span>&#160;      {</div>
-<div class="line"><a name="l01844"></a><span class="lineno"> 1844</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _triemax())</div>
-<div class="line"><a name="l01845"></a><span class="lineno"> 1845</span>&#160;        {</div>
-<div class="line"><a name="l01846"></a><span class="lineno"> 1846</span>&#160;          <span class="keywordflow">return</span> *p;</div>
-<div class="line"><a name="l01847"></a><span class="lineno"> 1847</span>&#160;        }</div>
-<div class="line"><a name="l01848"></a><span class="lineno"> 1848</span>&#160;        abort();</div>
-<div class="line"><a name="l01849"></a><span class="lineno"> 1849</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l01847"></a><span class="lineno"> 1847</span>&#160;      {</div>
+<div class="line"><a name="l01848"></a><span class="lineno"> 1848</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _triemax())</div>
+<div class="line"><a name="l01849"></a><span class="lineno"> 1849</span>&#160;        {</div>
+<div class="line"><a name="l01850"></a><span class="lineno"> 1850</span>&#160;          <span class="keywordflow">return</span> *p;</div>
+<div class="line"><a name="l01851"></a><span class="lineno"> 1851</span>&#160;        }</div>
+<div class="line"><a name="l01852"></a><span class="lineno"> 1852</span>&#160;        abort();</div>
+<div class="line"><a name="l01853"></a><span class="lineno"> 1853</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1102,13 +1102,13 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the back of the index. </p>
-<div class="fragment"><div class="line"><a name="l01852"></a><span class="lineno"> 1852</span>&#160;      {</div>
-<div class="line"><a name="l01853"></a><span class="lineno"> 1853</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _triemax())</div>
-<div class="line"><a name="l01854"></a><span class="lineno"> 1854</span>&#160;        {</div>
-<div class="line"><a name="l01855"></a><span class="lineno"> 1855</span>&#160;          <span class="keywordflow">return</span> *p;</div>
-<div class="line"><a name="l01856"></a><span class="lineno"> 1856</span>&#160;        }</div>
-<div class="line"><a name="l01857"></a><span class="lineno"> 1857</span>&#160;        abort();</div>
-<div class="line"><a name="l01858"></a><span class="lineno"> 1858</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l01856"></a><span class="lineno"> 1856</span>&#160;      {</div>
+<div class="line"><a name="l01857"></a><span class="lineno"> 1857</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _triemax())</div>
+<div class="line"><a name="l01858"></a><span class="lineno"> 1858</span>&#160;        {</div>
+<div class="line"><a name="l01859"></a><span class="lineno"> 1859</span>&#160;          <span class="keywordflow">return</span> *p;</div>
+<div class="line"><a name="l01860"></a><span class="lineno"> 1860</span>&#160;        }</div>
+<div class="line"><a name="l01861"></a><span class="lineno"> 1861</span>&#160;        abort();</div>
+<div class="line"><a name="l01862"></a><span class="lineno"> 1862</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1138,14 +1138,14 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the first item in the index. </p>
-<div class="fragment"><div class="line"><a name="l01862"></a><span class="lineno"> 1862</span>&#160;      {</div>
-<div class="line"><a name="l01863"></a><span class="lineno"> 1863</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _triemin())</div>
-<div class="line"><a name="l01864"></a><span class="lineno"> 1864</span>&#160;        {</div>
-<div class="line"><a name="l01865"></a><span class="lineno"> 1865</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>, p);</div>
-<div class="line"><a name="l01866"></a><span class="lineno"> 1866</span>&#160;        }</div>
-<div class="line"><a name="l01867"></a><span class="lineno"> 1867</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>);</div>
-<div class="line"><a name="l01868"></a><span class="lineno"> 1868</span>&#160;      }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_afdcfc1ab4f606f449a614d1ff8ce7b53"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::iterator</a></div><div class="ttdeci">iterator_&lt; false, bitwise_trie, pointer, reference &gt; iterator</div><div class="ttdoc">The iterator type.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:1755</div></div>
+<div class="fragment"><div class="line"><a name="l01866"></a><span class="lineno"> 1866</span>&#160;      {</div>
+<div class="line"><a name="l01867"></a><span class="lineno"> 1867</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _triemin())</div>
+<div class="line"><a name="l01868"></a><span class="lineno"> 1868</span>&#160;        {</div>
+<div class="line"><a name="l01869"></a><span class="lineno"> 1869</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>, p);</div>
+<div class="line"><a name="l01870"></a><span class="lineno"> 1870</span>&#160;        }</div>
+<div class="line"><a name="l01871"></a><span class="lineno"> 1871</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>);</div>
+<div class="line"><a name="l01872"></a><span class="lineno"> 1872</span>&#160;      }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_afdcfc1ab4f606f449a614d1ff8ce7b53"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::iterator</a></div><div class="ttdeci">iterator_&lt; false, bitwise_trie, pointer, reference &gt; iterator</div><div class="ttdoc">The iterator type.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:1759</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1175,14 +1175,14 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the first item in the index. </p>
-<div class="fragment"><div class="line"><a name="l01871"></a><span class="lineno"> 1871</span>&#160;      {</div>
-<div class="line"><a name="l01872"></a><span class="lineno"> 1872</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _triemin())</div>
-<div class="line"><a name="l01873"></a><span class="lineno"> 1873</span>&#160;        {</div>
-<div class="line"><a name="l01874"></a><span class="lineno"> 1874</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a1a5a03539e40491462d46f5e169e96fb">const_iterator</a>(<span class="keyword">this</span>, p);</div>
-<div class="line"><a name="l01875"></a><span class="lineno"> 1875</span>&#160;        }</div>
-<div class="line"><a name="l01876"></a><span class="lineno"> 1876</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a1a5a03539e40491462d46f5e169e96fb">const_iterator</a>(<span class="keyword">this</span>);</div>
-<div class="line"><a name="l01877"></a><span class="lineno"> 1877</span>&#160;      }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_a1a5a03539e40491462d46f5e169e96fb"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a1a5a03539e40491462d46f5e169e96fb">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::const_iterator</a></div><div class="ttdeci">iterator_&lt; true, const bitwise_trie, const_pointer, const_reference &gt; const_iterator</div><div class="ttdoc">The const iterator type.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:1757</div></div>
+<div class="fragment"><div class="line"><a name="l01875"></a><span class="lineno"> 1875</span>&#160;      {</div>
+<div class="line"><a name="l01876"></a><span class="lineno"> 1876</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _triemin())</div>
+<div class="line"><a name="l01877"></a><span class="lineno"> 1877</span>&#160;        {</div>
+<div class="line"><a name="l01878"></a><span class="lineno"> 1878</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a1a5a03539e40491462d46f5e169e96fb">const_iterator</a>(<span class="keyword">this</span>, p);</div>
+<div class="line"><a name="l01879"></a><span class="lineno"> 1879</span>&#160;        }</div>
+<div class="line"><a name="l01880"></a><span class="lineno"> 1880</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a1a5a03539e40491462d46f5e169e96fb">const_iterator</a>(<span class="keyword">this</span>);</div>
+<div class="line"><a name="l01881"></a><span class="lineno"> 1881</span>&#160;      }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_a1a5a03539e40491462d46f5e169e96fb"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a1a5a03539e40491462d46f5e169e96fb">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::const_iterator</a></div><div class="ttdeci">iterator_&lt; true, const bitwise_trie, const_pointer, const_reference &gt; const_iterator</div><div class="ttdoc">The const iterator type.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:1761</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1212,14 +1212,14 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the last item in the index. </p>
-<div class="fragment"><div class="line"><a name="l01880"></a><span class="lineno"> 1880</span>&#160;      {</div>
-<div class="line"><a name="l01881"></a><span class="lineno"> 1881</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _triemax())</div>
-<div class="line"><a name="l01882"></a><span class="lineno"> 1882</span>&#160;        {</div>
-<div class="line"><a name="l01883"></a><span class="lineno"> 1883</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a7281b7389edfc69edb9dbf11e2644c37">reverse_iterator</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>, p));</div>
-<div class="line"><a name="l01884"></a><span class="lineno"> 1884</span>&#160;        }</div>
-<div class="line"><a name="l01885"></a><span class="lineno"> 1885</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a7281b7389edfc69edb9dbf11e2644c37">reverse_iterator</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>));</div>
-<div class="line"><a name="l01886"></a><span class="lineno"> 1886</span>&#160;      }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_a7281b7389edfc69edb9dbf11e2644c37"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a7281b7389edfc69edb9dbf11e2644c37">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::reverse_iterator</a></div><div class="ttdeci">std::reverse_iterator&lt; iterator &gt; reverse_iterator</div><div class="ttdoc">The reverse iterator type.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:1759</div></div>
+<div class="fragment"><div class="line"><a name="l01884"></a><span class="lineno"> 1884</span>&#160;      {</div>
+<div class="line"><a name="l01885"></a><span class="lineno"> 1885</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _triemax())</div>
+<div class="line"><a name="l01886"></a><span class="lineno"> 1886</span>&#160;        {</div>
+<div class="line"><a name="l01887"></a><span class="lineno"> 1887</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a7281b7389edfc69edb9dbf11e2644c37">reverse_iterator</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>, p));</div>
+<div class="line"><a name="l01888"></a><span class="lineno"> 1888</span>&#160;        }</div>
+<div class="line"><a name="l01889"></a><span class="lineno"> 1889</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a7281b7389edfc69edb9dbf11e2644c37">reverse_iterator</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>));</div>
+<div class="line"><a name="l01890"></a><span class="lineno"> 1890</span>&#160;      }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_a7281b7389edfc69edb9dbf11e2644c37"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a7281b7389edfc69edb9dbf11e2644c37">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::reverse_iterator</a></div><div class="ttdeci">std::reverse_iterator&lt; iterator &gt; reverse_iterator</div><div class="ttdoc">The reverse iterator type.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:1763</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1249,14 +1249,14 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the last item in the index. </p>
-<div class="fragment"><div class="line"><a name="l01889"></a><span class="lineno"> 1889</span>&#160;      {</div>
-<div class="line"><a name="l01890"></a><span class="lineno"> 1890</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _triemax())</div>
-<div class="line"><a name="l01891"></a><span class="lineno"> 1891</span>&#160;        {</div>
-<div class="line"><a name="l01892"></a><span class="lineno"> 1892</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a514c2838e99d8efda8d30073c20c223a">const_reverse_iterator</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a1a5a03539e40491462d46f5e169e96fb">const_iterator</a>(<span class="keyword">this</span>, p));</div>
-<div class="line"><a name="l01893"></a><span class="lineno"> 1893</span>&#160;        }</div>
-<div class="line"><a name="l01894"></a><span class="lineno"> 1894</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a514c2838e99d8efda8d30073c20c223a">const_reverse_iterator</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a1a5a03539e40491462d46f5e169e96fb">const_iterator</a>(<span class="keyword">this</span>));</div>
-<div class="line"><a name="l01895"></a><span class="lineno"> 1895</span>&#160;      }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_a514c2838e99d8efda8d30073c20c223a"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a514c2838e99d8efda8d30073c20c223a">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::const_reverse_iterator</a></div><div class="ttdeci">std::reverse_iterator&lt; const_iterator &gt; const_reverse_iterator</div><div class="ttdoc">The const reverse iterator type.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:1761</div></div>
+<div class="fragment"><div class="line"><a name="l01893"></a><span class="lineno"> 1893</span>&#160;      {</div>
+<div class="line"><a name="l01894"></a><span class="lineno"> 1894</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _triemax())</div>
+<div class="line"><a name="l01895"></a><span class="lineno"> 1895</span>&#160;        {</div>
+<div class="line"><a name="l01896"></a><span class="lineno"> 1896</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a514c2838e99d8efda8d30073c20c223a">const_reverse_iterator</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a1a5a03539e40491462d46f5e169e96fb">const_iterator</a>(<span class="keyword">this</span>, p));</div>
+<div class="line"><a name="l01897"></a><span class="lineno"> 1897</span>&#160;        }</div>
+<div class="line"><a name="l01898"></a><span class="lineno"> 1898</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a514c2838e99d8efda8d30073c20c223a">const_reverse_iterator</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a1a5a03539e40491462d46f5e169e96fb">const_iterator</a>(<span class="keyword">this</span>));</div>
+<div class="line"><a name="l01899"></a><span class="lineno"> 1899</span>&#160;      }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_a514c2838e99d8efda8d30073c20c223a"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a514c2838e99d8efda8d30073c20c223a">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::const_reverse_iterator</a></div><div class="ttdeci">std::reverse_iterator&lt; const_iterator &gt; const_reverse_iterator</div><div class="ttdoc">The const reverse iterator type.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:1765</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1286,8 +1286,8 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the first item in the index. </p>
-<div class="fragment"><div class="line"><a name="l01897"></a><span class="lineno"> 1897</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afc6b15475a7b28d7b970ef99f05255a0">begin</a>(); }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_afc6b15475a7b28d7b970ef99f05255a0"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afc6b15475a7b28d7b970ef99f05255a0">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::begin</a></div><div class="ttdeci">iterator begin() noexcept</div><div class="ttdoc">Returns an iterator to the first item in the index.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:1861</div></div>
+<div class="fragment"><div class="line"><a name="l01901"></a><span class="lineno"> 1901</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afc6b15475a7b28d7b970ef99f05255a0">begin</a>(); }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_afc6b15475a7b28d7b970ef99f05255a0"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afc6b15475a7b28d7b970ef99f05255a0">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::begin</a></div><div class="ttdeci">iterator begin() noexcept</div><div class="ttdoc">Returns an iterator to the first item in the index.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:1865</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1317,8 +1317,8 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the last item in the index. </p>
-<div class="fragment"><div class="line"><a name="l01899"></a><span class="lineno"> 1899</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a0f0349ae3153ecf0f876c6ae87d1e5be">rbegin</a>(); }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_a0f0349ae3153ecf0f876c6ae87d1e5be"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a0f0349ae3153ecf0f876c6ae87d1e5be">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::rbegin</a></div><div class="ttdeci">reverse_iterator rbegin() noexcept</div><div class="ttdoc">Returns an iterator to the last item in the index.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:1879</div></div>
+<div class="fragment"><div class="line"><a name="l01903"></a><span class="lineno"> 1903</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a0f0349ae3153ecf0f876c6ae87d1e5be">rbegin</a>(); }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_a0f0349ae3153ecf0f876c6ae87d1e5be"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a0f0349ae3153ecf0f876c6ae87d1e5be">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::rbegin</a></div><div class="ttdeci">reverse_iterator rbegin() noexcept</div><div class="ttdoc">Returns an iterator to the last item in the index.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:1883</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1348,7 +1348,7 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the item after the last in the index. </p>
-<div class="fragment"><div class="line"><a name="l01901"></a><span class="lineno"> 1901</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>); }</div>
+<div class="fragment"><div class="line"><a name="l01905"></a><span class="lineno"> 1905</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1378,7 +1378,7 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the item before the first in the index. </p>
-<div class="fragment"><div class="line"><a name="l01903"></a><span class="lineno"> 1903</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a1a5a03539e40491462d46f5e169e96fb">const_iterator</a>(<span class="keyword">this</span>); }</div>
+<div class="fragment"><div class="line"><a name="l01907"></a><span class="lineno"> 1907</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a1a5a03539e40491462d46f5e169e96fb">const_iterator</a>(<span class="keyword">this</span>); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1408,7 +1408,7 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the item before the first in the index. </p>
-<div class="fragment"><div class="line"><a name="l01905"></a><span class="lineno"> 1905</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a7281b7389edfc69edb9dbf11e2644c37">reverse_iterator</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>)); }</div>
+<div class="fragment"><div class="line"><a name="l01909"></a><span class="lineno"> 1909</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a7281b7389edfc69edb9dbf11e2644c37">reverse_iterator</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>)); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1438,7 +1438,7 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the item before the first in the index. </p>
-<div class="fragment"><div class="line"><a name="l01907"></a><span class="lineno"> 1907</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a514c2838e99d8efda8d30073c20c223a">const_reverse_iterator</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a1a5a03539e40491462d46f5e169e96fb">const_iterator</a>(<span class="keyword">this</span>)); }</div>
+<div class="fragment"><div class="line"><a name="l01911"></a><span class="lineno"> 1911</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a514c2838e99d8efda8d30073c20c223a">const_reverse_iterator</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a1a5a03539e40491462d46f5e169e96fb">const_iterator</a>(<span class="keyword">this</span>)); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1468,7 +1468,7 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the item after the last in the index. </p>
-<div class="fragment"><div class="line"><a name="l01909"></a><span class="lineno"> 1909</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a1a5a03539e40491462d46f5e169e96fb">const_iterator</a>(<span class="keyword">this</span>); }</div>
+<div class="fragment"><div class="line"><a name="l01913"></a><span class="lineno"> 1913</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a1a5a03539e40491462d46f5e169e96fb">const_iterator</a>(<span class="keyword">this</span>); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1498,7 +1498,7 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the item before the first in the index. </p>
-<div class="fragment"><div class="line"><a name="l01911"></a><span class="lineno"> 1911</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a514c2838e99d8efda8d30073c20c223a">const_reverse_iterator</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a1a5a03539e40491462d46f5e169e96fb">const_iterator</a>(<span class="keyword">this</span>)); }</div>
+<div class="fragment"><div class="line"><a name="l01915"></a><span class="lineno"> 1915</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a514c2838e99d8efda8d30073c20c223a">const_reverse_iterator</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a1a5a03539e40491462d46f5e169e96fb">const_iterator</a>(<span class="keyword">this</span>)); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1528,14 +1528,14 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Clears the index. </p>
-<div class="fragment"><div class="line"><a name="l01915"></a><span class="lineno"> 1915</span>&#160;      {</div>
-<div class="line"><a name="l01916"></a><span class="lineno"> 1916</span>&#160;        <span class="keyword">auto</span> head = _head_accessors();</div>
-<div class="line"><a name="l01917"></a><span class="lineno"> 1917</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> n = 0; n &lt; _key_type_bits; n++)</div>
-<div class="line"><a name="l01918"></a><span class="lineno"> 1918</span>&#160;        {</div>
-<div class="line"><a name="l01919"></a><span class="lineno"> 1919</span>&#160;          head.set_child(n, <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l01920"></a><span class="lineno"> 1920</span>&#160;        }</div>
-<div class="line"><a name="l01921"></a><span class="lineno"> 1921</span>&#160;        head.set_size(0);</div>
-<div class="line"><a name="l01922"></a><span class="lineno"> 1922</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l01919"></a><span class="lineno"> 1919</span>&#160;      {</div>
+<div class="line"><a name="l01920"></a><span class="lineno"> 1920</span>&#160;        <span class="keyword">auto</span> head = _head_accessors();</div>
+<div class="line"><a name="l01921"></a><span class="lineno"> 1921</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> n = 0; n &lt; _key_type_bits; n++)</div>
+<div class="line"><a name="l01922"></a><span class="lineno"> 1922</span>&#160;        {</div>
+<div class="line"><a name="l01923"></a><span class="lineno"> 1923</span>&#160;          head.set_child(n, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l01924"></a><span class="lineno"> 1924</span>&#160;        }</div>
+<div class="line"><a name="l01925"></a><span class="lineno"> 1925</span>&#160;        head.set_size(0);</div>
+<div class="line"><a name="l01926"></a><span class="lineno"> 1926</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1566,8 +1566,8 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Return how many items with key there are. </p>
-<div class="fragment"><div class="line"><a name="l01924"></a><span class="lineno"> 1924</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a62db1c06d35d6b7cfd31689775acf683">count</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#aff4143d9160846a980eb35cd78c34293">find</a>(k)); }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_aff4143d9160846a980eb35cd78c34293"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#aff4143d9160846a980eb35cd78c34293">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::find</a></div><div class="ttdeci">iterator find(key_type k) const noexcept</div><div class="ttdoc">Finds an item.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:1983</div></div>
+<div class="fragment"><div class="line"><a name="l01928"></a><span class="lineno"> 1928</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a62db1c06d35d6b7cfd31689775acf683">count</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#aff4143d9160846a980eb35cd78c34293">find</a>(k)); }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_aff4143d9160846a980eb35cd78c34293"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#aff4143d9160846a980eb35cd78c34293">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::find</a></div><div class="ttdeci">iterator find(key_type k) const noexcept</div><div class="ttdoc">Finds an item.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:1987</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1598,21 +1598,21 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Return how many items with the same key as iterator there are. </p>
-<div class="fragment"><div class="line"><a name="l01927"></a><span class="lineno"> 1927</span>&#160;      {</div>
-<div class="line"><a name="l01928"></a><span class="lineno"> 1928</span>&#160;        <span class="keywordflow">if</span>(it != <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#abe8c14752a501d01fdc5d7a54c02d8b4">end</a>())</div>
-<div class="line"><a name="l01929"></a><span class="lineno"> 1929</span>&#160;        {</div>
-<div class="line"><a name="l01930"></a><span class="lineno"> 1930</span>&#160;          <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a27f4fa59f253c67025076a3cfe1b1312">size_type</a> ret = 1;</div>
-<div class="line"><a name="l01931"></a><span class="lineno"> 1931</span>&#160;          <span class="keyword">auto</span> plink = _item_accessors(it._p);</div>
-<div class="line"><a name="l01932"></a><span class="lineno"> 1932</span>&#160;          <span class="keywordflow">for</span>(<span class="keyword">auto</span> *i = plink.sibling(<span class="keyword">true</span>); i != it._p; i = _item_accessors(i).sibling(<span class="keyword">true</span>))</div>
-<div class="line"><a name="l01933"></a><span class="lineno"> 1933</span>&#160;          {</div>
-<div class="line"><a name="l01934"></a><span class="lineno"> 1934</span>&#160;            ret++;</div>
-<div class="line"><a name="l01935"></a><span class="lineno"> 1935</span>&#160;          }</div>
-<div class="line"><a name="l01936"></a><span class="lineno"> 1936</span>&#160;          <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l01937"></a><span class="lineno"> 1937</span>&#160;        }</div>
-<div class="line"><a name="l01938"></a><span class="lineno"> 1938</span>&#160;        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l01939"></a><span class="lineno"> 1939</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l01931"></a><span class="lineno"> 1931</span>&#160;      {</div>
+<div class="line"><a name="l01932"></a><span class="lineno"> 1932</span>&#160;        <span class="keywordflow">if</span>(it != <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#abe8c14752a501d01fdc5d7a54c02d8b4">end</a>())</div>
+<div class="line"><a name="l01933"></a><span class="lineno"> 1933</span>&#160;        {</div>
+<div class="line"><a name="l01934"></a><span class="lineno"> 1934</span>&#160;          <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a27f4fa59f253c67025076a3cfe1b1312">size_type</a> ret = 1;</div>
+<div class="line"><a name="l01935"></a><span class="lineno"> 1935</span>&#160;          <span class="keyword">auto</span> plink = _item_accessors(it._p);</div>
+<div class="line"><a name="l01936"></a><span class="lineno"> 1936</span>&#160;          <span class="keywordflow">for</span>(<span class="keyword">auto</span> *i = plink.sibling(<span class="keyword">true</span>); i != it._p; i = _item_accessors(i).sibling(<span class="keyword">true</span>))</div>
+<div class="line"><a name="l01937"></a><span class="lineno"> 1937</span>&#160;          {</div>
+<div class="line"><a name="l01938"></a><span class="lineno"> 1938</span>&#160;            ret++;</div>
+<div class="line"><a name="l01939"></a><span class="lineno"> 1939</span>&#160;          }</div>
+<div class="line"><a name="l01940"></a><span class="lineno"> 1940</span>&#160;          <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l01941"></a><span class="lineno"> 1941</span>&#160;        }</div>
+<div class="line"><a name="l01942"></a><span class="lineno"> 1942</span>&#160;        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l01943"></a><span class="lineno"> 1943</span>&#160;      }</div>
 <div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_a27f4fa59f253c67025076a3cfe1b1312"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a27f4fa59f253c67025076a3cfe1b1312">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::size_type</a></div><div class="ttdeci">decltype(bitwise_trie_head_accessors&lt; const Base, const ItemType &gt;(nullptr).size()) size_type</div><div class="ttdoc">The size type.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:525</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_abe8c14752a501d01fdc5d7a54c02d8b4"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#abe8c14752a501d01fdc5d7a54c02d8b4">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::end</a></div><div class="ttdeci">iterator end() noexcept</div><div class="ttdoc">Returns an iterator to the item after the last in the index.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:1901</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_abe8c14752a501d01fdc5d7a54c02d8b4"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#abe8c14752a501d01fdc5d7a54c02d8b4">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::end</a></div><div class="ttdeci">iterator end() noexcept</div><div class="ttdoc">Returns an iterator to the item after the last in the index.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:1905</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1643,23 +1643,23 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 <p>Inserts a new item, returning an iterator to the new item if the key is new. If there is an item with that key already, if sibling storage is enabled, insert a new item with the same key. If sibling storage is disabled, return an iterator to the existing item.</p>
 <p>If the maximum number of items has been inserted, if C++ exceptions are disabled or <code>QUICKCPPLIB_ALGORITHM_BITWISE_TRIE_DISABLE_EXCEPTION_THROWS != 0</code>, the returned iterator is invalid if there is no more space. Otherwise it throws <code>std::length_error</code>. </p>
-<div class="fragment"><div class="line"><a name="l01949"></a><span class="lineno"> 1949</span>&#160;      {</div>
-<div class="line"><a name="l01950"></a><span class="lineno"> 1950</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a97276d58c6725903af27de781a068e88">size</a>() == <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#aa5bf62a08c14eff14caa086b16049818">max_size</a>())</div>
-<div class="line"><a name="l01951"></a><span class="lineno"> 1951</span>&#160;        {</div>
-<div class="line"><a name="l01952"></a><span class="lineno"> 1952</span>&#160;<span class="preprocessor">#if __cpp_exceptions &amp;&amp; !QUICKCPPLIB_ALGORITHM_BITWISE_TRIE_DISABLE_EXCEPTION_THROWS</span></div>
-<div class="line"><a name="l01953"></a><span class="lineno"> 1953</span>&#160;          <span class="keywordflow">throw</span> std::length_error(<span class="stringliteral">&quot;too many items&quot;</span>);</div>
-<div class="line"><a name="l01954"></a><span class="lineno"> 1954</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l01955"></a><span class="lineno"> 1955</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#abe8c14752a501d01fdc5d7a54c02d8b4">end</a>();</div>
-<div class="line"><a name="l01956"></a><span class="lineno"> 1956</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01957"></a><span class="lineno"> 1957</span>&#160;        }</div>
-<div class="line"><a name="l01958"></a><span class="lineno"> 1958</span>&#160;        p = _trieinsert(p);</div>
-<div class="line"><a name="l01959"></a><span class="lineno"> 1959</span>&#160;        <span class="keywordflow">if</span>(p != <span class="keyword">nullptr</span>)</div>
-<div class="line"><a name="l01960"></a><span class="lineno"> 1960</span>&#160;        {</div>
-<div class="line"><a name="l01961"></a><span class="lineno"> 1961</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>, p);</div>
-<div class="line"><a name="l01962"></a><span class="lineno"> 1962</span>&#160;        }</div>
-<div class="line"><a name="l01963"></a><span class="lineno"> 1963</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#abe8c14752a501d01fdc5d7a54c02d8b4">end</a>();</div>
-<div class="line"><a name="l01964"></a><span class="lineno"> 1964</span>&#160;      }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_aa5bf62a08c14eff14caa086b16049818"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#aa5bf62a08c14eff14caa086b16049818">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::max_size</a></div><div class="ttdeci">constexpr size_type max_size() const noexcept</div><div class="ttdoc">Returns the maximum number of items in the index.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:1821</div></div>
+<div class="fragment"><div class="line"><a name="l01953"></a><span class="lineno"> 1953</span>&#160;      {</div>
+<div class="line"><a name="l01954"></a><span class="lineno"> 1954</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a97276d58c6725903af27de781a068e88">size</a>() == <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#aa5bf62a08c14eff14caa086b16049818">max_size</a>())</div>
+<div class="line"><a name="l01955"></a><span class="lineno"> 1955</span>&#160;        {</div>
+<div class="line"><a name="l01956"></a><span class="lineno"> 1956</span>&#160;<span class="preprocessor">#if __cpp_exceptions &amp;&amp; !QUICKCPPLIB_ALGORITHM_BITWISE_TRIE_DISABLE_EXCEPTION_THROWS</span></div>
+<div class="line"><a name="l01957"></a><span class="lineno"> 1957</span>&#160;          <span class="keywordflow">throw</span> std::length_error(<span class="stringliteral">&quot;too many items&quot;</span>);</div>
+<div class="line"><a name="l01958"></a><span class="lineno"> 1958</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l01959"></a><span class="lineno"> 1959</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#abe8c14752a501d01fdc5d7a54c02d8b4">end</a>();</div>
+<div class="line"><a name="l01960"></a><span class="lineno"> 1960</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01961"></a><span class="lineno"> 1961</span>&#160;        }</div>
+<div class="line"><a name="l01962"></a><span class="lineno"> 1962</span>&#160;        p = _trieinsert(p);</div>
+<div class="line"><a name="l01963"></a><span class="lineno"> 1963</span>&#160;        <span class="keywordflow">if</span>(p != <span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l01964"></a><span class="lineno"> 1964</span>&#160;        {</div>
+<div class="line"><a name="l01965"></a><span class="lineno"> 1965</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>, p);</div>
+<div class="line"><a name="l01966"></a><span class="lineno"> 1966</span>&#160;        }</div>
+<div class="line"><a name="l01967"></a><span class="lineno"> 1967</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#abe8c14752a501d01fdc5d7a54c02d8b4">end</a>();</div>
+<div class="line"><a name="l01968"></a><span class="lineno"> 1968</span>&#160;      }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_aa5bf62a08c14eff14caa086b16049818"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#aa5bf62a08c14eff14caa086b16049818">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::max_size</a></div><div class="ttdeci">constexpr size_type max_size() const noexcept</div><div class="ttdoc">Returns the maximum number of items in the index.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:1825</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1690,17 +1690,17 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Erases an item. </p>
-<div class="fragment"><div class="line"><a name="l01967"></a><span class="lineno"> 1967</span>&#160;      {</div>
-<div class="line"><a name="l01968"></a><span class="lineno"> 1968</span>&#160;        <span class="keywordflow">if</span>(it == <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#abe8c14752a501d01fdc5d7a54c02d8b4">end</a>())</div>
-<div class="line"><a name="l01969"></a><span class="lineno"> 1969</span>&#160;        {</div>
-<div class="line"><a name="l01970"></a><span class="lineno"> 1970</span>&#160;          assert(it != <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#abe8c14752a501d01fdc5d7a54c02d8b4">end</a>());</div>
-<div class="line"><a name="l01971"></a><span class="lineno"> 1971</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#abe8c14752a501d01fdc5d7a54c02d8b4">end</a>();</div>
-<div class="line"><a name="l01972"></a><span class="lineno"> 1972</span>&#160;        }</div>
-<div class="line"><a name="l01973"></a><span class="lineno"> 1973</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a> ret(<span class="keyword">this</span>, <span class="keyword">const_cast&lt;</span><a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a2bc41c44e0eaf0ddac310e3f60cb285b">pointer</a><span class="keyword">&gt;</span>(it._p));</div>
-<div class="line"><a name="l01974"></a><span class="lineno"> 1974</span>&#160;        ++ret;</div>
-<div class="line"><a name="l01975"></a><span class="lineno"> 1975</span>&#160;        _trieremove(<span class="keyword">const_cast&lt;</span><a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a2bc41c44e0eaf0ddac310e3f60cb285b">pointer</a><span class="keyword">&gt;</span>(it._p));</div>
-<div class="line"><a name="l01976"></a><span class="lineno"> 1976</span>&#160;        <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l01977"></a><span class="lineno"> 1977</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l01971"></a><span class="lineno"> 1971</span>&#160;      {</div>
+<div class="line"><a name="l01972"></a><span class="lineno"> 1972</span>&#160;        <span class="keywordflow">if</span>(it == <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#abe8c14752a501d01fdc5d7a54c02d8b4">end</a>())</div>
+<div class="line"><a name="l01973"></a><span class="lineno"> 1973</span>&#160;        {</div>
+<div class="line"><a name="l01974"></a><span class="lineno"> 1974</span>&#160;          assert(it != <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#abe8c14752a501d01fdc5d7a54c02d8b4">end</a>());</div>
+<div class="line"><a name="l01975"></a><span class="lineno"> 1975</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#abe8c14752a501d01fdc5d7a54c02d8b4">end</a>();</div>
+<div class="line"><a name="l01976"></a><span class="lineno"> 1976</span>&#160;        }</div>
+<div class="line"><a name="l01977"></a><span class="lineno"> 1977</span>&#160;        <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a> ret(<span class="keyword">this</span>, <span class="keyword">const_cast&lt;</span><a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a2bc41c44e0eaf0ddac310e3f60cb285b">pointer</a><span class="keyword">&gt;</span>(it._p));</div>
+<div class="line"><a name="l01978"></a><span class="lineno"> 1978</span>&#160;        ++ret;</div>
+<div class="line"><a name="l01979"></a><span class="lineno"> 1979</span>&#160;        _trieremove(<span class="keyword">const_cast&lt;</span><a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a2bc41c44e0eaf0ddac310e3f60cb285b">pointer</a><span class="keyword">&gt;</span>(it._p));</div>
+<div class="line"><a name="l01980"></a><span class="lineno"> 1980</span>&#160;        <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l01981"></a><span class="lineno"> 1981</span>&#160;      }</div>
 <div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_a2bc41c44e0eaf0ddac310e3f60cb285b"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a2bc41c44e0eaf0ddac310e3f60cb285b">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::pointer</a></div><div class="ttdeci">ItemType * pointer</div><div class="ttdoc">A pointer to the type of item indexed.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:533</div></div>
 </div><!-- fragment -->
 </div>
@@ -1732,7 +1732,7 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Erases an item. </p>
-<div class="fragment"><div class="line"><a name="l01979"></a><span class="lineno"> 1979</span>&#160;{ _trieremove(p); }</div>
+<div class="fragment"><div class="line"><a name="l01983"></a><span class="lineno"> 1983</span>&#160;{ _trieremove(p); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1763,8 +1763,8 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Erases an item. </p>
-<div class="fragment"><div class="line"><a name="l01981"></a><span class="lineno"> 1981</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a83244dfe9114ad14b69ac3ed8fbdae5b">erase</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#aff4143d9160846a980eb35cd78c34293">find</a>(k)); }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_a83244dfe9114ad14b69ac3ed8fbdae5b"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a83244dfe9114ad14b69ac3ed8fbdae5b">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::erase</a></div><div class="ttdeci">iterator erase(const_iterator it) noexcept</div><div class="ttdoc">Erases an item.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:1966</div></div>
+<div class="fragment"><div class="line"><a name="l01985"></a><span class="lineno"> 1985</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a83244dfe9114ad14b69ac3ed8fbdae5b">erase</a>(<a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#aff4143d9160846a980eb35cd78c34293">find</a>(k)); }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie_html_a83244dfe9114ad14b69ac3ed8fbdae5b"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#a83244dfe9114ad14b69ac3ed8fbdae5b">quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie::erase</a></div><div class="ttdeci">iterator erase(const_iterator it) noexcept</div><div class="ttdoc">Erases an item.</div><div class="ttdef"><b>Definition:</b> bitwise_trie.hpp:1970</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1795,13 +1795,13 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Finds an item. </p>
-<div class="fragment"><div class="line"><a name="l01984"></a><span class="lineno"> 1984</span>&#160;      {</div>
-<div class="line"><a name="l01985"></a><span class="lineno"> 1985</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _triefind(k))</div>
-<div class="line"><a name="l01986"></a><span class="lineno"> 1986</span>&#160;        {</div>
-<div class="line"><a name="l01987"></a><span class="lineno"> 1987</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>, p);</div>
-<div class="line"><a name="l01988"></a><span class="lineno"> 1988</span>&#160;        }</div>
-<div class="line"><a name="l01989"></a><span class="lineno"> 1989</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>);</div>
-<div class="line"><a name="l01990"></a><span class="lineno"> 1990</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l01988"></a><span class="lineno"> 1988</span>&#160;      {</div>
+<div class="line"><a name="l01989"></a><span class="lineno"> 1989</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _triefind(k))</div>
+<div class="line"><a name="l01990"></a><span class="lineno"> 1990</span>&#160;        {</div>
+<div class="line"><a name="l01991"></a><span class="lineno"> 1991</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>, p);</div>
+<div class="line"><a name="l01992"></a><span class="lineno"> 1992</span>&#160;        }</div>
+<div class="line"><a name="l01993"></a><span class="lineno"> 1993</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>);</div>
+<div class="line"><a name="l01994"></a><span class="lineno"> 1994</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1849,13 +1849,13 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 <li><code>rounds = 3</code> returns an item with key 95.1% close to the ideal key.</li>
 <li><code>rounds = 2</code> returns an item with key 92% close to the ideal key. </li>
 </ul>
-<div class="fragment"><div class="line"><a name="l02004"></a><span class="lineno"> 2004</span>&#160;      {</div>
-<div class="line"><a name="l02005"></a><span class="lineno"> 2005</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _trieCfind(k, rounds))</div>
-<div class="line"><a name="l02006"></a><span class="lineno"> 2006</span>&#160;        {</div>
-<div class="line"><a name="l02007"></a><span class="lineno"> 2007</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>, p);</div>
-<div class="line"><a name="l02008"></a><span class="lineno"> 2008</span>&#160;        }</div>
-<div class="line"><a name="l02009"></a><span class="lineno"> 2009</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>);</div>
-<div class="line"><a name="l02010"></a><span class="lineno"> 2010</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l02008"></a><span class="lineno"> 2008</span>&#160;      {</div>
+<div class="line"><a name="l02009"></a><span class="lineno"> 2009</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _trieCfind(k, rounds))</div>
+<div class="line"><a name="l02010"></a><span class="lineno"> 2010</span>&#160;        {</div>
+<div class="line"><a name="l02011"></a><span class="lineno"> 2011</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>, p);</div>
+<div class="line"><a name="l02012"></a><span class="lineno"> 2012</span>&#160;        }</div>
+<div class="line"><a name="l02013"></a><span class="lineno"> 2013</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>);</div>
+<div class="line"><a name="l02014"></a><span class="lineno"> 2014</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1885,13 +1885,13 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </table>
 </div><div class="memdoc">
 <p>Finds either an item with identical key, or an item with the guaranteed next largest key. This is identical to <code>close_find(k, INT64_MAX)</code> and its average case complexity is <code>O(log N)</code> where <code>N</code> is the number of items in the index with the same top bit set. This is equivalent to <code>upper_bound(k - 1)</code>. </p>
-<div class="fragment"><div class="line"><a name="l02015"></a><span class="lineno"> 2015</span>&#160;      {</div>
-<div class="line"><a name="l02016"></a><span class="lineno"> 2016</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _trieCfind(k, INT64_MAX))</div>
-<div class="line"><a name="l02017"></a><span class="lineno"> 2017</span>&#160;        {</div>
-<div class="line"><a name="l02018"></a><span class="lineno"> 2018</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>, p);</div>
-<div class="line"><a name="l02019"></a><span class="lineno"> 2019</span>&#160;        }</div>
-<div class="line"><a name="l02020"></a><span class="lineno"> 2020</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>);</div>
-<div class="line"><a name="l02021"></a><span class="lineno"> 2021</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l02019"></a><span class="lineno"> 2019</span>&#160;      {</div>
+<div class="line"><a name="l02020"></a><span class="lineno"> 2020</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _trieCfind(k, INT64_MAX))</div>
+<div class="line"><a name="l02021"></a><span class="lineno"> 2021</span>&#160;        {</div>
+<div class="line"><a name="l02022"></a><span class="lineno"> 2022</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>, p);</div>
+<div class="line"><a name="l02023"></a><span class="lineno"> 2023</span>&#160;        }</div>
+<div class="line"><a name="l02024"></a><span class="lineno"> 2024</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>);</div>
+<div class="line"><a name="l02025"></a><span class="lineno"> 2025</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1922,13 +1922,13 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Finds the item next larger than the key. This is equivalent to <code>find_equal_or_next_largest(k + 1)</code>. </p>
-<div class="fragment"><div class="line"><a name="l02024"></a><span class="lineno"> 2024</span>&#160;      {</div>
-<div class="line"><a name="l02025"></a><span class="lineno"> 2025</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _trieCfind(k + 1, INT64_MAX))</div>
-<div class="line"><a name="l02026"></a><span class="lineno"> 2026</span>&#160;        {</div>
-<div class="line"><a name="l02027"></a><span class="lineno"> 2027</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>, p);</div>
-<div class="line"><a name="l02028"></a><span class="lineno"> 2028</span>&#160;        }</div>
-<div class="line"><a name="l02029"></a><span class="lineno"> 2029</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>);</div>
-<div class="line"><a name="l02030"></a><span class="lineno"> 2030</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l02028"></a><span class="lineno"> 2028</span>&#160;      {</div>
+<div class="line"><a name="l02029"></a><span class="lineno"> 2029</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _trieCfind(k + 1, INT64_MAX))</div>
+<div class="line"><a name="l02030"></a><span class="lineno"> 2030</span>&#160;        {</div>
+<div class="line"><a name="l02031"></a><span class="lineno"> 2031</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>, p);</div>
+<div class="line"><a name="l02032"></a><span class="lineno"> 2032</span>&#160;        }</div>
+<div class="line"><a name="l02033"></a><span class="lineno"> 2033</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>);</div>
+<div class="line"><a name="l02034"></a><span class="lineno"> 2034</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1969,13 +1969,13 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Estimate the item next larger than the key. This is equivalent to <code>find_equal_or_larger(k + 1, rounds)</code>. </p>
-<div class="fragment"><div class="line"><a name="l02033"></a><span class="lineno"> 2033</span>&#160;      {</div>
-<div class="line"><a name="l02034"></a><span class="lineno"> 2034</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _trieCfind(k + 1, rounds))</div>
-<div class="line"><a name="l02035"></a><span class="lineno"> 2035</span>&#160;        {</div>
-<div class="line"><a name="l02036"></a><span class="lineno"> 2036</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>, p);</div>
-<div class="line"><a name="l02037"></a><span class="lineno"> 2037</span>&#160;        }</div>
-<div class="line"><a name="l02038"></a><span class="lineno"> 2038</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>);</div>
-<div class="line"><a name="l02039"></a><span class="lineno"> 2039</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l02037"></a><span class="lineno"> 2037</span>&#160;      {</div>
+<div class="line"><a name="l02038"></a><span class="lineno"> 2038</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _trieCfind(k + 1, rounds))</div>
+<div class="line"><a name="l02039"></a><span class="lineno"> 2039</span>&#160;        {</div>
+<div class="line"><a name="l02040"></a><span class="lineno"> 2040</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>, p);</div>
+<div class="line"><a name="l02041"></a><span class="lineno"> 2041</span>&#160;        }</div>
+<div class="line"><a name="l02042"></a><span class="lineno"> 2042</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html#afdcfc1ab4f606f449a614d1ff8ce7b53">iterator</a>(<span class="keyword">this</span>);</div>
+<div class="line"><a name="l02043"></a><span class="lineno"> 2043</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2006,7 +2006,7 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>True if the index contains the key. </p>
-<div class="fragment"><div class="line"><a name="l02041"></a><span class="lineno"> 2041</span>&#160;{ <span class="keywordflow">return</span> <span class="keyword">nullptr</span> != _triefind(k); }</div>
+<div class="fragment"><div class="line"><a name="l02045"></a><span class="lineno"> 2045</span>&#160;{ <span class="keywordflow">return</span> <span class="keyword">nullptr</span> != _triefind(k); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2037,13 +2037,13 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns a reference to the specified element, aborting if key not found. </p>
-<div class="fragment"><div class="line"><a name="l02044"></a><span class="lineno"> 2044</span>&#160;      {</div>
-<div class="line"><a name="l02045"></a><span class="lineno"> 2045</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _triefind(k))</div>
-<div class="line"><a name="l02046"></a><span class="lineno"> 2046</span>&#160;        {</div>
-<div class="line"><a name="l02047"></a><span class="lineno"> 2047</span>&#160;          <span class="keywordflow">return</span> *p;</div>
-<div class="line"><a name="l02048"></a><span class="lineno"> 2048</span>&#160;        }</div>
-<div class="line"><a name="l02049"></a><span class="lineno"> 2049</span>&#160;        abort();</div>
-<div class="line"><a name="l02050"></a><span class="lineno"> 2050</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l02048"></a><span class="lineno"> 2048</span>&#160;      {</div>
+<div class="line"><a name="l02049"></a><span class="lineno"> 2049</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _triefind(k))</div>
+<div class="line"><a name="l02050"></a><span class="lineno"> 2050</span>&#160;        {</div>
+<div class="line"><a name="l02051"></a><span class="lineno"> 2051</span>&#160;          <span class="keywordflow">return</span> *p;</div>
+<div class="line"><a name="l02052"></a><span class="lineno"> 2052</span>&#160;        }</div>
+<div class="line"><a name="l02053"></a><span class="lineno"> 2053</span>&#160;        abort();</div>
+<div class="line"><a name="l02054"></a><span class="lineno"> 2054</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2074,13 +2074,13 @@ template&lt;class Base , class ItemType , int NobbleDir = 0&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns a reference to the specified element, aborting if key not found. </p>
-<div class="fragment"><div class="line"><a name="l02053"></a><span class="lineno"> 2053</span>&#160;      {</div>
-<div class="line"><a name="l02054"></a><span class="lineno"> 2054</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _triefind(k))</div>
-<div class="line"><a name="l02055"></a><span class="lineno"> 2055</span>&#160;        {</div>
-<div class="line"><a name="l02056"></a><span class="lineno"> 2056</span>&#160;          <span class="keywordflow">return</span> *p;</div>
-<div class="line"><a name="l02057"></a><span class="lineno"> 2057</span>&#160;        }</div>
-<div class="line"><a name="l02058"></a><span class="lineno"> 2058</span>&#160;        abort();</div>
-<div class="line"><a name="l02059"></a><span class="lineno"> 2059</span>&#160;      }</div>
+<div class="fragment"><div class="line"><a name="l02057"></a><span class="lineno"> 2057</span>&#160;      {</div>
+<div class="line"><a name="l02058"></a><span class="lineno"> 2058</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> p = _triefind(k))</div>
+<div class="line"><a name="l02059"></a><span class="lineno"> 2059</span>&#160;        {</div>
+<div class="line"><a name="l02060"></a><span class="lineno"> 2060</span>&#160;          <span class="keywordflow">return</span> *p;</div>
+<div class="line"><a name="l02061"></a><span class="lineno"> 2061</span>&#160;        }</div>
+<div class="line"><a name="l02062"></a><span class="lineno"> 2062</span>&#160;        abort();</div>
+<div class="line"><a name="l02063"></a><span class="lineno"> 2063</span>&#160;      }</div>
 </div><!-- fragment -->
 </div>
 </div>
