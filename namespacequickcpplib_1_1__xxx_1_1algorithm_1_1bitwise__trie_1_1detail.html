@@ -139,12 +139,12 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="preprocessor">#if defined(_MSC_VER) &amp;&amp; !defined(__cplusplus_cli)</span></div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        {</div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;          <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> bitpos;</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="preprocessor">#if defined(_M_IA64) || defined(_M_X64) || defined(WIN64)</span></div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="preprocessor">#if defined(_M_IA64) || defined(_M_X64) || defined(WIN64) || defined(_WIN64) </span></div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;          assert(8 == <span class="keyword">sizeof</span>(<span class="keywordtype">size_t</span>));</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;          _BitScanReverse64(&amp;bitpos, value);</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;          assert(4 == <span class="keyword">sizeof</span>(<span class="keywordtype">size_t</span>));</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;          _BitScanReverse(&amp;bitpos, value);</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;          _BitScanReverse(&amp;bitpos, (<span class="keywordtype">unsigned</span>) value);</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;          <span class="keywordflow">return</span> (<span class="keywordtype">unsigned</span>) bitpos;</div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        }</div>
