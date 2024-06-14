@@ -79,14 +79,16 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / threadlocal, "Tests that signal_guar
   std::cout << "2" << std::endl;
   {
     int ret = signal_guard(
-    signalc_set::cxx_termination, []() -> int { std::terminate(); }, [](const raised_signal_info * /*unused*/) -> int { return 78; });
+    signalc_set::cxx_termination, []() -> int { std::terminate(); },
+    [](const raised_signal_info * /*unused*/) -> int { return 78; });
     BOOST_CHECK(ret == 78);
   }
   std::cout << "3" << std::endl;
   {
     int ret = signal_guard(
     signalc_set::segmentation_fault,
-    []() -> int {
+    []() -> int
+    {
       thrd_raise_signal(signalc::segmentation_fault);
       return 5;
     },
@@ -101,8 +103,9 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / global, "Tests that signal_guard wor
   using namespace QUICKCPPLIB_NAMESPACE::signal_guard;
   std::cout << "1" << std::endl;
   jmp_buf buf;
-  auto decider = make_signal_guard_global_decider(signalc_set::segmentation_fault | signalc_set::cxx_termination,
-                                                  [&buf](raised_signal_info * /*unused*/) -> bool { longjmp(buf, 78); });
+  auto decider =
+  make_signal_guard_global_decider(signalc_set::segmentation_fault | signalc_set::cxx_termination,
+                                   [&buf](raised_signal_info * /*unused*/) -> bool { longjmp(buf, 78); });
   auto ret = setjmp(buf);
   if(!ret)
   {
@@ -157,7 +160,8 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / watchdog, "Tests that the signal_gua
 }
 
 // This routine is async signal safe, apart from malloc. Probably okay most of the time ?!?
-template <class Printer> inline void _symbolise_stack_backtrace(Printer &&print, QUICKCPPLIB_NAMESPACE::span::span<void *> bt)
+template <class Printer>
+inline void _symbolise_stack_backtrace(Printer &&print, QUICKCPPLIB_NAMESPACE::span::span<void *> bt)
 {
 #ifdef _WIN32
   // There isn't an implementation of backtrace_symbols_fd() for Windows, so
@@ -188,11 +192,15 @@ template <class Printer> inline void _symbolise_stack_backtrace(Printer &&print,
     {
       writeh.fd = temp[0];
       childwriteh.fd = temp[1];
-      auto unmypipes = QUICKCPPLIB_NAMESPACE::scope::make_scope_exit([&]() noexcept {
+      auto unmypipes = QUICKCPPLIB_NAMESPACE::scope::make_scope_exit(
+      [&]() noexcept
+      {
         (void) ::close(readh.fd);
         (void) ::close(writeh.fd);
       });
-      auto unhispipes = QUICKCPPLIB_NAMESPACE::scope::make_scope_exit([&]() noexcept {
+      auto unhispipes = QUICKCPPLIB_NAMESPACE::scope::make_scope_exit(
+      [&]() noexcept
+      {
         (void) ::close(childreadh.fd);
         (void) ::close(childwriteh.fd);
       });
@@ -202,7 +210,8 @@ template <class Printer> inline void _symbolise_stack_backtrace(Printer &&print,
       posix_spawn_file_actions_t child_fd_actions;
       if(!::posix_spawn_file_actions_init(&child_fd_actions))
       {
-        auto unactions = QUICKCPPLIB_NAMESPACE::scope::make_scope_exit([&]() noexcept { ::posix_spawn_file_actions_destroy(&child_fd_actions); });
+        auto unactions = QUICKCPPLIB_NAMESPACE::scope::make_scope_exit(
+        [&]() noexcept { ::posix_spawn_file_actions_destroy(&child_fd_actions); });
         if(!::posix_spawn_file_actions_adddup2(&child_fd_actions, childreadh.fd, STDIN_FILENO))
         {
           if(!::posix_spawn_file_actions_addclose(&child_fd_actions, childreadh.fd))
@@ -214,7 +223,8 @@ template <class Printer> inline void _symbolise_stack_backtrace(Printer &&print,
                 pid_t pid;
                 std::vector<const char *> argptrs(2);
                 argptrs[0] = "llvm-symbolizer";
-                if(!::posix_spawnp(&pid, "llvm-symbolizer", &child_fd_actions, nullptr, (char **) argptrs.data(), environ))
+                if(!::posix_spawnp(&pid, "llvm-symbolizer", &child_fd_actions, nullptr, (char **) argptrs.data(),
+                                   environ))
                 {
                   (void) ::close(childreadh.fd);
                   (void) ::close(childwriteh.fd);
@@ -264,7 +274,9 @@ template <class Printer> inline void _symbolise_stack_backtrace(Printer &&print,
                   sigemptyset(&toblock);
                   sigaddset(&toblock, SIGPIPE);
                   pthread_sigmask(SIG_BLOCK, &toblock, &oldset);
-                  auto unsigmask = QUICKCPPLIB_NAMESPACE::scope::make_scope_exit([&toblock, &oldset]() noexcept {
+                  auto unsigmask = QUICKCPPLIB_NAMESPACE::scope::make_scope_exit(
+                  [&toblock, &oldset]() noexcept
+                  {
 #ifdef __APPLE__
                     pthread_kill(pthread_self(), SIGPIPE);
                     int cleared = 0;
@@ -305,7 +317,8 @@ template <class Printer> inline void _symbolise_stack_backtrace(Printer &&print,
                     // We want the second line from every section separated by a double newline
                     size_t n = 0;
                     done = 1;
-                    auto printitem = [&](size_t idx) {
+                    auto printitem = [&](size_t idx)
+                    {
                       print("\n   ");
                       auto idx2 = addrs.find(10, idx), idx3 = addrs.find(10, idx2 + 1);
                       QUICKCPPLIB_NAMESPACE::string_view::string_view sv(addrs.data() + idx2 + 1, idx3 - idx2 - 1);
@@ -323,7 +336,8 @@ template <class Printer> inline void _symbolise_stack_backtrace(Printer &&print,
                       n++;
                     };
                     size_t oldidx = 0;
-                    for(size_t idx = addrs.find("\n\n"); idx != std::string::npos; oldidx = idx + 2, idx = addrs.find("\n\n", idx + 1))
+                    for(size_t idx = addrs.find("\n\n"); idx != std::string::npos;
+                        oldidx = idx + 2, idx = addrs.find("\n\n", idx + 1))
                     {
                       printitem(oldidx);
                     }
@@ -365,7 +379,8 @@ template <class Printer> inline void _symbolise_stack_backtrace(Printer &&print,
 #endif
 }
 
-BOOST_AUTO_TEST_CASE(signal_guard / works / multithreaded, "Tests that signal_guard works as advertised across multiple threads")
+BOOST_AUTO_TEST_CASE(signal_guard / works / multithreaded,
+                     "Tests that signal_guard works as advertised across multiple threads")
 {
 #if QUICKCPPLIB_IN_THREAD_SANITIZER
   return;  // hangs tsan, indeed you can't even Ctrl-C out of it!
@@ -379,14 +394,19 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / multithreaded, "Tests that signal_gu
   static thread_local jmp_buf buf;
   static std::atomic<bool> done(false);
   auto handler = QUICKCPPLIB_NAMESPACE::signal_guard::make_signal_guard_global_decider(
-  QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::abort_process | QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::undefined_memory_access |
-  QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::illegal_instruction | QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::segmentation_fault |
-  QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::floating_point_error | QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::cxx_out_of_memory |
+  QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::abort_process |
+  QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::undefined_memory_access |
+  QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::illegal_instruction |
+  QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::segmentation_fault |
+  QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::floating_point_error |
+  QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::cxx_out_of_memory |
   QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::cxx_termination,
-  [](QUICKCPPLIB_NAMESPACE::signal_guard::raised_signal_info *rsi) -> bool {
+  [](QUICKCPPLIB_NAMESPACE::signal_guard::raised_signal_info *rsi) -> bool
+  {
     void *bt[64];
     auto btlen = ::backtrace(bt, 64);
-    auto print = [](const char *s, size_t len = (size_t) -1) {
+    auto print = [](const char *s, size_t len = (size_t) -1)
+    {
       if(len == (size_t) -1)
       {
         len = strlen(s);
@@ -394,7 +414,8 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / multithreaded, "Tests that signal_gu
 #ifdef _WIN32
       using namespace win32;
       unsigned long written = 0;
-      (void) WriteFile(GetStdHandle((unsigned long) -12 /*STD_ERROR_HANDLE*/), s, (unsigned long) len, &written, nullptr);
+      (void) WriteFile(GetStdHandle((unsigned long) -12 /*STD_ERROR_HANDLE*/), s, (unsigned long) len, &written,
+                       nullptr);
 #else
       if(-1 == ::write(2, s, len))
       {
@@ -403,7 +424,8 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / multithreaded, "Tests that signal_gu
 #endif
     };
     print("FATAL: I experienced unrecoverable failure '");
-    print(QUICKCPPLIB_NAMESPACE::signal_guard::detail::signalc_to_string(static_cast<QUICKCPPLIB_NAMESPACE::signal_guard::signalc>(rsi->signo)));
+    print(QUICKCPPLIB_NAMESPACE::signal_guard::detail::signalc_to_string(
+    static_cast<QUICKCPPLIB_NAMESPACE::signal_guard::signalc>(rsi->signo)));
     print("'. Backtrace:\n");
     _symbolise_stack_backtrace(print, {bt, (size_t) btlen});
     print("\n");
@@ -414,7 +436,9 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / multithreaded, "Tests that signal_gu
   static std::atomic<unsigned> count(0);
   for(size_t n = 0; n < std::thread::hardware_concurrency(); n++)
   {
-    threads.emplace_back([] {
+    threads.emplace_back(
+    []
+    {
       auto ret = setjmp(buf);
       if(!ret || ret == 10)
       {
@@ -445,14 +469,16 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / multithreaded, "Tests that signal_gu
   BOOST_CHECK(count > 10);
 }
 
-BOOST_AUTO_TEST_CASE(signal_guard / works / recursive, "Tests that signal_guard works as advertised when being recursed into across multiple threads")
+BOOST_AUTO_TEST_CASE(signal_guard / works / recursive,
+                     "Tests that signal_guard works as advertised when being recursed into across multiple threads")
 {
 #if QUICKCPPLIB_IN_THREAD_SANITIZER
   return;  // hangs tsan, indeed you can't even Ctrl-C out of it!
 #endif
   static thread_local jmp_buf buf;
   static std::atomic<bool> done(false);
-  static auto print = [](const char *s, size_t len = (size_t) -1) {
+  static auto print = [](const char *s, size_t len = (size_t) -1)
+  {
     if(len == (size_t) -1)
     {
       len = strlen(s);
@@ -470,19 +496,29 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / recursive, "Tests that signal_guard 
   };
   auto handler1 = QUICKCPPLIB_NAMESPACE::signal_guard::make_signal_guard_global_decider(
   QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::segmentation_fault,
-  [](QUICKCPPLIB_NAMESPACE::signal_guard::raised_signal_info * /*unused*/) -> bool {
+  [](QUICKCPPLIB_NAMESPACE::signal_guard::raised_signal_info * /*unused*/) -> bool
+  {
     // Throw an exception within a noexcept to trigger termination
     print("During handle of segfault, causing floating point error\n");
 #ifdef _MSC_VER
     _controlfp(0, _MCW_EM);
 #else
 #ifdef __APPLE__
-    auto feenableexcept = [](int excepts) {
+    auto feenableexcept = [](int excepts)
+    {
       excepts = excepts & FE_ALL_EXCEPT;
       fenv_t fenv;
       fegetenv(&fenv);
+#ifdef __x86_64__
       fenv.__control &= ~excepts;
       fenv.__mxcsr &= ~(excepts << 7);
+#elif defined(__arm__)
+      fenv.__fpscr |= 1u << 9u; /* __fpscr_trap_enable_div_by_zero */
+#elif defined(__aarch64__)
+      fenv.__fpcr |= 1u << 9u; /* __fpcr_trap_enable_div_by_zero */
+#else
+#error "Unknown platform"
+#endif
       fesetenv(&fenv);
     };
 #endif
@@ -494,7 +530,8 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / recursive, "Tests that signal_guard 
   false);
   auto handler2 = QUICKCPPLIB_NAMESPACE::signal_guard::make_signal_guard_global_decider(
   QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::floating_point_error,
-  [](QUICKCPPLIB_NAMESPACE::signal_guard::raised_signal_info * /*unused*/) -> bool {
+  [](QUICKCPPLIB_NAMESPACE::signal_guard::raised_signal_info * /*unused*/) -> bool
+  {
     // Throw an exception within a noexcept to trigger termination
     print("During handle of segfault and handle of floating point error, causing out of memory\n");
     // new int[UINT64_MAX/sizeof(int)] does not do what I want, so ...
@@ -504,15 +541,18 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / recursive, "Tests that signal_guard 
   false);
   auto handler3 = QUICKCPPLIB_NAMESPACE::signal_guard::make_signal_guard_global_decider(
   QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::cxx_out_of_memory,
-  [](QUICKCPPLIB_NAMESPACE::signal_guard::raised_signal_info * /*unused*/) -> bool {
+  [](QUICKCPPLIB_NAMESPACE::signal_guard::raised_signal_info * /*unused*/) -> bool
+  {
     // Throw an exception within a noexcept to trigger termination
-    print("During handle of segfault and handle of floating point error and handle of out of memory, causing termination\n");
+    print(
+    "During handle of segfault and handle of floating point error and handle of out of memory, causing termination\n");
     std::terminate();
   },
   false);
   auto handler4 = QUICKCPPLIB_NAMESPACE::signal_guard::make_signal_guard_global_decider(
   QUICKCPPLIB_NAMESPACE::signal_guard::signalc_set::cxx_termination,
-  [](QUICKCPPLIB_NAMESPACE::signal_guard::raised_signal_info * /*unused*/) -> bool {
+  [](QUICKCPPLIB_NAMESPACE::signal_guard::raised_signal_info * /*unused*/) -> bool
+  {
     print("Abandoning handle of termination via longjmp to restart the loop\n");
     longjmp(buf, 10 + done);
   },
@@ -521,7 +561,9 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / recursive, "Tests that signal_guard 
   static std::atomic<unsigned> count(0);
   for(size_t n = 0; n < std::thread::hardware_concurrency(); n++)
   {
-    threads.emplace_back([] {
+    threads.emplace_back(
+    []
+    {
       auto ret = setjmp(buf);
       if(!ret || ret == 10)
       {
@@ -554,7 +596,8 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / recursive, "Tests that signal_guard 
 }
 
 
-BOOST_AUTO_TEST_CASE(signal_guard / performance / threadlocal, "Tests that the signal_guard has reasonable performance (thread local)")
+BOOST_AUTO_TEST_CASE(signal_guard / performance / threadlocal,
+                     "Tests that the signal_guard has reasonable performance (thread local)")
 {
 #if QUICKCPPLIB_IN_THREAD_SANITIZER
   return;  // hangs tsan, indeed you can't even Ctrl-C out of it!
@@ -582,13 +625,15 @@ BOOST_AUTO_TEST_CASE(signal_guard / performance / threadlocal, "Tests that the s
     {
       uint64_t begin = ticksclock();
       volatile int ret = signal_guard(
-      signalc_set::segmentation_fault, []() -> int { return 5; }, [](const raised_signal_info * /*unused*/) -> int { return 78; });
+      signalc_set::segmentation_fault, []() -> int { return 5; },
+      [](const raised_signal_info * /*unused*/) -> int { return 78; });
       uint64_t end = ticksclock();
       (void) ret;
       // std::cout << (end - begin - overhead) << std::endl;
       ticks += end - begin - overhead;
     }
-    std::cout << "It takes " << (ticks / 128) << " CPU ticks to execute successful code (overhead was " << overhead << ")" << std::endl;
+    std::cout << "It takes " << (ticks / 128) << " CPU ticks to execute successful code (overhead was " << overhead
+              << ")" << std::endl;
   }
 }
 
