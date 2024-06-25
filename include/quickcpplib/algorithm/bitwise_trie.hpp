@@ -125,6 +125,7 @@ duration 134773 ms
 #include "../declval.hpp"
 
 #include <cassert>
+#include <cstdint>
 #include <cstring>  // for memset
 #include <iterator>
 #include <type_traits>
@@ -148,7 +149,7 @@ namespace algorithm
 #if defined(_MSC_VER) && !defined(__cplusplus_cli)
         {
           unsigned long bitpos;
-#if defined(_M_IA64) || defined(_M_X64) || defined(WIN64) || defined(_WIN64) 
+#if defined(_M_IA64) || defined(_M_X64) || defined(WIN64) || defined(_WIN64)
           assert(8 == sizeof(size_t));
           _BitScanReverse64(&bitpos, value);
 #else

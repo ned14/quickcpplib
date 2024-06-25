@@ -257,13 +257,13 @@ inline void _symbolise_stack_backtrace(Printer &&print, QUICKCPPLIB_NAMESPACE::s
                         diff = (ssize_t) bt[n];
                       }
                       char buffer[32];
-                      sprintf(buffer, "%zx", diff);
+                      snprintf(buffer, 32, "%zx", diff);
                       addrs.append(buffer);
                     }
                     else
                     {
                       char buffer[32];
-                      sprintf(buffer, "%zx", (uintptr_t) bt[n]);
+                      snprintf(buffer, 32, "%zx", (uintptr_t) bt[n]);
                       addrs.append(buffer);
                     }
                     addrs.push_back('\n');
