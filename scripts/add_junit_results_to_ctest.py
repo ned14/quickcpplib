@@ -20,12 +20,12 @@ def main(argv):
   # to be readded after
   postamble = ET.Element('Testing')
   removing = False
-  for child in testing.getchildren():
+  for child in testing:
     if not removing and child.tag == 'Test':
       removing = True
     if removing:
       postamble.append(child)
-  for child in postamble.getchildren():
+  for child in postamble:
     testing.remove(child)
 
   def Elem(name, text):
