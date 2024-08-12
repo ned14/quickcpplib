@@ -6,12 +6,24 @@
 import os, sys
 import datetime
 
-if len(sys.argv) < 3:
-  print(f"{sys.argv[0]} <output.h> <input.py> [macro name]")
+if len(sys.argv) < 3 or len(sys.argv) > 5:
+  print(f"{sys.argv[0]} <output.h> <input.py> [protection_macro [disabling_macro]]")
   sys.exit(1)
 
-printers_script = sys.argv[2]
 printers_header = sys.argv[1]
+printers_script = sys.argv[2]
+
+if len(sys.argv) > 3:
+    protection_macro = sys.argv[3]
+else:
+    protection_macro = printers_header.lstrip("/").replace("/", "_").replace(".", "_").upper()
+
+if len(sys.argv) > 4:
+    disable_macro = sys.argv[4]
+elif "INLINE" in protection_macro:
+    disable_macro = protection_macro.replace("INLINE", "DISABLE_INLINE")
+else:
+    disable_macro = protection_macro + "_DISABLE"
 
 timestamp = datetime.datetime.now(datetime.UTC).strftime("%Y-%m-%dT%H:%M:%S")
 
@@ -29,10 +41,6 @@ while True:
         del script_contents[0]
     else:
         break
-
-protection_macro = sys.argv[3] if len(sys.argv) > 3 else (os.path.splitext(printers_header)[0].upper() + "_INLINE_H")
-disable_macro = sys.argv[3].replace("INLINE", "DISABLE_INLINE") if len(sys.argv) > 3 else (os.path.splitext(printers_header)[0].upper() + "_DISABLE_INLINE")
-
 
 top_matter = f"""{copyright_message}
 
