@@ -55,7 +55,7 @@ top_matter = f"""{copyright_message}
 #pragma clang diagnostic ignored "-Woverlength-strings"
 #endif
 __asm__(R"(.pushsection ".debug_gdb_scripts", "MS",@progbits,1
-.byte 4 /* Python Text */
+.ascii "\\4{protection_macro}"
 .ascii "gdb.inlined-script\\n"
 """
 bottom_matter = f""".byte 0
