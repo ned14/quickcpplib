@@ -54,13 +54,13 @@ top_matter = f"""{copyright_message}
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Woverlength-strings"
 #endif
-__asm__(".pushsection \\".debug_gdb_scripts\\", \\"MS\\",@progbits,1\\n"
-        ".byte 4 /* Python Text */\\n"
-        ".ascii \\"gdb.inlined-script\\\\n\\"\\n"
+__asm__(R"(.pushsection ".debug_gdb_scripts", "MS",@progbits,1
+.byte 4 /* Python Text */
+.ascii "gdb.inlined-script\\n"
 """
-bottom_matter = f"""
-        ".byte 0\\n"
-        ".popsection\\n");
+bottom_matter = f""".byte 0
+.popsection
+)");
 #ifdef __clang__
 #pragma clang diagnostic pop
 #endif
@@ -75,10 +75,8 @@ with open(printers_header, "wt") as header:
     header.write(top_matter)
     for line in script_contents:
         if line.isspace():
-            header.write("\n")
             continue
-        line2 = repr(line)[1:-1]
-        line3 = repr(line2)[1:-1]
-        print(f"{line} => {line2} => {line3}")
-        header.write(f"""        ".ascii \\"{line3}\\"\\n"\n""")
+        line2 = repr(line)[1:-1] # Change newlines into escaped newlines
+        line3 = line2.replace("\"", "\\\"")
+        header.write(f""".ascii "{line3}"\n""")
     header.write(bottom_matter)
