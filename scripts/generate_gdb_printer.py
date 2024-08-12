@@ -25,7 +25,7 @@ elif "INLINE" in protection_macro:
 else:
     disable_macro = protection_macro + "_DISABLE"
 
-timestamp = datetime.datetime.now(datetime.UTC).strftime("%Y-%m-%dT%H:%M:%S")
+timestamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S")
 
 # Grab the entire script
 with open(printers_script, "rt") as script:
