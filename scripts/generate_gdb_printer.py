@@ -43,7 +43,6 @@ while True:
         break
 
 top_matter = f"""{copyright_message}
-
 // Generated on {timestamp}
 
 #ifndef {protection_macro}
