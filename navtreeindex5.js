@@ -1,6 +1,5 @@
 var NAVTREEINDEX5 =
 {
-"namespacequickcpplib_1_1__xxx_1_1bit__cast_1_1detail.html#aeea50b7d77ccbf751450ff50592bb9b0":[4,0,2,0,3,0,3],
 "namespacequickcpplib_1_1__xxx_1_1bit__cast_1_1traits.html":[4,0,2,0,3,1],
 "namespacequickcpplib_1_1__xxx_1_1byte.html":[4,0,2,0,4],
 "namespacequickcpplib_1_1__xxx_1_1byte.html#a8fa6df1f92812f37be376f356c410a89":[4,0,2,0,4,0],
@@ -249,5 +248,6 @@ var NAVTREEINDEX5 =
 "namespacestd_1_1experimental.html#a332d3c61f91dc7b1c8aa800d50153aa8":[4,0,3,0,77],
 "namespacestd_1_1experimental.html#a33aa5e258a2b0762197365c1ef3f90aa":[4,0,3,0,20],
 "namespacestd_1_1experimental.html#a35cdc6a5b56b8db5690f4035242332a0":[4,0,3,0,40],
-"namespacestd_1_1experimental.html#a3fbd8142343db8768bd349a2aeae9ead":[4,0,3,0,69]
+"namespacestd_1_1experimental.html#a3fbd8142343db8768bd349a2aeae9ead":[4,0,3,0,69],
+"namespacestd_1_1experimental.html#a419ed2da725cc9c030f5d741a1f13d50":[4,0,3,0,35]
 };
