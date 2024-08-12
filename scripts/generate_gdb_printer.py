@@ -5,6 +5,7 @@
 
 import os, sys
 import datetime
+import json
 
 if len(sys.argv) < 3 or len(sys.argv) > 5:
   print(f"{sys.argv[0]} <output.h> <input.py> [protection_macro [disabling_macro]]")
@@ -77,7 +78,7 @@ with open(printers_header, "wt") as header:
         if line.isspace():
             header.write("\n")
             continue
-        line2 = repr(line)[1:-1]
-        line3 = repr(line2)[1:-1]
+        line2 = json.dumps(line)[1:-1]
+        line3 = json.dumps(line2)[1:-1]
         header.write(f"""        ".ascii \\"{line3}\\"\\n"\n""")
     header.write(bottom_matter)
