@@ -6,14 +6,26 @@
 import os, sys
 import datetime
 
-if len(sys.argv) < 3:
-  print(f"{sys.argv[0]} <output.h> <input.py> [macro name]")
+if len(sys.argv) < 3 or len(sys.argv) > 5:
+  print(f"{sys.argv[0]} <output.h> <input.py> [protection_macro [disabling_macro]]")
   sys.exit(1)
 
-printers_script = sys.argv[2]
 printers_header = sys.argv[1]
+printers_script = sys.argv[2]
 
-timestamp = datetime.datetime.now(datetime.UTC).strftime("%Y-%m-%dT%H:%M:%S")
+if len(sys.argv) > 3:
+    protection_macro = sys.argv[3]
+else:
+    protection_macro = printers_header.lstrip("/").replace("/", "_").replace(".", "_").upper()
+
+if len(sys.argv) > 4:
+    disable_macro = sys.argv[4]
+elif "INLINE" in protection_macro:
+    disable_macro = protection_macro.replace("INLINE", "DISABLE_INLINE")
+else:
+    disable_macro = protection_macro + "_DISABLE"
+
+timestamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S")
 
 # Grab the entire script
 with open(printers_script, "rt") as script:
@@ -30,12 +42,7 @@ while True:
     else:
         break
 
-protection_macro = sys.argv[3] if len(sys.argv) > 3 else (os.path.splitext(printers_header)[0].upper() + "_INLINE_H")
-disable_macro = sys.argv[3].replace("INLINE", "DISABLE_INLINE") if len(sys.argv) > 3 else (os.path.splitext(printers_header)[0].upper() + "_DISABLE_INLINE")
-
-
 top_matter = f"""{copyright_message}
-
 // Generated on {timestamp}
 
 #ifndef {protection_macro}
@@ -48,7 +55,7 @@ top_matter = f"""{copyright_message}
 #pragma clang diagnostic ignored "-Woverlength-strings"
 #endif
 __asm__(".pushsection \\".debug_gdb_scripts\\", \\"MS\\",@progbits,1\\n"
-        ".byte 4 /* Python Text */\\n"
+        ".ascii \\"\\\\4{protection_macro}\\\\n\\"\\n"
         ".ascii \\"gdb.inlined-script\\\\n\\"\\n"
 """
 bottom_matter = f"""
@@ -67,11 +74,10 @@ bottom_matter = f"""
 with open(printers_header, "wt") as header:
     header.write(top_matter)
     for line in script_contents:
-        if line == '\n':
+        if line.isspace():
             header.write("\n")
             continue
         line2 = repr(line)[1:-1]
         line3 = repr(line2)[1:-1]
-        print(f"{line} => {line2} => {line3}")
         header.write(f"""        ".ascii \\"{line3}\\"\\n"\n""")
     header.write(bottom_matter)
