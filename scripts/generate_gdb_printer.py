@@ -74,7 +74,7 @@ bottom_matter = f"""
 with open(printers_header, "wt") as header:
     header.write(top_matter)
     for line in script_contents:
-        if line == '\n':
+        if line.isspace():
             header.write("\n")
             continue
         line2 = repr(line)[1:-1]
