@@ -11,7 +11,7 @@
    This file is part of Helgrind, a Valgrind tool for detecting errors
    in threaded programs.
 
-   Copyright (C) 2007-2013 OpenWorks LLP
+   Copyright (C) 2007-2017 OpenWorks LLP
       info@open-works.co.uk
 
    Redistribution and use in source and binary forms, with or without
@@ -80,8 +80,8 @@ typedef
       _VG_USERREQ__HG_PTHREAD_MUTEX_DESTROY_PRE,  /* pth_mx_t*, long isInit */
       _VG_USERREQ__HG_PTHREAD_MUTEX_UNLOCK_PRE,   /* pth_mx_t* */
       _VG_USERREQ__HG_PTHREAD_MUTEX_UNLOCK_POST,  /* pth_mx_t* */
-      _VG_USERREQ__HG_PTHREAD_MUTEX_LOCK_PRE, /* pth_mx_t*, long isTryLock */
-      _VG_USERREQ__HG_PTHREAD_MUTEX_LOCK_POST,    /* pth_mx_t* */
+      _VG_USERREQ__HG_PTHREAD_MUTEX_ACQUIRE_PRE,  /* void*, long isTryLock */
+      _VG_USERREQ__HG_PTHREAD_MUTEX_ACQUIRE_POST, /* void* */
       _VG_USERREQ__HG_PTHREAD_COND_SIGNAL_PRE,    /* pth_cond_t* */
       _VG_USERREQ__HG_PTHREAD_COND_BROADCAST_PRE, /* pth_cond_t* */
       _VG_USERREQ__HG_PTHREAD_COND_WAIT_PRE,     /* pth_cond_t*, pth_mx_t* */
@@ -90,13 +90,13 @@ typedef
       _VG_USERREQ__HG_PTHREAD_RWLOCK_INIT_POST,   /* pth_rwlk_t* */
       _VG_USERREQ__HG_PTHREAD_RWLOCK_DESTROY_PRE, /* pth_rwlk_t* */
       _VG_USERREQ__HG_PTHREAD_RWLOCK_LOCK_PRE,    /* pth_rwlk_t*, long isW */
-      _VG_USERREQ__HG_PTHREAD_RWLOCK_LOCK_POST,   /* pth_rwlk_t*, long isW */
-      _VG_USERREQ__HG_PTHREAD_RWLOCK_UNLOCK_PRE,  /* pth_rwlk_t* */
+      _VG_USERREQ__HG_PTHREAD_RWLOCK_ACQUIRED,    /* void*, long isW */
+      _VG_USERREQ__HG_PTHREAD_RWLOCK_RELEASED,    /* void* */
       _VG_USERREQ__HG_PTHREAD_RWLOCK_UNLOCK_POST, /* pth_rwlk_t* */
       _VG_USERREQ__HG_POSIX_SEM_INIT_POST,        /* sem_t*, ulong value */
       _VG_USERREQ__HG_POSIX_SEM_DESTROY_PRE,      /* sem_t* */
-      _VG_USERREQ__HG_POSIX_SEM_POST_PRE,         /* sem_t* */
-      _VG_USERREQ__HG_POSIX_SEM_WAIT_POST,        /* sem_t* */
+      _VG_USERREQ__HG_POSIX_SEM_RELEASED,         /* void* */
+      _VG_USERREQ__HG_POSIX_SEM_ACQUIRED,         /* void* */
       _VG_USERREQ__HG_PTHREAD_BARRIER_INIT_PRE,   /* pth_bar_t*, ulong, ulong */
       _VG_USERREQ__HG_PTHREAD_BARRIER_WAIT_PRE,   /* pth_bar_t* */
       _VG_USERREQ__HG_PTHREAD_BARRIER_DESTROY_PRE, /* pth_bar_t* */
@@ -116,8 +116,25 @@ typedef
       _VG_USERREQ__HG_ARANGE_MAKE_TRACKED,   /* Addr a, ulong len */
       _VG_USERREQ__HG_PTHREAD_BARRIER_RESIZE_PRE, /* pth_bar_t*, ulong */
       _VG_USERREQ__HG_CLEAN_MEMORY_HEAPBLOCK, /* Addr start_of_block */
-      _VG_USERREQ__HG_PTHREAD_COND_INIT_POST  /* pth_cond_t*, pth_cond_attr_t*/
-
+      _VG_USERREQ__HG_PTHREAD_COND_INIT_POST,  /* pth_cond_t*, pth_cond_attr_t*/
+      _VG_USERREQ__HG_GNAT_MASTER_HOOK,       /* void*d,void*m,Word ml */
+      _VG_USERREQ__HG_GNAT_MASTER_COMPLETED_HOOK, /* void*s,Word ml */
+      _VG_USERREQ__HG_GET_ABITS,              /* Addr a,Addr abits, ulong len */
+      _VG_USERREQ__HG_PTHREAD_CREATE_BEGIN,
+      _VG_USERREQ__HG_PTHREAD_CREATE_END,
+      _VG_USERREQ__HG_PTHREAD_MUTEX_LOCK_PRE,     /* pth_mx_t*,long isTryLock */
+      _VG_USERREQ__HG_PTHREAD_MUTEX_LOCK_POST,    /* pth_mx_t *,long tookLock */
+      _VG_USERREQ__HG_PTHREAD_RWLOCK_LOCK_POST,  /* pth_rwlk_t*,long isW,long */
+      _VG_USERREQ__HG_PTHREAD_RWLOCK_UNLOCK_PRE,  /* pth_rwlk_t* */
+      _VG_USERREQ__HG_POSIX_SEM_POST_PRE,         /* sem_t* */
+      _VG_USERREQ__HG_POSIX_SEM_POST_POST,        /* sem_t* */
+      _VG_USERREQ__HG_POSIX_SEM_WAIT_PRE,         /* sem_t* */
+      _VG_USERREQ__HG_POSIX_SEM_WAIT_POST,        /* sem_t*, long tookLock */
+      _VG_USERREQ__HG_PTHREAD_COND_SIGNAL_POST,   /* pth_cond_t* */
+      _VG_USERREQ__HG_PTHREAD_COND_BROADCAST_POST,/* pth_cond_t* */
+      _VG_USERREQ__HG_RTLD_BIND_GUARD,            /* int flags */
+      _VG_USERREQ__HG_RTLD_BIND_CLEAR,            /* int flags */
+      _VG_USERREQ__HG_GNAT_DEPENDENT_MASTER_JOIN  /* void*d, void*m */
    } Vg_TCheckClientRequest;
 
 
@@ -155,7 +172,7 @@ typedef
 
 #define DO_CREQ_W_W(_resF, _dfltF, _creqF, _ty1F,_arg1F) \
    do {                                                  \
-      long int arg1;                                     \
+      long int _arg1;                                    \
       /* assert(sizeof(_ty1F) == sizeof(long int)); */   \
       _arg1 = (long int)(_arg1F);                        \
       _qzz_res = VALGRIND_DO_CLIENT_REQUEST_EXPR(        \
@@ -192,6 +209,23 @@ typedef
                                  _arg1,_arg2,_arg3,0,0); \
    } while (0)
 
+#define DO_CREQ_W_WWW(_resF, _dfltF, _creqF, _ty1F,_arg1F, \
+                      _ty2F,_arg2F, _ty3F, _arg3F)       \
+   do {                                                  \
+      long int _qzz_res;                                 \
+      long int _arg1, _arg2, _arg3;                      \
+      /* assert(sizeof(_ty1F) == sizeof(long int)); */   \
+      _arg1 = (long int)(_arg1F);                        \
+      _arg2 = (long int)(_arg2F);                        \
+      _arg3 = (long int)(_arg3F);                        \
+      _qzz_res = VALGRIND_DO_CLIENT_REQUEST_EXPR(        \
+                                 (_dfltF),               \
+                                 (_creqF),               \
+                                 _arg1,_arg2,_arg3,0,0); \
+      _resF = _qzz_res;                                  \
+   } while (0)
+
+
 
 #define _HG_CLIENTREQ_UNIMP(_qzz_str)                    \
    DO_CREQ_v_W(_VG_USERREQ__HG_CLIENTREQ_UNIMP,          \
@@ -220,12 +254,12 @@ typedef
 /* Notify here immediately before mutex acquisition.  _isTryLock == 0
    for a normal acquisition, 1 for a "try" style acquisition. */
 #define VALGRIND_HG_MUTEX_LOCK_PRE(_mutex, _isTryLock)       \
-   DO_CREQ_v_WW(_VG_USERREQ__HG_PTHREAD_MUTEX_LOCK_PRE,      \
+   DO_CREQ_v_WW(_VG_USERREQ__HG_PTHREAD_MUTEX_ACQUIRE_PRE,   \
                 void*,(_mutex), long,(_isTryLock))
 
 /* Notify here immediately after a successful mutex acquisition. */
 #define VALGRIND_HG_MUTEX_LOCK_POST(_mutex)                  \
-   DO_CREQ_v_W(_VG_USERREQ__HG_PTHREAD_MUTEX_LOCK_POST,      \
+   DO_CREQ_v_W(_VG_USERREQ__HG_PTHREAD_MUTEX_ACQUIRE_POST,   \
                void*,(_mutex))
 
 /* Notify here immediately before a mutex release. */
@@ -255,13 +289,13 @@ typedef
 /* Notify here immediately after a semaphore wait (an acquire-style
    operation) */
 #define VALGRIND_HG_SEM_WAIT_POST(_sem)                      \
-   DO_CREQ_v_W(_VG_USERREQ__HG_POSIX_SEM_WAIT_POST,          \
+   DO_CREQ_v_W(_VG_USERREQ__HG_POSIX_SEM_ACQUIRED,           \
                void*,(_sem))
 
 /* Notify here immediately before semaphore post (a release-style
    operation) */
 #define VALGRIND_HG_SEM_POST_PRE(_sem)                       \
-   DO_CREQ_v_W(_VG_USERREQ__HG_POSIX_SEM_POST_PRE,           \
+   DO_CREQ_v_W(_VG_USERREQ__HG_POSIX_SEM_RELEASED,           \
                void*,(_sem))
 
 /* Notify here immediately before semaphore destruction. */
@@ -364,6 +398,63 @@ typedef
                  void*,(_qzz_start),                         \
                  unsigned long,(_qzz_len))
 
+
+/*  Checks the accessibility bits for addresses [zza..zza+zznbytes-1].
+    If zzabits array is provided, copy the accessibility bits in zzabits.
+   Return values:
+     -2   if not running on helgrind
+     -1   if any parts of zzabits is not addressable
+     >= 0 : success.
+   When success, it returns the nr of addressable bytes found.
+      So, to check that a whole range is addressable, check
+         VALGRIND_HG_GET_ABITS(addr,NULL,len) == len
+      In addition, if you want to examine the addressability of each
+      byte of the range, you need to provide a non NULL ptr as
+      second argument, pointing to an array of unsigned char
+      of length len.
+      Addressable bytes are indicated with 0xff.
+      Non-addressable bytes are indicated with 0x00.
+*/
+#define VALGRIND_HG_GET_ABITS(zza,zzabits,zznbytes)          \
+   (__extension__                                            \
+   ({long int _res;                                          \
+      DO_CREQ_W_WWW(_res, (-2)/*default*/,                   \
+                    _VG_USERREQ__HG_GET_ABITS,               \
+                    void*,(zza), void*,(zzabits),            \
+                    unsigned long,(zznbytes));               \
+      _res;                                                  \
+   }))
+
+/* End-user request for Ada applications compiled with GNAT.
+   Helgrind understands the Ada concept of Ada task dependencies and
+   terminations. See Ada Reference Manual section 9.3 "Task Dependence 
+   - Termination of Tasks".
+   However, in some cases, the master of (terminated) tasks completes
+   only when the application exits. An example of this is dynamically
+   allocated tasks with an access type defined at Library Level.
+   By default, the state of such tasks in Helgrind will be 'exited but
+   join not done yet'. Many tasks in such a state are however causing
+   Helgrind CPU and memory to increase significantly.
+   VALGRIND_HG_GNAT_DEPENDENT_MASTER_JOIN can be used to indicate
+   to Helgrind that a not yet completed master has however already
+   'seen' the termination of a dependent : this is conceptually the
+   same as a pthread_join and causes the cleanup of the dependent
+   as done by Helgrind when a master completes.
+   This allows to avoid the overhead in helgrind caused by such tasks.
+   A typical usage for a master to indicate it has done conceptually a join
+   with a dependent task before the master completes is:
+      while not Dep_Task'Terminated loop
+         ... do whatever to wait for Dep_Task termination.
+      end loop;
+      VALGRIND_HG_GNAT_DEPENDENT_MASTER_JOIN
+        (Dep_Task'Identity,
+         Ada.Task_Identification.Current_Task);
+    Note that VALGRIND_HG_GNAT_DEPENDENT_MASTER_JOIN should be a binding
+    to a C function built with the below macro. */
+#define VALGRIND_HG_GNAT_DEPENDENT_MASTER_JOIN(_qzz_dep, _qzz_master) \
+   DO_CREQ_v_WW(_VG_USERREQ__HG_GNAT_DEPENDENT_MASTER_JOIN,           \
+                void*,(_qzz_dep),                                     \
+                void*,(_qzz_master))
 
 /*----------------------------------------------------------------*/
 /*---                                                          ---*/
@@ -682,12 +773,12 @@ typedef
 /* Report that the lock at address LOCK has just been acquired.
    is_w=1 for writer lock, is_w=0 for reader lock. */
 #define ANNOTATE_RWLOCK_ACQUIRED(lock, is_w)                 \
-  DO_CREQ_v_WW(_VG_USERREQ__HG_PTHREAD_RWLOCK_LOCK_POST,     \
+  DO_CREQ_v_WW(_VG_USERREQ__HG_PTHREAD_RWLOCK_ACQUIRED,      \
                void*,(lock), unsigned long,(is_w))
 
 /* Report that the lock at address LOCK is about to be released. */
 #define ANNOTATE_RWLOCK_RELEASED(lock, is_w)                 \
-  DO_CREQ_v_W(_VG_USERREQ__HG_PTHREAD_RWLOCK_UNLOCK_PRE,     \
+  DO_CREQ_v_W(_VG_USERREQ__HG_PTHREAD_RWLOCK_RELEASED,       \
               void*,(lock)) /* is_w is ignored */
 
 
