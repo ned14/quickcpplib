@@ -141,10 +141,16 @@
       || defined(__CYGWIN32__) \
       || (defined(_WIN32) && defined(_M_IX86))
 #  define PLAT_x86_win32 1
+// ned: C2 clang dislikey the inline asm
+#ifdef __c2__
+#    define NVALGRIND 1
+#endif
 #elif (defined(__MINGW32__) && defined(__x86_64__)) \
       || (defined(_WIN32) && defined(_M_X64))
 /* __MINGW32__ and _WIN32 are defined in 64 bit mode as well. */
 #  define PLAT_amd64_win64 1
+// ned: Looks like PLAT_amd64_win64 isn't really implemented
+#    define NVALGRIND 1
 #elif defined(__linux__) && defined(__i386__)
 #  define PLAT_x86_linux 1
 #elif defined(__linux__) && defined(__x86_64__) && !defined(__ILP32__)
