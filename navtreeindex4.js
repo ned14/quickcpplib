@@ -1,6 +1,5 @@
 var NAVTREEINDEX4 =
 {
-"group__unittesting.html#ga8c09a93d328cbe466b58f6fd17f783bb":[3,1,21],
 "group__unittesting.html#ga8c09a93d328cbe466b58f6fd17f783bb":[6,0,0,0,1,0,0,26],
 "group__unittesting.html#ga8eb486cd9992c108ade6a78384fb7f6a":[6,0,0,0,1,0,0,39],
 "group__unittesting.html#ga8eb486cd9992c108ade6a78384fb7f6a":[3,1,29],
@@ -249,5 +248,6 @@ var NAVTREEINDEX4 =
 "namespacequickcpplib_1_1__xxx_1_1bit__cast_1_1detail.html":[4,0,2,0,3,0],
 "namespacequickcpplib_1_1__xxx_1_1bit__cast_1_1detail.html#a6130300b3bed0299ee5c1f6a4133fd44":[4,0,2,0,3,0,1],
 "namespacequickcpplib_1_1__xxx_1_1bit__cast_1_1detail.html#a67f922f5565dfe203bb9178213d2f86a":[4,0,2,0,3,0,2],
-"namespacequickcpplib_1_1__xxx_1_1bit__cast_1_1detail.html#ac9c5b9f25deff58391dc20185886790e":[4,0,2,0,3,0,0]
+"namespacequickcpplib_1_1__xxx_1_1bit__cast_1_1detail.html#ac9c5b9f25deff58391dc20185886790e":[4,0,2,0,3,0,0],
+"namespacequickcpplib_1_1__xxx_1_1bit__cast_1_1detail.html#aeea50b7d77ccbf751450ff50592bb9b0":[4,0,2,0,3,0,3]
 };
