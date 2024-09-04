@@ -20,7 +20,7 @@ jobs:
       CXX: ${{ matrix.compiler }}
           
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - name: CMake tests Linux
       shell: bash
@@ -28,14 +28,14 @@ jobs:
          ctest -S .ci.cmake -V
       
 #    - name: Upload Prebuilt Binaries
-#      uses: actions/upload-artifact@v2
+#      uses: actions/upload-artifact@v4
 #      with:
 #        name: Linux ${{ matrix.compiler }} prebuilt binaries
 #        path: quickcpplib-v0.1-binaries-linux-x64.tgz
       
     - name: Upload Test Results
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: Linux ${{ matrix.compiler }} test results
         path: prebuilt/merged_junit_results.xml
@@ -47,21 +47,21 @@ jobs:
       NAME: MacOS
           
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - name: CMake tests Mac OS
       shell: bash
       run: ctest -S .ci.cmake -V -E noexcept
       
 #    - name: Upload Prebuilt Binaries
-#      uses: actions/upload-artifact@v2
+#      uses: actions/upload-artifact@v4
 #      with:
 #        name: Mac OS prebuilt binaries
 #        path: quickcpplib-v0.1-binaries-darwin-x64.tgz
       
     - name: Upload Test Results
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: Mac OS test results
         path: prebuilt/merged_junit_results.xml
@@ -73,21 +73,21 @@ jobs:
       NAME: WinVS2019
           
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - name: CMake tests Windows
       shell: bash
       run: ctest -S .ci.cmake -V
       
 #    - name: Upload Prebuilt Binaries
-#      uses: actions/upload-artifact@v2
+#      uses: actions/upload-artifact@v4
 #      with:
 #        name: Windows VS2019 prebuilt binaries
 #        path: quickcpplib-v0.1-binaries-win64.zip
       
     - name: Upload Test Results
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: Windows VS2019 test results
         path: prebuilt/merged_junit_results.xml
@@ -115,7 +115,7 @@ jobs:
           files: '**/merged_junit_results.xml'
           
       - name: Checkout Documentation
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           submodules: recursive
