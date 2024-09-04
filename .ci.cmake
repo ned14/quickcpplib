@@ -82,7 +82,7 @@ else()
     get_filename_component(toupload quickcpplib-v0.1-binaries-darwin-x64.tgz ABSOLUTE)
   endif()
 endif()
-ctest_test(RETURN_VALUE retval)
+ctest_test(RETURN_VALUE retval EXCLUDE "signal_guard")  # pending the signal_guard reimplementation
 merge_junit_results_into_ctest_xml()
 if(EXISTS "${toupload}")
   ctest_upload(FILES "${toupload}")

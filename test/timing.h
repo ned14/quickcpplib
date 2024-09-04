@@ -53,6 +53,9 @@ inline usCount GetUsCount()
 
 inline uint64_t ticksclock()
 {
+#ifdef __APPLE__
+  return (uint64_t) GetUsCount();
+#else
 #if defined(__i386__) || defined(_M_IX86) || defined(__x86_64__) || defined(_M_X64)
 #ifdef _MSC_VER
   auto rdtscp = []
@@ -94,11 +97,11 @@ inline uint64_t ticksclock()
 #if __ARM_ARCH >= 6 || defined(_MSC_VER)
 #if !defined(_MSC_VER) || (defined(_MSC_VER) && defined(__clang__) && !defined(__c2__))
 #undef _MoveFromCoprocessor
-#define _MoveFromCoprocessor(coproc, opcode1, crn, crm, opcode2)                                                                                               \
-  ({                                                                                                                                                           \
-    unsigned value;                                                                                                                                            \
-    __asm__ __volatile__("MRC p" #coproc ", " #opcode1 ", %0, c" #crn ", c" #crm ", " #opcode2 : "=r"(value));                                                 \
-    value;                                                                                                                                                     \
+#define _MoveFromCoprocessor(coproc, opcode1, crn, crm, opcode2)                                                       \
+  ({                                                                                                                   \
+    unsigned value;                                                                                                    \
+    __asm__ __volatile__("MRC p" #coproc ", " #opcode1 ", %0, c" #crn ", c" #crm ", " #opcode2 : "=r"(value));         \
+    value;                                                                                                             \
   })  // NOLINT
 #endif
   auto rdtscp = []
@@ -113,6 +116,7 @@ inline uint64_t ticksclock()
 #error Unsupported platform
 #endif
   return rdtscp();
+#endif
 }
 
 #ifdef __cplusplus
@@ -138,7 +142,8 @@ inline uint64_t nanoclock()
     volatile uint64_t b = ticksclock();
     offset = b - a;
 #if 1
-    std::cout << "There are " << ticks_per_sec << " TSCs in 1 nanosecond and it takes " << offset << " ticks per nanoclock()." << std::endl;
+    std::cout << "There are " << ticks_per_sec << " TSCs in 1 nanosecond and it takes " << offset
+              << " ticks per nanoclock()." << std::endl;
 #endif
   }
   return (uint64_t) ((ticksclock() - offset) / ticks_per_sec);
