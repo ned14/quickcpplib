@@ -321,7 +321,7 @@ extern "C" void _mm_pause();
 #endif
 
 #ifndef QUICKCPPLIB_DISABLE_EXECINFO
-#if defined(__EMSCRIPTEN__)
+#if defined(__EMSCRIPTEN__) || defined(__ANDROID__)
 #define QUICKCPPLIB_DISABLE_EXECINFO 1
 #endif
 #endif
