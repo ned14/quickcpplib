@@ -6,6 +6,7 @@
 import os, sys
 import datetime
 import json
+import marshal, zlib, base64
 
 if len(sys.argv) < 3 or len(sys.argv) > 5:
   print(f"{sys.argv[0]} <output.h> <input.py> [protection_macro [disabling_macro]]")
@@ -43,6 +44,16 @@ while True:
     else:
         break
 
+bytecode = compile("\n".join(script_contents), printers_script, "exec")
+marshalized = base64.encodebytes(zlib.compress(marshal.dumps(bytecode)))
+string_len = 85
+marshalized = "\n" + "\n".join(
+    str(marshalized[i : i + string_len]) for i in range(0, len(marshalized), string_len)
+)
+new_script = f"import marshal, zlib, base64\nexec(marshal.loads(zlib.decompress(base64.decodebytes({marshalized}))))".split(
+    "\n"
+)
+
 top_matter = f"""{copyright_message}
 // Generated on {timestamp}
 
@@ -73,11 +84,11 @@ bottom_matter = f"""
 # Write the inline asm header
 with open(printers_header, "wt") as header:
     header.write(top_matter)
-    for line in script_contents:
+    for line in new_script:
         if line.isspace():
             header.write("\n")
             continue
         line2 = json.dumps(line)[1:-1]
         line3 = json.dumps(line2)[1:-1]
-        header.write(f"""        ".ascii \\"{line3}\\"\\n"\n""")
+        header.write(f"""        ".ascii \\"{line3}\\\\n\\"\\n"\n""")
     header.write(bottom_matter)
