@@ -391,6 +391,12 @@ function(find_quickcpplib_library libraryname)
         # even when they are in the build directory, and get rewritten into the sysroot.
         list(APPEND CMAKE_PREFIX_PATH "${QUICKCPPLIB_ROOT_BINARY_DIR}/install")
         set(${libraryname}_DIR "${QUICKCPPLIB_ROOT_BINARY_DIR}/install/${CMAKE_INSTALL_LIBDIR}/cmake/${libraryname}")
+        # The Android NDK toolchain file appears to replace both CMAKE_PREFIX_PATH and CMAKE_FIND_ROOT_PATH,
+        # this for now appears to work. Comes with lots of gotchas however :(
+        if(ANDROID)
+          set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY BOTH)
+          set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE BOTH)
+        endif()
         find_package(${libraryname} CONFIG REQUIRED NO_DEFAULT_PATH)
       endif()
     endif()
