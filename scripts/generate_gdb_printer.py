@@ -55,7 +55,7 @@ top_matter = f"""{copyright_message}
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Woverlength-strings"
 #endif
-__asm__(".pushsection \\".debug_gdb_scripts\\", \\"MS\\",@progbits,1\\n"
+__asm__(".pushsection \\".debug_gdb_scripts\\", \\"MS\\",%progbits,1\\n"
         ".ascii \\"\\\\4gdb.inlined-script.{protection_macro}\\\\n\\"\\n"
 """
 bottom_matter = f"""
