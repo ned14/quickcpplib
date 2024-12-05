@@ -1,5 +1,5 @@
 /* Provides SG-10 feature checking for all C++ compilers
-(C) 2014-2017 Niall Douglas <http://www.nedproductions.biz/> (13 commits)
+(C) 2014-2024 Niall Douglas <http://www.nedproductions.biz/> (13 commits)
 File Created: Nov 2014
 
 
@@ -24,6 +24,17 @@ Distributed under the Boost Software License, Version 1.0.
 
 #ifndef QUICKCPPLIB_HAS_FEATURE_H
 #define QUICKCPPLIB_HAS_FEATURE_H
+
+// Completely disable this file if on C++ 20 or later, or if compiler is new enough
+#if __cplusplus >= 202002L || _HAS_CXX20
+
+#include <version>
+
+#elif _MSC_VER >= 1920 || __GNUC__ >= 12 || __clang_major__ >= 17
+
+#include <ciso646>
+
+#else
 
 #if __cplusplus >= 201103L
 
@@ -105,7 +116,7 @@ Distributed under the Boost Software License, Version 1.0.
 #define __cpp_delegating_constructors 190000
 #endif
 
-#if !defined(__cpp_explicit_conversion)   //// renamed from __cpp_explicit_conversions
+#if !defined(__cpp_explicit_conversion)  //// renamed from __cpp_explicit_conversions
 #define __cpp_explicit_conversion 190000
 #endif
 
@@ -113,7 +124,7 @@ Distributed under the Boost Software License, Version 1.0.
 #define __cpp_inheriting_constructors 190000
 #endif
 
-#if !defined(__cpp_initializer_lists)   //// NEW
+#if !defined(__cpp_initializer_lists)  //// NEW
 #define __cpp_initializer_lists 190000
 #endif
 
@@ -125,7 +136,7 @@ Distributed under the Boost Software License, Version 1.0.
 #define __cpp_nsdmi 190000  //// NEW
 #endif
 
-#if !defined(__cpp_range_based_for)   //// renamed from __cpp_range_for
+#if !defined(__cpp_range_based_for)  //// renamed from __cpp_range_for
 #define __cpp_range_based_for 190000
 #endif
 
@@ -133,7 +144,7 @@ Distributed under the Boost Software License, Version 1.0.
 #define __cpp_raw_strings 190000
 #endif
 
-#if !defined(__cpp_ref_qualifiers)   //// renamed from __cpp_reference_qualified_functions
+#if !defined(__cpp_ref_qualifiers)  //// renamed from __cpp_reference_qualified_functions
 #define __cpp_ref_qualifiers 190000
 #endif
 
@@ -145,7 +156,7 @@ Distributed under the Boost Software License, Version 1.0.
 #define __cpp_static_assert 190000
 #endif
 
-#if !defined(__cpp_unicode_characters)   //// NEW
+#if !defined(__cpp_unicode_characters)  //// NEW
 #define __cpp_unicode_characters 190000
 #endif
 
@@ -205,7 +216,7 @@ Distributed under the Boost Software License, Version 1.0.
 #define __cpp_return_type_deduction 190000
 #endif
 
-#if !defined(__cpp_sized_deallocation)
+#if !defined(__cpp_sized_deallocation) && !defined(__clang__)
 #define __cpp_sized_deallocation 190000
 #endif
 
@@ -294,9 +305,9 @@ Distributed under the Boost Software License, Version 1.0.
 #define __cpp_static_assert 190000
 #endif
 
-//#if !defined(__cpp_unicode_literals)
-//# define __cpp_unicode_literals 190000
-//#endif
+// #if !defined(__cpp_unicode_literals)
+// # define __cpp_unicode_literals 190000
+// #endif
 
 #if !defined(__cpp_user_defined_literals) && _MSC_VER >= 1900
 #define __cpp_user_defined_literals 190000
@@ -309,9 +320,9 @@ Distributed under the Boost Software License, Version 1.0.
 
 // C++ 14
 
-//#if !defined(__cpp_aggregate_nsdmi)
-//#define __cpp_aggregate_nsdmi 190000
-//#endif
+// #if !defined(__cpp_aggregate_nsdmi)
+// #define __cpp_aggregate_nsdmi 190000
+// #endif
 
 #if !defined(__cpp_binary_literals) && _MSC_VER >= 1900
 #define __cpp_binary_literals 190000
@@ -560,5 +571,7 @@ Distributed under the Boost Software License, Version 1.0.
 #endif  // __GXX_EXPERIMENTAL_CXX0X__
 
 #endif  // clang
+
+#endif
 
 #endif
