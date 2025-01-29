@@ -27,6 +27,8 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "../span.hpp"
 
+#include "../cpp_feature.h"
+
 #include <algorithm>
 #include <locale>
 #include <string>
@@ -77,7 +79,11 @@ This lets one pack one byte of input into two bytes of output.
       unsigned const char *in = (unsigned const char *) _in;
       static constexpr char table[] = "0123456789abcdef";
       if(outlen < inlen * 2)
+#ifdef __cpp_exceptions
         throw std::invalid_argument("Output buffer too small.");
+#else
+        abort();
+#endif
       if(inlen >= 2)
       {
         for(size_t n = inlen - 2; n <= inlen - 2; n -= 2)
@@ -102,7 +108,10 @@ This lets one pack one byte of input into two bytes of output.
     QUICKCPPLIB_TEMPLATE(class CharType, class T)
     QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(sizeof(T) == 1), QUICKCPPLIB_TPRED(std::is_trivially_copyable<T>::value),
                           QUICKCPPLIB_TPRED(!std::is_const<CharType>::value))
-    inline size_t to_hex_string(span::span<CharType> out, const span::span<T> in) { return to_hex_string(out.data(), out.size(), in.data(), in.size()); }
+    inline size_t to_hex_string(span::span<CharType> out, const span::span<T> in)
+    {
+      return to_hex_string(out.data(), out.size(), in.data(), in.size());
+    }
     //! \overload
     QUICKCPPLIB_TEMPLATE(class T)
     QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(sizeof(T) == 1), QUICKCPPLIB_TPRED(std::is_trivially_copyable<T>::value))
@@ -136,20 +145,30 @@ This lets one pack one byte of input into two bytes of output.
     inline size_t from_hex_string(T *out, size_t outlen, const CharType *in, size_t inlen)
     {
       if(inlen % 2)
+#ifdef __cpp_exceptions
         throw std::invalid_argument("Input buffer not multiple of two.");
+#else
+        abort();
+#endif
       if(outlen < inlen / 2)
+#ifdef __cpp_exceptions
         throw std::invalid_argument("Output buffer too small.");
+#else
+        abort();
+#endif
       bool is_invalid = false;
-      auto fromhex = [&is_invalid](CharType c) -> unsigned char {
+      auto fromhex = [&is_invalid](CharType c) -> unsigned char
+      {
 #if 1
         // ASCII starting from 48 is 0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
         //                           48               65                              97
-        static constexpr unsigned char table[] = {0,   1,   2,   3,   4,   5,   6,   7,   8,   9,  // +10 = 58
-                                                  255, 255, 255, 255, 255, 255, 255,               // +7  = 65
-                                                  10,  11,  12,  13,  14,  15,                     // +6  = 71
-                                                  255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
-                                                  255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,  // +26 = 97
-                                                  10,  11,  12,  13,  14,  15};
+        static constexpr unsigned char table[] = {
+        0,   1,   2,   3,   4,   5,   6,   7,   8,   9,  // +10 = 58
+        255, 255, 255, 255, 255, 255, 255,               // +7  = 65
+        10,  11,  12,  13,  14,  15,                     // +6  = 71
+        255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
+        255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,  // +26 = 97
+        10,  11,  12,  13,  14,  15};
         unsigned char r = 255;
         if(c >= 48 && c <= 102)
           r = table[c - 48];
@@ -163,7 +182,11 @@ This lets one pack one byte of input into two bytes of output.
           return c - 'a' + 10;
         if(c >= 'A' && c <= 'F')
           return c - 'A' + 10;
+#ifdef __cpp_exceptions
         throw std::invalid_argument("Input is not hexadecimal.");
+#else
+        abort();
+#endif
 #endif
       };
       const auto bulklen = inlen / 2 - (inlen / 2) % 4;
@@ -176,23 +199,27 @@ This lets one pack one byte of input into two bytes of output.
           c[1] = fromhex(in[n * 2 + 1]);
           c[2] = fromhex(in[n * 2 + 2]);
           c[3] = fromhex(in[n * 2 + 3]);
-          out[n] = (T)((c[0] << 4) | c[1]);
+          out[n] = (T) ((c[0] << 4) | c[1]);
           c[4] = fromhex(in[n * 2 + 4]);
           c[5] = fromhex(in[n * 2 + 5]);
-          out[n + 1] = (T)((c[2] << 4) | c[3]);
+          out[n + 1] = (T) ((c[2] << 4) | c[3]);
           c[6] = fromhex(in[n * 2 + 6]);
           c[7] = fromhex(in[n * 2 + 7]);
-          out[n + 2] = (T)((c[4] << 4) | c[5]);
-          out[n + 3] = (T)((c[6] << 4) | c[7]);
+          out[n + 2] = (T) ((c[4] << 4) | c[5]);
+          out[n + 3] = (T) ((c[6] << 4) | c[7]);
         }
       }
       for(size_t n = bulklen; n < inlen / 2; n++)
       {
         auto c1 = fromhex(in[n * 2]), c2 = fromhex(in[n * 2 + 1]);
-        out[n] = (T)((c1 << 4) | c2);
+        out[n] = (T) ((c1 << 4) | c2);
       }
       if(is_invalid)
+#ifdef __cpp_exceptions
         throw std::invalid_argument("Input is not hexadecimal.");
+#else
+        abort();
+#endif
       return inlen / 2;
     }
   }  // namespace string

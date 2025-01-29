@@ -27,6 +27,8 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "config.hpp"
 
+#include "cpp_feature.h"
+
 #include <setjmp.h>
 #include <signal.h>
 #include <stdbool.h>
@@ -64,7 +66,8 @@ extern "C" void *__cdecl _exception_info(void);
 #define SIGNALGUARD_FUNC_DECL extern QUICKCPPLIB_SYMBOL_EXPORT
 #define SIGNALGUARD_MEMFUNC_DECL
 #else
-#if defined(__cplusplus) && (!defined(QUICKCPPLIB_HEADERS_ONLY) || QUICKCPPLIB_HEADERS_ONLY == 1) && !defined(DOXYGEN_SHOULD_SKIP_THIS)
+#if defined(__cplusplus) && (!defined(QUICKCPPLIB_HEADERS_ONLY) || QUICKCPPLIB_HEADERS_ONLY == 1) &&                   \
+!defined(DOXYGEN_SHOULD_SKIP_THIS)
 #define SIGNALGUARD_CLASS_DECL
 #define SIGNALGUARD_FUNC_DECL extern inline
 #define SIGNALGUARD_MEMFUNC_DECL inline
@@ -105,8 +108,10 @@ extern "C"
   };
 #if defined(__cplusplus)
   static_assert(std::is_trivial<raised_signal_info_value>::value, "raised_signal_info_value is not trivial!");
-  static_assert(std::is_trivially_copyable<raised_signal_info_value>::value, "raised_signal_info_value is not trivially copyable!");
-  static_assert(std::is_standard_layout<raised_signal_info_value>::value, "raised_signal_info_value does not have standard layout!");
+  static_assert(std::is_trivially_copyable<raised_signal_info_value>::value,
+                "raised_signal_info_value is not trivially copyable!");
+  static_assert(std::is_standard_layout<raised_signal_info_value>::value,
+                "raised_signal_info_value does not have standard layout!");
 #endif
 
   //! Typedef to a system specific error code type
@@ -141,7 +146,8 @@ typedef int raised_signal_error_code_t;
   //! \brief The type of the function called to recover from a signal being raised in a guarded section.
   typedef union raised_signal_info_value (*thrd_signal_guard_recover_t)(const struct raised_signal_info *);
 
-  //! \brief The type of the function called when a signal is raised. Returns true to continue guarded code, false to recover.
+  //! \brief The type of the function called when a signal is raised. Returns true to continue guarded code, false to
+  //! recover.
   typedef bool (*thrd_signal_guard_decide_t)(struct raised_signal_info *);
 
 #ifdef _MSC_VER
@@ -157,8 +163,10 @@ typedef int raised_signal_error_code_t;
   the execution of the guarded routine, or to abort and call the recovery routine.
   \param value A value to supply to the guarded routine.
    */
-  SIGNALGUARD_FUNC_DECL union raised_signal_info_value thrd_signal_guard_call(const sigset_t *signals, thrd_signal_guard_guarded_t guarded,
-                                                                              thrd_signal_guard_recover_t recovery, thrd_signal_guard_decide_t decider,
+  SIGNALGUARD_FUNC_DECL union raised_signal_info_value thrd_signal_guard_call(const sigset_t *signals,
+                                                                              thrd_signal_guard_guarded_t guarded,
+                                                                              thrd_signal_guard_recover_t recovery,
+                                                                              thrd_signal_guard_decide_t decider,
                                                                               union raised_signal_info_value value);
 #ifdef _MSC_VER
 #pragma warning(pop)
@@ -224,7 +232,8 @@ typedef int raised_signal_error_code_t;
   \param value A user supplied value to set in the `raised_signal_info` passed to the
   decider callback.
   */
-  SIGNALGUARD_FUNC_DECL void *signal_guard_decider_create(const sigset_t *guarded, bool callfirst, thrd_signal_guard_decide_t decider,
+  SIGNALGUARD_FUNC_DECL void *signal_guard_decider_create(const sigset_t *guarded, bool callfirst,
+                                                          thrd_signal_guard_decide_t decider,
                                                           union raised_signal_info_value value);
   /*! \brief Destroy a global signal continuation decider. Threadsafe with
   respect to other calls of this function, but not reentrant i.e. do not call
@@ -263,7 +272,7 @@ namespace signal_guard
     illegal_instruction = SIGILL,      //!< Execution of illegal instruction (`SIGILL`)
     interrupt =
     SIGINT,  //!< The process is interrupted (`SIGINT`). Note on Windows the continuation decider is ALWAYS called from a separate thread, and the process exits after you return (or take too long executing).
-    broken_pipe = SIGPIPE,          //!< Reader on a pipe vanished (`SIGPIPE`). Note that Windows never raises this signal.
+    broken_pipe = SIGPIPE,  //!< Reader on a pipe vanished (`SIGPIPE`). Note that Windows never raises this signal.
     segmentation_fault = SIGSEGV,   //!< Attempt to access a memory page whose permissions disallow (`SIGSEGV`)
     floating_point_error = SIGFPE,  //!< Floating point error (`SIGFPE`)
     process_terminate =
@@ -308,16 +317,24 @@ namespace signal_guard
   QUICKCPPLIB_BITFIELD_BEGIN_T(signalc_set, uint64_t){
   none = 0,
 
-  abort_process = (1ULL << static_cast<int>(signalc::abort_process)),                      //!< The process is aborting (`SIGABRT`)
-  undefined_memory_access = (1ULL << static_cast<int>(signalc::undefined_memory_access)),  //!< Attempt to access a memory location which can't exist (`SIGBUS`)
-  illegal_instruction = (1ULL << static_cast<int>(signalc::illegal_instruction)),          //!< Execution of illegal instruction (`SIGILL`)
+  abort_process = (1ULL << static_cast<int>(signalc::abort_process)),  //!< The process is aborting (`SIGABRT`)
+  undefined_memory_access =
+  (1ULL << static_cast<int>(
+   signalc::undefined_memory_access)),  //!< Attempt to access a memory location which can't exist (`SIGBUS`)
+  illegal_instruction =
+  (1ULL << static_cast<int>(signalc::illegal_instruction)),  //!< Execution of illegal instruction (`SIGILL`)
   interrupt =
   (1ULL << static_cast<int>(
    signalc::
    interrupt)),  //!< The process is interrupted (`SIGINT`). Note on Windows the handler is ALWAYS called from a separate thread, and the process exits after you return (or take too long executing).
-  broken_pipe = (1ULL << static_cast<int>(signalc::broken_pipe)),  //!< Reader on a pipe vanished (`SIGPIPE`). Note that Windows never raises this signal.
-  segmentation_fault = (1ULL << static_cast<int>(signalc::segmentation_fault)),      //!< Attempt to access a memory page whose permissions disallow (`SIGSEGV`)
-  floating_point_error = (1ULL << static_cast<int>(signalc::floating_point_error)),  //!< Floating point error (`SIGFPE`)
+  broken_pipe =
+  (1ULL << static_cast<int>(
+   signalc::broken_pipe)),  //!< Reader on a pipe vanished (`SIGPIPE`). Note that Windows never raises this signal.
+  segmentation_fault =
+  (1ULL << static_cast<int>(
+   signalc::segmentation_fault)),  //!< Attempt to access a memory page whose permissions disallow (`SIGSEGV`)
+  floating_point_error =
+  (1ULL << static_cast<int>(signalc::floating_point_error)),  //!< Floating point error (`SIGFPE`)
   process_terminate =
   (1ULL << static_cast<int>(
    signalc::
@@ -325,33 +342,45 @@ namespace signal_guard
 
 
 #ifndef _WIN32
-  timer_expire = (1ULL << static_cast<int>(signalc::timer_expire)),          //!< Timer has expired (`SIGALRM`). POSIX only.
-  child_exit = (1ULL << static_cast<int>(signalc::child_exit)),              //!< Child has exited (`SIGCHLD`). POSIX only.
-  process_continue = (1ULL << static_cast<int>(signalc::process_continue)),  //!< Process is being continued (`SIGCONT`). POSIX only.
-  tty_hangup = (1ULL << static_cast<int>(signalc::tty_hangup)),              //!< Controlling terminal has hung up (`SIGHUP`). POSIX only.
-  process_kill = (1ULL << static_cast<int>(signalc::process_kill)),          //!< Process has received kill signal (`SIGKILL`). POSIX only.
+  timer_expire = (1ULL << static_cast<int>(signalc::timer_expire)),  //!< Timer has expired (`SIGALRM`). POSIX only.
+  child_exit = (1ULL << static_cast<int>(signalc::child_exit)),      //!< Child has exited (`SIGCHLD`). POSIX only.
+  process_continue =
+  (1ULL << static_cast<int>(signalc::process_continue)),  //!< Process is being continued (`SIGCONT`). POSIX only.
+  tty_hangup =
+  (1ULL << static_cast<int>(signalc::tty_hangup)),  //!< Controlling terminal has hung up (`SIGHUP`). POSIX only.
+  process_kill =
+  (1ULL << static_cast<int>(signalc::process_kill)),  //!< Process has received kill signal (`SIGKILL`). POSIX only.
 #ifdef SIGPOLL
-  pollable_event = (1ULL << static_cast<int>(signalc::pollable_event)),  //!< i/o is now possible (`SIGPOLL`). POSIX only.
+  pollable_event =
+  (1ULL << static_cast<int>(signalc::pollable_event)),  //!< i/o is now possible (`SIGPOLL`). POSIX only.
 #endif
-  profile_event = (1ULL << static_cast<int>(signalc::profile_event)),                        //!< Profiling timer expired (`SIGPROF`). POSIX only.
-  process_quit = (1ULL << static_cast<int>(signalc::process_quit)),                          //!< Process is being quit (`SIGQUIT`). POSIX only.
-  process_stop = (1ULL << static_cast<int>(signalc::process_stop)),                          //!< Process is being stopped (`SIGSTOP`). POSIX only.
-  tty_stop = (1ULL << static_cast<int>(signalc::tty_stop)),                                  //!< Terminal requests stop (`SIGTSTP`). POSIX only.
-  bad_system_call = (1ULL << static_cast<int>(signalc::bad_system_call)),                    //!< Bad system call (`SIGSYS`). POSIX only.
-  process_trap = (1ULL << static_cast<int>(signalc::process_trap)),                          //!< Process has reached a breakpoint (`SIGTRAP`). POSIX only.
-  tty_input = (1ULL << static_cast<int>(signalc::tty_input)),                                //!< Terminal has input (`SIGTTIN`). POSIX only.
-  tty_output = (1ULL << static_cast<int>(signalc::tty_output)),                              //!< Terminal ready for output (`SIGTTOU`). POSIX only.
-  urgent_condition = (1ULL << static_cast<int>(signalc::urgent_condition)),                  //!< Urgent condition (`SIGURG`). POSIX only.
-  user_defined1 = (1ULL << static_cast<int>(signalc::user_defined1)),                        //!< User defined 1 (`SIGUSR1`). POSIX only.
-  user_defined2 = (1ULL << static_cast<int>(signalc::user_defined2)),                        //!< User defined 2 (`SIGUSR2`). POSIX only.
-  virtual_alarm_clock = (1ULL << static_cast<int>(signalc::virtual_alarm_clock)),            //!< Virtual alarm clock (`SIGVTALRM`). POSIX only.
-  cpu_time_limit_exceeded = (1ULL << static_cast<int>(signalc::cpu_time_limit_exceeded)),    //!< CPU time limit exceeded (`SIGXCPU`). POSIX only.
-  file_size_limit_exceeded = (1ULL << static_cast<int>(signalc::file_size_limit_exceeded)),  //!< File size limit exceeded (`SIGXFSZ`). POSIX only.
+  profile_event =
+  (1ULL << static_cast<int>(signalc::profile_event)),  //!< Profiling timer expired (`SIGPROF`). POSIX only.
+  process_quit = (1ULL << static_cast<int>(signalc::process_quit)),  //!< Process is being quit (`SIGQUIT`). POSIX only.
+  process_stop =
+  (1ULL << static_cast<int>(signalc::process_stop)),         //!< Process is being stopped (`SIGSTOP`). POSIX only.
+  tty_stop = (1ULL << static_cast<int>(signalc::tty_stop)),  //!< Terminal requests stop (`SIGTSTP`). POSIX only.
+  bad_system_call = (1ULL << static_cast<int>(signalc::bad_system_call)),  //!< Bad system call (`SIGSYS`). POSIX only.
+  process_trap =
+  (1ULL << static_cast<int>(signalc::process_trap)),  //!< Process has reached a breakpoint (`SIGTRAP`). POSIX only.
+  tty_input = (1ULL << static_cast<int>(signalc::tty_input)),    //!< Terminal has input (`SIGTTIN`). POSIX only.
+  tty_output = (1ULL << static_cast<int>(signalc::tty_output)),  //!< Terminal ready for output (`SIGTTOU`). POSIX only.
+  urgent_condition =
+  (1ULL << static_cast<int>(signalc::urgent_condition)),               //!< Urgent condition (`SIGURG`). POSIX only.
+  user_defined1 = (1ULL << static_cast<int>(signalc::user_defined1)),  //!< User defined 1 (`SIGUSR1`). POSIX only.
+  user_defined2 = (1ULL << static_cast<int>(signalc::user_defined2)),  //!< User defined 2 (`SIGUSR2`). POSIX only.
+  virtual_alarm_clock =
+  (1ULL << static_cast<int>(signalc::virtual_alarm_clock)),  //!< Virtual alarm clock (`SIGVTALRM`). POSIX only.
+  cpu_time_limit_exceeded =
+  (1ULL << static_cast<int>(signalc::cpu_time_limit_exceeded)),  //!< CPU time limit exceeded (`SIGXCPU`). POSIX only.
+  file_size_limit_exceeded =
+  (1ULL << static_cast<int>(signalc::file_size_limit_exceeded)),  //!< File size limit exceeded (`SIGXFSZ`). POSIX only.
 #endif
 
   // C++ handlers
-  cxx_out_of_memory = (1ULL << static_cast<int>(signalc::cxx_out_of_memory)),  //!< A call to operator new failed, and a throw is about to occur
-  cxx_termination = (1ULL << static_cast<int>(signalc::cxx_termination))       //!< A call to std::terminate() was made
+  cxx_out_of_memory = (1ULL << static_cast<int>(
+                       signalc::cxx_out_of_memory)),  //!< A call to operator new failed, and a throw is about to occur
+  cxx_termination = (1ULL << static_cast<int>(signalc::cxx_termination))  //!< A call to std::terminate() was made
 
   } QUICKCPPLIB_BITFIELD_END(signalc_set)
 
@@ -467,7 +496,8 @@ namespace signal_guard
     call order is in the order of addition.
     */
     QUICKCPPLIB_TEMPLATE(class U)
-    QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(std::is_constructible<T, U>::value), QUICKCPPLIB_TEXPR(std::declval<U>()((raised_signal_info *) 0)))
+    QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(std::is_constructible<T, U>::value),
+                          QUICKCPPLIB_TEXPR(std::declval<U>()((raised_signal_info *) 0)))
     signal_guard_global_decider(signalc_set guarded, U &&f, bool callfirst)
         : detail::signal_guard_global_decider_impl(guarded, callfirst)
         , _f(static_cast<U &&>(f))
@@ -487,7 +517,8 @@ namespace signal_guard
   //! \brief Convenience instantiator of `signal_guard_global_decider`.
   QUICKCPPLIB_TEMPLATE(class U)
   QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TEXPR(std::declval<U>()((raised_signal_info *) 0)))
-  inline signal_guard_global_decider<std::decay_t<U>> make_signal_guard_global_decider(signalc_set guarded, U &&f, bool callfirst = false)
+  inline signal_guard_global_decider<std::decay_t<U>> make_signal_guard_global_decider(signalc_set guarded, U &&f,
+                                                                                       bool callfirst = false)
   {
     return signal_guard_global_decider<std::decay_t<U>>(guarded, static_cast<U &&>(f), callfirst);
   }
@@ -546,6 +577,7 @@ namespace signal_guard
       {
         if(_inuse)
         {
+#ifdef __cpp_exceptions
           try
           {
             release();
@@ -553,6 +585,9 @@ namespace signal_guard
           catch(...)
           {
           }
+#else
+          release();
+#endif
         }
       }
       signal_guard_watchdog_impl(const signal_guard_watchdog_impl &) = delete;
@@ -622,9 +657,11 @@ namespace signal_guard
     return signal_guard_watchdog<std::decay_t<U>>(static_cast<U &&>(f), ms);
   }
   //! \brief Convenience instantiator of `signal_guard_watchdog`.
-  inline signal_guard_watchdog<detail::invoke_terminate_process_immediately> make_signal_guard_watchdog(unsigned ms = 3000)
+  inline signal_guard_watchdog<detail::invoke_terminate_process_immediately>
+  make_signal_guard_watchdog(unsigned ms = 3000)
   {
-    return signal_guard_watchdog<detail::invoke_terminate_process_immediately>(detail::invoke_terminate_process_immediately(), ms);
+    return signal_guard_watchdog<detail::invoke_terminate_process_immediately>(
+    detail::invoke_terminate_process_immediately(), ms);
   }
 
 
@@ -675,10 +712,17 @@ namespace signal_guard
     {
       struct _EXCEPTION_POINTERS;
     }
-    SIGNALGUARD_FUNC_DECL long win32_exception_filter_function(unsigned long code, win32::_EXCEPTION_POINTERS *pts) noexcept;
+    SIGNALGUARD_FUNC_DECL long win32_exception_filter_function(unsigned long code,
+                                                               win32::_EXCEPTION_POINTERS *pts) noexcept;
 #endif
-    template <class R> inline R throw_signal_raised(const raised_signal_info *i) { throw signal_raised(signalc(1ULL << i->signo)); }
-    inline bool continue_or_handle(const raised_signal_info * /*unused*/) noexcept { return false; }
+    template <class R> inline R throw_signal_raised(const raised_signal_info *i)
+    {
+      throw signal_raised(signalc(1ULL << i->signo));
+    }
+    inline bool continue_or_handle(const raised_signal_info * /*unused*/) noexcept
+    {
+      return false;
+    }
     template <class R, class V> struct is_constructible_or_void : std::is_constructible<R, V>
     {
     };
@@ -714,13 +758,13 @@ namespace signal_guard
   1. `c`, which must have the prototype `bool(raised_signal_info *)`, is called with the signal which
   was raised. You can fix the cause of the signal and return `true` to continue execution, or else return `false`
   to halt execution. Note that the variety of code you can call in `c` is extremely limited, the same restrictions
-  as for signal handlers apply. Note that on Windows only, `signalc::interrupt` and `signalc::process_terminate` call `c` from
-  some other kernel thread, and the return value is always ignored (the process is always exited).
+  as for signal handlers apply. Note that on Windows only, `signalc::interrupt` and `signalc::process_terminate` call
+  `c` from some other kernel thread, and the return value is always ignored (the process is always exited).
 
-  2. If `c` returned `false`, the execution of `f` is halted **immediately** without stack unwind, the thread is returned
-  to the state just before the calling of `f`, and the callable `g` is called with the specific signal
-  which occurred. `g` must have the prototype `R(const raised_signal_info *)` where `R` is the return type of `f`.
-  `g` is called with this signal guard removed, though a signal guard higher in the call chain may instead be active.
+  2. If `c` returned `false`, the execution of `f` is halted **immediately** without stack unwind, the thread is
+  returned to the state just before the calling of `f`, and the callable `g` is called with the specific signal which
+  occurred. `g` must have the prototype `R(const raised_signal_info *)` where `R` is the return type of `f`. `g` is
+  called with this signal guard removed, though a signal guard higher in the call chain may instead be active.
 
   Obviously all state which `f` may have been in the process of doing will be thrown away, in particular
   any stack allocated variables not marked `volatile` will have unspecified values. You
@@ -741,10 +785,13 @@ namespace signal_guard
   complexity of types that can be returned directly by this function. You can usually work around this via an
   intermediate `std::optional`.
   */
-  QUICKCPPLIB_TEMPLATE(class F, class H, class C, class... Args, class R = decltype(std::declval<F>()(std::declval<Args>()...)))
+  QUICKCPPLIB_TEMPLATE(class F, class H, class C, class... Args,
+                       class R = decltype(std::declval<F>()(std::declval<Args>()...)))
   QUICKCPPLIB_TREQUIRES(
-  QUICKCPPLIB_TPRED(detail::is_constructible_or_void<R, decltype(std::declval<H>()(std::declval<const raised_signal_info *>()))>::value),  //
-  QUICKCPPLIB_TPRED(detail::is_constructible_or_void<bool, decltype(std::declval<C>()(std::declval<raised_signal_info *>()))>::value))
+  QUICKCPPLIB_TPRED(detail::is_constructible_or_void<
+                    R, decltype(std::declval<H>()(std::declval<const raised_signal_info *>()))>::value),  //
+  QUICKCPPLIB_TPRED(
+  detail::is_constructible_or_void<bool, decltype(std::declval<C>()(std::declval<raised_signal_info *>()))>::value))
   inline R signal_guard(signalc_set guarded, F &&f, H &&h, C &&c, Args &&...args)
   {
     if(guarded == signalc_set::none)
@@ -796,14 +843,17 @@ namespace signal_guard
     std::atomic_signal_fence(std::memory_order_seq_cst);
 #ifdef _WIN32
     // Cannot use __try in a function with non-trivial destructors
-    return [&] {
+    return [&]
+    {
       __try
       {
         static_assert(std::is_trivially_destructible<R>::value || std::is_void<R>::value,
-                      "On MSVC, the return type of F must be trivially destructible, otherwise the compiler will refuse to compile the code.");
+                      "On MSVC, the return type of F must be trivially destructible, otherwise the compiler will "
+                      "refuse to compile the code.");
         return f(static_cast<Args &&>(args)...);
       }
-      __except(detail::win32_exception_filter_function(_exception_code(), (struct detail::win32::_EXCEPTION_POINTERS *) _exception_info()))
+      __except(detail::win32_exception_filter_function(_exception_code(),
+                                                       (struct detail::win32::_EXCEPTION_POINTERS *) _exception_info()))
       {
         longjmp(sgi.info.buf, 1);
       }
@@ -825,7 +875,8 @@ namespace signal_guard
   }
   //! \overload
   QUICKCPPLIB_TEMPLATE(class F, class H, class R = decltype(std::declval<F>()()))
-  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(detail::is_constructible_or_void<R, decltype(std::declval<H>()(std::declval<const raised_signal_info *>()))>::value))
+  QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(
+  detail::is_constructible_or_void<R, decltype(std::declval<H>()(std::declval<const raised_signal_info *>()))>::value))
   inline auto signal_guard(signalc_set guarded, F &&f, H &&h)
   {
     return signal_guard(guarded, static_cast<F &&>(f), static_cast<H &&>(h), detail::continue_or_handle);

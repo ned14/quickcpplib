@@ -27,6 +27,8 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "config.hpp"
 
+#include "cpp_feature.h"
+
 #include <cstdint>
 #include <stdexcept>  // for std::domain_error
 
@@ -169,7 +171,11 @@ namespace integers128
     uint128 operator%=(const uint128 &b)
     {
       if(!b)
+#ifdef __cpp_exceptions
         throw std::domain_error("divide by zero");
+#else
+        abort();
+#endif
 #if(defined(__GNUC__) || defined(__clang__)) && __SIZEOF_INT128__ > 0
       as_uint128 %= b.as_uint128;
       return *this;
@@ -192,7 +198,11 @@ namespace integers128
     uint32_t operator%(uint32_t b)
     {
       if(!b)
+#ifdef __cpp_exceptions
         throw std::domain_error("divide by zero");
+#else
+        abort();
+#endif
 #if(defined(__GNUC__) || defined(__clang__)) && __SIZEOF_INT128__ > 0
       as_uint128 %= b;
       return *this;
