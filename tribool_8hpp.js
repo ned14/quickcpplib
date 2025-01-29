@@ -18,6 +18,6 @@ var tribool_8hpp =
     [ "other", "tribool_8hpp.html#gadd8cf4ac334bfda6083c2371fcb8c1ee", null ],
     [ "indeterminate", "tribool_8hpp.html#ga4a3161975d78c4532153ff57bd5b6b2b", null ],
     [ "unknown", "tribool_8hpp.html#ga732baebc1a0951b6f8d83fc458c1c6ea", null ],
-    [ "operator>>", "tribool_8hpp.html#a382ce17f74580522b3a4b100a61e3e36", null ],
-    [ "operator<<", "tribool_8hpp.html#a12de9dc944b5d94d14a2b4984da3bce5", null ]
+    [ "operator>>", "tribool_8hpp.html#a6f0e7fbbe36e10ad667e1c1aa2a85b88", null ],
+    [ "operator<<", "tribool_8hpp.html#a0f9aac1dc8d21e29cd95c6371f470ed3", null ]
 ];

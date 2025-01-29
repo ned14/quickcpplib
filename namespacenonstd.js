@@ -1,0 +1,27 @@
+var namespacenonstd =
+[
+    [ "detail", "namespacenonstd_1_1detail.html", null ],
+    [ "byte", "structnonstd_1_1byte.html", "structnonstd_1_1byte" ],
+    [ "to_byte", "namespacenonstd.html#ad3cb936f5cc827264cb18db4601c51ee", null ],
+    [ "to_integer", "namespacenonstd.html#a6f03ec012a75e27b1ff18fb6c3e45e2b", null ],
+    [ "to_integer", "namespacenonstd.html#ac48869732f5f238e8af975ecdd183a9e", null ],
+    [ "to_uchar", "namespacenonstd.html#a07a186fedf389b97c4889e50aaa91f40", null ],
+    [ "to_uchar", "namespacenonstd.html#a756024db6c1d5858e582fbc9927feee2", null ],
+    [ "operator==", "namespacenonstd.html#aa181101f3f187637cb791d05c1bab967", null ],
+    [ "operator!=", "namespacenonstd.html#aef4fa503a8bc0a77bb8a9402faebed9f", null ],
+    [ "operator<", "namespacenonstd.html#a592529d03a36d85f64e7d91bbd4b82a0", null ],
+    [ "operator<=", "namespacenonstd.html#a6b7cfb77f1112a7f116d95e3ad971937", null ],
+    [ "operator>", "namespacenonstd.html#a96f9dfd14e9b35dfcc98048a3b303cae", null ],
+    [ "operator>=", "namespacenonstd.html#a6445917c954c1d30f5734fdc5dfcc94e", null ],
+    [ "operator<<=", "namespacenonstd.html#aade51db8a38efede57eedb8d58996758", null ],
+    [ "operator>>=", "namespacenonstd.html#acd48fd6199cefc93eb241dec43999433", null ],
+    [ "operator<<", "namespacenonstd.html#a7eca44ad2c9d9bc8f1b4e12a453d314e", null ],
+    [ "operator>>", "namespacenonstd.html#a8353e8f8aa5b373c5afd2a6cbce1562a", null ],
+    [ "operator|=", "namespacenonstd.html#afbd01cda74c51d94609f4d4e5b14aab3", null ],
+    [ "operator&=", "namespacenonstd.html#a1b81bafdaa32010616ea88fcbc092d51", null ],
+    [ "operator^=", "namespacenonstd.html#a0e09cdf252857d3d8a6aaaddcd7f683c", null ],
+    [ "operator|", "namespacenonstd.html#aeb7d28947f58d16d386f75ffecabe791", null ],
+    [ "operator&", "namespacenonstd.html#af98842ca6cbab5c6991b8d0e4e77cd8e", null ],
+    [ "operator^", "namespacenonstd.html#a3143c185dfa57bbf7871167cbe78721b", null ],
+    [ "operator~", "namespacenonstd.html#ae750955ff790f8157e983fb4d8dd64ac", null ]
+];

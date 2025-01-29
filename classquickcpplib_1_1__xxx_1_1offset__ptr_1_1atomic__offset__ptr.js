@@ -8,8 +8,8 @@ var classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr =
     [ "atomic_offset_ptr", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr.html#ae09590be50432a3feb51a738756e264d", null ],
     [ "~atomic_offset_ptr", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr.html#afaf1ff4bede92e3762125dbbf650ac88", null ],
     [ "atomic_offset_ptr", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr.html#a8ee18bd6afbb5f86cc5f190d31b5e167", null ],
-    [ "operator=", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr.html#a3b6b5a9f6299304ddeb20ccded129144", null ],
-    [ "operator=", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr.html#ab893d27496ca5cb0ade25d05218ca727", null ],
+    [ "operator=", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr.html#a09534a5403588196d0407d590ef47dd3", null ],
+    [ "operator=", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr.html#a87286c844d305dddb973c37e2fab7f1b", null ],
     [ "get", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr.html#a517c3edebcb12f25a433e726395fdb11", null ],
     [ "set", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr.html#a22d4d9881f6cf4bc1a1ee000e880a1c3", null ]
 ];

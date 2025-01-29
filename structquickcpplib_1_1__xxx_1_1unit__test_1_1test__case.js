@@ -2,7 +2,7 @@ var structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case =
 [
     [ "test_case", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#abfe6e980f2b52928443f43eccdef086d", null ],
     [ "test_case", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#a726d26f53fb3320138cccbd825a128fd", null ],
-    [ "operator=", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#a16fd3abc55c1b178a8bd6efbe2ad9c7c", null ],
+    [ "operator=", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#a8ac34ccdb7626aa451eab2f784f6fc21", null ],
     [ "name", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#ae4e7951b6bfeeee43ea30280738f7878", null ],
     [ "desc", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#a860798ae9e3aab25a3713cafa8384728", null ],
     [ "func", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#af28a06dff01ecb6f3b046cf82ece3c25", null ],

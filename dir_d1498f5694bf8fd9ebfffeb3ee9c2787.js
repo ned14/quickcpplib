@@ -22,11 +22,7 @@ var dir_d1498f5694bf8fd9ebfffeb3ee9c2787 =
     [ "in_place_detach_attach.hpp", "in__place__detach__attach_8hpp.html", "in__place__detach__attach_8hpp" ],
     [ "mem_flush_loads_stores.hpp", "mem__flush__loads__stores_8hpp.html", "mem__flush__loads__stores_8hpp" ],
     [ "memory_resource.hpp", "memory__resource_8hpp.html", "memory__resource_8hpp" ],
-    [ "offset_ptr.hpp", "offset__ptr_8hpp.html", [
-      [ "offset_ptr", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr.html", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr" ],
-      [ "offset_ptr< const T >", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr_3_01const_01_t_01_4.html", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr_3_01const_01_t_01_4" ],
-      [ "atomic_offset_ptr", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr.html", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr" ]
-    ] ],
+    [ "offset_ptr.hpp", "offset__ptr_8hpp.html", "offset__ptr_8hpp" ],
     [ "optional.hpp", "optional_8hpp.html", "optional_8hpp" ],
     [ "packed_backtrace.hpp", "packed__backtrace_8hpp.html", "packed__backtrace_8hpp" ],
     [ "revision.hpp", "revision_8hpp.html", "revision_8hpp" ],
@@ -39,9 +35,5 @@ var dir_d1498f5694bf8fd9ebfffeb3ee9c2787 =
     [ "string_view.hpp", "string__view_8hpp.html", "string__view_8hpp" ],
     [ "tribool.hpp", "tribool_8hpp.html", "tribool_8hpp" ],
     [ "type_traits.hpp", "type__traits_8hpp.html", "type__traits_8hpp" ],
-    [ "uint128.hpp", "uint128_8hpp.html", [
-      [ "uint128", "unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html", "unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128" ],
-      [ "empty_type", "structquickcpplib_1_1__xxx_1_1integers128_1_1uint128_1_1empty__type.html", null ],
-      [ "uint128_hasher", "structquickcpplib_1_1__xxx_1_1integers128_1_1uint128__hasher.html", "structquickcpplib_1_1__xxx_1_1integers128_1_1uint128__hasher" ]
-    ] ]
+    [ "uint128.hpp", "uint128_8hpp.html", "uint128_8hpp" ]
 ];

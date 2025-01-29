@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['what_1511',['what',['../classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__raised.html#a54f35d40db2be64fcd1866cff56f5970',1,'quickcpplib::_xxx::signal_guard::signal_raised']]],
-  ['white_1512',['white',['../namespacequickcpplib_1_1__xxx_1_1console__colours.html#a228155040fdf1c4e0dc792243b8bdf6e',1,'quickcpplib::_xxx::console_colours']]]
+  ['what_0',['what',['../classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__raised.html#a09630693db17a38f452757ddfafe1638',1,'quickcpplib::_xxx::signal_guard::signal_raised']]],
+  ['white_1',['white',['../namespacequickcpplib_1_1__xxx_1_1console__colours.html#ad5fd6bd517b035590cca174f3d2804d2',1,'quickcpplib::_xxx::console_colours']]]
 ];

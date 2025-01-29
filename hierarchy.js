@@ -24,6 +24,7 @@ var hierarchy =
     [ "quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie_head_accessors< HeadBaseType, ItemType >", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html", null ],
     [ "quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie_head_accessors< const Base, const ItemType >", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html", null ],
     [ "quickcpplib::_xxx::algorithm::bitwise_trie::bitwise_trie_item_accessors< ItemType >", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html", null ],
+    [ "nonstd::byte", "structnonstd_1_1byte.html", null ],
     [ "caller", "structcaller.html", null ],
     [ "Combined", "struct_combined.html", null ],
     [ "quickcpplib::_xxx::allocator_testing::config", "structquickcpplib_1_1__xxx_1_1allocator__testing_1_1config.html", null ],
@@ -47,9 +48,7 @@ var hierarchy =
     [ "std::false_type", null, [
       [ "quickcpplib::_xxx::detach_cast::traits::enable_reinterpret_attach_cast< T >", "structquickcpplib_1_1__xxx_1_1detach__cast_1_1traits_1_1enable__reinterpret__attach__cast.html", null ],
       [ "quickcpplib::_xxx::detach_cast::traits::enable_reinterpret_detach_cast< T >", "structquickcpplib_1_1__xxx_1_1detach__cast_1_1traits_1_1enable__reinterpret__detach__cast.html", null ],
-      [ "quickcpplib::_xxx::in_place_attach_detach::traits::disable_attached_for< T >", "structquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1traits_1_1disable__attached__for.html", null ],
-      [ "quickcpplib::_xxx::type_traits::is_sequence< T, typename >", "structquickcpplib_1_1__xxx_1_1type__traits_1_1is__sequence.html", null ],
-      [ "quickcpplib::_xxx::type_traits::is_sequence< void >", "structquickcpplib_1_1__xxx_1_1type__traits_1_1is__sequence_3_01void_01_4.html", null ]
+      [ "quickcpplib::_xxx::in_place_attach_detach::traits::disable_attached_for< T >", "structquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1traits_1_1disable__attached__for.html", null ]
     ] ],
     [ "quickcpplib::_xxx::algorithm::hash::fast_hash", "classquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1fast__hash.html", null ],
     [ "quickcpplib::_xxx::algorithm::hash::fnv1a_hash< T >", "structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1fnv1a__hash.html", null ],
@@ -61,8 +60,6 @@ var hierarchy =
     [ "std::experimental::is_nothrow_move_assignable< T >::has_nothrow_move_assign< X, has_any_move_assign >", "structstd_1_1experimental_1_1is__nothrow__move__assignable_1_1has__nothrow__move__assign.html", null ],
     [ "std::experimental::is_nothrow_move_assignable< T >::has_nothrow_move_assign< X, true >", "structstd_1_1experimental_1_1is__nothrow__move__assignable_1_1has__nothrow__move__assign_3_01_x_00_01true_01_4.html", null ],
     [ "std::experimental::detail_::has_overloaded_addressof< T >", "structstd_1_1experimental_1_1detail___1_1has__overloaded__addressof.html", null ],
-    [ "std::hash< std::experimental::optional< T & > >", "structstd_1_1hash_3_01std_1_1experimental_1_1optional_3_01_t_01_6_01_4_01_4.html", null ],
-    [ "std::hash< std::experimental::optional< T > >", "structstd_1_1hash_3_01std_1_1experimental_1_1optional_3_01_t_01_4_01_4.html", null ],
     [ "std::experimental::in_place_t", "structstd_1_1experimental_1_1in__place__t.html", null ],
     [ "std::experimental::nullopt_t::init", "structstd_1_1experimental_1_1nullopt__t_1_1init.html", null ],
     [ "std::experimental::is_assignable< T, U >", "structstd_1_1experimental_1_1is__assignable.html", null ],
@@ -97,24 +94,21 @@ var hierarchy =
     [ "Oracle", "struct_oracle.html", null ],
     [ "OracleVal", "struct_oracle_val.html", null ],
     [ "quickcpplib::_xxx::configurable_spinlock::ordered_spinlockbase< T >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase.html", null ],
-    [ "quickcpplib::_xxx::packed_backtrace::impl::packed_backtrace< FramePtrType, FrameTypeSize >", "classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html", null ],
-    [ "quickcpplib::_xxx::packed_backtrace::impl::packed_backtrace< void *, sizeof(void *)>", "classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html", [
+    [ "quickcpplib::_xxx::packed_backtrace::impl::packed_backtrace< FramePtrType, FrameTypeSize >", "classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html", [
       [ "quickcpplib::_xxx::packed_backtrace::packed_backtrace< FramePtrType >", "classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace.html", null ]
     ] ],
+    [ "quickcpplib::_xxx::packed_backtrace::impl::packed_backtrace< void *, sizeof(void *)>", "classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html", null ],
     [ "parenttype", null, [
       [ "quickcpplib::_xxx::configurable_spinlock::null_spin_policy::policy< parenttype >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1null__spin__policy_1_1policy.html", null ],
       [ "quickcpplib::_xxx::configurable_spinlock::spins_to_loop< spins, use_pause >::policy< parenttype >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop_1_1policy.html", null ],
       [ "quickcpplib::_xxx::configurable_spinlock::spins_to_sleep::policy< parenttype >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html", null ],
-      [ "quickcpplib::_xxx::configurable_spinlock::spins_to_yield< spins >::policy< parenttype >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield_1_1policy.html", [
-        [ "quickcpplib::_xxx::configurable_spinlock::spins_to_sleep::policy< spins_to_yield< 250 >::policy< spins_to_loop< 125 >::policy< spinlockbase< T > > > >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html", [
-          [ "quickcpplib::_xxx::configurable_spinlock::spinlock< T, spinpolicy2, spinpolicy3, spinpolicy4 >", "classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlock.html", null ]
-        ] ],
-        [ "quickcpplib::_xxx::configurable_spinlock::spins_to_sleep::policy< spins_to_yield< 250 >::policy< spins_to_loop< 125 >::policy< shared_spinlockbase< uintptr_t > > > >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html", [
-          [ "quickcpplib::_xxx::configurable_spinlock::shared_spinlock< T, spinpolicy2, spinpolicy3, spinpolicy4 >", "classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlock.html", null ]
-        ] ]
-      ] ]
+      [ "quickcpplib::_xxx::configurable_spinlock::spins_to_yield< spins >::policy< parenttype >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield_1_1policy.html", null ]
     ] ],
     [ "quickcpplib::_xxx::algorithm::hash::passthru_hash< T >", "structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1passthru__hash.html", null ],
+    [ "spins_to_sleep::policy", null, [
+      [ "quickcpplib::_xxx::configurable_spinlock::shared_spinlock< T, spinpolicy2, spinpolicy3, spinpolicy4 >", "classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlock.html", null ],
+      [ "quickcpplib::_xxx::configurable_spinlock::spinlock< T, spinpolicy2, spinpolicy3, spinpolicy4 >", "classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlock.html", null ]
+    ] ],
     [ "quickcpplib::_xxx::pmr::polymorphic_allocator< T >", "classquickcpplib_1_1__xxx_1_1pmr_1_1polymorphic__allocator.html", null ],
     [ "quickcpplib::_xxx::print_type< T >", "structquickcpplib_1_1__xxx_1_1print__type.html", null ],
     [ "raised_signal_info", "structraised__signal__info.html", null ],
@@ -138,11 +132,12 @@ var hierarchy =
     ] ],
     [ "quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy< Bytes >", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy.html", null ],
     [ "quickcpplib::_xxx::algorithm::small_prng::small_prng", "classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html", null ],
+    [ "quickcpplib::_xxx ::span::span", null, [
+      [ "quickcpplib::_xxx::in_place_attach_detach::attached< T >", "classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html", null ]
+    ] ],
     [ "std::span< T >", null, [
       [ "quickcpplib::_xxx::span::span< uint8_t >", "classquickcpplib_1_1__xxx_1_1span_1_1span.html", null ],
-      [ "quickcpplib::_xxx::span::span< T, Extent >", "classquickcpplib_1_1__xxx_1_1span_1_1span.html", [
-        [ "quickcpplib::_xxx::in_place_attach_detach::attached< T >", "classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html", null ]
-      ] ]
+      [ "quickcpplib::_xxx::span::span< T, Extent >", "classquickcpplib_1_1__xxx_1_1span_1_1span.html", null ]
     ] ],
     [ "quickcpplib::_xxx::configurable_spinlock::spinlockbase< T >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase.html", null ],
     [ "quickcpplib::_xxx::configurable_spinlock::spinlockbase< lockable_ptr< T > >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4.html", null ],
@@ -156,9 +151,6 @@ var hierarchy =
     [ "quickcpplib::_xxx::unit_test::test_suite", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__suite.html", null ],
     [ "quickcpplib::_xxx::unit_test::test_suite_registration", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__suite__registration.html", null ],
     [ "std::experimental::trivial_init_t", "structstd_1_1experimental_1_1trivial__init__t.html", null ],
-    [ "std::true_type", null, [
-      [ "quickcpplib::_xxx::type_traits::is_sequence< T, bool >", "structquickcpplib_1_1__xxx_1_1type__traits_1_1is__sequence_3_01_t_00_01bool_01_4.html", null ]
-    ] ],
     [ "quickcpplib::_xxx::algorithm::open_hash_index::twos_power_modulus< KeyType >", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1twos__power__modulus.html", null ],
     [ "quickcpplib::_xxx::integers128::uint128", "unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html", null ],
     [ "quickcpplib::_xxx::integers128::uint128_hasher", "structquickcpplib_1_1__xxx_1_1integers128_1_1uint128__hasher.html", null ],

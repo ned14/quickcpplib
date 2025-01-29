@@ -1,11 +1,11 @@
 var ringbuffer__log_8hpp =
 [
-    [ "default_ringbuffer_log_level_checker", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1default__ringbuffer__log__level__checker.html", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1default__ringbuffer__log__level__checker" ],
-    [ "value_type", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type" ],
-    [ "simple_ringbuffer_log_policy", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy.html", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy" ],
-    [ "ringbuffer_log", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log" ],
-    [ "iterator_", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__" ],
-    [ "unique_id", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1unique__id.html", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1unique__id" ],
+    [ "quickcpplib::_xxx::ringbuffer_log::default_ringbuffer_log_level_checker", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1default__ringbuffer__log__level__checker.html", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1default__ringbuffer__log__level__checker" ],
+    [ "quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type" ],
+    [ "quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy< Bytes >", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy.html", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy" ],
+    [ "quickcpplib::_xxx::ringbuffer_log::ringbuffer_log< Policy, LogLevelChecker >", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log" ],
+    [ "quickcpplib::_xxx::ringbuffer_log::ringbuffer_log< Policy, LogLevelChecker >::iterator_< Parent, Pointer, Reference >", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__.html", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1iterator__" ],
+    [ "quickcpplib::_xxx::ringbuffer_log::ringbuffer_log< Policy, LogLevelChecker >::unique_id", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1unique__id.html", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1unique__id" ],
     [ "QUICKCPPLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES_DEBUG", "ringbuffer__log_8hpp.html#ae7d3063b719dddb9051b548fff6ad04a", null ],
     [ "QUICKCPPLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES_NDEBUG", "ringbuffer__log_8hpp.html#a63a2d5d5f2d7cbaa180c1c7f7317db2c", null ],
     [ "QUICKCPPLIB_RINGBUFFER_LOG_DEFAULT_ENTRIES", "ringbuffer__log_8hpp.html#a80c541dd8cdf2bb634af01084c409f08", null ],
@@ -35,10 +35,10 @@ var ringbuffer__log_8hpp =
       [ "debug", "ringbuffer__log_8hpp.html#add4cc747a8c90cbfd538b0f07dfdd1e2aad42f6697b035b7580e4fef93be20b4d", null ],
       [ "all", "ringbuffer__log_8hpp.html#add4cc747a8c90cbfd538b0f07dfdd1e2aa181a603769c1f98ad927e7367c7aa51", null ]
     ] ],
-    [ "last190", "ringbuffer__log_8hpp.html#a85fe3cd90562017cb46cb68e4375350f", null ],
+    [ "last190", "ringbuffer__log_8hpp.html#a42d2cfd4ba5404c4927ad5970c3c56cc", null ],
     [ "location", "ringbuffer__log_8hpp.html#a89497c0c3ff363d6c01c6c31e0a9f7e4", null ],
-    [ "operator<<", "ringbuffer__log_8hpp.html#ad43a2050c49cd4008ab0be29e2006eea", null ],
-    [ "csv", "ringbuffer__log_8hpp.html#a826abbd8019519a92d2ffc41a522980e", null ],
-    [ "operator<<", "ringbuffer__log_8hpp.html#a78c7b55fba640ef8a6c6a062f17c9426", null ],
+    [ "operator<<", "ringbuffer__log_8hpp.html#ac3f0a879692c3d0cb3475cd156655fa9", null ],
+    [ "csv", "ringbuffer__log_8hpp.html#a21588f0e7925e21a369e0db8b0b5b586", null ],
+    [ "operator<<", "ringbuffer__log_8hpp.html#ae44004e72eac4e97f7125be9c1cc035b", null ],
     [ "csv", "ringbuffer__log_8hpp.html#ab9de9cd4ed7c0444e25a40cfda172014", null ]
 ];

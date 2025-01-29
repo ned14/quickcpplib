@@ -1,5 +1,8 @@
 var annotated_dup =
 [
+    [ "nonstd", "namespacenonstd.html", [
+      [ "byte", "structnonstd_1_1byte.html", "structnonstd_1_1byte" ]
+    ] ],
     [ "quickcpplib", "namespacequickcpplib.html", [
       [ "_xxx", "namespacequickcpplib_1_1__xxx.html", [
         [ "algorithm", "namespacequickcpplib_1_1__xxx_1_1algorithm.html", [
@@ -7,22 +10,22 @@ var annotated_dup =
             [ "bit_deinterleave_result", "structquickcpplib_1_1__xxx_1_1algorithm_1_1bit__interleave_1_1bit__deinterleave__result.html", "structquickcpplib_1_1__xxx_1_1algorithm_1_1bit__interleave_1_1bit__deinterleave__result" ]
           ] ],
           [ "bitwise_trie", "namespacequickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie.html", [
-            [ "bitwise_trie_item_accessors", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors" ],
+            [ "bitwise_trie", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie" ],
             [ "bitwise_trie_head_accessors", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors.html", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__head__accessors" ],
-            [ "bitwise_trie", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie.html", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie" ]
+            [ "bitwise_trie_item_accessors", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html", "classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors" ]
           ] ],
           [ "hash", "namespacequickcpplib_1_1__xxx_1_1algorithm_1_1hash.html", [
-            [ "passthru_hash", "structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1passthru__hash.html", "structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1passthru__hash" ],
-            [ "fnv1a_hash", "structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1fnv1a__hash.html", "structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1fnv1a__hash" ],
             [ "fast_hash", "classquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1fast__hash.html", "classquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1fast__hash" ],
+            [ "fnv1a_hash", "structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1fnv1a__hash.html", "structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1fnv1a__hash" ],
+            [ "passthru_hash", "structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1passthru__hash.html", "structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1passthru__hash" ],
             [ "sha256_hash", "classquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash.html", "classquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash" ]
           ] ],
           [ "open_hash_index", "namespacequickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index.html", [
             [ "arithmetic_modulus", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1arithmetic__modulus.html", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1arithmetic__modulus" ],
-            [ "twos_power_modulus", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1twos__power__modulus.html", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1twos__power__modulus" ],
-            [ "linear_memory_policy", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy.html", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy" ],
             [ "atomic_linear_memory_policy", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy.html", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy" ],
-            [ "basic_open_hash_index", "classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html", "classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index" ]
+            [ "basic_open_hash_index", "classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html", "classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index" ],
+            [ "linear_memory_policy", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy.html", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy" ],
+            [ "twos_power_modulus", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1twos__power__modulus.html", "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1twos__power__modulus" ]
           ] ],
           [ "secded_ecc", "namespacequickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc.html", [
             [ "secded_ecc", "classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html", "classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc" ]
@@ -33,13 +36,13 @@ var annotated_dup =
         ] ],
         [ "aligned_allocator", "namespacequickcpplib_1_1__xxx_1_1aligned__allocator.html", [
           [ "aligned_allocator", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator.html", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator" ],
-          [ "aligned_allocator< void, Align, initialize >", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01void_00_01_align_00_01initialize_01_4.html", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01void_00_01_align_00_01initialize_01_4" ],
+          [ "aligned_allocator< const T, Align, initialize >", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4" ],
           [ "aligned_allocator< const void, Align, initialize >", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01void_00_01_align_00_01initialize_01_4.html", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01void_00_01_align_00_01initialize_01_4" ],
-          [ "aligned_allocator< const T, Align, initialize >", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4" ]
+          [ "aligned_allocator< void, Align, initialize >", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01void_00_01_align_00_01initialize_01_4.html", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01void_00_01_align_00_01initialize_01_4" ]
         ] ],
         [ "allocator_testing", "namespacequickcpplib_1_1__xxx_1_1allocator__testing.html", [
-          [ "config", "structquickcpplib_1_1__xxx_1_1allocator__testing_1_1config.html", "structquickcpplib_1_1__xxx_1_1allocator__testing_1_1config" ],
-          [ "allocator", "structquickcpplib_1_1__xxx_1_1allocator__testing_1_1allocator.html", "structquickcpplib_1_1__xxx_1_1allocator__testing_1_1allocator" ]
+          [ "allocator", "structquickcpplib_1_1__xxx_1_1allocator__testing_1_1allocator.html", "structquickcpplib_1_1__xxx_1_1allocator__testing_1_1allocator" ],
+          [ "config", "structquickcpplib_1_1__xxx_1_1allocator__testing_1_1config.html", "structquickcpplib_1_1__xxx_1_1allocator__testing_1_1config" ]
         ] ],
         [ "bit_cast", "namespacequickcpplib_1_1__xxx_1_1bit__cast.html", [
           [ "traits", "namespacequickcpplib_1_1__xxx_1_1bit__cast_1_1traits.html", [
@@ -49,29 +52,21 @@ var annotated_dup =
         [ "configurable_spinlock", "namespacequickcpplib_1_1__xxx_1_1configurable__spinlock.html", [
           [ "lock_guard", "classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard.html", "classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lock__guard" ],
           [ "lockable_ptr", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lockable__ptr.html", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1lockable__ptr" ],
+          [ "null_spin_policy", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1null__spin__policy.html", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1null__spin__policy" ],
+          [ "ordered_spinlockbase", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase.html", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase" ],
+          [ "shared_spinlock", "classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlock.html", "classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlock" ],
+          [ "shared_spinlockbase", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlockbase.html", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlockbase" ],
+          [ "spinlock", "classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlock.html", "classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlock" ],
           [ "spinlockbase", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase.html", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase" ],
           [ "spinlockbase< lockable_ptr< T > >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4.html", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4" ],
-          [ "ordered_spinlockbase", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase.html", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase" ],
-          [ "shared_spinlockbase", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlockbase.html", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlockbase" ],
-          [ "spins_to_loop", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop.html", [
-            [ "policy", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop_1_1policy.html", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop_1_1policy" ]
-          ] ],
-          [ "spins_to_yield", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield.html", [
-            [ "policy", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield_1_1policy.html", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield_1_1policy" ]
-          ] ],
-          [ "spins_to_sleep", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep.html", [
-            [ "policy", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy" ]
-          ] ],
-          [ "null_spin_policy", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1null__spin__policy.html", [
-            [ "policy", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1null__spin__policy_1_1policy.html", null ]
-          ] ],
-          [ "spinlock", "classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlock.html", "classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlock" ],
-          [ "shared_spinlock", "classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlock.html", "classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlock" ]
+          [ "spins_to_loop", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop.html", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop" ],
+          [ "spins_to_sleep", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep.html", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep" ],
+          [ "spins_to_yield", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield.html", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield" ]
         ] ],
         [ "detach_cast", "namespacequickcpplib_1_1__xxx_1_1detach__cast.html", [
           [ "traits", "namespacequickcpplib_1_1__xxx_1_1detach__cast_1_1traits.html", [
-            [ "enable_reinterpret_detach_cast", "structquickcpplib_1_1__xxx_1_1detach__cast_1_1traits_1_1enable__reinterpret__detach__cast.html", null ],
-            [ "enable_reinterpret_attach_cast", "structquickcpplib_1_1__xxx_1_1detach__cast_1_1traits_1_1enable__reinterpret__attach__cast.html", null ]
+            [ "enable_reinterpret_attach_cast", "structquickcpplib_1_1__xxx_1_1detach__cast_1_1traits_1_1enable__reinterpret__attach__cast.html", null ],
+            [ "enable_reinterpret_detach_cast", "structquickcpplib_1_1__xxx_1_1detach__cast_1_1traits_1_1enable__reinterpret__detach__cast.html", null ]
           ] ]
         ] ],
         [ "function_ptr", "namespacequickcpplib_1_1__xxx_1_1function__ptr.html", [
@@ -90,9 +85,9 @@ var annotated_dup =
           [ "uint128_hasher", "structquickcpplib_1_1__xxx_1_1integers128_1_1uint128__hasher.html", "structquickcpplib_1_1__xxx_1_1integers128_1_1uint128__hasher" ]
         ] ],
         [ "offset_ptr", "namespacequickcpplib_1_1__xxx_1_1offset__ptr.html", [
+          [ "atomic_offset_ptr", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr.html", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr" ],
           [ "offset_ptr", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr.html", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr" ],
-          [ "offset_ptr< const T >", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr_3_01const_01_t_01_4.html", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr_3_01const_01_t_01_4" ],
-          [ "atomic_offset_ptr", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr.html", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr" ]
+          [ "offset_ptr< const T >", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr_3_01const_01_t_01_4.html", "classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr_3_01const_01_t_01_4" ]
         ] ],
         [ "packed_backtrace", "namespacequickcpplib_1_1__xxx_1_1packed__backtrace.html", [
           [ "impl", "namespacequickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl.html", [
@@ -114,55 +109,48 @@ var annotated_dup =
           [ "simple_ringbuffer_log_policy", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy.html", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy" ]
         ] ],
         [ "signal_guard", "namespacequickcpplib_1_1__xxx_1_1signal__guard.html", [
-          [ "signal_guard_install", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__install.html", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__install" ],
           [ "signal_guard_global_decider", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__global__decider.html", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__global__decider" ],
+          [ "signal_guard_install", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__install.html", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__install" ],
           [ "signal_guard_watchdog", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog.html", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog" ],
           [ "signal_raised", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__raised.html", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__raised" ]
         ] ],
         [ "span", "namespacequickcpplib_1_1__xxx_1_1span.html", [
           [ "span", "classquickcpplib_1_1__xxx_1_1span_1_1span.html", "classquickcpplib_1_1__xxx_1_1span_1_1span" ]
         ] ],
-        [ "type_traits", "namespacequickcpplib_1_1__xxx_1_1type__traits.html", [
-          [ "is_sequence", "structquickcpplib_1_1__xxx_1_1type__traits_1_1is__sequence.html", null ],
-          [ "is_sequence< void >", "structquickcpplib_1_1__xxx_1_1type__traits_1_1is__sequence_3_01void_01_4.html", null ],
-          [ "is_sequence< T, bool >", "structquickcpplib_1_1__xxx_1_1type__traits_1_1is__sequence_3_01_t_00_01bool_01_4.html", "structquickcpplib_1_1__xxx_1_1type__traits_1_1is__sequence_3_01_t_00_01bool_01_4" ]
-        ] ],
         [ "unit_test", "namespacequickcpplib_1_1__xxx_1_1unit__test.html", [
           [ "requirement_failed", "structquickcpplib_1_1__xxx_1_1unit__test_1_1requirement__failed.html", null ],
           [ "test_case", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case" ],
+          [ "test_case_registration", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case__registration.html", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case__registration" ],
           [ "test_suite", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__suite.html", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__suite" ],
-          [ "test_suite_registration", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__suite__registration.html", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__suite__registration" ],
-          [ "test_case_registration", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case__registration.html", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case__registration" ]
+          [ "test_suite_registration", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__suite__registration.html", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__suite__registration" ]
         ] ],
         [ "print_type", "structquickcpplib_1_1__xxx_1_1print__type.html", null ]
       ] ]
     ] ],
-    [ "std", null, [
+    [ "std", "namespacestd.html", [
       [ "experimental", "namespacestd_1_1experimental.html", [
         [ "detail_", "namespacestd_1_1experimental_1_1detail__.html", [
           [ "has_overloaded_addressof", "structstd_1_1experimental_1_1detail___1_1has__overloaded__addressof.html", null ]
         ] ],
-        [ "is_nothrow_move_constructible", "structstd_1_1experimental_1_1is__nothrow__move__constructible.html", null ],
+        [ "bad_optional_access", "classstd_1_1experimental_1_1bad__optional__access.html", "classstd_1_1experimental_1_1bad__optional__access" ],
+        [ "constexpr_optional_base", "structstd_1_1experimental_1_1constexpr__optional__base.html", "structstd_1_1experimental_1_1constexpr__optional__base" ],
+        [ "constexpr_storage_t", "unionstd_1_1experimental_1_1constexpr__storage__t.html", "unionstd_1_1experimental_1_1constexpr__storage__t" ],
+        [ "in_place_t", "structstd_1_1experimental_1_1in__place__t.html", null ],
         [ "is_assignable", "structstd_1_1experimental_1_1is__assignable.html", null ],
         [ "is_nothrow_move_assignable", "structstd_1_1experimental_1_1is__nothrow__move__assignable.html", "structstd_1_1experimental_1_1is__nothrow__move__assignable" ],
-        [ "optional", "classstd_1_1experimental_1_1optional.html", "classstd_1_1experimental_1_1optional" ],
-        [ "trivial_init_t", "structstd_1_1experimental_1_1trivial__init__t.html", null ],
-        [ "in_place_t", "structstd_1_1experimental_1_1in__place__t.html", null ],
+        [ "is_nothrow_move_constructible", "structstd_1_1experimental_1_1is__nothrow__move__constructible.html", null ],
         [ "nullopt_t", "structstd_1_1experimental_1_1nullopt__t.html", "structstd_1_1experimental_1_1nullopt__t" ],
-        [ "bad_optional_access", "classstd_1_1experimental_1_1bad__optional__access.html", "classstd_1_1experimental_1_1bad__optional__access" ],
-        [ "storage_t", "unionstd_1_1experimental_1_1storage__t.html", "unionstd_1_1experimental_1_1storage__t" ],
-        [ "constexpr_storage_t", "unionstd_1_1experimental_1_1constexpr__storage__t.html", "unionstd_1_1experimental_1_1constexpr__storage__t" ],
-        [ "optional_base", "structstd_1_1experimental_1_1optional__base.html", "structstd_1_1experimental_1_1optional__base" ],
-        [ "constexpr_optional_base", "structstd_1_1experimental_1_1constexpr__optional__base.html", "structstd_1_1experimental_1_1constexpr__optional__base" ],
+        [ "optional", "classstd_1_1experimental_1_1optional.html", "classstd_1_1experimental_1_1optional" ],
         [ "optional< T & >", "classstd_1_1experimental_1_1optional_3_01_t_01_6_01_4.html", "classstd_1_1experimental_1_1optional_3_01_t_01_6_01_4" ],
         [ "optional< T && >", "classstd_1_1experimental_1_1optional_3_01_t_01_6_6_01_4.html", null ],
-        [ "Val", "structstd_1_1experimental_1_1_val.html", "structstd_1_1experimental_1_1_val" ],
+        [ "optional_base", "structstd_1_1experimental_1_1optional__base.html", "structstd_1_1experimental_1_1optional__base" ],
         [ "Safe", "structstd_1_1experimental_1_1_safe.html", "structstd_1_1experimental_1_1_safe" ],
+        [ "storage_t", "unionstd_1_1experimental_1_1storage__t.html", "unionstd_1_1experimental_1_1storage__t" ],
+        [ "trivial_init_t", "structstd_1_1experimental_1_1trivial__init__t.html", null ],
         [ "Unsafe", "structstd_1_1experimental_1_1_unsafe.html", "structstd_1_1experimental_1_1_unsafe" ],
+        [ "Val", "structstd_1_1experimental_1_1_val.html", "structstd_1_1experimental_1_1_val" ],
         [ "VoidNothrowBoth", "structstd_1_1experimental_1_1_void_nothrow_both.html", "structstd_1_1experimental_1_1_void_nothrow_both" ]
-      ] ],
-      [ "hash< std::experimental::optional< T > >", "structstd_1_1hash_3_01std_1_1experimental_1_1optional_3_01_t_01_4_01_4.html", "structstd_1_1hash_3_01std_1_1experimental_1_1optional_3_01_t_01_4_01_4" ],
-      [ "hash< std::experimental::optional< T & > >", "structstd_1_1hash_3_01std_1_1experimental_1_1optional_3_01_t_01_6_01_4_01_4.html", "structstd_1_1hash_3_01std_1_1experimental_1_1optional_3_01_t_01_6_01_4_01_4" ]
+      ] ]
     ] ],
     [ "BadRelops", "struct_bad_relops.html", "struct_bad_relops" ],
     [ "caller", "structcaller.html", "structcaller" ],

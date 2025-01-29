@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['p1631_2004',['P1631',['../group___p1631.html',1,'']]]
+  ['c_2011_20tribool_0',['Constexpr C++ 11 tribool',['../group__tribool.html',1,'']]],
+  ['constexpr_20c_2011_20tribool_1',['Constexpr C++ 11 tribool',['../group__tribool.html',1,'']]]
 ];

@@ -14,7 +14,7 @@ var namespacequickcpplib_1_1__xxx_1_1ringbuffer__log =
       [ "debug", "namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2aad42f6697b035b7580e4fef93be20b4d", null ],
       [ "all", "namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2aa181a603769c1f98ad927e7367c7aa51", null ]
     ] ],
-    [ "last190", "namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#a85fe3cd90562017cb46cb68e4375350f", null ],
-    [ "operator<<", "namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#a78c7b55fba640ef8a6c6a062f17c9426", null ],
+    [ "last190", "namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#a42d2cfd4ba5404c4927ad5970c3c56cc", null ],
+    [ "operator<<", "namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#ae44004e72eac4e97f7125be9c1cc035b", null ],
     [ "csv", "namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#ab9de9cd4ed7c0444e25a40cfda172014", null ]
 ];

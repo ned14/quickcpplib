@@ -1,6 +1,6 @@
 var bit__cast_8hpp =
 [
-    [ "is_move_relocating", "structquickcpplib_1_1__xxx_1_1bit__cast_1_1traits_1_1is__move__relocating.html", null ],
+    [ "quickcpplib::_xxx::bit_cast::traits::is_move_relocating< T >", "structquickcpplib_1_1__xxx_1_1bit__cast_1_1traits_1_1is__move__relocating.html", null ],
     [ "QUICKCPPLIB_USE_STD_BIT_CAST", "bit__cast_8hpp.html#a159e35667401c4da6feb45e9cda48fd7", null ],
     [ "is_integral_or_enum", "bit__cast_8hpp.html#ac9c5b9f25deff58391dc20185886790e", null ],
     [ "is_static_castable", "bit__cast_8hpp.html#a6130300b3bed0299ee5c1f6a4133fd44", null ],

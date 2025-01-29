@@ -25,7 +25,7 @@
 var menudata={children:[
 {text:"Main Page",url:"index.html"},
 {text:"Related Pages",url:"pages.html"},
-{text:"Modules",url:"modules.html"},
+{text:"Topics",url:"topics.html"},
 {text:"Namespaces",url:"namespaces.html",children:[
 {text:"Namespace List",url:"namespaces.html"},
 {text:"Namespace Members",url:"namespacemembers.html",children:[
@@ -74,20 +74,7 @@ var menudata={children:[
 {text:"w",url:"namespacemembers_func_w.html#index_w"},
 {text:"y",url:"namespacemembers_func_y.html#index_y"}]},
 {text:"Variables",url:"namespacemembers_vars.html"},
-{text:"Typedefs",url:"namespacemembers_type.html",children:[
-{text:"a",url:"namespacemembers_type.html#index_a"},
-{text:"b",url:"namespacemembers_type.html#index_b"},
-{text:"c",url:"namespacemembers_type.html#index_c"},
-{text:"e",url:"namespacemembers_type.html#index_e"},
-{text:"f",url:"namespacemembers_type.html#index_f"},
-{text:"i",url:"namespacemembers_type.html#index_i"},
-{text:"l",url:"namespacemembers_type.html#index_l"},
-{text:"o",url:"namespacemembers_type.html#index_o"},
-{text:"p",url:"namespacemembers_type.html#index_p"},
-{text:"r",url:"namespacemembers_type.html#index_r"},
-{text:"s",url:"namespacemembers_type.html#index_s"},
-{text:"u",url:"namespacemembers_type.html#index_u"},
-{text:"w",url:"namespacemembers_type.html#index_w"}]},
+{text:"Typedefs",url:"namespacemembers_type.html"},
 {text:"Enumerations",url:"namespacemembers_enum.html"}]}]},
 {text:"Classes",url:"annotated.html",children:[
 {text:"Class List",url:"annotated.html"},
@@ -163,7 +150,6 @@ var menudata={children:[
 {text:"v",url:"functions_vars.html#index_v"}]},
 {text:"Typedefs",url:"functions_type.html",children:[
 {text:"_",url:"functions_type.html#index__5F"},
-{text:"a",url:"functions_type.html#index_a"},
 {text:"c",url:"functions_type.html#index_c"},
 {text:"d",url:"functions_type.html#index_d"},
 {text:"e",url:"functions_type.html#index_e"},
@@ -181,7 +167,7 @@ var menudata={children:[
 {text:"w",url:"functions_type.html#index_w"}]},
 {text:"Enumerations",url:"functions_enum.html"},
 {text:"Enumerator",url:"functions_eval.html"},
-{text:"Related Functions",url:"functions_rela.html"}]}]},
+{text:"Related Symbols",url:"functions_rela.html"}]}]},
 {text:"Files",url:"files.html",children:[
 {text:"File List",url:"files.html"},
 {text:"File Members",url:"globals.html",children:[

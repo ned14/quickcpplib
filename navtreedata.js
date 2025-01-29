@@ -25,18 +25,15 @@
 var NAVTREE =
 [
   [ "QuickCppLib", "index.html", [
-    [ "Quick C++ Libraries", "index.html", [
-      [ "Requirements:", "index.html#autotoc_md1", null ],
-      [ "Commits and tags in this git repository can be verified using:", "index.html#autotoc_md2", null ]
-    ] ],
-    [ "Optional", "md_include_quickcpplib_optional__r_e_a_d_m_e.html", [
-      [ "Usage", "md_include_quickcpplib_optional__r_e_a_d_m_e.html#autotoc_md8", null ],
-      [ "Supported compilers", "md_include_quickcpplib_optional__r_e_a_d_m_e.html#autotoc_md9", null ],
-      [ "Known Issues", "md_include_quickcpplib_optional__r_e_a_d_m_e.html#autotoc_md10", null ],
-      [ "License", "md_include_quickcpplib_optional__r_e_a_d_m_e.html#autotoc_md11", null ]
+    [ "Quick C++ Libraries", "index.html", "index" ],
+    [ "Optional", "md_include_2quickcpplib_2optional_2_r_e_a_d_m_e.html", [
+      [ "Usage", "md_include_2quickcpplib_2optional_2_r_e_a_d_m_e.html#autotoc_md8", null ],
+      [ "Supported compilers", "md_include_2quickcpplib_2optional_2_r_e_a_d_m_e.html#autotoc_md9", null ],
+      [ "Known Issues", "md_include_2quickcpplib_2optional_2_r_e_a_d_m_e.html#autotoc_md10", null ],
+      [ "License", "md_include_2quickcpplib_2optional_2_r_e_a_d_m_e.html#autotoc_md11", null ]
     ] ],
     [ "Todo List", "todo.html", null ],
-    [ "Modules", "modules.html", "modules" ],
+    [ "Topics", "topics.html", "topics" ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
@@ -58,7 +55,7 @@ var NAVTREE =
         [ "Typedefs", "functions_type.html", null ],
         [ "Enumerations", "functions_enum.html", null ],
         [ "Enumerator", "functions_eval.html", null ],
-        [ "Related Functions", "functions_rela.html", null ]
+        [ "Related Symbols", "functions_rela.html", null ]
       ] ]
     ] ],
     [ "Files", "files.html", [
@@ -79,15 +76,19 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "aligned__allocator_8hpp.html",
-"classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#aa0b1a4798c525be9f51c3051754ea40ca1ef0a2a9c5cfd09fbb2d008b66571597",
-"classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html#a438b9568cdcef03a9c280a15f0bf76bd",
-"console__colours_8hpp.html#a6d5211522ae2e8b3a6a0fa9a9d62504a",
-"group__unittesting.html#ga8c09a93d328cbe466b58f6fd17f783bb",
-"namespacequickcpplib_1_1__xxx_1_1bit__cast_1_1traits.html",
-"namespacestd_1_1experimental.html#a4482ae3dc6aad99b5d17a3a2c0dfe30f",
-"signal__guard_8hpp.html#a95601e6c8a95db2668387289c2c6c01c",
-"structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy.html#ad12652da99b29fcd948cf51538b85376",
-"structstd_1_1experimental_1_1optional__base.html#aa5983374de32e763d1b676ccfe834d05"
+"classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html#a67e6d02afcded02f875d9467c7ddec95",
+"classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#a4cf2ec5b0eb15c368f9b634cccc2ffe0",
+"classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr.html#ae09590be50432a3feb51a738756e264d",
+"classquickcpplib_1_1__xxx_1_1pmr_1_1monotonic__buffer__resource.html#a79fd1c9b144d7c888054e3d903839e9d",
+"classquickcpplib_1_1__xxx_1_1span_1_1span.html#a096e27c7400d6037e673e22d1e06272f",
+"function__ptr_8hpp.html",
+"memory__resource_8hpp.html#abe90f316f69a2293b7f97a0137d03fdb",
+"namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#a42d2cfd4ba5404c4927ad5970c3c56cc",
+"optional_2optional_8hpp.html#ab843facc3d02d2fa3df8288cedbe8fd2",
+"struct_nothrow_ctor.html",
+"structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy.html#ab312a5cf1f8dbef87c6c6639e8ea9a90",
+"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html#a6271daaa7603b2c46bad58423866733e",
+"test__optional_8cpp.html#a08ddc2ccef40748450f057b7055ea599"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
