@@ -210,7 +210,7 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">   72</span>{}</div>
+<div class="fragment"><div class="line"><span class="lineno">   74</span>{}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -274,7 +274,9 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">   74</span>{ <span class="keywordflow">return</span> do_allocate(bytes, alignment); }</div>
+<div class="fragment"><div class="line"><span class="lineno">   77</span>    {</div>
+<div class="line"><span class="lineno">   78</span>      <span class="keywordflow">return</span> do_allocate(bytes, alignment);</div>
+<div class="line"><span class="lineno">   79</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -317,7 +319,9 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">   75</span>{ <span class="keywordflow">return</span> do_deallocate(p, bytes, alignment); }</div>
+<div class="fragment"><div class="line"><span class="lineno">   81</span>    {</div>
+<div class="line"><span class="lineno">   82</span>      <span class="keywordflow">return</span> do_deallocate(p, bytes, alignment);</div>
+<div class="line"><span class="lineno">   83</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -355,7 +359,9 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">   77</span>{ <span class="keywordflow">return</span> a.do_is_equal(b); }</div>
+<div class="fragment"><div class="line"><span class="lineno">   86</span>  {</div>
+<div class="line"><span class="lineno">   87</span>    <span class="keywordflow">return</span> a.do_is_equal(b);</div>
+<div class="line"><span class="lineno">   88</span>  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -392,7 +398,9 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">   78</span>{ <span class="keywordflow">return</span> !a.do_is_equal(b); }</div>
+<div class="fragment"><div class="line"><span class="lineno">   90</span>  {</div>
+<div class="line"><span class="lineno">   91</span>    <span class="keywordflow">return</span> !a.do_is_equal(b);</div>
+<div class="line"><span class="lineno">   92</span>  }</div>
 </div><!-- fragment -->
 </div>
 </div>

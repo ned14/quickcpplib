@@ -213,10 +213,10 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  112</span>        : _ptr((<span class="keywordtype">char</span> *) buffer)</div>
-<div class="line"><span class="lineno">  113</span>        , _end((<span class="keywordtype">char</span> *) buffer + length)</div>
-<div class="line"><span class="lineno">  114</span>    {</div>
-<div class="line"><span class="lineno">  115</span>    }</div>
+<div class="fragment"><div class="line"><span class="lineno">  134</span>        : _ptr((<span class="keywordtype">char</span> *) buffer)</div>
+<div class="line"><span class="lineno">  135</span>        , _end((<span class="keywordtype">char</span> *) buffer + length)</div>
+<div class="line"><span class="lineno">  136</span>    {</div>
+<div class="line"><span class="lineno">  137</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -280,7 +280,9 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">   74</span>{ <span class="keywordflow">return</span> do_allocate(bytes, alignment); }</div>
+<div class="fragment"><div class="line"><span class="lineno">   77</span>    {</div>
+<div class="line"><span class="lineno">   78</span>      <span class="keywordflow">return</span> do_allocate(bytes, alignment);</div>
+<div class="line"><span class="lineno">   79</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -323,7 +325,9 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">   75</span>{ <span class="keywordflow">return</span> do_deallocate(p, bytes, alignment); }</div>
+<div class="fragment"><div class="line"><span class="lineno">   81</span>    {</div>
+<div class="line"><span class="lineno">   82</span>      <span class="keywordflow">return</span> do_deallocate(p, bytes, alignment);</div>
+<div class="line"><span class="lineno">   83</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
