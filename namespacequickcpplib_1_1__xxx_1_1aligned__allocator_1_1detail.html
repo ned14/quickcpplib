@@ -100,7 +100,7 @@ $(document).ready(function(){initNavTree('namespacequickcpplib_1_1__xxx_1_1align
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:ab68128e48d1244d5374933086190d094" id="r_ab68128e48d1244d5374933086190d094"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#ab68128e48d1244d5374933086190d094">allocator_alignment</a> : size_t { <br />
-&#160;&#160;<a class="el" href="namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#ab68128e48d1244d5374933086190d094a7a1920d61156abc05a60135aefe8bc67">Default</a> = sizeof(void*)
+&#160;&#160;<a class="el" href="namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#ab68128e48d1244d5374933086190d094a7a1920d61156abc05a60135aefe8bc67">Default</a> = sizeof(void *)
 , <a class="el" href="namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#ab68128e48d1244d5374933086190d094a5fc53fc8197865c63285f74b1e147013">SSE</a> = 16
 , <a class="el" href="namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#ab68128e48d1244d5374933086190d094a00787e08f17fca565d5b1083b9e33b43">M128</a> = 16
 , <a class="el" href="namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#ab68128e48d1244d5374933086190d094a4863502abea45861b9ed022e66d66cb2">AVX</a> = 32
@@ -151,13 +151,13 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="ab68128e48d1244d5374933086190d094a05c31e68cb2532c5fd8e0b19aba485db" name="ab68128e48d1244d5374933086190d094a05c31e68cb2532c5fd8e0b19aba485db"></a>M256&#160;</td><td class="fielddoc"><p>The alignment for a 256 bit vector. </p>
 </td></tr>
 </table>
-<div class="fragment"><div class="line"><span class="lineno">   55</span>    {</div>
-<div class="line"><span class="lineno">   56</span>      <a class="code hl_enumvalue" href="namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#ab68128e48d1244d5374933086190d094a7a1920d61156abc05a60135aefe8bc67">Default</a> = <span class="keyword">sizeof</span>(<span class="keywordtype">void</span>*), <span class="comment">//!&lt; The default alignment on this machine.</span></div>
-<div class="line"><span class="lineno">   57</span>      SSE = 16,            <span class="comment">//!&lt; The alignment for SSE. Better to use M128 for NEON et al support.</span></div>
-<div class="line"><span class="lineno">   58</span>      M128 = 16,            <span class="comment">//!&lt; The alignment for a 128 bit vector.</span></div>
-<div class="line"><span class="lineno">   59</span>      AVX = 32,            <span class="comment">//!&lt; The alignment for AVX. Better to use M256 for NEON et al support.</span></div>
-<div class="line"><span class="lineno">   60</span>      M256 = 32             <span class="comment">//!&lt; The alignment for a 256 bit vector.</span></div>
-<div class="line"><span class="lineno">   61</span>    };</div>
+<div class="fragment"><div class="line"><span class="lineno">   58</span>    {</div>
+<div class="line"><span class="lineno">   59</span>      <a class="code hl_enumvalue" href="namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#ab68128e48d1244d5374933086190d094a7a1920d61156abc05a60135aefe8bc67">Default</a> = <span class="keyword">sizeof</span>(<span class="keywordtype">void</span> *),  <span class="comment">//!&lt; The default alignment on this machine.</span></div>
+<div class="line"><span class="lineno">   60</span>      SSE = 16,                  <span class="comment">//!&lt; The alignment for SSE. Better to use M128 for NEON et al support.</span></div>
+<div class="line"><span class="lineno">   61</span>      M128 = 16,                 <span class="comment">//!&lt; The alignment for a 128 bit vector.</span></div>
+<div class="line"><span class="lineno">   62</span>      AVX = 32,                  <span class="comment">//!&lt; The alignment for AVX. Better to use M256 for NEON et al support.</span></div>
+<div class="line"><span class="lineno">   63</span>      M256 = 32                  <span class="comment">//!&lt; The alignment for a 256 bit vector.</span></div>
+<div class="line"><span class="lineno">   64</span>    };</div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail_html_ab68128e48d1244d5374933086190d094a7a1920d61156abc05a60135aefe8bc67"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#ab68128e48d1244d5374933086190d094a7a1920d61156abc05a60135aefe8bc67">quickcpplib::_xxx::aligned_allocator::detail::allocator_alignment::Default</a></div><div class="ttdeci">@ Default</div><div class="ttdoc">The default alignment on this machine.</div></div>
 </div><!-- fragment -->
 </div>
@@ -230,15 +230,16 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">   69</span>    {</div>
-<div class="line"><span class="lineno">   70</span><span class="preprocessor">#ifdef _WIN32</span></div>
-<div class="line"><span class="lineno">   71</span>      <span class="keywordflow">return</span> _aligned_malloc(size, align);</div>
-<div class="line"><span class="lineno">   72</span><span class="preprocessor">#else</span></div>
-<div class="line"><span class="lineno">   73</span>      <span class="keywordtype">void</span> *ret = <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno">   74</span>      <span class="keywordflow">if</span> (<a class="code hl_function" href="namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#a3150bfc8ccf82de367e8dad3d9da95dd">posix_memalign</a>(&amp;ret, align, size)) <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno">   75</span>      <span class="keywordflow">return</span> ret;</div>
-<div class="line"><span class="lineno">   76</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">   77</span>    }</div>
+<div class="fragment"><div class="line"><span class="lineno">   72</span>    {</div>
+<div class="line"><span class="lineno">   73</span><span class="preprocessor">#ifdef _WIN32</span></div>
+<div class="line"><span class="lineno">   74</span>      <span class="keywordflow">return</span> _aligned_malloc(size, align);</div>
+<div class="line"><span class="lineno">   75</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">   76</span>      <span class="keywordtype">void</span> *ret = <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">   77</span>      <span class="keywordflow">if</span>(<a class="code hl_function" href="namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#a3150bfc8ccf82de367e8dad3d9da95dd">posix_memalign</a>(&amp;ret, align, size))</div>
+<div class="line"><span class="lineno">   78</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">   79</span>      <span class="keywordflow">return</span> ret;</div>
+<div class="line"><span class="lineno">   80</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">   81</span>    }</div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail_html_a3150bfc8ccf82de367e8dad3d9da95dd"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#a3150bfc8ccf82de367e8dad3d9da95dd">quickcpplib::_xxx::aligned_allocator::detail::posix_memalign</a></div><div class="ttdeci">int posix_memalign(void **memptr, size_t alignment, size_t size)</div></div>
 </div><!-- fragment -->
 </div>
@@ -266,13 +267,13 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">   79</span>    {</div>
-<div class="line"><span class="lineno">   80</span><span class="preprocessor">#ifdef _WIN32</span></div>
-<div class="line"><span class="lineno">   81</span>      _aligned_free(ptr);</div>
-<div class="line"><span class="lineno">   82</span><span class="preprocessor">#else</span></div>
-<div class="line"><span class="lineno">   83</span>      free(ptr);</div>
-<div class="line"><span class="lineno">   84</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">   85</span>    }</div>
+<div class="fragment"><div class="line"><span class="lineno">   83</span>    {</div>
+<div class="line"><span class="lineno">   84</span><span class="preprocessor">#ifdef _WIN32</span></div>
+<div class="line"><span class="lineno">   85</span>      _aligned_free(ptr);</div>
+<div class="line"><span class="lineno">   86</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">   87</span>      free(ptr);</div>
+<div class="line"><span class="lineno">   88</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">   89</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>

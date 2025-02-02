@@ -16,6 +16,6 @@ var classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator =
     [ "address", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator.html#a5b6f8f11be38c9664007dbd77b179697", null ],
     [ "allocate", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator.html#a02cd9b343835b79b1cfb630d26fd23c5", null ],
     [ "deallocate", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator.html#a7a0f88ed47f84407abf4dd715a4901ab", null ],
-    [ "construct", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator.html#ae3ed8dbfb759dd9f04bf14ea63712721", null ],
+    [ "construct", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator.html#abe0974d0233a019aed4d5ebb3bbd3c95", null ],
     [ "destroy", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator.html#adbdcb702867788510b794822554902f6", null ]
 ];

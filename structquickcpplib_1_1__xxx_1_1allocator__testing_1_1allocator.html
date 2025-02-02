@@ -155,7 +155,7 @@ template&lt;class T , class A  = std::allocator&lt;T&gt;&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">   66</span>{}</div>
+<div class="fragment"><div class="line"><span class="lineno">   68</span>{}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -184,9 +184,9 @@ template&lt;class T , class A  = std::allocator&lt;T&gt;&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">   68</span>        : A(o)</div>
-<div class="line"><span class="lineno">   69</span>    {</div>
-<div class="line"><span class="lineno">   70</span>    }</div>
+<div class="fragment"><div class="line"><span class="lineno">   70</span>        : A(o)</div>
+<div class="line"><span class="lineno">   71</span>    {</div>
+<div class="line"><span class="lineno">   72</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -217,9 +217,9 @@ template&lt;class U &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">   73</span>        : A(o)</div>
-<div class="line"><span class="lineno">   74</span>    {</div>
-<div class="line"><span class="lineno">   75</span>    }</div>
+<div class="fragment"><div class="line"><span class="lineno">   75</span>        : A(o)</div>
+<div class="line"><span class="lineno">   76</span>    {</div>
+<div class="line"><span class="lineno">   77</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -259,13 +259,17 @@ template&lt;class T , class A  = std::allocator&lt;T&gt;&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">   77</span>    {</div>
-<div class="line"><span class="lineno">   78</span>      config &amp;<a class="code hl_variable" href="namespaceconstexpr__optional__ref__and__arrow.html#a6567284ae39647a083d074ed0579f885">c</a> = get_config();</div>
-<div class="line"><span class="lineno">   79</span>      <span class="keywordtype">size_t</span> count = ++<a class="code hl_variable" href="namespaceconstexpr__optional__ref__and__arrow.html#a6567284ae39647a083d074ed0579f885">c</a>.count;</div>
-<div class="line"><span class="lineno">   80</span>      <span class="keywordflow">if</span>(count &gt;= <a class="code hl_variable" href="namespaceconstexpr__optional__ref__and__arrow.html#a6567284ae39647a083d074ed0579f885">c</a>.fail_from || count == <a class="code hl_variable" href="namespaceconstexpr__optional__ref__and__arrow.html#a6567284ae39647a083d074ed0579f885">c</a>.fail_at)</div>
-<div class="line"><span class="lineno">   81</span>        <span class="keywordflow">throw</span> std::bad_alloc();</div>
-<div class="line"><span class="lineno">   82</span>      <span class="keywordflow">return</span> A::allocate(n, hint);</div>
-<div class="line"><span class="lineno">   83</span>    }</div>
+<div class="fragment"><div class="line"><span class="lineno">   79</span>    {</div>
+<div class="line"><span class="lineno">   80</span>      config &amp;<a class="code hl_variable" href="namespaceconstexpr__optional__ref__and__arrow.html#a6567284ae39647a083d074ed0579f885">c</a> = get_config();</div>
+<div class="line"><span class="lineno">   81</span>      <span class="keywordtype">size_t</span> count = ++<a class="code hl_variable" href="namespaceconstexpr__optional__ref__and__arrow.html#a6567284ae39647a083d074ed0579f885">c</a>.count;</div>
+<div class="line"><span class="lineno">   82</span>      <span class="keywordflow">if</span>(count &gt;= <a class="code hl_variable" href="namespaceconstexpr__optional__ref__and__arrow.html#a6567284ae39647a083d074ed0579f885">c</a>.fail_from || count == <a class="code hl_variable" href="namespaceconstexpr__optional__ref__and__arrow.html#a6567284ae39647a083d074ed0579f885">c</a>.fail_at)</div>
+<div class="line"><span class="lineno">   83</span><span class="preprocessor">#ifdef __cpp_exceptions</span></div>
+<div class="line"><span class="lineno">   84</span>        <span class="keywordflow">throw</span> std::bad_alloc();</div>
+<div class="line"><span class="lineno">   85</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">   86</span>        abort();</div>
+<div class="line"><span class="lineno">   87</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">   88</span>      <span class="keywordflow">return</span> A::allocate(n, hint);</div>
+<div class="line"><span class="lineno">   89</span>    }</div>
 <div class="ttc" id="anamespaceconstexpr__optional__ref__and__arrow_html_a6567284ae39647a083d074ed0579f885"><div class="ttname"><a href="namespaceconstexpr__optional__ref__and__arrow.html#a6567284ae39647a083d074ed0579f885">constexpr_optional_ref_and_arrow::c</a></div><div class="ttdeci">constexpr Combined c</div><div class="ttdef"><b>Definition</b> test_optional.cpp:1460</div></div>
 </div><!-- fragment -->
 </div>

@@ -134,7 +134,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a54bb8188e2cc7d2cd37aaaf572fec09b" id="r_a54bb8188e2cc7d2cd37aaaf572fec09b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a54bb8188e2cc7d2cd37aaaf572fec09b">operator()</a> (const char *buffer, size_t length) const noexcept</td></tr>
 <tr class="separator:a54bb8188e2cc7d2cd37aaaf572fec09b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a527dc7dcfda9d40897f38e8f49b1df64" id="r_a527dc7dcfda9d40897f38e8f49b1df64"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a527dc7dcfda9d40897f38e8f49b1df64">find_bad_bit</a> (<a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a> good_ecc, <a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a> bad_ecc) const noexcept</td></tr>
-<tr class="memdesc:a527dc7dcfda9d40897f38e8f49b1df64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given the original ECC and the new ECC for a buffer, find the bad bit. Return (result_type)-1 if not found (e.g. ECC corrupt)  <br /></td></tr>
 <tr class="separator:a527dc7dcfda9d40897f38e8f49b1df64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18f52193fa8a1268f121f05a0aeca06f" id="r_a18f52193fa8a1268f121f05a0aeca06f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#aa0b1a4798c525be9f51c3051754ea40c">verify_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a18f52193fa8a1268f121f05a0aeca06f">verify</a> (char *buffer, <a class="el" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a> good_ecc) const noexcept</td></tr>
 <tr class="memdesc:a18f52193fa8a1268f121f05a0aeca06f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verifies and heals when possible a buffer, returning non zero if the buffer is error free.  <br /></td></tr>
@@ -206,14 +205,14 @@ template&lt;size_t blocksize&gt; </div>
 <tr><td class="fieldname"><a id="aa0b1a4798c525be9f51c3051754ea40ca1a97a19f71daaf9fd189a302f1b71486" name="aa0b1a4798c525be9f51c3051754ea40ca1a97a19f71daaf9fd189a302f1b71486"></a>healed&#160;</td><td class="fielddoc"><p>The buffer was healed. </p>
 </td></tr>
 </table>
-<div class="fragment"><div class="line"><span class="lineno">  359</span>      {</div>
-<div class="line"><span class="lineno">  360</span>        <a class="code hl_enumvalue" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#aa0b1a4798c525be9f51c3051754ea40ca128b7d0d9ed4f27b2b8e32b028fe60f3">corrupt</a> = 0,  <span class="comment">//!&lt; The buffer had more than a single bit corrupted or the ECC was invalid</span></div>
-<div class="line"><span class="lineno">  361</span>        <a class="code hl_enumvalue" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#aa0b1a4798c525be9f51c3051754ea40ca1ef0a2a9c5cfd09fbb2d008b66571597">okay</a> = 1,     <span class="comment">//!&lt; The buffer had no errors</span></div>
-<div class="line"><span class="lineno">  362</span>        <a class="code hl_enumvalue" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#aa0b1a4798c525be9f51c3051754ea40ca1a97a19f71daaf9fd189a302f1b71486">healed</a> = 2    <span class="comment">//!&lt; The buffer was healed</span></div>
-<div class="line"><span class="lineno">  363</span>      };</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc_html_aa0b1a4798c525be9f51c3051754ea40ca128b7d0d9ed4f27b2b8e32b028fe60f3"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#aa0b1a4798c525be9f51c3051754ea40ca128b7d0d9ed4f27b2b8e32b028fe60f3">quickcpplib::_xxx::algorithm::secded_ecc::secded_ecc::corrupt</a></div><div class="ttdeci">@ corrupt</div><div class="ttdoc">The buffer had more than a single bit corrupted or the ECC was invalid.</div><div class="ttdef"><b>Definition</b> secded_ecc.hpp:360</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc_html_aa0b1a4798c525be9f51c3051754ea40ca1a97a19f71daaf9fd189a302f1b71486"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#aa0b1a4798c525be9f51c3051754ea40ca1a97a19f71daaf9fd189a302f1b71486">quickcpplib::_xxx::algorithm::secded_ecc::secded_ecc::healed</a></div><div class="ttdeci">@ healed</div><div class="ttdoc">The buffer was healed.</div><div class="ttdef"><b>Definition</b> secded_ecc.hpp:362</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc_html_aa0b1a4798c525be9f51c3051754ea40ca1ef0a2a9c5cfd09fbb2d008b66571597"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#aa0b1a4798c525be9f51c3051754ea40ca1ef0a2a9c5cfd09fbb2d008b66571597">quickcpplib::_xxx::algorithm::secded_ecc::secded_ecc::okay</a></div><div class="ttdeci">@ okay</div><div class="ttdoc">The buffer had no errors.</div><div class="ttdef"><b>Definition</b> secded_ecc.hpp:361</div></div>
+<div class="fragment"><div class="line"><span class="lineno">  387</span>      {</div>
+<div class="line"><span class="lineno">  388</span>        <a class="code hl_enumvalue" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#aa0b1a4798c525be9f51c3051754ea40ca128b7d0d9ed4f27b2b8e32b028fe60f3">corrupt</a> = 0,  <span class="comment">//!&lt; The buffer had more than a single bit corrupted or the ECC was invalid</span></div>
+<div class="line"><span class="lineno">  389</span>        <a class="code hl_enumvalue" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#aa0b1a4798c525be9f51c3051754ea40ca1ef0a2a9c5cfd09fbb2d008b66571597">okay</a> = 1,     <span class="comment">//!&lt; The buffer had no errors</span></div>
+<div class="line"><span class="lineno">  390</span>        <a class="code hl_enumvalue" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#aa0b1a4798c525be9f51c3051754ea40ca1a97a19f71daaf9fd189a302f1b71486">healed</a> = 2    <span class="comment">//!&lt; The buffer was healed</span></div>
+<div class="line"><span class="lineno">  391</span>      };</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc_html_aa0b1a4798c525be9f51c3051754ea40ca128b7d0d9ed4f27b2b8e32b028fe60f3"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#aa0b1a4798c525be9f51c3051754ea40ca128b7d0d9ed4f27b2b8e32b028fe60f3">quickcpplib::_xxx::algorithm::secded_ecc::secded_ecc::corrupt</a></div><div class="ttdeci">@ corrupt</div><div class="ttdoc">The buffer had more than a single bit corrupted or the ECC was invalid.</div><div class="ttdef"><b>Definition</b> secded_ecc.hpp:388</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc_html_aa0b1a4798c525be9f51c3051754ea40ca1a97a19f71daaf9fd189a302f1b71486"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#aa0b1a4798c525be9f51c3051754ea40ca1a97a19f71daaf9fd189a302f1b71486">quickcpplib::_xxx::algorithm::secded_ecc::secded_ecc::healed</a></div><div class="ttdeci">@ healed</div><div class="ttdoc">The buffer was healed.</div><div class="ttdef"><b>Definition</b> secded_ecc.hpp:390</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc_html_aa0b1a4798c525be9f51c3051754ea40ca1ef0a2a9c5cfd09fbb2d008b66571597"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#aa0b1a4798c525be9f51c3051754ea40ca1ef0a2a9c5cfd09fbb2d008b66571597">quickcpplib::_xxx::algorithm::secded_ecc::secded_ecc::okay</a></div><div class="ttdeci">@ okay</div><div class="ttdoc">The buffer had no errors.</div><div class="ttdef"><b>Definition</b> secded_ecc.hpp:389</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -244,47 +243,55 @@ template&lt;size_t blocksize&gt; </div>
 </div><div class="memdoc">
 
 <p>Constructs an instance, configuring the necessary lookup tables. </p>
-<div class="fragment"><div class="line"><span class="lineno">  152</span>      {</div>
-<div class="line"><span class="lineno">  153</span>        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> n = 0; n &lt; <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a>) * bits_per_byte; n++)</div>
-<div class="line"><span class="lineno">  154</span>          ecc_twospowers[n] = ((<a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a>) 1 &lt;&lt; n);</div>
-<div class="line"><span class="lineno">  155</span>        <a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a> length = blocksize * bits_per_byte;</div>
-<div class="line"><span class="lineno">  156</span>        <span class="comment">// This is (data bits + parity bits + 1) &lt;= 2^(parity bits)</span></div>
-<div class="line"><span class="lineno">  157</span>        <span class="keywordflow">for</span>(<a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a> p = 1; p &lt; <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a>) * bits_per_byte; p++)</div>
-<div class="line"><span class="lineno">  158</span>          <span class="keywordflow">if</span>((length + p + 1) &lt;= ecc_twospowers[p])</div>
-<div class="line"><span class="lineno">  159</span>          {</div>
-<div class="line"><span class="lineno">  160</span>            bitsvalid = p;</div>
-<div class="line"><span class="lineno">  161</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  162</span>          }</div>
-<div class="line"><span class="lineno">  163</span>        <span class="keywordflow">if</span>((bits_per_byte - 1 + bitsvalid) / bits_per_byte &gt; <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a>))</div>
-<div class="line"><span class="lineno">  164</span>          <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;secdec_ecc: ECC would exceed the size of result_type!&quot;</span>);</div>
-<div class="line"><span class="lineno">  165</span>        <span class="keywordflow">for</span>(<a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a> i = 0; i &lt; blocksize * bits_per_byte; i++)</div>
-<div class="line"><span class="lineno">  166</span>        {</div>
-<div class="line"><span class="lineno">  167</span>          <span class="comment">// Make a code bit</span></div>
-<div class="line"><span class="lineno">  168</span>          <a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a> b = i + 1;</div>
-<div class="line"><span class="lineno">  169</span><span class="preprocessor">#if QUICKCPPLIB_SECDED_INTRINSICS &amp;&amp; 0  </span><span class="comment">// let constexpr do its thing</span></div>
-<div class="line"><span class="lineno">  170</span><span class="preprocessor">#ifdef _MSC_VER</span></div>
-<div class="line"><span class="lineno">  171</span>          <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> _topbit;</div>
-<div class="line"><span class="lineno">  172</span>          _BitScanReverse(&amp;_topbit, b);</div>
-<div class="line"><span class="lineno">  173</span>          <a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a> topbit = _topbit;</div>
-<div class="line"><span class="lineno">  174</span><span class="preprocessor">#else</span></div>
-<div class="line"><span class="lineno">  175</span>          <a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a> topbit = bits_per_byte * <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a>) - __builtin_clz(b);</div>
-<div class="line"><span class="lineno">  176</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  177</span>          b += topbit;</div>
-<div class="line"><span class="lineno">  178</span>          <span class="keywordflow">if</span>(b &gt;= ecc_twospowers[topbit])</div>
-<div class="line"><span class="lineno">  179</span>            b++;</div>
-<div class="line"><span class="lineno">  180</span><span class="comment">// while(b&gt;ecc_twospowers(_topbit+1)) _topbit++;</span></div>
-<div class="line"><span class="lineno">  181</span><span class="comment">// b+=_topbit;</span></div>
-<div class="line"><span class="lineno">  182</span><span class="comment">// if(b&gt;=ecc_twospowers(_topbit)) b++;</span></div>
-<div class="line"><span class="lineno">  183</span><span class="preprocessor">#else</span></div>
-<div class="line"><span class="lineno">  184</span>          <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> p = 0; ecc_twospowers[p] &lt; (b + 1); p++)</div>
-<div class="line"><span class="lineno">  185</span>            b++;</div>
+<div class="fragment"><div class="line"><span class="lineno">  158</span>      {</div>
+<div class="line"><span class="lineno">  159</span>        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> n = 0; n &lt; <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a>) * bits_per_byte; n++)</div>
+<div class="line"><span class="lineno">  160</span>          ecc_twospowers[n] = ((<a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a>) 1 &lt;&lt; n);</div>
+<div class="line"><span class="lineno">  161</span>        <a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a> length = blocksize * bits_per_byte;</div>
+<div class="line"><span class="lineno">  162</span>        <span class="comment">// This is (data bits + parity bits + 1) &lt;= 2^(parity bits)</span></div>
+<div class="line"><span class="lineno">  163</span>        <span class="keywordflow">for</span>(<a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a> p = 1; p &lt; <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a>) * bits_per_byte; p++)</div>
+<div class="line"><span class="lineno">  164</span>          <span class="keywordflow">if</span>((length + p + 1) &lt;= ecc_twospowers[p])</div>
+<div class="line"><span class="lineno">  165</span>          {</div>
+<div class="line"><span class="lineno">  166</span>            bitsvalid = p;</div>
+<div class="line"><span class="lineno">  167</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  168</span>          }</div>
+<div class="line"><span class="lineno">  169</span>        <span class="keywordflow">if</span>((bits_per_byte - 1 + bitsvalid) / bits_per_byte &gt; <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a>))</div>
+<div class="line"><span class="lineno">  170</span><span class="preprocessor">#ifdef __cpp_exceptions</span></div>
+<div class="line"><span class="lineno">  171</span>          <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;secdec_ecc: ECC would exceed the size of result_type!&quot;</span>);</div>
+<div class="line"><span class="lineno">  172</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">  173</span>          abort();</div>
+<div class="line"><span class="lineno">  174</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  175</span>        <span class="keywordflow">for</span>(<a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a> i = 0; i &lt; blocksize * bits_per_byte; i++)</div>
+<div class="line"><span class="lineno">  176</span>        {</div>
+<div class="line"><span class="lineno">  177</span>          <span class="comment">// Make a code bit</span></div>
+<div class="line"><span class="lineno">  178</span>          <a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a> b = i + 1;</div>
+<div class="line"><span class="lineno">  179</span><span class="preprocessor">#if QUICKCPPLIB_SECDED_INTRINSICS &amp;&amp; 0  </span><span class="comment">// let constexpr do its thing</span></div>
+<div class="line"><span class="lineno">  180</span><span class="preprocessor">#ifdef _MSC_VER</span></div>
+<div class="line"><span class="lineno">  181</span>          <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> _topbit;</div>
+<div class="line"><span class="lineno">  182</span>          _BitScanReverse(&amp;_topbit, b);</div>
+<div class="line"><span class="lineno">  183</span>          <a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a> topbit = _topbit;</div>
+<div class="line"><span class="lineno">  184</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">  185</span>          <a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a> topbit = bits_per_byte * <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a>) - __builtin_clz(b);</div>
 <div class="line"><span class="lineno">  186</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  187</span>          ecc_table[i] = (<span class="keywordtype">unsigned</span> short) b;</div>
-<div class="line"><span class="lineno">  188</span>          <span class="keywordflow">if</span>(b &gt; (<span class="keywordtype">unsigned</span> <span class="keywordtype">short</span>) -1)</div>
-<div class="line"><span class="lineno">  189</span>            <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;secdec_ecc: Precalculated table has exceeded its bounds&quot;</span>);</div>
-<div class="line"><span class="lineno">  190</span>        }</div>
-<div class="line"><span class="lineno">  191</span>      }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc_html_a217cff5eaf1bbc078938d7d4ab43b5e3"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">quickcpplib::_xxx::algorithm::secded_ecc::secded_ecc::result_type</a></div><div class="ttdeci">unsigned int result_type</div><div class="ttdoc">The largest ECC which can be calculated.</div><div class="ttdef"><b>Definition</b> secded_ecc.hpp:101</div></div>
+<div class="line"><span class="lineno">  187</span>          b += topbit;</div>
+<div class="line"><span class="lineno">  188</span>          <span class="keywordflow">if</span>(b &gt;= ecc_twospowers[topbit])</div>
+<div class="line"><span class="lineno">  189</span>            b++;</div>
+<div class="line"><span class="lineno">  190</span><span class="comment">// while(b&gt;ecc_twospowers(_topbit+1)) _topbit++;</span></div>
+<div class="line"><span class="lineno">  191</span><span class="comment">// b+=_topbit;</span></div>
+<div class="line"><span class="lineno">  192</span><span class="comment">// if(b&gt;=ecc_twospowers(_topbit)) b++;</span></div>
+<div class="line"><span class="lineno">  193</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">  194</span>          <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> p = 0; ecc_twospowers[p] &lt; (b + 1); p++)</div>
+<div class="line"><span class="lineno">  195</span>            b++;</div>
+<div class="line"><span class="lineno">  196</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  197</span>          ecc_table[i] = (<span class="keywordtype">unsigned</span> short) b;</div>
+<div class="line"><span class="lineno">  198</span>          <span class="keywordflow">if</span>(b &gt; (<span class="keywordtype">unsigned</span> <span class="keywordtype">short</span>) -1)</div>
+<div class="line"><span class="lineno">  199</span>#ifdef __cpp_exceptions</div>
+<div class="line"><span class="lineno">  200</span>            <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;secdec_ecc: Precalculated table has exceeded its bounds&quot;</span>);</div>
+<div class="line"><span class="lineno">  201</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">  202</span>            abort();</div>
+<div class="line"><span class="lineno">  203</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  204</span>        }</div>
+<div class="line"><span class="lineno">  205</span>      }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc_html_a217cff5eaf1bbc078938d7d4ab43b5e3"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">quickcpplib::_xxx::algorithm::secded_ecc::secded_ecc::result_type</a></div><div class="ttdeci">unsigned int result_type</div><div class="ttdoc">The largest ECC which can be calculated.</div><div class="ttdef"><b>Definition</b> secded_ecc.hpp:106</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -315,7 +322,7 @@ template&lt;size_t blocksize&gt; </div>
 </div><div class="memdoc">
 
 <p>The number of bits valid in result_type. </p>
-<div class="fragment"><div class="line"><span class="lineno">  193</span>{ <span class="keywordflow">return</span> bitsvalid; }</div>
+<div class="fragment"><div class="line"><span class="lineno">  207</span>{ <span class="keywordflow">return</span> bitsvalid; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -356,64 +363,65 @@ template&lt;size_t blocksize&gt; </div>
 </div><div class="memdoc">
 
 <p>Accumulate ECC from fixed size buffer. </p>
-<div class="fragment"><div class="line"><span class="lineno">  197</span>      {</div>
-<div class="line"><span class="lineno">  198</span><span class="preprocessor">#ifdef _MSC_VER</span></div>
-<div class="line"><span class="lineno">  199</span><span class="preprocessor">#pragma warning(push)</span></div>
-<div class="line"><span class="lineno">  200</span><span class="preprocessor">#pragma warning(disable : 4127)  </span><span class="comment">// conditional expression is constant</span></div>
-<div class="line"><span class="lineno">  201</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  202</span>        <span class="keywordflow">if</span>(blocksize &lt; <span class="keyword">sizeof</span>(unit_type) * 8)</div>
-<div class="line"><span class="lineno">  203</span>          <span class="keywordflow">return</span> (*<span class="keyword">this</span>)(ecc, buffer, blocksize);</div>
-<div class="line"><span class="lineno">  204</span><span class="preprocessor">#ifdef _MSC_VER</span></div>
-<div class="line"><span class="lineno">  205</span><span class="preprocessor">#pragma warning(pop)</span></div>
-<div class="line"><span class="lineno">  206</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  207</span>        <span class="comment">// Process in lumps of eight</span></div>
-<div class="line"><span class="lineno">  208</span>        <span class="keyword">const</span> unit_type *_buffer = (<span class="keyword">const</span> unit_type *) buffer;</div>
-<div class="line"><span class="lineno">  209</span>        <span class="comment">//#pragma omp parallel for reduction(^:ecc)</span></div>
-<div class="line"><span class="lineno">  210</span>        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0; i &lt; blocksize; i += <span class="keyword">sizeof</span>(unit_type) * 8)</div>
-<div class="line"><span class="lineno">  211</span>        {</div>
-<div class="line"><span class="lineno">  212</span>          <span class="keyword">union </span>{</div>
-<div class="line"><span class="lineno">  213</span>            <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span> v;</div>
-<div class="line"><span class="lineno">  214</span>            unit_type <a class="code hl_variable" href="namespaceconstexpr__optional__ref__and__arrow.html#a6567284ae39647a083d074ed0579f885">c</a>[8];</div>
-<div class="line"><span class="lineno">  215</span>          };</div>
-<div class="line"><span class="lineno">  216</span>          <a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a> prefetch[8];</div>
-<div class="line"><span class="lineno">  217</span>          v = *(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span> *) (&amp;_buffer[0 + i / <span class="keyword">sizeof</span>(unit_type)]);  <span class="comment">// min 1 cycle</span></div>
-<div class="line"><span class="lineno">  218</span><span class="preprocessor">#define QUICKCPPLIB_SECDED_ROUND(n)                                                                                                                                                                                                                                                                                            \</span></div>
-<div class="line"><span class="lineno">  219</span><span class="preprocessor">  prefetch[0] = ecc_table[(i + 0) * 8 + n];                                                                                                                                                                                                                                                                                    \</span></div>
-<div class="line"><span class="lineno">  220</span><span class="preprocessor">  prefetch[1] = ecc_table[(i + 1) * 8 + n];                                                                                                                                                                                                                                                                                    \</span></div>
-<div class="line"><span class="lineno">  221</span><span class="preprocessor">  prefetch[2] = ecc_table[(i + 2) * 8 + n];                                                                                                                                                                                                                                                                                    \</span></div>
-<div class="line"><span class="lineno">  222</span><span class="preprocessor">  prefetch[3] = ecc_table[(i + 3) * 8 + n];                                                                                                                                                                                                                                                                                    \</span></div>
-<div class="line"><span class="lineno">  223</span><span class="preprocessor">  prefetch[4] = ecc_table[(i + 4) * 8 + n];                                                                                                                                                                                                                                                                                    \</span></div>
-<div class="line"><span class="lineno">  224</span><span class="preprocessor">  prefetch[5] = ecc_table[(i + 5) * 8 + n];                                                                                                                                                                                                                                                                                    \</span></div>
-<div class="line"><span class="lineno">  225</span><span class="preprocessor">  prefetch[6] = ecc_table[(i + 6) * 8 + n];                                                                                                                                                                                                                                                                                    \</span></div>
-<div class="line"><span class="lineno">  226</span><span class="preprocessor">  prefetch[7] = ecc_table[(i + 7) * 8 + n];                                                                                                                                                                                                                                                                                    \</span></div>
-<div class="line"><span class="lineno">  227</span><span class="preprocessor">  if(c[0] &amp; ((unit_type) 1 &lt;&lt; n))                                                                                                                                                                                                                                                                                              \</span></div>
-<div class="line"><span class="lineno">  228</span><span class="preprocessor">    ecc ^= prefetch[0];                                                                                                                                                                                                                                                                                                        \</span></div>
-<div class="line"><span class="lineno">  229</span><span class="preprocessor">  if(c[1] &amp; ((unit_type) 1 &lt;&lt; n))                                                                                                                                                                                                                                                                                              \</span></div>
-<div class="line"><span class="lineno">  230</span><span class="preprocessor">    ecc ^= prefetch[1];                                                                                                                                                                                                                                                                                                        \</span></div>
-<div class="line"><span class="lineno">  231</span><span class="preprocessor">  if(c[2] &amp; ((unit_type) 1 &lt;&lt; n))                                                                                                                                                                                                                                                                                              \</span></div>
-<div class="line"><span class="lineno">  232</span><span class="preprocessor">    ecc ^= prefetch[2];                                                                                                                                                                                                                                                                                                        \</span></div>
-<div class="line"><span class="lineno">  233</span><span class="preprocessor">  if(c[3] &amp; ((unit_type) 1 &lt;&lt; n))                                                                                                                                                                                                                                                                                              \</span></div>
-<div class="line"><span class="lineno">  234</span><span class="preprocessor">    ecc ^= prefetch[3];                                                                                                                                                                                                                                                                                                        \</span></div>
-<div class="line"><span class="lineno">  235</span><span class="preprocessor">  if(c[4] &amp; ((unit_type) 1 &lt;&lt; n))                                                                                                                                                                                                                                                                                              \</span></div>
-<div class="line"><span class="lineno">  236</span><span class="preprocessor">    ecc ^= prefetch[4];                                                                                                                                                                                                                                                                                                        \</span></div>
-<div class="line"><span class="lineno">  237</span><span class="preprocessor">  if(c[5] &amp; ((unit_type) 1 &lt;&lt; n))                                                                                                                                                                                                                                                                                              \</span></div>
-<div class="line"><span class="lineno">  238</span><span class="preprocessor">    ecc ^= prefetch[5];                                                                                                                                                                                                                                                                                                        \</span></div>
-<div class="line"><span class="lineno">  239</span><span class="preprocessor">  if(c[6] &amp; ((unit_type) 1 &lt;&lt; n))                                                                                                                                                                                                                                                                                              \</span></div>
-<div class="line"><span class="lineno">  240</span><span class="preprocessor">    ecc ^= prefetch[6];                                                                                                                                                                                                                                                                                                        \</span></div>
-<div class="line"><span class="lineno">  241</span><span class="preprocessor">  if(c[7] &amp; ((unit_type) 1 &lt;&lt; n))                                                                                                                                                                                                                                                                                              \</span></div>
-<div class="line"><span class="lineno">  242</span><span class="preprocessor">    ecc ^= prefetch[7];</span></div>
-<div class="line"><span class="lineno">  243</span>          <a class="code hl_define" href="secded__ecc_8hpp.html#a5402ceb5f5a6f996c87f2282f012918f">QUICKCPPLIB_SECDED_ROUND</a>(0)  <span class="comment">// prefetch = min 8, bit test and xor = min 16, total = 24</span></div>
-<div class="line"><span class="lineno">  244</span>          <a class="code hl_define" href="secded__ecc_8hpp.html#a5402ceb5f5a6f996c87f2282f012918f">QUICKCPPLIB_SECDED_ROUND</a>(1)</div>
-<div class="line"><span class="lineno">  245</span>          <a class="code hl_define" href="secded__ecc_8hpp.html#a5402ceb5f5a6f996c87f2282f012918f">QUICKCPPLIB_SECDED_ROUND</a>(2)</div>
-<div class="line"><span class="lineno">  246</span>          <a class="code hl_define" href="secded__ecc_8hpp.html#a5402ceb5f5a6f996c87f2282f012918f">QUICKCPPLIB_SECDED_ROUND</a>(3)</div>
-<div class="line"><span class="lineno">  247</span>          <a class="code hl_define" href="secded__ecc_8hpp.html#a5402ceb5f5a6f996c87f2282f012918f">QUICKCPPLIB_SECDED_ROUND</a>(4)</div>
-<div class="line"><span class="lineno">  248</span>          <a class="code hl_define" href="secded__ecc_8hpp.html#a5402ceb5f5a6f996c87f2282f012918f">QUICKCPPLIB_SECDED_ROUND</a>(5)</div>
-<div class="line"><span class="lineno">  249</span>          <a class="code hl_define" href="secded__ecc_8hpp.html#a5402ceb5f5a6f996c87f2282f012918f">QUICKCPPLIB_SECDED_ROUND</a>(6)</div>
-<div class="line"><span class="lineno">  250</span>          <a class="code hl_define" href="secded__ecc_8hpp.html#a5402ceb5f5a6f996c87f2282f012918f">QUICKCPPLIB_SECDED_ROUND</a>(7)</div>
-<div class="line"><span class="lineno">  251</span><span class="preprocessor">#undef QUICKCPPLIB_SECDED_ROUND  </span><span class="comment">// total should be 1+(8*24/3)=65</span></div>
-<div class="line"><span class="lineno">  252</span>        }</div>
-<div class="line"><span class="lineno">  253</span>        <span class="keywordflow">return</span> ecc;</div>
-<div class="line"><span class="lineno">  254</span>      }</div>
+<div class="fragment"><div class="line"><span class="lineno">  211</span>      {</div>
+<div class="line"><span class="lineno">  212</span><span class="preprocessor">#ifdef _MSC_VER</span></div>
+<div class="line"><span class="lineno">  213</span><span class="preprocessor">#pragma warning(push)</span></div>
+<div class="line"><span class="lineno">  214</span><span class="preprocessor">#pragma warning(disable : 4127)  </span><span class="comment">// conditional expression is constant</span></div>
+<div class="line"><span class="lineno">  215</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  216</span>        <span class="keywordflow">if</span>(blocksize &lt; <span class="keyword">sizeof</span>(unit_type) * 8)</div>
+<div class="line"><span class="lineno">  217</span>          <span class="keywordflow">return</span> (*<span class="keyword">this</span>)(ecc, buffer, blocksize);</div>
+<div class="line"><span class="lineno">  218</span><span class="preprocessor">#ifdef _MSC_VER</span></div>
+<div class="line"><span class="lineno">  219</span><span class="preprocessor">#pragma warning(pop)</span></div>
+<div class="line"><span class="lineno">  220</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  221</span>        <span class="comment">// Process in lumps of eight</span></div>
+<div class="line"><span class="lineno">  222</span>        <span class="keyword">const</span> unit_type *_buffer = (<span class="keyword">const</span> unit_type *) buffer;</div>
+<div class="line"><span class="lineno">  223</span>        <span class="comment">// #pragma omp parallel for reduction(^:ecc)</span></div>
+<div class="line"><span class="lineno">  224</span>        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0; i &lt; blocksize; i += <span class="keyword">sizeof</span>(unit_type) * 8)</div>
+<div class="line"><span class="lineno">  225</span>        {</div>
+<div class="line"><span class="lineno">  226</span>          <span class="keyword">union</span></div>
+<div class="line"><span class="lineno">  227</span>          {</div>
+<div class="line"><span class="lineno">  228</span>            <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span> v;</div>
+<div class="line"><span class="lineno">  229</span>            unit_type <a class="code hl_variable" href="namespaceconstexpr__optional__ref__and__arrow.html#a6567284ae39647a083d074ed0579f885">c</a>[8];</div>
+<div class="line"><span class="lineno">  230</span>          };</div>
+<div class="line"><span class="lineno">  231</span>          <a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a> prefetch[8];</div>
+<div class="line"><span class="lineno">  232</span>          v = *(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span> *) (&amp;_buffer[0 + i / <span class="keyword">sizeof</span>(unit_type)]);  <span class="comment">// min 1 cycle</span></div>
+<div class="line"><span class="lineno">  233</span><span class="preprocessor">#define QUICKCPPLIB_SECDED_ROUND(n)                                                                                    \</span></div>
+<div class="line"><span class="lineno">  234</span><span class="preprocessor">  prefetch[0] = ecc_table[(i + 0) * 8 + n];                                                                            \</span></div>
+<div class="line"><span class="lineno">  235</span><span class="preprocessor">  prefetch[1] = ecc_table[(i + 1) * 8 + n];                                                                            \</span></div>
+<div class="line"><span class="lineno">  236</span><span class="preprocessor">  prefetch[2] = ecc_table[(i + 2) * 8 + n];                                                                            \</span></div>
+<div class="line"><span class="lineno">  237</span><span class="preprocessor">  prefetch[3] = ecc_table[(i + 3) * 8 + n];                                                                            \</span></div>
+<div class="line"><span class="lineno">  238</span><span class="preprocessor">  prefetch[4] = ecc_table[(i + 4) * 8 + n];                                                                            \</span></div>
+<div class="line"><span class="lineno">  239</span><span class="preprocessor">  prefetch[5] = ecc_table[(i + 5) * 8 + n];                                                                            \</span></div>
+<div class="line"><span class="lineno">  240</span><span class="preprocessor">  prefetch[6] = ecc_table[(i + 6) * 8 + n];                                                                            \</span></div>
+<div class="line"><span class="lineno">  241</span><span class="preprocessor">  prefetch[7] = ecc_table[(i + 7) * 8 + n];                                                                            \</span></div>
+<div class="line"><span class="lineno">  242</span><span class="preprocessor">  if(c[0] &amp; ((unit_type) 1 &lt;&lt; n))                                                                                      \</span></div>
+<div class="line"><span class="lineno">  243</span><span class="preprocessor">    ecc ^= prefetch[0];                                                                                                \</span></div>
+<div class="line"><span class="lineno">  244</span><span class="preprocessor">  if(c[1] &amp; ((unit_type) 1 &lt;&lt; n))                                                                                      \</span></div>
+<div class="line"><span class="lineno">  245</span><span class="preprocessor">    ecc ^= prefetch[1];                                                                                                \</span></div>
+<div class="line"><span class="lineno">  246</span><span class="preprocessor">  if(c[2] &amp; ((unit_type) 1 &lt;&lt; n))                                                                                      \</span></div>
+<div class="line"><span class="lineno">  247</span><span class="preprocessor">    ecc ^= prefetch[2];                                                                                                \</span></div>
+<div class="line"><span class="lineno">  248</span><span class="preprocessor">  if(c[3] &amp; ((unit_type) 1 &lt;&lt; n))                                                                                      \</span></div>
+<div class="line"><span class="lineno">  249</span><span class="preprocessor">    ecc ^= prefetch[3];                                                                                                \</span></div>
+<div class="line"><span class="lineno">  250</span><span class="preprocessor">  if(c[4] &amp; ((unit_type) 1 &lt;&lt; n))                                                                                      \</span></div>
+<div class="line"><span class="lineno">  251</span><span class="preprocessor">    ecc ^= prefetch[4];                                                                                                \</span></div>
+<div class="line"><span class="lineno">  252</span><span class="preprocessor">  if(c[5] &amp; ((unit_type) 1 &lt;&lt; n))                                                                                      \</span></div>
+<div class="line"><span class="lineno">  253</span><span class="preprocessor">    ecc ^= prefetch[5];                                                                                                \</span></div>
+<div class="line"><span class="lineno">  254</span><span class="preprocessor">  if(c[6] &amp; ((unit_type) 1 &lt;&lt; n))                                                                                      \</span></div>
+<div class="line"><span class="lineno">  255</span><span class="preprocessor">    ecc ^= prefetch[6];                                                                                                \</span></div>
+<div class="line"><span class="lineno">  256</span><span class="preprocessor">  if(c[7] &amp; ((unit_type) 1 &lt;&lt; n))                                                                                      \</span></div>
+<div class="line"><span class="lineno">  257</span><span class="preprocessor">    ecc ^= prefetch[7];</span></div>
+<div class="line"><span class="lineno">  258</span>          <a class="code hl_define" href="secded__ecc_8hpp.html#a5402ceb5f5a6f996c87f2282f012918f">QUICKCPPLIB_SECDED_ROUND</a>(0)  <span class="comment">// prefetch = min 8, bit test and xor = min 16, total = 24</span></div>
+<div class="line"><span class="lineno">  259</span>          <a class="code hl_define" href="secded__ecc_8hpp.html#a5402ceb5f5a6f996c87f2282f012918f">QUICKCPPLIB_SECDED_ROUND</a>(1)</div>
+<div class="line"><span class="lineno">  260</span>          <a class="code hl_define" href="secded__ecc_8hpp.html#a5402ceb5f5a6f996c87f2282f012918f">QUICKCPPLIB_SECDED_ROUND</a>(2)</div>
+<div class="line"><span class="lineno">  261</span>          <a class="code hl_define" href="secded__ecc_8hpp.html#a5402ceb5f5a6f996c87f2282f012918f">QUICKCPPLIB_SECDED_ROUND</a>(3)</div>
+<div class="line"><span class="lineno">  262</span>          <a class="code hl_define" href="secded__ecc_8hpp.html#a5402ceb5f5a6f996c87f2282f012918f">QUICKCPPLIB_SECDED_ROUND</a>(4)</div>
+<div class="line"><span class="lineno">  263</span>          <a class="code hl_define" href="secded__ecc_8hpp.html#a5402ceb5f5a6f996c87f2282f012918f">QUICKCPPLIB_SECDED_ROUND</a>(5)</div>
+<div class="line"><span class="lineno">  264</span>          <a class="code hl_define" href="secded__ecc_8hpp.html#a5402ceb5f5a6f996c87f2282f012918f">QUICKCPPLIB_SECDED_ROUND</a>(6)</div>
+<div class="line"><span class="lineno">  265</span>          <a class="code hl_define" href="secded__ecc_8hpp.html#a5402ceb5f5a6f996c87f2282f012918f">QUICKCPPLIB_SECDED_ROUND</a>(7)</div>
+<div class="line"><span class="lineno">  266</span><span class="preprocessor">#undef QUICKCPPLIB_SECDED_ROUND  </span><span class="comment">// total should be 1+(8*24/3)=65</span></div>
+<div class="line"><span class="lineno">  267</span>        }</div>
+<div class="line"><span class="lineno">  268</span>        <span class="keywordflow">return</span> ecc;</div>
+<div class="line"><span class="lineno">  269</span>      }</div>
 <div class="ttc" id="anamespaceconstexpr__optional__ref__and__arrow_html_a6567284ae39647a083d074ed0579f885"><div class="ttname"><a href="namespaceconstexpr__optional__ref__and__arrow.html#a6567284ae39647a083d074ed0579f885">constexpr_optional_ref_and_arrow::c</a></div><div class="ttdeci">constexpr Combined c</div><div class="ttdef"><b>Definition</b> test_optional.cpp:1460</div></div>
 <div class="ttc" id="asecded__ecc_8hpp_html_a5402ceb5f5a6f996c87f2282f012918f"><div class="ttname"><a href="secded__ecc_8hpp.html#a5402ceb5f5a6f996c87f2282f012918f">QUICKCPPLIB_SECDED_ROUND</a></div><div class="ttdeci">#define QUICKCPPLIB_SECDED_ROUND(n)</div></div>
 </div><!-- fragment -->
@@ -462,32 +470,32 @@ template&lt;size_t blocksize&gt; </div>
 </div><div class="memdoc">
 
 <p>Accumulate ECC from partial buffer where <em>length</em> &lt;= <em>blocksize</em>. </p>
-<div class="fragment"><div class="line"><span class="lineno">  257</span>      {</div>
-<div class="line"><span class="lineno">  258</span>        <span class="keyword">const</span> unit_type *_buffer = (<span class="keyword">const</span> unit_type *) buffer;</div>
-<div class="line"><span class="lineno">  259</span>        <span class="comment">//#pragma omp parallel for reduction(^:ecc)</span></div>
-<div class="line"><span class="lineno">  260</span>        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0; i &lt; length; i += <span class="keyword">sizeof</span>(unit_type))</div>
-<div class="line"><span class="lineno">  261</span>        {</div>
-<div class="line"><span class="lineno">  262</span>          unit_type <a class="code hl_variable" href="namespaceconstexpr__optional__ref__and__arrow.html#a6567284ae39647a083d074ed0579f885">c</a> = _buffer[i / <span class="keyword">sizeof</span>(unit_type)];  <span class="comment">// min 1 cycle</span></div>
-<div class="line"><span class="lineno">  263</span>          <span class="keywordflow">if</span>(!c)                                         <span class="comment">// min 1 cycle</span></div>
-<div class="line"><span class="lineno">  264</span>            <span class="keywordflow">continue</span>;</div>
-<div class="line"><span class="lineno">  265</span>          <span class="keywordtype">char</span> bitset[bits_per_byte * <span class="keyword">sizeof</span>(unit_type)];</div>
-<div class="line"><span class="lineno">  266</span>          <a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a> prefetch[bits_per_byte * <span class="keyword">sizeof</span>(unit_type)];</div>
-<div class="line"><span class="lineno">  267</span>          <span class="comment">// Most compilers will roll this out</span></div>
-<div class="line"><span class="lineno">  268</span>          <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> n = 0; n &lt; bits_per_byte * <span class="keyword">sizeof</span>(unit_type); n++)  <span class="comment">// min 16 cycles</span></div>
-<div class="line"><span class="lineno">  269</span>          {</div>
-<div class="line"><span class="lineno">  270</span>            bitset[n] = !!(<a class="code hl_variable" href="namespaceconstexpr__optional__ref__and__arrow.html#a6567284ae39647a083d074ed0579f885">c</a> &amp; ((unit_type) 1 &lt;&lt; n));</div>
-<div class="line"><span class="lineno">  271</span>            prefetch[n] = ecc_table[i * bits_per_byte + n];  <span class="comment">// min 8 cycles</span></div>
-<div class="line"><span class="lineno">  272</span>          }</div>
-<div class="line"><span class="lineno">  273</span>          <a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a> localecc = 0;</div>
-<div class="line"><span class="lineno">  274</span>          <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> n = 0; n &lt; bits_per_byte * <span class="keyword">sizeof</span>(unit_type); n++)</div>
-<div class="line"><span class="lineno">  275</span>          {</div>
-<div class="line"><span class="lineno">  276</span>            <span class="keywordflow">if</span>(bitset[n])               <span class="comment">// min 8 cycles</span></div>
-<div class="line"><span class="lineno">  277</span>              localecc ^= prefetch[n];  <span class="comment">// min 8 cycles</span></div>
-<div class="line"><span class="lineno">  278</span>          }</div>
-<div class="line"><span class="lineno">  279</span>          ecc ^= localecc;  <span class="comment">// min 1 cycle. Total cycles = min 43 cycles/byte</span></div>
-<div class="line"><span class="lineno">  280</span>        }</div>
-<div class="line"><span class="lineno">  281</span>        <span class="keywordflow">return</span> ecc;</div>
-<div class="line"><span class="lineno">  282</span>      }</div>
+<div class="fragment"><div class="line"><span class="lineno">  272</span>      {</div>
+<div class="line"><span class="lineno">  273</span>        <span class="keyword">const</span> unit_type *_buffer = (<span class="keyword">const</span> unit_type *) buffer;</div>
+<div class="line"><span class="lineno">  274</span>        <span class="comment">// #pragma omp parallel for reduction(^:ecc)</span></div>
+<div class="line"><span class="lineno">  275</span>        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0; i &lt; length; i += <span class="keyword">sizeof</span>(unit_type))</div>
+<div class="line"><span class="lineno">  276</span>        {</div>
+<div class="line"><span class="lineno">  277</span>          unit_type <a class="code hl_variable" href="namespaceconstexpr__optional__ref__and__arrow.html#a6567284ae39647a083d074ed0579f885">c</a> = _buffer[i / <span class="keyword">sizeof</span>(unit_type)];  <span class="comment">// min 1 cycle</span></div>
+<div class="line"><span class="lineno">  278</span>          <span class="keywordflow">if</span>(!c)                                         <span class="comment">// min 1 cycle</span></div>
+<div class="line"><span class="lineno">  279</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">  280</span>          <span class="keywordtype">char</span> bitset[bits_per_byte * <span class="keyword">sizeof</span>(unit_type)];</div>
+<div class="line"><span class="lineno">  281</span>          <a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a> prefetch[bits_per_byte * <span class="keyword">sizeof</span>(unit_type)];</div>
+<div class="line"><span class="lineno">  282</span>          <span class="comment">// Most compilers will roll this out</span></div>
+<div class="line"><span class="lineno">  283</span>          <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> n = 0; n &lt; bits_per_byte * <span class="keyword">sizeof</span>(unit_type); n++)  <span class="comment">// min 16 cycles</span></div>
+<div class="line"><span class="lineno">  284</span>          {</div>
+<div class="line"><span class="lineno">  285</span>            bitset[n] = !!(<a class="code hl_variable" href="namespaceconstexpr__optional__ref__and__arrow.html#a6567284ae39647a083d074ed0579f885">c</a> &amp; ((unit_type) 1 &lt;&lt; n));</div>
+<div class="line"><span class="lineno">  286</span>            prefetch[n] = ecc_table[i * bits_per_byte + n];  <span class="comment">// min 8 cycles</span></div>
+<div class="line"><span class="lineno">  287</span>          }</div>
+<div class="line"><span class="lineno">  288</span>          <a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a> localecc = 0;</div>
+<div class="line"><span class="lineno">  289</span>          <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> n = 0; n &lt; bits_per_byte * <span class="keyword">sizeof</span>(unit_type); n++)</div>
+<div class="line"><span class="lineno">  290</span>          {</div>
+<div class="line"><span class="lineno">  291</span>            <span class="keywordflow">if</span>(bitset[n])               <span class="comment">// min 8 cycles</span></div>
+<div class="line"><span class="lineno">  292</span>              localecc ^= prefetch[n];  <span class="comment">// min 8 cycles</span></div>
+<div class="line"><span class="lineno">  293</span>          }</div>
+<div class="line"><span class="lineno">  294</span>          ecc ^= localecc;  <span class="comment">// min 1 cycle. Total cycles = min 43 cycles/byte</span></div>
+<div class="line"><span class="lineno">  295</span>        }</div>
+<div class="line"><span class="lineno">  296</span>        <span class="keywordflow">return</span> ecc;</div>
+<div class="line"><span class="lineno">  297</span>      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -516,7 +524,7 @@ template&lt;size_t blocksize&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  339</span>{ <span class="keywordflow">return</span> (*<span class="keyword">this</span>)(0, buffer); }</div>
+<div class="fragment"><div class="line"><span class="lineno">  366</span>{ <span class="keywordflow">return</span> (*<span class="keyword">this</span>)(0, buffer); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -555,7 +563,7 @@ template&lt;size_t blocksize&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  340</span>{ <span class="keywordflow">return</span> (*<span class="keyword">this</span>)(0, buffer, length); }</div>
+<div class="fragment"><div class="line"><span class="lineno">  367</span>{ <span class="keywordflow">return</span> (*<span class="keyword">this</span>)(0, buffer, length); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -594,22 +602,21 @@ template&lt;size_t blocksize&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-
 <p>Given the original ECC and the new ECC for a buffer, find the bad bit. Return (result_type)-1 if not found (e.g. ECC corrupt) </p>
-<div class="fragment"><div class="line"><span class="lineno">  343</span>      {</div>
-<div class="line"><span class="lineno">  344</span>        <a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a> length = blocksize * bits_per_byte, eccdiff = good_ecc ^ bad_ecc;</div>
-<div class="line"><span class="lineno">  345</span>        <span class="keywordflow">if</span>(_is_single_bit_set(eccdiff))</div>
-<div class="line"><span class="lineno">  346</span>          <span class="keywordflow">return</span> (<a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a>) -1;</div>
-<div class="line"><span class="lineno">  347</span>        <span class="keywordflow">for</span>(<a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a> i = 0, b = 1; i &lt; length; i++, b++)</div>
-<div class="line"><span class="lineno">  348</span>        {</div>
-<div class="line"><span class="lineno">  349</span>          <span class="comment">// Skip parity bits</span></div>
-<div class="line"><span class="lineno">  350</span>          <span class="keywordflow">while</span>(_is_single_bit_set(b))</div>
-<div class="line"><span class="lineno">  351</span>            b++;</div>
-<div class="line"><span class="lineno">  352</span>          <span class="keywordflow">if</span>(b == eccdiff)</div>
-<div class="line"><span class="lineno">  353</span>            <span class="keywordflow">return</span> i;</div>
-<div class="line"><span class="lineno">  354</span>        }</div>
-<div class="line"><span class="lineno">  355</span>        <span class="keywordflow">return</span> (<a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a>) -1;</div>
-<div class="line"><span class="lineno">  356</span>      }</div>
+<div class="fragment"><div class="line"><span class="lineno">  371</span>      {</div>
+<div class="line"><span class="lineno">  372</span>        <a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a> length = blocksize * bits_per_byte, eccdiff = good_ecc ^ bad_ecc;</div>
+<div class="line"><span class="lineno">  373</span>        <span class="keywordflow">if</span>(_is_single_bit_set(eccdiff))</div>
+<div class="line"><span class="lineno">  374</span>          <span class="keywordflow">return</span> (<a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a>) -1;</div>
+<div class="line"><span class="lineno">  375</span>        <span class="keywordflow">for</span>(<a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a> i = 0, b = 1; i &lt; length; i++, b++)</div>
+<div class="line"><span class="lineno">  376</span>        {</div>
+<div class="line"><span class="lineno">  377</span>          <span class="comment">// Skip parity bits</span></div>
+<div class="line"><span class="lineno">  378</span>          <span class="keywordflow">while</span>(_is_single_bit_set(b))</div>
+<div class="line"><span class="lineno">  379</span>            b++;</div>
+<div class="line"><span class="lineno">  380</span>          <span class="keywordflow">if</span>(b == eccdiff)</div>
+<div class="line"><span class="lineno">  381</span>            <span class="keywordflow">return</span> i;</div>
+<div class="line"><span class="lineno">  382</span>        }</div>
+<div class="line"><span class="lineno">  383</span>        <span class="keywordflow">return</span> (<a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a>) -1;</div>
+<div class="line"><span class="lineno">  384</span>      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -650,22 +657,22 @@ template&lt;size_t blocksize&gt; </div>
 </div><div class="memdoc">
 
 <p>Verifies and heals when possible a buffer, returning non zero if the buffer is error free. </p>
-<div class="fragment"><div class="line"><span class="lineno">  366</span>      {</div>
-<div class="line"><span class="lineno">  367</span>        <a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a> this_ecc = (*this)(0, buffer);</div>
-<div class="line"><span class="lineno">  368</span>        <span class="keywordflow">if</span>(this_ecc == good_ecc)</div>
-<div class="line"><span class="lineno">  369</span>          <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#aa0b1a4798c525be9f51c3051754ea40ca1ef0a2a9c5cfd09fbb2d008b66571597">verify_status::okay</a>;  <span class="comment">// no errors</span></div>
-<div class="line"><span class="lineno">  370</span>        <a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a> badbit = <a class="code hl_function" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a527dc7dcfda9d40897f38e8f49b1df64">find_bad_bit</a>(good_ecc, this_ecc);</div>
-<div class="line"><span class="lineno">  371</span>        <span class="keywordflow">if</span>((<a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a>) -1 == badbit)</div>
-<div class="line"><span class="lineno">  372</span>          <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#aa0b1a4798c525be9f51c3051754ea40ca128b7d0d9ed4f27b2b8e32b028fe60f3">verify_status::corrupt</a>;  <span class="comment">// parity corrupt?</span></div>
-<div class="line"><span class="lineno">  373</span>        buffer[badbit / bits_per_byte] ^= (<span class="keywordtype">unsigned</span> char) ecc_twospowers[badbit % bits_per_byte];</div>
-<div class="line"><span class="lineno">  374</span>        this_ecc = (*this)(0, buffer);</div>
-<div class="line"><span class="lineno">  375</span>        <span class="keywordflow">if</span>(this_ecc == good_ecc)</div>
-<div class="line"><span class="lineno">  376</span>          <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#aa0b1a4798c525be9f51c3051754ea40ca1a97a19f71daaf9fd189a302f1b71486">healed</a>;  <span class="comment">// error healed</span></div>
-<div class="line"><span class="lineno">  377</span>                          <span class="comment">// Put the bit back</span></div>
-<div class="line"><span class="lineno">  378</span>        buffer[badbit / bits_per_byte] ^= (<span class="keywordtype">unsigned</span> char) ecc_twospowers[badbit % bits_per_byte];</div>
-<div class="line"><span class="lineno">  379</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#aa0b1a4798c525be9f51c3051754ea40ca128b7d0d9ed4f27b2b8e32b028fe60f3">verify_status::corrupt</a>;  <span class="comment">// more than one bit was corrupt</span></div>
-<div class="line"><span class="lineno">  380</span>      }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc_html_a527dc7dcfda9d40897f38e8f49b1df64"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a527dc7dcfda9d40897f38e8f49b1df64">quickcpplib::_xxx::algorithm::secded_ecc::secded_ecc::find_bad_bit</a></div><div class="ttdeci">result_type find_bad_bit(result_type good_ecc, result_type bad_ecc) const noexcept</div><div class="ttdoc">Given the original ECC and the new ECC for a buffer, find the bad bit. Return (result_type)-1 if not ...</div><div class="ttdef"><b>Definition</b> secded_ecc.hpp:342</div></div>
+<div class="fragment"><div class="line"><span class="lineno">  394</span>      {</div>
+<div class="line"><span class="lineno">  395</span>        <a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a> this_ecc = (*this)(0, buffer);</div>
+<div class="line"><span class="lineno">  396</span>        <span class="keywordflow">if</span>(this_ecc == good_ecc)</div>
+<div class="line"><span class="lineno">  397</span>          <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#aa0b1a4798c525be9f51c3051754ea40ca1ef0a2a9c5cfd09fbb2d008b66571597">verify_status::okay</a>;  <span class="comment">// no errors</span></div>
+<div class="line"><span class="lineno">  398</span>        <a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a> badbit = <a class="code hl_function" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a527dc7dcfda9d40897f38e8f49b1df64">find_bad_bit</a>(good_ecc, this_ecc);</div>
+<div class="line"><span class="lineno">  399</span>        <span class="keywordflow">if</span>((<a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a217cff5eaf1bbc078938d7d4ab43b5e3">result_type</a>) -1 == badbit)</div>
+<div class="line"><span class="lineno">  400</span>          <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#aa0b1a4798c525be9f51c3051754ea40ca128b7d0d9ed4f27b2b8e32b028fe60f3">verify_status::corrupt</a>;  <span class="comment">// parity corrupt?</span></div>
+<div class="line"><span class="lineno">  401</span>        buffer[badbit / bits_per_byte] ^= (<span class="keywordtype">unsigned</span> char) ecc_twospowers[badbit % bits_per_byte];</div>
+<div class="line"><span class="lineno">  402</span>        this_ecc = (*this)(0, buffer);</div>
+<div class="line"><span class="lineno">  403</span>        <span class="keywordflow">if</span>(this_ecc == good_ecc)</div>
+<div class="line"><span class="lineno">  404</span>          <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#aa0b1a4798c525be9f51c3051754ea40ca1a97a19f71daaf9fd189a302f1b71486">healed</a>;  <span class="comment">// error healed</span></div>
+<div class="line"><span class="lineno">  405</span>                          <span class="comment">// Put the bit back</span></div>
+<div class="line"><span class="lineno">  406</span>        buffer[badbit / bits_per_byte] ^= (<span class="keywordtype">unsigned</span> char) ecc_twospowers[badbit % bits_per_byte];</div>
+<div class="line"><span class="lineno">  407</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#aa0b1a4798c525be9f51c3051754ea40ca128b7d0d9ed4f27b2b8e32b028fe60f3">verify_status::corrupt</a>;  <span class="comment">// more than one bit was corrupt</span></div>
+<div class="line"><span class="lineno">  408</span>      }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc_html_a527dc7dcfda9d40897f38e8f49b1df64"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#a527dc7dcfda9d40897f38e8f49b1df64">quickcpplib::_xxx::algorithm::secded_ecc::secded_ecc::find_bad_bit</a></div><div class="ttdeci">result_type find_bad_bit(result_type good_ecc, result_type bad_ecc) const noexcept</div><div class="ttdef"><b>Definition</b> secded_ecc.hpp:370</div></div>
 </div><!-- fragment -->
 </div>
 </div>

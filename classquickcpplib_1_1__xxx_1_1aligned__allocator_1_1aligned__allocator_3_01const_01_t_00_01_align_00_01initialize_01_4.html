@@ -143,9 +143,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a6c41d4e575724e677f01f5d10df0c787"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2843799a6615f4c8968c0806cb70ec0" id="r_af2843799a6615f4c8968c0806cb70ec0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#af2843799a6615f4c8968c0806cb70ec0">deallocate</a> (<a class="el" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#a17b0f9498278d7a60f426711fdb30fd6">pointer</a> p, <a class="el" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#ad2829443c278489707cb2826b865a493">size_type</a>) noexcept</td></tr>
 <tr class="separator:af2843799a6615f4c8968c0806cb70ec0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ab6cedf7b4c61444191508567574ea0" id="r_a7ab6cedf7b4c61444191508567574ea0"><td class="memTemplParams" colspan="2">template&lt;class U , class ... Args&gt; </td></tr>
-<tr class="memitem:a7ab6cedf7b4c61444191508567574ea0"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#a7ab6cedf7b4c61444191508567574ea0">construct</a> (U *p, Args &amp;&amp;... args)</td></tr>
-<tr class="separator:a7ab6cedf7b4c61444191508567574ea0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfe336db86791b843f86b98a0357a56f" id="r_adfe336db86791b843f86b98a0357a56f"><td class="memTemplParams" colspan="2">template&lt;class U , class... Args&gt; </td></tr>
+<tr class="memitem:adfe336db86791b843f86b98a0357a56f"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#adfe336db86791b843f86b98a0357a56f">construct</a> (U *p, Args &amp;&amp;...args)</td></tr>
+<tr class="separator:adfe336db86791b843f86b98a0357a56f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a577007e5f171a31263c1053a83bea39b" id="r_a577007e5f171a31263c1053a83bea39b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#a577007e5f171a31263c1053a83bea39b">destroy</a> (<a class="el" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#a17b0f9498278d7a60f426711fdb30fd6">pointer</a> p)</td></tr>
 <tr class="separator:a577007e5f171a31263c1053a83bea39b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -295,8 +295,10 @@ template&lt;typename T , size_t Align, bool initialize&gt; </div>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a1b2b64bdca9037acf41c41c9c683e09ea1ca13a4bd56667a0afa401625338070a" name="a1b2b64bdca9037acf41c41c9c683e09ea1ca13a4bd56667a0afa401625338070a"></a>alignment&#160;</td><td class="fielddoc"></td></tr>
 </table>
-<div class="fragment"><div class="line"><span class="lineno">  206</span>{ <a class="code hl_enumvalue" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#a1b2b64bdca9037acf41c41c9c683e09ea1ca13a4bd56667a0afa401625338070a">alignment</a> = Align };</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4_html_a1b2b64bdca9037acf41c41c9c683e09ea1ca13a4bd56667a0afa401625338070a"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#a1b2b64bdca9037acf41c41c9c683e09ea1ca13a4bd56667a0afa401625338070a">quickcpplib::_xxx::aligned_allocator::aligned_allocator&lt; const T, Align, initialize &gt;::alignment</a></div><div class="ttdeci">@ alignment</div><div class="ttdef"><b>Definition</b> aligned_allocator.hpp:206</div></div>
+<div class="fragment"><div class="line"><span class="lineno">  204</span>    {</div>
+<div class="line"><span class="lineno">  205</span>      <a class="code hl_enumvalue" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#a1b2b64bdca9037acf41c41c9c683e09ea1ca13a4bd56667a0afa401625338070a">alignment</a> = Align</div>
+<div class="line"><span class="lineno">  206</span>    };</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4_html_a1b2b64bdca9037acf41c41c9c683e09ea1ca13a4bd56667a0afa401625338070a"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#a1b2b64bdca9037acf41c41c9c683e09ea1ca13a4bd56667a0afa401625338070a">quickcpplib::_xxx::aligned_allocator::aligned_allocator&lt; const T, Align, initialize &gt;::alignment</a></div><div class="ttdeci">@ alignment</div><div class="ttdef"><b>Definition</b> aligned_allocator.hpp:205</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -325,7 +327,7 @@ template&lt;typename T , size_t Align, bool initialize&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  215</span>      {}</div>
+<div class="fragment"><div class="line"><span class="lineno">  216</span>{}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -356,7 +358,7 @@ template&lt;class U &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  219</span>      {}</div>
+<div class="fragment"><div class="line"><span class="lineno">  218</span>{}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -385,10 +387,8 @@ template&lt;typename T , size_t Align, bool initialize&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  223</span>      {</div>
-<div class="line"><span class="lineno">  224</span>        <span class="keywordflow">return</span> (<a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#ad2829443c278489707cb2826b865a493">size_type</a>(~0) - <a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#ad2829443c278489707cb2826b865a493">size_type</a>(Align)) / <span class="keyword">sizeof</span>(T);</div>
-<div class="line"><span class="lineno">  225</span>      }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4_html_ad2829443c278489707cb2826b865a493"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#ad2829443c278489707cb2826b865a493">quickcpplib::_xxx::aligned_allocator::aligned_allocator&lt; const T, Align, initialize &gt;::size_type</a></div><div class="ttdeci">size_t size_type</div><div class="ttdef"><b>Definition</b> aligned_allocator.hpp:204</div></div>
+<div class="fragment"><div class="line"><span class="lineno">  220</span>{ <span class="keywordflow">return</span> (<a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#ad2829443c278489707cb2826b865a493">size_type</a>(~0) - <a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#ad2829443c278489707cb2826b865a493">size_type</a>(Align)) / <span class="keyword">sizeof</span>(T); }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4_html_ad2829443c278489707cb2826b865a493"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#ad2829443c278489707cb2826b865a493">quickcpplib::_xxx::aligned_allocator::aligned_allocator&lt; const T, Align, initialize &gt;::size_type</a></div><div class="ttdeci">size_t size_type</div><div class="ttdef"><b>Definition</b> aligned_allocator.hpp:201</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -417,9 +417,7 @@ template&lt;typename T , size_t Align, bool initialize&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  229</span>      {</div>
-<div class="line"><span class="lineno">  230</span>        <span class="keywordflow">return</span> std::addressof(x);</div>
-<div class="line"><span class="lineno">  231</span>      }</div>
+<div class="fragment"><div class="line"><span class="lineno">  222</span>{ <span class="keywordflow">return</span> std::addressof(x); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -458,17 +456,22 @@ template&lt;typename T , size_t Align, bool initialize&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  235</span>      {</div>
-<div class="line"><span class="lineno">  236</span>        <span class="keyword">const</span> <a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#ad2829443c278489707cb2826b865a493">size_type</a> <a class="code hl_enumvalue" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#a1b2b64bdca9037acf41c41c9c683e09ea1ca13a4bd56667a0afa401625338070a">alignment</a> = <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#ad2829443c278489707cb2826b865a493">size_type</a><span class="keyword">&gt;</span>(Align);</div>
-<div class="line"><span class="lineno">  237</span>        <span class="keywordtype">void</span>* ptr = <a class="code hl_function" href="namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#a6cd087a950fe77feb8cfb32aca5270eb">detail::allocate_aligned_memory</a>(<a class="code hl_enumvalue" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#a1b2b64bdca9037acf41c41c9c683e09ea1ca13a4bd56667a0afa401625338070a">alignment</a>, n * <span class="keyword">sizeof</span>(T));</div>
-<div class="line"><span class="lineno">  238</span>        <span class="keywordflow">if</span> (ptr == <span class="keyword">nullptr</span>) {</div>
-<div class="line"><span class="lineno">  239</span>          <span class="keywordflow">throw</span> std::bad_alloc();</div>
-<div class="line"><span class="lineno">  240</span>        }</div>
-<div class="line"><span class="lineno">  241</span> </div>
-<div class="line"><span class="lineno">  242</span>        <span class="keywordflow">return</span> <span class="keyword">reinterpret_cast&lt;</span><a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#a17b0f9498278d7a60f426711fdb30fd6">pointer</a><span class="keyword">&gt;</span>(ptr);</div>
-<div class="line"><span class="lineno">  243</span>      }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4_html_a17b0f9498278d7a60f426711fdb30fd6"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#a17b0f9498278d7a60f426711fdb30fd6">quickcpplib::_xxx::aligned_allocator::aligned_allocator&lt; const T, Align, initialize &gt;::pointer</a></div><div class="ttdeci">const T * pointer</div><div class="ttdef"><b>Definition</b> aligned_allocator.hpp:200</div></div>
-<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail_html_a6cd087a950fe77feb8cfb32aca5270eb"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#a6cd087a950fe77feb8cfb32aca5270eb">quickcpplib::_xxx::aligned_allocator::detail::allocate_aligned_memory</a></div><div class="ttdeci">void * allocate_aligned_memory(size_t align, size_t size)</div><div class="ttdef"><b>Definition</b> aligned_allocator.hpp:68</div></div>
+<div class="fragment"><div class="line"><span class="lineno">  225</span>    {</div>
+<div class="line"><span class="lineno">  226</span>      <span class="keyword">const</span> <a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#ad2829443c278489707cb2826b865a493">size_type</a> <a class="code hl_enumvalue" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#a1b2b64bdca9037acf41c41c9c683e09ea1ca13a4bd56667a0afa401625338070a">alignment</a> = <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#ad2829443c278489707cb2826b865a493">size_type</a><span class="keyword">&gt;</span>(Align);</div>
+<div class="line"><span class="lineno">  227</span>      <span class="keywordtype">void</span> *ptr = <a class="code hl_function" href="namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#a6cd087a950fe77feb8cfb32aca5270eb">detail::allocate_aligned_memory</a>(<a class="code hl_enumvalue" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#a1b2b64bdca9037acf41c41c9c683e09ea1ca13a4bd56667a0afa401625338070a">alignment</a>, n * <span class="keyword">sizeof</span>(T));</div>
+<div class="line"><span class="lineno">  228</span>      <span class="keywordflow">if</span>(ptr == <span class="keyword">nullptr</span>)</div>
+<div class="line"><span class="lineno">  229</span>      {</div>
+<div class="line"><span class="lineno">  230</span><span class="preprocessor">#ifdef __cpp_exceptions</span></div>
+<div class="line"><span class="lineno">  231</span>        <span class="keywordflow">throw</span> std::bad_alloc();</div>
+<div class="line"><span class="lineno">  232</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">  233</span>        abort();</div>
+<div class="line"><span class="lineno">  234</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  235</span>      }</div>
+<div class="line"><span class="lineno">  236</span> </div>
+<div class="line"><span class="lineno">  237</span>      <span class="keywordflow">return</span> <span class="keyword">reinterpret_cast&lt;</span><a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#a17b0f9498278d7a60f426711fdb30fd6">pointer</a><span class="keyword">&gt;</span>(ptr);</div>
+<div class="line"><span class="lineno">  238</span>    }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4_html_a17b0f9498278d7a60f426711fdb30fd6"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#a17b0f9498278d7a60f426711fdb30fd6">quickcpplib::_xxx::aligned_allocator::aligned_allocator&lt; const T, Align, initialize &gt;::pointer</a></div><div class="ttdeci">const T * pointer</div><div class="ttdef"><b>Definition</b> aligned_allocator.hpp:197</div></div>
+<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail_html_a6cd087a950fe77feb8cfb32aca5270eb"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#a6cd087a950fe77feb8cfb32aca5270eb">quickcpplib::_xxx::aligned_allocator::detail::allocate_aligned_memory</a></div><div class="ttdeci">void * allocate_aligned_memory(size_t align, size_t size)</div><div class="ttdef"><b>Definition</b> aligned_allocator.hpp:71</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -507,22 +510,20 @@ template&lt;typename T , size_t Align, bool initialize&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  247</span>      {</div>
-<div class="line"><span class="lineno">  248</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#a7b9f266229239d7da932520131697670">detail::deallocate_aligned_memory</a>(p);</div>
-<div class="line"><span class="lineno">  249</span>      }</div>
-<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail_html_a7b9f266229239d7da932520131697670"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#a7b9f266229239d7da932520131697670">quickcpplib::_xxx::aligned_allocator::detail::deallocate_aligned_memory</a></div><div class="ttdeci">void deallocate_aligned_memory(void *ptr) noexcept</div><div class="ttdef"><b>Definition</b> aligned_allocator.hpp:78</div></div>
+<div class="fragment"><div class="line"><span class="lineno">  240</span>{ <span class="keywordflow">return</span> <a class="code hl_function" href="namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#a7b9f266229239d7da932520131697670">detail::deallocate_aligned_memory</a>(p); }</div>
+<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail_html_a7b9f266229239d7da932520131697670"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#a7b9f266229239d7da932520131697670">quickcpplib::_xxx::aligned_allocator::detail::deallocate_aligned_memory</a></div><div class="ttdeci">void deallocate_aligned_memory(void *ptr) noexcept</div><div class="ttdef"><b>Definition</b> aligned_allocator.hpp:82</div></div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a7ab6cedf7b4c61444191508567574ea0" name="a7ab6cedf7b4c61444191508567574ea0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ab6cedf7b4c61444191508567574ea0">&#9670;&#160;</a></span>construct()</h2>
+<a id="adfe336db86791b843f86b98a0357a56f" name="adfe336db86791b843f86b98a0357a56f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfe336db86791b843f86b98a0357a56f">&#9670;&#160;</a></span>construct()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T , size_t Align, bool initialize&gt; </div>
 <div class="memtemplate">
-template&lt;class U , class ... Args&gt; </div>
+template&lt;class U , class... Args&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -551,9 +552,10 @@ template&lt;class U , class ... Args&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  254</span>      {</div>
-<div class="line"><span class="lineno">  255</span>        <span class="keywordflow">if</span> (initialize || !std::is_same&lt;char, U&gt;::value) ::new(<span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>(p)) U(std::forward&lt;Args&gt;(args)...);</div>
-<div class="line"><span class="lineno">  256</span>      }</div>
+<div class="fragment"><div class="line"><span class="lineno">  243</span>    {</div>
+<div class="line"><span class="lineno">  244</span>      <span class="keywordflow">if</span>(initialize || !std::is_same&lt;char, U&gt;::value)</div>
+<div class="line"><span class="lineno">  245</span>        ::new(<span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">void</span> *<span class="keyword">&gt;</span>(p)) U(std::forward&lt;Args&gt;(args)...);</div>
+<div class="line"><span class="lineno">  246</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -582,9 +584,7 @@ template&lt;typename T , size_t Align, bool initialize&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  260</span>      {</div>
-<div class="line"><span class="lineno">  261</span>        p-&gt;~T();</div>
-<div class="line"><span class="lineno">  262</span>      }</div>
+<div class="fragment"><div class="line"><span class="lineno">  248</span>{ p-&gt;~T(); }</div>
 </div><!-- fragment -->
 </div>
 </div>
