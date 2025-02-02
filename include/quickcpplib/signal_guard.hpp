@@ -717,7 +717,11 @@ namespace signal_guard
 #endif
     template <class R> inline R throw_signal_raised(const raised_signal_info *i)
     {
+#ifdef __cpp_exceptions
       throw signal_raised(signalc(1ULL << i->signo));
+#else
+      abort();
+#endif
     }
     inline bool continue_or_handle(const raised_signal_info * /*unused*/) noexcept
     {
