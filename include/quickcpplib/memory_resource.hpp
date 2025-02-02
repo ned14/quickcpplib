@@ -52,6 +52,8 @@ QUICKCPPLIB_NAMESPACE_END
 #include <cstddef>
 #include <memory>
 
+#include "cpp_feature.h"
+
 QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace pmr
@@ -71,11 +73,23 @@ namespace pmr
     memory_resource &operator=(const memory_resource &) = default;
     virtual ~memory_resource() {}
 
-    QUICKCPPLIB_NODISCARD void *allocate(size_t bytes, size_t alignment = alignof(std::max_align_t)) { return do_allocate(bytes, alignment); }
-    void deallocate(void *p, size_t bytes, size_t alignment = alignof(std::max_align_t)) { return do_deallocate(p, bytes, alignment); }
+    QUICKCPPLIB_NODISCARD void *allocate(size_t bytes, size_t alignment = alignof(std::max_align_t))
+    {
+      return do_allocate(bytes, alignment);
+    }
+    void deallocate(void *p, size_t bytes, size_t alignment = alignof(std::max_align_t))
+    {
+      return do_deallocate(p, bytes, alignment);
+    }
   };
-  inline bool operator==(const memory_resource &a, const memory_resource &b) noexcept { return a.do_is_equal(b); }
-  inline bool operator!=(const memory_resource &a, const memory_resource &b) noexcept { return !a.do_is_equal(b); }
+  inline bool operator==(const memory_resource &a, const memory_resource &b) noexcept
+  {
+    return a.do_is_equal(b);
+  }
+  inline bool operator!=(const memory_resource &a, const memory_resource &b) noexcept
+  {
+    return !a.do_is_equal(b);
+  }
 
   //! A just barely good enough C++ 14 emulation of monotonic_buffer_resource
   class monotonic_buffer_resource : public memory_resource
@@ -86,14 +100,22 @@ namespace pmr
     {
       if(_ptr >= _end)
       {
+#ifdef __cpp_exceptions
         throw std::bad_alloc();
+#else
+        abort();
+#endif
       }
       _ptr = (char *) (((uintptr_t) _ptr + alignment - 1) & ~(alignment - 1));
       void *ret = (void *) _ptr;
       _ptr += bytes;
       if(_ptr > _end)
       {
+#ifdef __cpp_exceptions
         throw std::bad_alloc();
+#else
+        abort();
+#endif
       }
       return ret;
     }
@@ -143,16 +165,21 @@ namespace pmr
 
     memory_resource *resource() const { return _r; }
 
-    QUICKCPPLIB_NODISCARD T *allocate(size_t n) { return static_cast<T *>(resource()->allocate(n * sizeof(T), alignof(T))); }
+    QUICKCPPLIB_NODISCARD T *allocate(size_t n)
+    {
+      return static_cast<T *>(resource()->allocate(n * sizeof(T), alignof(T)));
+    }
     void deallocate(T *p, size_t n) { resource()->deallocate(p, n * sizeof(T), alignof(T)); }
     template <class U, class... Args> void construct(U *p, Args &&...args) { new(p) U(static_cast<Args &&>(args)...); }
     template <class U> void destroy(U *p) { p->~U(); }
   };
-  template <class T1, class T2> inline bool operator==(const polymorphic_allocator<T1> &a, const polymorphic_allocator<T2> &b) noexcept
+  template <class T1, class T2>
+  inline bool operator==(const polymorphic_allocator<T1> &a, const polymorphic_allocator<T2> &b) noexcept
   {
     return *a.resource() == *b.resource();
   }
-  template <class T1, class T2> inline bool operator!=(const polymorphic_allocator<T1> &a, const polymorphic_allocator<T2> &b) noexcept
+  template <class T1, class T2>
+  inline bool operator!=(const polymorphic_allocator<T1> &a, const polymorphic_allocator<T2> &b) noexcept
   {
     return *a.resource() != *b.resource();
   }
