@@ -289,8 +289,12 @@ template&lt;class R &gt; </div>
 </table>
 </div><div class="memdoc">
 <div class="fragment"><div class="line"><span class="lineno">  719</span>    {</div>
-<div class="line"><span class="lineno">  720</span>      <span class="keywordflow">throw</span> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__raised.html">signal_raised</a>(<a class="code hl_enumeration" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790">signalc</a>(1ULL &lt;&lt; i-&gt;<a class="code hl_variable" href="structraised__signal__info.html#a909693dca5e336bed820178d23d4059d">signo</a>));</div>
-<div class="line"><span class="lineno">  721</span>    }</div>
+<div class="line"><span class="lineno">  720</span><span class="preprocessor">#ifdef __cpp_exceptions</span></div>
+<div class="line"><span class="lineno">  721</span>      <span class="keywordflow">throw</span> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__raised.html">signal_raised</a>(<a class="code hl_enumeration" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790">signalc</a>(1ULL &lt;&lt; i-&gt;<a class="code hl_variable" href="structraised__signal__info.html#a909693dca5e336bed820178d23d4059d">signo</a>));</div>
+<div class="line"><span class="lineno">  722</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">  723</span>      abort();</div>
+<div class="line"><span class="lineno">  724</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  725</span>    }</div>
 <div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__raised_html"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__raised.html">quickcpplib::_xxx::signal_guard::signal_raised</a></div><div class="ttdoc">Thrown by the default signal handler to abort the current operation.</div><div class="ttdef"><b>Definition</b> signal_guard.hpp:670</div></div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1signal__guard_html_a31407e66b668f46e52933017eadcf790"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790">quickcpplib::_xxx::signal_guard::signalc</a></div><div class="ttdeci">signalc</div><div class="ttdoc">The signals which are supported.</div><div class="ttdef"><b>Definition</b> signal_guard.hpp:267</div></div>
 <div class="ttc" id="astructraised__signal__info_html_a909693dca5e336bed820178d23d4059d"><div class="ttname"><a href="structraised__signal__info.html#a909693dca5e336bed820178d23d4059d">raised_signal_info::signo</a></div><div class="ttdeci">int signo</div><div class="ttdoc">The signal raised.</div><div class="ttdef"><b>Definition</b> signal_guard.hpp:130</div></div>
@@ -320,9 +324,9 @@ template&lt;class R &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  723</span>    {</div>
-<div class="line"><span class="lineno">  724</span>      <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  725</span>    }</div>
+<div class="fragment"><div class="line"><span class="lineno">  727</span>    {</div>
+<div class="line"><span class="lineno">  728</span>      <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  729</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>

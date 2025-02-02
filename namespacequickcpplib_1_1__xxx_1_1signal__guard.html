@@ -784,75 +784,75 @@ template&lt;class F , class H , class C , class... Args, class R  = decltype(std
 On MSVC because <code>std::set_terminate()</code> is thread local, we ALWAYS install our termination handler for every thread on creation and we never uninstall it.</dd>
 <dd>
 On MSVC, you cannot pass a type with a non-trivial destructor through <code>__try</code>, so this will limit the complexity of types that can be returned directly by this function. You can usually work around this via an intermediate <code>std::optional</code>. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  796</span>  {</div>
-<div class="line"><span class="lineno">  797</span>    <span class="keywordflow">if</span>(guarded == signalc_set::none)</div>
-<div class="line"><span class="lineno">  798</span>    {</div>
-<div class="line"><span class="lineno">  799</span>      <span class="keywordflow">return</span> f(<span class="keyword">static_cast&lt;</span>Args &amp;&amp;<span class="keyword">&gt;</span>(args)...);</div>
-<div class="line"><span class="lineno">  800</span>    }</div>
-<div class="line"><span class="lineno">  801</span>    <span class="keyword">struct </span>signal_guard_installer final : detail::thread_local_signal_guard</div>
+<div class="fragment"><div class="line"><span class="lineno">  800</span>  {</div>
+<div class="line"><span class="lineno">  801</span>    <span class="keywordflow">if</span>(guarded == signalc_set::none)</div>
 <div class="line"><span class="lineno">  802</span>    {</div>
-<div class="line"><span class="lineno">  803</span>      <span class="keywordtype">char</span> _storage[<span class="keyword">sizeof</span>(signal_guard_install)];</div>
-<div class="line"><span class="lineno">  804</span>      signal_guard_install *sgi{<span class="keyword">nullptr</span>};</div>
-<div class="line"><span class="lineno">  805</span>      C &amp;continuer;</div>
-<div class="line"><span class="lineno">  806</span> </div>
-<div class="line"><span class="lineno">  807</span>      signal_guard_installer(signalc_set guarded, C &amp;c)</div>
-<div class="line"><span class="lineno">  808</span>          : detail::thread_local_signal_guard(guarded)</div>
-<div class="line"><span class="lineno">  809</span>          , continuer(c)</div>
-<div class="line"><span class="lineno">  810</span>      {</div>
-<div class="line"><span class="lineno">  811</span><span class="preprocessor">#ifndef _WIN32</span></div>
-<div class="line"><span class="lineno">  812</span>        uint64_t oldinstalled(detail::signal_guards_installed().load(std::memory_order_relaxed));</div>
-<div class="line"><span class="lineno">  813</span>        uint64_t newinstalled = oldinstalled | uint64_t(guarded);</div>
-<div class="line"><span class="lineno">  814</span>        <span class="keywordflow">if</span>(newinstalled != oldinstalled)</div>
-<div class="line"><span class="lineno">  815</span>        {</div>
-<div class="line"><span class="lineno">  816</span>          <span class="comment">// Need a temporary signal guard install</span></div>
-<div class="line"><span class="lineno">  817</span>          sgi = <span class="keyword">new</span>(_storage) signal_guard_install(guarded);</div>
-<div class="line"><span class="lineno">  818</span>        }</div>
-<div class="line"><span class="lineno">  819</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  820</span>      }</div>
-<div class="line"><span class="lineno">  821</span>      ~signal_guard_installer() { reset(); }</div>
-<div class="line"><span class="lineno">  822</span>      <span class="keywordtype">void</span> reset()</div>
-<div class="line"><span class="lineno">  823</span>      {</div>
-<div class="line"><span class="lineno">  824</span><span class="preprocessor">#ifndef _WIN32</span></div>
-<div class="line"><span class="lineno">  825</span>        <span class="keywordflow">if</span>(<span class="keyword">nullptr</span> != sgi)</div>
-<div class="line"><span class="lineno">  826</span>        {</div>
-<div class="line"><span class="lineno">  827</span>          sgi-&gt;~signal_guard_install();</div>
-<div class="line"><span class="lineno">  828</span>        }</div>
-<div class="line"><span class="lineno">  829</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  830</span>      }</div>
-<div class="line"><span class="lineno">  831</span>      <span class="keywordtype">bool</span> call_continuer()<span class="keyword"> override </span>{ <span class="keywordflow">return</span> continuer(&amp;this-&gt;info); }</div>
-<div class="line"><span class="lineno">  832</span>    } sgi(guarded, c);</div>
-<div class="line"><span class="lineno">  833</span>    <span class="comment">// Nothing in the C++ standard says that the compiler cannot reorder reads and writes</span></div>
-<div class="line"><span class="lineno">  834</span>    <span class="comment">// around a setjmp(), so let&#39;s prevent that. This is the weak form affecting the</span></div>
-<div class="line"><span class="lineno">  835</span>    <span class="comment">// compiler reordering only.</span></div>
-<div class="line"><span class="lineno">  836</span>    std::atomic_signal_fence(std::memory_order_seq_cst);</div>
-<div class="line"><span class="lineno">  837</span>    <span class="keywordflow">if</span>(setjmp(sgi.info.buf))</div>
-<div class="line"><span class="lineno">  838</span>    {</div>
-<div class="line"><span class="lineno">  839</span>      <span class="comment">// returning from longjmp, so unset the TLS and call failure handler</span></div>
-<div class="line"><span class="lineno">  840</span>      sgi.reset();</div>
-<div class="line"><span class="lineno">  841</span>      <span class="keywordflow">return</span> h(&amp;sgi.info);</div>
-<div class="line"><span class="lineno">  842</span>    }</div>
-<div class="line"><span class="lineno">  843</span>    std::atomic_signal_fence(std::memory_order_seq_cst);</div>
-<div class="line"><span class="lineno">  844</span><span class="preprocessor">#ifdef _WIN32</span></div>
-<div class="line"><span class="lineno">  845</span>    <span class="comment">// Cannot use __try in a function with non-trivial destructors</span></div>
-<div class="line"><span class="lineno">  846</span>    <span class="keywordflow">return</span> [&amp;]</div>
-<div class="line"><span class="lineno">  847</span>    {</div>
-<div class="line"><span class="lineno">  848</span>      __try</div>
-<div class="line"><span class="lineno">  849</span>      {</div>
-<div class="line"><span class="lineno">  850</span>        <span class="keyword">static_assert</span>(std::is_trivially_destructible&lt;R&gt;::value || std::is_void&lt;R&gt;::value,</div>
-<div class="line"><span class="lineno">  851</span>                      <span class="stringliteral">&quot;On MSVC, the return type of F must be trivially destructible, otherwise the compiler will &quot;</span></div>
-<div class="line"><span class="lineno">  852</span>                      <span class="stringliteral">&quot;refuse to compile the code.&quot;</span>);</div>
-<div class="line"><span class="lineno">  853</span>        <span class="keywordflow">return</span> f(<span class="keyword">static_cast&lt;</span>Args &amp;&amp;<span class="keyword">&gt;</span>(args)...);</div>
-<div class="line"><span class="lineno">  854</span>      }</div>
-<div class="line"><span class="lineno">  855</span>      __except(detail::win32_exception_filter_function(_exception_code(),</div>
-<div class="line"><span class="lineno">  856</span>                                                       (<span class="keyword">struct</span> detail::win32::_EXCEPTION_POINTERS *) _exception_info()))</div>
-<div class="line"><span class="lineno">  857</span>      {</div>
-<div class="line"><span class="lineno">  858</span>        longjmp(sgi.info.buf, 1);</div>
-<div class="line"><span class="lineno">  859</span>      }</div>
-<div class="line"><span class="lineno">  860</span>    }();</div>
-<div class="line"><span class="lineno">  861</span><span class="preprocessor">#else</span></div>
-<div class="line"><span class="lineno">  862</span>    <span class="keywordflow">return</span> f(<span class="keyword">static_cast&lt;</span>Args &amp;&amp;<span class="keyword">&gt;</span>(args)...);</div>
-<div class="line"><span class="lineno">  863</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  864</span>  }</div>
+<div class="line"><span class="lineno">  803</span>      <span class="keywordflow">return</span> f(<span class="keyword">static_cast&lt;</span>Args &amp;&amp;<span class="keyword">&gt;</span>(args)...);</div>
+<div class="line"><span class="lineno">  804</span>    }</div>
+<div class="line"><span class="lineno">  805</span>    <span class="keyword">struct </span>signal_guard_installer final : detail::thread_local_signal_guard</div>
+<div class="line"><span class="lineno">  806</span>    {</div>
+<div class="line"><span class="lineno">  807</span>      <span class="keywordtype">char</span> _storage[<span class="keyword">sizeof</span>(signal_guard_install)];</div>
+<div class="line"><span class="lineno">  808</span>      signal_guard_install *sgi{<span class="keyword">nullptr</span>};</div>
+<div class="line"><span class="lineno">  809</span>      C &amp;continuer;</div>
+<div class="line"><span class="lineno">  810</span> </div>
+<div class="line"><span class="lineno">  811</span>      signal_guard_installer(signalc_set guarded, C &amp;c)</div>
+<div class="line"><span class="lineno">  812</span>          : detail::thread_local_signal_guard(guarded)</div>
+<div class="line"><span class="lineno">  813</span>          , continuer(c)</div>
+<div class="line"><span class="lineno">  814</span>      {</div>
+<div class="line"><span class="lineno">  815</span><span class="preprocessor">#ifndef _WIN32</span></div>
+<div class="line"><span class="lineno">  816</span>        uint64_t oldinstalled(detail::signal_guards_installed().load(std::memory_order_relaxed));</div>
+<div class="line"><span class="lineno">  817</span>        uint64_t newinstalled = oldinstalled | uint64_t(guarded);</div>
+<div class="line"><span class="lineno">  818</span>        <span class="keywordflow">if</span>(newinstalled != oldinstalled)</div>
+<div class="line"><span class="lineno">  819</span>        {</div>
+<div class="line"><span class="lineno">  820</span>          <span class="comment">// Need a temporary signal guard install</span></div>
+<div class="line"><span class="lineno">  821</span>          sgi = <span class="keyword">new</span>(_storage) signal_guard_install(guarded);</div>
+<div class="line"><span class="lineno">  822</span>        }</div>
+<div class="line"><span class="lineno">  823</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  824</span>      }</div>
+<div class="line"><span class="lineno">  825</span>      ~signal_guard_installer() { reset(); }</div>
+<div class="line"><span class="lineno">  826</span>      <span class="keywordtype">void</span> reset()</div>
+<div class="line"><span class="lineno">  827</span>      {</div>
+<div class="line"><span class="lineno">  828</span><span class="preprocessor">#ifndef _WIN32</span></div>
+<div class="line"><span class="lineno">  829</span>        <span class="keywordflow">if</span>(<span class="keyword">nullptr</span> != sgi)</div>
+<div class="line"><span class="lineno">  830</span>        {</div>
+<div class="line"><span class="lineno">  831</span>          sgi-&gt;~signal_guard_install();</div>
+<div class="line"><span class="lineno">  832</span>        }</div>
+<div class="line"><span class="lineno">  833</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  834</span>      }</div>
+<div class="line"><span class="lineno">  835</span>      <span class="keywordtype">bool</span> call_continuer()<span class="keyword"> override </span>{ <span class="keywordflow">return</span> continuer(&amp;this-&gt;info); }</div>
+<div class="line"><span class="lineno">  836</span>    } sgi(guarded, c);</div>
+<div class="line"><span class="lineno">  837</span>    <span class="comment">// Nothing in the C++ standard says that the compiler cannot reorder reads and writes</span></div>
+<div class="line"><span class="lineno">  838</span>    <span class="comment">// around a setjmp(), so let&#39;s prevent that. This is the weak form affecting the</span></div>
+<div class="line"><span class="lineno">  839</span>    <span class="comment">// compiler reordering only.</span></div>
+<div class="line"><span class="lineno">  840</span>    std::atomic_signal_fence(std::memory_order_seq_cst);</div>
+<div class="line"><span class="lineno">  841</span>    <span class="keywordflow">if</span>(setjmp(sgi.info.buf))</div>
+<div class="line"><span class="lineno">  842</span>    {</div>
+<div class="line"><span class="lineno">  843</span>      <span class="comment">// returning from longjmp, so unset the TLS and call failure handler</span></div>
+<div class="line"><span class="lineno">  844</span>      sgi.reset();</div>
+<div class="line"><span class="lineno">  845</span>      <span class="keywordflow">return</span> h(&amp;sgi.info);</div>
+<div class="line"><span class="lineno">  846</span>    }</div>
+<div class="line"><span class="lineno">  847</span>    std::atomic_signal_fence(std::memory_order_seq_cst);</div>
+<div class="line"><span class="lineno">  848</span><span class="preprocessor">#ifdef _WIN32</span></div>
+<div class="line"><span class="lineno">  849</span>    <span class="comment">// Cannot use __try in a function with non-trivial destructors</span></div>
+<div class="line"><span class="lineno">  850</span>    <span class="keywordflow">return</span> [&amp;]</div>
+<div class="line"><span class="lineno">  851</span>    {</div>
+<div class="line"><span class="lineno">  852</span>      __try</div>
+<div class="line"><span class="lineno">  853</span>      {</div>
+<div class="line"><span class="lineno">  854</span>        <span class="keyword">static_assert</span>(std::is_trivially_destructible&lt;R&gt;::value || std::is_void&lt;R&gt;::value,</div>
+<div class="line"><span class="lineno">  855</span>                      <span class="stringliteral">&quot;On MSVC, the return type of F must be trivially destructible, otherwise the compiler will &quot;</span></div>
+<div class="line"><span class="lineno">  856</span>                      <span class="stringliteral">&quot;refuse to compile the code.&quot;</span>);</div>
+<div class="line"><span class="lineno">  857</span>        <span class="keywordflow">return</span> f(<span class="keyword">static_cast&lt;</span>Args &amp;&amp;<span class="keyword">&gt;</span>(args)...);</div>
+<div class="line"><span class="lineno">  858</span>      }</div>
+<div class="line"><span class="lineno">  859</span>      __except(detail::win32_exception_filter_function(_exception_code(),</div>
+<div class="line"><span class="lineno">  860</span>                                                       (<span class="keyword">struct</span> detail::win32::_EXCEPTION_POINTERS *) _exception_info()))</div>
+<div class="line"><span class="lineno">  861</span>      {</div>
+<div class="line"><span class="lineno">  862</span>        longjmp(sgi.info.buf, 1);</div>
+<div class="line"><span class="lineno">  863</span>      }</div>
+<div class="line"><span class="lineno">  864</span>    }();</div>
+<div class="line"><span class="lineno">  865</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">  866</span>    <span class="keywordflow">return</span> f(<span class="keyword">static_cast&lt;</span>Args &amp;&amp;<span class="keyword">&gt;</span>(args)...);</div>
+<div class="line"><span class="lineno">  867</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  868</span>  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -893,10 +893,10 @@ template&lt;class F , class R  = decltype(std::declval&lt;F&gt;()())&gt; </div>
 </div><div class="memdoc">
 
 <p>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. </p>
-<div class="fragment"><div class="line"><span class="lineno">  873</span>  {</div>
-<div class="line"><span class="lineno">  874</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a81e58816107576cbfe0c84b0a477620c">signal_guard</a>(guarded, <span class="keyword">static_cast&lt;</span>F &amp;&amp;<span class="keyword">&gt;</span>(f), detail::throw_signal_raised&lt;R&gt;, detail::continue_or_handle);</div>
-<div class="line"><span class="lineno">  875</span>  }</div>
-<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1signal__guard_html_a81e58816107576cbfe0c84b0a477620c"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a81e58816107576cbfe0c84b0a477620c">quickcpplib::_xxx::signal_guard::signal_guard</a></div><div class="ttdeci">R signal_guard(signalc_set guarded, F &amp;&amp;f, H &amp;&amp;h, C &amp;&amp;c, Args &amp;&amp;...args)</div><div class="ttdef"><b>Definition</b> signal_guard.hpp:795</div></div>
+<div class="fragment"><div class="line"><span class="lineno">  877</span>  {</div>
+<div class="line"><span class="lineno">  878</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a81e58816107576cbfe0c84b0a477620c">signal_guard</a>(guarded, <span class="keyword">static_cast&lt;</span>F &amp;&amp;<span class="keyword">&gt;</span>(f), detail::throw_signal_raised&lt;R&gt;, detail::continue_or_handle);</div>
+<div class="line"><span class="lineno">  879</span>  }</div>
+<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1signal__guard_html_a81e58816107576cbfe0c84b0a477620c"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a81e58816107576cbfe0c84b0a477620c">quickcpplib::_xxx::signal_guard::signal_guard</a></div><div class="ttdeci">R signal_guard(signalc_set guarded, F &amp;&amp;f, H &amp;&amp;h, C &amp;&amp;c, Args &amp;&amp;...args)</div><div class="ttdef"><b>Definition</b> signal_guard.hpp:799</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -943,9 +943,9 @@ template&lt;class F , class H , class R  = decltype(std::declval&lt;F&gt;()()), 
 </div><div class="memdoc">
 
 <p>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. </p>
-<div class="fragment"><div class="line"><span class="lineno">  881</span>  {</div>
-<div class="line"><span class="lineno">  882</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a81e58816107576cbfe0c84b0a477620c">signal_guard</a>(guarded, <span class="keyword">static_cast&lt;</span>F &amp;&amp;<span class="keyword">&gt;</span>(f), <span class="keyword">static_cast&lt;</span>H &amp;&amp;<span class="keyword">&gt;</span>(h), detail::continue_or_handle);</div>
-<div class="line"><span class="lineno">  883</span>  }</div>
+<div class="fragment"><div class="line"><span class="lineno">  885</span>  {</div>
+<div class="line"><span class="lineno">  886</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a81e58816107576cbfe0c84b0a477620c">signal_guard</a>(guarded, <span class="keyword">static_cast&lt;</span>F &amp;&amp;<span class="keyword">&gt;</span>(f), <span class="keyword">static_cast&lt;</span>H &amp;&amp;<span class="keyword">&gt;</span>(h), detail::continue_or_handle);</div>
+<div class="line"><span class="lineno">  887</span>  }</div>
 </div><!-- fragment -->
 </div>
 </div>
