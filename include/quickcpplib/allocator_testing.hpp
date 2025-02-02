@@ -29,6 +29,8 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include <atomic>
 
+#include "cpp_feature.h"
+
 QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace allocator_testing
@@ -78,11 +80,15 @@ namespace allocator_testing
       config &c = get_config();
       size_t count = ++c.count;
       if(count >= c.fail_from || count == c.fail_at)
+#ifdef __cpp_exceptions
         throw std::bad_alloc();
+#else
+        abort();
+#endif
       return A::allocate(n, hint);
     }
   };
-}
+}  // namespace allocator_testing
 
 QUICKCPPLIB_NAMESPACE_END
 

@@ -29,6 +29,8 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include <stdexcept>  // std::runtime_error
 
+#include "../cpp_feature.h"
+
 #if 0
 #include <cstring>
 #include <x86intrin.h>
@@ -51,28 +53,31 @@ namespace algorithm
 #define QUICKCPPLIB_SECDED_INTRINSICS 0
 #endif
     /*! \class secded_ecc
-    \brief Calculates the single error correcting double error detecting (SECDED) Hamming Error Correcting Code for a \em blocksize block of bytes. For example, a secdec_ecc<8> would be the very common 72,64 Hamming code used in ECC RAM, or secdec_ecc<4096> would be for a 32784,32768 Hamming code.
+    \brief Calculates the single error correcting double error detecting (SECDED) Hamming Error Correcting Code for a
+    \em blocksize block of bytes. For example, a secdec_ecc<8> would be the very common 72,64 Hamming code used in ECC
+    RAM, or secdec_ecc<4096> would be for a 32784,32768 Hamming code.
 
-    \warning This class needs to be completely reimplemented using SSE and AVX. Its current implementation works fine, but
-    performance is far below what it can be.
+    \warning This class needs to be completely reimplemented using SSE and AVX. Its current implementation works fine,
+    but performance is far below what it can be.
 
-    Did you know that some non-ECC RAM systems can see 1e-12 flips/bit/hour, which is 3.3 bits flipped in a 16Gb RAM system
-    per 24 hours). See Schroeder, Pinheiro and Weber (2009) 'DRAM Errors in the Wild: A Large-Scale Field Study'.
+    Did you know that some non-ECC RAM systems can see 1e-12 flips/bit/hour, which is 3.3 bits flipped in a 16Gb RAM
+    system per 24 hours). See Schroeder, Pinheiro and Weber (2009) 'DRAM Errors in the Wild: A Large-Scale Field Study'.
 
-    After construction during which lookup tables are built, no state is modified and therefore this class is safe for static
-    storage (indeed if C++ 14 is available, the constructor is constexpr). The maximum number of bits in a code is a good four
-    billion, I did try limiting it to 65536 for performance but it wasn't worth it, and one might want > 8Kb blocks maybe.
-    As with all SECDED ECC, undefined behaviour occurs when more than two bits of error are present or the ECC supplied
-    is incorrect. You should combine this SECDED with a robust hash which can tell you definitively if a buffer is error
-    free or not rather than relying on this to correctly do so.
+    After construction during which lookup tables are built, no state is modified and therefore this class is safe for
+    static storage (indeed if C++ 14 is available, the constructor is constexpr). The maximum number of bits in a code
+    is a good four billion, I did try limiting it to 65536 for performance but it wasn't worth it, and one might want >
+    8Kb blocks maybe. As with all SECDED ECC, undefined behaviour occurs when more than two bits of error are present or
+    the ECC supplied is incorrect. You should combine this SECDED with a robust hash which can tell you definitively if
+    a buffer is error free or not rather than relying on this to correctly do so.
 
     The main intended use case for this routine is calculating the ECC on data being written to disc, and hence that is
-    where performance has been maximised. It is not expected that this routine will be frequently called on data being read
-    from disc i.e. only when its hash doesn't match its contents which should be very rare, and then a single bit heal using this routine is attempted
-    before trying again with the hash. Care was taken that really enormous SECDEDs are fast, in fact tuning was mostly
-    done for the 32784,32768 code which can heal one bad bit per 4Kb page as the main thing we have in mind is achieving
-    reliable filing system code on computers without ECC RAM and in which sustained large quantities of random disc i/o produce
-    a worrying number of flipped bits in a 24 hour period (anywhere between 0 and 3 on my hardware here, average is about 0.8).
+    where performance has been maximised. It is not expected that this routine will be frequently called on data being
+    read from disc i.e. only when its hash doesn't match its contents which should be very rare, and then a single bit
+    heal using this routine is attempted before trying again with the hash. Care was taken that really enormous SECDEDs
+    are fast, in fact tuning was mostly done for the 32784,32768 code which can heal one bad bit per 4Kb page as the
+    main thing we have in mind is achieving reliable filing system code on computers without ECC RAM and in which
+    sustained large quantities of random disc i/o produce a worrying number of flipped bits in a 24 hour period
+    (anywhere between 0 and 3 on my hardware here, average is about 0.8).
 
     ## Performance notes of this current implementation:
 
@@ -112,7 +117,8 @@ namespace algorithm
 #if defined(__i386__) || defined(__x86_64__)
 #ifndef __SSE4_2__
         // Do a once off runtime check
-        static int have_popcnt = [] {
+        static int have_popcnt = []
+        {
           size_t cx, dx;
 #if defined(__x86_64__)
           asm("cpuid" : "=c"(cx), "=d"(dx) : "a"(1), "b"(0), "c"(0), "d"(0));
@@ -161,7 +167,11 @@ namespace algorithm
             break;
           }
         if((bits_per_byte - 1 + bitsvalid) / bits_per_byte > sizeof(result_type))
+#ifdef __cpp_exceptions
           throw std::runtime_error("secdec_ecc: ECC would exceed the size of result_type!");
+#else
+          abort();
+#endif
         for(result_type i = 0; i < blocksize * bits_per_byte; i++)
         {
           // Make a code bit
@@ -186,7 +196,11 @@ namespace algorithm
 #endif
           ecc_table[i] = (unsigned short) b;
           if(b > (unsigned short) -1)
+#ifdef __cpp_exceptions
             throw std::runtime_error("secdec_ecc: Precalculated table has exceeded its bounds");
+#else
+            abort();
+#endif
         }
       }
       //! The number of bits valid in result_type
@@ -206,39 +220,40 @@ namespace algorithm
 #endif
         // Process in lumps of eight
         const unit_type *_buffer = (const unit_type *) buffer;
-        //#pragma omp parallel for reduction(^:ecc)
+        // #pragma omp parallel for reduction(^:ecc)
         for(size_t i = 0; i < blocksize; i += sizeof(unit_type) * 8)
         {
-          union {
+          union
+          {
             unsigned long long v;
             unit_type c[8];
           };
           result_type prefetch[8];
           v = *(unsigned long long *) (&_buffer[0 + i / sizeof(unit_type)]);  // min 1 cycle
-#define QUICKCPPLIB_SECDED_ROUND(n)                                                                                                                                                                                                                                                                                            \
-  prefetch[0] = ecc_table[(i + 0) * 8 + n];                                                                                                                                                                                                                                                                                    \
-  prefetch[1] = ecc_table[(i + 1) * 8 + n];                                                                                                                                                                                                                                                                                    \
-  prefetch[2] = ecc_table[(i + 2) * 8 + n];                                                                                                                                                                                                                                                                                    \
-  prefetch[3] = ecc_table[(i + 3) * 8 + n];                                                                                                                                                                                                                                                                                    \
-  prefetch[4] = ecc_table[(i + 4) * 8 + n];                                                                                                                                                                                                                                                                                    \
-  prefetch[5] = ecc_table[(i + 5) * 8 + n];                                                                                                                                                                                                                                                                                    \
-  prefetch[6] = ecc_table[(i + 6) * 8 + n];                                                                                                                                                                                                                                                                                    \
-  prefetch[7] = ecc_table[(i + 7) * 8 + n];                                                                                                                                                                                                                                                                                    \
-  if(c[0] & ((unit_type) 1 << n))                                                                                                                                                                                                                                                                                              \
-    ecc ^= prefetch[0];                                                                                                                                                                                                                                                                                                        \
-  if(c[1] & ((unit_type) 1 << n))                                                                                                                                                                                                                                                                                              \
-    ecc ^= prefetch[1];                                                                                                                                                                                                                                                                                                        \
-  if(c[2] & ((unit_type) 1 << n))                                                                                                                                                                                                                                                                                              \
-    ecc ^= prefetch[2];                                                                                                                                                                                                                                                                                                        \
-  if(c[3] & ((unit_type) 1 << n))                                                                                                                                                                                                                                                                                              \
-    ecc ^= prefetch[3];                                                                                                                                                                                                                                                                                                        \
-  if(c[4] & ((unit_type) 1 << n))                                                                                                                                                                                                                                                                                              \
-    ecc ^= prefetch[4];                                                                                                                                                                                                                                                                                                        \
-  if(c[5] & ((unit_type) 1 << n))                                                                                                                                                                                                                                                                                              \
-    ecc ^= prefetch[5];                                                                                                                                                                                                                                                                                                        \
-  if(c[6] & ((unit_type) 1 << n))                                                                                                                                                                                                                                                                                              \
-    ecc ^= prefetch[6];                                                                                                                                                                                                                                                                                                        \
-  if(c[7] & ((unit_type) 1 << n))                                                                                                                                                                                                                                                                                              \
+#define QUICKCPPLIB_SECDED_ROUND(n)                                                                                    \
+  prefetch[0] = ecc_table[(i + 0) * 8 + n];                                                                            \
+  prefetch[1] = ecc_table[(i + 1) * 8 + n];                                                                            \
+  prefetch[2] = ecc_table[(i + 2) * 8 + n];                                                                            \
+  prefetch[3] = ecc_table[(i + 3) * 8 + n];                                                                            \
+  prefetch[4] = ecc_table[(i + 4) * 8 + n];                                                                            \
+  prefetch[5] = ecc_table[(i + 5) * 8 + n];                                                                            \
+  prefetch[6] = ecc_table[(i + 6) * 8 + n];                                                                            \
+  prefetch[7] = ecc_table[(i + 7) * 8 + n];                                                                            \
+  if(c[0] & ((unit_type) 1 << n))                                                                                      \
+    ecc ^= prefetch[0];                                                                                                \
+  if(c[1] & ((unit_type) 1 << n))                                                                                      \
+    ecc ^= prefetch[1];                                                                                                \
+  if(c[2] & ((unit_type) 1 << n))                                                                                      \
+    ecc ^= prefetch[2];                                                                                                \
+  if(c[3] & ((unit_type) 1 << n))                                                                                      \
+    ecc ^= prefetch[3];                                                                                                \
+  if(c[4] & ((unit_type) 1 << n))                                                                                      \
+    ecc ^= prefetch[4];                                                                                                \
+  if(c[5] & ((unit_type) 1 << n))                                                                                      \
+    ecc ^= prefetch[5];                                                                                                \
+  if(c[6] & ((unit_type) 1 << n))                                                                                      \
+    ecc ^= prefetch[6];                                                                                                \
+  if(c[7] & ((unit_type) 1 << n))                                                                                      \
     ecc ^= prefetch[7];
           QUICKCPPLIB_SECDED_ROUND(0)  // prefetch = min 8, bit test and xor = min 16, total = 24
           QUICKCPPLIB_SECDED_ROUND(1)
@@ -256,7 +271,7 @@ namespace algorithm
       result_type operator()(result_type ecc, const char *buffer, size_t length) const noexcept
       {
         const unit_type *_buffer = (const unit_type *) buffer;
-        //#pragma omp parallel for reduction(^:ecc)
+        // #pragma omp parallel for reduction(^:ecc)
         for(size_t i = 0; i < length; i += sizeof(unit_type))
         {
           unit_type c = _buffer[i / sizeof(unit_type)];  // min 1 cycle
@@ -316,9 +331,15 @@ namespace algorithm
 #elif OPTION == 3  // fails tests
           // Vectorizes less aggressively than option 2,
           // but produces meh code without -march=skylake.
-          uint64_t mask_lo = (((bitmask >> 0) & 1) * UINT64_C(0x000000000000FFFF)) | (((bitmask >> 1) & 1) * UINT64_C(0x00000000FFFF0000)) | (((bitmask >> 2) & 1) * UINT64_C(0x0000FFFF00000000)) | (((bitmask >> 3) & 1) * UINT64_C(0xFFFF000000000000));
+          uint64_t mask_lo = (((bitmask >> 0) & 1) * UINT64_C(0x000000000000FFFF)) |
+                             (((bitmask >> 1) & 1) * UINT64_C(0x00000000FFFF0000)) |
+                             (((bitmask >> 2) & 1) * UINT64_C(0x0000FFFF00000000)) |
+                             (((bitmask >> 3) & 1) * UINT64_C(0xFFFF000000000000));
 
-          uint64_t mask_hi = (((bitmask >> 4) & 1) * UINT64_C(0x000000000000FFFF)) | (((bitmask >> 6) & 1) * UINT64_C(0x00000000FFFF0000)) | (((bitmask >> 5) & 1) * UINT64_C(0x0000FFFF00000000)) | (((bitmask >> 7) & 1) * UINT64_C(0xFFFF000000000000));
+          uint64_t mask_hi = (((bitmask >> 4) & 1) * UINT64_C(0x000000000000FFFF)) |
+                             (((bitmask >> 6) & 1) * UINT64_C(0x00000000FFFF0000)) |
+                             (((bitmask >> 5) & 1) * UINT64_C(0x0000FFFF00000000)) |
+                             (((bitmask >> 7) & 1) * UINT64_C(0xFFFF000000000000));
 #endif
 
           ecc_xors ^= (mask_lo & ecc_xors_lo) ^ (mask_hi & ecc_xors_hi);
@@ -327,18 +348,25 @@ namespace algorithm
         ecc_xors ^= ecc_xors >> 16;
         return ecc ^ static_cast<uint16_t>(ecc_xors);
       }
-      result_type operator()(result_type ecc, const char *buffer) const noexcept { return (*this)(ecc, buffer, blocksize); }
+      result_type operator()(result_type ecc, const char *buffer) const noexcept
+      {
+        return (*this)(ecc, buffer, blocksize);
+      }
 #else
       //! Accumulate ECC from partial buffer where \em length <= \em blocksize
       result_type operator()(result_type ecc, const char *buffer, size_t length) const noexcept
       {
         // Process in lumps of eight
       }
-      result_type operator()(result_type ecc, const char *buffer) const noexcept { return (*this)(ecc, buffer, blocksize); }
+      result_type operator()(result_type ecc, const char *buffer) const noexcept
+      {
+        return (*this)(ecc, buffer, blocksize);
+      }
 #endif
       result_type operator()(const char *buffer) const noexcept { return (*this)(0, buffer); }
       result_type operator()(const char *buffer, size_t length) const noexcept { return (*this)(0, buffer, length); }
-      //! Given the original ECC and the new ECC for a buffer, find the bad bit. Return (result_type)-1 if not found (e.g. ECC corrupt)
+      //! Given the original ECC and the new ECC for a buffer, find the bad bit. Return (result_type)-1 if not found
+      //! (e.g. ECC corrupt)
       result_type find_bad_bit(result_type good_ecc, result_type bad_ecc) const noexcept
       {
         result_type length = blocksize * bits_per_byte, eccdiff = good_ecc ^ bad_ecc;
@@ -379,8 +407,8 @@ namespace algorithm
         return verify_status::corrupt;  // more than one bit was corrupt
       }
     };
-  }
-}
+  }  // namespace secded_ecc
+}  // namespace algorithm
 
 QUICKCPPLIB_NAMESPACE_END
 
