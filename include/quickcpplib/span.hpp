@@ -33,7 +33,7 @@ Distributed under the Boost Software License, Version 1.0.
 #include "config.hpp"
 
 #if !defined(QUICKCPPLIB_USE_STD_SPAN)
-#if (_HAS_CXX20 || __cplusplus >= 202002L) && __cpp_lib_span >= 202002L
+#if(_HAS_CXX20 || __cplusplus >= 202002L) && __cpp_lib_span >= 202002L
 #define QUICKCPPLIB_USE_STD_SPAN 1
 #else
 #define QUICKCPPLIB_USE_STD_SPAN 0
@@ -70,10 +70,12 @@ namespace span
     // construction of spans from vectors. Let's add a constructor to fix that, even though it'll
     // break double implicit conversions :(
     template <class U>
-    requires(
-    !std::is_same_v<std::decay_t<U>, span> && !std::is_same_v<std::decay_t<U>, _base> && !std::is_same_v<std::decay_t<U>, _const_base> &&
-    std::is_convertible<typename std::decay_t<U>::pointer, typename _base::pointer>::value && requires { declval<U>().data(); } &&
-    requires { declval<U>().size(); }) constexpr span(U &&v) noexcept
+      requires(
+      !std::is_same_v<std::decay_t<U>, span> && !std::is_same_v<std::decay_t<U>, _base> &&
+      !std::is_same_v<std::decay_t<U>, _const_base> &&
+      std::is_convertible<typename std::decay_t<U>::pointer, typename _base::pointer>::value &&
+      requires { declval<U>().data(); } && requires { declval<U>().size(); })
+    constexpr span(U &&v) noexcept
         : _base(v.data(), v.size())
     {
     }
@@ -86,7 +88,9 @@ namespace span
 
 QUICKCPPLIB_NAMESPACE_END
 
-#else // ^^^ QUICKCPPLIB_USE_STD_SPAN / not QUICKCPPLIB_USE_STD_SPAN vvv
+#else  // ^^^ QUICKCPPLIB_USE_STD_SPAN / not QUICKCPPLIB_USE_STD_SPAN vvv
+
+#include <exception>  // for std::terminate()
 
 #if QUICKCPPLIB_USE_SYSTEM_SPAN_LITE
 #include <nonstd/span.hpp>
@@ -103,6 +107,6 @@ namespace span
 
 QUICKCPPLIB_NAMESPACE_END
 
-#endif // ^^^ not QUICKCPPLIB_USE_STD_SPAN ^^^
+#endif  // ^^^ not QUICKCPPLIB_USE_STD_SPAN ^^^
 
 #endif
