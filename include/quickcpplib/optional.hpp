@@ -27,8 +27,12 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "config.hpp"
 
+#include "cpp_feature.h"
+
 #if !defined(QUICKCPPLIB_USE_STD_OPTIONAL)
-#if _HAS_CXX17 || (__cplusplus >= 201700 && (!defined(__APPLE__) || _LIBCPP_VERSION > 7000 /* approx end of 2017 */))
+#if _HAS_CXX17 ||                                                                                                      \
+(__cplusplus >= 201700 && (!defined(__APPLE__) || _LIBCPP_VERSION > 7000 /* approx end of 2017 */)) ||                 \
+!defined(__cpp_exceptions)
 #define QUICKCPPLIB_USE_STD_OPTIONAL 1
 #else
 #define QUICKCPPLIB_USE_STD_OPTIONAL 0
@@ -48,7 +52,12 @@ namespace optional
 
 QUICKCPPLIB_NAMESPACE_END
 
-#else // ^^^ QUICKCPPLIB_USE_STD_OPTIONAL / not QUICKCPPLIB_USE_STD_OPTIONAL vvv
+#else  // ^^^ QUICKCPPLIB_USE_STD_OPTIONAL / not QUICKCPPLIB_USE_STD_OPTIONAL vvv
+
+#if !defined(__cpp_exceptions)
+#error                                                                                                                 \
+"Our <optional> polyfill requires C++ exceptions globally enabled. Try increasing C++ standard to 2017 or higher to enable std <optional>"
+#endif
 
 #ifdef _MSC_VER
 #pragma warning(push)
@@ -68,6 +77,6 @@ namespace optional
 
 QUICKCPPLIB_NAMESPACE_END
 
-#endif // ^^^ not QUICKCPPLIB_USE_STD_OPTIONAL ^^^
+#endif  // ^^^ not QUICKCPPLIB_USE_STD_OPTIONAL ^^^
 
 #endif

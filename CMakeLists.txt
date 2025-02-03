@@ -16,8 +16,16 @@ ensure_git_subrepo("${CMAKE_CURRENT_SOURCE_DIR}/include/quickcpplib/byte/include
 # Sets the usual PROJECT_NAME etc
 project(quickcpplib VERSION 0.1.0.0 LANGUAGES C CXX)
 include(CMakeDependentOption)
-option(QUICKCPPLIB_REQUIRE_CXX20 "Add cxx20 compile feature to the target which in turn makes byte-lite, span-lite and akrzemi1/Optional optional." OFF)
-cmake_dependent_option(QUICKCPPLIB_REQUIRE_CXX17 "Add cxx17 compile feature to the target which in turn makes akrzemi1/Optional optional." OFF "NOT QUICKCPPLIB_REQUIRE_CXX20" ON)
+set(CMAKE_CXX_STANDARD_IS_GREATER_EQUAL_17 FALSE)
+set(CMAKE_CXX_STANDARD_IS_GREATER_EQUAL_20 FALSE)
+if(CMAKE_CXX_STANDARD GREATER_EQUAL 20)
+  set(CMAKE_CXX_STANDARD_IS_GREATER_EQUAL_20 TRUE)
+  set(CMAKE_CXX_STANDARD_IS_GREATER_EQUAL_17 TRUE)
+elseif(CMAKE_CXX_STANDARD GREATER_EQUAL 17)
+  set(CMAKE_CXX_STANDARD_IS_GREATER_EQUAL_17 TRUE)
+endif()
+cmake_dependent_option(QUICKCPPLIB_REQUIRE_CXX20 "Add cxx20 compile feature to the target which in turn makes byte-lite, span-lite and akrzemi1/Optional optional." OFF "NOT CMAKE_CXX_STANDARD_IS_GREATER_EQUAL_20" ON)
+cmake_dependent_option(QUICKCPPLIB_REQUIRE_CXX17 "Add cxx17 compile feature to the target which in turn makes akrzemi1/Optional optional." OFF "NOT CMAKE_CXX_STANDARD_IS_GREATER_EQUAL_17" ON)
 cmake_dependent_option(QUICKCPPLIB_USE_SYSTEM_BYTE_LITE "Whether to use embedded nonstd::byte-lite. Used by various package managers such as vcpkg." OFF "NOT QUICKCPPLIB_REQUIRE_CXX17" OFF)
 cmake_dependent_option(QUICKCPPLIB_USE_SYSTEM_SPAN_LITE "Whether to use embedded nonstd::span-lite. Used by various package managers such as vcpkg." OFF "NOT QUICKCPPLIB_REQUIRE_CXX20" OFF)
 # quickcpplib does not provide a master header file
