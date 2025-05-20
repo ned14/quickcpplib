@@ -253,7 +253,7 @@ function(hunter_gate_download dir)
   file(
       WRITE
       "${cmakelists}"
-      "cmake_minimum_required(VERSION 3.5)\n"
+      "cmake_minimum_required(VERSION 3.10)\n"
       "if(POLICY CMP0114)\n"
       "  cmake_policy(SET CMP0114 NEW)\n"
       "endif()\n"

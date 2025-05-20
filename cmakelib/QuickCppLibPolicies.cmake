@@ -9,3 +9,7 @@ endif()
 if (POLICY CMP0091)
   cmake_policy(SET CMP0091 NEW)
 endif()
+# want FindPythonInterp
+if (POLICY CMP0148)
+  cmake_policy(SET CMP0148 OLD)
+endif()

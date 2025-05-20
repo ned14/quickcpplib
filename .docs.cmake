@@ -1,5 +1,5 @@
 # CTest script for a CI to submit to CDash a documentation generation run
-cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 list(FIND CMAKE_MODULE_PATH "quickcpplib/cmake" quickcpplib_idx)
 if(${quickcpplib_idx} EQUAL -1)
   set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmakelib")
