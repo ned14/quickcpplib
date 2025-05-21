@@ -10,7 +10,7 @@ include(CTest)
 find_package(Threads)
 link_libraries(${CMAKE_THREAD_LIBS_INIT})
 # Find a python installation, if we have one we can do preprocessing
-include(FindPythonInterp)
+find_package(Python COMPONENTS Interpreter)
 
 # Configure an if(CLANG) and if(GCC) like if(MSVC)
 if(NOT DEFINED CLANG)
