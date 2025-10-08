@@ -66,11 +66,11 @@ jobs:
         name: Mac OS test results
         path: prebuilt/merged_junit_results.xml
 
-  WinVS2019:
-    name: Windows VS2019
-    runs-on: windows-2019
+  WinVS2022:
+    name: Windows VS2022
+    runs-on: windows-2022
     env:
-      NAME: WinVS2019
+      NAME: WinVS2022
           
     steps:
     - uses: actions/checkout@v4
@@ -82,19 +82,19 @@ jobs:
 #    - name: Upload Prebuilt Binaries
 #      uses: actions/upload-artifact@v4
 #      with:
-#        name: Windows VS2019 prebuilt binaries
+#        name: Windows VS2022 prebuilt binaries
 #        path: quickcpplib-v0.1-binaries-win64.zip
       
     - name: Upload Test Results
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: Windows VS2019 test results
+        name: Windows VS2022 test results
         path: prebuilt/merged_junit_results.xml
 
   publish-test-results:
     name: "Publish Documentation and Unit Tests Results"
-    needs: [Linux, MacOS, WinVS2019]
+    needs: [Linux, MacOS, WinVS2022]
     runs-on: ubuntu-latest
     # the build-and-test job might be skipped, we don't need to run this job then
     if: success() || failure()
