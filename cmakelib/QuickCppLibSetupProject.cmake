@@ -129,7 +129,7 @@ include(QuickCppLibParseLibrarySources)
 set(SPECIAL_BUILDS)  ## Used to add optional build targets for every build target
 
 # Configure the static analyser build
-if(MSVC)
+if(MSVC AND NOT CLANG)
   list(APPEND SPECIAL_BUILDS sa)
   set(sa_COMPILE_FLAGS /analyze /analyze:stacksize 262144)  ## Chosen because OS X enforces this limit on stack usage
   #set(sa_LINK_FLAGS)
