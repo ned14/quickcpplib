@@ -628,8 +628,7 @@ namespace signal_guard
     `true` if execution is to resume, `false` if the next decider function should be called.
     Note that on Windows only, `signalc::interrupt` and `signalc::process_terminate` call `f` from some other
     kernel thread, and the return value is always treated as `false`.
-    \param callfirst True if this decider should be called before any other. Otherwise
-    call order is in the order of addition.
+    \param ms The number of milliseconds before invoking the callable.
     */
     QUICKCPPLIB_TEMPLATE(class U)
     QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(std::is_constructible<T, U>::value), QUICKCPPLIB_TEXPR(std::declval<U>()()))

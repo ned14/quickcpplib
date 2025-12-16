@@ -30,7 +30,7 @@ Distributed under the Boost Software License, Version 1.0.
 #include <cstdint>
 #include <type_traits>
 
-#if 0 //defined(__AVX__) || defined(__SSE4_1__) || defined(__SSSE3__)
+#if 0                   // defined(__AVX__) || defined(__SSE4_1__) || defined(__SSSE3__)
 #include <tmmintrin.h>  // for _mm_shuffle_epi8
 #endif
 
@@ -86,7 +86,7 @@ namespace algorithm
 #pragma warning(disable : 4310)  // cast truncates constant value
 #pragma warning(disable : 4333)  // right shift by too large amount
 #endif
-    /*! \brief Interleaves the bits of \emph a and \emph b.
+    /*! \brief Interleaves the bits of \em a and \em b.
 
     On my Intel i7-8565u laptop able to boost to 4.6Ghz:
 
@@ -97,7 +97,7 @@ namespace algorithm
     QUICKCPPLIB_TREQUIRES(QUICKCPPLIB_TPRED(std::is_unsigned<T>::value))
     inline R bit_interleave(T a, T b) noexcept
     {
-#if 0 // defined(__AVX__) || defined(__SSE4_1__) || defined(__SSSE3__)
+#if 0  // defined(__AVX__) || defined(__SSE4_1__) || defined(__SSSE3__)
       /* https://lemire.me/blog/2018/01/09/how-fast-can-you-bit-interleave-32-bit-integers-simd-edition/
       says that AVX is considerably faster than the SSSE3 bit interleave if you need to interleave two 128
       bit values into a 256 bit value, but we don't support that here yet.
@@ -141,9 +141,10 @@ namespace algorithm
     inline bit_deinterleave_result<R> bit_deinterleave(T x) noexcept
     {
       constexpr T /* mask32 = T(0x00000000ffffffff), */ mask16 = T(0x0000ffff0000ffff),
-                  mask8 = T(0x00ff00ff00ff00ff) /* 0000 0000 1111 1111 */,
-                  mask4 = T(0x0f0f0f0f0f0f0f0f) /* 0000 1111 */, mask2 = T(0x3333333333333333) /* 0011 0011 */,
-                  mask1 = T(0x5555555555555555) /* 0101 0101 */;
+                                                        mask8 = T(0x00ff00ff00ff00ff) /* 0000 0000 1111 1111 */,
+                                                        mask4 = T(0x0f0f0f0f0f0f0f0f) /* 0000 1111 */,
+                                                        mask2 = T(0x3333333333333333) /* 0011 0011 */,
+                                                        mask1 = T(0x5555555555555555) /* 0101 0101 */;
       T ret1 = x & mask1, ret2 = (x >> 1) & mask1;
       ret1 = (ret1 ^ (ret1 >> 1)) & mask2;
       ret2 = (ret2 ^ (ret2 >> 1)) & mask2;
