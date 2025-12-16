@@ -174,14 +174,14 @@ template&lt;class U , typename std::enable_if&lt;(std::is_constructible&lt; T, U
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">f</td><td>A callable with prototype <code>bool(raised_signal_info *)</code>, which must return <code>true</code> if execution is to resume, <code>false</code> if the next decider function should be called. Note that on Windows only, <code>signalc::interrupt</code> and <code>signalc::process_terminate</code> call <code>f</code> from some other kernel thread, and the return value is always treated as <code>false</code>. </td></tr>
-    <tr><td class="paramname">callfirst</td><td>True if this decider should be called before any other. Otherwise call order is in the order of addition. </td></tr>
+    <tr><td class="paramname">ms</td><td>The number of milliseconds before invoking the callable. </td></tr>
   </table>
   </dd>
 </dl>
-<div class="fragment"><div class="line"><span class="lineno">  637</span>        : detail::signal_guard_watchdog_impl(ms)</div>
-<div class="line"><span class="lineno">  638</span>        , _f(<span class="keyword">static_cast&lt;</span>U &amp;&amp;<span class="keyword">&gt;</span>(f))</div>
-<div class="line"><span class="lineno">  639</span>    {</div>
-<div class="line"><span class="lineno">  640</span>    }</div>
+<div class="fragment"><div class="line"><span class="lineno">  636</span>        : detail::signal_guard_watchdog_impl(ms)</div>
+<div class="line"><span class="lineno">  637</span>        , _f(<span class="keyword">static_cast&lt;</span>U &amp;&amp;<span class="keyword">&gt;</span>(f))</div>
+<div class="line"><span class="lineno">  638</span>    {</div>
+<div class="line"><span class="lineno">  639</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -322,13 +322,13 @@ template&lt;class T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  646</span>    {</div>
-<div class="line"><span class="lineno">  647</span>      this-&gt;<a class="code hl_function" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog.html#a237cd2c097aebea6ad526a3e70ab2adf">~signal_guard_watchdog</a>();</div>
-<div class="line"><span class="lineno">  648</span>      <span class="keyword">new</span>(<span class="keyword">this</span>) <a class="code hl_function" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog.html#a51c6010389885b06180ee784e61b665a">signal_guard_watchdog</a>(<span class="keyword">static_cast&lt;</span><a class="code hl_function" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog.html#a51c6010389885b06180ee784e61b665a">signal_guard_watchdog</a> &amp;&amp;<span class="keyword">&gt;</span>(o));</div>
-<div class="line"><span class="lineno">  649</span>      <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">  650</span>    }</div>
+<div class="fragment"><div class="line"><span class="lineno">  645</span>    {</div>
+<div class="line"><span class="lineno">  646</span>      this-&gt;<a class="code hl_function" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog.html#a237cd2c097aebea6ad526a3e70ab2adf">~signal_guard_watchdog</a>();</div>
+<div class="line"><span class="lineno">  647</span>      <span class="keyword">new</span>(<span class="keyword">this</span>) <a class="code hl_function" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog.html#a51c6010389885b06180ee784e61b665a">signal_guard_watchdog</a>(<span class="keyword">static_cast&lt;</span><a class="code hl_function" href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog.html#a51c6010389885b06180ee784e61b665a">signal_guard_watchdog</a> &amp;&amp;<span class="keyword">&gt;</span>(o));</div>
+<div class="line"><span class="lineno">  648</span>      <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><span class="lineno">  649</span>    }</div>
 <div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog_html_a237cd2c097aebea6ad526a3e70ab2adf"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog.html#a237cd2c097aebea6ad526a3e70ab2adf">quickcpplib::_xxx::signal_guard::signal_guard_watchdog::~signal_guard_watchdog</a></div><div class="ttdeci">~signal_guard_watchdog()=default</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog_html_a51c6010389885b06180ee784e61b665a"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog.html#a51c6010389885b06180ee784e61b665a">quickcpplib::_xxx::signal_guard::signal_guard_watchdog::signal_guard_watchdog</a></div><div class="ttdeci">signal_guard_watchdog(U &amp;&amp;f, unsigned ms)</div><div class="ttdoc">Constructs an instance.</div><div class="ttdef"><b>Definition</b> signal_guard.hpp:636</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog_html_a51c6010389885b06180ee784e61b665a"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog.html#a51c6010389885b06180ee784e61b665a">quickcpplib::_xxx::signal_guard::signal_guard_watchdog::signal_guard_watchdog</a></div><div class="ttdeci">signal_guard_watchdog(U &amp;&amp;f, unsigned ms)</div><div class="ttdoc">Constructs an instance.</div><div class="ttdef"><b>Definition</b> signal_guard.hpp:635</div></div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -112,7 +112,7 @@ Classes</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:a18bb257b3a20e5a371dfc2a2ab2e2634" id="r_a18bb257b3a20e5a371dfc2a2ab2e2634"><td class="memTemplParams" colspan="2">template&lt;class T , class R  = typename detail::next_larger&lt;T&gt;::type, typename std::enable_if&lt;(std::is_unsigned&lt; T &gt;::value), bool &gt;::type  = true&gt; </td></tr>
 <tr class="memitem:a18bb257b3a20e5a371dfc2a2ab2e2634"><td class="memTemplItemLeft" align="right" valign="top">R&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1algorithm_1_1bit__interleave.html#a18bb257b3a20e5a371dfc2a2ab2e2634">bit_interleave</a> (T a, T b) noexcept</td></tr>
-<tr class="memdesc:a18bb257b3a20e5a371dfc2a2ab2e2634"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interleaves the bits of \emph a and \emph b.  <br /></td></tr>
+<tr class="memdesc:a18bb257b3a20e5a371dfc2a2ab2e2634"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interleaves the bits of <em>a</em> and <em>b</em>.  <br /></td></tr>
 <tr class="separator:a18bb257b3a20e5a371dfc2a2ab2e2634"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a50817f6dd0b465bc32b59b97046212a5" id="r_a50817f6dd0b465bc32b59b97046212a5"><td class="memTemplParams" colspan="2">template&lt;class T , class R  = typename detail::next_smaller&lt;T&gt;::type, typename std::enable_if&lt;(std::is_unsigned&lt; T &gt;::value), bool &gt;::type  = true&gt; </td></tr>
 <tr class="memitem:a50817f6dd0b465bc32b59b97046212a5"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structquickcpplib_1_1__xxx_1_1algorithm_1_1bit__interleave_1_1bit__deinterleave__result.html">bit_deinterleave_result</a>&lt; R &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacequickcpplib_1_1__xxx_1_1algorithm_1_1bit__interleave.html#a50817f6dd0b465bc32b59b97046212a5">bit_deinterleave</a> (T x) noexcept</td></tr>
@@ -156,11 +156,11 @@ template&lt;class T , class R  = typename detail::next_larger&lt;T&gt;::type, ty
 </table>
 </div><div class="memdoc">
 
-<p>Interleaves the bits of \emph a and \emph b. </p>
+<p>Interleaves the bits of <em>a</em> and <em>b</em>. </p>
 <p>On my Intel i7-8565u laptop able to boost to 4.6Ghz:</p>
 <p>Straight C edition on MSVC: 4.8052e+08 32-bit to 64-bit interleaves/sec which is 2.08108ns/interleave (9.57 cycles) Straight C edition on GCC: 3.39213e+08 32-bit to 64-bit interleaves/sec which is 2.948ns/interleave (13.56 cycles) </p>
 <div class="fragment"><div class="line"><span class="lineno">   99</span>    {</div>
-<div class="line"><span class="lineno">  100</span><span class="preprocessor">#if 0 </span><span class="comment">// defined(__AVX__) || defined(__SSE4_1__) || defined(__SSSE3__)</span></div>
+<div class="line"><span class="lineno">  100</span><span class="preprocessor">#if 0  </span><span class="comment">// defined(__AVX__) || defined(__SSE4_1__) || defined(__SSSE3__)</span></div>
 <div class="line"><span class="lineno">  101</span>      <span class="comment">/* https://lemire.me/blog/2018/01/09/how-fast-can-you-bit-interleave-32-bit-integers-simd-edition/</span></div>
 <div class="line"><span class="lineno">  102</span><span class="comment">      says that AVX is considerably faster than the SSSE3 bit interleave if you need to interleave two 128</span></div>
 <div class="line"><span class="lineno">  103</span><span class="comment">      bit values into a 256 bit value, but we don&#39;t support that here yet.</span></div>
@@ -224,31 +224,32 @@ template&lt;class T , class R  = typename detail::next_smaller&lt;T&gt;::type, t
 <p>Deinterleaves the bits in <code>X</code> into <code>evens</code> and <code>odds</code>. </p>
 <div class="fragment"><div class="line"><span class="lineno">  142</span>    {</div>
 <div class="line"><span class="lineno">  143</span>      <span class="keyword">constexpr</span> T <span class="comment">/* mask32 = T(0x00000000ffffffff), */</span> mask16 = T(0x0000ffff0000ffff),</div>
-<div class="line"><span class="lineno">  144</span>                  mask8 = T(0x00ff00ff00ff00ff) <span class="comment">/* 0000 0000 1111 1111 */</span>,</div>
-<div class="line"><span class="lineno">  145</span>                  mask4 = T(0x0f0f0f0f0f0f0f0f) <span class="comment">/* 0000 1111 */</span>, mask2 = T(0x3333333333333333) <span class="comment">/* 0011 0011 */</span>,</div>
-<div class="line"><span class="lineno">  146</span>                  mask1 = T(0x5555555555555555) <span class="comment">/* 0101 0101 */</span>;</div>
-<div class="line"><span class="lineno">  147</span>      T ret1 = x &amp; mask1, ret2 = (x &gt;&gt; 1) &amp; mask1;</div>
-<div class="line"><span class="lineno">  148</span>      ret1 = (ret1 ^ (ret1 &gt;&gt; 1)) &amp; mask2;</div>
-<div class="line"><span class="lineno">  149</span>      ret2 = (ret2 ^ (ret2 &gt;&gt; 1)) &amp; mask2;</div>
-<div class="line"><span class="lineno">  150</span>      ret1 = (ret1 ^ (ret1 &gt;&gt; 2)) &amp; mask4;</div>
-<div class="line"><span class="lineno">  151</span>      ret2 = (ret2 ^ (ret2 &gt;&gt; 2)) &amp; mask4;</div>
-<div class="line"><span class="lineno">  152</span>      <span class="keywordflow">if</span>(<span class="keyword">sizeof</span>(T) &gt;= 2)</div>
-<div class="line"><span class="lineno">  153</span>      {</div>
-<div class="line"><span class="lineno">  154</span>        ret1 = (ret1 ^ (ret1 &gt;&gt; 4)) &amp; mask8;</div>
-<div class="line"><span class="lineno">  155</span>        ret2 = (ret2 ^ (ret2 &gt;&gt; 4)) &amp; mask8;</div>
-<div class="line"><span class="lineno">  156</span>      }</div>
-<div class="line"><span class="lineno">  157</span>      <span class="keywordflow">if</span>(<span class="keyword">sizeof</span>(T) &gt;= 4)</div>
-<div class="line"><span class="lineno">  158</span>      {</div>
-<div class="line"><span class="lineno">  159</span>        ret1 = (ret1 ^ (ret1 &gt;&gt; 8)) &amp; mask16;</div>
-<div class="line"><span class="lineno">  160</span>        ret2 = (ret2 ^ (ret2 &gt;&gt; 8)) &amp; mask16;</div>
-<div class="line"><span class="lineno">  161</span>      }</div>
-<div class="line"><span class="lineno">  162</span>      <span class="keywordflow">if</span>(<span class="keyword">sizeof</span>(T) &gt;= 8)</div>
-<div class="line"><span class="lineno">  163</span>      {</div>
-<div class="line"><span class="lineno">  164</span>        ret1 = (ret1 ^ (ret1 &gt;&gt; 16)) <span class="comment">/*&amp; mask32*/</span>;</div>
-<div class="line"><span class="lineno">  165</span>        ret2 = (ret2 ^ (ret2 &gt;&gt; 16)) <span class="comment">/*&amp; mask32*/</span>;</div>
-<div class="line"><span class="lineno">  166</span>      }</div>
-<div class="line"><span class="lineno">  167</span>      <span class="keywordflow">return</span> bit_deinterleave_result&lt;R&gt;{R(ret1), R(ret2)};</div>
-<div class="line"><span class="lineno">  168</span>    }</div>
+<div class="line"><span class="lineno">  144</span>                                                        mask8 = T(0x00ff00ff00ff00ff) <span class="comment">/* 0000 0000 1111 1111 */</span>,</div>
+<div class="line"><span class="lineno">  145</span>                                                        mask4 = T(0x0f0f0f0f0f0f0f0f) <span class="comment">/* 0000 1111 */</span>,</div>
+<div class="line"><span class="lineno">  146</span>                                                        mask2 = T(0x3333333333333333) <span class="comment">/* 0011 0011 */</span>,</div>
+<div class="line"><span class="lineno">  147</span>                                                        mask1 = T(0x5555555555555555) <span class="comment">/* 0101 0101 */</span>;</div>
+<div class="line"><span class="lineno">  148</span>      T ret1 = x &amp; mask1, ret2 = (x &gt;&gt; 1) &amp; mask1;</div>
+<div class="line"><span class="lineno">  149</span>      ret1 = (ret1 ^ (ret1 &gt;&gt; 1)) &amp; mask2;</div>
+<div class="line"><span class="lineno">  150</span>      ret2 = (ret2 ^ (ret2 &gt;&gt; 1)) &amp; mask2;</div>
+<div class="line"><span class="lineno">  151</span>      ret1 = (ret1 ^ (ret1 &gt;&gt; 2)) &amp; mask4;</div>
+<div class="line"><span class="lineno">  152</span>      ret2 = (ret2 ^ (ret2 &gt;&gt; 2)) &amp; mask4;</div>
+<div class="line"><span class="lineno">  153</span>      <span class="keywordflow">if</span>(<span class="keyword">sizeof</span>(T) &gt;= 2)</div>
+<div class="line"><span class="lineno">  154</span>      {</div>
+<div class="line"><span class="lineno">  155</span>        ret1 = (ret1 ^ (ret1 &gt;&gt; 4)) &amp; mask8;</div>
+<div class="line"><span class="lineno">  156</span>        ret2 = (ret2 ^ (ret2 &gt;&gt; 4)) &amp; mask8;</div>
+<div class="line"><span class="lineno">  157</span>      }</div>
+<div class="line"><span class="lineno">  158</span>      <span class="keywordflow">if</span>(<span class="keyword">sizeof</span>(T) &gt;= 4)</div>
+<div class="line"><span class="lineno">  159</span>      {</div>
+<div class="line"><span class="lineno">  160</span>        ret1 = (ret1 ^ (ret1 &gt;&gt; 8)) &amp; mask16;</div>
+<div class="line"><span class="lineno">  161</span>        ret2 = (ret2 ^ (ret2 &gt;&gt; 8)) &amp; mask16;</div>
+<div class="line"><span class="lineno">  162</span>      }</div>
+<div class="line"><span class="lineno">  163</span>      <span class="keywordflow">if</span>(<span class="keyword">sizeof</span>(T) &gt;= 8)</div>
+<div class="line"><span class="lineno">  164</span>      {</div>
+<div class="line"><span class="lineno">  165</span>        ret1 = (ret1 ^ (ret1 &gt;&gt; 16)) <span class="comment">/*&amp; mask32*/</span>;</div>
+<div class="line"><span class="lineno">  166</span>        ret2 = (ret2 ^ (ret2 &gt;&gt; 16)) <span class="comment">/*&amp; mask32*/</span>;</div>
+<div class="line"><span class="lineno">  167</span>      }</div>
+<div class="line"><span class="lineno">  168</span>      <span class="keywordflow">return</span> bit_deinterleave_result&lt;R&gt;{R(ret1), R(ret2)};</div>
+<div class="line"><span class="lineno">  169</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>

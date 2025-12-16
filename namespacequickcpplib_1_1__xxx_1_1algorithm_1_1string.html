@@ -234,8 +234,8 @@ template&lt;class CharType , class T , typename std::enable_if&lt;(sizeof(T)==1)
 <p>Note that the character range used is a 16 item table of:</p>
 <p>0123456789abcdef</p>
 <p>This lets one pack one byte of input into two bytes of output.</p>
-<dl class="section user"><dt>Complexity\nO(N) where N is the length of the number.</dt><dd></dd></dl>
-<dl class="section user"><dt>Errors returnable\nThrows exception if output buffer is too small for input.</dt><dd></dd></dl>
+<dl class="section user"><dt>Complexity</dt><dd>O(N) where N is the length of the number. </dd></dl>
+<dl class="section user"><dt>Errors returnable</dt><dd>Throws exception if output buffer is too small for input. </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">   78</span>    {</div>
 <div class="line"><span class="lineno">   79</span>      <span class="keywordtype">unsigned</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *in = (<span class="keywordtype">unsigned</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *) _in;</div>
 <div class="line"><span class="lineno">   80</span>      <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">char</span> table[] = <span class="stringliteral">&quot;0123456789abcdef&quot;</span>;</div>
@@ -440,8 +440,8 @@ template&lt;class T , class CharType , typename std::enable_if&lt;(sizeof(T)==1)
 
 <p>Converts a hex string to a number. Out buffer can be same as in buffer. </p>
 <p>Note that this routine is about 43% slower than to_hex_string(), half of which is due to input validation.</p>
-<dl class="section user"><dt>Complexity\nO(N) where N is the length of the string.</dt><dd></dd></dl>
-<dl class="section user"><dt>Errors returnable\nThrows exception if output buffer is too small for input or input size is not multiple of two.</dt><dd></dd></dl>
+<dl class="section user"><dt>Complexity</dt><dd>O(N) where N is the length of the string. </dd></dl>
+<dl class="section user"><dt>Errors returnable</dt><dd>Throws exception if output buffer is too small for input or input size is not multiple of two. </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  146</span>    {</div>
 <div class="line"><span class="lineno">  147</span>      <span class="keywordflow">if</span>(inlen % 2)</div>
 <div class="line"><span class="lineno">  148</span><span class="preprocessor">#ifdef __cpp_exceptions</span></div>
