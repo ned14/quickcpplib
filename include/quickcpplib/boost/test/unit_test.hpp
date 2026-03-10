@@ -1,5 +1,5 @@
 /* Provides lightweight Boost.Test macros
-(C) 2014-2020 Niall Douglas <http://www.nedproductions.biz/> (26 commits)
+(C) 2014-2026 Niall Douglas <http://www.nedproductions.biz/> (26 commits)
 File Created: Nov 2014
 
 
@@ -92,11 +92,11 @@ do checks concurrently.</dd>
 #include <vector>
 
 #include "../../console_colours.hpp"
-//#ifdef _WIN32
-//#include "../../execinfo_win64.h"
-//#else
-//#include <execinfo.h>
-//#endif
+// #ifdef _WIN32
+// #include "../../execinfo_win64.h"
+// #else
+// #include <execinfo.h>
+// #endif
 #ifndef __cpp_exceptions
 #include <setjmp.h>
 #endif
@@ -172,7 +172,8 @@ namespace unit_test
   }
   extern inline test_case *&current_test_case()
   {
-    static test_case default_test_case("unnamed", "Default test case for unit test which don't declare test cases", nullptr);
+    static test_case default_test_case("unnamed", "Default test case for unit test which don't declare test cases",
+                                       nullptr);
     static test_case *v = &default_test_case;
     return v;
   }
@@ -188,12 +189,13 @@ namespace unit_test
       {
         if(strstr(argv[n] + 2, "help"))
         {
-          std::cout << "\nQuickCppLib minimal unit test framework\n\n"                                                                      //
-                    << "Usage: " << argv[0] << " [options] [<regex for tests to run, defaults to .*>] [-<regex for tests to not run>]\n\n"  //
-                    << "  --help              : Prints this help\n"                                                                         //
-                    << "  --list-tests        : List matching tests\n"                                                                      //
-                    << "  --reporter <format> : Reporter to use, only format possible is junit\n"                                           //
-                    << "  --out <filename>    : Write JUnit XML test report to filename\n"                                                  //
+          std::cout << "\nQuickCppLib minimal unit test framework\n\n"  //
+                    << "Usage: " << argv[0]
+                    << " [options] [<regex for tests to run, defaults to .*>] [-<regex for tests to not run>]\n\n"  //
+                    << "  --help              : Prints this help\n"                                                 //
+                    << "  --list-tests        : List matching tests\n"                                              //
+                    << "  --reporter <format> : Reporter to use, only format possible is junit\n"                   //
+                    << "  --out <filename>    : Write JUnit XML test report to filename\n"                          //
                     << std::endl;
           return 0;
         }
@@ -292,7 +294,8 @@ namespace unit_test
           {
             end = std::chrono::steady_clock::now();
             ++i.fails;
-            std::cerr << red << "FAILURE: std::exception '" << e.what() << "' thrown out of test case" << normal << std::endl;
+            std::cerr << red << "FAILURE: std::exception '" << e.what() << "' thrown out of test case" << normal
+                      << std::endl;
           }
           catch(...)
           {
@@ -306,7 +309,8 @@ namespace unit_test
             std::cout << green << i.passes << " checks passed  ";
           if(i.fails)
             std::cout << red << i.fails << " checks failed  ";
-          std::cout << normal << "duration " << std::chrono::duration_cast<std::chrono::milliseconds>(i.duration).count() << " ms" << std::endl;
+          std::cout << normal << "duration "
+                    << std::chrono::duration_cast<std::chrono::milliseconds>(i.duration).count() << " ms" << std::endl;
         }
         else
           i.skipped = true;
@@ -339,10 +343,13 @@ namespace unit_test
       }
       if(!output_xml.empty())
       {
-        oh << "  <testsuite name=\"" << j.name << "\" errors=\"" << 0 << "\" failures=\"" << failed << "\" skipped=\"" << skipped << "\" tests=\"" << j.test_cases.size() << "\" hostname=\"\" time=\"" << time << "\" timestamp=\"\">\n";
+        oh << "  <testsuite name=\"" << j.name << "\" errors=\"" << 0 << "\" failures=\"" << failed << "\" skipped=\""
+           << skipped << "\" tests=\"" << j.test_cases.size() << "\" hostname=\"\" time=\"" << time
+           << "\" timestamp=\"\">\n";
         for(const auto &i : j.test_cases)
         {
-          oh << "    <testcase classname=\"\" name=\"" << i.name << "\" time=\"" << std::chrono::duration_cast<std::chrono::duration<double>>(i.duration).count() << "\">";
+          oh << "    <testcase classname=\"\" name=\"" << i.name << "\" time=\""
+             << std::chrono::duration_cast<std::chrono::duration<double>>(i.duration).count() << "\">";
           if(i.skipped)
             oh << "<skipped/>";
           else if(i.fails)
@@ -361,15 +368,19 @@ namespace unit_test
       oh << R"(</testsuites>
 )";
     }
-    std::cout << bold << white << "\n\nTest case summary: " << green << totalpassed << " passed " << red << totalfailed << " failed " << yellow << totalskipped << " skipped" << normal << "\nTotal duration: " << totaltime << " seconds." << std::endl;
+    std::cout << bold << white << "\n\nTest case summary: " << green << totalpassed << " passed " << red << totalfailed
+              << " failed " << yellow << totalskipped << " skipped" << normal << "\nTotal duration: " << totaltime
+              << " seconds." << std::endl;
     return totalfailed > 0;
   }
   struct test_suite_registration
   {
     const char *name;
-    test_suite_registration(const char *_name) noexcept : name(_name)
+    test_suite_registration(const char *_name) noexcept
+        : name(_name)
     {
-      auto it = std::find_if(test_suites().begin(), test_suites().end(), [this](const test_suite &i) { return !strcmp(i.name, name); });
+      auto it = std::find_if(test_suites().begin(), test_suites().end(),
+                             [this](const test_suite &i) { return !strcmp(i.name, name); });
       if(it == test_suites().end())
       {
         test_suites().push_back(test_suite(name));
@@ -382,7 +393,8 @@ namespace unit_test
   {
     size_t suite_idx;
     void (*func)();
-    test_case_registration(const char *name, const char *desc, void (*_func)()) noexcept : func(_func)
+    test_case_registration(const char *name, const char *desc, void (*_func)()) noexcept
+        : func(_func)
     {
       if(test_suites().empty())
       {
@@ -396,11 +408,12 @@ namespace unit_test
     ~test_case_registration()
     {
       test_suite *suite = test_suites().data() + suite_idx;
-      auto it = std::remove_if(suite->test_cases.begin(), suite->test_cases.end(), [this](const test_case &i) { return i.func == func; });
+      auto it = std::remove_if(suite->test_cases.begin(), suite->test_cases.end(),
+                               [this](const test_case &i) { return i.func == func; });
       suite->test_cases.erase(it);
     }
   };
-}
+}  // namespace unit_test
 QUICKCPPLIB_NAMESPACE_END
 
 #ifndef QUICKCPPLIB_BOOST_UNIT_TEST_FAIL
@@ -411,17 +424,19 @@ QUICKCPPLIB_NAMESPACE_END
 #endif
 #endif
 #ifndef QUICKCPPLIB_BOOST_UNIT_CHECK_FAIL
-#define QUICKCPPLIB_BOOST_UNIT_CHECK_FAIL(type, expr)                                                                                                                                                                                                                                                                          \
-  ++QUICKCPPLIB_NAMESPACE::unit_test::current_test_case()->fails;                                                                                                                                                                                                                                                              \
-  std::cerr << QUICKCPPLIB_NAMESPACE::unit_test::yellow << "CHECK " type "(" #expr ") FAILED" << QUICKCPPLIB_NAMESPACE::unit_test::white << " at " << __FILE__ << ":" << __LINE__ << std::endl
+#define QUICKCPPLIB_BOOST_UNIT_CHECK_FAIL(type, expr)                                                                  \
+  ++QUICKCPPLIB_NAMESPACE::unit_test::current_test_case()->fails;                                                      \
+  std::cerr << QUICKCPPLIB_NAMESPACE::unit_test::yellow << "CHECK " type "(" #expr ") FAILED"                          \
+            << QUICKCPPLIB_NAMESPACE::unit_test::white << " at " << __FILE__ << ":" << __LINE__ << std::endl
 #endif
 #ifndef QUICKCPPLIB_BOOST_UNIT_CHECK_PASS
 #define QUICKCPPLIB_BOOST_UNIT_CHECK_PASS(type, expr) ++QUICKCPPLIB_NAMESPACE::unit_test::current_test_case()->passes
 #endif
 #ifndef QUICKCPPLIB_BOOST_UNIT_REQUIRE_FAIL
-#define QUICKCPPLIB_BOOST_UNIT_REQUIRE_FAIL(type, expr)                                                                                                                                                                                                                                                                        \
-  ++QUICKCPPLIB_NAMESPACE::unit_test::current_test_case()->fails;                                                                                                                                                                                                                                                              \
-  std::cerr << QUICKCPPLIB_NAMESPACE::unit_test::red << "REQUIRE " type "(" #expr ") FAILED" << QUICKCPPLIB_NAMESPACE::unit_test::white << " at " << __FILE__ << ":" << __LINE__ << std::endl;                                                                                                                                 \
+#define QUICKCPPLIB_BOOST_UNIT_REQUIRE_FAIL(type, expr)                                                                \
+  ++QUICKCPPLIB_NAMESPACE::unit_test::current_test_case()->fails;                                                      \
+  std::cerr << QUICKCPPLIB_NAMESPACE::unit_test::red << "REQUIRE " type "(" #expr ") FAILED"                           \
+            << QUICKCPPLIB_NAMESPACE::unit_test::white << " at " << __FILE__ << ":" << __LINE__ << std::endl;          \
   QUICKCPPLIB_BOOST_UNIT_TEST_FAIL
 #endif
 #ifndef QUICKCPPLIB_BOOST_UNIT_REQUIRE_PASS
@@ -429,139 +444,151 @@ QUICKCPPLIB_NAMESPACE_END
 #endif
 
 #define BOOST_TEST_MESSAGE(msg) std::cout << "INFO: " << msg << std::endl
-#define BOOST_WARN_MESSAGE(pred, msg)                                                                                                                                                                                                                                                                                          \
-  if(!(pred))                                                                                                                                                                                                                                                                                                                  \
-  std::cerr << QUICKCPPLIB_NAMESPACE::unit_test::yellow << "WARNING: " << msg << QUICKCPPLIB_NAMESPACE::unit_test::normal << std::endl
-#define BOOST_FAIL(msg)                                                                                                                                                                                                                                                                                                        \
-  std::cerr << QUICKCPPLIB_NAMESPACE::unit_test::red << "FAILURE: " << msg << QUICKCPPLIB_NAMESPACE::unit_test::normal << std::endl;                                                                                                                                                                                           \
+#define BOOST_WARN_MESSAGE(pred, msg)                                                                                  \
+  if(!(pred))                                                                                                          \
+  std::cerr << QUICKCPPLIB_NAMESPACE::unit_test::yellow << "WARNING: " << msg                                          \
+            << QUICKCPPLIB_NAMESPACE::unit_test::normal << std::endl
+#define BOOST_FAIL(msg)                                                                                                \
+  std::cerr << QUICKCPPLIB_NAMESPACE::unit_test::red << "FAILURE: " << msg << QUICKCPPLIB_NAMESPACE::unit_test::normal \
+            << std::endl;                                                                                              \
   QUICKCPPLIB_BOOST_UNIT_TEST_FAIL
-#define BOOST_CHECK_MESSAGE(pred, msg)                                                                                                                                                                                                                                                                                         \
-  if(!(pred))                                                                                                                                                                                                                                                                                                                  \
+#define BOOST_CHECK_MESSAGE(pred, msg)                                                                                 \
+  if(!(pred))                                                                                                          \
   std::cout << "INFO: " << msg << std::endl
 
-#define BOOST_CHECK(expr)                                                                                                                                                                                                                                                                                                      \
-  if(!(expr))                                                                                                                                                                                                                                                                                                                  \
-  {                                                                                                                                                                                                                                                                                                                            \
-    QUICKCPPLIB_BOOST_UNIT_CHECK_FAIL(, expr);                                                                                                                                                                                                                                                                                 \
-  }                                                                                                                                                                                                                                                                                                                            \
-  \
-else                                                                                                                                                                                                                                                                                                                      \
-  {                                                                                                                                                                                                                                                                                                                            \
-    QUICKCPPLIB_BOOST_UNIT_CHECK_PASS(, expr);                                                                                                                                                                                                                                                                                 \
+#define BOOST_CHECK(expr)                                                                                              \
+  if(!(expr))                                                                                                          \
+  {                                                                                                                    \
+    QUICKCPPLIB_BOOST_UNIT_CHECK_FAIL(, expr);                                                                         \
+  }                                                                                                                    \
+                                                                                                                       \
+  else                                                                                                                 \
+  {                                                                                                                    \
+    QUICKCPPLIB_BOOST_UNIT_CHECK_PASS(, expr);                                                                         \
   }
 #define BOOST_CHECK_EQUAL(expr1, expr2) BOOST_CHECK((expr1) == (expr2))
 #ifdef __cpp_exceptions
-#define BOOST_CHECK_THROWS(expr)                                                                                                                                                                                                                                                                                               \
-  try                                                                                                                                                                                                                                                                                                                          \
-  \
-{                                                                                                                                                                                                                                                                                                                         \
-    (expr);                                                                                                                                                                                                                                                                                                                    \
-    QUICKCPPLIB_BOOST_UNIT_CHECK_FAIL("THROWS ", expr);                                                                                                                                                                                                                                                                        \
-  \
-}                                                                                                                                                                                                                                                                                                                         \
-  \
-catch(const QUICKCPPLIB_NAMESPACE::unit_test::requirement_failed &)                                                                                                                                                                                                                                                            \
-  {                                                                                                                                                                                                                                                                                                                            \
-    throw;                                                                                                                                                                                                                                                                                                                     \
-  }                                                                                                                                                                                                                                                                                                                            \
-  \
-catch(...)                                                                                                                                                                                                                                                                                                                     \
-  \
-{                                                                                                                                                                                                                                                                                                                         \
-    QUICKCPPLIB_BOOST_UNIT_CHECK_PASS("THROWS ", expr);                                                                                                                                                                                                                                                                        \
-  \
-}
-#define BOOST_CHECK_THROW(expr, type)                                                                                                                                                                                                                                                                                          \
-  try                                                                                                                                                                                                                                                                                                                          \
-  {                                                                                                                                                                                                                                                                                                                            \
-    (expr);                                                                                                                                                                                                                                                                                                                    \
-    QUICKCPPLIB_BOOST_UNIT_CHECK_FAIL("THROW " #type " ", expr);                                                                                                                                                                                                                                                               \
-  }                                                                                                                                                                                                                                                                                                                            \
-  \
-catch(const QUICKCPPLIB_NAMESPACE::unit_test::requirement_failed &)                                                                                                                                                                                                                                                            \
-  {                                                                                                                                                                                                                                                                                                                            \
-    throw;                                                                                                                                                                                                                                                                                                                     \
-  }                                                                                                                                                                                                                                                                                                                            \
-  \
-catch(const type &)                                                                                                                                                                                                                                                                                                            \
-  {                                                                                                                                                                                                                                                                                                                            \
-    QUICKCPPLIB_BOOST_UNIT_CHECK_PASS("THROW " #type " ", expr);                                                                                                                                                                                                                                                               \
-  }                                                                                                                                                                                                                                                                                                                            \
-  catch(...) { QUICKCPPLIB_BOOST_UNIT_CHECK_FAIL("THROW " #type " ", expr); }
-#define BOOST_CHECK_NO_THROW(expr)                                                                                                                                                                                                                                                                                             \
-  try                                                                                                                                                                                                                                                                                                                          \
-  {                                                                                                                                                                                                                                                                                                                            \
-    (expr);                                                                                                                                                                                                                                                                                                                    \
-    QUICKCPPLIB_BOOST_UNIT_CHECK_PASS("NO THROW ", expr);                                                                                                                                                                                                                                                                      \
-  }                                                                                                                                                                                                                                                                                                                            \
-  \
-catch(const QUICKCPPLIB_NAMESPACE::unit_test::requirement_failed &)                                                                                                                                                                                                                                                            \
-  {                                                                                                                                                                                                                                                                                                                            \
-    throw;                                                                                                                                                                                                                                                                                                                     \
-  }                                                                                                                                                                                                                                                                                                                            \
-  catch(...) { QUICKCPPLIB_BOOST_UNIT_CHECK_FAIL("NO THROW ", expr); }
+#define BOOST_CHECK_THROWS(expr)                                                                                       \
+  try                                                                                                                  \
+                                                                                                                       \
+  {                                                                                                                    \
+    (expr);                                                                                                            \
+    QUICKCPPLIB_BOOST_UNIT_CHECK_FAIL("THROWS ", expr);                                                                \
+  }                                                                                                                    \
+                                                                                                                       \
+  catch(const QUICKCPPLIB_NAMESPACE::unit_test::requirement_failed &)                                                  \
+  {                                                                                                                    \
+    throw;                                                                                                             \
+  }                                                                                                                    \
+                                                                                                                       \
+  catch(...)                                                                                                           \
+                                                                                                                       \
+  {                                                                                                                    \
+    QUICKCPPLIB_BOOST_UNIT_CHECK_PASS("THROWS ", expr);                                                                \
+  }
+#define BOOST_CHECK_THROW(expr, type)                                                                                  \
+  try                                                                                                                  \
+  {                                                                                                                    \
+    (expr);                                                                                                            \
+    QUICKCPPLIB_BOOST_UNIT_CHECK_FAIL("THROW " #type " ", expr);                                                       \
+  }                                                                                                                    \
+                                                                                                                       \
+  catch(const QUICKCPPLIB_NAMESPACE::unit_test::requirement_failed &)                                                  \
+  {                                                                                                                    \
+    throw;                                                                                                             \
+  }                                                                                                                    \
+                                                                                                                       \
+  catch(const type &)                                                                                                  \
+  {                                                                                                                    \
+    QUICKCPPLIB_BOOST_UNIT_CHECK_PASS("THROW " #type " ", expr);                                                       \
+  }                                                                                                                    \
+  catch(...)                                                                                                           \
+  {                                                                                                                    \
+    QUICKCPPLIB_BOOST_UNIT_CHECK_FAIL("THROW " #type " ", expr);                                                       \
+  }
+#define BOOST_CHECK_NO_THROW(expr)                                                                                     \
+  try                                                                                                                  \
+  {                                                                                                                    \
+    (expr);                                                                                                            \
+    QUICKCPPLIB_BOOST_UNIT_CHECK_PASS("NO THROW ", expr);                                                              \
+  }                                                                                                                    \
+                                                                                                                       \
+  catch(const QUICKCPPLIB_NAMESPACE::unit_test::requirement_failed &)                                                  \
+  {                                                                                                                    \
+    throw;                                                                                                             \
+  }                                                                                                                    \
+  catch(...)                                                                                                           \
+  {                                                                                                                    \
+    QUICKCPPLIB_BOOST_UNIT_CHECK_FAIL("NO THROW ", expr);                                                              \
+  }
 #else
 #define BOOST_CHECK_THROWS(expr)
 #define BOOST_CHECK_THROW(expr, type)
 #define BOOST_CHECK_NO_THROW(expr) expr
 #endif
 
-#define BOOST_REQUIRE(expr)                                                                                                                                                                                                                                                                                                    \
-  if(!(expr))                                                                                                                                                                                                                                                                                                                  \
-  {                                                                                                                                                                                                                                                                                                                            \
-    QUICKCPPLIB_BOOST_UNIT_REQUIRE_FAIL(, expr);                                                                                                                                                                                                                                                                               \
-  }                                                                                                                                                                                                                                                                                                                            \
-  \
-{                                                                                                                                                                                                                                                                                                                         \
-    QUICKCPPLIB_BOOST_UNIT_REQUIRE_PASS(, expr);                                                                                                                                                                                                                                                                               \
-  \
-}
+#define BOOST_REQUIRE(expr)                                                                                            \
+  if(!(expr))                                                                                                          \
+  {                                                                                                                    \
+    QUICKCPPLIB_BOOST_UNIT_REQUIRE_FAIL(, expr);                                                                       \
+  }                                                                                                                    \
+                                                                                                                       \
+  {                                                                                                                    \
+    QUICKCPPLIB_BOOST_UNIT_REQUIRE_PASS(, expr);                                                                       \
+  }
 #ifdef __cpp_exceptions
-#define BOOST_REQUIRE_THROWS(expr)                                                                                                                                                                                                                                                                                             \
-  try                                                                                                                                                                                                                                                                                                                          \
-  \
-{                                                                                                                                                                                                                                                                                                                         \
-    (expr);                                                                                                                                                                                                                                                                                                                    \
-    QUICKCPPLIB_BOOST_UNIT_REQUIRE_FAIL("THROWS ", expr);                                                                                                                                                                                                                                                                      \
-  \
-}                                                                                                                                                                                                                                                                                                                         \
-  \
-catch(const QUICKCPPLIB_NAMESPACE::unit_test::requirement_failed &)                                                                                                                                                                                                                                                            \
-  {                                                                                                                                                                                                                                                                                                                            \
-    throw;                                                                                                                                                                                                                                                                                                                     \
-  }                                                                                                                                                                                                                                                                                                                            \
-  \
-catch(...)                                                                                                                                                                                                                                                                                                                     \
-  \
-{                                                                                                                                                                                                                                                                                                                         \
-    QUICKCPPLIB_BOOST_UNIT_REQUIRE_PASS("THROWS ", expr);                                                                                                                                                                                                                                                                      \
-  \
-}
-#define BOOST_CHECK_REQUIRE(expr, type)                                                                                                                                                                                                                                                                                        \
-  try                                                                                                                                                                                                                                                                                                                          \
-  {                                                                                                                                                                                                                                                                                                                            \
-    (expr);                                                                                                                                                                                                                                                                                                                    \
-    QUICKCPPLIB_BOOST_UNIT_REQUIRE_FAIL("THROW " #type " ", expr);                                                                                                                                                                                                                                                             \
-  }                                                                                                                                                                                                                                                                                                                            \
-  \
-catch(const QUICKCPPLIB_NAMESPACE::unit_test::requirement_failed &)                                                                                                                                                                                                                                                            \
-  {                                                                                                                                                                                                                                                                                                                            \
-    throw;                                                                                                                                                                                                                                                                                                                     \
-  }                                                                                                                                                                                                                                                                                                                            \
-  catch(const type &) { QUICKCPPLIB_BOOST_UNIT_REQUIRE_PASS("THROW " #type " ", expr); }                                                                                                                                                                                                                                       \
-  catch(...) { QUICKCPPLIB_BOOST_UNIT_REQUIRE_FAIL("THROW " #type " ", expr); }
-#define BOOST_REQUIRE_NO_THROW(expr)                                                                                                                                                                                                                                                                                           \
-  try                                                                                                                                                                                                                                                                                                                          \
-  {                                                                                                                                                                                                                                                                                                                            \
-    (expr);                                                                                                                                                                                                                                                                                                                    \
-    QUICKCPPLIB_BOOST_UNIT_REQUIRE_PASS("NO THROW ", expr);                                                                                                                                                                                                                                                                    \
-  }                                                                                                                                                                                                                                                                                                                            \
-  \
-catch(const QUICKCPPLIB_NAMESPACE::unit_test::requirement_failed &)                                                                                                                                                                                                                                                            \
-  {                                                                                                                                                                                                                                                                                                                            \
-    throw;                                                                                                                                                                                                                                                                                                                     \
-  }                                                                                                                                                                                                                                                                                                                            \
-  catch(...) { QUICKCPPLIB_BOOST_UNIT_REQUIRE_FAIL("NO THROW ", expr); }
+#define BOOST_REQUIRE_THROWS(expr)                                                                                     \
+  try                                                                                                                  \
+                                                                                                                       \
+  {                                                                                                                    \
+    (expr);                                                                                                            \
+    QUICKCPPLIB_BOOST_UNIT_REQUIRE_FAIL("THROWS ", expr);                                                              \
+  }                                                                                                                    \
+                                                                                                                       \
+  catch(const QUICKCPPLIB_NAMESPACE::unit_test::requirement_failed &)                                                  \
+  {                                                                                                                    \
+    throw;                                                                                                             \
+  }                                                                                                                    \
+                                                                                                                       \
+  catch(...)                                                                                                           \
+                                                                                                                       \
+  {                                                                                                                    \
+    QUICKCPPLIB_BOOST_UNIT_REQUIRE_PASS("THROWS ", expr);                                                              \
+  }
+#define BOOST_CHECK_REQUIRE(expr, type)                                                                                \
+  try                                                                                                                  \
+  {                                                                                                                    \
+    (expr);                                                                                                            \
+    QUICKCPPLIB_BOOST_UNIT_REQUIRE_FAIL("THROW " #type " ", expr);                                                     \
+  }                                                                                                                    \
+                                                                                                                       \
+  catch(const QUICKCPPLIB_NAMESPACE::unit_test::requirement_failed &)                                                  \
+  {                                                                                                                    \
+    throw;                                                                                                             \
+  }                                                                                                                    \
+  catch(const type &)                                                                                                  \
+  {                                                                                                                    \
+    QUICKCPPLIB_BOOST_UNIT_REQUIRE_PASS("THROW " #type " ", expr);                                                     \
+  }                                                                                                                    \
+  catch(...)                                                                                                           \
+  {                                                                                                                    \
+    QUICKCPPLIB_BOOST_UNIT_REQUIRE_FAIL("THROW " #type " ", expr);                                                     \
+  }
+#define BOOST_REQUIRE_NO_THROW(expr)                                                                                   \
+  try                                                                                                                  \
+  {                                                                                                                    \
+    (expr);                                                                                                            \
+    QUICKCPPLIB_BOOST_UNIT_REQUIRE_PASS("NO THROW ", expr);                                                            \
+  }                                                                                                                    \
+                                                                                                                       \
+  catch(const QUICKCPPLIB_NAMESPACE::unit_test::requirement_failed &)                                                  \
+  {                                                                                                                    \
+    throw;                                                                                                             \
+  }                                                                                                                    \
+  catch(...)                                                                                                           \
+  {                                                                                                                    \
+    QUICKCPPLIB_BOOST_UNIT_REQUIRE_FAIL("NO THROW ", expr);                                                            \
+  }
 #else
 #define BOOST_REQUIRE_THROWS(expr)
 #define BOOST_CHECK_REQUIRE(expr, type)
@@ -570,9 +597,9 @@ catch(const QUICKCPPLIB_NAMESPACE::unit_test::requirement_failed &)             
 
 #define BOOST_AUTO_TEST_SUITE3(a, b) a##b
 #define BOOST_AUTO_TEST_SUITE2(a, b) BOOST_AUTO_TEST_SUITE3(a, b)
-#define BOOST_AUTO_TEST_SUITE(name)                                                                                                                                                                                                                                                                                            \
-  namespace BOOST_AUTO_TEST_SUITE2(boostlite_auto_test_suite, __COUNTER__)                                                                                                                                                                                                                                                     \
-  {                                                                                                                                                                                                                                                                                                                            \
+#define BOOST_AUTO_TEST_SUITE(name)                                                                                    \
+  namespace BOOST_AUTO_TEST_SUITE2(boostlite_auto_test_suite, __COUNTER__)                                             \
+  {                                                                                                                    \
     static QUICKCPPLIB_NAMESPACE::unit_test::test_suite_registration boostlite_auto_test_suite_registration(#name);
 //
 #define BOOST_AUTO_TEST_SUITE_END() }
@@ -581,16 +608,17 @@ catch(const QUICKCPPLIB_NAMESPACE::unit_test::requirement_failed &)             
 #define QUICKCPPLIB_BOOST_UNIT_TEST_CASE_NAME(name) #name
 #endif
 #define QUICKCPPLIB_BOOST_UNIT_TEST_CASE_UNIQUE(prefix) BOOST_AUTO_TEST_SUITE2(prefix, __COUNTER__)
-#define BOOST_AUTO_TEST_CASE2(test_name, desc, func_name)                                                                                                                                                                                                                                                                      \
-  \
-static void                                                                                                                                                                                                                                                                                                                    \
-  func_name();                                                                                                                                                                                                                                                                                                                 \
-  \
-static QUICKCPPLIB_NAMESPACE::unit_test::test_case_registration BOOST_AUTO_TEST_SUITE2(func_name, _registration)(static_cast<const char *>(test_name), static_cast<const char *>(desc), func_name);                                                                                                                            \
-  \
-static void                                                                                                                                                                                                                                                                                                                    \
-  func_name()
-#define BOOST_AUTO_TEST_CASE(test_name, desc) BOOST_AUTO_TEST_CASE2(QUICKCPPLIB_BOOST_UNIT_TEST_CASE_NAME(test_name), desc, QUICKCPPLIB_BOOST_UNIT_TEST_CASE_UNIQUE(boostlite_auto_test_case))
+#define BOOST_AUTO_TEST_CASE2(test_name, desc, func_name)                                                              \
+                                                                                                                       \
+  static void func_name();                                                                                             \
+                                                                                                                       \
+  static QUICKCPPLIB_NAMESPACE::unit_test::test_case_registration BOOST_AUTO_TEST_SUITE2(func_name, _registration)(    \
+  static_cast<const char *>(test_name), static_cast<const char *>(desc), func_name);                                   \
+                                                                                                                       \
+  static void func_name()
+#define BOOST_AUTO_TEST_CASE(test_name, desc)                                                                          \
+  BOOST_AUTO_TEST_CASE2(QUICKCPPLIB_BOOST_UNIT_TEST_CASE_NAME(test_name), desc,                                        \
+                        QUICKCPPLIB_BOOST_UNIT_TEST_CASE_UNIQUE(boostlite_auto_test_case))
 
 #define QUICKCPPLIB_BOOST_UNIT_TEST_RUN_TESTS(argc, argv) QUICKCPPLIB_NAMESPACE::unit_test::run(argc, argv)
 #endif
@@ -612,12 +640,12 @@ static void                                                                     
 #endif
 
 #define BOOST_TEST_MESSAGE(msg) CATCH_INFO(msg)
-#define BOOST_WARN_MESSAGE(pred, msg)                                                                                                                                                                                                                                                                                          \
-  if(!(pred))                                                                                                                                                                                                                                                                                                                  \
+#define BOOST_WARN_MESSAGE(pred, msg)                                                                                  \
+  if(!(pred))                                                                                                          \
   CATCH_WARN(msg)
 #define BOOST_FAIL(msg) CATCH_FAIL(msg)
-#define BOOST_CHECK_MESSAGE(pred, msg)                                                                                                                                                                                                                                                                                         \
-  if(!(pred))                                                                                                                                                                                                                                                                                                                  \
+#define BOOST_CHECK_MESSAGE(pred, msg)                                                                                 \
+  if(!(pred))                                                                                                          \
   CATCH_INFO(msg)
 
 #define BOOST_CHECK(expr) CATCH_CHECK(expr)
@@ -633,8 +661,8 @@ static void                                                                     
 
 #define BOOST_AUTO_TEST_SUITE3(a, b) a##b
 #define BOOST_AUTO_TEST_SUITE2(a, b) BOOST_AUTO_TEST_SUITE3(a, b)
-#define BOOST_AUTO_TEST_SUITE(name)                                                                                                                                                                                                                                                                                            \
-  namespace BOOST_AUTO_TEST_SUITE2(boostlite_auto_test_suite, __COUNTER__)                                                                                                                                                                                                                                                     \
+#define BOOST_AUTO_TEST_SUITE(name)                                                                                    \
+  namespace BOOST_AUTO_TEST_SUITE2(boostlite_auto_test_suite, __COUNTER__)                                             \
   {
 //
 #define BOOST_AUTO_TEST_SUITE_END() }
@@ -659,7 +687,8 @@ static void                                                                     
 
 #ifndef QUICKCPPLIB_BOOST_UNIT_TEST_CUSTOM_MAIN_DEFINED
 #ifdef _MSC_VER
-extern inline int quickcpplib_unit_testing_main(int argc, const char* const argv[]) {
+extern inline int quickcpplib_unit_testing_main(int argc, const char *const argv[])
+{
   int result = QUICKCPPLIB_BOOST_UNIT_TEST_RUN_TESTS(argc, argv);
   return result;
 }

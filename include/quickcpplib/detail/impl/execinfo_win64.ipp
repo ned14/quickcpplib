@@ -29,21 +29,25 @@ Distributed under the Boost Software License, Version 1.0.
 #include <string.h>
 
 // To avoid including windows.h, this source has been macro expanded and win32 function shimmed for C++ only
-#if defined(__cplusplus) && !defined(__clang__)
+#if defined(__cplusplus) && !defined(__clang__) && !defined(__MINGW32__)
+#define QUICKCPPLIB_EXECINFO_WINDOWS_H 0
 namespace win32
 {
   extern _Ret_maybenull_ void *__stdcall LoadLibraryA(_In_ const char *lpLibFileName);
   typedef int(__stdcall *GetProcAddress_returntype)();
   extern GetProcAddress_returntype __stdcall GetProcAddress(_In_ void *hModule, _In_ const char *lpProcName);
-  extern _Success_(return != 0) unsigned short __stdcall RtlCaptureStackBackTrace(_In_ unsigned long FramesToSkip, _In_ unsigned long FramesToCapture,
-                                                                                  _Out_writes_to_(FramesToCapture, return ) void **BackTrace,
-                                                                                  _Out_opt_ unsigned long *BackTraceHash);
+  extern _Success_(return != 0) unsigned short __stdcall RtlCaptureStackBackTrace(
+  _In_ unsigned long FramesToSkip, _In_ unsigned long FramesToCapture,
+  _Out_writes_to_(FramesToCapture, return) void **BackTrace, _Out_opt_ unsigned long *BackTraceHash);
   extern _Success_(return != 0)
   _When_((cchWideChar == -1) && (cbMultiByte != 0),
          _Post_equal_to_(_String_length_(lpMultiByteStr) +
-                         1)) int __stdcall WideCharToMultiByte(_In_ unsigned int CodePage, _In_ unsigned long dwFlags, const wchar_t *lpWideCharStr,
-                                                               _In_ int cchWideChar, _Out_writes_bytes_to_opt_(cbMultiByte, return ) char *lpMultiByteStr,
-                                                               _In_ int cbMultiByte, _In_opt_ const char *lpDefaultChar, _Out_opt_ int *lpUsedDefaultChar);
+                         1)) int __stdcall WideCharToMultiByte(_In_ unsigned int CodePage, _In_ unsigned long dwFlags,
+                                                               const wchar_t *lpWideCharStr, _In_ int cchWideChar,
+                                                               _Out_writes_bytes_to_opt_(cbMultiByte,
+                                                                                         return) char *lpMultiByteStr,
+                                                               _In_ int cbMultiByte, _In_opt_ const char *lpDefaultChar,
+                                                               _Out_opt_ int *lpUsedDefaultChar);
 #pragma comment(lib, "kernel32.lib")
 #if(defined(__x86_64__) || defined(_M_X64)) || (defined(__aarch64__) || defined(_M_ARM64))
 #pragma comment(linker, "/alternatename:?LoadLibraryA@win32@@YAPEAXPEBD@Z=LoadLibraryA")
@@ -53,8 +57,10 @@ namespace win32
 #elif defined(__x86__) || defined(_M_IX86) || defined(__i386__)
 #pragma comment(linker, "/alternatename:?LoadLibraryA@win32@@YGPAXPBD@Z=__imp__LoadLibraryA@4")
 #pragma comment(linker, "/alternatename:?GetProcAddress@win32@@YGP6GHXZPAXPBD@Z=__imp__GetProcAddress@8")
-#pragma comment(linker, "/alternatename:?RtlCaptureStackBackTrace@win32@@YGGKKPAPAXPAK@Z=__imp__RtlCaptureStackBackTrace@16")
-#pragma comment(linker, "/alternatename:?WideCharToMultiByte@win32@@YGHIKPB_WHPADHPBDPAH@Z=__imp__WideCharToMultiByte@32")
+#pragma comment(linker,                                                                                                \
+                "/alternatename:?RtlCaptureStackBackTrace@win32@@YGGKKPAPAXPAK@Z=__imp__RtlCaptureStackBackTrace@16")
+#pragma comment(linker,                                                                                                \
+                "/alternatename:?WideCharToMultiByte@win32@@YGHIKPB_WHPADHPBDPAH@Z=__imp__WideCharToMultiByte@32")
 #elif defined(__arm__) || defined(_M_ARM)
 #pragma comment(linker, "/alternatename:?LoadLibraryA@win32@@YAPAXPBD@Z=LoadLibraryA")
 #pragma comment(linker, "/alternatename:?GetProcAddress@win32@@YAP6AHXZPAXPBD@Z=GetProcAddress")
@@ -65,13 +71,14 @@ namespace win32
 #endif
 }  // namespace win32
 #else
+#define QUICKCPPLIB_EXECINFO_WINDOWS_H 1
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
 #endif
 #ifndef NOMINMAX
 #define NOMINMAX
 #endif
-#include <Windows.h>
+#include <windows.h>
 #endif
 
 #ifdef __cplusplus
@@ -88,13 +95,14 @@ namespace
     unsigned long long int Address;
   } IMAGEHLP_LINE64, *PIMAGEHLP_LINE64;
 
-  typedef int(__stdcall *SymInitialize_t)(_In_ void *hProcess, _In_opt_ const wchar_t *UserSearchPath, _In_ int fInvadeProcess);
+  typedef int(__stdcall *SymInitialize_t)(_In_ void *hProcess, _In_opt_ const wchar_t *UserSearchPath,
+                                          _In_ int fInvadeProcess);
 
-  typedef int(__stdcall *SymGetLineFromAddr64_t)(_In_ void *hProcess, _In_ unsigned long long int dwAddr, _Out_ unsigned long *pdwDisplacement,
-                                                 _Out_ PIMAGEHLP_LINE64 Line);
+  typedef int(__stdcall *SymGetLineFromAddr64_t)(_In_ void *hProcess, _In_ unsigned long long int dwAddr,
+                                                 _Out_ unsigned long *pdwDisplacement, _Out_ PIMAGEHLP_LINE64 Line);
 
   static std::atomic<unsigned> dbghelp_init_lock;
-#if defined(__cplusplus) && !defined(__clang__)
+#if !QUICKCPPLIB_EXECINFO_WINDOWS_H
   static void *dbghelp;
 #else
 static HMODULE dbghelp;
@@ -104,7 +112,7 @@ static HMODULE dbghelp;
 
   static void load_dbghelp()
   {
-#if defined(__cplusplus) && !defined(__clang__)
+#if !QUICKCPPLIB_EXECINFO_WINDOWS_H
     using win32::GetProcAddress;
     using win32::LoadLibraryA;
 #endif
@@ -141,7 +149,7 @@ extern "C"
 
   _Check_return_ size_t backtrace(_Out_writes_(len) void **bt, _In_ size_t len)
   {
-#if defined(__cplusplus) && !defined(__clang__)
+#if !QUICKCPPLIB_EXECINFO_WINDOWS_H
     using win32::RtlCaptureStackBackTrace;
 #endif
     return RtlCaptureStackBackTrace(1, (unsigned long) len, bt, NULL);
@@ -149,11 +157,12 @@ extern "C"
 
 #ifdef _MSC_VER
 #pragma warning(push)
-#pragma warning(disable : 6385 6386)  // MSVC static analyser can't grok this function. clang's analyser gives it thumbs up.
+#pragma warning(                                                                                                       \
+disable : 6385 6386)  // MSVC static analyser can't grok this function. clang's analyser gives it thumbs up.
 #endif
   _Check_return_ _Ret_writes_maybenull_(len) char **backtrace_symbols(_In_reads_(len) void *const *bt, _In_ size_t len)
   {
-#if defined(__cplusplus) && !defined(__clang__)
+#if !QUICKCPPLIB_EXECINFO_WINDOWS_H
     using win32::WideCharToMultiByte;
 #endif
     size_t bytes = (len + 1) * sizeof(void *) + 256, n;
@@ -187,7 +196,8 @@ extern "C"
             static std::atomic<unsigned> symlock(0);
             while(symlock.exchange(1, std::memory_order_acq_rel))
               ;
-            if(!SymGetLineFromAddr64 || !SymGetLineFromAddr64((void *) (size_t) -1 /*GetCurrentProcess()*/, (size_t) bt[n], &displ, &ihl))
+            if(!SymGetLineFromAddr64 ||
+               !SymGetLineFromAddr64((void *) (size_t) -1 /*GetCurrentProcess()*/, (size_t) bt[n], &displ, &ihl))
             {
               symlock.store(0, std::memory_order_release);
               if(n == 0)
@@ -206,13 +216,14 @@ extern "C"
         retry:
           if(please_realloc)
           {
+            const auto offset = p - (char *) ret;
             char **temp = (char **) realloc(ret, bytes + 256);
             if(!temp)
             {
               free(ret);
               return NULL;
             }
-            p = (char *) temp + (p - (char *) ret);
+            p = (char *) temp + offset;
             ret = temp;
             bytes += 256;
             end = (char *) ret + bytes;
