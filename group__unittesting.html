@@ -158,7 +158,7 @@ Macros</h2></td></tr>
 <tr class="separator:ga359b07148893747b6eaee225d4cc8b0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9cdd2a02fde6abc23bd7a6adec0e8953" id="r_ga9cdd2a02fde6abc23bd7a6adec0e8953"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__unittesting.html#ga9cdd2a02fde6abc23bd7a6adec0e8953">BOOST_AUTO_TEST_CASE2</a>(test_name,  desc,  func_name)</td></tr>
 <tr class="separator:ga9cdd2a02fde6abc23bd7a6adec0e8953"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab7ba609bc6e1acbfc8861d1da0620532" id="r_gab7ba609bc6e1acbfc8861d1da0620532"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__unittesting.html#gab7ba609bc6e1acbfc8861d1da0620532">BOOST_AUTO_TEST_CASE</a>(test_name,  desc)&#160;&#160;&#160;<a class="el" href="group__unittesting.html#ga9cdd2a02fde6abc23bd7a6adec0e8953">BOOST_AUTO_TEST_CASE2</a>(<a class="el" href="group__unittesting.html#ga09a77fe6d23578121ed11a868618118a">QUICKCPPLIB_BOOST_UNIT_TEST_CASE_NAME</a>(test_name), desc, <a class="el" href="group__unittesting.html#ga359b07148893747b6eaee225d4cc8b0e">QUICKCPPLIB_BOOST_UNIT_TEST_CASE_UNIQUE</a>(boostlite_auto_test_case))</td></tr>
+<tr class="memitem:gab7ba609bc6e1acbfc8861d1da0620532" id="r_gab7ba609bc6e1acbfc8861d1da0620532"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__unittesting.html#gab7ba609bc6e1acbfc8861d1da0620532">BOOST_AUTO_TEST_CASE</a>(test_name,  desc)</td></tr>
 <tr class="separator:gab7ba609bc6e1acbfc8861d1da0620532"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4eceeb6c35ebc01c1e28ef13932484e2" id="r_ga4eceeb6c35ebc01c1e28ef13932484e2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__unittesting.html#ga4eceeb6c35ebc01c1e28ef13932484e2">QUICKCPPLIB_BOOST_UNIT_TEST_RUN_TESTS</a>(argc,  argv)&#160;&#160;&#160;<a class="el" href="test__optional_8cpp.html#a88c069dd53fa4819bf72c6c9c76073c1">QUICKCPPLIB_NAMESPACE::unit_test::run</a>(argc, argv)</td></tr>
 <tr class="separator:ga4eceeb6c35ebc01c1e28ef13932484e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -236,9 +236,10 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">  ++QUICKCPPLIB_NAMESPACE::unit_test::current_test_case()-&gt;fails;                                                                                                                                                                                                                                                              \</div>
-<div class="line">  std::cerr &lt;&lt; QUICKCPPLIB_NAMESPACE::unit_test::yellow &lt;&lt; <span class="stringliteral">&quot;CHECK &quot;</span> type <span class="stringliteral">&quot;(&quot;</span> #expr <span class="stringliteral">&quot;) FAILED&quot;</span> &lt;&lt; QUICKCPPLIB_NAMESPACE::unit_test::white &lt;&lt; <span class="stringliteral">&quot; at &quot;</span> &lt;&lt; __FILE__ &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; __LINE__ &lt;&lt; std::endl</div>
-</div><!-- fragment --><div class="fragment"><div class="line"><span class="lineno">  416</span>                                                                                                                                                         :<span class="stringliteral">&quot; &lt;&lt; __LINE__ &lt;&lt; std::endl</span></div>
+<b>Value:</b><div class="fragment"><div class="line">  ++QUICKCPPLIB_NAMESPACE::unit_test::current_test_case()-&gt;fails;                                                      \</div>
+<div class="line">  std::cerr &lt;&lt; QUICKCPPLIB_NAMESPACE::unit_test::yellow &lt;&lt; <span class="stringliteral">&quot;CHECK &quot;</span> type <span class="stringliteral">&quot;(&quot;</span> #expr <span class="stringliteral">&quot;) FAILED&quot;</span>                          \</div>
+<div class="line">            &lt;&lt; QUICKCPPLIB_NAMESPACE::unit_test::white &lt;&lt; <span class="stringliteral">&quot; at &quot;</span> &lt;&lt; __FILE__ &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; __LINE__ &lt;&lt; std::endl</div>
+</div><!-- fragment --><div class="fragment"><div class="line"><span class="lineno">  430</span>                                                                             :<span class="stringliteral">&quot; &lt;&lt; __LINE__ &lt;&lt; std::endl</span></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -295,12 +296,13 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">  ++QUICKCPPLIB_NAMESPACE::unit_test::current_test_case()-&gt;fails;                                                                                                                                                                                                                                                              \</div>
-<div class="line">  std::cerr &lt;&lt; QUICKCPPLIB_NAMESPACE::unit_test::red &lt;&lt; <span class="stringliteral">&quot;REQUIRE &quot;</span> type <span class="stringliteral">&quot;(&quot;</span> #expr <span class="stringliteral">&quot;) FAILED&quot;</span> &lt;&lt; QUICKCPPLIB_NAMESPACE::unit_test::white &lt;&lt; <span class="stringliteral">&quot; at &quot;</span> &lt;&lt; __FILE__ &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; __LINE__ &lt;&lt; std::endl;                                                                                                                                 \</div>
+<b>Value:</b><div class="fragment"><div class="line">  ++QUICKCPPLIB_NAMESPACE::unit_test::current_test_case()-&gt;fails;                                                      \</div>
+<div class="line">  std::cerr &lt;&lt; QUICKCPPLIB_NAMESPACE::unit_test::red &lt;&lt; <span class="stringliteral">&quot;REQUIRE &quot;</span> type <span class="stringliteral">&quot;(&quot;</span> #expr <span class="stringliteral">&quot;) FAILED&quot;</span>                           \</div>
+<div class="line">            &lt;&lt; QUICKCPPLIB_NAMESPACE::unit_test::white &lt;&lt; <span class="stringliteral">&quot; at &quot;</span> &lt;&lt; __FILE__ &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; __LINE__ &lt;&lt; std::endl;          \</div>
 <div class="line">  <a class="code hl_define" href="group__unittesting.html#gaae98a52c07719e338dd7422ff294ec23">QUICKCPPLIB_BOOST_UNIT_TEST_FAIL</a></div>
-<div class="ttc" id="agroup__unittesting_html_gaae98a52c07719e338dd7422ff294ec23"><div class="ttname"><a href="group__unittesting.html#gaae98a52c07719e338dd7422ff294ec23">QUICKCPPLIB_BOOST_UNIT_TEST_FAIL</a></div><div class="ttdeci">#define QUICKCPPLIB_BOOST_UNIT_TEST_FAIL</div><div class="ttdef"><b>Definition</b> unit_test.hpp:410</div></div>
-</div><!-- fragment --><div class="fragment"><div class="line"><span class="lineno">  424</span>                                                                                                                                                        :<span class="stringliteral">&quot; &lt;&lt; __LINE__ &lt;&lt; std::endl;                                                                                                                                 \</span></div>
-<div class="line"><span class="lineno">  425</span><span class="stringliteral">  QUICKCPPLIB_BOOST_UNIT_TEST_FAIL</span></div>
+<div class="ttc" id="agroup__unittesting_html_gaae98a52c07719e338dd7422ff294ec23"><div class="ttname"><a href="group__unittesting.html#gaae98a52c07719e338dd7422ff294ec23">QUICKCPPLIB_BOOST_UNIT_TEST_FAIL</a></div><div class="ttdeci">#define QUICKCPPLIB_BOOST_UNIT_TEST_FAIL</div><div class="ttdef"><b>Definition</b> unit_test.hpp:423</div></div>
+</div><!-- fragment --><div class="fragment"><div class="line"><span class="lineno">  439</span>                                                                             :<span class="stringliteral">&quot; &lt;&lt; __LINE__ &lt;&lt; std::endl;          \</span></div>
+<div class="line"><span class="lineno">  440</span><span class="stringliteral">  QUICKCPPLIB_BOOST_UNIT_TEST_FAIL</span></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -375,9 +377,11 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">  <span class="keywordflow">if</span>(!(pred))                                                                                                                                                                                                                                                                                                                  \</div>
-<div class="line">  std::cerr &lt;&lt; QUICKCPPLIB_NAMESPACE::unit_test::yellow &lt;&lt; <span class="stringliteral">&quot;WARNING: &quot;</span> &lt;&lt; msg &lt;&lt; QUICKCPPLIB_NAMESPACE::unit_test::normal &lt;&lt; std::endl</div>
-</div><!-- fragment --><div class="fragment"><div class="line"><span class="lineno">  434</span>                                                             : <span class="stringliteral">&quot; &lt;&lt; msg &lt;&lt; QUICKCPPLIB_NAMESPACE::unit_test::normal &lt;&lt; std::endl</span></div>
+<b>Value:</b><div class="fragment"><div class="line">  <span class="keywordflow">if</span>(!(pred))                                                                                                          \</div>
+<div class="line">  std::cerr &lt;&lt; QUICKCPPLIB_NAMESPACE::unit_test::yellow &lt;&lt; <span class="stringliteral">&quot;WARNING: &quot;</span> &lt;&lt; msg                                          \</div>
+<div class="line">            &lt;&lt; QUICKCPPLIB_NAMESPACE::unit_test::normal &lt;&lt; std::endl</div>
+</div><!-- fragment --><div class="fragment"><div class="line"><span class="lineno">  449</span>                                                             : <span class="stringliteral">&quot; &lt;&lt; msg                                          \</span></div>
+<div class="line"><span class="lineno">  450</span><span class="stringliteral">            &lt;&lt; QUICKCPPLIB_NAMESPACE::unit_test::normal &lt;&lt; std::endl</span></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -396,10 +400,12 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">  std::cerr &lt;&lt; QUICKCPPLIB_NAMESPACE::unit_test::red &lt;&lt; <span class="stringliteral">&quot;FAILURE: &quot;</span> &lt;&lt; msg &lt;&lt; QUICKCPPLIB_NAMESPACE::unit_test::normal &lt;&lt; std::endl;                                                                                                                                                                                           \</div>
+<b>Value:</b><div class="fragment"><div class="line">  std::cerr &lt;&lt; QUICKCPPLIB_NAMESPACE::unit_test::red &lt;&lt; <span class="stringliteral">&quot;FAILURE: &quot;</span> &lt;&lt; msg &lt;&lt; QUICKCPPLIB_NAMESPACE::unit_test::normal \</div>
+<div class="line">            &lt;&lt; std::endl;                                                                                              \</div>
 <div class="line">  <a class="code hl_define" href="group__unittesting.html#gaae98a52c07719e338dd7422ff294ec23">QUICKCPPLIB_BOOST_UNIT_TEST_FAIL</a></div>
-</div><!-- fragment --><div class="fragment"><div class="line"><span class="lineno">  436</span>                                                          : <span class="stringliteral">&quot; &lt;&lt; msg &lt;&lt; QUICKCPPLIB_NAMESPACE::unit_test::normal &lt;&lt; std::endl;                                                                                                                                                                                           \</span></div>
-<div class="line"><span class="lineno">  437</span><span class="stringliteral">  QUICKCPPLIB_BOOST_UNIT_TEST_FAIL</span></div>
+</div><!-- fragment --><div class="fragment"><div class="line"><span class="lineno">  452</span>                                                          : <span class="stringliteral">&quot; &lt;&lt; msg &lt;&lt; QUICKCPPLIB_NAMESPACE::unit_test::normal \</span></div>
+<div class="line"><span class="lineno">  453</span><span class="stringliteral">            &lt;&lt; std::endl;                                                                                              \</span></div>
+<div class="line"><span class="lineno">  454</span><span class="stringliteral">  QUICKCPPLIB_BOOST_UNIT_TEST_FAIL</span></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -428,9 +434,9 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">  <span class="keywordflow">if</span>(!(pred))                                                                                                                                                                                                                                                                                                                  \</div>
+<b>Value:</b><div class="fragment"><div class="line">  <span class="keywordflow">if</span>(!(pred))                                                                                                          \</div>
 <div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;INFO: &quot;</span> &lt;&lt; msg &lt;&lt; std::endl</div>
-</div><!-- fragment --><div class="fragment"><div class="line"><span class="lineno">  440</span>                  : <span class="stringliteral">&quot; &lt;&lt; msg &lt;&lt; std::endl</span></div>
+</div><!-- fragment --><div class="fragment"><div class="line"><span class="lineno">  457</span>                  : <span class="stringliteral">&quot; &lt;&lt; msg &lt;&lt; std::endl</span></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -449,23 +455,23 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">  <span class="keywordflow">if</span>(!(expr))                                                                                                                                                                                                                                                                                                                  \</div>
-<div class="line">  {                                                                                                                                                                                                                                                                                                                            \</div>
-<div class="line">    QUICKCPPLIB_BOOST_UNIT_CHECK_FAIL(, expr);                                                                                                                                                                                                                                                                                 \</div>
-<div class="line">  }                                                                                                                                                                                                                                                                                                                            \</div>
-<div class="line">  \</div>
-<div class="line"><span class="keywordflow">else</span>                                                                                                                                                                                                                                                                                                                      \</div>
-<div class="line">  {                                                                                                                                                                                                                                                                                                                            \</div>
-<div class="line">    QUICKCPPLIB_BOOST_UNIT_CHECK_PASS(, expr);                                                                                                                                                                                                                                                                                 \</div>
+<b>Value:</b><div class="fragment"><div class="line">  <span class="keywordflow">if</span>(!(expr))                                                                                                          \</div>
+<div class="line">  {                                                                                                                    \</div>
+<div class="line">    QUICKCPPLIB_BOOST_UNIT_CHECK_FAIL(, expr);                                                                         \</div>
+<div class="line">  }                                                                                                                    \</div>
+<div class="line">                                                                                                                       \</div>
+<div class="line">  <span class="keywordflow">else</span>                                                                                                                 \</div>
+<div class="line">  {                                                                                                                    \</div>
+<div class="line">    QUICKCPPLIB_BOOST_UNIT_CHECK_PASS(, expr);                                                                         \</div>
 <div class="line">  }</div>
-</div><!-- fragment --><div class="fragment"><div class="line"><span class="lineno">  444</span>  {                                                                                                                                                                                                                                                                                                                            \</div>
-<div class="line"><span class="lineno">  445</span>    QUICKCPPLIB_BOOST_UNIT_CHECK_FAIL(, expr);                                                                                                                                                                                                                                                                                 \</div>
-<div class="line"><span class="lineno">  446</span>  }                                                                                                                                                                                                                                                                                                                            \</div>
-<div class="line"><span class="lineno">  447</span>  \</div>
-<div class="line"><span class="lineno">  448</span><span class="keywordflow">else</span>                                                                                                                                                                                                                                                                                                                      \</div>
-<div class="line"><span class="lineno">  449</span>  {                                                                                                                                                                                                                                                                                                                            \</div>
-<div class="line"><span class="lineno">  450</span>    QUICKCPPLIB_BOOST_UNIT_CHECK_PASS(, expr);                                                                                                                                                                                                                                                                                 \</div>
-<div class="line"><span class="lineno">  451</span>  }</div>
+</div><!-- fragment --><div class="fragment"><div class="line"><span class="lineno">  461</span>  {                                                                                                                    \</div>
+<div class="line"><span class="lineno">  462</span>    QUICKCPPLIB_BOOST_UNIT_CHECK_FAIL(, expr);                                                                         \</div>
+<div class="line"><span class="lineno">  463</span>  }                                                                                                                    \</div>
+<div class="line"><span class="lineno">  464</span>                                                                                                                       \</div>
+<div class="line"><span class="lineno">  465</span>  <span class="keywordflow">else</span>                                                                                                                 \</div>
+<div class="line"><span class="lineno">  466</span>  {                                                                                                                    \</div>
+<div class="line"><span class="lineno">  467</span>    QUICKCPPLIB_BOOST_UNIT_CHECK_PASS(, expr);                                                                         \</div>
+<div class="line"><span class="lineno">  468</span>  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -576,23 +582,21 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">  <span class="keywordflow">if</span>(!(expr))                                                                                                                                                                                                                                                                                                                  \</div>
-<div class="line">  {                                                                                                                                                                                                                                                                                                                            \</div>
-<div class="line">    QUICKCPPLIB_BOOST_UNIT_REQUIRE_FAIL(, expr);                                                                                                                                                                                                                                                                               \</div>
-<div class="line">  }                                                                                                                                                                                                                                                                                                                            \</div>
-<div class="line">  \</div>
-<div class="line">{                                                                                                                                                                                                                                                                                                                         \</div>
-<div class="line">    QUICKCPPLIB_BOOST_UNIT_REQUIRE_PASS(, expr);                                                                                                                                                                                                                                                                               \</div>
-<div class="line">  \</div>
-<div class="line">}</div>
-</div><!-- fragment --><div class="fragment"><div class="line"><span class="lineno">  511</span>  {                                                                                                                                                                                                                                                                                                                            \</div>
-<div class="line"><span class="lineno">  512</span>    QUICKCPPLIB_BOOST_UNIT_REQUIRE_FAIL(, expr);                                                                                                                                                                                                                                                                               \</div>
-<div class="line"><span class="lineno">  513</span>  }                                                                                                                                                                                                                                                                                                                            \</div>
-<div class="line"><span class="lineno">  514</span>  \</div>
-<div class="line"><span class="lineno">  515</span>{                                                                                                                                                                                                                                                                                                                         \</div>
-<div class="line"><span class="lineno">  516</span>    QUICKCPPLIB_BOOST_UNIT_REQUIRE_PASS(, expr);                                                                                                                                                                                                                                                                               \</div>
-<div class="line"><span class="lineno">  517</span>  \</div>
-<div class="line"><span class="lineno">  518</span>}</div>
+<b>Value:</b><div class="fragment"><div class="line">  <span class="keywordflow">if</span>(!(expr))                                                                                                          \</div>
+<div class="line">  {                                                                                                                    \</div>
+<div class="line">    QUICKCPPLIB_BOOST_UNIT_REQUIRE_FAIL(, expr);                                                                       \</div>
+<div class="line">  }                                                                                                                    \</div>
+<div class="line">                                                                                                                       \</div>
+<div class="line">  {                                                                                                                    \</div>
+<div class="line">    QUICKCPPLIB_BOOST_UNIT_REQUIRE_PASS(, expr);                                                                       \</div>
+<div class="line">  }</div>
+</div><!-- fragment --><div class="fragment"><div class="line"><span class="lineno">  532</span>  {                                                                                                                    \</div>
+<div class="line"><span class="lineno">  533</span>    QUICKCPPLIB_BOOST_UNIT_REQUIRE_FAIL(, expr);                                                                       \</div>
+<div class="line"><span class="lineno">  534</span>  }                                                                                                                    \</div>
+<div class="line"><span class="lineno">  535</span>                                                                                                                       \</div>
+<div class="line"><span class="lineno">  536</span>  {                                                                                                                    \</div>
+<div class="line"><span class="lineno">  537</span>    QUICKCPPLIB_BOOST_UNIT_REQUIRE_PASS(, expr);                                                                       \</div>
+<div class="line"><span class="lineno">  538</span>  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -731,12 +735,12 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">  <span class="keyword">namespace </span><a class="code hl_define" href="group__unittesting.html#gaafd4657b11bcceb70c65ff1183f82c37">BOOST_AUTO_TEST_SUITE2</a>(boostlite_auto_test_suite, __COUNTER__)                                                                                                                                                                                                                                                     \</div>
-<div class="line">  {                                                                                                                                                                                                                                                                                                                            \</div>
+<b>Value:</b><div class="fragment"><div class="line">  <span class="keyword">namespace </span><a class="code hl_define" href="group__unittesting.html#gaafd4657b11bcceb70c65ff1183f82c37">BOOST_AUTO_TEST_SUITE2</a>(boostlite_auto_test_suite, __COUNTER__)                                             \</div>
+<div class="line">  {                                                                                                                    \</div>
 <div class="line">    <span class="keyword">static</span> QUICKCPPLIB_NAMESPACE::unit_test::test_suite_registration boostlite_auto_test_suite_registration(#name);</div>
-<div class="ttc" id="agroup__unittesting_html_gaafd4657b11bcceb70c65ff1183f82c37"><div class="ttname"><a href="group__unittesting.html#gaafd4657b11bcceb70c65ff1183f82c37">BOOST_AUTO_TEST_SUITE2</a></div><div class="ttdeci">#define BOOST_AUTO_TEST_SUITE2(a, b)</div><div class="ttdef"><b>Definition</b> unit_test.hpp:572</div></div>
-</div><!-- fragment --><div class="fragment"><div class="line"><span class="lineno">  575</span>  {                                                                                                                                                                                                                                                                                                                            \</div>
-<div class="line"><span class="lineno">  576</span>    <span class="keyword">static</span> QUICKCPPLIB_NAMESPACE::unit_test::test_suite_registration boostlite_auto_test_suite_registration(#name);</div>
+<div class="ttc" id="agroup__unittesting_html_gaafd4657b11bcceb70c65ff1183f82c37"><div class="ttname"><a href="group__unittesting.html#gaafd4657b11bcceb70c65ff1183f82c37">BOOST_AUTO_TEST_SUITE2</a></div><div class="ttdeci">#define BOOST_AUTO_TEST_SUITE2(a, b)</div><div class="ttdef"><b>Definition</b> unit_test.hpp:599</div></div>
+</div><!-- fragment --><div class="fragment"><div class="line"><span class="lineno">  602</span>  {                                                                                                                    \</div>
+<div class="line"><span class="lineno">  603</span>    <span class="keyword">static</span> QUICKCPPLIB_NAMESPACE::unit_test::test_suite_registration boostlite_auto_test_suite_registration(#name);</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -824,14 +828,13 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">  \</div>
-<div class="line"><span class="keyword">static</span> void                                                                                                                                                                                                                                                                                                                    \</div>
-<div class="line">  func_name();                                                                                                                                                                                                                                                                                                                 \</div>
-<div class="line">  \</div>
-<div class="line"><span class="keyword">static</span> QUICKCPPLIB_NAMESPACE::unit_test::test_case_registration <a class="code hl_define" href="group__unittesting.html#gaafd4657b11bcceb70c65ff1183f82c37">BOOST_AUTO_TEST_SUITE2</a>(func_name, _registration)(<span class="keyword">static_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span> *<span class="keyword">&gt;</span>(test_name), <span class="keyword">static_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span> *<span class="keyword">&gt;</span>(desc), func_name);                                                                                                                            \</div>
-<div class="line">  \</div>
-<div class="line"><span class="keyword">static</span> void                                                                                                                                                                                                                                                                                                                    \</div>
-<div class="line">  func_name()</div>
+<b>Value:</b><div class="fragment"><div class="line">                                                                                                                       \</div>
+<div class="line">  <span class="keyword">static</span> <span class="keywordtype">void</span> func_name();                                                                                             \</div>
+<div class="line">                                                                                                                       \</div>
+<div class="line">  <span class="keyword">static</span> QUICKCPPLIB_NAMESPACE::unit_test::test_case_registration <a class="code hl_define" href="group__unittesting.html#gaafd4657b11bcceb70c65ff1183f82c37">BOOST_AUTO_TEST_SUITE2</a>(func_name, _registration)(    \</div>
+<div class="line">  static_cast&lt;const char *&gt;(test_name), <span class="keyword">static_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span> *<span class="keyword">&gt;</span>(desc), func_name);                                   \</div>
+<div class="line">                                                                                                                       \</div>
+<div class="line">  <span class="keyword">static</span> <span class="keywordtype">void</span> func_name()</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -856,11 +859,16 @@ Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="group__unittesting.html#ga9cdd2a02fde6abc23bd7a6adec0e8953">BOOST_AUTO_TEST_CASE2</a>(<a class="el" href="group__unittesting.html#ga09a77fe6d23578121ed11a868618118a">QUICKCPPLIB_BOOST_UNIT_TEST_CASE_NAME</a>(test_name), desc, <a class="el" href="group__unittesting.html#ga359b07148893747b6eaee225d4cc8b0e">QUICKCPPLIB_BOOST_UNIT_TEST_CASE_UNIQUE</a>(boostlite_auto_test_case))</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">  <a class="code hl_define" href="group__unittesting.html#ga9cdd2a02fde6abc23bd7a6adec0e8953">BOOST_AUTO_TEST_CASE2</a>(<a class="code hl_define" href="group__unittesting.html#ga09a77fe6d23578121ed11a868618118a">QUICKCPPLIB_BOOST_UNIT_TEST_CASE_NAME</a>(test_name), desc,                                        \</div>
+<div class="line">                        <a class="code hl_define" href="group__unittesting.html#ga359b07148893747b6eaee225d4cc8b0e">QUICKCPPLIB_BOOST_UNIT_TEST_CASE_UNIQUE</a>(boostlite_auto_test_case))</div>
+<div class="ttc" id="agroup__unittesting_html_ga09a77fe6d23578121ed11a868618118a"><div class="ttname"><a href="group__unittesting.html#ga09a77fe6d23578121ed11a868618118a">QUICKCPPLIB_BOOST_UNIT_TEST_CASE_NAME</a></div><div class="ttdeci">#define QUICKCPPLIB_BOOST_UNIT_TEST_CASE_NAME(name)</div><div class="ttdef"><b>Definition</b> unit_test.hpp:608</div></div>
+<div class="ttc" id="agroup__unittesting_html_ga359b07148893747b6eaee225d4cc8b0e"><div class="ttname"><a href="group__unittesting.html#ga359b07148893747b6eaee225d4cc8b0e">QUICKCPPLIB_BOOST_UNIT_TEST_CASE_UNIQUE</a></div><div class="ttdeci">#define QUICKCPPLIB_BOOST_UNIT_TEST_CASE_UNIQUE(prefix)</div><div class="ttdef"><b>Definition</b> unit_test.hpp:610</div></div>
+<div class="ttc" id="agroup__unittesting_html_ga9cdd2a02fde6abc23bd7a6adec0e8953"><div class="ttname"><a href="group__unittesting.html#ga9cdd2a02fde6abc23bd7a6adec0e8953">BOOST_AUTO_TEST_CASE2</a></div><div class="ttdeci">#define BOOST_AUTO_TEST_CASE2(test_name, desc, func_name)</div><div class="ttdef"><b>Definition</b> unit_test.hpp:611</div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ga4eceeb6c35ebc01c1e28ef13932484e2" name="ga4eceeb6c35ebc01c1e28ef13932484e2"></a>
@@ -931,11 +939,11 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  677</span>{</div>
-<div class="line"><span class="lineno">  678</span>  <span class="keywordtype">int</span> result = <a class="code hl_define" href="group__unittesting.html#ga4eceeb6c35ebc01c1e28ef13932484e2">QUICKCPPLIB_BOOST_UNIT_TEST_RUN_TESTS</a>(argc, argv);</div>
-<div class="line"><span class="lineno">  679</span>  <span class="keywordflow">return</span> result;</div>
-<div class="line"><span class="lineno">  680</span>}</div>
-<div class="ttc" id="agroup__unittesting_html_ga4eceeb6c35ebc01c1e28ef13932484e2"><div class="ttname"><a href="group__unittesting.html#ga4eceeb6c35ebc01c1e28ef13932484e2">QUICKCPPLIB_BOOST_UNIT_TEST_RUN_TESTS</a></div><div class="ttdeci">#define QUICKCPPLIB_BOOST_UNIT_TEST_RUN_TESTS(argc, argv)</div><div class="ttdef"><b>Definition</b> unit_test.hpp:595</div></div>
+<div class="fragment"><div class="line"><span class="lineno">  706</span>{</div>
+<div class="line"><span class="lineno">  707</span>  <span class="keywordtype">int</span> result = <a class="code hl_define" href="group__unittesting.html#ga4eceeb6c35ebc01c1e28ef13932484e2">QUICKCPPLIB_BOOST_UNIT_TEST_RUN_TESTS</a>(argc, argv);</div>
+<div class="line"><span class="lineno">  708</span>  <span class="keywordflow">return</span> result;</div>
+<div class="line"><span class="lineno">  709</span>}</div>
+<div class="ttc" id="agroup__unittesting_html_ga4eceeb6c35ebc01c1e28ef13932484e2"><div class="ttname"><a href="group__unittesting.html#ga4eceeb6c35ebc01c1e28ef13932484e2">QUICKCPPLIB_BOOST_UNIT_TEST_RUN_TESTS</a></div><div class="ttdeci">#define QUICKCPPLIB_BOOST_UNIT_TEST_RUN_TESTS(argc, argv)</div><div class="ttdef"><b>Definition</b> unit_test.hpp:623</div></div>
 </div><!-- fragment -->
 </div>
 </div>
