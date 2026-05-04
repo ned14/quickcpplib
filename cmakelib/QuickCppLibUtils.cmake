@@ -258,10 +258,10 @@ endfunction()
 function(download_build_install)
   cmake_parse_arguments(DBI "" "NAME;DESTINATION;INSTALL_PREFIX;GIT_REPOSITORY;GIT_TAG" "CMAKE_ARGS;EXTERNALPROJECT_ARGS" ${ARGN})
   configure_file("${QuickCppLibCMakePath}/DownloadBuildInstall.cmake.in" "${DBI_DESTINATION}/CMakeLists.txt" @ONLY)
-  file(READ "${DBI_DESTINATION}/CMakeLists.txt" filecontent)
-  indented_message(STATUS "DEBUG: download_build_install configures CMakeLists.txt =")
-  include(CMakePrintHelpers)
-  cmake_print_variables(filecontent)
+#  file(READ "${DBI_DESTINATION}/CMakeLists.txt" filecontent)
+#  indented_message(STATUS "DEBUG: download_build_install configures CMakeLists.txt =")
+#  include(CMakePrintHelpers)
+#  cmake_print_variables(filecontent)
   checked_execute_process("Configure download, build and install of ${DBI_NAME} with ${DBI_CMAKE_ARGS}"
     COMMAND "${CMAKE_COMMAND}" .
     WORKING_DIRECTORY "${DBI_DESTINATION}"
