@@ -343,14 +343,9 @@ function(find_quickcpplib_library libraryname)
     if(NOT ${libraryname}_FOUND)
       foreach(config Debug Release RelWithDebInfo MinSizeRel)
         indented_message(STATUS "Superbuilding missing dependency ${libraryname} with config ${config}, this may take a while ...")
-        set(cmakeargs
-          "-DCMAKE_BUILD_TYPE=${config}"
-          "-G${CMAKE_GENERATOR}"
-          "-DBUILD_TESTING=OFF"
-          "-DQUICKCPPLIB_ROOT_BINARY_DIR=${QUICKCPPLIB_ROOT_BINARY_DIR}"
-        )
+        set(cmakeargs "-DCMAKE_BUILD_TYPE=${config};-G\"${CMAKE_GENERATOR}\";-DBUILD_TESTING=OFF;\"-DQUICKCPPLIB_ROOT_BINARY_DIR=${QUICKCPPLIB_ROOT_BINARY_DIR}\"")
         if(DEFINED CMAKE_TOOLCHAIN_FILE)
-          list(APPEND cmakeargs "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}")
+          set(cmakeargs "${cmakeargs};\"-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}\"")
         endif()
         if(FINDLIB_GIT_TAG STREQUAL "master" OR FINDLIB_GIT_TAG STREQUAL "develop")
           set(extraargs "GIT_SHALLOW 1;GIT_SUBMODULES \"\"")
