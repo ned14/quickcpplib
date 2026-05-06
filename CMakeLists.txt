@@ -108,7 +108,9 @@ if (NOT (WIN32 OR APPLE OR ANDROID))
   include(CheckLibraryExists)
   check_library_exists(rt timer_create "" HAVE_LIB_RT)
   if (HAVE_LIB_RT)
-    all_link_libraries(PUBLIC rt)
+    # The extra generator expression check is because under cross compilation
+    # it would appear ANDROID isn't always set
+    all_link_libraries(PUBLIC $<$<PLATFORM_ID:Linux>:rt>)
   endif()
 endif()
 
