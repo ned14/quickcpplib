@@ -7,6 +7,7 @@ endif()
 # Bring in CTest support
 include(CTest)
 # Bring in threads, this is after all the 21st century
+set(THREADS_PREFER_PTHREAD_FLAG TRUE)
 find_package(Threads)
 link_libraries(${CMAKE_THREAD_LIBS_INIT})
 # Find a python installation, if we have one we can do preprocessing
