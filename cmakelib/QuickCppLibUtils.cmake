@@ -258,12 +258,15 @@ endfunction()
 function(download_build_install)
   cmake_parse_arguments(DBI "" "NAME;DESTINATION;INSTALL_PREFIX;GIT_REPOSITORY;GIT_TAG" "CMAKE_ARGS;EXTERNALPROJECT_ARGS" ${ARGN})
   # configure_file expands lists as an unquoted semicolon separated string, whereas
-  # ExternalProject_Add expects a true space separated list
+  # ExternalProject_Add expects a true space separated list. Unfortunately, some list
+  # items will contain spaces, so quote each item.
   set(cmake_args "\"-DCMAKE_INSTALL_PREFIX=${DBI_INSTALL_PREFIX}\"")
   foreach(arg ${DBI_CMAKE_ARGS})
-    set(cmake_args "${cmake_args} ${arg}")
+    set(cmake_args "${cmake_args} \"${arg}\"")
   endforeach()
   set(DBI_CMAKE_ARGS "${cmake_args}")
+  # Same problem here, but we need to NOT quote each item here because these are
+  # args going into ExternalProject_Add rather than passing through it.
   set(externalproject_args)
   foreach(arg ${DBI_EXTERNALPROJECT_ARGS})
     set(externalproject_args "${externalproject_args} ${arg}")
