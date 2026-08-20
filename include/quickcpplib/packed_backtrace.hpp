@@ -32,6 +32,8 @@ Distributed under the Boost Software License, Version 1.0.
 #include <cstdint>  // for uint32_t etc
 #include <cstdlib>  // for abort()
 #include <cstring>  // for memset
+#include <iterator>  // for reverse_iterator
+#include <utility>  // for swap
 
 QUICKCPPLIB_NAMESPACE_BEGIN
 
