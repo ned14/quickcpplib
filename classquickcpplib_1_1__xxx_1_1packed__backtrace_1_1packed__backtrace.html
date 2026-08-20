@@ -567,9 +567,9 @@ template&lt;class FramePtrType  = void *&gt; </div>
 </div><div class="memdoc">
 
 <p>Construct a packed backtrace view, parsing the given byte storage. </p>
-<div class="fragment"><div class="line"><span class="lineno">  554</span>        : base(storage)</div>
-<div class="line"><span class="lineno">  555</span>    {</div>
-<div class="line"><span class="lineno">  556</span>    }</div>
+<div class="fragment"><div class="line"><span class="lineno">  556</span>        : base(storage)</div>
+<div class="line"><span class="lineno">  557</span>    {</div>
+<div class="line"><span class="lineno">  558</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -610,9 +610,9 @@ template&lt;class FramePtrType  = void *&gt; </div>
 </div><div class="memdoc">
 
 <p>Construct a packed backtrace view, not parsing the given byte storage. </p>
-<div class="fragment"><div class="line"><span class="lineno">  559</span>        : base(storage, <span class="keyword">nullptr</span>)</div>
-<div class="line"><span class="lineno">  560</span>    {</div>
-<div class="line"><span class="lineno">  561</span>    }</div>
+<div class="fragment"><div class="line"><span class="lineno">  561</span>        : base(storage, <span class="keyword">nullptr</span>)</div>
+<div class="line"><span class="lineno">  562</span>    {</div>
+<div class="line"><span class="lineno">  563</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -763,7 +763,7 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns true if the index is empty. </p>
-<div class="fragment"><div class="line"><span class="lineno">  369</span>{ <span class="keywordflow">return</span> _storage.empty(); }</div>
+<div class="fragment"><div class="line"><span class="lineno">  371</span>{ <span class="keywordflow">return</span> _storage.empty(); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -793,7 +793,7 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the number of items in the backtrace. </p>
-<div class="fragment"><div class="line"><span class="lineno">  371</span>{ <span class="keywordflow">return</span> _count; }</div>
+<div class="fragment"><div class="line"><span class="lineno">  373</span>{ <span class="keywordflow">return</span> _count; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -823,7 +823,7 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the maximum number of items in the backtrace. </p>
-<div class="fragment"><div class="line"><span class="lineno">  373</span>{ <span class="keywordflow">return</span> _count; }</div>
+<div class="fragment"><div class="line"><span class="lineno">  375</span>{ <span class="keywordflow">return</span> _count; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -853,8 +853,8 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the first item in the backtrace. </p>
-<div class="fragment"><div class="line"><span class="lineno">  375</span>{ <span class="keywordflow">return</span> <a class="code hl_friend" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a67171474c4da6cc8efe0c7fafefd2b2d">iterator</a>(<span class="keyword">this</span>); }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace_html_a67171474c4da6cc8efe0c7fafefd2b2d"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a67171474c4da6cc8efe0c7fafefd2b2d">quickcpplib::_xxx::packed_backtrace::impl::packed_backtrace::iterator</a></div><div class="ttdeci">friend class iterator</div><div class="ttdef"><b>Definition</b> packed_backtrace.hpp:360</div></div>
+<div class="fragment"><div class="line"><span class="lineno">  377</span>{ <span class="keywordflow">return</span> <a class="code hl_friend" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a67171474c4da6cc8efe0c7fafefd2b2d">iterator</a>(<span class="keyword">this</span>); }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace_html_a67171474c4da6cc8efe0c7fafefd2b2d"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a67171474c4da6cc8efe0c7fafefd2b2d">quickcpplib::_xxx::packed_backtrace::impl::packed_backtrace::iterator</a></div><div class="ttdeci">friend class iterator</div><div class="ttdef"><b>Definition</b> packed_backtrace.hpp:362</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -884,7 +884,7 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the first item in the backtrace. </p>
-<div class="fragment"><div class="line"><span class="lineno">  377</span>{ <span class="keywordflow">return</span> <a class="code hl_friend" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a67171474c4da6cc8efe0c7fafefd2b2d">iterator</a>(<span class="keyword">this</span>); }</div>
+<div class="fragment"><div class="line"><span class="lineno">  379</span>{ <span class="keywordflow">return</span> <a class="code hl_friend" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a67171474c4da6cc8efe0c7fafefd2b2d">iterator</a>(<span class="keyword">this</span>); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -914,7 +914,7 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the first item in the backtrace. </p>
-<div class="fragment"><div class="line"><span class="lineno">  379</span>{ <span class="keywordflow">return</span> <a class="code hl_friend" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a67171474c4da6cc8efe0c7fafefd2b2d">iterator</a>(<span class="keyword">this</span>); }</div>
+<div class="fragment"><div class="line"><span class="lineno">  381</span>{ <span class="keywordflow">return</span> <a class="code hl_friend" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a67171474c4da6cc8efe0c7fafefd2b2d">iterator</a>(<span class="keyword">this</span>); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -944,7 +944,7 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the item after the last in the backtrace. </p>
-<div class="fragment"><div class="line"><span class="lineno">  381</span>{ <span class="keywordflow">return</span> <a class="code hl_friend" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a67171474c4da6cc8efe0c7fafefd2b2d">iterator</a>(); }</div>
+<div class="fragment"><div class="line"><span class="lineno">  383</span>{ <span class="keywordflow">return</span> <a class="code hl_friend" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a67171474c4da6cc8efe0c7fafefd2b2d">iterator</a>(); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -974,7 +974,7 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the item after the last in the backtrace. </p>
-<div class="fragment"><div class="line"><span class="lineno">  383</span>{ <span class="keywordflow">return</span> <a class="code hl_friend" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a67171474c4da6cc8efe0c7fafefd2b2d">iterator</a>(); }</div>
+<div class="fragment"><div class="line"><span class="lineno">  385</span>{ <span class="keywordflow">return</span> <a class="code hl_friend" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a67171474c4da6cc8efe0c7fafefd2b2d">iterator</a>(); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1004,7 +1004,7 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the item after the last in the backtrace. </p>
-<div class="fragment"><div class="line"><span class="lineno">  385</span>{ <span class="keywordflow">return</span> <a class="code hl_friend" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a67171474c4da6cc8efe0c7fafefd2b2d">iterator</a>(); }</div>
+<div class="fragment"><div class="line"><span class="lineno">  387</span>{ <span class="keywordflow">return</span> <a class="code hl_friend" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a67171474c4da6cc8efe0c7fafefd2b2d">iterator</a>(); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1035,18 +1035,18 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the specified element, unchecked. </p>
-<div class="fragment"><div class="line"><span class="lineno">  388</span>      {</div>
-<div class="line"><span class="lineno">  389</span>        uintptr_type out = 0;</div>
-<div class="line"><span class="lineno">  390</span>        <span class="keywordtype">size_t</span> idx = 0;</div>
-<div class="line"><span class="lineno">  391</span>        <span class="keywordflow">for</span>(<a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a0991d598e0e0336d330af370eabfe592">size_type</a> n = 0; n &lt;= i; n++)</div>
-<div class="line"><span class="lineno">  392</span>        {</div>
-<div class="line"><span class="lineno">  393</span>          <span class="keywordflow">if</span>(!_decode(out, idx))</div>
-<div class="line"><span class="lineno">  394</span>            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno">  395</span>        }</div>
-<div class="line"><span class="lineno">  396</span>        <span class="keywordflow">return</span> <span class="keyword">reinterpret_cast&lt;</span><a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a925cf98dd0b49a8a964bbf020d13a6ec">value_type</a><span class="keyword">&gt;</span>(out);</div>
-<div class="line"><span class="lineno">  397</span>      }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace_html_a0991d598e0e0336d330af370eabfe592"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a0991d598e0e0336d330af370eabfe592">quickcpplib::_xxx::packed_backtrace::impl::packed_backtrace::size_type</a></div><div class="ttdeci">size_t size_type</div><div class="ttdoc">The size type.</div><div class="ttdef"><b>Definition</b> packed_backtrace.hpp:252</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace_html_a925cf98dd0b49a8a964bbf020d13a6ec"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a925cf98dd0b49a8a964bbf020d13a6ec">quickcpplib::_xxx::packed_backtrace::impl::packed_backtrace::value_type</a></div><div class="ttdeci">FramePtrType value_type</div><div class="ttdoc">The type stored in the container.</div><div class="ttdef"><b>Definition</b> packed_backtrace.hpp:248</div></div>
+<div class="fragment"><div class="line"><span class="lineno">  390</span>      {</div>
+<div class="line"><span class="lineno">  391</span>        uintptr_type out = 0;</div>
+<div class="line"><span class="lineno">  392</span>        <span class="keywordtype">size_t</span> idx = 0;</div>
+<div class="line"><span class="lineno">  393</span>        <span class="keywordflow">for</span>(<a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a0991d598e0e0336d330af370eabfe592">size_type</a> n = 0; n &lt;= i; n++)</div>
+<div class="line"><span class="lineno">  394</span>        {</div>
+<div class="line"><span class="lineno">  395</span>          <span class="keywordflow">if</span>(!_decode(out, idx))</div>
+<div class="line"><span class="lineno">  396</span>            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">  397</span>        }</div>
+<div class="line"><span class="lineno">  398</span>        <span class="keywordflow">return</span> <span class="keyword">reinterpret_cast&lt;</span><a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a925cf98dd0b49a8a964bbf020d13a6ec">value_type</a><span class="keyword">&gt;</span>(out);</div>
+<div class="line"><span class="lineno">  399</span>      }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace_html_a0991d598e0e0336d330af370eabfe592"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a0991d598e0e0336d330af370eabfe592">quickcpplib::_xxx::packed_backtrace::impl::packed_backtrace::size_type</a></div><div class="ttdeci">size_t size_type</div><div class="ttdoc">The size type.</div><div class="ttdef"><b>Definition</b> packed_backtrace.hpp:254</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace_html_a925cf98dd0b49a8a964bbf020d13a6ec"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a925cf98dd0b49a8a964bbf020d13a6ec">quickcpplib::_xxx::packed_backtrace::impl::packed_backtrace::value_type</a></div><div class="ttdeci">FramePtrType value_type</div><div class="ttdoc">The type stored in the container.</div><div class="ttdef"><b>Definition</b> packed_backtrace.hpp:250</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1077,18 +1077,18 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the specified element, checked. </p>
-<div class="fragment"><div class="line"><span class="lineno">  400</span>      {</div>
-<div class="line"><span class="lineno">  401</span>        uintptr_type out = 0;</div>
-<div class="line"><span class="lineno">  402</span>        <span class="keywordtype">size_t</span> idx = 0;</div>
-<div class="line"><span class="lineno">  403</span>        <span class="keywordflow">for</span>(<a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a0991d598e0e0336d330af370eabfe592">size_type</a> n = 0; n &lt;= i; n++)</div>
-<div class="line"><span class="lineno">  404</span>        {</div>
-<div class="line"><span class="lineno">  405</span>          <span class="keywordflow">if</span>(!_decode(out, idx))</div>
-<div class="line"><span class="lineno">  406</span>          {</div>
-<div class="line"><span class="lineno">  407</span>            abort();  <span class="comment">// out of range</span></div>
-<div class="line"><span class="lineno">  408</span>          }</div>
-<div class="line"><span class="lineno">  409</span>        }</div>
-<div class="line"><span class="lineno">  410</span>        <span class="keywordflow">return</span> <span class="keyword">reinterpret_cast&lt;</span><a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a925cf98dd0b49a8a964bbf020d13a6ec">value_type</a><span class="keyword">&gt;</span>(out);</div>
-<div class="line"><span class="lineno">  411</span>      }</div>
+<div class="fragment"><div class="line"><span class="lineno">  402</span>      {</div>
+<div class="line"><span class="lineno">  403</span>        uintptr_type out = 0;</div>
+<div class="line"><span class="lineno">  404</span>        <span class="keywordtype">size_t</span> idx = 0;</div>
+<div class="line"><span class="lineno">  405</span>        <span class="keywordflow">for</span>(<a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a0991d598e0e0336d330af370eabfe592">size_type</a> n = 0; n &lt;= i; n++)</div>
+<div class="line"><span class="lineno">  406</span>        {</div>
+<div class="line"><span class="lineno">  407</span>          <span class="keywordflow">if</span>(!_decode(out, idx))</div>
+<div class="line"><span class="lineno">  408</span>          {</div>
+<div class="line"><span class="lineno">  409</span>            abort();  <span class="comment">// out of range</span></div>
+<div class="line"><span class="lineno">  410</span>          }</div>
+<div class="line"><span class="lineno">  411</span>        }</div>
+<div class="line"><span class="lineno">  412</span>        <span class="keywordflow">return</span> <span class="keyword">reinterpret_cast&lt;</span><a class="code hl_typedef" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a925cf98dd0b49a8a964bbf020d13a6ec">value_type</a><span class="keyword">&gt;</span>(out);</div>
+<div class="line"><span class="lineno">  413</span>      }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1119,12 +1119,12 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
 </div><div class="memdoc">
 
 <p>Swaps with another instance. </p>
-<div class="fragment"><div class="line"><span class="lineno">  414</span>      {</div>
-<div class="line"><span class="lineno">  415</span>        <span class="keyword">using </span>std::swap;</div>
-<div class="line"><span class="lineno">  416</span>        <a class="code hl_function" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a2c0435c485ba2a3d9b8beb10d9661a24">swap</a>(_storage, o._storage);</div>
-<div class="line"><span class="lineno">  417</span>        <a class="code hl_function" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a2c0435c485ba2a3d9b8beb10d9661a24">swap</a>(_count, o._count);</div>
-<div class="line"><span class="lineno">  418</span>      }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace_html_a2c0435c485ba2a3d9b8beb10d9661a24"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a2c0435c485ba2a3d9b8beb10d9661a24">quickcpplib::_xxx::packed_backtrace::impl::packed_backtrace::swap</a></div><div class="ttdeci">void swap(packed_backtrace &amp;o) noexcept</div><div class="ttdoc">Swaps with another instance.</div><div class="ttdef"><b>Definition</b> packed_backtrace.hpp:413</div></div>
+<div class="fragment"><div class="line"><span class="lineno">  416</span>      {</div>
+<div class="line"><span class="lineno">  417</span>        <span class="keyword">using </span>std::swap;</div>
+<div class="line"><span class="lineno">  418</span>        <a class="code hl_function" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a2c0435c485ba2a3d9b8beb10d9661a24">swap</a>(_storage, o._storage);</div>
+<div class="line"><span class="lineno">  419</span>        <a class="code hl_function" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a2c0435c485ba2a3d9b8beb10d9661a24">swap</a>(_count, o._count);</div>
+<div class="line"><span class="lineno">  420</span>      }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace_html_a2c0435c485ba2a3d9b8beb10d9661a24"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a2c0435c485ba2a3d9b8beb10d9661a24">quickcpplib::_xxx::packed_backtrace::impl::packed_backtrace::swap</a></div><div class="ttdeci">void swap(packed_backtrace &amp;o) noexcept</div><div class="ttdoc">Swaps with another instance.</div><div class="ttdef"><b>Definition</b> packed_backtrace.hpp:415</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1155,73 +1155,73 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
 </div><div class="memdoc">
 
 <p>Assigns a raw stack backtrace to the packed storage. </p>
-<div class="fragment"><div class="line"><span class="lineno">  422</span>      {</div>
-<div class="line"><span class="lineno">  423</span>        uintptr_type out = 0;</div>
-<div class="line"><span class="lineno">  424</span>        <span class="keywordtype">size_t</span> idx = 0;</div>
-<div class="line"><span class="lineno">  425</span>        memset(_storage.data(), 0, _storage.size());</div>
-<div class="line"><span class="lineno">  426</span>        _count = 0;</div>
-<div class="line"><span class="lineno">  427</span>        <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;_i : input)</div>
-<div class="line"><span class="lineno">  428</span>        {</div>
-<div class="line"><span class="lineno">  429</span>          <span class="keywordtype">size_t</span> startidx = idx;</div>
-<div class="line"><span class="lineno">  430</span>          uintptr_type i = <span class="keyword">reinterpret_cast&lt;</span>uintptr_type<span class="keyword">&gt;</span>(_i);</div>
-<div class="line"><span class="lineno">  431</span>          uintptr_type delta = i &amp; bits63_43;</div>
-<div class="line"><span class="lineno">  432</span>          <span class="keywordflow">if</span>((out &amp; bits63_43) != delta)</div>
-<div class="line"><span class="lineno">  433</span>          {</div>
-<div class="line"><span class="lineno">  434</span>            <span class="keywordflow">if</span>(idx &gt; _storage.size() - 3)</div>
-<div class="line"><span class="lineno">  435</span>              <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  436</span>            <span class="comment">// std::cout &lt;&lt; &quot;For entry &quot; &lt;&lt; _i &lt;&lt; &quot; encoding bits 63-43: &quot; &lt;&lt; (void *) delta &lt;&lt; std::endl;</span></div>
-<div class="line"><span class="lineno">  437</span>            _storage[idx++] = 0xc0 | ((delta &gt;&gt; 59) &amp; 0x3f);</div>
-<div class="line"><span class="lineno">  438</span>            _storage[idx++] = (delta &gt;&gt; 51) &amp; 0xff;</div>
-<div class="line"><span class="lineno">  439</span>            _storage[idx++] = (delta &gt;&gt; 43) &amp; 0xff;</div>
-<div class="line"><span class="lineno">  440</span>            out &amp;= bits42_0;</div>
-<div class="line"><span class="lineno">  441</span>            out |= delta;</div>
-<div class="line"><span class="lineno">  442</span>          }</div>
-<div class="line"><span class="lineno">  443</span>          delta = i &amp; bits42_21;</div>
-<div class="line"><span class="lineno">  444</span>          <span class="keywordflow">if</span>((out &amp; bits42_21) != delta)</div>
-<div class="line"><span class="lineno">  445</span>          {</div>
-<div class="line"><span class="lineno">  446</span>            <span class="keywordflow">if</span>(idx &gt; _storage.size() - 3)</div>
-<div class="line"><span class="lineno">  447</span>            {</div>
-<div class="line"><span class="lineno">  448</span>              memset(_storage.data() + startidx, 0, idx - startidx);</div>
-<div class="line"><span class="lineno">  449</span>              <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  450</span>            }</div>
-<div class="line"><span class="lineno">  451</span>            <span class="comment">// std::cout &lt;&lt; &quot;For entry &quot; &lt;&lt; _i &lt;&lt; &quot; encoding bits 42-21: &quot; &lt;&lt; (void *) delta &lt;&lt; std::endl;</span></div>
-<div class="line"><span class="lineno">  452</span>            _storage[idx++] = 0x80 | ((delta &gt;&gt; 37) &amp; 0x3f);</div>
-<div class="line"><span class="lineno">  453</span>            _storage[idx++] = (delta &gt;&gt; 29) &amp; 0xff;</div>
-<div class="line"><span class="lineno">  454</span>            _storage[idx++] = (delta &gt;&gt; 21) &amp; 0xff;</div>
-<div class="line"><span class="lineno">  455</span>            out &amp;= bits63_43;</div>
-<div class="line"><span class="lineno">  456</span>            out |= bit20;</div>
-<div class="line"><span class="lineno">  457</span>            out |= delta;</div>
-<div class="line"><span class="lineno">  458</span>          }</div>
-<div class="line"><span class="lineno">  459</span>          <span class="keywordflow">if</span>(i - out &gt;= (1 &lt;&lt; 13) &amp;&amp; out - i &gt;= (1 &lt;&lt; 13))</div>
-<div class="line"><span class="lineno">  460</span>          {</div>
-<div class="line"><span class="lineno">  461</span>            <span class="keywordflow">if</span>(idx &gt; _storage.size() - 3)</div>
-<div class="line"><span class="lineno">  462</span>            {</div>
-<div class="line"><span class="lineno">  463</span>              memset(_storage.data() + startidx, 0, idx - startidx);</div>
-<div class="line"><span class="lineno">  464</span>              <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  465</span>            }</div>
-<div class="line"><span class="lineno">  466</span>            delta = <span class="keyword">static_cast&lt;</span>uintptr_type<span class="keyword">&gt;</span>(i - out);</div>
-<div class="line"><span class="lineno">  467</span>            <span class="comment">// std::cout &lt;&lt; &quot;For entry &quot; &lt;&lt; _i &lt;&lt; &quot; with diff &quot; &lt;&lt; (intptr_t) delta &lt;&lt; &quot; encoding three byte delta: &quot; &lt;&lt; (void *) delta &lt;&lt; std::endl;</span></div>
-<div class="line"><span class="lineno">  468</span>            _storage[idx++] = 0x40 | ((delta &gt;&gt; 16) &amp; 0x3f);</div>
-<div class="line"><span class="lineno">  469</span>            _storage[idx++] = (delta &gt;&gt; 8) &amp; 0xff;</div>
-<div class="line"><span class="lineno">  470</span>            _storage[idx++] = (delta &gt;&gt; 0) &amp; 0xff;</div>
-<div class="line"><span class="lineno">  471</span>            out = i;</div>
-<div class="line"><span class="lineno">  472</span>          }</div>
-<div class="line"><span class="lineno">  473</span>          <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  474</span>          {</div>
-<div class="line"><span class="lineno">  475</span>            <span class="keywordflow">if</span>(idx &gt; _storage.size() - 2)</div>
-<div class="line"><span class="lineno">  476</span>            {</div>
-<div class="line"><span class="lineno">  477</span>              memset(_storage.data() + startidx, 0, idx - startidx);</div>
-<div class="line"><span class="lineno">  478</span>              <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  479</span>            }</div>
-<div class="line"><span class="lineno">  480</span>            delta = <span class="keyword">static_cast&lt;</span>uintptr_type<span class="keyword">&gt;</span>(i - out);</div>
-<div class="line"><span class="lineno">  481</span>            <span class="comment">// std::cout &lt;&lt; &quot;For entry &quot; &lt;&lt; _i &lt;&lt; &quot; with diff &quot; &lt;&lt; (intptr_t) delta &lt;&lt; &quot; encoding two byte delta: &quot; &lt;&lt; (void *) delta &lt;&lt; std::endl;</span></div>
-<div class="line"><span class="lineno">  482</span>            _storage[idx++] = (delta &gt;&gt; 8) &amp; 0x3f;</div>
-<div class="line"><span class="lineno">  483</span>            _storage[idx++] = (delta &gt;&gt; 0) &amp; 0xff;</div>
-<div class="line"><span class="lineno">  484</span>            out = i;</div>
-<div class="line"><span class="lineno">  485</span>          }</div>
-<div class="line"><span class="lineno">  486</span>          _count++;</div>
-<div class="line"><span class="lineno">  487</span>        }</div>
-<div class="line"><span class="lineno">  488</span>      }</div>
+<div class="fragment"><div class="line"><span class="lineno">  424</span>      {</div>
+<div class="line"><span class="lineno">  425</span>        uintptr_type out = 0;</div>
+<div class="line"><span class="lineno">  426</span>        <span class="keywordtype">size_t</span> idx = 0;</div>
+<div class="line"><span class="lineno">  427</span>        memset(_storage.data(), 0, _storage.size());</div>
+<div class="line"><span class="lineno">  428</span>        _count = 0;</div>
+<div class="line"><span class="lineno">  429</span>        <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;_i : input)</div>
+<div class="line"><span class="lineno">  430</span>        {</div>
+<div class="line"><span class="lineno">  431</span>          <span class="keywordtype">size_t</span> startidx = idx;</div>
+<div class="line"><span class="lineno">  432</span>          uintptr_type i = <span class="keyword">reinterpret_cast&lt;</span>uintptr_type<span class="keyword">&gt;</span>(_i);</div>
+<div class="line"><span class="lineno">  433</span>          uintptr_type delta = i &amp; bits63_43;</div>
+<div class="line"><span class="lineno">  434</span>          <span class="keywordflow">if</span>((out &amp; bits63_43) != delta)</div>
+<div class="line"><span class="lineno">  435</span>          {</div>
+<div class="line"><span class="lineno">  436</span>            <span class="keywordflow">if</span>(idx &gt; _storage.size() - 3)</div>
+<div class="line"><span class="lineno">  437</span>              <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  438</span>            <span class="comment">// std::cout &lt;&lt; &quot;For entry &quot; &lt;&lt; _i &lt;&lt; &quot; encoding bits 63-43: &quot; &lt;&lt; (void *) delta &lt;&lt; std::endl;</span></div>
+<div class="line"><span class="lineno">  439</span>            _storage[idx++] = 0xc0 | ((delta &gt;&gt; 59) &amp; 0x3f);</div>
+<div class="line"><span class="lineno">  440</span>            _storage[idx++] = (delta &gt;&gt; 51) &amp; 0xff;</div>
+<div class="line"><span class="lineno">  441</span>            _storage[idx++] = (delta &gt;&gt; 43) &amp; 0xff;</div>
+<div class="line"><span class="lineno">  442</span>            out &amp;= bits42_0;</div>
+<div class="line"><span class="lineno">  443</span>            out |= delta;</div>
+<div class="line"><span class="lineno">  444</span>          }</div>
+<div class="line"><span class="lineno">  445</span>          delta = i &amp; bits42_21;</div>
+<div class="line"><span class="lineno">  446</span>          <span class="keywordflow">if</span>((out &amp; bits42_21) != delta)</div>
+<div class="line"><span class="lineno">  447</span>          {</div>
+<div class="line"><span class="lineno">  448</span>            <span class="keywordflow">if</span>(idx &gt; _storage.size() - 3)</div>
+<div class="line"><span class="lineno">  449</span>            {</div>
+<div class="line"><span class="lineno">  450</span>              memset(_storage.data() + startidx, 0, idx - startidx);</div>
+<div class="line"><span class="lineno">  451</span>              <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  452</span>            }</div>
+<div class="line"><span class="lineno">  453</span>            <span class="comment">// std::cout &lt;&lt; &quot;For entry &quot; &lt;&lt; _i &lt;&lt; &quot; encoding bits 42-21: &quot; &lt;&lt; (void *) delta &lt;&lt; std::endl;</span></div>
+<div class="line"><span class="lineno">  454</span>            _storage[idx++] = 0x80 | ((delta &gt;&gt; 37) &amp; 0x3f);</div>
+<div class="line"><span class="lineno">  455</span>            _storage[idx++] = (delta &gt;&gt; 29) &amp; 0xff;</div>
+<div class="line"><span class="lineno">  456</span>            _storage[idx++] = (delta &gt;&gt; 21) &amp; 0xff;</div>
+<div class="line"><span class="lineno">  457</span>            out &amp;= bits63_43;</div>
+<div class="line"><span class="lineno">  458</span>            out |= bit20;</div>
+<div class="line"><span class="lineno">  459</span>            out |= delta;</div>
+<div class="line"><span class="lineno">  460</span>          }</div>
+<div class="line"><span class="lineno">  461</span>          <span class="keywordflow">if</span>(i - out &gt;= (1 &lt;&lt; 13) &amp;&amp; out - i &gt;= (1 &lt;&lt; 13))</div>
+<div class="line"><span class="lineno">  462</span>          {</div>
+<div class="line"><span class="lineno">  463</span>            <span class="keywordflow">if</span>(idx &gt; _storage.size() - 3)</div>
+<div class="line"><span class="lineno">  464</span>            {</div>
+<div class="line"><span class="lineno">  465</span>              memset(_storage.data() + startidx, 0, idx - startidx);</div>
+<div class="line"><span class="lineno">  466</span>              <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  467</span>            }</div>
+<div class="line"><span class="lineno">  468</span>            delta = <span class="keyword">static_cast&lt;</span>uintptr_type<span class="keyword">&gt;</span>(i - out);</div>
+<div class="line"><span class="lineno">  469</span>            <span class="comment">// std::cout &lt;&lt; &quot;For entry &quot; &lt;&lt; _i &lt;&lt; &quot; with diff &quot; &lt;&lt; (intptr_t) delta &lt;&lt; &quot; encoding three byte delta: &quot; &lt;&lt; (void *) delta &lt;&lt; std::endl;</span></div>
+<div class="line"><span class="lineno">  470</span>            _storage[idx++] = 0x40 | ((delta &gt;&gt; 16) &amp; 0x3f);</div>
+<div class="line"><span class="lineno">  471</span>            _storage[idx++] = (delta &gt;&gt; 8) &amp; 0xff;</div>
+<div class="line"><span class="lineno">  472</span>            _storage[idx++] = (delta &gt;&gt; 0) &amp; 0xff;</div>
+<div class="line"><span class="lineno">  473</span>            out = i;</div>
+<div class="line"><span class="lineno">  474</span>          }</div>
+<div class="line"><span class="lineno">  475</span>          <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  476</span>          {</div>
+<div class="line"><span class="lineno">  477</span>            <span class="keywordflow">if</span>(idx &gt; _storage.size() - 2)</div>
+<div class="line"><span class="lineno">  478</span>            {</div>
+<div class="line"><span class="lineno">  479</span>              memset(_storage.data() + startidx, 0, idx - startidx);</div>
+<div class="line"><span class="lineno">  480</span>              <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  481</span>            }</div>
+<div class="line"><span class="lineno">  482</span>            delta = <span class="keyword">static_cast&lt;</span>uintptr_type<span class="keyword">&gt;</span>(i - out);</div>
+<div class="line"><span class="lineno">  483</span>            <span class="comment">// std::cout &lt;&lt; &quot;For entry &quot; &lt;&lt; _i &lt;&lt; &quot; with diff &quot; &lt;&lt; (intptr_t) delta &lt;&lt; &quot; encoding two byte delta: &quot; &lt;&lt; (void *) delta &lt;&lt; std::endl;</span></div>
+<div class="line"><span class="lineno">  484</span>            _storage[idx++] = (delta &gt;&gt; 8) &amp; 0x3f;</div>
+<div class="line"><span class="lineno">  485</span>            _storage[idx++] = (delta &gt;&gt; 0) &amp; 0xff;</div>
+<div class="line"><span class="lineno">  486</span>            out = i;</div>
+<div class="line"><span class="lineno">  487</span>          }</div>
+<div class="line"><span class="lineno">  488</span>          _count++;</div>
+<div class="line"><span class="lineno">  489</span>        }</div>
+<div class="line"><span class="lineno">  490</span>      }</div>
 </div><!-- fragment -->
 </div>
 </div>

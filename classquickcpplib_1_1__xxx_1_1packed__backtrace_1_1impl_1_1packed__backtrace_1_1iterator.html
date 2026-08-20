@@ -266,7 +266,7 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  300</span>: _parent(<span class="keyword">nullptr</span>), _idx((<span class="keywordtype">size_t</span>) -1), _v(<span class="keyword">nullptr</span>) {}</div>
+<div class="fragment"><div class="line"><span class="lineno">  302</span>: _parent(<span class="keyword">nullptr</span>), _idx((<span class="keywordtype">size_t</span>) -1), _v(<span class="keyword">nullptr</span>) {}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -408,11 +408,11 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  306</span>        {</div>
-<div class="line"><span class="lineno">  307</span>          std::swap(_parent, o._parent);</div>
-<div class="line"><span class="lineno">  308</span>          std::swap(_idx, o._idx);</div>
-<div class="line"><span class="lineno">  309</span>          std::swap(_v, o._v);</div>
-<div class="line"><span class="lineno">  310</span>        }</div>
+<div class="fragment"><div class="line"><span class="lineno">  308</span>        {</div>
+<div class="line"><span class="lineno">  309</span>          std::swap(_parent, o._parent);</div>
+<div class="line"><span class="lineno">  310</span>          std::swap(_idx, o._idx);</div>
+<div class="line"><span class="lineno">  311</span>          std::swap(_v, o._v);</div>
+<div class="line"><span class="lineno">  312</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -441,7 +441,7 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  312</span>{ <span class="keywordflow">return</span> _parent == o._parent &amp;&amp; _idx == o._idx; }</div>
+<div class="fragment"><div class="line"><span class="lineno">  314</span>{ <span class="keywordflow">return</span> _parent == o._parent &amp;&amp; _idx == o._idx; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -470,7 +470,7 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  313</span>{ <span class="keywordflow">return</span> _parent != o._parent || _idx != o._idx; }</div>
+<div class="fragment"><div class="line"><span class="lineno">  315</span>{ <span class="keywordflow">return</span> _parent != o._parent || _idx != o._idx; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -498,13 +498,13 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  315</span>        {</div>
-<div class="line"><span class="lineno">  316</span>          <span class="keywordflow">if</span>(!_parent)</div>
-<div class="line"><span class="lineno">  317</span>          {</div>
-<div class="line"><span class="lineno">  318</span>            abort();</div>
-<div class="line"><span class="lineno">  319</span>          }</div>
-<div class="line"><span class="lineno">  320</span>          <span class="keywordflow">return</span> _v;</div>
-<div class="line"><span class="lineno">  321</span>        }</div>
+<div class="fragment"><div class="line"><span class="lineno">  317</span>        {</div>
+<div class="line"><span class="lineno">  318</span>          <span class="keywordflow">if</span>(!_parent)</div>
+<div class="line"><span class="lineno">  319</span>          {</div>
+<div class="line"><span class="lineno">  320</span>            abort();</div>
+<div class="line"><span class="lineno">  321</span>          }</div>
+<div class="line"><span class="lineno">  322</span>          <span class="keywordflow">return</span> _v;</div>
+<div class="line"><span class="lineno">  323</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -532,13 +532,13 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  323</span>        {</div>
-<div class="line"><span class="lineno">  324</span>          <span class="keywordflow">if</span>(!_parent)</div>
-<div class="line"><span class="lineno">  325</span>          {</div>
-<div class="line"><span class="lineno">  326</span>            abort();</div>
-<div class="line"><span class="lineno">  327</span>          }</div>
-<div class="line"><span class="lineno">  328</span>          <span class="keywordflow">return</span> _v;</div>
-<div class="line"><span class="lineno">  329</span>        }</div>
+<div class="fragment"><div class="line"><span class="lineno">  325</span>        {</div>
+<div class="line"><span class="lineno">  326</span>          <span class="keywordflow">if</span>(!_parent)</div>
+<div class="line"><span class="lineno">  327</span>          {</div>
+<div class="line"><span class="lineno">  328</span>            abort();</div>
+<div class="line"><span class="lineno">  329</span>          }</div>
+<div class="line"><span class="lineno">  330</span>          <span class="keywordflow">return</span> _v;</div>
+<div class="line"><span class="lineno">  331</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -566,7 +566,7 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  330</span>{ <span class="keywordflow">return</span> _inc(); }</div>
+<div class="fragment"><div class="line"><span class="lineno">  332</span>{ <span class="keywordflow">return</span> _inc(); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -595,12 +595,12 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  332</span>        {</div>
-<div class="line"><span class="lineno">  333</span>          <a class="code hl_function" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace_1_1iterator.html#a20e2a4ee1fc40b2d508a3ddd5eca6c11">iterator</a> ret(*<span class="keyword">this</span>);</div>
-<div class="line"><span class="lineno">  334</span>          ++*<span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">  335</span>          <span class="keywordflow">return</span> ret;</div>
-<div class="line"><span class="lineno">  336</span>        }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace_1_1iterator_html_a20e2a4ee1fc40b2d508a3ddd5eca6c11"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace_1_1iterator.html#a20e2a4ee1fc40b2d508a3ddd5eca6c11">quickcpplib::_xxx::packed_backtrace::impl::packed_backtrace::iterator::iterator</a></div><div class="ttdeci">constexpr iterator() noexcept</div><div class="ttdef"><b>Definition</b> packed_backtrace.hpp:300</div></div>
+<div class="fragment"><div class="line"><span class="lineno">  334</span>        {</div>
+<div class="line"><span class="lineno">  335</span>          <a class="code hl_function" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace_1_1iterator.html#a20e2a4ee1fc40b2d508a3ddd5eca6c11">iterator</a> ret(*<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno">  336</span>          ++*<span class="keyword">this</span>;</div>
+<div class="line"><span class="lineno">  337</span>          <span class="keywordflow">return</span> ret;</div>
+<div class="line"><span class="lineno">  338</span>        }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace_1_1iterator_html_a20e2a4ee1fc40b2d508a3ddd5eca6c11"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace_1_1iterator.html#a20e2a4ee1fc40b2d508a3ddd5eca6c11">quickcpplib::_xxx::packed_backtrace::impl::packed_backtrace::iterator::iterator</a></div><div class="ttdeci">constexpr iterator() noexcept</div><div class="ttdef"><b>Definition</b> packed_backtrace.hpp:302</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -629,15 +629,15 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  338</span>        {</div>
-<div class="line"><span class="lineno">  339</span>          <span class="keywordflow">if</span>(!_parent &amp;&amp; !o._parent)</div>
-<div class="line"><span class="lineno">  340</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  341</span>          <span class="keywordflow">if</span>(!_parent &amp;&amp; o._parent)</div>
-<div class="line"><span class="lineno">  342</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  343</span>          <span class="keywordflow">if</span>(_parent &amp;&amp; !o._parent)</div>
-<div class="line"><span class="lineno">  344</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  345</span>          <span class="keywordflow">return</span> _idx &lt; o._idx;</div>
-<div class="line"><span class="lineno">  346</span>        }</div>
+<div class="fragment"><div class="line"><span class="lineno">  340</span>        {</div>
+<div class="line"><span class="lineno">  341</span>          <span class="keywordflow">if</span>(!_parent &amp;&amp; !o._parent)</div>
+<div class="line"><span class="lineno">  342</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  343</span>          <span class="keywordflow">if</span>(!_parent &amp;&amp; o._parent)</div>
+<div class="line"><span class="lineno">  344</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  345</span>          <span class="keywordflow">if</span>(_parent &amp;&amp; !o._parent)</div>
+<div class="line"><span class="lineno">  346</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  347</span>          <span class="keywordflow">return</span> _idx &lt; o._idx;</div>
+<div class="line"><span class="lineno">  348</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -666,15 +666,15 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  348</span>        {</div>
-<div class="line"><span class="lineno">  349</span>          <span class="keywordflow">if</span>(!_parent &amp;&amp; !o._parent)</div>
-<div class="line"><span class="lineno">  350</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  351</span>          <span class="keywordflow">if</span>(!_parent &amp;&amp; o._parent)</div>
+<div class="fragment"><div class="line"><span class="lineno">  350</span>        {</div>
+<div class="line"><span class="lineno">  351</span>          <span class="keywordflow">if</span>(!_parent &amp;&amp; !o._parent)</div>
 <div class="line"><span class="lineno">  352</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  353</span>          <span class="keywordflow">if</span>(_parent &amp;&amp; !o._parent)</div>
-<div class="line"><span class="lineno">  354</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  355</span>          <span class="keywordflow">return</span> _idx &gt; o._idx;</div>
-<div class="line"><span class="lineno">  356</span>        }</div>
+<div class="line"><span class="lineno">  353</span>          <span class="keywordflow">if</span>(!_parent &amp;&amp; o._parent)</div>
+<div class="line"><span class="lineno">  354</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  355</span>          <span class="keywordflow">if</span>(_parent &amp;&amp; !o._parent)</div>
+<div class="line"><span class="lineno">  356</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  357</span>          <span class="keywordflow">return</span> _idx &gt; o._idx;</div>
+<div class="line"><span class="lineno">  358</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -703,7 +703,7 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  357</span>{ <span class="keywordflow">return</span> !(o &gt; *<span class="keyword">this</span>); }</div>
+<div class="fragment"><div class="line"><span class="lineno">  359</span>{ <span class="keywordflow">return</span> !(o &gt; *<span class="keyword">this</span>); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -732,7 +732,7 @@ template&lt;class FramePtrType , size_t FrameTypeSize&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  358</span>{ <span class="keywordflow">return</span> !(o &lt; *<span class="keyword">this</span>); }</div>
+<div class="fragment"><div class="line"><span class="lineno">  360</span>{ <span class="keywordflow">return</span> !(o &lt; *<span class="keyword">this</span>); }</div>
 </div><!-- fragment -->
 </div>
 </div>
