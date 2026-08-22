@@ -273,12 +273,12 @@ function(download_build_install)
   endforeach()
   set(DBI_EXTERNALPROJECT_ARGS "${externalproject_args}")
   configure_file("${QuickCppLibCMakePath}/DownloadBuildInstall.cmake.in" "${DBI_DESTINATION}/CMakeLists.txt" @ONLY)
-  file(READ "${DBI_DESTINATION}/CMakeLists.txt" filecontent)
-  indented_message(STATUS "DEBUG: download_build_install configures CMakeLists.txt =")
-  include(CMakePrintHelpers)
-  cmake_print_variables(filecontent)
+  # Configure the mini superbuild project using the same generator as this project,
+  # otherwise on Windows the mini project defaults to a Visual Studio generator which
+  # ExternalProject_Add passes on to the dependency's own configure step, overriding
+  # any -G specified in the CMAKE_ARGS and so selecting MSVC over e.g. MinGW.
   checked_execute_process("Configure download, build and install of ${DBI_NAME} with ${DBI_CMAKE_ARGS}"
-    COMMAND "${CMAKE_COMMAND}" .
+    COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
     WORKING_DIRECTORY "${DBI_DESTINATION}"
   )
   checked_execute_process("Build download, build and install of ${DBI_NAME} with ${DBI_CMAKE_ARGS}" 
