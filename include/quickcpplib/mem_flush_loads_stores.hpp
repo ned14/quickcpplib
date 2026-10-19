@@ -190,6 +190,33 @@ namespace mem_flush_loads_stores
         _MoveToCoprocessor(0, 15, 0, 7, 10, 5);
         return memory_flush_evict;
       };
+#elif defined(__powerpc__)
+      // dcbst writes a modified line back but keeps it valid, dcbf also
+      // invalidates it; sync waits for the writebacks to complete.
+      static const auto _sync = []() { __asm__ __volatile__("sync" : : : "memory"); };
+      static const auto _dcbst = [](const void *addr) { __asm__ __volatile__("dcbst 0, %0" : : "r"(addr) : "memory"); };
+      static const auto _dcbf = [](const void *addr) { __asm__ __volatile__("dcbf 0, %0" : : "r"(addr) : "memory"); };
+      return [](const void *addr, size_t bytes, memory_flush kind) -> memory_flush {
+        if(kind == memory_flush_retain)
+        {
+          while(bytes > 0)
+          {
+            _dcbst(addr);
+            addr = (void *) ((uintptr_t) addr + 64);
+            bytes -= 64;
+          }
+          _sync();
+          return memory_flush_retain;
+        }
+        while(bytes > 0)
+        {
+          _dcbf(addr);
+          addr = (void *) ((uintptr_t) addr + 64);
+          bytes -= 64;
+        }
+        _sync();
+        return memory_flush_evict;
+      };
 #else
 #error Unsupported platform
 #endif

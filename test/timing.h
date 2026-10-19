@@ -112,6 +112,11 @@ inline uint64_t ticksclock()
     return (uint64_t) count * 64;
   };
 #endif
+#elif defined(__powerpc__)
+  auto rdtscp = []
+  {
+    return (uint64_t) __builtin_ppc_get_timebase();
+  };
 #else
 #error Unsupported platform
 #endif
