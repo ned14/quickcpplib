@@ -225,24 +225,24 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  236</span>  {</div>
-<div class="line"><span class="lineno">  237</span>    <a class="code hl_enumeration" href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html#a76d6d0100a7bea5a3f4e96e127845f2a">memory_flush</a> ret = kind;</div>
-<div class="line"><span class="lineno">  238</span>    <span class="comment">// Ensure reload elimination does not occur on our region by calling a</span></div>
-<div class="line"><span class="lineno">  239</span>    <span class="comment">// potentially unknown external function which forces the compiler to</span></div>
-<div class="line"><span class="lineno">  240</span>    <span class="comment">// reload state after this call returns</span></div>
-<div class="line"><span class="lineno">  241</span>    detail::potentially_unknown_jump()(data, bytes);</div>
-<div class="line"><span class="lineno">  242</span>    <span class="keywordflow">if</span>(memory_flush_evict == kind)</div>
-<div class="line"><span class="lineno">  243</span>    {</div>
-<div class="line"><span class="lineno">  244</span>      <span class="comment">// TODO FIXME We assume a 64 byte cache line, which is bold.</span></div>
-<div class="line"><span class="lineno">  245</span>      <span class="keywordtype">void</span> *_data = (<span class="keywordtype">void</span> *) (((uintptr_t) data) &amp; ~63);</div>
-<div class="line"><span class="lineno">  246</span>      <span class="keywordtype">size_t</span> _bytes = ((uintptr_t) data + bytes + 63) - ((uintptr_t) _data);</div>
-<div class="line"><span class="lineno">  247</span>      _bytes &amp;= ~63;</div>
-<div class="line"><span class="lineno">  248</span>      ret = detail::flush_impl()(_data, _bytes, kind);</div>
-<div class="line"><span class="lineno">  249</span>    }</div>
-<div class="line"><span class="lineno">  250</span>    <span class="comment">// I really wish this would work on a region, not globally</span></div>
-<div class="line"><span class="lineno">  251</span>    atomic_thread_fence(order);</div>
-<div class="line"><span class="lineno">  252</span>    <span class="keywordflow">return</span> ret;</div>
-<div class="line"><span class="lineno">  253</span>  }</div>
+<div class="fragment"><div class="line"><span class="lineno">  263</span>  {</div>
+<div class="line"><span class="lineno">  264</span>    <a class="code hl_enumeration" href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html#a76d6d0100a7bea5a3f4e96e127845f2a">memory_flush</a> ret = kind;</div>
+<div class="line"><span class="lineno">  265</span>    <span class="comment">// Ensure reload elimination does not occur on our region by calling a</span></div>
+<div class="line"><span class="lineno">  266</span>    <span class="comment">// potentially unknown external function which forces the compiler to</span></div>
+<div class="line"><span class="lineno">  267</span>    <span class="comment">// reload state after this call returns</span></div>
+<div class="line"><span class="lineno">  268</span>    detail::potentially_unknown_jump()(data, bytes);</div>
+<div class="line"><span class="lineno">  269</span>    <span class="keywordflow">if</span>(memory_flush_evict == kind)</div>
+<div class="line"><span class="lineno">  270</span>    {</div>
+<div class="line"><span class="lineno">  271</span>      <span class="comment">// TODO FIXME We assume a 64 byte cache line, which is bold.</span></div>
+<div class="line"><span class="lineno">  272</span>      <span class="keywordtype">void</span> *_data = (<span class="keywordtype">void</span> *) (((uintptr_t) data) &amp; ~63);</div>
+<div class="line"><span class="lineno">  273</span>      <span class="keywordtype">size_t</span> _bytes = ((uintptr_t) data + bytes + 63) - ((uintptr_t) _data);</div>
+<div class="line"><span class="lineno">  274</span>      _bytes &amp;= ~63;</div>
+<div class="line"><span class="lineno">  275</span>      ret = detail::flush_impl()(_data, _bytes, kind);</div>
+<div class="line"><span class="lineno">  276</span>    }</div>
+<div class="line"><span class="lineno">  277</span>    <span class="comment">// I really wish this would work on a region, not globally</span></div>
+<div class="line"><span class="lineno">  278</span>    atomic_thread_fence(order);</div>
+<div class="line"><span class="lineno">  279</span>    <span class="keywordflow">return</span> ret;</div>
+<div class="line"><span class="lineno">  280</span>  }</div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_html_a76d6d0100a7bea5a3f4e96e127845f2a"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html#a76d6d0100a7bea5a3f4e96e127845f2a">quickcpplib::_xxx::mem_flush_loads_stores::memory_flush</a></div><div class="ttdeci">memory_flush</div><div class="ttdoc">The kinds of cache line flushing which can be performed.</div><div class="ttdef"><b>Definition</b> mem_flush_loads_stores.hpp:45</div></div>
 </div><!-- fragment -->
 </div>
@@ -288,10 +288,10 @@ template&lt;size_t N&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  261</span>  {</div>
-<div class="line"><span class="lineno">  262</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html#ae1e8c9cd4e1e03f191797722b4a9e235">mem_force_reload</a>(region, N, kind, order);</div>
-<div class="line"><span class="lineno">  263</span>  }</div>
-<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_html_ae1e8c9cd4e1e03f191797722b4a9e235"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html#ae1e8c9cd4e1e03f191797722b4a9e235">quickcpplib::_xxx::mem_flush_loads_stores::mem_force_reload</a></div><div class="ttdeci">memory_flush mem_force_reload(const byte *data, size_t bytes, memory_flush kind=memory_flush_none, std::memory_order order=std::memory_order_acquire) noexcept</div><div class="ttdef"><b>Definition</b> mem_flush_loads_stores.hpp:234</div></div>
+<div class="fragment"><div class="line"><span class="lineno">  288</span>  {</div>
+<div class="line"><span class="lineno">  289</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html#ae1e8c9cd4e1e03f191797722b4a9e235">mem_force_reload</a>(region, N, kind, order);</div>
+<div class="line"><span class="lineno">  290</span>  }</div>
+<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_html_ae1e8c9cd4e1e03f191797722b4a9e235"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html#ae1e8c9cd4e1e03f191797722b4a9e235">quickcpplib::_xxx::mem_flush_loads_stores::mem_force_reload</a></div><div class="ttdeci">memory_flush mem_force_reload(const byte *data, size_t bytes, memory_flush kind=memory_flush_none, std::memory_order order=std::memory_order_acquire) noexcept</div><div class="ttdef"><b>Definition</b> mem_flush_loads_stores.hpp:261</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -340,24 +340,24 @@ template&lt;size_t N&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  284</span>  {</div>
-<div class="line"><span class="lineno">  285</span>    <span class="comment">// I really wish this would work on a region, not globally</span></div>
-<div class="line"><span class="lineno">  286</span>    atomic_thread_fence(order);</div>
-<div class="line"><span class="lineno">  287</span>    <span class="comment">// Ensure dead store elimination does not occur on our region by calling a</span></div>
-<div class="line"><span class="lineno">  288</span>    <span class="comment">// potentially unknown external function which forces the compiler to dump</span></div>
-<div class="line"><span class="lineno">  289</span>    <span class="comment">// out all pending writes before this call</span></div>
-<div class="line"><span class="lineno">  290</span>    detail::potentially_unknown_jump()(data, bytes);</div>
-<div class="line"><span class="lineno">  291</span>    <span class="keywordflow">if</span>(memory_flush_none != kind)</div>
-<div class="line"><span class="lineno">  292</span>    {</div>
-<div class="line"><span class="lineno">  293</span>      <span class="comment">// TODO FIXME We assume a 64 byte cache line, which is bold.</span></div>
-<div class="line"><span class="lineno">  294</span>      <span class="keywordtype">void</span> *_data = (<span class="keywordtype">void</span> *) (((uintptr_t) data) &amp; ~63);</div>
-<div class="line"><span class="lineno">  295</span>      <span class="keywordtype">size_t</span> _bytes = ((uintptr_t) data + bytes + 63) - ((uintptr_t) _data);</div>
-<div class="line"><span class="lineno">  296</span>      _bytes &amp;= ~63;</div>
-<div class="line"><span class="lineno">  297</span>      <a class="code hl_enumeration" href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html#a76d6d0100a7bea5a3f4e96e127845f2a">memory_flush</a> ret = detail::flush_impl()(_data, _bytes, kind);</div>
-<div class="line"><span class="lineno">  298</span>      <span class="keywordflow">return</span> ret;</div>
-<div class="line"><span class="lineno">  299</span>    }</div>
-<div class="line"><span class="lineno">  300</span>    <span class="keywordflow">return</span> kind;</div>
-<div class="line"><span class="lineno">  301</span>  }</div>
+<div class="fragment"><div class="line"><span class="lineno">  311</span>  {</div>
+<div class="line"><span class="lineno">  312</span>    <span class="comment">// I really wish this would work on a region, not globally</span></div>
+<div class="line"><span class="lineno">  313</span>    atomic_thread_fence(order);</div>
+<div class="line"><span class="lineno">  314</span>    <span class="comment">// Ensure dead store elimination does not occur on our region by calling a</span></div>
+<div class="line"><span class="lineno">  315</span>    <span class="comment">// potentially unknown external function which forces the compiler to dump</span></div>
+<div class="line"><span class="lineno">  316</span>    <span class="comment">// out all pending writes before this call</span></div>
+<div class="line"><span class="lineno">  317</span>    detail::potentially_unknown_jump()(data, bytes);</div>
+<div class="line"><span class="lineno">  318</span>    <span class="keywordflow">if</span>(memory_flush_none != kind)</div>
+<div class="line"><span class="lineno">  319</span>    {</div>
+<div class="line"><span class="lineno">  320</span>      <span class="comment">// TODO FIXME We assume a 64 byte cache line, which is bold.</span></div>
+<div class="line"><span class="lineno">  321</span>      <span class="keywordtype">void</span> *_data = (<span class="keywordtype">void</span> *) (((uintptr_t) data) &amp; ~63);</div>
+<div class="line"><span class="lineno">  322</span>      <span class="keywordtype">size_t</span> _bytes = ((uintptr_t) data + bytes + 63) - ((uintptr_t) _data);</div>
+<div class="line"><span class="lineno">  323</span>      _bytes &amp;= ~63;</div>
+<div class="line"><span class="lineno">  324</span>      <a class="code hl_enumeration" href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html#a76d6d0100a7bea5a3f4e96e127845f2a">memory_flush</a> ret = detail::flush_impl()(_data, _bytes, kind);</div>
+<div class="line"><span class="lineno">  325</span>      <span class="keywordflow">return</span> ret;</div>
+<div class="line"><span class="lineno">  326</span>    }</div>
+<div class="line"><span class="lineno">  327</span>    <span class="keywordflow">return</span> kind;</div>
+<div class="line"><span class="lineno">  328</span>  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -402,10 +402,10 @@ template&lt;size_t N&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  309</span>  {</div>
-<div class="line"><span class="lineno">  310</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html#a86b2c02e2650ab995deef90f6139c13e">mem_flush_stores</a>(region, N, kind, order);</div>
-<div class="line"><span class="lineno">  311</span>  }</div>
-<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_html_a86b2c02e2650ab995deef90f6139c13e"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html#a86b2c02e2650ab995deef90f6139c13e">quickcpplib::_xxx::mem_flush_loads_stores::mem_flush_stores</a></div><div class="ttdeci">memory_flush mem_flush_stores(const byte *data, size_t bytes, memory_flush kind=memory_flush_none, std::memory_order order=std::memory_order_release) noexcept</div><div class="ttdef"><b>Definition</b> mem_flush_loads_stores.hpp:282</div></div>
+<div class="fragment"><div class="line"><span class="lineno">  336</span>  {</div>
+<div class="line"><span class="lineno">  337</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html#a86b2c02e2650ab995deef90f6139c13e">mem_flush_stores</a>(region, N, kind, order);</div>
+<div class="line"><span class="lineno">  338</span>  }</div>
+<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_html_a86b2c02e2650ab995deef90f6139c13e"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html#a86b2c02e2650ab995deef90f6139c13e">quickcpplib::_xxx::mem_flush_loads_stores::mem_flush_stores</a></div><div class="ttdeci">memory_flush mem_flush_stores(const byte *data, size_t bytes, memory_flush kind=memory_flush_none, std::memory_order order=std::memory_order_release) noexcept</div><div class="ttdef"><b>Definition</b> mem_flush_loads_stores.hpp:309</div></div>
 </div><!-- fragment -->
 </div>
 </div>

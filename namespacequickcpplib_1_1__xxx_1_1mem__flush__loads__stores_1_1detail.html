@@ -297,10 +297,37 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  190</span>        _MoveToCoprocessor(0, 15, 0, 7, 10, 5);</div>
 <div class="line"><span class="lineno">  191</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html#a489fd0b8085ba07dae3dcdd65b38e573">memory_flush_evict</a>;</div>
 <div class="line"><span class="lineno">  192</span>      };</div>
-<div class="line"><span class="lineno">  193</span><span class="preprocessor">#else</span></div>
-<div class="line"><span class="lineno">  194</span><span class="preprocessor">#error Unsupported platform</span></div>
-<div class="line"><span class="lineno">  195</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  196</span>    }</div>
+<div class="line"><span class="lineno">  193</span><span class="preprocessor">#elif defined(__powerpc__)</span></div>
+<div class="line"><span class="lineno">  194</span>      <span class="comment">// dcbst writes a modified line back but keeps it valid, dcbf also</span></div>
+<div class="line"><span class="lineno">  195</span>      <span class="comment">// invalidates it; sync waits for the writebacks to complete.</span></div>
+<div class="line"><span class="lineno">  196</span>      <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">auto</span> _sync = []() { __asm__ __volatile__(<span class="stringliteral">&quot;sync&quot;</span> : : : <span class="stringliteral">&quot;memory&quot;</span>); };</div>
+<div class="line"><span class="lineno">  197</span>      <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">auto</span> _dcbst = [](<span class="keyword">const</span> <span class="keywordtype">void</span> *addr) { __asm__ __volatile__(<span class="stringliteral">&quot;dcbst 0, %0&quot;</span> : : <span class="stringliteral">&quot;r&quot;</span>(addr) : <span class="stringliteral">&quot;memory&quot;</span>); };</div>
+<div class="line"><span class="lineno">  198</span>      <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">auto</span> _dcbf = [](<span class="keyword">const</span> <span class="keywordtype">void</span> *addr) { __asm__ __volatile__(<span class="stringliteral">&quot;dcbf 0, %0&quot;</span> : : <span class="stringliteral">&quot;r&quot;</span>(addr) : <span class="stringliteral">&quot;memory&quot;</span>); };</div>
+<div class="line"><span class="lineno">  199</span>      <span class="keywordflow">return</span> [](<span class="keyword">const</span> <span class="keywordtype">void</span> *addr, <span class="keywordtype">size_t</span> bytes, <a class="code hl_enumeration" href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html#a76d6d0100a7bea5a3f4e96e127845f2a">memory_flush</a> kind) -&gt; memory_flush {</div>
+<div class="line"><span class="lineno">  200</span>        <span class="keywordflow">if</span>(kind == memory_flush_retain)</div>
+<div class="line"><span class="lineno">  201</span>        {</div>
+<div class="line"><span class="lineno">  202</span>          <span class="keywordflow">while</span>(bytes &gt; 0)</div>
+<div class="line"><span class="lineno">  203</span>          {</div>
+<div class="line"><span class="lineno">  204</span>            _dcbst(addr);</div>
+<div class="line"><span class="lineno">  205</span>            addr = (<span class="keywordtype">void</span> *) ((uintptr_t) addr + 64);</div>
+<div class="line"><span class="lineno">  206</span>            bytes -= 64;</div>
+<div class="line"><span class="lineno">  207</span>          }</div>
+<div class="line"><span class="lineno">  208</span>          _sync();</div>
+<div class="line"><span class="lineno">  209</span>          <span class="keywordflow">return</span> <a class="code hl_variable" href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html#a30d682a9a58d96ed90838c9f32edd580">memory_flush_retain</a>;</div>
+<div class="line"><span class="lineno">  210</span>        }</div>
+<div class="line"><span class="lineno">  211</span>        <span class="keywordflow">while</span>(bytes &gt; 0)</div>
+<div class="line"><span class="lineno">  212</span>        {</div>
+<div class="line"><span class="lineno">  213</span>          _dcbf(addr);</div>
+<div class="line"><span class="lineno">  214</span>          addr = (<span class="keywordtype">void</span> *) ((uintptr_t) addr + 64);</div>
+<div class="line"><span class="lineno">  215</span>          bytes -= 64;</div>
+<div class="line"><span class="lineno">  216</span>        }</div>
+<div class="line"><span class="lineno">  217</span>        _sync();</div>
+<div class="line"><span class="lineno">  218</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html#a489fd0b8085ba07dae3dcdd65b38e573">memory_flush_evict</a>;</div>
+<div class="line"><span class="lineno">  219</span>      };</div>
+<div class="line"><span class="lineno">  220</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">  221</span><span class="preprocessor">#error Unsupported platform</span></div>
+<div class="line"><span class="lineno">  222</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  223</span>    }</div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_html_a30d682a9a58d96ed90838c9f32edd580"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html#a30d682a9a58d96ed90838c9f32edd580">quickcpplib::_xxx::mem_flush_loads_stores::memory_flush_retain</a></div><div class="ttdeci">constexpr memory_flush memory_flush_retain</div><div class="ttdoc">Flush modified cache line to memory, but retain as unmodified in cache.</div><div class="ttdef"><b>Definition</b> mem_flush_loads_stores.hpp:53</div></div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_html_a489fd0b8085ba07dae3dcdd65b38e573"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html#a489fd0b8085ba07dae3dcdd65b38e573">quickcpplib::_xxx::mem_flush_loads_stores::memory_flush_evict</a></div><div class="ttdeci">constexpr memory_flush memory_flush_evict</div><div class="ttdoc">Flush modified cache line to memory, and evict completely from all caches.</div><div class="ttdef"><b>Definition</b> mem_flush_loads_stores.hpp:55</div></div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_html_a76d6d0100a7bea5a3f4e96e127845f2a"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html#a76d6d0100a7bea5a3f4e96e127845f2a">quickcpplib::_xxx::mem_flush_loads_stores::memory_flush</a></div><div class="ttdeci">memory_flush</div><div class="ttdoc">The kinds of cache line flushing which can be performed.</div><div class="ttdef"><b>Definition</b> mem_flush_loads_stores.hpp:45</div></div>
@@ -329,13 +356,13 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  198</span>    {</div>
-<div class="line"><span class="lineno">  199</span>      <span class="keyword">static</span> <a class="code hl_typedef" href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_1_1detail.html#a3282398b1d8eac840ab1854f28f71d3e">flush_impl_type</a> f;</div>
-<div class="line"><span class="lineno">  200</span>      <span class="keywordflow">if</span>(f != <span class="keyword">nullptr</span>)</div>
-<div class="line"><span class="lineno">  201</span>        <span class="keywordflow">return</span> f;</div>
-<div class="line"><span class="lineno">  202</span>      f = <a class="code hl_function" href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_1_1detail.html#aa54baee6900dbce2c24c99f748d1ce69">make_flush_impl</a>();</div>
-<div class="line"><span class="lineno">  203</span>      <span class="keywordflow">return</span> f;</div>
-<div class="line"><span class="lineno">  204</span>    }</div>
+<div class="fragment"><div class="line"><span class="lineno">  225</span>    {</div>
+<div class="line"><span class="lineno">  226</span>      <span class="keyword">static</span> <a class="code hl_typedef" href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_1_1detail.html#a3282398b1d8eac840ab1854f28f71d3e">flush_impl_type</a> f;</div>
+<div class="line"><span class="lineno">  227</span>      <span class="keywordflow">if</span>(f != <span class="keyword">nullptr</span>)</div>
+<div class="line"><span class="lineno">  228</span>        <span class="keywordflow">return</span> f;</div>
+<div class="line"><span class="lineno">  229</span>      f = <a class="code hl_function" href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_1_1detail.html#aa54baee6900dbce2c24c99f748d1ce69">make_flush_impl</a>();</div>
+<div class="line"><span class="lineno">  230</span>      <span class="keywordflow">return</span> f;</div>
+<div class="line"><span class="lineno">  231</span>    }</div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_1_1detail_html_a3282398b1d8eac840ab1854f28f71d3e"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_1_1detail.html#a3282398b1d8eac840ab1854f28f71d3e">quickcpplib::_xxx::mem_flush_loads_stores::detail::flush_impl_type</a></div><div class="ttdeci">memory_flush(*)(const void *addr, size_t bytes, memory_flush kind) flush_impl_type</div><div class="ttdef"><b>Definition</b> mem_flush_loads_stores.hpp:59</div></div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_1_1detail_html_aa54baee6900dbce2c24c99f748d1ce69"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_1_1detail.html#aa54baee6900dbce2c24c99f748d1ce69">quickcpplib::_xxx::mem_flush_loads_stores::detail::make_flush_impl</a></div><div class="ttdeci">QUICKCPPLIB_NOINLINE flush_impl_type make_flush_impl() noexcept</div><div class="ttdef"><b>Definition</b> mem_flush_loads_stores.hpp:60</div></div>
 </div><!-- fragment -->
@@ -364,15 +391,15 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  208</span>    {</div>
-<div class="line"><span class="lineno">  209</span>      <span class="keyword">static</span> <a class="code hl_typedef" href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_1_1detail.html#a21ed27bbd9be5cb5b1e3590268c9af2b">potentially_unknown_jump_ptr</a> f = +[](<span class="keyword">const</span> <span class="keywordtype">byte</span> * <span class="comment">/*unused*/</span>, <span class="keywordtype">size_t</span> <span class="comment">/*unused*/</span>) -&gt; <span class="keywordtype">void</span> {};</div>
-<div class="line"><span class="lineno">  210</span>      <span class="keywordflow">if</span>(set != <span class="keyword">nullptr</span>)</div>
-<div class="line"><span class="lineno">  211</span>      {</div>
-<div class="line"><span class="lineno">  212</span>        f = set;</div>
-<div class="line"><span class="lineno">  213</span>      }</div>
-<div class="line"><span class="lineno">  214</span>      <span class="keywordflow">return</span> f;</div>
-<div class="line"><span class="lineno">  215</span>    }</div>
-<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_1_1detail_html_a21ed27bbd9be5cb5b1e3590268c9af2b"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_1_1detail.html#a21ed27bbd9be5cb5b1e3590268c9af2b">quickcpplib::_xxx::mem_flush_loads_stores::detail::potentially_unknown_jump_ptr</a></div><div class="ttdeci">void(*)(const byte *data, size_t bytes) potentially_unknown_jump_ptr</div><div class="ttdef"><b>Definition</b> mem_flush_loads_stores.hpp:206</div></div>
+<div class="fragment"><div class="line"><span class="lineno">  235</span>    {</div>
+<div class="line"><span class="lineno">  236</span>      <span class="keyword">static</span> <a class="code hl_typedef" href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_1_1detail.html#a21ed27bbd9be5cb5b1e3590268c9af2b">potentially_unknown_jump_ptr</a> f = +[](<span class="keyword">const</span> <span class="keywordtype">byte</span> * <span class="comment">/*unused*/</span>, <span class="keywordtype">size_t</span> <span class="comment">/*unused*/</span>) -&gt; <span class="keywordtype">void</span> {};</div>
+<div class="line"><span class="lineno">  237</span>      <span class="keywordflow">if</span>(set != <span class="keyword">nullptr</span>)</div>
+<div class="line"><span class="lineno">  238</span>      {</div>
+<div class="line"><span class="lineno">  239</span>        f = set;</div>
+<div class="line"><span class="lineno">  240</span>      }</div>
+<div class="line"><span class="lineno">  241</span>      <span class="keywordflow">return</span> f;</div>
+<div class="line"><span class="lineno">  242</span>    }</div>
+<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_1_1detail_html_a21ed27bbd9be5cb5b1e3590268c9af2b"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_1_1detail.html#a21ed27bbd9be5cb5b1e3590268c9af2b">quickcpplib::_xxx::mem_flush_loads_stores::detail::potentially_unknown_jump_ptr</a></div><div class="ttdeci">void(*)(const byte *data, size_t bytes) potentially_unknown_jump_ptr</div><div class="ttdef"><b>Definition</b> mem_flush_loads_stores.hpp:233</div></div>
 </div><!-- fragment -->
 </div>
 </div>
