@@ -1,9 +1,8 @@
 var searchData=
 [
-  ['raised_5fsignal_5finfo_0',['raised_signal_info',['../structraised__signal__info.html',1,'']]],
-  ['raised_5fsignal_5finfo_5fvalue_1',['raised_signal_info_value',['../unionraised__signal__info__value.html',1,'']]],
-  ['rebind_2',['rebind',['../structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_1_1rebind.html',1,'quickcpplib::_xxx::aligned_allocator::aligned_allocator&lt; T, Align, initialize &gt;::rebind&lt; U &gt;'],['../structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_alig38b3ce2fde59753f89f79b36dfe20c65.html',1,'quickcpplib::_xxx::aligned_allocator::aligned_allocator&lt; const T, Align, initialize &gt;::rebind&lt; U &gt;'],['../structquickcpplib_1_1__xxx_1_1allocator__testing_1_1allocator_1_1rebind.html',1,'quickcpplib::_xxx::allocator_testing::allocator&lt; T, A &gt;::rebind&lt; U &gt;']]],
-  ['requirement_5ffailed_3',['requirement_failed',['../structquickcpplib_1_1__xxx_1_1unit__test_1_1requirement__failed.html',1,'quickcpplib::_xxx::unit_test']]],
-  ['result_5ftype_4',['result_type',['../unionquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash_1_1result__type.html',1,'quickcpplib::_xxx::algorithm::hash::sha256_hash']]],
-  ['ringbuffer_5flog_5',['ringbuffer_log',['../classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html',1,'quickcpplib::_xxx::ringbuffer_log']]]
+  ['test_5fcase_0',['test_case',['../structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html',1,'quickcpplib::_xxx::unit_test']]],
+  ['test_5fcase_5fregistration_1',['test_case_registration',['../structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case__registration.html',1,'quickcpplib::_xxx::unit_test']]],
+  ['test_5fsuite_2',['test_suite',['../structquickcpplib_1_1__xxx_1_1unit__test_1_1test__suite.html',1,'quickcpplib::_xxx::unit_test']]],
+  ['test_5fsuite_5fregistration_3',['test_suite_registration',['../structquickcpplib_1_1__xxx_1_1unit__test_1_1test__suite__registration.html',1,'quickcpplib::_xxx::unit_test']]],
+  ['twos_5fpower_5fmodulus_4',['twos_power_modulus',['../structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1twos__power__modulus.html',1,'quickcpplib::_xxx::algorithm::open_hash_index']]]
 ];

@@ -1,40 +1,29 @@
 var namespacequickcpplib_1_1__xxx =
 [
-    [ "algorithm", "namespacequickcpplib_1_1__xxx_1_1algorithm.html", "namespacequickcpplib_1_1__xxx_1_1algorithm" ],
     [ "aligned_allocator", "namespacequickcpplib_1_1__xxx_1_1aligned__allocator.html", "namespacequickcpplib_1_1__xxx_1_1aligned__allocator" ],
     [ "allocator_testing", "namespacequickcpplib_1_1__xxx_1_1allocator__testing.html", "namespacequickcpplib_1_1__xxx_1_1allocator__testing" ],
     [ "bit_cast", "namespacequickcpplib_1_1__xxx_1_1bit__cast.html", "namespacequickcpplib_1_1__xxx_1_1bit__cast" ],
-    [ "byte", "namespacequickcpplib_1_1__xxx_1_1byte.html", null ],
-    [ "configurable_spinlock", "namespacequickcpplib_1_1__xxx_1_1configurable__spinlock.html", "namespacequickcpplib_1_1__xxx_1_1configurable__spinlock" ],
+    [ "byte", "namespacequickcpplib_1_1__xxx_1_1byte.html", [
+      [ "to_byte", "namespacequickcpplib_1_1__xxx_1_1byte.html#a8fa6df1f92812f37be376f356c410a89", null ]
+    ] ],
     [ "console_colours", "namespacequickcpplib_1_1__xxx_1_1console__colours.html", "namespacequickcpplib_1_1__xxx_1_1console__colours" ],
-    [ "detach_cast", "namespacequickcpplib_1_1__xxx_1_1detach__cast.html", "namespacequickcpplib_1_1__xxx_1_1detach__cast" ],
     [ "detail", "namespacequickcpplib_1_1__xxx_1_1detail.html", [
       [ "declval_selector", "namespacequickcpplib_1_1__xxx_1_1detail.html#a79d3020107f8b24524862e763b60397d", null ],
       [ "declval_selector", "namespacequickcpplib_1_1__xxx_1_1detail.html#a5a85c512eb4bbe98fdc70a40fa6eb9d5", null ]
     ] ],
+    [ "detach_cast", "namespacequickcpplib_1_1__xxx_1_1detach__cast.html", "namespacequickcpplib_1_1__xxx_1_1detach__cast" ],
     [ "erasure_cast", "namespacequickcpplib_1_1__xxx_1_1erasure__cast.html", "namespacequickcpplib_1_1__xxx_1_1erasure__cast" ],
     [ "function_ptr", "namespacequickcpplib_1_1__xxx_1_1function__ptr.html", "namespacequickcpplib_1_1__xxx_1_1function__ptr" ],
     [ "in_place_attach_detach", "namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach.html", "namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach" ],
-    [ "integers128", "namespacequickcpplib_1_1__xxx_1_1integers128.html", "namespacequickcpplib_1_1__xxx_1_1integers128" ],
     [ "mem_flush_loads_stores", "namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores.html", "namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores" ],
     [ "offset_ptr", "namespacequickcpplib_1_1__xxx_1_1offset__ptr.html", "namespacequickcpplib_1_1__xxx_1_1offset__ptr" ],
-    [ "optional", "namespacequickcpplib_1_1__xxx_1_1optional.html", [
-      [ "optional", "namespacequickcpplib_1_1__xxx_1_1optional.html#a3ed8e13b536f158e4194ff16a35654e9", null ]
-    ] ],
     [ "packed_backtrace", "namespacequickcpplib_1_1__xxx_1_1packed__backtrace.html", "namespacequickcpplib_1_1__xxx_1_1packed__backtrace" ],
-    [ "pmr", "namespacequickcpplib_1_1__xxx_1_1pmr.html", "namespacequickcpplib_1_1__xxx_1_1pmr" ],
     [ "ringbuffer_log", "namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html", "namespacequickcpplib_1_1__xxx_1_1ringbuffer__log" ],
     [ "scope", "namespacequickcpplib_1_1__xxx_1_1scope.html", "namespacequickcpplib_1_1__xxx_1_1scope" ],
     [ "signal_guard", "namespacequickcpplib_1_1__xxx_1_1signal__guard.html", "namespacequickcpplib_1_1__xxx_1_1signal__guard" ],
     [ "span", "namespacequickcpplib_1_1__xxx_1_1span.html", "namespacequickcpplib_1_1__xxx_1_1span" ],
+    [ "configurable_spinlock", "namespacequickcpplib_1_1__xxx_1_1configurable__spinlock.html", "namespacequickcpplib_1_1__xxx_1_1configurable__spinlock" ],
     [ "start_lifetime_as", "namespacequickcpplib_1_1__xxx_1_1start__lifetime__as.html", "namespacequickcpplib_1_1__xxx_1_1start__lifetime__as" ],
-    [ "string_view", "namespacequickcpplib_1_1__xxx_1_1string__view.html", [
-      [ "basic_string_view", "namespacequickcpplib_1_1__xxx_1_1string__view.html#ab9156dbd5a34d3f5df3a046beabab928", null ],
-      [ "string_view", "namespacequickcpplib_1_1__xxx_1_1string__view.html#a8b893a94976a8bd410f87b895169ef08", null ],
-      [ "wstring_view", "namespacequickcpplib_1_1__xxx_1_1string__view.html#a0b56060fa79acfe955d854a348b3e245", null ],
-      [ "u16string_view", "namespacequickcpplib_1_1__xxx_1_1string__view.html#a7334d983fc21ce02efc5cc7bd3b89258", null ],
-      [ "u32string_view", "namespacequickcpplib_1_1__xxx_1_1string__view.html#adff7f57701050cfc3c31870b6b2df43d", null ]
-    ] ],
     [ "tribool", "namespacequickcpplib_1_1__xxx_1_1tribool.html", [
       [ "tribool", "group__tribool.html#gafe26d2adc55c3e981fc0164e20ebeb9a", [
         [ "false_", "group__tribool.html#ggafe26d2adc55c3e981fc0164e20ebeb9aab1b5574e03193aa8d5307455b036c2d1", null ],
@@ -56,6 +45,8 @@ var namespacequickcpplib_1_1__xxx =
       [ "unknown", "group__tribool.html#ga732baebc1a0951b6f8d83fc458c1c6ea", null ]
     ] ],
     [ "type_traits", "namespacequickcpplib_1_1__xxx_1_1type__traits.html", "namespacequickcpplib_1_1__xxx_1_1type__traits" ],
+    [ "integers128", "namespacequickcpplib_1_1__xxx_1_1integers128.html", "namespacequickcpplib_1_1__xxx_1_1integers128" ],
+    [ "algorithm", "namespacequickcpplib_1_1__xxx_1_1algorithm.html", "namespacequickcpplib_1_1__xxx_1_1algorithm" ],
     [ "unit_test", "namespacequickcpplib_1_1__xxx_1_1unit__test.html", "namespacequickcpplib_1_1__xxx_1_1unit__test" ],
     [ "utils", "namespacequickcpplib_1_1__xxx_1_1utils.html", "namespacequickcpplib_1_1__xxx_1_1utils" ],
     [ "print_type", "structquickcpplib_1_1__xxx_1_1print__type.html", null ],

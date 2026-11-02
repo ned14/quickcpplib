@@ -1,8 +1,8 @@
 var namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores =
 [
     [ "detail", "namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_1_1detail.html", [
-      [ "flush_impl_type", "namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_1_1detail.html#a3282398b1d8eac840ab1854f28f71d3e", null ],
-      [ "potentially_unknown_jump_ptr", "namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_1_1detail.html#a21ed27bbd9be5cb5b1e3590268c9af2b", null ],
+      [ "flush_impl_type", "namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_1_1detail.html#a146fc0bf09186c50b72ad68b9a4041a5", null ],
+      [ "potentially_unknown_jump_ptr", "namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_1_1detail.html#a7c1e5390b4c58473ebb0ae8833014054", null ],
       [ "make_flush_impl", "namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_1_1detail.html#aa54baee6900dbce2c24c99f748d1ce69", null ],
       [ "flush_impl", "namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_1_1detail.html#a3fac4c3b2624fe1d71e219a55e566159", null ],
       [ "potentially_unknown_jump", "namespacequickcpplib_1_1__xxx_1_1mem__flush__loads__stores_1_1detail.html#af3ba6ad5f7bd5d5d27daed8df7cce6ae", null ]

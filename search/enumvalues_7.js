@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['healed_0',['healed',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#aa0b1a4798c525be9f51c3051754ea40ca1a97a19f71daaf9fd189a302f1b71486',1,'quickcpplib::_xxx::algorithm::secded_ecc::secded_ecc']]]
+  ['healed_0',['healed',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1hamming__ecc_1_1hamming__ecc.html#ac2a63aad20c5d5a31c2248fd5a881f58a6f78d3a23cfccee7fabbe1a164598a2c',1,'quickcpplib::_xxx::algorithm::hamming_ecc::hamming_ecc']]]
 ];

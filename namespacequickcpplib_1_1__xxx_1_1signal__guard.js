@@ -9,11 +9,11 @@ var namespacequickcpplib_1_1__xxx_1_1signal__guard =
       [ "throw_signal_raised", "namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#a88307c108cb9a38f92fc4f1ef6e467d4", null ],
       [ "continue_or_handle", "namespacequickcpplib_1_1__xxx_1_1signal__guard_1_1detail.html#ac2c66ccd24d574d61cfb576263f5f320", null ]
     ] ],
-    [ "signal_guard_global_decider", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__global__decider.html", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__global__decider" ],
     [ "signal_guard_install", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__install.html", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__install" ],
+    [ "signal_guard_global_decider", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__global__decider.html", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__global__decider" ],
     [ "signal_guard_watchdog", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog.html", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__guard__watchdog" ],
     [ "signal_raised", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__raised.html", "classquickcpplib_1_1__xxx_1_1signal__guard_1_1signal__raised" ],
-    [ "raised_signal_info", "namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a710be9ca5511811977f1a98565ecbf2d", null ],
+    [ "raised_signal_info", "namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a355ff9b5048462937bd907a7a62e78f6", null ],
     [ "signalc", "namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790", [
       [ "none", "namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a334c4a4c42fdb79d7ebc3e73b517e6f8", null ],
       [ "abort_process", "namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790aa22841e8bd002a67221a4ac8858ffc72", null ],

@@ -26,19 +26,13 @@ var NAVTREE =
 [
   [ "QuickCppLib", "index.html", [
     [ "Quick C++ Libraries", "index.html", "index" ],
-    [ "Optional", "md_include_2quickcpplib_2optional_2_r_e_a_d_m_e.html", [
-      [ "Usage", "md_include_2quickcpplib_2optional_2_r_e_a_d_m_e.html#autotoc_md8", null ],
-      [ "Supported compilers", "md_include_2quickcpplib_2optional_2_r_e_a_d_m_e.html#autotoc_md9", null ],
-      [ "Known Issues", "md_include_2quickcpplib_2optional_2_r_e_a_d_m_e.html#autotoc_md10", null ],
-      [ "License", "md_include_2quickcpplib_2optional_2_r_e_a_d_m_e.html#autotoc_md11", null ]
-    ] ],
     [ "Todo List", "todo.html", null ],
     [ "Topics", "topics.html", "topics" ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
-        [ "All", "namespacemembers.html", "namespacemembers_dup" ],
-        [ "Functions", "namespacemembers_func.html", "namespacemembers_func" ],
+        [ "All", "namespacemembers.html", null ],
+        [ "Functions", "namespacemembers_func.html", null ],
         [ "Variables", "namespacemembers_vars.html", null ],
         [ "Typedefs", "namespacemembers_type.html", null ],
         [ "Enumerations", "namespacemembers_enum.html", null ]
@@ -65,8 +59,6 @@ var NAVTREE =
         [ "Functions", "globals_func.html", null ],
         [ "Variables", "globals_vars.html", null ],
         [ "Typedefs", "globals_type.html", null ],
-        [ "Enumerations", "globals_enum.html", null ],
-        [ "Enumerator", "globals_eval.html", null ],
         [ "Macros", "globals_defs.html", "globals_defs" ]
       ] ]
     ] ]
@@ -76,20 +68,17 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "aligned__allocator_8hpp.html",
-"classquickcpplib_1_1__xxx_1_1algorithm_1_1bitwise__trie_1_1bitwise__trie__item__accessors.html#a67e6d02afcded02f875d9467c7ddec95",
-"classquickcpplib_1_1__xxx_1_1algorithm_1_1small__prng_1_1small__prng.html#a4cf2ec5b0eb15c368f9b634cccc2ffe0",
-"classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr.html#ae09590be50432a3feb51a738756e264d",
-"classquickcpplib_1_1__xxx_1_1pmr_1_1monotonic__buffer__resource.html#a79fd1c9b144d7c888054e3d903839e9d",
-"classquickcpplib_1_1__xxx_1_1span_1_1span.html#a096e27c7400d6037e673e22d1e06272f",
-"function__ptr_8hpp.html",
-"memory__resource_8hpp.html#abe90f316f69a2293b7f97a0137d03fdb",
-"namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#a42d2cfd4ba5404c4927ad5970c3c56cc",
-"optional_2optional_8hpp.html#ab843facc3d02d2fa3df8288cedbe8fd2",
-"struct_nothrow_ctor.html",
-"structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy.html#ab312a5cf1f8dbef87c6c6639e8ea9a90",
-"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html#a6271daaa7603b2c46bad58423866733e",
-"test__optional_8cpp.html#a08ddc2ccef40748450f057b7055ea599"
+"classquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1basic__open__hash__index.html#a3ba28edc681cd0b67734c63120ad2bf7",
+"classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html#ae3924d760eb89e175b65defcc8a226b4",
+"classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1impl_1_1packed__backtrace.html#a44ac0a2959fb3c4373719b784c928568",
+"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#af71815a907b15707db863f14dd1dfaaa",
+"functions_m.html",
+"namespacequickcpplib_1_1__xxx_1_1console__colours.html#abc6a47973753f3437b95c1f63f4f3154",
+"spinlock_8hpp.html#a10c572932a08be170b60aac4aa577882",
+"structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html#aa4b26f9e693851150164c61abb20ff5c",
+"structquickcpplib_1_1__xxx_1_1integers128_1_1uint128__hasher.html"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronisation';
-var SYNCOFFMSG = 'click to enable panel synchronisation';
+var SYNCONMSG = 'click to disable panel synchronization';
+var SYNCOFFMSG = 'click to enable panel synchronization';
+var LISTOFALLMEMBERS = 'List of all members';

@@ -1,4 +1,4 @@
 var byte_8hpp =
 [
-    [ "QUICKCPPLIB_USE_STD_BYTE", "byte_8hpp.html#a6797e2016ca05fc749b3d7b4cd578c54", null ]
+    [ "quickcpplib::_xxx::byte::to_byte", "namespacequickcpplib_1_1__xxx_1_1byte.html#a8fa6df1f92812f37be376f356c410a89", null ]
 ];

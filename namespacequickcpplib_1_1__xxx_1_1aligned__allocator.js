@@ -13,9 +13,9 @@ var namespacequickcpplib_1_1__xxx_1_1aligned__allocator =
       [ "deallocate_aligned_memory", "namespacequickcpplib_1_1__xxx_1_1aligned__allocator_1_1detail.html#a7b9f266229239d7da932520131697670", null ]
     ] ],
     [ "aligned_allocator", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator.html", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator" ],
-    [ "aligned_allocator< const T, Align, initialize >", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4" ],
-    [ "aligned_allocator< const void, Align, initialize >", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01void_00_01_align_00_01initialize_01_4.html", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01void_00_01_align_00_01initialize_01_4" ],
-    [ "aligned_allocator< void, Align, initialize >", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01void_00_01_align_00_01initialize_01_4.html", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01void_00_01_align_00_01initialize_01_4" ],
+    [ "aligned_allocator&lt; void, Align, initialize &gt;", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01void_00_01_align_00_01initialize_01_4.html", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01void_00_01_align_00_01initialize_01_4" ],
+    [ "aligned_allocator&lt; const void, Align, initialize &gt;", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01void_00_01_align_00_01initialize_01_4.html", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01void_00_01_align_00_01initialize_01_4" ],
+    [ "aligned_allocator&lt; const T, Align, initialize &gt;", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html", "classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4" ],
     [ "operator==", "namespacequickcpplib_1_1__xxx_1_1aligned__allocator.html#a4965c49c0e0f13d62d0f9b96a8783d6e", null ],
     [ "operator!=", "namespacequickcpplib_1_1__xxx_1_1aligned__allocator.html#aa9a184fdd4017485131c8c8dd2240d8a", null ]
 ];

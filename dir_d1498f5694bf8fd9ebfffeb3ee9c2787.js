@@ -2,8 +2,6 @@ var dir_d1498f5694bf8fd9ebfffeb3ee9c2787 =
 [
     [ "algorithm", "dir_32c385b866dd7a60c2b68309c8f1bf3f.html", "dir_32c385b866dd7a60c2b68309c8f1bf3f" ],
     [ "boost", "dir_55152ac0348a6508a08ae974eb868675.html", "dir_55152ac0348a6508a08ae974eb868675" ],
-    [ "byte", "dir_fcf60cea3a69cbca8f185379ab629eec.html", "dir_fcf60cea3a69cbca8f185379ab629eec" ],
-    [ "optional", "dir_8059be69370b1cb95a3b6cc4a2df1e7d.html", "dir_8059be69370b1cb95a3b6cc4a2df1e7d" ],
     [ "utils", "dir_9f2944f2ae7a7c32ec07e9d93e48807e.html", "dir_9f2944f2ae7a7c32ec07e9d93e48807e" ],
     [ "aligned_allocator.hpp", "aligned__allocator_8hpp.html", "aligned__allocator_8hpp" ],
     [ "allocator_testing.hpp", "allocator__testing_8hpp.html", "allocator__testing_8hpp" ],
@@ -21,9 +19,7 @@ var dir_d1498f5694bf8fd9ebfffeb3ee9c2787 =
     [ "import.h", "import_8h.html", "import_8h" ],
     [ "in_place_detach_attach.hpp", "in__place__detach__attach_8hpp.html", "in__place__detach__attach_8hpp" ],
     [ "mem_flush_loads_stores.hpp", "mem__flush__loads__stores_8hpp.html", "mem__flush__loads__stores_8hpp" ],
-    [ "memory_resource.hpp", "memory__resource_8hpp.html", "memory__resource_8hpp" ],
     [ "offset_ptr.hpp", "offset__ptr_8hpp.html", "offset__ptr_8hpp" ],
-    [ "optional.hpp", "optional_8hpp.html", "optional_8hpp" ],
     [ "packed_backtrace.hpp", "packed__backtrace_8hpp.html", "packed__backtrace_8hpp" ],
     [ "revision.hpp", "revision_8hpp.html", "revision_8hpp" ],
     [ "ringbuffer_log.hpp", "ringbuffer__log_8hpp.html", "ringbuffer__log_8hpp" ],
@@ -32,7 +28,6 @@ var dir_d1498f5694bf8fd9ebfffeb3ee9c2787 =
     [ "span.hpp", "span_8hpp.html", "span_8hpp" ],
     [ "spinlock.hpp", "spinlock_8hpp.html", "spinlock_8hpp" ],
     [ "start_lifetime_as.hpp", "start__lifetime__as_8hpp.html", "start__lifetime__as_8hpp" ],
-    [ "string_view.hpp", "string__view_8hpp.html", "string__view_8hpp" ],
     [ "tribool.hpp", "tribool_8hpp.html", "tribool_8hpp" ],
     [ "type_traits.hpp", "type__traits_8hpp.html", "type__traits_8hpp" ],
     [ "uint128.hpp", "uint128_8hpp.html", "uint128_8hpp" ]

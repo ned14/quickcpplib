@@ -4,6 +4,7 @@ var structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01loc
     [ "spinlockbase", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4.html#a686c2ea1fbedd85431fd0f7dbbae47c4", null ],
     [ "spinlockbase", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4.html#a5dfa1447fa1bd662b40e6206301de4d9", null ],
     [ "spinlockbase", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4.html#a7db5451f344fae39731b0003e2ee6edc", null ],
+    [ "~spinlockbase", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase.html#a1802e31a58270743860a78f3f9b85b39", null ],
     [ "operator=", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4.html#a97bd452c1ea5052b47e331b19e5fba38", null ],
     [ "operator=", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4.html#aecddb204edcb6a602b0af286756cda7a", null ],
     [ "get", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4.html#a4fbbc7fec2280fae115e3cb90bf96a1a", null ],

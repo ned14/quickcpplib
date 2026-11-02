@@ -4,7 +4,7 @@ var namespacequickcpplib_1_1__xxx_1_1ringbuffer__log =
     [ "default_ringbuffer_log_level_checker", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1default__ringbuffer__log__level__checker.html", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1default__ringbuffer__log__level__checker" ],
     [ "ringbuffer_log", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log" ],
     [ "simple_ringbuffer_log_policy", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy.html", "structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy" ],
-    [ "simple_ringbuffer_log", "namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#a255bd07d3b38a23221ea35a882841c35", null ],
+    [ "simple_ringbuffer_log", "namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#ae7ab820814797fa7338d5747c2473bc4", null ],
     [ "level", "namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2", [
       [ "none", "namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2a334c4a4c42fdb79d7ebc3e73b517e6f8", null ],
       [ "fatal", "namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2adf6402fd9ecc60f5a2159fdf45711cd4", null ],

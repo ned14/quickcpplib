@@ -1,12 +1,9 @@
 var searchData=
 [
-  ['has_5fassign_0',['has_assign',['../structstd_1_1experimental_1_1is__assignable.html#af8698cf73e8d40f6af5bafa292f9e532',1,'std::experimental::is_assignable::has_assign(...)'],['../structstd_1_1experimental_1_1is__assignable.html#a826902a90f85d2a25cbab409ebe1aff6',1,'std::experimental::is_assignable::has_assign(bool)']]],
-  ['has_5fnothrow_5fmove_5fassign_1',['has_nothrow_move_assign',['../structstd_1_1experimental_1_1is__nothrow__move__assignable_1_1has__nothrow__move__assign.html',1,'std::experimental::is_nothrow_move_assignable']]],
-  ['has_5fnothrow_5fmove_5fassign_3c_20x_2c_20true_20_3e_2',['has_nothrow_move_assign&lt; X, true &gt;',['../structstd_1_1experimental_1_1is__nothrow__move__assignable_1_1has__nothrow__move__assign_3_01_x_00_01true_01_4.html',1,'std::experimental::is_nothrow_move_assignable']]],
-  ['has_5foverload_3',['has_overload',['../structstd_1_1experimental_1_1detail___1_1has__overloaded__addressof.html#a4656eb4d63080eef6563dca4894f8623',1,'std::experimental::detail_::has_overloaded_addressof::has_overload(...)'],['../structstd_1_1experimental_1_1detail___1_1has__overloaded__addressof.html#a3afc4b4cc2df22327c0f380cec60fb1f',1,'std::experimental::detail_::has_overloaded_addressof::has_overload(bool)']]],
-  ['has_5foverloaded_5faddressof_4',['has_overloaded_addressof',['../structstd_1_1experimental_1_1detail___1_1has__overloaded__addressof.html',1,'std::experimental::detail_']]],
-  ['has_5fvalue_5',['has_value',['../classstd_1_1experimental_1_1optional.html#a98002656a42c0339158cc0bce10c89a4',1,'std::experimental::optional::has_value()'],['../classstd_1_1experimental_1_1optional_3_01_t_01_6_01_4.html#a8fe2e183adab1f3dfbe8d4e09688d5ae',1,'std::experimental::optional&lt; T &amp; &gt;::has_value()']]],
-  ['hash_6',['hash',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1fast__hash.html#ad0513640dc18f73f82b55d612b4c0062',1,'quickcpplib::_xxx::algorithm::hash::fast_hash::hash()'],['../classquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash.html#a15be3d72c794a32d15d0a541c1752cfe',1,'quickcpplib::_xxx::algorithm::hash::sha256_hash::hash()']]],
-  ['hash_2ehpp_7',['hash.hpp',['../hash_8hpp.html',1,'']]],
-  ['healed_8',['healed',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1secded__ecc_1_1secded__ecc.html#aa0b1a4798c525be9f51c3051754ea40ca1a97a19f71daaf9fd189a302f1b71486',1,'quickcpplib::_xxx::algorithm::secded_ecc::secded_ecc']]]
+  ['hamming_20code_20not_20a_20secded_20code_0',['This is a Hamming code, NOT a SECDED code',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1hamming__ecc_1_1hamming__ecc.html#autotoc_md7',1,'']]],
+  ['hamming_5fecc_1',['hamming_ecc',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1hamming__ecc_1_1hamming__ecc.html',1,'quickcpplib::_xxx::algorithm::hamming_ecc::hamming_ecc&lt; blocksize &gt;'],['../classquickcpplib_1_1__xxx_1_1algorithm_1_1hamming__ecc_1_1hamming__ecc.html#ad309ade7cac843e326bbf4da0371da87',1,'quickcpplib::_xxx::algorithm::hamming_ecc::hamming_ecc::hamming_ecc()']]],
+  ['hamming_5fecc_2ehpp_2',['hamming_ecc.hpp',['../hamming__ecc_8hpp.html',1,'']]],
+  ['hash_3',['hash',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1fast__hash.html#ad0513640dc18f73f82b55d612b4c0062',1,'quickcpplib::_xxx::algorithm::hash::fast_hash::hash()'],['../classquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash.html#a15be3d72c794a32d15d0a541c1752cfe',1,'quickcpplib::_xxx::algorithm::hash::sha256_hash::hash()']]],
+  ['hash_2ehpp_4',['hash.hpp',['../hash_8hpp.html',1,'']]],
+  ['healed_5',['healed',['../classquickcpplib_1_1__xxx_1_1algorithm_1_1hamming__ecc_1_1hamming__ecc.html#ac2a63aad20c5d5a31c2248fd5a881f58a6f78d3a23cfccee7fabbe1a164598a2c',1,'quickcpplib::_xxx::algorithm::hamming_ecc::hamming_ecc']]]
 ];

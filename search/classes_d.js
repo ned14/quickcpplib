@@ -1,12 +1,10 @@
 var searchData=
 [
-  ['offset_5fptr_0',['offset_ptr',['../classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr.html',1,'quickcpplib::_xxx::offset_ptr']]],
-  ['offset_5fptr_3c_20const_20t_20_3e_1',['offset_ptr&lt; const T &gt;',['../classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr_3_01const_01_t_01_4.html',1,'quickcpplib::_xxx::offset_ptr']]],
-  ['optional_2',['optional',['../classstd_1_1experimental_1_1optional.html',1,'std::experimental']]],
-  ['optional_3c_20t_20_26_20_3e_3',['optional&lt; T &amp; &gt;',['../classstd_1_1experimental_1_1optional_3_01_t_01_6_01_4.html',1,'std::experimental']]],
-  ['optional_3c_20t_20_26_26_20_3e_4',['optional&lt; T &amp;&amp; &gt;',['../classstd_1_1experimental_1_1optional_3_01_t_01_6_6_01_4.html',1,'std::experimental']]],
-  ['optional_5fbase_5',['optional_base',['../structstd_1_1experimental_1_1optional__base.html',1,'std::experimental']]],
-  ['oracle_6',['Oracle',['../struct_oracle.html',1,'']]],
-  ['oracleval_7',['OracleVal',['../struct_oracle_val.html',1,'']]],
-  ['ordered_5fspinlockbase_8',['ordered_spinlockbase',['../structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase.html',1,'quickcpplib::_xxx::configurable_spinlock']]]
+  ['raised_5fsignal_5finfo_0',['raised_signal_info',['../structraised__signal__info.html',1,'']]],
+  ['raised_5fsignal_5finfo_5fvalue_1',['raised_signal_info_value',['../unionraised__signal__info__value.html',1,'']]],
+  ['rebind_2',['rebind',['../structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_1_1rebind.html',1,'quickcpplib::_xxx::aligned_allocator::aligned_allocator&lt; T, Align, initialize &gt;::rebind&lt; U &gt;'],['../structquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_alig38b3ce2fde59753f89f79b36dfe20c65.html',1,'quickcpplib::_xxx::aligned_allocator::aligned_allocator&lt; const T, Align, initialize &gt;::rebind&lt; U &gt;'],['../structquickcpplib_1_1__xxx_1_1allocator__testing_1_1allocator_1_1rebind.html',1,'quickcpplib::_xxx::allocator_testing::allocator&lt; T, A &gt;::rebind&lt; U &gt;']]],
+  ['requirement_5ffailed_3',['requirement_failed',['../structquickcpplib_1_1__xxx_1_1unit__test_1_1requirement__failed.html',1,'quickcpplib::_xxx::unit_test']]],
+  ['result_5ftype_4',['result_type',['../unionquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1sha256__hash_1_1result__type.html',1,'quickcpplib::_xxx::algorithm::hash::sha256_hash']]],
+  ['ringbuffer_5flog_5',['ringbuffer_log',['../classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html',1,'quickcpplib::_xxx::ringbuffer_log']]],
+  ['ringbuffer_5flog_3c_20simple_5fringbuffer_5flog_5fpolicy_3c_20bytes_20_3e_2c_20loglevelchecker_20_3e_6',['ringbuffer_log&lt; simple_ringbuffer_log_policy&lt; Bytes &gt;, LogLevelChecker &gt;',['../classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html',1,'quickcpplib::_xxx::ringbuffer_log']]]
 ];

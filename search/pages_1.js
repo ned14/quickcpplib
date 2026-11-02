@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['libraries_0',['Quick C++ Libraries',['../index.html',1,'']]],
-  ['list_1',['Todo List',['../todo.html',1,'']]]
+  ['be_20verified_20using_3a_0',['Commits and tags in this git repository can be verified using:',['../index.html#autotoc_md2',1,'']]]
 ];

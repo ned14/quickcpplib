@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['memory_5fresource_0',['memory_resource',['../classquickcpplib_1_1__xxx_1_1pmr_1_1memory__resource.html',1,'quickcpplib::_xxx::pmr']]],
-  ['monotonic_5fbuffer_5fresource_1',['monotonic_buffer_resource',['../classquickcpplib_1_1__xxx_1_1pmr_1_1monotonic__buffer__resource.html',1,'quickcpplib::_xxx::pmr']]],
-  ['moveaware_2',['MoveAware',['../struct_move_aware.html',1,'']]]
+  ['offset_5fptr_0',['offset_ptr',['../classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr.html',1,'quickcpplib::_xxx::offset_ptr']]],
+  ['offset_5fptr_3c_20const_20t_20_3e_1',['offset_ptr&lt; const T &gt;',['../classquickcpplib_1_1__xxx_1_1offset__ptr_1_1offset__ptr_3_01const_01_t_01_4.html',1,'quickcpplib::_xxx::offset_ptr']]],
+  ['ordered_5fspinlockbase_2',['ordered_spinlockbase',['../structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1ordered__spinlockbase.html',1,'quickcpplib::_xxx::configurable_spinlock']]]
 ];

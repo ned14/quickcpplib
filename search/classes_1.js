@@ -4,10 +4,12 @@ var searchData=
   ['aligned_5fallocator_1',['aligned_allocator',['../classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator.html',1,'quickcpplib::_xxx::aligned_allocator']]],
   ['aligned_5fallocator_3c_20const_20t_2c_20align_2c_20initialize_20_3e_2',['aligned_allocator&lt; const T, Align, initialize &gt;',['../classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01_t_00_01_align_00_01initialize_01_4.html',1,'quickcpplib::_xxx::aligned_allocator']]],
   ['aligned_5fallocator_3c_20const_20void_2c_20align_2c_20initialize_20_3e_3',['aligned_allocator&lt; const void, Align, initialize &gt;',['../classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01const_01void_00_01_align_00_01initialize_01_4.html',1,'quickcpplib::_xxx::aligned_allocator']]],
-  ['aligned_5fallocator_3c_20void_2c_20align_2c_20initialize_20_3e_4',['aligned_allocator&lt; void, Align, initialize &gt;',['../classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01void_00_01_align_00_01initialize_01_4.html',1,'quickcpplib::_xxx::aligned_allocator']]],
-  ['allocator_5',['allocator',['../structquickcpplib_1_1__xxx_1_1allocator__testing_1_1allocator.html',1,'quickcpplib::_xxx::allocator_testing']]],
-  ['arithmetic_5fmodulus_6',['arithmetic_modulus',['../structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1arithmetic__modulus.html',1,'quickcpplib::_xxx::algorithm::open_hash_index']]],
-  ['atomic_5flinear_5fmemory_5fpolicy_7',['atomic_linear_memory_policy',['../structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy.html',1,'quickcpplib::_xxx::algorithm::open_hash_index']]],
-  ['atomic_5foffset_5fptr_8',['atomic_offset_ptr',['../classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr.html',1,'quickcpplib::_xxx::offset_ptr']]],
-  ['attached_9',['attached',['../classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html',1,'quickcpplib::_xxx::in_place_attach_detach']]]
+  ['aligned_5fallocator_3c_20u_2c_20align_2c_20initialize_20_3e_4',['aligned_allocator&lt; U, Align, initialize &gt;',['../classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator.html',1,'quickcpplib::_xxx::aligned_allocator']]],
+  ['aligned_5fallocator_3c_20void_2c_20align_2c_20initialize_20_3e_5',['aligned_allocator&lt; void, Align, initialize &gt;',['../classquickcpplib_1_1__xxx_1_1aligned__allocator_1_1aligned__allocator_3_01void_00_01_align_00_01initialize_01_4.html',1,'quickcpplib::_xxx::aligned_allocator']]],
+  ['allocator_6',['allocator',['../structquickcpplib_1_1__xxx_1_1allocator__testing_1_1allocator.html',1,'quickcpplib::_xxx::allocator_testing']]],
+  ['allocator_3c_20u_20_3e_7',['allocator&lt; U &gt;',['../structquickcpplib_1_1__xxx_1_1allocator__testing_1_1allocator.html',1,'quickcpplib::_xxx::allocator_testing']]],
+  ['arithmetic_5fmodulus_8',['arithmetic_modulus',['../structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1arithmetic__modulus.html',1,'quickcpplib::_xxx::algorithm::open_hash_index']]],
+  ['atomic_5flinear_5fmemory_5fpolicy_9',['atomic_linear_memory_policy',['../structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1atomic__linear__memory__policy.html',1,'quickcpplib::_xxx::algorithm::open_hash_index']]],
+  ['atomic_5foffset_5fptr_10',['atomic_offset_ptr',['../classquickcpplib_1_1__xxx_1_1offset__ptr_1_1atomic__offset__ptr.html',1,'quickcpplib::_xxx::offset_ptr']]],
+  ['attached_11',['attached',['../classquickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1attached.html',1,'quickcpplib::_xxx::in_place_attach_detach']]]
 ];
