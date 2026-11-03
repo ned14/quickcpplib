@@ -7,7 +7,7 @@
 # TODO FIXME: Can only package up header-only libraries right now
 
 from __future__ import print_function
-import os, sys, subprocess, shutil, tarfile
+import os, sys, subprocess, shutil, tarfile, re
 
 if len(sys.argv)<3:
   print("Usage", os.path.basename(sys.argv[0]), "<git http> <tempdir>", file=sys.stderr)
@@ -57,6 +57,19 @@ with open(controlpath, "rt") as ih:
       break
 if sourcedir is None:
   print("FATAL: debian/control file doesn't have a Source:", file=sys.stderr)
+  sys.exit(1)
+# `sourcedir` is used as an rmtree() target below, and it comes from the CLONED
+# repository's debian/control - i.e. from code this script does not control and
+# from an unreviewed upstream. A Source: of "", ".", "..", "a/b" or an absolute
+# path would delete something outside the temp build tree (reviewer P0 r3:SD-3).
+# Debian source package names are exactly one path component of
+# [a-z0-9][a-z0-9+.-]*, so anything else is refused outright.
+if not re.match(r'^[a-z0-9][a-z0-9+.\-]+$', sourcedir):
+  print("FATAL: debian/control has Source: %r, which is not a valid Debian source package name" % (sourcedir,), file=sys.stderr)
+  sys.exit(1)
+sourcedir_real = os.path.realpath(sourcedir)
+if os.path.dirname(sourcedir_real) != os.path.realpath('.'):
+  print("FATAL: refusing to clean %r, which is not inside the temp build directory" % (sourcedir_real,), file=sys.stderr)
   sys.exit(1)
 with open(changelogpath, "rt") as ih:
   for line in ih.readlines():

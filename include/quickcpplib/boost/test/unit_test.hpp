@@ -371,6 +371,23 @@ namespace unit_test
     std::cout << bold << white << "\n\nTest case summary: " << green << totalpassed << " passed " << red << totalfailed
               << " failed " << yellow << totalskipped << " skipped" << normal << "\nTotal duration: " << totaltime
               << " seconds." << std::endl;
+    // A run that executed NOTHING must not report success. An empty suite, a
+    // test-name regex that matches nothing, or a duplicate binary whose cases
+    // were compiled away all used to print "0 passed 0 failed" and exit 0 - a
+    // green test that tested nothing (reviewer P0 r1:T-9 / r3:T1). Note that a
+    // SKIPPED case still counts as a case, so deliberately skipped
+    // configurations are unaffected.
+    if(totalpassed + totalfailed == 0)
+    {
+      // Nothing PASSED and nothing FAILED: either the suite is empty or a name
+      // filter excluded every case (they show up as skipped). Both used to exit
+      // 0 with a "0 passed 0 failed" summary. A case that deliberately reports
+      // itself as skipped but still runs counts as passed, so the
+      // no-exceptions duplicates of the outcome test suite are unaffected.
+      std::cerr << red << "FAILURE: no test case ran (" << totalskipped
+                << " skipped) - empty suite, or a name filter that matched nothing" << normal << std::endl;
+      return true;
+    }
     return totalfailed > 0;
   }
   struct test_suite_registration
@@ -452,9 +469,21 @@ QUICKCPPLIB_NAMESPACE_END
   std::cerr << QUICKCPPLIB_NAMESPACE::unit_test::red << "FAILURE: " << msg << QUICKCPPLIB_NAMESPACE::unit_test::normal \
             << std::endl;                                                                                              \
   QUICKCPPLIB_BOOST_UNIT_TEST_FAIL
+// Boost.Test's BOOST_CHECK_MESSAGE(pred, msg) is a real check that additionally
+// reports msg when pred is false. This one only printed the message, so a false
+// predicate counted neither a failure nor a pass and the run stayed green: a
+// test asserting with CHECK_MESSAGE could never fail (reviewer P0 r6:SD-2).
 #define BOOST_CHECK_MESSAGE(pred, msg)                                                                                 \
   if(!(pred))                                                                                                          \
-  std::cout << "INFO: " << msg << std::endl
+  {                                                                                                                    \
+    std::cerr << QUICKCPPLIB_NAMESPACE::unit_test::yellow << msg                                                      \
+              << QUICKCPPLIB_NAMESPACE::unit_test::white << std::endl;                                                \
+    QUICKCPPLIB_BOOST_UNIT_CHECK_FAIL(, pred);                                                                         \
+  }                                                                                                                    \
+  else                                                                                                                 \
+  {                                                                                                                    \
+    QUICKCPPLIB_BOOST_UNIT_CHECK_PASS(, pred);                                                                         \
+  }
 
 #define BOOST_CHECK(expr)                                                                                              \
   if(!(expr))                                                                                                          \
@@ -644,9 +673,21 @@ QUICKCPPLIB_NAMESPACE_END
   if(!(pred))                                                                                                          \
   CATCH_WARN(msg)
 #define BOOST_FAIL(msg) CATCH_FAIL(msg)
+// Same defect as the default engine's copy above: CATCH_INFO only logs, so a
+// false predicate was reported as info and never failed the run. CATCH_WARN
+// below is deliberately left alone - a warning is not supposed to fail.
+//
+// pred is evaluated exactly once into a local (a check macro that evaluates its
+// argument twice would be its own bug), which is why the assertion below is on
+// the local rather than on the expression text.
 #define BOOST_CHECK_MESSAGE(pred, msg)                                                                                 \
-  if(!(pred))                                                                                                          \
-  CATCH_INFO(msg)
+  do                                                                                                                   \
+  {                                                                                                                    \
+    const bool boost_test_check_message = (pred);                                                                      \
+    if(!boost_test_check_message)                                                                                      \
+    CATCH_INFO(msg);                                                                                                   \
+    CATCH_CHECK(boost_test_check_message);                                                                             \
+  } while(0)
 
 #define BOOST_CHECK(expr) CATCH_CHECK(expr)
 #define BOOST_CHECK_EQUAL(expr1, expr2) BOOST_CHECK((expr1) == (expr2))

@@ -98,6 +98,17 @@ if(NOT ${PROJECT_NAME}_IS_DEPENDENCY AND (NOT DEFINED BUILD_TESTING OR BUILD_TES
       
       # Deal with normal tests + special builds of them first
       set(testtargets)
+      # On a SINGLE-config generator (Ninja, Makefiles) `ctest` with no -C uses
+      # the empty configuration, which matches only tests that carry no
+      # CONFIGURATIONS keyword - so restricting the normal tests to the four
+      # build types made a bare `ctest` run ZERO tests and exit 0, looking like a
+      # green suite (reviewer P0 r9:F1). The list is only meaningful for
+      # multi-config generators, where the config is chosen at test time.
+      if(CMAKE_CONFIGURATION_TYPES)
+        set(test_configurations CONFIGURATIONS Debug Release RelWithDebInfo MinSizeRel)
+      else()
+        set(test_configurations "")
+      endif()
       foreach(special ${SPECIAL_BUILDS} "")
         set(first_test_target_hl)
         set(first_test_target_sl)
@@ -109,10 +120,18 @@ if(NOT ${PROJECT_NAME}_IS_DEPENDENCY AND (NOT DEFINED BUILD_TESTING OR BUILD_TES
             list(APPEND testtargets "${target_name}")
             if(special STREQUAL "")
               # Output test detail to JUnit XML
-              add_test(NAME ${target_name} CONFIGURATIONS Debug Release RelWithDebInfo MinSizeRel
+              add_test(NAME ${target_name} ${test_configurations}
                 COMMAND $<TARGET_FILE:${target_name}> --reporter junit --out $<TARGET_FILE:${target_name}>.junit.xml
               )
             else()
+              # The special builds (ubsan/tsan/...) deliberately have their own
+              # target tree built by their own target, and are then run as
+              # `ctest -C <special>`: verified with `ctest -N -C ubsan`, which
+              # lists exactly these targets. CONFIGURATIONS is honoured wherever
+              # it appears in the argument list (CMake scans for the keyword), so
+              # the trailing position is equivalent to writing it first and the
+              # words are NOT passed to the test binary (reviewer P0 r1:BC-01
+              # claimed they were and that the tests could never run).
               add_test(NAME ${target_name} COMMAND $<TARGET_FILE:${target_name}> CONFIGURATIONS ${special})
               if(DEFINED ${special}_LINK_FLAGS)
                 _target_link_options(${target_name} PRIVATE ${${special}_LINK_FLAGS})

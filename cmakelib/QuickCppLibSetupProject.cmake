@@ -206,6 +206,24 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.clang-tidy" AND NOT DISABLE_CLANG_TIDY)
     indented_message(WARNING "WARNING: .clang-tidy file found for project ${PROJECT_NAME}, yet clang-tidy not on PATH so disabling lint pass")
   else()
     set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+    # ${PYTHON_EXECUTABLE} is a FindPythonInterp variable and is empty on a
+    # project that finds the interpreter with the modern module (which is what
+    # this file does above), so the lint targets below would run an empty
+    # command; ${CTEST_QUICKCPPLIB_SCRIPTS} is only set by the ctest scripts.
+    # Same repair as add_partial_preprocess(), which was fixed alone
+    # (reviewer P0 r2:BC-2).
+    if(NOT PYTHON_EXECUTABLE AND Python_EXECUTABLE)
+      set(PYTHON_EXECUTABLE "${Python_EXECUTABLE}")
+    endif()
+    if(NOT PYTHON_EXECUTABLE)
+      message(FATAL_ERROR "QuickCppLibSetupProject(): no python interpreter was found, so the ${PROJECT_NAME}_lint target cannot run")
+    endif()
+    if(NOT CTEST_QUICKCPPLIB_SCRIPTS)
+      set(CTEST_QUICKCPPLIB_SCRIPTS "${CMAKE_CURRENT_SOURCE_DIR}/scripts")
+    endif()
+    if(NOT EXISTS "${CTEST_QUICKCPPLIB_SCRIPTS}/run-clang-tidy.py")
+      message(FATAL_ERROR "QuickCppLibSetupProject(): run-clang-tidy.py was not found under ${CTEST_QUICKCPPLIB_SCRIPTS}")
+    endif()
     if(NOT TARGET ${PROJECT_NAME}_lint)
       add_custom_target(${PROJECT_NAME}_lint
         "${CMAKE_COMMAND}" -E make_directory ${PROJECT_NAME}_fixes

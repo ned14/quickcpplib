@@ -16,13 +16,3 @@
 	branch = master
 	fetchRecurseSubmodules = true
 	ignore = untracked
-[submodule "include/optional"]
-	path = include/quickcpplib/optional
-	url = https://github.com/akrzemi1/Optional.git
-	branch = master
-	fetchRecurseSubmodules = true
-	ignore = untracked
-[submodule "include/byte"]
-	path = include/quickcpplib/byte
-	url = https://github.com/martinmoene/byte-lite.git
-	branch = master

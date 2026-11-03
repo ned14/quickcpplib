@@ -1,4 +1,5 @@
-/* Test secded
+/* Test hamming_ecc (the class under test used to be wrongly called secded_ecc and is a plain Hamming code, not a
+SECDED code)
 (C) 2018 Niall Douglas <http://www.nedproductions.biz/> (4 commits)
 
 
@@ -21,15 +22,15 @@ Distributed under the Boost Software License, Version 1.0.
           http://www.boost.org/LICENSE_1_0.txt)
 */
 
-#include "../include/quickcpplib/algorithm/secded_ecc.hpp"
+#include "../include/quickcpplib/algorithm/hamming_ecc.hpp"
 #include "../include/quickcpplib/algorithm/small_prng.hpp"
 #include "../include/quickcpplib/boost/test/unit_test.hpp"
 
 #include "timing.h"
 
-BOOST_AUTO_TEST_SUITE(secded)
+BOOST_AUTO_TEST_SUITE(hamming)
 
-BOOST_AUTO_TEST_CASE(secdec / works, "Tests that algorithm::secded_ecc works as advertised")
+BOOST_AUTO_TEST_CASE(hamming / works, "Tests that algorithm::hamming_ecc works as advertised")
 {
   using namespace QUICKCPPLIB_NAMESPACE::algorithm;
   static constexpr size_t bytes = 4096;
@@ -40,8 +41,8 @@ BOOST_AUTO_TEST_CASE(secdec / works, "Tests that algorithm::secded_ecc works as 
   {
     reinterpret_cast<small_prng::small_prng::value_type *>(buffer.data())[n] = rand();
   }
-  secded_ecc::secded_ecc<bytes> engine;
-  using ecc_type = secded_ecc::secded_ecc<bytes>::result_type;
+  hamming_ecc::hamming_ecc<bytes> engine;
+  using ecc_type = hamming_ecc::hamming_ecc<bytes>::result_type;
   ecc_type eccbits = engine.result_bits_valid();
   std::cout << "\n\nECC will be " << eccbits << " bits long" << std::endl;
   ecc_type ecc = engine(buffer.data());
@@ -135,6 +136,34 @@ BOOST_AUTO_TEST_CASE(secdec / works, "Tests that algorithm::secded_ecc works as 
   diff = std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1, 1>>>(end - begin);
   if(foo)
     std::cout << "Checking and fixing is approximately " << (bytes * 1000 / diff.count() / 1024 / 1024) << " Mb/sec" << std::endl;
+}
+
+// A blocksize which is not a multiple of eight must not read past the caller's
+// buffer, and must compute the same ECC as the byte-wise overload for the same
+// bytes. The fixed-size overload used to read 8 bytes per lump regardless, so
+// blocksize % 8 != 0 over-read the buffer and ecc_table, and (after that was
+// fixed) indexed the table from the wrong offset for the tail (reviewer P0
+// r3:F1).
+BOOST_AUTO_TEST_CASE(hamming / partial lumps, "Tests that hamming_ecc handles a blocksize which is not a multiple of eight")
+{
+  using namespace QUICKCPPLIB_NAMESPACE::algorithm;
+  auto check = [](size_t bytes_) {
+    std::vector<char> buffer(bytes_);
+    for(size_t n = 0; n < bytes_; n++)
+      buffer[n] = (char) (n * 7 + 3);
+    hamming_ecc::hamming_ecc<9> nine;
+    hamming_ecc::hamming_ecc<15> fifteen;
+    if(bytes_ == 9)
+    {
+      BOOST_CHECK(nine(buffer.data()) == nine(0, buffer.data(), bytes_));
+    }
+    else
+    {
+      BOOST_CHECK(fifteen(buffer.data()) == fifteen(0, buffer.data(), bytes_));
+    }
+  };
+  check(9);
+  check(15);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

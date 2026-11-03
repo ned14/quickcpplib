@@ -25,6 +25,13 @@ Distributed under the Boost Software License, Version 1.0.
 #ifndef QUICKCPPLIB_DETACH_CAST_HPP
 #define QUICKCPPLIB_DETACH_CAST_HPP
 
+// This header needs std::byte, i.e. C++17. It is deliberately not made to work in
+// the opt-in C++14 mode (QUICKCPPLIB_MIN_CXX_STANDARD=14): doing so would mean
+// carrying a byte polyfill again, and the consumers that need C++14 - Outcome -
+// do not use this header. Including it there fails loudly, here, rather than
+// exposing a half-defined API.
+#if (defined(_MSVC_LANG) && _MSVC_LANG >= 201703L) || __cplusplus >= 201703L
+
 #include "bit_cast.hpp"
 #include "byte.hpp"
 #include "span.hpp"
@@ -266,5 +273,11 @@ namespace detach_cast
 }  // namespace detach_cast
 
 QUICKCPPLIB_NAMESPACE_END
+
+#else
+
+#error "quickcpplib/detach_cast.hpp requires C++17 (std::byte), and in_place_detach_attach.hpp includes it, so both are disabled in the opt-in C++14 mode (QUICKCPPLIB_MIN_CXX_STANDARD=14). Outcome, which opts into C++14, uses neither."
+
+#endif
 
 #endif

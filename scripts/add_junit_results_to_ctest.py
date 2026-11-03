@@ -55,11 +55,18 @@ def main(argv):
       results = ET.Element('Results')
       results.append(NamedMeasurement('Execution Time', 'numeric/double', testcase.get('time')))
       results.append(NamedMeasurement('Completion Status', 'text/string', 'JUnit'))
-      error = testcase.find('failure')
+      # JUnit has TWO unsuccessful elements: <failure> (an assertion failed) and
+      # <error> (the test crashed, aborted or threw unexpectedly). Looking only
+      # for <failure> recorded every crashed test as PASSED on the dashboard,
+      # which hid exactly the failures a dashboard exists to show (reviewer P0
+      # r1:SD-1 / r2:SD-1 / r4:SD-1 / r10:J1).
+      failure = testcase.find('failure')
+      error = testcase.find('error')
       skipped = testcase.find('skipped')
-      if error is not None:
+      problem = failure if failure is not None else error
+      if problem is not None:
         test.set('Status', 'failed')
-        results.append(NamedMeasurement(None, 'text/string', error.text))        
+        results.append(NamedMeasurement(None, 'text/string', problem.text))        
       elif skipped is not None:
         test.set('Status', 'notrun')
         results.append(NamedMeasurement(None, 'text/string', skipped.text))        

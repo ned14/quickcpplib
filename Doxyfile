@@ -772,8 +772,6 @@ INPUT                  = Readme.md \
                          include/quickcpplib \
                          include/quickcpplib/algorithm \
                          include/quickcpplib/boost/test \
-                         include/quickcpplib/byte/include/nonstd \
-                         include/quickcpplib/optional \
                          include/quickcpplib/utils
 
 # This tag can be used to specify the character encoding of the source files

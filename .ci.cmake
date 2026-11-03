@@ -9,6 +9,9 @@ endif()
 include(QuickCppLibUtils)
 
 
+# require_ok() and require_tests() come from QuickCppLibUtils.cmake, included
+# above: every stage below is checked explicitly (reviewer P0 r3:BC-01).
+
 CONFIGURE_CTEST_SCRIPT_FOR_CDASH("quickcpplib" "prebuilt")
 ctest_empty_binary_directory(${CTEST_BINARY_DIRECTORY})
 include(FindGit)
@@ -16,8 +19,10 @@ set(CTEST_GIT_COMMAND "${GIT_EXECUTABLE}")
 
 ctest_start("Experimental")
 ctest_update()
-ctest_configure()
-ctest_build()
+ctest_configure(RETURN_VALUE configure_ret)
+require_ok("configure" "${configure_ret}")
+ctest_build(RETURN_VALUE build_ret)
+require_ok("build" "${build_ret}")
 if(WIN32)
   if(EXISTS "prebuilt/bin/Release/quickcpplib_dl-0.1-Windows-x64-Release.dll")
     checked_execute_process("Tarring up binaries 1"
@@ -82,6 +87,7 @@ else()
     get_filename_component(toupload quickcpplib-v0.1-binaries-darwin-x64.tgz ABSOLUTE)
   endif()
 endif()
+require_tests("test stage")
 ctest_test(RETURN_VALUE retval EXCLUDE "signal_guard")  # pending the signal_guard reimplementation
 merge_junit_results_into_ctest_xml()
 if(EXISTS "${toupload}")

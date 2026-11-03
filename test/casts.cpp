@@ -21,6 +21,12 @@ Distributed under the Boost Software License, Version 1.0.
           http://www.boost.org/LICENSE_1_0.txt)
 */
 
+// These tests are built Release, whose flags include -DNDEBUG, so every assert()
+// in this file used to compile to nothing: the assertions below could never fail
+// and were never running. Undefining NDEBUG here (before the first include, so it
+// also covers any <cassert> pulled in by a header) keeps them live.
+#undef NDEBUG
+
 #include "../include/quickcpplib/boost/test/unit_test.hpp"
 #include "../include/quickcpplib/detach_cast.hpp"
 #include "../include/quickcpplib/erasure_cast.hpp"

@@ -33,6 +33,16 @@ Distributed under the Boost Software License, Version 1.0.
 #include <locale>
 #include <string>
 
+/*! \defgroup utils Miscellaneous utilities
+\brief Small, dependency free helpers which the rest of the library reaches for.
+
+They are grouped here by what they are rather than by where they live, because
+several parts of the library and its tests use them: number to hex string
+encoding and the case conversions below, the Hamming ECC in hamming_ecc.hpp, and
+so on. (Three `\ingroup utils` elsewhere in the library used to point at a group
+nobody defined, which doxygen 1.9 accepted silently and doxygen 1.10 and later
+report as "Found non-existing group 'utils'", failing the documentation build.) */
+
 QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace algorithm

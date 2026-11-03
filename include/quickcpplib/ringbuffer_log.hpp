@@ -205,12 +205,32 @@ namespace ringbuffer_log
 #endif
         }
       }
-      bool operator==(const value_type &o) const noexcept { return memcmp(this, &o, sizeof(*this)) == 0; }
-      bool operator!=(const value_type &o) const noexcept { return memcmp(this, &o, sizeof(*this)) != 0; }
-      bool operator<(const value_type &o) const noexcept { return memcmp(this, &o, sizeof(*this)) < 0; }
-      bool operator>(const value_type &o) const noexcept { return memcmp(this, &o, sizeof(*this)) > 0; }
-      bool operator<=(const value_type &o) const noexcept { return memcmp(this, &o, sizeof(*this)) <= 0; }
-      bool operator>=(const value_type &o) const noexcept { return memcmp(this, &o, sizeof(*this)) >= 0; }
+      // Field-wise, NOT memcmp over the whole object. The type has bitfield
+      // padding, so two logically equal entries with different padding compared
+      // UNEQUAL, and memcmp ordering compared the byte layout rather than the
+      // values - on a little-endian machine `counter=256` sorted BEFORE
+      // `counter=1` because the low byte is compared first (reviewer P0 r5:CH-1).
+      bool operator==(const value_type &o) const noexcept
+      {
+        return counter == o.counter && timestamp == o.timestamp && code64 == o.code64 && level == o.level &&
+               using_code64 == o.using_code64 && using_backtrace == o.using_backtrace &&
+               memcmp(backtrace, o.backtrace, sizeof(backtrace)) == 0 && memcmp(message, o.message, sizeof(message)) == 0;
+      }
+      bool operator!=(const value_type &o) const noexcept { return !(*this == o); }
+      bool operator<(const value_type &o) const noexcept
+      {
+        if(counter != o.counter)
+          return counter < o.counter;
+        if(timestamp != o.timestamp)
+          return timestamp < o.timestamp;
+        const int c = memcmp(message, o.message, sizeof(message));
+        if(c != 0)
+          return c < 0;
+        return code64 < o.code64;
+      }
+      bool operator>(const value_type &o) const noexcept { return o < *this; }
+      bool operator<=(const value_type &o) const noexcept { return !(o < *this); }
+      bool operator>=(const value_type &o) const noexcept { return !(*this < o); }
     };
     static_assert(sizeof(value_type) == 256, "value_type is not 256 bytes long!");
 

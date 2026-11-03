@@ -517,24 +517,24 @@ namespace packed_backtrace
   - Top bits are 11 when it's bits 63-43 of a 64 bit absolute address (3 bytes)
   - Top bits are 10 when it's bits 42-21 of a 64 bit absolute address (3 bytes)
     - Note that this resets bits 20-0 to 0x100000 (bit 20 set, bits 19-0 cleared)
-  - Top bits are 01 when it's a 22 bit offset from previous (3 bytes) (+- 0x40`0000, 4Mb)
+  - Top bits are 01 when it's a 22 bit offset from previous (3 bytes) (+- 0x400000, 4Mb)
   - Top bits are 00 when it's a 14 bit offset from previous (2 bytes) (+- 0x4000, 16Kb)
   - Potential improvement: 12 to 18 items in 40 bytes instead of 5 items
 
   Sample 1:
   ~~~
-  0000`07fe`fd4e`10ac - 6 bytes
-  0000`07fe`f48b`ffc7 - 3 bytes
-  0000`07fe`f48b`ff70 - 2 bytes
-  0000`07fe`f48b`fe23 - 2 bytes
-  0000`07fe`f48d`51d8 - 3 bytes
-  0000`07fe`f499`5249 - 3 bytes
-  0000`07fe`f48a`ef28 - 3 bytes
-  0000`07fe`f48a`ecc9 - 2 bytes
-  0000`07fe`f071`244c - 6 bytes
-  0000`07fe`f071`11b5 - 2 bytes
-  0000`07ff`0015`0acf - 6 bytes
-  0000`07ff`0015`098c - 2 bytes (40 bytes, 12 items, usually 96 bytes, 58% reduction)
+  0000 07fe fd4e 10ac - 6 bytes
+  0000 07fe f48b ffc7 - 3 bytes
+  0000 07fe f48b ff70 - 2 bytes
+  0000 07fe f48b fe23 - 2 bytes
+  0000 07fe f48d 51d8 - 3 bytes
+  0000 07fe f499 5249 - 3 bytes
+  0000 07fe f48a ef28 - 3 bytes
+  0000 07fe f48a ecc9 - 2 bytes
+  0000 07fe f071 244c - 6 bytes
+  0000 07fe f071 11b5 - 2 bytes
+  0000 07ff 0015 0acf - 6 bytes
+  0000 07ff 0015 098c - 2 bytes (40 bytes, 12 items, usually 96 bytes, 58% reduction)
   ~~~
 
   Sample 2:
