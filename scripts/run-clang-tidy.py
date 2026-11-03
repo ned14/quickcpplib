@@ -148,17 +148,22 @@ def check_clang_apply_replacements_binary(args):
 
 
 def apply_fixes(args, tmpdir):
-  """Calls clang-apply-fixes on a given directory."""
+  """Calls clang-apply-fixes on a given directory, returning its exit status."""
   invocation = [args.clang_apply_replacements_binary]
   if args.format:
     invocation.append('-format')
   if args.style:
     invocation.append('-style=' + args.style)
   invocation.append(tmpdir)
-  subprocess.call(invocation)
+  # The exit status was discarded, and the caller's try/except could not catch a
+  # non-zero exit either (subprocess.call does not raise), so a -fix/-format run
+  # that failed to apply anything - a bad -style, a replacement that no longer
+  # matches, an unwritable file - still printed 'Applying fixes ...' and exited
+  # 0, leaving the tree unmodified and the lint run green (reviewer P0 r6:SD-1).
+  return subprocess.call(invocation)
 
 
-def run_tidy(args, tmpdir, build_path, queue):
+def run_tidy(args, tmpdir, build_path, queue, failures):
   """Takes filenames out of queue and runs clang-tidy on them."""
   while True:
     name = queue.get()
@@ -167,7 +172,12 @@ def run_tidy(args, tmpdir, build_path, queue):
                                      args.extra_arg, args.extra_arg_before,
                                      args.quiet)
     sys.stdout.write(' '.join(invocation) + '\n')
-    subprocess.call(invocation)
+    # The exit status was discarded, so a clang-tidy that failed outright (bad
+    # invocation, unparsable database, -warnings-as-errors) still produced a
+    # green lint run and this tool could never fail (reviewer P0 r1:SD-1).
+    rc = subprocess.call(invocation)
+    if rc != 0:
+      failures.append((name, rc))
     queue.task_done()
 
 
@@ -240,16 +250,34 @@ def main():
 
   # Load the database and extract all files.
   database = json.load(open(os.path.join(build_path, db_path)))
+  database2 = database
   if args.target_filter is not None:
     target_filter_re = re.compile('-o CMakeFiles.' + args.target_filter)
     database2 = [entry for entry in database if target_filter_re.search(entry['command'])]
     print("After -target-filter, there are", len(database2), "targets to be processed")
+    if not database2:
+      # A filter that matches nothing used to fall through, ship an EMPTY
+      # database, tidy zero translation units and exit 0 - a green run that
+      # checked nothing (reviewer P0 r4:SD-1).
+      print("ERROR: -target-filter %r matched no translation units; refusing to run"
+            % (args.target_filter,), file=sys.stderr)
+      sys.exit(1)
   # Filter out -fconcepts
   for x in range(0, len(database2)):
     database2[x]['command'] = database2[x]['command'].replace('-fconcepts', '')
     #print(database2[x])
-  if database != database2:
-    json.dump(database2, open(os.path.join(build_path, db_path), 'wt'))
+  if database2 is not database:
+    # NEVER overwrite the build tree's compile_commands.json. It is this tool's
+    # input and every other tool's too, so the filtered copy goes into a
+    # temporary directory which is then used as clang-tidy's database - the
+    # old code truncated the real one, so a filtered run silently destroyed it
+    # for everything afterwards (reviewer P0 r4:SD-1).
+    filtered_dir = tempfile.mkdtemp(prefix='run-clang-tidy-db-')
+    filtered_db = os.path.join(filtered_dir, db_path)
+    with open(filtered_db, 'wt') as filtered:
+      json.dump(database2, filtered)
+    print("Filtered compilation database written to", filtered_db)
+    build_path = filtered_dir
     database = database2
   files = [make_absolute(entry['file'], entry['directory'])
            for entry in database]
@@ -268,20 +296,43 @@ def main():
 
   try:
     # Spin up a bunch of tidy-launching threads.
+    failures = []
     task_queue = queue.Queue(max_task)
     for _ in range(max_task):
       t = threading.Thread(target=run_tidy,
-                           args=(args, tmpdir, build_path, task_queue))
+                           args=(args, tmpdir, build_path, task_queue, failures))
       t.daemon = True
       t.start()
 
     # Fill the queue with files.
+    queue_size = 0
     for name in files:
       if file_name_re.search(name):
         task_queue.put(name)
+        queue_size += 1
+
+    if queue_size == 0:
+      # A `files` regex (positional args) that matches nothing used to tidy zero
+      # translation units, print nothing and exit 0 - a green lint run that
+      # linted nothing (reviewer P0 r5:SD-r5-1, sibling of the -target-filter
+      # case). Report which files were available so the typo is obvious.
+      print("ERROR: no translation unit matched the file pattern(s) %r; %d are in the database"
+            % (list(args.files), len(files)), file=sys.stderr)
+      for name in files[:20]:
+        print("  " + name, file=sys.stderr)
+      if tmpdir:
+        shutil.rmtree(tmpdir)
+      sys.exit(1)
 
     # Wait for all threads to be done.
     task_queue.join()
+
+    if failures:
+      print("ERROR: clang-tidy failed on %d of %d translation unit(s):"
+            % (len(failures), len(failures)), file=sys.stderr)
+      for name, rc in failures[:20]:
+        print("  %s (exit %d)" % (name, rc), file=sys.stderr)
+      sys.exit(1)
 
   except KeyboardInterrupt:
     # This is a sad hack. Unfortunately subprocess goes
@@ -304,7 +355,11 @@ def main():
   if args.fix:
     print('Applying fixes ...')
     try:
-      apply_fixes(args, tmpdir)
+      rc = apply_fixes(args, tmpdir)
+      if rc != 0:
+        print('ERROR: clang-apply-replacements failed to apply the fix-its (exit %d);'
+              ' the working tree was NOT fixed' % (rc,), file=sys.stderr)
+        return_code = 1
     except:
       print('Error applying fixes.\n', file=sys.stderr)
       traceback.print_exc()

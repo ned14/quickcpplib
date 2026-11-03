@@ -65,28 +65,43 @@ endfunction()
 # Check a cached scan file's directory timestamps,
 # if any are stale then delete the cached scan file
 function(delete_stale_cached_scan_file path)
-  if(EXISTS "${path}.cache")
-    include("${path}.cache")
-    set(plsdelete FALSE)
-    set(idx 0)
-    foreach(var ${ARGN})
-      foreach(dir ${${var}_DIRECTORIES})
-        if(NOT idx)
-          set(dirts1 "${dir}")
-          set(idx 1)
-        else()
-          file(TIMESTAMP "${CMAKE_CURRENT_SOURCE_DIR}/${dir}" dirts2)
-          if(NOT dirts1 STREQUAL dirts2)
-            set(plsdelete TRUE)
-          endif()
-          set(idx 0)
-        endif()
-      endforeach()
-    endforeach()
-    if(plsdelete)
-      indented_message(STATUS "${path} is stale, deleting")
-      file(REMOVE "${path}")
-    endif()
+  if(NOT EXISTS "${path}")
+    return()
+  endif()
+  if(NOT EXISTS "${path}.cache")
+    # The timestamps live in a sidecar file that is GITIGNORED (".cache" in
+    # .gitignore), so a fresh clone has the file list but no evidence of which
+    # tree produced it. Treating "no sidecar" as "current" is what made the
+    # checked-in cache immortal: a test suite added after it was generated was
+    # never built or run (reviewer P0 r2:BC-2). No evidence means rescan.
+    indented_message(STATUS "${path} has no timestamp sidecar, regenerating")
+    file(REMOVE "${path}")
+    return()
+  endif()
+  include("${path}.cache")
+  set(plsdelete FALSE)
+  foreach(var ${ARGN})
+    # "<stamp>" "<dir>" pairs. The old code stored the FIRST dir's PATH in
+    # dirts1 and then compared it against the second dir's TIMESTAMP, so the
+    # comparison was nonsense.
+    set(pairs ${${var}_DIRECTORIES})
+    while(pairs)
+      list(GET pairs 0 dirts1)
+      list(GET pairs 1 dir)
+      list(REMOVE_AT pairs 0 1)
+      if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${dir}")
+        set(plsdelete TRUE)
+        continue()
+      endif()
+      file(TIMESTAMP "${CMAKE_CURRENT_SOURCE_DIR}/${dir}" dirts2)
+      if(NOT dirts1 STREQUAL dirts2)
+        set(plsdelete TRUE)
+      endif()
+    endwhile()
+  endforeach()
+  if(plsdelete)
+    indented_message(STATUS "${path} is stale, deleting")
+    file(REMOVE "${path}")
   endif()
 endfunction()
 
@@ -125,6 +140,14 @@ else()
        "${CMAKE_CURRENT_SOURCE_DIR}/include/*.natvis"
        )
   list(SORT ${PROJECT_NAME}_HEADERS)
+  # Keep the RAW scan for the cache writer. The project's CMakeLists filters this
+  # list by OPTION (e.g. dropping span-lite/byte/optional headers under some C++
+  # standard), and persisting the FILTERED result into the committed scan cache
+  # made the choice permanent: one configure with the option off deleted those
+  # headers from cmake/headers.cmake for every later build, which then installed a
+  # package missing them (reviewer P0 r3:BC-01 / r5:BC-1). The cache must record
+  # what is ON DISK; the filters belong to each configure.
+  set(${PROJECT_NAME}_HEADERS_SCANNED ${${PROJECT_NAME}_HEADERS})
   set(${PROJECT_NAME}_HEADERS_FILTER ${${PROJECT_NAME}_HEADERS})
   list_filter(${PROJECT_NAME}_HEADERS_FILTER INCLUDE REGEX "\\.quickcpplib$")
   prune_quickcpplib_libraries(${PROJECT_NAME}_HEADERS_FILTER ${PROJECT_NAME}_HEADERS)

@@ -24,6 +24,10 @@ function(write_cached_scan_file mode path var)
   endif()
   set(contents2 "${contents2})\n")
   file(${mode} "${path}" "${contents}")
+  # The sidecar must follow the SAME write/append sequence as the file above:
+  # writing it with ${mode} also covers tests.cmake, which is written once with
+  # WRITE and twice with APPEND, and whose third call used to overwrite the
+  # stamps recorded by the first two.
   file(${mode} "${path}.cache" "${contents2}")
 endfunction()
 # Remove CRs from the file, so git doesn't constantly mark the file as changed
@@ -37,7 +41,14 @@ if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/cmake/headers.cmake")
   write_cached_scan_file(WRITE "${CMAKE_CURRENT_SOURCE_DIR}/cmake/interface.cmake" "${PROJECT_NAME}_INTERFACE" ${${PROJECT_NAME}_INTERFACE})
   write_cached_scan_file(APPEND "${CMAKE_CURRENT_SOURCE_DIR}/cmake/interface.cmake" "${PROJECT_NAME}_INTERFACE_SOURCE" ${${PROJECT_NAME}_INTERFACE_SOURCE})
   de_cr_file("${CMAKE_CURRENT_SOURCE_DIR}/cmake/interface.cmake")
-  write_cached_scan_file(WRITE "${CMAKE_CURRENT_SOURCE_DIR}/cmake/headers.cmake" "${PROJECT_NAME}_HEADERS" ${${PROJECT_NAME}_HEADERS})
+  # Write the UNFILTERED scan (see QuickCppLibParseLibrarySources.cmake): the
+  # project's option-dependent filters must not be baked into a committed cache.
+  if(${PROJECT_NAME}_HEADERS_SCANNED)
+    set(_headers_to_cache ${${PROJECT_NAME}_HEADERS_SCANNED})
+  else()
+    set(_headers_to_cache ${${PROJECT_NAME}_HEADERS})
+  endif()
+  write_cached_scan_file(WRITE "${CMAKE_CURRENT_SOURCE_DIR}/cmake/headers.cmake" "${PROJECT_NAME}_HEADERS" ${_headers_to_cache})
   de_cr_file("${CMAKE_CURRENT_SOURCE_DIR}/cmake/headers.cmake")
 endif()
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/src")
@@ -48,7 +59,14 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/src")
 endif()
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/test")
   if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/cmake/tests.cmake")
-    write_cached_scan_file(WRITE "${CMAKE_CURRENT_SOURCE_DIR}/cmake/tests.cmake" "${PROJECT_NAME}_TESTS" ${${PROJECT_NAME}_TESTS})
+    # As for headers above, write the UNFILTERED scan: the C++14-mode test
+    # exclusions must not be baked into a committed cache.
+    if(${PROJECT_NAME}_TESTS_SCANNED)
+      set(_tests_to_cache ${${PROJECT_NAME}_TESTS_SCANNED})
+    else()
+      set(_tests_to_cache ${${PROJECT_NAME}_TESTS})
+    endif()
+    write_cached_scan_file(WRITE "${CMAKE_CURRENT_SOURCE_DIR}/cmake/tests.cmake" "${PROJECT_NAME}_TESTS" ${_tests_to_cache})
     write_cached_scan_file(APPEND "${CMAKE_CURRENT_SOURCE_DIR}/cmake/tests.cmake" "${PROJECT_NAME}_COMPILE_TESTS" ${${PROJECT_NAME}_COMPILE_TESTS})
     write_cached_scan_file(APPEND "${CMAKE_CURRENT_SOURCE_DIR}/cmake/tests.cmake" "${PROJECT_NAME}_COMPILE_FAIL_TESTS" ${${PROJECT_NAME}_COMPILE_FAIL_TESTS})
     de_cr_file("${CMAKE_CURRENT_SOURCE_DIR}/cmake/tests.cmake")

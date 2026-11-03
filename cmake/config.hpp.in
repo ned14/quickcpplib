@@ -27,7 +27,6 @@ Distributed under the Boost Software License, Version 1.0.
 
 #define QUICKCPPLIB_REQUIRE_CXX_STANDARD @QUICKCPPLIB_REQUIRE_CXX_STANDARD@
 
-#cmakedefine01 QUICKCPPLIB_USE_SYSTEM_BYTE_LITE
 #cmakedefine01 QUICKCPPLIB_USE_SYSTEM_SPAN_LITE
 
 #endif

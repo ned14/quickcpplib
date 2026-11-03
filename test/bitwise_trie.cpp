@@ -21,6 +21,12 @@ Distributed under the Boost Software License, Version 1.0.
           http://www.boost.org/LICENSE_1_0.txt)
 */
 
+// These tests are built Release, whose flags include -DNDEBUG, so every assert()
+// in this file used to compile to nothing: the assertions below could never fail
+// and were never running. Undefining NDEBUG here (before the first include, so it
+// also covers any <cassert> pulled in by a header) keeps them live.
+#undef NDEBUG
+
 #include "../include/quickcpplib/algorithm/bitwise_trie.hpp"
 
 #include "../include/quickcpplib/algorithm/hash.hpp"
@@ -28,7 +34,7 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "../include/quickcpplib/boost/test/unit_test.hpp"
 
-#include "../include/quickcpplib/memory_resource.hpp"
+#include <memory_resource>
 
 #include "timing.h"
 
@@ -299,7 +305,7 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / benchmark, "Benchmarks bitwise_trie against 
   }
 #endif
   using namespace QUICKCPPLIB_NAMESPACE::algorithm::bitwise_trie;
-  namespace pmr = QUICKCPPLIB_NAMESPACE::pmr;
+  namespace pmr = std::pmr;
   static constexpr size_t ITEMS_BITSHIFT = 16;  // 26 uses 2Gb of RAM
   static constexpr size_t ITEMS_COUNT = 1 << ITEMS_BITSHIFT;
   static constexpr size_t bytes_per_item = 28;

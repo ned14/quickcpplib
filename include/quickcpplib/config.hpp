@@ -201,18 +201,19 @@ extern "C" void _mm_pause();
 
 #if defined(QUICKCPPLIB_REQUIRE_CXX_STANDARD)
 
+// The standard quickcpplib's CMake was configured to require: 201703L by default,
+// 201402L only in the explicit opt-in C++14 mode (QUICKCPPLIB_MIN_CXX_STANDARD=14).
+// QUICKCPPLIB_REQUIRE_CXX17 is kept because downstream code tests it, but note that
+// the standard facilities the old C++14 polyfills provided are gone: byte.hpp and
+// memory_resource.hpp are C++17-only, and the two headers which include byte.hpp
+// fail to compile before C++17.
 #define QUICKCPPLIB_REQUIRE_CXX17 (QUICKCPPLIB_REQUIRE_CXX_STANDARD >= 201703L)
 #define QUICKCPPLIB_REQUIRE_CXX20 (QUICKCPPLIB_REQUIRE_CXX_STANDARD >= 202002L)
 
-#define QUICKCPPLIB_USE_STD_BYTE QUICKCPPLIB_REQUIRE_CXX17
-#define QUICKCPPLIB_USE_STD_OPTIONAL QUICKCPPLIB_REQUIRE_CXX17
 #define QUICKCPPLIB_USE_STD_SPAN QUICKCPPLIB_REQUIRE_CXX20
 
 #endif // ^^^ defined QUICKCPPLIB_REQUIRE_CXX_STANDARD ^^^
 
-#if !defined(QUICKCPPLIB_USE_SYSTEM_BYTE_LITE)
-#define QUICKCPPLIB_USE_SYSTEM_BYTE_LITE 0
-#endif
 #if !defined(QUICKCPPLIB_USE_SYSTEM_SPAN_LITE)
 #define QUICKCPPLIB_USE_SYSTEM_SPAN_LITE 0
 #endif

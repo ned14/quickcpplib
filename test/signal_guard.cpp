@@ -27,7 +27,6 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "../include/quickcpplib/scope.hpp"
 #include "../include/quickcpplib/span.hpp"
-#include "../include/quickcpplib/string_view.hpp"
 #ifdef _WIN32
 #include "../include/quickcpplib/execinfo_win64.h"
 #else
@@ -321,7 +320,7 @@ inline void _symbolise_stack_backtrace(Printer &&print, QUICKCPPLIB_NAMESPACE::s
                     {
                       print("\n   ");
                       auto idx2 = addrs.find(10, idx), idx3 = addrs.find(10, idx2 + 1);
-                      QUICKCPPLIB_NAMESPACE::string_view::string_view sv(addrs.data() + idx2 + 1, idx3 - idx2 - 1);
+                      QUICKCPPLIB_NAMESPACE::span::span<const char> sv(addrs.data() + idx2 + 1, idx3 - idx2 - 1);
                       if(sv.size() == 6 && 0 == memcmp(sv.data(), "??:0:0", 6))
                       {
                         char **s = backtrace_symbols(&bt[n], 1);

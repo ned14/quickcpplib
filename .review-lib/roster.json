@@ -1,0 +1,61 @@
+{
+  "repo": "/workspace/projects/quickcpplib",
+  "areas": [
+    {
+      "id": "core-headers",
+      "area": "Header-only core library",
+      "files": "include/**",
+      "lens": "header-only template correctness: ODR/ABI, undefined behaviour, integer overflow and signed/unsigned casts, silent failure modes (an error swallowed or returned as success), thread-safety of the spinlock/tribool/hash/ringbuffer primitives, portability across gcc/clang/MSVC (and Windows vs POSIX), and resource lifetime on the error path",
+      "own": [
+        "include/**"
+      ]
+    },
+    {
+      "id": "tests",
+      "area": "Unit test harness and suites",
+      "files": "test/**",
+      "lens": "can the harness report a FALSE GREEN (a crash counted as a pass, an exit code ignored, a skipped suite reported ok, a test that never runs, a timing-sensitive assertion that flakes)? Also test coverage versus what the headers claim",
+      "own": [
+        "test/**"
+      ]
+    },
+    {
+      "id": "build-cmake",
+      "area": "CMake tooling, CI and dependency resolution",
+      "files": "cmakelib/** cmake/** CMakeLists.txt CTestConfig.cmake .ci.cmake .docs.cmake .github/** .gitmodules .quickcpplib",
+      "lens": "build-system logic: dependency resolution and bootstrap (sibling vs clone vs fetch), silent misconfiguration, an option that is documented but ignored, CI coverage versus the claims in the docs, and anything that would make a green build not actually build what is claimed",
+      "own": [
+        "cmakelib/**",
+        "cmake/**",
+        "CMakeLists.txt",
+        "CTestConfig.cmake",
+        ".ci.cmake",
+        ".docs.cmake",
+        ".github/**",
+        ".gitmodules",
+        ".quickcpplib"
+      ]
+    },
+    {
+      "id": "scripts-docs",
+      "area": "Scripts, docs and repo metadata",
+      "files": "scripts/** doc/** Readme.md Doxyfile Licence.txt attic/** pcpp .clang-format .clang-tidy .gitattributes .gitignore .review-lib/** plans/**",
+      "lens": "shell/tooling safety (unquoted expansions, unchecked commands, destructive defaults), doc-versus-code drift (a documented invariant with no mechanism enforcing it), and stale or misleading metadata",
+      "own": [
+        "scripts/**",
+        "doc/**",
+        "Readme.md",
+        "Doxyfile",
+        "Licence.txt",
+        "attic/**",
+        "pcpp",
+        ".clang-format",
+        ".clang-tidy",
+        ".gitattributes",
+        ".gitignore",
+        ".review-lib/**",
+        "plans/**"
+      ]
+    }
+  ]
+}

@@ -81,6 +81,38 @@ function(checked_execute_process desc)
   #message("stdout was: ${out}\n\nstderr was: ${errout}")
 endfunction()
 
+# Check one stage of a ctest script (.ci.cmake, .docs.cmake): there a failing
+# ctest_configure()/ctest_build() only SETS its return variable, so an unchecked
+# stage makes a broken build publish green (reviewer P0 r3:BC-01, r2:BC-01).
+function(require_ok what rc)
+  if(NOT "${rc}" STREQUAL "0")
+    message(FATAL_ERROR "FATAL: ${what} failed (return value '${rc}')")
+  endif()
+endfunction()
+
+# ctest_test() "succeeds" when it ran nothing, so require at least one test.
+# ${ARGN} is the selection (e.g. -E <regex>) ctest_test() will apply; `ctest -N`
+# alone counts every registered test (reviewer P0 r1:BC-1).
+function(require_tests what)
+  set(_cfg_args)
+  if(DEFINED CTEST_CONFIGURATION_TYPE AND NOT "${CTEST_CONFIGURATION_TYPE}" STREQUAL "")
+    set(_cfg_args -C "${CTEST_CONFIGURATION_TYPE}")
+  endif()
+  set(_sel_args ${_cfg_args} ${ARGN})
+  execute_process(COMMAND ${CMAKE_CTEST_COMMAND} -N ${_sel_args}
+                  WORKING_DIRECTORY "${CTEST_BINARY_DIRECTORY}"
+                  OUTPUT_VARIABLE _list ERROR_QUIET RESULT_VARIABLE _rc)
+  set(_n 0)
+  if(_list MATCHES "Total Tests: ([0-9]+)")
+    set(_n ${CMAKE_MATCH_1})
+  endif()
+  string(REPLACE ";" " " _cfg_str "${_sel_args}")
+  if(NOT "${_rc}" STREQUAL "0" OR _n EQUAL 0)
+    message(FATAL_ERROR "FATAL: ${what} has zero tests to run (ctest -N ${_cfg_str} reported ${_n}, rc '${_rc}')")
+  endif()
+  message(STATUS "${what}: ${_n} test(s) to run")
+endfunction()
+
 # Determines if a git repo has changed
 function(git_repo_changed dir outvar)
   if(NOT GIT_FOUND)
@@ -240,6 +272,18 @@ endfunction()
 # Preprocess a file
 function(add_partial_preprocess target outfile depend infile)
   if(EXISTS "${QuickCppLibCMakePath}/../pcpp/pcpp/pcmd.py")
+    # ${PYTHON_EXECUTABLE} comes from the DEPRECATED FindPythonInterp; a project
+    # that finds the interpreter with the modern module (as
+    # QuickCppLibSetupProject does) leaves it empty, and the command below then
+    # collapses to a bare `cd ...` - ninja reports the preprocessing as done and
+    # the committed single-header editions silently never refresh (that is how
+    # the shipped headers kept a bug fixed in include/). Accept either spelling.
+    if(NOT PYTHON_EXECUTABLE AND Python_EXECUTABLE)
+      set(PYTHON_EXECUTABLE "${Python_EXECUTABLE}")
+    endif()
+    if(NOT PYTHON_EXECUTABLE)
+      message(FATAL_ERROR "add_partial_preprocess(${target}): no python interpreter was found, so ${infile} cannot be preprocessed")
+    endif()
     add_custom_command(OUTPUT "${outfile}"
       COMMAND "${PYTHON_EXECUTABLE}" "${QuickCppLibCMakePath}/../pcpp/pcpp/pcmd.py"
       -o "${outfile}" "${infile}"
@@ -478,18 +522,34 @@ macro(CONFIGURE_CTEST_SCRIPT_FOR_CDASH projectname bindir)
   endif()
   set(CTEST_BUILD_NAME "${CMAKE_SYSTEM}-${CMAKE_SYSTEM_PROCESSOR}")
 
-  find_program(CTEST_PYTHON_COMMAND NAMES python)
+  # Prefer python3: current base images (ubuntu 22.04+/24.04, debian 12+) ship no
+  # bare `python`, so looking only for `python` left CTEST_PYTHON_COMMAND at
+  # "-NOTFOUND" and every junit merge below silently did nothing (reviewer P0
+  # r1:BC-03). `python` stays as the last fallback for older images.
+  find_program(CTEST_PYTHON_COMMAND NAMES python3 python)
 endmacro()
 
 function(merge_junit_results_into_ctest_xml)
-  if(NOT DEFINED CTEST_PYTHON_COMMAND)
-    message(FATAL_ERROR "Please call the macro CONFIGURE_CTEST_SCRIPT_FOR_CDASH() to configure the ctest environment first")
+  # `DEFINED` was the wrong test: a find_program() that FAILED still defines the
+  # variable, as "<name>-NOTFOUND", so this guard never fired and the merges
+  # below ran a non-existent interpreter (reviewer P0 r4:bc-2).
+  if(NOT DEFINED CTEST_PYTHON_COMMAND OR CTEST_PYTHON_COMMAND STREQUAL "" OR CTEST_PYTHON_COMMAND MATCHES "-NOTFOUND$")
+    message(FATAL_ERROR "Please call the macro CONFIGURE_CTEST_SCRIPT_FOR_CDASH() to configure the ctest environment first (no python3/python interpreter was found)")
   endif()
   # Merge all the junit XML files from the testing into one junit XML file
   execute_process(COMMAND "${CTEST_PYTHON_COMMAND}" "${CTEST_QUICKCPPLIB_SCRIPTS}/merge_junit_results.py" "${CTEST_BINARY_DIRECTORY}/merged_junit_results.xml" "${CTEST_CMAKE_CI_BIN_DIR}/*.junit.xml"
     RESULT_VARIABLE result
   )
-  message(STATUS "Merging junit XML results into a single junit XML returned with status ${result}")
+  # A STATUS message is not a check: the run continued to ctest_submit() with no
+  # merged_junit_results.xml, so the dashboard was green and empty (reviewer P0
+  # r4:bc-2).
+  if(NOT result EQUAL 0)
+    message(FATAL_ERROR "FATAL: merging the junit XML results failed with status ${result}")
+  endif()
+  if(NOT EXISTS "${CTEST_BINARY_DIRECTORY}/merged_junit_results.xml")
+    message(FATAL_ERROR "FATAL: ${CTEST_BINARY_DIRECTORY}/merged_junit_results.xml was not written")
+  endif()
+  message(STATUS "Merged junit XML results into a single junit XML")
   # Figure out where this iteration's Test.xml lives
   file(READ "${CTEST_BINARY_DIRECTORY}/Testing/TAG" tag_file)
   string(REGEX MATCH "[^\n]*" xml_dir "${tag_file}")
@@ -498,7 +558,10 @@ function(merge_junit_results_into_ctest_xml)
   execute_process(COMMAND "${CTEST_PYTHON_COMMAND}" "${CTEST_QUICKCPPLIB_SCRIPTS}/add_junit_results_to_ctest.py" "${CTEST_XML_DIR}/Test.xml" "${CTEST_BINARY_DIRECTORY}/merged_junit_results.xml"
     RESULT_VARIABLE result
   )
-  message(STATUS "Merging junit XML results into the CTest XML returned with status ${result}")
+  if(NOT result EQUAL 0)
+    message(FATAL_ERROR "FATAL: merging the junit XML results into the CTest XML failed with status ${result}")
+  endif()
+  message(STATUS "Merged junit XML results into the CTest XML at ${CTEST_XML_DIR}/Test.xml")
 endfunction()
 
 

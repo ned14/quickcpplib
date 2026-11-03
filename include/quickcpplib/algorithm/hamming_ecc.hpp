@@ -22,8 +22,8 @@ Distributed under the Boost Software License, Version 1.0.
           http://www.boost.org/LICENSE_1_0.txt)
 */
 
-#ifndef QUICKCPPLIB_ALGORITHM_SECDED_ECC_HPP
-#define QUICKCPPLIB_ALGORITHM_SECDED_ECC_HPP
+#ifndef QUICKCPPLIB_ALGORITHM_HAMMING_ECC_HPP
+#define QUICKCPPLIB_ALGORITHM_HAMMING_ECC_HPP
 
 #include "../config.hpp"
 
@@ -40,22 +40,47 @@ QUICKCPPLIB_NAMESPACE_BEGIN
 
 namespace algorithm
 {
-  namespace secded_ecc
+  namespace hamming_ecc
   {
-#ifndef QUICKCPPLIB_SECDED_INTRINSICS
+#ifndef QUICKCPPLIB_HAMMING_INTRINSICS
 #if defined(__GCC__) || defined(__clang__)
-#define QUICKCPPLIB_SECDED_INTRINSICS 1
+#define QUICKCPPLIB_HAMMING_INTRINSICS 1
 #elif defined(_MSC_VER) && (defined(_M_X64) || _M_IX86_FP == 1)
-#define QUICKCPPLIB_SECDED_INTRINSICS 1
+#define QUICKCPPLIB_HAMMING_INTRINSICS 1
 #endif
 #endif
-#ifndef QUICKCPPLIB_SECDED_INTRINSICS
-#define QUICKCPPLIB_SECDED_INTRINSICS 0
+#ifndef QUICKCPPLIB_HAMMING_INTRINSICS
+#define QUICKCPPLIB_HAMMING_INTRINSICS 0
 #endif
-    /*! \class secded_ecc
-    \brief Calculates the single error correcting double error detecting (SECDED) Hamming Error Correcting Code for a
-    \em blocksize block of bytes. For example, a secdec_ecc<8> would be the very common 72,64 Hamming code used in ECC
-    RAM, or secdec_ecc<4096> would be for a 32784,32768 Hamming code.
+    /*! \class hamming_ecc
+    \brief Calculates the single error correcting Hamming Error Correcting Code for a \em blocksize block of bytes.
+    For example, a hamming_ecc<8> would be the very common 72,64 Hamming code used in ECC RAM, or a
+    hamming_ecc<4096> would be for a 32784,32768 Hamming code.
+
+    ## This is a Hamming code, NOT a SECDED code
+
+    The number of parity bits is chosen by the plain Hamming condition `(data bits + parity bits + 1) <= 2^parity bits`.
+    That is all this class appends: there is no additional overall-parity bit, and therefore no double error
+    detection. To be unambiguous about what you are getting:
+
+    - It corrects a single flipped bit within one block.
+    - It does NOT detect a double bit error. A one bit and a two bit error both produce a syndrome which is the XOR of
+    the positions in error, so for a two bit error at positions `a` and `b` the syndrome names some third position `c`.
+    `verify()` flips `c`, which turns the block into a *different but perfectly valid* codeword, so its own re-check
+    passes and it reports `healed` on data which no longer matches the original. Wrong data is returned with a success
+    status, silently.
+    - A three bit error can also land on a valid codeword (three positions XOR into one), and larger counts are no
+    better behaved. So it is NOT true that only "more than two bits" of error is undefined: there is no error count
+    above one which this code reports as corruption reliably.
+
+    Therefore you MUST combine this with a strong hash or checksum over the data (as this documentation has always
+    recommended), and you must not use its return value to conclude that a block is intact. The only sound use is to
+    repair a single flipped bit cheaply once a hash has already told you that something is wrong; it must never be the
+    thing which tells you that a block is fine.
+
+    A true SECDED code would need one extra overall-parity bit, which raises result_bits_valid() and changes the wire
+    format of every stored ECC. That is deliberately not implemented: this class has no production users, so an honest
+    name and this documentation are worth more than a new code format.
 
     \warning This class needs to be completely reimplemented using SSE and AVX. Its current implementation works fine,
     but performance is far below what it can be.
@@ -66,14 +91,15 @@ namespace algorithm
     After construction during which lookup tables are built, no state is modified and therefore this class is safe for
     static storage (indeed if C++ 14 is available, the constructor is constexpr). The maximum number of bits in a code
     is a good four billion, I did try limiting it to 65536 for performance but it wasn't worth it, and one might want >
-    8Kb blocks maybe. As with all SECDED ECC, undefined behaviour occurs when more than two bits of error are present or
-    the ECC supplied is incorrect. You should combine this SECDED with a robust hash which can tell you definitively if
-    a buffer is error free or not rather than relying on this to correctly do so.
+    8Kb blocks maybe. As with any single error correcting Hamming code, an ECC which is itself incorrect, or a block
+    with more than one bad bit, is not reliably reported as such - see the section above, which is why you must combine
+    this with a robust hash which can tell you definitively if a buffer is error free or not rather than relying on
+    this to do so.
 
     The main intended use case for this routine is calculating the ECC on data being written to disc, and hence that is
     where performance has been maximised. It is not expected that this routine will be frequently called on data being
     read from disc i.e. only when its hash doesn't match its contents which should be very rare, and then a single bit
-    heal using this routine is attempted before trying again with the hash. Care was taken that really enormous SECDEDs
+    heal using this routine is attempted before trying again with the hash. Care was taken that really enormous codes
     are fast, in fact tuning was mostly done for the 32784,32768 code which can heal one bad bit per 4Kb page as the
     main thing we have in mind is achieving reliable filing system code on computers without ECC RAM and in which
     sustained large quantities of random disc i/o produce a worrying number of flipped bits in a 24 hour period
@@ -100,7 +126,7 @@ namespace algorithm
     \complexity{O(N) where N is the blocksize}
     \exceptionmodel{Throws constexpr exceptions in constructor only, otherwise entirely noexcept.}
     */
-    template <size_t blocksize> class secded_ecc
+    template <size_t blocksize> class hamming_ecc
     {
     public:
       typedef unsigned int result_type;  //!< The largest ECC which can be calculated
@@ -154,7 +180,7 @@ namespace algorithm
 
     public:
       //! Constructs an instance, configuring the necessary lookup tables
-      constexpr secded_ecc()
+      constexpr hamming_ecc()
       {
         for(size_t n = 0; n < sizeof(result_type) * bits_per_byte; n++)
           ecc_twospowers[n] = ((result_type) 1 << n);
@@ -168,7 +194,7 @@ namespace algorithm
           }
         if((bits_per_byte - 1 + bitsvalid) / bits_per_byte > sizeof(result_type))
 #ifdef __cpp_exceptions
-          throw std::runtime_error("secdec_ecc: ECC would exceed the size of result_type!");
+          throw std::runtime_error("hamming_ecc: ECC would exceed the size of result_type!");
 #else
           abort();
 #endif
@@ -176,7 +202,7 @@ namespace algorithm
         {
           // Make a code bit
           result_type b = i + 1;
-#if QUICKCPPLIB_SECDED_INTRINSICS && 0  // let constexpr do its thing
+#if QUICKCPPLIB_HAMMING_INTRINSICS && 0  // let constexpr do its thing
 #ifdef _MSC_VER
           unsigned long _topbit;
           _BitScanReverse(&_topbit, b);
@@ -197,7 +223,7 @@ namespace algorithm
           ecc_table[i] = (unsigned short) b;
           if(b > (unsigned short) -1)
 #ifdef __cpp_exceptions
-            throw std::runtime_error("secdec_ecc: Precalculated table has exceeded its bounds");
+            throw std::runtime_error("hamming_ecc: Precalculated table has exceeded its bounds");
 #else
             abort();
 #endif
@@ -221,7 +247,8 @@ namespace algorithm
         // Process in lumps of eight
         const unit_type *_buffer = (const unit_type *) buffer;
         // #pragma omp parallel for reduction(^:ecc)
-        for(size_t i = 0; i < blocksize; i += sizeof(unit_type) * 8)
+        size_t i = 0;
+        for(; i + sizeof(unit_type) * 8 <= blocksize; i += sizeof(unit_type) * 8)
         {
           union
           {
@@ -230,7 +257,7 @@ namespace algorithm
           };
           result_type prefetch[8];
           v = *(unsigned long long *) (&_buffer[0 + i / sizeof(unit_type)]);  // min 1 cycle
-#define QUICKCPPLIB_SECDED_ROUND(n)                                                                                    \
+#define QUICKCPPLIB_HAMMING_ROUND(n)                                                                                   \
   prefetch[0] = ecc_table[(i + 0) * 8 + n];                                                                            \
   prefetch[1] = ecc_table[(i + 1) * 8 + n];                                                                            \
   prefetch[2] = ecc_table[(i + 2) * 8 + n];                                                                            \
@@ -255,15 +282,33 @@ namespace algorithm
     ecc ^= prefetch[6];                                                                                                \
   if(c[7] & ((unit_type) 1 << n))                                                                                      \
     ecc ^= prefetch[7];
-          QUICKCPPLIB_SECDED_ROUND(0)  // prefetch = min 8, bit test and xor = min 16, total = 24
-          QUICKCPPLIB_SECDED_ROUND(1)
-          QUICKCPPLIB_SECDED_ROUND(2)
-          QUICKCPPLIB_SECDED_ROUND(3)
-          QUICKCPPLIB_SECDED_ROUND(4)
-          QUICKCPPLIB_SECDED_ROUND(5)
-          QUICKCPPLIB_SECDED_ROUND(6)
-          QUICKCPPLIB_SECDED_ROUND(7)
-#undef QUICKCPPLIB_SECDED_ROUND  // total should be 1+(8*24/3)=65
+          QUICKCPPLIB_HAMMING_ROUND(0)  // prefetch = min 8, bit test and xor = min 16, total = 24
+          QUICKCPPLIB_HAMMING_ROUND(1)
+          QUICKCPPLIB_HAMMING_ROUND(2)
+          QUICKCPPLIB_HAMMING_ROUND(3)
+          QUICKCPPLIB_HAMMING_ROUND(4)
+          QUICKCPPLIB_HAMMING_ROUND(5)
+          QUICKCPPLIB_HAMMING_ROUND(6)
+          QUICKCPPLIB_HAMMING_ROUND(7)
+#undef QUICKCPPLIB_HAMMING_ROUND  // total should be 1+(8*24/3)=65
+        }
+        // When blocksize is not a multiple of eight the lump loop above used to
+        // read up to seven bytes past the end of the caller's buffer and index
+        // ecc_table past blocksize*bits_per_byte, i.e. a heap over-read of BOTH
+        // (reviewer P0 r3:F1). Finish any tail byte-wise - with THIS byte's
+        // table offset, which is why it cannot be delegated to the
+        // partial-buffer overload (that one always starts at offset zero and
+        // would silently compute the wrong ECC).
+        for(; i < blocksize; i++)
+        {
+          unit_type c = _buffer[i];
+          if(!c)
+            continue;
+          result_type localecc = 0;
+          for(size_t n = 0; n < bits_per_byte * sizeof(unit_type); n++)
+            if(c & ((unit_type) 1 << n))
+              localecc ^= ecc_table[i * bits_per_byte + n];
+          ecc ^= localecc;
         }
         return ecc;
       }
@@ -385,11 +430,15 @@ namespace algorithm
       //! The outcomes from verify()
       enum verify_status
       {
-        corrupt = 0,  //!< The buffer had more than a single bit corrupted or the ECC was invalid
-        okay = 1,     //!< The buffer had no errors
-        healed = 2    //!< The buffer was healed
+        corrupt = 0,  //!< The ECC was invalid, or the syndrome named no data bit (e.g. a parity bit itself was wrong).
+                      //!< This is NOT a double error report - most two bit errors return `healed` instead.
+        okay = 1,     //!< The ECC of the buffer matched the ECC supplied
+        healed = 2    //!< A single bit was flipped to make the ECC match. Beware that a two bit error is also flipped
+                      //!< into a different valid codeword and reported as healed, so this does not mean the buffer
+                      //!< was repaired.
       };
-      //! Verifies and heals when possible a buffer, returning non zero if the buffer is error free
+      //! Verifies and heals when possible a buffer. A non-zero return does NOT prove the buffer is error free: a two
+      //! bit error is normally reported as `healed` - see the class documentation.
       verify_status verify(char *buffer, result_type good_ecc) const noexcept
       {
         result_type this_ecc = (*this)(0, buffer);
@@ -407,7 +456,7 @@ namespace algorithm
         return verify_status::corrupt;  // more than one bit was corrupt
       }
     };
-  }  // namespace secded_ecc
+  }  // namespace hamming_ecc
 }  // namespace algorithm
 
 QUICKCPPLIB_NAMESPACE_END

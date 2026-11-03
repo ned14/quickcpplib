@@ -6,7 +6,7 @@
 # File created: July 2016
 
 from __future__ import print_function
-import os, sys, glob, platform, datetime
+import os, sys, glob, platform, datetime, copy
 import xml.etree.ElementTree as ET
 
 hostname = platform.node()
@@ -37,20 +37,30 @@ if os.path.exists('CMakeFiles'):
 
 def merge_junits(outxmlfile, xmlfiles):
   outxml = ET.ElementTree(ET.Element('testsuites'))
+  appended = 0
   for xmlfile in xmlfiles:
     tree = ET.parse(xmlfile)
     testsuites = tree.getroot()
     xmlfilebase = os.path.basename(xmlfile)
     xmlfilebase = xmlfilebase[:xmlfilebase.rfind('.junit.xml')]
-    if len(testsuites) > 0:
-      testsuite = testsuites[0]
-      testsuite.set('name', xmlfilebase)
+    # JUnit files carry MORE than one <testsuite> in practice (Boost.Test emits
+    # one per test case), so taking only testsuites[0] silently dropped every
+    # test outside the first suite - including failing ones (reviewer P0
+    # r9:SD-1). Keep them all, naming each so they stay distinguishable.
+    suites = [c for c in testsuites if c.tag == 'testsuite']
+    for testsuite in suites:
+      if len(suites) == 1:
+        testsuite.set('name', xmlfilebase)
+      else:
+        testsuite.set('name', '%s [%s]' % (xmlfilebase, testsuite.get('name')))
       testsuite.set('hostname', hostname)
       testsuite.set('timestamp', timestamp)
-      testsuite.insert(0, properties)
+      testsuite.insert(0, copy.deepcopy(properties))
       #ET.dump(testsuite)
       outxml.getroot().append(testsuite)
+      appended += 1
   outxml.write(outxmlfile)
+  return appended
 
 def main(argv):
   if len(argv)<3:
@@ -60,7 +70,14 @@ def main(argv):
   for arg in range(2, len(argv)):
     for f in glob.glob(argv[arg]):
       xmlfiles.append(f)
-  merge_junits(argv[1], xmlfiles)
+  if len(xmlfiles)==0:
+    # An unmatched pattern used to write an empty <testsuites/> and exit 0, so
+    # CI went green having merged no results at all (reviewer P0 r1:SD-3).
+    print("ERROR: no junit XML files matched any of the patterns: "+" ".join(argv[2:]), file=sys.stderr)
+    sys.exit(1)
+  if merge_junits(argv[1], xmlfiles)==0:
+    print("ERROR: the matched junit files contained no <testsuite> elements: "+" ".join(xmlfiles), file=sys.stderr)
+    sys.exit(1)
 
 #main(['foo', 'combined.xml.out', '*.xml'])
 if __name__ == '__main__':

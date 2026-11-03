@@ -24,7 +24,8 @@ Distributed under the Boost Software License, Version 1.0.
 #include "../include/quickcpplib/algorithm/hash.hpp"
 #include "../include/quickcpplib/algorithm/string.hpp"
 #include "../include/quickcpplib/boost/test/unit_test.hpp"
-#include "../include/quickcpplib/string_view.hpp"
+
+#include <string>
 
 BOOST_AUTO_TEST_SUITE(algorithm_)
 
@@ -93,7 +94,7 @@ BOOST_AUTO_TEST_CASE(hash / sha256, "Tests that algorithm::hash256() works as ad
 {
   struct sha256_test
   {
-    QUICKCPPLIB_NAMESPACE::string_view::string_view what, sha256;
+    std::string what, sha256;
   };
   static const sha256_test items[] = {
   //
@@ -109,11 +110,12 @@ BOOST_AUTO_TEST_CASE(hash / sha256, "Tests that algorithm::hash256() works as ad
   for(auto &i : items)
   {
     char _buffer[64];
-    QUICKCPPLIB_NAMESPACE::string_view::string_view buffer(_buffer, 64);
+    std::string buffer;
     {
       auto hash = QUICKCPPLIB_NAMESPACE::algorithm::hash::sha256_hash::hash(i.what.data(), i.what.size());
       QUICKCPPLIB_NAMESPACE::algorithm::string::to_hex_string(QUICKCPPLIB_NAMESPACE::span::span<char>(_buffer),
                                                               QUICKCPPLIB_NAMESPACE::span::span<const uint8_t>(hash.as_bytes));
+      buffer.assign(_buffer, sizeof(_buffer));
       std::cout << "\nWas:       " << buffer << "\nShould be: " << i.sha256 << std::endl;
       BOOST_CHECK(buffer == i.sha256);
     }
@@ -126,6 +128,7 @@ BOOST_AUTO_TEST_CASE(hash / sha256, "Tests that algorithm::hash256() works as ad
     auto hash = impl.finalise();
     QUICKCPPLIB_NAMESPACE::algorithm::string::to_hex_string(QUICKCPPLIB_NAMESPACE::span::span<char>(_buffer),
                                                             QUICKCPPLIB_NAMESPACE::span::span<const uint8_t>(hash.as_bytes));
+    buffer.assign(_buffer, sizeof(_buffer));
     std::cout << "\nWas:       " << buffer << "\nShould be: " << i.sha256 << std::endl;
     BOOST_CHECK(buffer == i.sha256);
   }

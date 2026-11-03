@@ -27,15 +27,12 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "config.hpp"
 
-#ifndef QUICKCPPLIB_USE_STD_BYTE
-#if _HAS_CXX17 || __cplusplus >= 201700L
-#define QUICKCPPLIB_USE_STD_BYTE 1
-#else
-#define QUICKCPPLIB_USE_STD_BYTE 0
-#endif
-#endif
-
-#if QUICKCPPLIB_USE_STD_BYTE
+// std::byte is C++17, and there is no pre-C++17 substitute any more: the bundled
+// byte-lite copy was deleted when C++17 became quickcpplib's default. C++14 is
+// still an explicit opt-in mode (QUICKCPPLIB_MIN_CXX_STANDARD=14) for consumers
+// such as Outcome, but those consumers do not use std::byte. So rather than
+// silently omit the type in that mode, fail here with one actionable message.
+#if (defined(_MSVC_LANG) && _MSVC_LANG >= 201703L) || __cplusplus >= 201703L
 
 #include <cstddef>
 
@@ -44,32 +41,15 @@ QUICKCPPLIB_NAMESPACE_BEGIN
 namespace byte
 {
   using std::byte;
-  template <class IntegerType>
-  inline constexpr byte to_byte(IntegerType v) noexcept {
-    return static_cast<byte>(v);
-  }
+  template <class IntegerType> inline constexpr byte to_byte(IntegerType v) noexcept { return static_cast<byte>(v); }
 }
 
 QUICKCPPLIB_NAMESPACE_END
 
-#else // ^^^ QUICKCPPLIB_USE_STD_BYTE / not QUICKCPPLIB_USE_STD_BYTE vvv
-
-#if QUICKCPPLIB_USE_SYSTEM_BYTE_LITE
-#include <nonstd/byte.hpp>
 #else
-#include "byte/include/nonstd/byte.hpp"
+
+#error "quickcpplib/byte.hpp requires C++17 (std::byte). quickcpplib defaults to C++17 and the pre-C++17 byte polyfill has been removed. If you configured the opt-in C++14 mode with QUICKCPPLIB_MIN_CXX_STANDARD=14, do not include this header: mem_flush_loads_stores.hpp and detach_cast.hpp are unavailable in that mode."
+
 #endif
-
-QUICKCPPLIB_NAMESPACE_BEGIN
-
-namespace byte
-{
-  using nonstd::byte;
-  using nonstd::to_byte;
-}
-
-QUICKCPPLIB_NAMESPACE_END
-
-#endif // ^^^ not QUICKCPPLIB_USE_STD_BYTE ^^^
 
 #endif

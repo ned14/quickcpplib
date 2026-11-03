@@ -25,6 +25,13 @@ Distributed under the Boost Software License, Version 1.0.
 #ifndef QUICKCPPLIB_MEM_FLUSH_LOADS_STORES_HPP
 #define QUICKCPPLIB_MEM_FLUSH_LOADS_STORES_HPP
 
+// This header needs std::byte, i.e. C++17. It is deliberately not made to work in
+// the opt-in C++14 mode (QUICKCPPLIB_MIN_CXX_STANDARD=14): doing so would mean
+// carrying a byte polyfill again, and the consumers that need C++14 - Outcome -
+// do not use this header. Including it there fails loudly, here, rather than
+// exposing a half-defined API.
+#if (defined(_MSVC_LANG) && _MSVC_LANG >= 201703L) || __cplusplus >= 201703L
+
 #include "byte.hpp"
 
 #include <atomic>
@@ -340,5 +347,11 @@ namespace mem_flush_loads_stores
 }  // namespace mem_flush_loads_stores
 
 QUICKCPPLIB_NAMESPACE_END
+
+#else
+
+#error "quickcpplib/mem_flush_loads_stores.hpp requires C++17 (std::byte) and is disabled in the opt-in C++14 mode (QUICKCPPLIB_MIN_CXX_STANDARD=14). Outcome, which opts into C++14, does not use it."
+
+#endif
 
 #endif

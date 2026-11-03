@@ -20,22 +20,51 @@ jobs:
       CXX: ${{ matrix.compiler }}
           
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
+      with:
+        persist-credentials: true
+        fetch-depth: 0
 
     - name: CMake tests Linux
       shell: bash
       run:  |
-         ctest -S .ci.cmake -V
-      
-#    - name: Upload Prebuilt Binaries
-#      uses: actions/upload-artifact@v4
-#      with:
-#        name: Linux ${{ matrix.compiler }} prebuilt binaries
-#        path: quickcpplib-v0.1-binaries-linux-x64.tgz
-      
+         set -o pipefail
+         ctest -S .ci.cmake -V 2>&1 | tee ci.log
+
+    # The job log lives on storage this project's own tooling cannot reach, so the
+    # first errors are re-emitted as workflow commands: those become check-run
+    # annotations, which are readable through the API.
+    - name: Annotate the errors
+      if: failure()
+      shell: bash
+      run: |
+        hits=0
+        # doxygen reports into its own warning log and names itself in the ctest
+        # output; neither matched the generic pattern, so a docs failure arrived as
+        # "FATAL: build of quickcpplib_docs failed" with nothing behind it.
+        # Doxyfile sets OUTPUT_DIRECTORY = doc, so WARN_LOGFILE resolves to
+        # doc/doxygen_warnings.log, not the repository root - which is why the
+        # previous version of this step reported nothing.
+        for w in $(find . -name doxygen_warnings.log -size +0c 2>/dev/null | head -3); do
+          head -5 "$w" | sed "s|^|::error::doxygen($w): |"
+          hits=1
+        done
+        for f in ci.log; do
+          [ -f "$f" ] || continue
+          out=$(grep -m 10 -iE 'error|FAILED|undefined symbol|tests failed|assertion|doxygen|Doxygen' "$f" || true)
+          if [ -n "$out" ]; then echo "$out" | sed 's/^/::error::/'; hits=1; fi
+        done
+        if [ "$hits" -eq 0 ]; then
+          for f in ci.log; do
+            [ -f "$f" ] || continue
+            tail -5 "$f" | sed 's/^/::error::log tail: /'
+            break
+          done
+          echo "::error::no log matched: the failing step wrote no log, or failed before writing one"
+        fi
     - name: Upload Test Results
       if: always()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: Linux ${{ matrix.compiler }} test results
         path: prebuilt/merged_junit_results.xml
@@ -47,21 +76,51 @@ jobs:
       NAME: MacOS
           
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
+      with:
+        persist-credentials: true
+        fetch-depth: 0
 
     - name: CMake tests Mac OS
       shell: bash
-      run: ctest -S .ci.cmake -V -E noexcept
-      
-#    - name: Upload Prebuilt Binaries
-#      uses: actions/upload-artifact@v4
-#      with:
-#        name: Mac OS prebuilt binaries
-#        path: quickcpplib-v0.1-binaries-darwin-x64.tgz
-      
+      run: |
+        set -o pipefail
+        ctest -S .ci.cmake -V -E noexcept 2>&1 | tee ci.log
+
+    # The job log lives on storage this project's own tooling cannot reach, so the
+    # first errors are re-emitted as workflow commands: those become check-run
+    # annotations, which are readable through the API.
+    - name: Annotate the errors
+      if: failure()
+      shell: bash
+      run: |
+        hits=0
+        # doxygen reports into its own warning log and names itself in the ctest
+        # output; neither matched the generic pattern, so a docs failure arrived as
+        # "FATAL: build of quickcpplib_docs failed" with nothing behind it.
+        # Doxyfile sets OUTPUT_DIRECTORY = doc, so WARN_LOGFILE resolves to
+        # doc/doxygen_warnings.log, not the repository root - which is why the
+        # previous version of this step reported nothing.
+        for w in $(find . -name doxygen_warnings.log -size +0c 2>/dev/null | head -3); do
+          head -5 "$w" | sed "s|^|::error::doxygen($w): |"
+          hits=1
+        done
+        for f in ci.log; do
+          [ -f "$f" ] || continue
+          out=$(grep -m 10 -iE 'error|FAILED|undefined symbol|tests failed|assertion|doxygen|Doxygen' "$f" || true)
+          if [ -n "$out" ]; then echo "$out" | sed 's/^/::error::/'; hits=1; fi
+        done
+        if [ "$hits" -eq 0 ]; then
+          for f in ci.log; do
+            [ -f "$f" ] || continue
+            tail -5 "$f" | sed 's/^/::error::log tail: /'
+            break
+          done
+          echo "::error::no log matched: the failing step wrote no log, or failed before writing one"
+        fi
     - name: Upload Test Results
       if: always()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: Mac OS test results
         path: prebuilt/merged_junit_results.xml
@@ -73,25 +132,245 @@ jobs:
       NAME: WinVS2022
           
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
+      with:
+        persist-credentials: true
+        fetch-depth: 0
 
     - name: CMake tests Windows
       shell: bash
-      run: ctest -S .ci.cmake -V
-      
-#    - name: Upload Prebuilt Binaries
-#      uses: actions/upload-artifact@v4
-#      with:
-#        name: Windows VS2022 prebuilt binaries
-#        path: quickcpplib-v0.1-binaries-win64.zip
-      
+      run: |
+        set -o pipefail
+        ctest -S .ci.cmake -V 2>&1 | tee ci.log
+
+    # The job log lives on storage this project's own tooling cannot reach, so the
+    # first errors are re-emitted as workflow commands: those become check-run
+    # annotations, which are readable through the API.
+    - name: Annotate the errors
+      if: failure()
+      shell: bash
+      run: |
+        hits=0
+        # doxygen reports into its own warning log and names itself in the ctest
+        # output; neither matched the generic pattern, so a docs failure arrived as
+        # "FATAL: build of quickcpplib_docs failed" with nothing behind it.
+        # Doxyfile sets OUTPUT_DIRECTORY = doc, so WARN_LOGFILE resolves to
+        # doc/doxygen_warnings.log, not the repository root - which is why the
+        # previous version of this step reported nothing.
+        for w in $(find . -name doxygen_warnings.log -size +0c 2>/dev/null | head -3); do
+          head -5 "$w" | sed "s|^|::error::doxygen($w): |"
+          hits=1
+        done
+        for f in ci.log; do
+          [ -f "$f" ] || continue
+          out=$(grep -m 10 -iE 'error|FAILED|undefined symbol|tests failed|assertion|doxygen|Doxygen' "$f" || true)
+          if [ -n "$out" ]; then echo "$out" | sed 's/^/::error::/'; hits=1; fi
+        done
+        if [ "$hits" -eq 0 ]; then
+          for f in ci.log; do
+            [ -f "$f" ] || continue
+            tail -5 "$f" | sed 's/^/::error::log tail: /'
+            break
+          done
+          echo "::error::no log matched: the failing step wrote no log, or failed before writing one"
+        fi
     - name: Upload Test Results
       if: always()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: Windows VS2022 test results
         path: prebuilt/merged_junit_results.xml
 
+  # The three jobs below pin the language-standard configuration surface itself.
+  # The jobs above run ctest -S .ci.cmake, i.e. whatever CMakeLists.txt defaults
+  # to, so without these a future change of that default (or of the C++14 opt-in)
+  # would be invisible to CI. Each lane configures, builds and tests plainly, and
+  # the last two assert what a *consumer* is required to compile at: the floor is
+  # a compile feature, so it is asserted as a feature that propagates, not as a
+  # configure error.
+  Linux-CXX17:
+    name: Linux C++17 (explicit)
+    runs-on: ubuntu-22.04
+    env:
+      NAME: Linux-CXX17
+
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        persist-credentials: true
+        fetch-depth: 0
+
+    - name: Configure C++17
+      shell: bash
+      run: |
+        cmake -G Ninja -S . -B build-cxx17 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17
+
+    - name: Build C++17
+      shell: bash
+      run: |
+        set -o pipefail
+        cmake --build build-cxx17 --parallel 2>&1 | tee build-cxx17/build.log
+
+    - name: Test C++17
+      shell: bash
+      run: |
+        set -o pipefail
+        cd build-cxx17
+        ctest -C Release --output-on-failure 2>&1 | tee ctest.log
+
+    # The job log lives on storage this project's own tooling cannot reach, so the
+    # first errors are re-emitted as workflow commands: those become check-run
+    # annotations, which are readable through the API.
+    - name: Annotate the errors
+      if: failure()
+      shell: bash
+      run: |
+        hits=0
+        for f in build-cxx17/build.log build-cxx17/ctest.log; do
+          [ -f "$f" ] || continue
+          out=$(grep -m 10 -iE 'error|FAILED|undefined symbol|tests failed|assertion' "$f" || true)
+          if [ -n "$out" ]; then echo "$out" | sed 's/^/::error::/'; hits=1; fi
+        done
+        if [ "$hits" -eq 0 ]; then
+          for f in build-cxx17/build.log build-cxx17/ctest.log; do
+            [ -f "$f" ] || continue
+            tail -5 "$f" | sed 's/^/::error::log tail: /'
+            break
+          done
+          echo "::error::no log matched: the failing step wrote no log, or failed before writing one"
+        fi
+
+  Linux-CXX14-optin:
+    name: Linux C++14 (opt-in)
+    runs-on: ubuntu-22.04
+    env:
+      NAME: Linux-CXX14-optin
+
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        persist-credentials: true
+        fetch-depth: 0
+
+    # The three C++17-only tests must be excluded loudly: a silently shorter test
+    # list is exactly how the old C++14 path rotted.
+    - name: Configure C++14 opt-in
+      shell: bash
+      run: |
+        set -o pipefail
+        cmake -G Ninja -S . -B build-cxx14 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=14 -DQUICKCPPLIB_MIN_CXX_STANDARD=14 2>&1 | tee build-cxx14-configure.log
+        if ! grep -q "SKIPPING bitwise_trie;casts;mem_flush_loads_stores because they require C++17" build-cxx14-configure.log; then
+          echo "ERROR: configure did not announce the exclusion of bitwise_trie;casts;mem_flush_loads_stores as C++17-only tests"
+          exit 1
+        fi
+
+    - name: Build C++14 opt-in
+      shell: bash
+      run: |
+        set -o pipefail
+        cmake --build build-cxx14 --parallel 2>&1 | tee build-cxx14/build.log
+
+    # The opt-in must reach a consumer as cxx_std_14 - and must NOT reach it as
+    # cxx_std_17, or the "opt-in" would silently raise a C++14 consumer.
+    - name: Configure the C++14 consumer in the opt-in mode
+      shell: bash
+      run: |
+        cmake -G Ninja -S .ci/floor-consumer -B build-floor-optin -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=14 -DQUICKCPPLIB_MIN_CXX_STANDARD=14
+
+    - name: Assert the consumer requires only cxx_std_14
+      shell: bash
+      run: |
+        cmake -DFEATURES_FILE=build-floor-optin/quickcpplib-interface-compile-features.txt -DEXPECT_FEATURE=cxx_std_14 -DFORBIDDEN_FEATURE=cxx_std_17 -P .ci/assert-compile-feature.cmake
+
+    - name: Assert std::byte is unavailable to the opt-in consumer
+      shell: bash
+      run: |
+        # The feature assertion above says what the consumer is required to
+        # compile at; this is the behavioural half: a std::byte TU must not build.
+        if cmake --build build-floor-optin --target std_byte_consumer; then
+          echo "ERROR: the opt-in C++14 mode built a std::byte TU - the floor was raised to C++17 anyway"
+          exit 1
+        fi
+
+    - name: Test C++14 opt-in
+      shell: bash
+      run: |
+        set -o pipefail
+        cd build-cxx14
+        ctest -C Release --output-on-failure 2>&1 | tee ctest.log
+
+    # The job log lives on storage this project's own tooling cannot reach, so the
+    # first errors are re-emitted as workflow commands: those become check-run
+    # annotations, which are readable through the API.
+    - name: Annotate the errors
+      if: failure()
+      shell: bash
+      run: |
+        hits=0
+        for f in build-cxx14-configure.log build-cxx14/build.log build-cxx14/ctest.log; do
+          [ -f "$f" ] || continue
+          out=$(grep -m 10 -iE 'error|FAILED|undefined symbol|tests failed|assertion' "$f" || true)
+          if [ -n "$out" ]; then echo "$out" | sed 's/^/::error::/'; hits=1; fi
+        done
+        if [ "$hits" -eq 0 ]; then
+          for f in build-cxx14-configure.log build-cxx14/build.log build-cxx14/ctest.log; do
+            [ -f "$f" ] || continue
+            tail -5 "$f" | sed 's/^/::error::log tail: /'
+            break
+          done
+          echo "::error::no log matched: the failing step wrote no log, or failed before writing one"
+        fi
+
+  Linux-floor-propagates:
+    name: Linux C++14 consumer raised to C++17 by the floor
+    runs-on: ubuntu-22.04
+    env:
+      NAME: Linux-floor-propagates
+
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        persist-credentials: true
+        fetch-depth: 0
+
+    - name: Configure the C++14 consumer
+      shell: bash
+      run: |
+        cmake -G Ninja -S .ci/floor-consumer -B build-floor -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=14
+
+    - name: Assert the consumer requires cxx_std_17
+      shell: bash
+      run: |
+        cmake -DFEATURES_FILE=build-floor/quickcpplib-interface-compile-features.txt -DEXPECT_FEATURE=cxx_std_17 -DFORBIDDEN_FEATURE=cxx_std_14 -P .ci/assert-compile-feature.cmake
+
+    - name: Build and run the std::byte consumer
+      shell: bash
+      run: |
+        set -o pipefail
+        cmake --build build-floor --target std_byte_consumer 2>&1 | tee build-floor/build.log
+        ./build-floor/std_byte_consumer 2>&1 | tee build-floor/run.log
+
+    # The job log lives on storage this project's own tooling cannot reach, so the
+    # first errors are re-emitted as workflow commands: those become check-run
+    # annotations, which are readable through the API.
+    - name: Annotate the errors
+      if: failure()
+      shell: bash
+      run: |
+        hits=0
+        for f in build-floor/build.log build-floor/run.log; do
+          [ -f "$f" ] || continue
+          out=$(grep -m 10 -iE 'error|FAILED|undefined symbol|tests failed|assertion' "$f" || true)
+          if [ -n "$out" ]; then echo "$out" | sed 's/^/::error::/'; hits=1; fi
+        done
+        if [ "$hits" -eq 0 ]; then
+          for f in build-floor/build.log build-floor/run.log; do
+            [ -f "$f" ] || continue
+            tail -5 "$f" | sed 's/^/::error::log tail: /'
+            break
+          done
+          echo "::error::no log matched: the failing step wrote no log, or failed before writing one"
+        fi
   publish-test-results:
     name: "Publish Documentation and Unit Tests Results"
     needs: [Linux, MacOS, WinVS2022]
@@ -103,7 +382,7 @@ jobs:
 
     steps:
       - name: Download Artifacts
-        uses: actions/download-artifact@v4.1.7
+        uses: actions/download-artifact@v8
         with:
           path: artifacts
 
@@ -115,7 +394,7 @@ jobs:
           files: '**/merged_junit_results.xml'
           
       - name: Checkout Documentation
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
           submodules: recursive
@@ -123,11 +402,53 @@ jobs:
       - name: Regenerate Documentation
         shell: bash
         run: |
+         # set -e, and an apt update first: this block used to be two commands where
+         # only the last decided the outcome, so a runner whose package lists were
+         # stale failed here as "no doxygen installed", which .docs.cmake reports
+         # three stages later as a missing docs target and an aborted ctest script.
+         set -eo pipefail
+         sudo apt-get update
          sudo apt-get install -y doxygen graphviz
-         ctest -S .docs.cmake -V
-          
+         doxygen --version
+         ctest -S .docs.cmake -V 2>&1 | tee docs.log
+
+      # The job log lives on storage this project's own tooling cannot reach, so
+      # the failure is re-emitted as workflow commands: those become check-run
+      # annotations, which are readable through the API. Doxygen warnings arrive
+      # first because they are what fails a docs build.
+      - name: Annotate the errors
+        if: failure()
+        shell: bash
+        run: |
+          set +e
+          log=docs.log
+          emit() { sed -e 's/%/%25/g' -e 's/\r$//' | sed 's/^/::error::/'; }
+          hits=0
+          # Doxygen writes its warnings AND its errors into WARN_LOGFILE, not to
+          # stdout, so a doxygen which FAILS leaves the reason in
+          # doxygen_warnings.log while docs.log holds only "FATAL: build of
+          # quickcpplib_docs failed (return value '2')" - which names no cause at
+          # all. Where that log lands depends on the doxygen version: relative to
+          # the working directory (1.9.x) or to OUTPUT_DIRECTORY, so find it
+          # rather than guessing. Emitted first, because the annotation cap is
+          # about ten lines and the cause belongs inside it.
+          for w in $(find . -name doxygen_warnings.log -size +0c 2>/dev/null | head -3); do
+            head -5 "$w" | sed "s|^|::error::doxygen($w): |"
+            hits=1
+          done
+          if [ -f "$log" ]; then
+            {
+              grep -iE 'warning:|error:|FATAL|Problem|failed' "$log" | head -8
+              tail -2 "$log"
+            } | awk '!seen[$0]++' | head -10 | emit
+            hits=1
+          fi
+          if [ "$hits" -eq 0 ]; then
+            echo "::error::$log was never written and no doxygen log exists: the step failed before ctest ran"
+          fi
+
       - name: Publish Documentation
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: JamesIves/github-pages-deploy-action@v4.9.0
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
