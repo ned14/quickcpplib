@@ -46,6 +46,7 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "packed_backtrace.hpp"
 #include "scope.hpp"
+#include "spinlock.hpp"
 
 #include <array>
 #include <atomic>
@@ -779,6 +780,9 @@ namespace ringbuffer_log
     std::atomic<level> _instance_level;
     std::atomic<size_type> _counter;
     std::ostream *_immediate;
+    //! Serialises writers, so that the counter can never publish a slot which a
+    //! slower writer has not yet filled.
+    configurable_spinlock::spinlock<uint32_t> _lock;
 
     size_type counter_to_idx(size_type counter) const noexcept { return max_items ? (counter % max_items) : (counter % _store.size()); }
 
@@ -819,11 +823,11 @@ namespace ringbuffer_log
     void instance_log_level(level new_level) noexcept { _instance_level.store(new_level, std::memory_order_relaxed); }
 
     //! Returns true if the log is empty
-    bool empty() const noexcept { return _counter.load(std::memory_order_relaxed) == 0; }
+    bool empty() const noexcept { return _counter.load(std::memory_order_acquire) == 0; }
     //! Returns the number of items in the log
     size_type size() const noexcept
     {
-      size_type ret = _counter.load(std::memory_order_relaxed);
+      size_type ret = _counter.load(std::memory_order_acquire);
       if(_store.size() < ret)
         ret = _store.size();
       return ret;
@@ -847,7 +851,7 @@ namespace ringbuffer_log
     //! True if a unique id is still valid
     bool valid(unique_id id) const noexcept
     {
-      size_type counter = _counter.load(std::memory_order_relaxed);
+      size_type counter = _counter.load(std::memory_order_acquire);
       size_type size = counter;
       if(_store.size() < size)
         size = _store.size();
@@ -855,16 +859,16 @@ namespace ringbuffer_log
     }
 
     //! Returns the front of the ringbuffer. Be careful of races with concurrent modifies.
-    reference front() noexcept { return _store[counter_to_idx(_counter.load(std::memory_order_relaxed) - 1)]; }
+    reference front() noexcept { return _store[counter_to_idx(_counter.load(std::memory_order_acquire) - 1)]; }
     //! Returns the front of the ringbuffer. Be careful of races with concurrent modifies.
-    const_reference front() const noexcept { return _store[counter_to_idx(_counter.load(std::memory_order_relaxed) - 1)]; }
+    const_reference front() const noexcept { return _store[counter_to_idx(_counter.load(std::memory_order_acquire) - 1)]; }
 #ifdef __cpp_exceptions
     //! Returns a reference to the specified element. Be careful of races with concurrent modifies.
     reference at(size_type pos)
     {
       if(pos >= size())
         throw std::out_of_range("index exceeds size");
-      return _store[counter_to_idx(_counter.load(std::memory_order_relaxed) - 1 - pos)];
+      return _store[counter_to_idx(_counter.load(std::memory_order_acquire) - 1 - pos)];
     }
     //! Returns a reference to the specified element.
     reference at(unique_id id)
@@ -878,7 +882,7 @@ namespace ringbuffer_log
     {
       if(pos >= size())
         throw std::out_of_range("index exceeds size");
-      return _store[counter_to_idx(_counter.load(std::memory_order_relaxed) - 1 - pos)];
+      return _store[counter_to_idx(_counter.load(std::memory_order_acquire) - 1 - pos)];
     }
     //! Returns a reference to the specified element.
     const_reference at(unique_id id) const
@@ -889,17 +893,17 @@ namespace ringbuffer_log
     }
 #endif
     //! Returns a reference to the specified element. Be careful of races with concurrent modifies.
-    reference operator[](size_type pos) noexcept { return _store[counter_to_idx(_counter.load(std::memory_order_relaxed) - 1 - pos)]; }
+    reference operator[](size_type pos) noexcept { return _store[counter_to_idx(_counter.load(std::memory_order_acquire) - 1 - pos)]; }
     //! Returns a reference to the specified element.
     reference operator[](unique_id id) noexcept { return _store[counter_to_idx(id.value)]; }
     //! Returns a reference to the specified element. Be careful of races with concurrent modifies.
-    const_reference operator[](size_type pos) const noexcept { return _store[counter_to_idx(_counter.load(std::memory_order_relaxed) - 1 - pos)]; }
+    const_reference operator[](size_type pos) const noexcept { return _store[counter_to_idx(_counter.load(std::memory_order_acquire) - 1 - pos)]; }
     //! Returns a reference to the specified element.
     const_reference operator[](unique_id id) const noexcept { return _store[counter_to_idx(id.value)]; }
     //! Returns the back of the ringbuffer. Be careful of races with concurrent modifies.
     reference back() noexcept
     {
-      size_type counter = _counter.load(std::memory_order_relaxed);
+      size_type counter = _counter.load(std::memory_order_acquire);
       size_type size = counter;
       if(_store.size() < size)
         size = _store.size();
@@ -908,7 +912,7 @@ namespace ringbuffer_log
     //! Returns the back of the ringbuffer. Be careful of races with concurrent modifies.
     const_reference back() const noexcept
     {
-      size_type counter = _counter.load(std::memory_order_relaxed);
+      size_type counter = _counter.load(std::memory_order_acquire);
       size_type size = counter;
       if(_store.size() < size)
         size = _store.size();
@@ -918,7 +922,7 @@ namespace ringbuffer_log
     //! Returns an iterator to the first item in the log. Be careful of races with concurrent modifies.
     iterator begin() noexcept
     {
-      size_type counter = _counter.load(std::memory_order_relaxed);
+      size_type counter = _counter.load(std::memory_order_acquire);
       size_type size = counter;
       if(_store.size() < size)
         size = _store.size();
@@ -927,7 +931,7 @@ namespace ringbuffer_log
     //! Returns an iterator to the first item in the log. Be careful of races with concurrent modifies.
     const_iterator begin() const noexcept
     {
-      size_type counter = _counter.load(std::memory_order_relaxed);
+      size_type counter = _counter.load(std::memory_order_acquire);
       size_type size = counter;
       if(_store.size() < size)
         size = _store.size();
@@ -936,7 +940,7 @@ namespace ringbuffer_log
     //! Returns an iterator to the first item in the log. Be careful of races with concurrent modifies.
     const_iterator cbegin() const noexcept
     {
-      size_type counter = _counter.load(std::memory_order_relaxed);
+      size_type counter = _counter.load(std::memory_order_acquire);
       size_type size = counter;
       if(_store.size() < size)
         size = _store.size();
@@ -945,7 +949,7 @@ namespace ringbuffer_log
     //! Returns an iterator to the item after the last in the log. Be careful of races with concurrent modifies.
     iterator end() noexcept
     {
-      size_type counter = _counter.load(std::memory_order_relaxed);
+      size_type counter = _counter.load(std::memory_order_acquire);
       size_type size = counter;
       if(_store.size() < size)
         size = _store.size();
@@ -954,7 +958,7 @@ namespace ringbuffer_log
     //! Returns an iterator to the item after the last in the log. Be careful of races with concurrent modifies.
     const_iterator end() const noexcept
     {
-      size_type counter = _counter.load(std::memory_order_relaxed);
+      size_type counter = _counter.load(std::memory_order_acquire);
       size_type size = counter;
       if(_store.size() < size)
         size = _store.size();
@@ -963,7 +967,7 @@ namespace ringbuffer_log
     //! Returns an iterator to the item after the last in the log. Be careful of races with concurrent modifies.
     const_iterator cend() const noexcept
     {
-      size_type counter = _counter.load(std::memory_order_relaxed);
+      size_type counter = _counter.load(std::memory_order_acquire);
       size_type size = counter;
       if(_store.size() < size)
         size = _store.size();
@@ -973,8 +977,9 @@ namespace ringbuffer_log
     //! Clears the log
     void clear() noexcept
     {
-      _counter.store(0, std::memory_order_relaxed);
+      configurable_spinlock::lock_guard<decltype(_lock)> g(_lock);
       std::fill(_store.begin(), _store.end(), value_type());
+      _counter.store(0, std::memory_order_release);
     }
     //! THREADSAFE Logs a new item, returning its unique counter id
     size_type push_back(value_type &&v) noexcept
@@ -983,9 +988,15 @@ namespace ringbuffer_log
       {
         if(_immediate)
           *_immediate << v << std::endl;
-        size_type thisitem = _counter++;
+        // Write the record BEFORE advancing the counter which publishes it, and
+        // hold the writer lock across both: readers decide which slots are live
+        // from the counter alone, so publishing first let them consume a
+        // half-written record, or the previous wrap's record.
+        configurable_spinlock::lock_guard<decltype(_lock)> g(_lock);
+        size_type thisitem = _counter.load(std::memory_order_acquire);
         v.counter = thisitem;
         _store[counter_to_idx(thisitem)] = std::move(v);
+        _counter.store(thisitem + 1, std::memory_order_release);
         return thisitem;
       }
       return (size_type) -1;
@@ -998,9 +1009,15 @@ namespace ringbuffer_log
         value_type v(__level, std::forward<Args>(args)...);
         if(_immediate)
           *_immediate << v << std::endl;
-        size_type thisitem = _counter++;
+        // Write the record BEFORE advancing the counter which publishes it, and
+        // hold the writer lock across both: readers decide which slots are live
+        // from the counter alone, so publishing first let them consume a
+        // half-written record, or the previous wrap's record.
+        configurable_spinlock::lock_guard<decltype(_lock)> g(_lock);
+        size_type thisitem = _counter.load(std::memory_order_acquire);
         v.counter = thisitem;
         _store[counter_to_idx(thisitem)] = std::move(v);
+        _counter.store(thisitem + 1, std::memory_order_release);
         return thisitem;
       }
       return (size_type) -1;
