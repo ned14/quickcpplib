@@ -131,4 +131,32 @@ BOOST_AUTO_TEST_CASE(ringbuffer_log / simple / performance, "Tests that the simp
   std::cout << "Nanoseconds to log item with    backtrace: " << diff_backtrace << std::endl;
 }
 
+BOOST_AUTO_TEST_CASE(ringbuffer_log / snapshot / hands back whole records,
+                     "Tests that snapshot() and snapshot_by_id() copy a whole record out of the ring")
+{
+  simple_ringbuffer_log<> log_(level::all);
+  const auto a = log_.emplace_back(level::warn, "rec A", 0, 0);
+  const auto b = log_.emplace_back(level::warn, "rec B", 0, 0);
+  const auto c = log_.emplace_back(level::warn, "rec C", 0, 0);
+  BOOST_CHECK(a == 0 && b == 1 && c == 2);
+  // Positional access counts from the newest
+  BOOST_CHECK(!strcmp(log_.snapshot(0).message, "rec C"));
+  BOOST_CHECK(!strcmp(log_.snapshot(1).message, "rec B"));
+  BOOST_CHECK(!strcmp(log_.snapshot(2).message, "rec A"));
+  BOOST_CHECK(log_.snapshot(3).counter == 0 && log_.snapshot(3).message[0] == 0);  // not held
+  simple_ringbuffer_log<>::value_type out;
+  BOOST_CHECK(log_.try_snapshot(1, out) && !strcmp(out.message, "rec B"));
+  BOOST_CHECK(!log_.try_snapshot(3, out));
+  // By unique id: note the `operator[](size_type)` overload wins over
+  // `operator[](unique_id)` for a plain integer, which is why this has its own name
+  BOOST_CHECK(!strcmp(log_.snapshot_by_id(simple_ringbuffer_log<>::unique_id(a)).message, "rec A"));
+  BOOST_CHECK(!strcmp(log_.snapshot_by_id(simple_ringbuffer_log<>::unique_id(c)).message, "rec C"));
+  // Push until the ring wraps: the first record falls out of it
+  for(unsigned i = 0; i < 4096; i++)
+    log_.emplace_back(level::warn, "rec X", 0, 0);
+  BOOST_CHECK(log_.snapshot_by_id(simple_ringbuffer_log<>::unique_id(a)).counter == 0);
+  BOOST_CHECK(log_.snapshot_by_id(simple_ringbuffer_log<>::unique_id(a)).message[0] == 0);
+  BOOST_CHECK(log_.snapshot(0).counter != 0);
+}
+
 BOOST_AUTO_TEST_SUITE_END()

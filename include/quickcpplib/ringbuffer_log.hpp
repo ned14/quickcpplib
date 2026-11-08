@@ -786,6 +786,22 @@ namespace ringbuffer_log
 
     size_type counter_to_idx(size_type counter) const noexcept { return max_items ? (counter % max_items) : (counter % _store.size()); }
 
+    /*! Copies the record whose unique counter is `counter_value` into `out`, returning false if
+    the writer rewrote that slot while it was being copied (or has already done so, which means
+    the record is gone). A slot is rewritten only once the writer reaches `counter_value` plus the
+    size of the ring, so the record was copied whole if the counter never got that far.
+    */
+    bool _try_snapshot_counter(size_type counter_value, value_type &out) const noexcept
+    {
+      const size_type before = _counter.load(std::memory_order_acquire);
+      if(counter_value >= before || before - counter_value >= _store.size())
+      {
+        return false;
+      }
+      out = _store[counter_to_idx(counter_value)];
+      return (_counter.load(std::memory_order_acquire) - counter_value) < _store.size();
+    }
+
   public:
     //! Default construction, passes through args to container_type
     template <class... Args>
@@ -858,6 +874,58 @@ namespace ringbuffer_log
       return id.value < counter && id.value >= counter - size;
     }
 
+    /*! \brief Returns a tear-free copy of the record `pos` items from the newest, or a default
+    constructed record if the ring does not hold that many.
+    `pos` counts from the newest exactly as `operator[](size_type)` does. The accessors which hand
+    back a reference into the ring (`front()`, `back()`, `operator[]`, `at()` and the iterators)
+    are racy by construction: a writer which wraps the ring can rewrite the very slot a reader is
+    looking at, and no ordering prevents that. This copies the record out and discards the copy if
+    the writer got to the slot first, so what it returns is always one whole record.
+    */
+    value_type snapshot(size_type pos) const noexcept
+    {
+      value_type ret;
+      for(;;)
+      {
+        const size_type counted = _counter.load(std::memory_order_acquire);
+        if(pos >= counted)
+        {
+          return value_type();
+        }
+        if(_try_snapshot_counter(counted - 1 - pos, ret))
+        {
+          return ret;
+        }
+      }
+    }
+    /*! \brief Copies the record `pos` items from the newest into `out`, returning false if the
+    ring does not hold that many records or if the writer overwrote the slot while it was being
+    copied (in which case `out` is left unspecified). Unlike `snapshot()`, this never retries.
+    */
+    bool try_snapshot(size_type pos, value_type &out) const noexcept
+    {
+      const size_type counted = _counter.load(std::memory_order_acquire);
+      return pos < counted && _try_snapshot_counter(counted - 1 - pos, out);
+    }
+    /*! \brief Returns a tear-free copy of the record with the given unique id, or a default
+    constructed record if the ring no longer holds it.
+    */
+    value_type snapshot_by_id(unique_id id) const noexcept
+    {
+      value_type ret;
+      for(;;)
+      {
+        const size_type counted = _counter.load(std::memory_order_acquire);
+        if(id.value >= counted || counted - id.value >= _store.size())
+        {
+          return value_type();
+        }
+        if(_try_snapshot_counter(id.value, ret))
+        {
+          return ret;
+        }
+      }
+    }
     //! Returns the front of the ringbuffer. Be careful of races with concurrent modifies.
     reference front() noexcept { return _store[counter_to_idx(_counter.load(std::memory_order_acquire) - 1)]; }
     //! Returns the front of the ringbuffer. Be careful of races with concurrent modifies.
