@@ -58,6 +58,7 @@ Distributed under the Boost Software License, Version 1.0.
 #include <ostream>
 #include <sstream>
 #include <system_error>
+#include <thread>
 #include <type_traits>
 #include <vector>
 
@@ -783,23 +784,68 @@ namespace ringbuffer_log
     //! Serialises writers, so that the counter can never publish a slot which a
     //! slower writer has not yet filled.
     configurable_spinlock::spinlock<uint32_t> _lock;
+    /*! One sequence word per slot: the standard seqlock protocol, and the reason
+    the snapshot accessors can copy a record while a writer runs. The writer
+    bumps the word to ODD before touching the slot and to the next EVEN value
+    after, so a reader that sees an odd word, or a word that changed across its
+    copy, knows the copy is not a record and discards it. Without this the copy
+    was an ordinary read racing an ordinary write: only the counter was atomic,
+    so "detect and discard" was value-based reasoning about a data race that the
+    memory model does not sanction, however many stress runs failed to see it.
+    */
+    std::vector<std::atomic<uint32_t>> _seq;
+    //! How many times the snapshot accessors retry a slot before giving up and returning a default record
+    static constexpr size_t SNAPSHOT_ATTEMPTS = 8;
 
     size_type counter_to_idx(size_type counter) const noexcept { return max_items ? (counter % max_items) : (counter % _store.size()); }
+    size_type slots() const noexcept { return max_items ? max_items : _store.size(); }
+
+    /*! Marks a slot as being written, returning nothing: the odd/even pair is the
+    whole protocol, and both halves are fences rather than plain stores because
+    the record write between them must not escape the interval. */
+    void _seq_write_begin(size_type idx) noexcept
+    {
+      const uint32_t s = _seq[idx].load(std::memory_order_relaxed);
+      _seq[idx].store(s + 1, std::memory_order_relaxed);
+      std::atomic_thread_fence(std::memory_order_seq_cst);
+    }
+    void _seq_write_end(size_type idx) noexcept
+    {
+      std::atomic_thread_fence(std::memory_order_seq_cst);
+      const uint32_t s = _seq[idx].load(std::memory_order_relaxed);
+      _seq[idx].store(s + 1, std::memory_order_relaxed);
+    }
 
     /*! Copies the record whose unique counter is `counter_value` into `out`, returning false if
-    the writer rewrote that slot while it was being copied (or has already done so, which means
-    the record is gone). A slot is rewritten only once the writer reaches `counter_value` plus the
-    size of the ring, so the record was copied whole if the counter never got that far.
+    the writer is rewriting that slot, has rewritten it while the copy was made, or has moved far
+    enough for the record to have been recycled.
     */
     bool _try_snapshot_counter(size_type counter_value, value_type &out) const noexcept
     {
       const size_type before = _counter.load(std::memory_order_acquire);
-      if(counter_value >= before || before - counter_value >= _store.size())
+      // Record `c` is still in its slot until the writer reaches `c + slots()`:
+      // that write is the one which recycles the slot, and it has not happened
+      // while counter <= c + slots(). The old test rejected `>= slots()`, so the
+      // OLDEST record still held was refused - the off-by-one which made
+      // snapshot(size()-1) unsatisfiable once the ring had wrapped.
+      if(counter_value >= before || (before - counter_value) > slots())
       {
         return false;
       }
-      out = _store[counter_to_idx(counter_value)];
-      return (_counter.load(std::memory_order_acquire) - counter_value) < _store.size();
+      const size_type idx = counter_to_idx(counter_value);
+      const uint32_t seq_before = _seq[idx].load(std::memory_order_acquire);
+      if((seq_before & 1u) != 0)
+      {
+        // A writer is inside this slot right now; nothing here is a record.
+        return false;
+      }
+      out = _store[idx];
+      std::atomic_thread_fence(std::memory_order_acquire);
+      if(_seq[idx].load(std::memory_order_relaxed) != seq_before)
+      {
+        return false;
+      }
+      return (_counter.load(std::memory_order_acquire) - counter_value) <= slots();
     }
 
   public:
@@ -810,6 +856,7 @@ namespace ringbuffer_log
         , _instance_level(starting_level)
         , _counter(0)
         , _immediate(nullptr)
+        , _seq(slots())
     {
     }
     //! No copying
@@ -829,6 +876,16 @@ namespace ringbuffer_log
       _instance_level.store(t, std::memory_order_relaxed);
       std::swap(_counter, o._counter);
       std::swap(_immediate, o._immediate);
+      // A vector of atomics cannot itself be swapped, and the sequence words
+      // belong with the records they describe, so exchange them element-wise.
+      const size_type n = _seq.size() < o._seq.size() ? _seq.size() : o._seq.size();
+      for(size_type i = 0; i < n; i++)
+      {
+        const uint32_t a = _seq[i].load(std::memory_order_relaxed);
+        const uint32_t b = o._seq[i].load(std::memory_order_relaxed);
+        _seq[i].store(b, std::memory_order_relaxed);
+        o._seq[i].store(a, std::memory_order_relaxed);
+      }
     }
 
     //! THREADSAFE Returns the log level from the instance filtered by any `LogLevelChecker`.
@@ -885,10 +942,19 @@ namespace ringbuffer_log
     value_type snapshot(size_type pos) const noexcept
     {
       value_type ret;
-      for(;;)
+      // The ring holds at most `held` records, so a request from beyond that can
+      // never be satisfied. Asking _try_snapshot_counter for it used to loop
+      // forever: the counter-based liveness test rejects exactly pos >= held, so
+      // snapshot(size()) - and snapshot(size()-1) once the ring had wrapped -
+      // spun with no escape, in a const noexcept accessor documented as
+      // returning a default constructed record in that case. The attempt bound
+      // covers the other end: a writer that keeps overwriting the requested slot
+      // must make the reader give up, not livelock.
+      for(size_t attempt = 0; attempt < SNAPSHOT_ATTEMPTS; attempt++)
       {
         const size_type counted = _counter.load(std::memory_order_acquire);
-        if(pos >= counted)
+        const size_type held = counted < slots() ? counted : slots();
+        if(pos >= held)
         {
           return value_type();
         }
@@ -896,7 +962,9 @@ namespace ringbuffer_log
         {
           return ret;
         }
+        std::this_thread::yield();
       }
+      return value_type();
     }
     /*! \brief Copies the record `pos` items from the newest into `out`, returning false if the
     ring does not hold that many records or if the writer overwrote the slot while it was being
@@ -913,10 +981,10 @@ namespace ringbuffer_log
     value_type snapshot_by_id(unique_id id) const noexcept
     {
       value_type ret;
-      for(;;)
+      for(size_t attempt = 0; attempt < SNAPSHOT_ATTEMPTS; attempt++)
       {
         const size_type counted = _counter.load(std::memory_order_acquire);
-        if(id.value >= counted || counted - id.value >= _store.size())
+        if(id.value >= counted || (counted - id.value) > slots())
         {
           return value_type();
         }
@@ -924,7 +992,9 @@ namespace ringbuffer_log
         {
           return ret;
         }
+        std::this_thread::yield();
       }
+      return value_type();
     }
     //! Returns the front of the ringbuffer. Be careful of races with concurrent modifies.
     reference front() noexcept { return _store[counter_to_idx(_counter.load(std::memory_order_acquire) - 1)]; }
@@ -1046,7 +1116,16 @@ namespace ringbuffer_log
     void clear() noexcept
     {
       configurable_spinlock::lock_guard<decltype(_lock)> g(_lock);
-      std::fill(_store.begin(), _store.end(), value_type());
+      // Clearing rewrites every slot, so it takes the same dirty/clean marking a
+      // writer does: without it a reader could accept a slot mid-clear as a
+      // record, exactly as it could mid-write.
+      for(size_type i = 0; i < _store.size(); i++)
+      {
+        const size_type idx = i % slots();
+        _seq_write_begin(idx);
+        _store[i] = value_type();
+        _seq_write_end(idx);
+      }
       _counter.store(0, std::memory_order_release);
     }
     //! THREADSAFE Logs a new item, returning its unique counter id
@@ -1063,7 +1142,13 @@ namespace ringbuffer_log
         configurable_spinlock::lock_guard<decltype(_lock)> g(_lock);
         size_type thisitem = _counter.load(std::memory_order_acquire);
         v.counter = thisitem;
-        _store[counter_to_idx(thisitem)] = std::move(v);
+        const size_type idx = counter_to_idx(thisitem);
+        // Publish the slot as dirty before it is touched and clean again after it
+        // is whole, so a reader can tell a copy of a record from a copy of a
+        // record being written. See _seq.
+        _seq_write_begin(idx);
+        _store[idx] = std::move(v);
+        _seq_write_end(idx);
         _counter.store(thisitem + 1, std::memory_order_release);
         return thisitem;
       }
@@ -1084,7 +1169,13 @@ namespace ringbuffer_log
         configurable_spinlock::lock_guard<decltype(_lock)> g(_lock);
         size_type thisitem = _counter.load(std::memory_order_acquire);
         v.counter = thisitem;
-        _store[counter_to_idx(thisitem)] = std::move(v);
+        const size_type idx = counter_to_idx(thisitem);
+        // Publish the slot as dirty before it is touched and clean again after it
+        // is whole, so a reader can tell a copy of a record from a copy of a
+        // record being written. See _seq.
+        _seq_write_begin(idx);
+        _store[idx] = std::move(v);
+        _seq_write_end(idx);
         _counter.store(thisitem + 1, std::memory_order_release);
         return thisitem;
       }
