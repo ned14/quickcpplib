@@ -301,6 +301,7 @@ BOOST_AUTO_TEST_CASE(bitwise_trie / benchmark, "Benchmarks bitwise_trie against 
   // Fails on CI only and I don't know why
   if(getenv("CI") != nullptr)
   {
+    BOOST_TEST_CASE_SKIPPED("fails on CI only, cause unknown");
     return;
   }
 #endif

@@ -139,7 +139,8 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / global, "Tests that signal_guard wor
 BOOST_AUTO_TEST_CASE(signal_guard / works / watchdog, "Tests that the signal_guard_watchdog works as expected")
 {
 #ifdef __APPLE__
-  return;  // Lack of POSIX timers on Mac OS means this test fails
+  BOOST_TEST_CASE_SKIPPED("Lack of POSIX timers on macOS means this test cannot run");
+  return;
 #endif
   using namespace QUICKCPPLIB_NAMESPACE::signal_guard;
   {
@@ -382,11 +383,13 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / multithreaded,
                      "Tests that signal_guard works as advertised across multiple threads")
 {
 #if QUICKCPPLIB_IN_THREAD_SANITIZER
-  return;  // hangs tsan, indeed you can't even Ctrl-C out of it!
+  BOOST_TEST_CASE_SKIPPED("hangs under TSan - you cannot even Ctrl-C out of it");
+  return;
 #endif
 #ifdef _WIN32
   if(getenv("CI") != nullptr)
   {
+    BOOST_TEST_CASE_SKIPPED("does not work on a Windows CI runner");
     return;
   }
 #endif
@@ -472,7 +475,8 @@ BOOST_AUTO_TEST_CASE(signal_guard / works / recursive,
                      "Tests that signal_guard works as advertised when being recursed into across multiple threads")
 {
 #if QUICKCPPLIB_IN_THREAD_SANITIZER
-  return;  // hangs tsan, indeed you can't even Ctrl-C out of it!
+  BOOST_TEST_CASE_SKIPPED("hangs under TSan - you cannot even Ctrl-C out of it");
+  return;
 #endif
   static thread_local jmp_buf buf;
   static std::atomic<bool> done(false);
@@ -599,7 +603,8 @@ BOOST_AUTO_TEST_CASE(signal_guard / performance / threadlocal,
                      "Tests that the signal_guard has reasonable performance (thread local)")
 {
 #if QUICKCPPLIB_IN_THREAD_SANITIZER
-  return;  // hangs tsan, indeed you can't even Ctrl-C out of it!
+  BOOST_TEST_CASE_SKIPPED("hangs under TSan - you cannot even Ctrl-C out of it");
+  return;
 #endif
   using namespace QUICKCPPLIB_NAMESPACE::signal_guard;
   {
