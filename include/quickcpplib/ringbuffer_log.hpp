@@ -794,11 +794,29 @@ namespace ringbuffer_log
     memory model does not sanction, however many stress runs failed to see it.
     */
     std::vector<std::atomic<uint32_t>> _seq;
+    /*! The counter value at which the log was last cleared. The counter keeps
+    counting across a clear - deliberately: it is the identity of a record, and
+    resetting it made every id issued before the clear valid again, naming a
+    DIFFERENT live record. Records pushed before `_cleared_at` are simply not live
+    any more, so an old id resolves to nothing instead of to someone else's data.
+    */
+    std::atomic<size_type> _cleared_at;
     //! How many times the snapshot accessors retry a slot before giving up and returning a default record
     static constexpr size_t SNAPSHOT_ATTEMPTS = 8;
 
     size_type counter_to_idx(size_type counter) const noexcept { return max_items ? (counter % max_items) : (counter % _store.size()); }
     size_type slots() const noexcept { return max_items ? max_items : _store.size(); }
+    //! Number of records the ring holds, given the newest counter value: the ring window, less anything a clear has retired.
+    size_type _live_size(size_type counter) const noexcept
+    {
+      const size_type cleared = _cleared_at.load(std::memory_order_acquire);
+      if(counter <= cleared)
+      {
+        return 0;
+      }
+      const size_type live = counter - cleared;
+      return live < slots() ? live : slots();
+    }
 
     /*! Marks a slot as being written, returning nothing: the odd/even pair is the
     whole protocol, and both halves are fences rather than plain stores because
@@ -828,7 +846,8 @@ namespace ringbuffer_log
       // while counter <= c + slots(). The old test rejected `>= slots()`, so the
       // OLDEST record still held was refused - the off-by-one which made
       // snapshot(size()-1) unsatisfiable once the ring had wrapped.
-      if(counter_value >= before || (before - counter_value) > slots())
+      if(counter_value >= before || (before - counter_value) > slots() ||
+         counter_value < _cleared_at.load(std::memory_order_acquire))
       {
         return false;
       }
@@ -856,6 +875,7 @@ namespace ringbuffer_log
         , _instance_level(starting_level)
         , _counter(0)
         , _immediate(nullptr)
+        , _cleared_at(0)
         , _seq(slots())
     {
     }
@@ -875,6 +895,7 @@ namespace ringbuffer_log
       o._instance_level.store(_instance_level.load(std::memory_order_relaxed), std::memory_order_relaxed);
       _instance_level.store(t, std::memory_order_relaxed);
       std::swap(_counter, o._counter);
+      std::swap(_cleared_at, o._cleared_at);
       std::swap(_immediate, o._immediate);
       // A vector of atomics cannot itself be swapped, and the sequence words
       // belong with the records they describe, so exchange them element-wise.
@@ -896,15 +917,9 @@ namespace ringbuffer_log
     void instance_log_level(level new_level) noexcept { _instance_level.store(new_level, std::memory_order_relaxed); }
 
     //! Returns true if the log is empty
-    bool empty() const noexcept { return _counter.load(std::memory_order_acquire) == 0; }
+    bool empty() const noexcept { return size() == 0; }
     //! Returns the number of items in the log
-    size_type size() const noexcept
-    {
-      size_type ret = _counter.load(std::memory_order_acquire);
-      if(_store.size() < ret)
-        ret = _store.size();
-      return ret;
-    }
+    size_type size() const noexcept { return _live_size(_counter.load(std::memory_order_acquire)); }
     //! Returns the maximum number of items in the log
     size_type max_size() const noexcept { return max_items ? max_items : _store.size(); }
     //! Returns any `std::ostream` immediately printed to when a new log entry is added
@@ -924,11 +939,9 @@ namespace ringbuffer_log
     //! True if a unique id is still valid
     bool valid(unique_id id) const noexcept
     {
-      size_type counter = _counter.load(std::memory_order_acquire);
-      size_type size = counter;
-      if(_store.size() < size)
-        size = _store.size();
-      return id.value < counter && id.value >= counter - size;
+      const size_type counter = _counter.load(std::memory_order_acquire);
+      const size_type cleared = _cleared_at.load(std::memory_order_acquire);
+      return id.value < counter && id.value >= cleared && (counter - id.value) <= slots();
     }
 
     /*! \brief Returns a tear-free copy of the record `pos` items from the newest, or a default
@@ -953,8 +966,7 @@ namespace ringbuffer_log
       for(size_t attempt = 0; attempt < SNAPSHOT_ATTEMPTS; attempt++)
       {
         const size_type counted = _counter.load(std::memory_order_acquire);
-        const size_type held = counted < slots() ? counted : slots();
-        if(pos >= held)
+        if(pos >= _live_size(counted))
         {
           return value_type();
         }
@@ -973,7 +985,7 @@ namespace ringbuffer_log
     bool try_snapshot(size_type pos, value_type &out) const noexcept
     {
       const size_type counted = _counter.load(std::memory_order_acquire);
-      return pos < counted && _try_snapshot_counter(counted - 1 - pos, out);
+      return pos < _live_size(counted) && _try_snapshot_counter(counted - 1 - pos, out);
     }
     /*! \brief Returns a tear-free copy of the record with the given unique id, or a default
     constructed record if the ring no longer holds it.
@@ -984,7 +996,8 @@ namespace ringbuffer_log
       for(size_t attempt = 0; attempt < SNAPSHOT_ATTEMPTS; attempt++)
       {
         const size_type counted = _counter.load(std::memory_order_acquire);
-        if(id.value >= counted || (counted - id.value) > slots())
+        if(id.value >= counted || (counted - id.value) > slots() ||
+           id.value < _cleared_at.load(std::memory_order_acquire))
         {
           return value_type();
         }
@@ -1041,74 +1054,58 @@ namespace ringbuffer_log
     //! Returns the back of the ringbuffer. Be careful of races with concurrent modifies.
     reference back() noexcept
     {
-      size_type counter = _counter.load(std::memory_order_acquire);
-      size_type size = counter;
-      if(_store.size() < size)
-        size = _store.size();
+      const size_type counter = _counter.load(std::memory_order_acquire);
+      const size_type size = _live_size(counter);
       return _store[counter_to_idx(counter - size)];
     }
     //! Returns the back of the ringbuffer. Be careful of races with concurrent modifies.
     const_reference back() const noexcept
     {
-      size_type counter = _counter.load(std::memory_order_acquire);
-      size_type size = counter;
-      if(_store.size() < size)
-        size = _store.size();
+      const size_type counter = _counter.load(std::memory_order_acquire);
+      const size_type size = _live_size(counter);
       return _store[counter_to_idx(counter - size)];
     }
 
     //! Returns an iterator to the first item in the log. Be careful of races with concurrent modifies.
     iterator begin() noexcept
     {
-      size_type counter = _counter.load(std::memory_order_acquire);
-      size_type size = counter;
-      if(_store.size() < size)
-        size = _store.size();
+      const size_type counter = _counter.load(std::memory_order_acquire);
+      const size_type size = _live_size(counter);
       return iterator(this, counter - 1, size);
     }
     //! Returns an iterator to the first item in the log. Be careful of races with concurrent modifies.
     const_iterator begin() const noexcept
     {
-      size_type counter = _counter.load(std::memory_order_acquire);
-      size_type size = counter;
-      if(_store.size() < size)
-        size = _store.size();
+      const size_type counter = _counter.load(std::memory_order_acquire);
+      const size_type size = _live_size(counter);
       return const_iterator(this, counter - 1, size);
     }
     //! Returns an iterator to the first item in the log. Be careful of races with concurrent modifies.
     const_iterator cbegin() const noexcept
     {
-      size_type counter = _counter.load(std::memory_order_acquire);
-      size_type size = counter;
-      if(_store.size() < size)
-        size = _store.size();
+      const size_type counter = _counter.load(std::memory_order_acquire);
+      const size_type size = _live_size(counter);
       return const_iterator(this, counter - 1, size);
     }
     //! Returns an iterator to the item after the last in the log. Be careful of races with concurrent modifies.
     iterator end() noexcept
     {
-      size_type counter = _counter.load(std::memory_order_acquire);
-      size_type size = counter;
-      if(_store.size() < size)
-        size = _store.size();
+      const size_type counter = _counter.load(std::memory_order_acquire);
+      const size_type size = _live_size(counter);
       return iterator(this, counter - 1 - size, 0);
     }
     //! Returns an iterator to the item after the last in the log. Be careful of races with concurrent modifies.
     const_iterator end() const noexcept
     {
-      size_type counter = _counter.load(std::memory_order_acquire);
-      size_type size = counter;
-      if(_store.size() < size)
-        size = _store.size();
+      const size_type counter = _counter.load(std::memory_order_acquire);
+      const size_type size = _live_size(counter);
       return const_iterator(this, counter - 1 - size, 0);
     }
     //! Returns an iterator to the item after the last in the log. Be careful of races with concurrent modifies.
     const_iterator cend() const noexcept
     {
-      size_type counter = _counter.load(std::memory_order_acquire);
-      size_type size = counter;
-      if(_store.size() < size)
-        size = _store.size();
+      const size_type counter = _counter.load(std::memory_order_acquire);
+      const size_type size = _live_size(counter);
       return const_iterator(this, counter - 1 - size, 0);
     }
 
@@ -1126,7 +1123,10 @@ namespace ringbuffer_log
         _store[i] = value_type();
         _seq_write_end(idx);
       }
-      _counter.store(0, std::memory_order_release);
+      // Retire everything pushed so far rather than resetting the counter: a
+      // reset made ids issued before the clear name whatever record now occupies
+      // that slot, i.e. silently resolve to someone else's data.
+      _cleared_at.store(_counter.load(std::memory_order_acquire), std::memory_order_release);
     }
     //! THREADSAFE Logs a new item, returning its unique counter id
     size_type push_back(value_type &&v) noexcept
