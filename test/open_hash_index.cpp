@@ -185,13 +185,29 @@ BOOST_AUTO_TEST_CASE(open_hash_index / atomic_linear_memory_policy / works / sin
 static constexpr size_t ITEMS = 0x4000000;
 alignas(4096) static std::array<unsigned, ITEMS> input;
 
+// The keys are `input[n] >> 1` and the input is masked to 13 bits, so every key
+// is < 4096 and the whole key space can be walked afterwards.
+static constexpr size_t KEYSPACE = 4096;
+
 template <class OpenHashIndex> void do_threaded_test(const char *desc)
 {
   OpenHashIndex cont;
+  // Thread 0 below is the only mutator, so it can keep an authoritative record of
+  // which keys are present. Before this existed the two "works as advertised"
+  // cases ran five seconds of concurrent traffic and printed a throughput
+  // figure: a lost update, a wrong find() or a corrupt erase() was
+  // indistinguishable from a pass, because nothing was ever asserted (0 checks,
+  // 0 failures, "passed").
+  std::vector<std::atomic<unsigned char>> present(KEYSPACE);
+  for(auto &i : present)
+  {
+    i.store(0, std::memory_order_relaxed);
+  }
   std::cout << "\nTesting " << desc << " under concurrency ..." << std::endl;
   for(size_t n = 0; n < 4096; n++)
   {
     cont.insert(std::make_pair(input[n] >> 1, input[n]));
+    present[input[n] >> 1].store(1, std::memory_order_relaxed);
   }
 
   std::vector<std::thread> threads;
@@ -210,13 +226,16 @@ template <class OpenHashIndex> void do_threaded_test(const char *desc)
         {
           if(!i)
           {
+            const auto key = input[n] >> 1;
             if(!(input[n] & 3))
             {
-              cont.erase(input[n] >> 1);
+              cont.erase(key);
+              present[key].store(0, std::memory_order_relaxed);
             }
             else
             {
-              cont.insert(std::make_pair(input[n] >> 1, input[n]));
+              cont.insert(std::make_pair(key, input[n]));
+              present[key].store(1, std::memory_order_relaxed);
             }
             ++updates;
           }
@@ -251,6 +270,39 @@ template <class OpenHashIndex> void do_threaded_test(const char *desc)
     i.join();
   }
   std::cout << "   I saw " << (unsigned long) (updates / diff) << " updates/sec and " << (unsigned long) (finds / diff) << " finds/sec" << std::endl;  // NOLINT
+
+  // Verify the container against what the single writer recorded, once the
+  // threads are quiescent. The check is done here rather than inside a reader on
+  // purpose: find() hands out a pointer into live storage, so a reader can only
+  // look at an element while another thread may be rewriting it, which would
+  // assert about a race rather than about the container. Per key, so this catches
+  // a lost update, a phantom entry, a wrong find() result and a corrupt erase(),
+  // not just a wrong count.
+  size_t live = 0, mismatches = 0;
+  for(size_t k = 0; k < KEYSPACE; k++)
+  {
+    const bool expected = present[k].load(std::memory_order_relaxed) != 0;
+    auto p = cont.find(k);
+    const bool found = static_cast<bool>(p);
+    if(expected)
+    {
+      ++live;
+    }
+    if(found != expected)
+    {
+      ++mismatches;
+    }
+    else if(found && (p->first != k || (p->second >> 1) != k))
+    {
+      ++mismatches;
+    }
+  }
+  if(mismatches != 0)
+  {
+    std::cout << "   " << mismatches << " of " << KEYSPACE << " keys disagree with the writer's record" << std::endl;
+  }
+  BOOST_CHECK_EQUAL(mismatches, 0u);
+  BOOST_CHECK_EQUAL(cont.size(), live);
 }
 
 BOOST_AUTO_TEST_CASE(open_hash_index / atomic_linear_memory_policy / works / concurrent / exclusive, "Tests that the open_hash_index<atomic_linear_memory_policy> works as advertised")
