@@ -371,6 +371,76 @@ jobs:
           done
           echo "::error::no log matched: the failing step wrote no log, or failed before writing one"
         fi
+  # Nothing tested the INSTALLED package. Every other consumer lane uses
+  # add_subdirectory() (see .ci/floor-consumer), which exercises the source tree
+  # rather than what a release actually ships: the Config file, the exported
+  # targets and the installed include layout. A packaging mistake there would
+  # have reached users first and been reported by one of them. Install to a
+  # throwaway prefix, then configure, build and run a consumer that has nothing
+  # but CMAKE_PREFIX_PATH (reviewer P1 r1:BC-09).
+  Linux-install-consumer:
+    name: Linux installed-package consumer (find_package)
+    runs-on: ubuntu-22.04
+    env:
+      NAME: Linux-install-consumer
+
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        persist-credentials: true
+        fetch-depth: 0
+
+    - name: Configure, build and install quickcpplib
+      shell: bash
+      run: |
+        set -o pipefail
+        cmake -G Ninja -S . -B build-install -DCMAKE_BUILD_TYPE=Release \
+              -DQUICKCPPLIB_ENABLE_DOXYGEN_DOCS_BUILD_SUPPORT=OFF \
+              -DCMAKE_INSTALL_PREFIX="$PWD/prefix" 2>&1 | tee build-install/configure.log
+        cmake --build build-install --target install 2>&1 | tee build-install/install.log
+
+    # find_package(quickcpplib CONFIG) looks for exactly this file, so name it
+    # explicitly: a failure here says the install layout is wrong rather than
+    # leaving the consumer's configure to fail with "Could NOT find".
+    - name: Assert the package config is where find_package looks
+      shell: bash
+      run: |
+        if [ ! -f prefix/lib/cmake/quickcpplib/quickcpplibConfig.cmake ]; then
+          echo "::error::the install did not produce prefix/lib/cmake/quickcpplib/quickcpplibConfig.cmake"
+          find prefix -name '*.cmake' | head -20 | sed 's/^/::error::  installed: /'
+          exit 1
+        fi
+
+    - name: Configure, build and run the installed-package consumer
+      shell: bash
+      run: |
+        set -o pipefail
+        cmake -G Ninja -S .ci/install-consumer -B build-consumer -DCMAKE_BUILD_TYPE=Release \
+              -DCMAKE_PREFIX_PATH="$PWD/prefix" 2>&1 | tee build-consumer/configure.log
+        cmake --build build-consumer 2>&1 | tee build-consumer/build.log
+        ./build-consumer/install_consumer 2>&1 | tee build-consumer/run.log
+
+    # The job log lives on storage this project's own tooling cannot reach, so the
+    # first errors are re-emitted as workflow commands: those become check-run
+    # annotations, which are readable through the API.
+    - name: Annotate the errors
+      if: failure()
+      shell: bash
+      run: |
+        hits=0
+        for f in build-install/configure.log build-install/install.log build-consumer/configure.log build-consumer/build.log build-consumer/run.log; do
+          [ -f "$f" ] || continue
+          out=$(grep -m 10 -iE 'error|FAILED|Could NOT find|undefined symbol|assertion|No such file' "$f" || true)
+          if [ -n "$out" ]; then echo "$out" | sed 's/^/::error::/'; hits=1; fi
+        done
+        if [ "$hits" -eq 0 ]; then
+          for f in build-consumer/run.log build-consumer/build.log build-consumer/configure.log build-install/install.log; do
+            [ -f "$f" ] || continue
+            tail -5 "$f" | sed 's/^/::error::log tail: /'
+            break
+          done
+          echo "::error::no log matched: the failing step wrote no log, or failed before writing one"
+        fi
   publish-test-results:
     name: "Publish Documentation and Unit Tests Results"
     needs: [Linux, MacOS, WinVS2022]
