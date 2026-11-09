@@ -27,6 +27,7 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "../config.hpp"
 
+#include <cstddef>  // for std::size_t
 #include <cstdint>
 
 QUICKCPPLIB_NAMESPACE_BEGIN
@@ -36,7 +37,7 @@ namespace algorithm
   namespace prime_modulus
   {
     //! \brief Returns a constexpr prime just under a twos power e.g. for 8, you get 251, which is the prime just below (1<<8) = 256. Very handy for hash tables.
-    constexpr inline uint64_t twos_power_prime(size_t power) noexcept
+    constexpr inline uint64_t twos_power_prime(std::size_t power) noexcept
     {
       // Primes come from https://primes.utm.edu/lists/2small/0bit.html
       // There is a fascinatingly close relationship between powers of two and prime numbers,
