@@ -192,7 +192,7 @@ namespace unit_test
   Returning quietly instead reports PASSED, because the runner counts a case as
   passed whenever it did not fail and was not excluded by a name filter - which is
   how several cases in this tree came to report green having asserted nothing,
-  with no <skipped/> in the JUnit output either.
+  with no `<skipped/>` in the JUnit output either.
   */
   extern inline void test_case_skipped(const char *reason)
   {
@@ -527,7 +527,7 @@ QUICKCPPLIB_NAMESPACE_END
 /*! Use this rather than a bare `return;` when a case cannot run in this
 configuration (a platform, a sanitiser, an environment): the runner counts a
 quiet return as PASSED, so the case would report green having asserted nothing
-and JUnit would carry no <skipped/> for it. */
+and JUnit would carry no `<skipped/>` for it. */
 #define BOOST_TEST_CASE_SKIPPED(reason) QUICKCPPLIB_NAMESPACE::unit_test::test_case_skipped(reason)
 #define BOOST_WARN_MESSAGE(pred, msg)                                                                                  \
   if(!(pred))                                                                                                          \
