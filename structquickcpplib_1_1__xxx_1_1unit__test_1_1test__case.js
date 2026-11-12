@@ -10,5 +10,7 @@ var structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case =
     [ "passes", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#af1dd0113b3bed1a2592766a4c45b3e86", null ],
     [ "fails", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#af0b63364c641f2748298dc5c0f363099", null ],
     [ "skipped", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#afddc2037c663c31efcc595db3981f351", null ],
-    [ "requirement_failed", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#ae35149e2856793a5919fbc4b9855943e", null ]
+    [ "requirement_failed", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#ae35149e2856793a5919fbc4b9855943e", null ],
+    [ "self_skipped", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#af5218e6671744304a8d51aa3d66fa2e5", null ],
+    [ "skip_reason", "structquickcpplib_1_1__xxx_1_1unit__test_1_1test__case.html#afdd38b7198ef2d975b07b6fd3d4ccd84", null ]
 ];

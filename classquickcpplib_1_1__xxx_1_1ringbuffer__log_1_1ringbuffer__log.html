@@ -163,6 +163,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a2d01f7a04661f87eb53db843ce0b00fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set any <span class="tt">std::ostream</span> immediately printed to when a new log entry is added.  <br /></td></tr>
 <tr class="memitem:a261ba4ef1a4db5684280613f4555bfb9" id="r_a261ba4ef1a4db5684280613f4555bfb9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a261ba4ef1a4db5684280613f4555bfb9">valid</a> (<a class="el" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1unique__id.html">unique_id</a> id) const noexcept</td></tr>
 <tr class="memdesc:a261ba4ef1a4db5684280613f4555bfb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if a unique id is still valid.  <br /></td></tr>
+<tr class="memitem:a8129c4cb9fc82d6208364be0fdf3a169" id="r_a8129c4cb9fc82d6208364be0fdf3a169"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a152004c4abf16b1975bbef52db06490e">value_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8129c4cb9fc82d6208364be0fdf3a169">snapshot</a> (<a class="el" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> pos) const noexcept</td></tr>
+<tr class="memdesc:a8129c4cb9fc82d6208364be0fdf3a169"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a tear-free copy of the record <span class="tt">pos</span> items from the newest, or a default constructed record if the ring does not hold that many. <span class="tt">pos</span> counts from the newest exactly as <span class="tt">operator[](size_type)</span> does. The accessors which hand back a reference into the ring (<span class="tt">front()</span>, <span class="tt">back()</span>, <span class="tt">operator[]</span>, <span class="tt">at()</span> and the iterators) are racy by construction: a writer which wraps the ring can rewrite the very slot a reader is looking at, and no ordering prevents that. This copies the record out and discards the copy if the writer got to the slot first, so what it returns is always one whole record.  <br /></td></tr>
+<tr class="memitem:afe2ac89bc20cd25d5d02d412555b4447" id="r_afe2ac89bc20cd25d5d02d412555b4447"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe2ac89bc20cd25d5d02d412555b4447">try_snapshot</a> (<a class="el" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> pos, <a class="el" href="#a152004c4abf16b1975bbef52db06490e">value_type</a> &amp;out) const noexcept</td></tr>
+<tr class="memdesc:afe2ac89bc20cd25d5d02d412555b4447"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies the record <span class="tt">pos</span> items from the newest into <span class="tt">out</span>, returning false if the ring does not hold that many records or if the writer overwrote the slot while it was being copied (in which case <span class="tt">out</span> is left unspecified). Unlike <span class="tt">snapshot()</span>, this never retries.  <br /></td></tr>
+<tr class="memitem:a2fb6a86fef1544eedf5b892a55d5bb9a" id="r_a2fb6a86fef1544eedf5b892a55d5bb9a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a152004c4abf16b1975bbef52db06490e">value_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2fb6a86fef1544eedf5b892a55d5bb9a">snapshot_by_id</a> (<a class="el" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1unique__id.html">unique_id</a> id) const noexcept</td></tr>
+<tr class="memdesc:a2fb6a86fef1544eedf5b892a55d5bb9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a tear-free copy of the record with the given unique id, or a default constructed record if the ring no longer holds it.  <br /></td></tr>
 <tr class="memitem:a8160dff634177618d5b2209ab6654276" id="r_a8160dff634177618d5b2209ab6654276"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a172d7cf16cb2ac7b53e500ea79e3dd18">reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8160dff634177618d5b2209ab6654276">front</a> () noexcept</td></tr>
 <tr class="memdesc:a8160dff634177618d5b2209ab6654276"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the front of the ringbuffer. Be careful of races with concurrent modifies.  <br /></td></tr>
 <tr class="memitem:a30b89a37197c46b5248641d91509fb4a" id="r_a30b89a37197c46b5248641d91509fb4a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a5eb3ac02c9f8bea06de4f668aaf6e4fb">const_reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a30b89a37197c46b5248641d91509fb4a">front</a> () const noexcept</td></tr>
@@ -207,6 +213,12 @@ Static Public Attributes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pro-methods" class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a86c72b49deb0ed751a1c278725ed8601" id="r_a86c72b49deb0ed751a1c278725ed8601"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a86c72b49deb0ed751a1c278725ed8601">counter_to_idx</a> (<a class="el" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> counter) const noexcept</td></tr>
+<tr class="memitem:a55eeb72dfc1ab4d2a0deefcb6f69b9d7" id="r_a55eeb72dfc1ab4d2a0deefcb6f69b9d7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a55eeb72dfc1ab4d2a0deefcb6f69b9d7">slots</a> () const noexcept</td></tr>
+<tr class="memitem:a370c71ed1a8285dad943958a30764aeb" id="r_a370c71ed1a8285dad943958a30764aeb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a370c71ed1a8285dad943958a30764aeb">_live_size</a> (<a class="el" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> counter) const noexcept</td></tr>
+<tr class="memdesc:a370c71ed1a8285dad943958a30764aeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of records the ring holds, given the newest counter value: the ring window, less anything a clear has retired.  <br /></td></tr>
+<tr class="memitem:a074e7cec1a39c0a279a3129a176f1650" id="r_a074e7cec1a39c0a279a3129a176f1650"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a074e7cec1a39c0a279a3129a176f1650">_seq_write_begin</a> (<a class="el" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> idx) noexcept</td></tr>
+<tr class="memitem:a6e047996a2181bdfdb32ed9122547975" id="r_a6e047996a2181bdfdb32ed9122547975"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6e047996a2181bdfdb32ed9122547975">_seq_write_end</a> (<a class="el" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> idx) noexcept</td></tr>
+<tr class="memitem:ab81e7049c2e5976f1dca4c4784126e50" id="r_ab81e7049c2e5976f1dca4c4784126e50"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab81e7049c2e5976f1dca4c4784126e50">_try_snapshot_counter</a> (<a class="el" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> counter_value, <a class="el" href="#a152004c4abf16b1975bbef52db06490e">value_type</a> &amp;out) const noexcept</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pro-attribs" class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -214,6 +226,14 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a9a4b70ff8aefaa5bf8bcafbdcac0d3a8" id="r_a9a4b70ff8aefaa5bf8bcafbdcac0d3a8"><td class="memItemLeft" align="right" valign="top">std::atomic&lt; <a class="el" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2">level</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9a4b70ff8aefaa5bf8bcafbdcac0d3a8">_instance_level</a></td></tr>
 <tr class="memitem:a96acd9e8bef427b573d0fb362f1de70d" id="r_a96acd9e8bef427b573d0fb362f1de70d"><td class="memItemLeft" align="right" valign="top">std::atomic&lt; <a class="el" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a></td></tr>
 <tr class="memitem:a32314dab48032dbb4220f636e145bf54" id="r_a32314dab48032dbb4220f636e145bf54"><td class="memItemLeft" align="right" valign="top">std::ostream *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a32314dab48032dbb4220f636e145bf54">_immediate</a></td></tr>
+<tr class="memitem:a11beffa149913127dfe2139e11a238cf" id="r_a11beffa149913127dfe2139e11a238cf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlock.html">configurable_spinlock::spinlock</a>&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a11beffa149913127dfe2139e11a238cf">_lock</a></td></tr>
+<tr class="memitem:a829a6757304bc57698a8d05b1b2e02d1" id="r_a829a6757304bc57698a8d05b1b2e02d1"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::atomic&lt; uint32_t &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a829a6757304bc57698a8d05b1b2e02d1">_seq</a></td></tr>
+<tr class="memitem:ad39e346b49538ccbd286115fbf819f42" id="r_ad39e346b49538ccbd286115fbf819f42"><td class="memItemLeft" align="right" valign="top">std::atomic&lt; <a class="el" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad39e346b49538ccbd286115fbf819f42">_cleared_at</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pro-static-attribs" class="groupheader"><a id="pro-static-attribs" name="pro-static-attribs"></a>
+Static Protected Attributes</h2></td></tr>
+<tr class="memitem:a5a0c91218dc0effdcf9fa432bbdb8f43" id="r_a5a0c91218dc0effdcf9fa432bbdb8f43"><td class="memItemLeft" align="right" valign="top">static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5a0c91218dc0effdcf9fa432bbdb8f43">SNAPSHOT_ATTEMPTS</a> = 8</td></tr>
+<tr class="memdesc:a5a0c91218dc0effdcf9fa432bbdb8f43"><td class="mdescLeft">&#160;</td><td class="mdescRight">How many times the snapshot accessors retry a slot before giving up and returning a default record.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-friends" class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
@@ -480,17 +500,22 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>Default construction, passes through args to container_type. </p>
-<div class="fragment"><div class="line"><span class="lineno">  789</span>        : <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::forward&lt;Args&gt;</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">args</a>)...)</div>
-<div class="line"><span class="lineno">  790</span>        , <a class="code hl_variable" href="#a9a4b70ff8aefaa5bf8bcafbdcac0d3a8">_instance_level</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">starting_level</a>)</div>
-<div class="line"><span class="lineno">  791</span>        , <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>(0)</div>
-<div class="line"><span class="lineno">  792</span>        , <a class="code hl_variable" href="#a32314dab48032dbb4220f636e145bf54">_immediate</a>(<span class="keyword">nullptr</span>)</div>
-<div class="line"><span class="lineno">  793</span>    {</div>
-<div class="line"><span class="lineno">  794</span>    }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log</a></div><div class="ttdoc">Very fast threadsafe ring buffer log.</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:571</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a109378604092f3cfa64c2c796eeb4b6e"><div class="ttname"><a href="#a109378604092f3cfa64c2c796eeb4b6e">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::_store</a></div><div class="ttdeci">container_type _store</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:778</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a32314dab48032dbb4220f636e145bf54"><div class="ttname"><a href="#a32314dab48032dbb4220f636e145bf54">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::_immediate</a></div><div class="ttdeci">std::ostream * _immediate</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:781</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a96acd9e8bef427b573d0fb362f1de70d"><div class="ttname"><a href="#a96acd9e8bef427b573d0fb362f1de70d">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::_counter</a></div><div class="ttdeci">std::atomic&lt; size_type &gt; _counter</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:780</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a9a4b70ff8aefaa5bf8bcafbdcac0d3a8"><div class="ttname"><a href="#a9a4b70ff8aefaa5bf8bcafbdcac0d3a8">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::_instance_level</a></div><div class="ttdeci">std::atomic&lt; level &gt; _instance_level</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:779</div></div>
+<div class="fragment"><div class="line"><span class="lineno">  874</span>        : <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::forward&lt;Args&gt;</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">args</a>)...)</div>
+<div class="line"><span class="lineno">  875</span>        , <a class="code hl_variable" href="#a9a4b70ff8aefaa5bf8bcafbdcac0d3a8">_instance_level</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">starting_level</a>)</div>
+<div class="line"><span class="lineno">  876</span>        , <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>(0)</div>
+<div class="line"><span class="lineno">  877</span>        , <a class="code hl_variable" href="#a32314dab48032dbb4220f636e145bf54">_immediate</a>(<span class="keyword">nullptr</span>)</div>
+<div class="line"><span class="lineno">  878</span>        , <a class="code hl_variable" href="#ad39e346b49538ccbd286115fbf819f42">_cleared_at</a>(0)</div>
+<div class="line"><span class="lineno">  879</span>        , <a class="code hl_variable" href="#a829a6757304bc57698a8d05b1b2e02d1">_seq</a>(<a class="code hl_function" href="#a55eeb72dfc1ab4d2a0deefcb6f69b9d7">slots</a>())</div>
+<div class="line"><span class="lineno">  880</span>    {</div>
+<div class="line"><span class="lineno">  881</span>    }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log</a></div><div class="ttdoc">Very fast threadsafe ring buffer log.</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:573</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a109378604092f3cfa64c2c796eeb4b6e"><div class="ttname"><a href="#a109378604092f3cfa64c2c796eeb4b6e">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::_store</a></div><div class="ttdeci">container_type _store</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:780</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a32314dab48032dbb4220f636e145bf54"><div class="ttname"><a href="#a32314dab48032dbb4220f636e145bf54">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::_immediate</a></div><div class="ttdeci">std::ostream * _immediate</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:783</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a55eeb72dfc1ab4d2a0deefcb6f69b9d7"><div class="ttname"><a href="#a55eeb72dfc1ab4d2a0deefcb6f69b9d7">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::slots</a></div><div class="ttdeci">size_type slots() const noexcept</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:808</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a829a6757304bc57698a8d05b1b2e02d1"><div class="ttname"><a href="#a829a6757304bc57698a8d05b1b2e02d1">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::_seq</a></div><div class="ttdeci">std::vector&lt; std::atomic&lt; uint32_t &gt; &gt; _seq</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:796</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a96acd9e8bef427b573d0fb362f1de70d"><div class="ttname"><a href="#a96acd9e8bef427b573d0fb362f1de70d">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::_counter</a></div><div class="ttdeci">std::atomic&lt; size_type &gt; _counter</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:782</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a9a4b70ff8aefaa5bf8bcafbdcac0d3a8"><div class="ttname"><a href="#a9a4b70ff8aefaa5bf8bcafbdcac0d3a8">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::_instance_level</a></div><div class="ttdeci">std::atomic&lt; level &gt; _instance_level</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:781</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_ad39e346b49538ccbd286115fbf819f42"><div class="ttname"><a href="#ad39e346b49538ccbd286115fbf819f42">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::_cleared_at</a></div><div class="ttdeci">std::atomic&lt; size_type &gt; _cleared_at</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:803</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -577,9 +602,201 @@ template&lt;class Policy, class LogLevelChecker&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  783</span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="#a57fa01affe10fb64e038e4dccd90164b">max_items</a> ? (<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> % <a class="code hl_variable" href="#a57fa01affe10fb64e038e4dccd90164b">max_items</a>) : (<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> % <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>.<a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a>()); }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a38a32efc2a44cea2c923d41930e9c5a7"><div class="ttname"><a href="#a38a32efc2a44cea2c923d41930e9c5a7">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::size</a></div><div class="ttdeci">size_type size() const noexcept</div><div class="ttdoc">Returns the number of items in the log.</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:824</div></div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a57fa01affe10fb64e038e4dccd90164b"><div class="ttname"><a href="#a57fa01affe10fb64e038e4dccd90164b">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::max_items</a></div><div class="ttdeci">static constexpr size_t max_items</div><div class="ttdoc">The maximum items to store according to Policy::max_items. If zero, use container&#39;s size().</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:580</div></div>
+<div class="fragment"><div class="line"><span class="lineno">  807</span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="#a57fa01affe10fb64e038e4dccd90164b">max_items</a> ? (<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> % <a class="code hl_variable" href="#a57fa01affe10fb64e038e4dccd90164b">max_items</a>) : (<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> % <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>.<a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a>()); }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a38a32efc2a44cea2c923d41930e9c5a7"><div class="ttname"><a href="#a38a32efc2a44cea2c923d41930e9c5a7">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::size</a></div><div class="ttdeci">size_type size() const noexcept</div><div class="ttdoc">Returns the number of items in the log.</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:922</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a57fa01affe10fb64e038e4dccd90164b"><div class="ttname"><a href="#a57fa01affe10fb64e038e4dccd90164b">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::max_items</a></div><div class="ttdeci">static constexpr size_t max_items</div><div class="ttdoc">The maximum items to store according to Policy::max_items. If zero, use container&#39;s size().</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:582</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a55eeb72dfc1ab4d2a0deefcb6f69b9d7" name="a55eeb72dfc1ab4d2a0deefcb6f69b9d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55eeb72dfc1ab4d2a0deefcb6f69b9d7">&#9670;&#160;</a></span>slots()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Policy, class LogLevelChecker&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="el" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log</a>&lt; Policy, LogLevelChecker &gt;::slots </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel protected">protected</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  808</span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="#a57fa01affe10fb64e038e4dccd90164b">max_items</a> ? <a class="code hl_variable" href="#a57fa01affe10fb64e038e4dccd90164b">max_items</a> : <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>.size(); }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a370c71ed1a8285dad943958a30764aeb" name="a370c71ed1a8285dad943958a30764aeb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a370c71ed1a8285dad943958a30764aeb">&#9670;&#160;</a></span>_live_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Policy, class LogLevelChecker&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="el" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log</a>&lt; Policy, LogLevelChecker &gt;::_live_size </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a></td>          <td class="paramname"><span class="paramname"><em>counter</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel protected">protected</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Number of records the ring holds, given the newest counter value: the ring window, less anything a clear has retired. </p>
+<div class="fragment"><div class="line"><span class="lineno">  811</span>    {</div>
+<div class="line"><span class="lineno">  812</span>      <span class="keyword">const</span> <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">cleared</a> = <a class="code hl_variable" href="#ad39e346b49538ccbd286115fbf819f42">_cleared_at</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_acquire</a>);</div>
+<div class="line"><span class="lineno">  813</span>      <span class="keywordflow">if</span>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> &lt;= <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">cleared</a>)</div>
+<div class="line"><span class="lineno">  814</span>      {</div>
+<div class="line"><span class="lineno">  815</span>        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">  816</span>      }</div>
+<div class="line"><span class="lineno">  817</span>      <span class="keyword">const</span> <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">live</a> = <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> - <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">cleared</a>;</div>
+<div class="line"><span class="lineno">  818</span>      <span class="keywordflow">return</span> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">live</a> &lt; <a class="code hl_function" href="#a55eeb72dfc1ab4d2a0deefcb6f69b9d7">slots</a>() ? <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">live</a> : <a class="code hl_function" href="#a55eeb72dfc1ab4d2a0deefcb6f69b9d7">slots</a>();</div>
+<div class="line"><span class="lineno">  819</span>    }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a373ef12ef5670c3f727574cd1656c2c5"><div class="ttname"><a href="#a373ef12ef5670c3f727574cd1656c2c5">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::size_type</a></div><div class="ttdeci">typename container_type::size_type size_type</div><div class="ttdoc">The size type.</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:587</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a074e7cec1a39c0a279a3129a176f1650" name="a074e7cec1a39c0a279a3129a176f1650"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a074e7cec1a39c0a279a3129a176f1650">&#9670;&#160;</a></span>_seq_write_begin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Policy, class LogLevelChecker&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log</a>&lt; Policy, LogLevelChecker &gt;::_seq_write_begin </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a></td>          <td class="paramname"><span class="paramname"><em>idx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel protected">protected</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Marks a slot as being written, returning nothing: the odd/even pair is the whole protocol, and both halves are fences rather than plain stores because the record write between them must not escape the interval. </p>
+<div class="fragment"><div class="line"><span class="lineno">  825</span>    {</div>
+<div class="line"><span class="lineno">  826</span>      <span class="keyword">const</span> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">uint32_t</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">s</a> = <a class="code hl_variable" href="#a829a6757304bc57698a8d05b1b2e02d1">_seq</a>[<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">idx</a>].load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>);</div>
+<div class="line"><span class="lineno">  827</span>      <a class="code hl_variable" href="#a829a6757304bc57698a8d05b1b2e02d1">_seq</a>[<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">idx</a>].store(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">s</a> + 1, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>);</div>
+<div class="line"><span class="lineno">  828</span>      <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::atomic_thread_fence</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_seq_cst</a>);</div>
+<div class="line"><span class="lineno">  829</span>    }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a6e047996a2181bdfdb32ed9122547975" name="a6e047996a2181bdfdb32ed9122547975"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e047996a2181bdfdb32ed9122547975">&#9670;&#160;</a></span>_seq_write_end()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Policy, class LogLevelChecker&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log</a>&lt; Policy, LogLevelChecker &gt;::_seq_write_end </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a></td>          <td class="paramname"><span class="paramname"><em>idx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel protected">protected</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  831</span>    {</div>
+<div class="line"><span class="lineno">  832</span>      <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::atomic_thread_fence</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_seq_cst</a>);</div>
+<div class="line"><span class="lineno">  833</span>      <span class="keyword">const</span> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">uint32_t</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">s</a> = <a class="code hl_variable" href="#a829a6757304bc57698a8d05b1b2e02d1">_seq</a>[<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">idx</a>].load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>);</div>
+<div class="line"><span class="lineno">  834</span>      <a class="code hl_variable" href="#a829a6757304bc57698a8d05b1b2e02d1">_seq</a>[<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">idx</a>].store(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">s</a> + 1, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>);</div>
+<div class="line"><span class="lineno">  835</span>    }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ab81e7049c2e5976f1dca4c4784126e50" name="ab81e7049c2e5976f1dca4c4784126e50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab81e7049c2e5976f1dca4c4784126e50">&#9670;&#160;</a></span>_try_snapshot_counter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Policy, class LogLevelChecker&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log</a>&lt; Policy, LogLevelChecker &gt;::_try_snapshot_counter </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a></td>          <td class="paramname"><span class="paramname"><em>counter_value</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a152004c4abf16b1975bbef52db06490e">value_type</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>out</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel protected">protected</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Copies the record whose unique counter is <span class="tt">counter_value</span> into <span class="tt">out</span>, returning false if the writer is rewriting that slot, has rewritten it while the copy was made, or has moved far enough for the record to have been recycled. </p>
+<div class="fragment"><div class="line"><span class="lineno">  842</span>    {</div>
+<div class="line"><span class="lineno">  843</span>      <span class="keyword">const</span> <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">before</a> = <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_acquire</a>);</div>
+<div class="line"><span class="lineno">  844</span>      <span class="comment">// Record `c` is still in its slot until the writer reaches `c + slots()`:</span></div>
+<div class="line"><span class="lineno">  845</span>      <span class="comment">// that write is the one which recycles the slot, and it has not happened</span></div>
+<div class="line"><span class="lineno">  846</span>      <span class="comment">// while counter &lt;= c + slots(). The old test rejected `&gt;= slots()`, so the</span></div>
+<div class="line"><span class="lineno">  847</span>      <span class="comment">// OLDEST record still held was refused - the off-by-one which made</span></div>
+<div class="line"><span class="lineno">  848</span>      <span class="comment">// snapshot(size()-1) unsatisfiable once the ring had wrapped.</span></div>
+<div class="line"><span class="lineno">  849</span>      <span class="keywordflow">if</span>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter_value</a> &gt;= <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">before</a> || (<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">before</a> - <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter_value</a>) &gt; <a class="code hl_function" href="#a55eeb72dfc1ab4d2a0deefcb6f69b9d7">slots</a>() ||</div>
+<div class="line"><span class="lineno">  850</span>         <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter_value</a> &lt; <a class="code hl_variable" href="#ad39e346b49538ccbd286115fbf819f42">_cleared_at</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_acquire</a>))</div>
+<div class="line"><span class="lineno">  851</span>      {</div>
+<div class="line"><span class="lineno">  852</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  853</span>      }</div>
+<div class="line"><span class="lineno">  854</span>      <span class="keyword">const</span> <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">idx</a> = <a class="code hl_function" href="#a86c72b49deb0ed751a1c278725ed8601">counter_to_idx</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter_value</a>);</div>
+<div class="line"><span class="lineno">  855</span>      <span class="keyword">const</span> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">uint32_t</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">seq_before</a> = <a class="code hl_variable" href="#a829a6757304bc57698a8d05b1b2e02d1">_seq</a>[<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">idx</a>].load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_acquire</a>);</div>
+<div class="line"><span class="lineno">  856</span>      <span class="keywordflow">if</span>((<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">seq_before</a> &amp; 1u) != 0)</div>
+<div class="line"><span class="lineno">  857</span>      {</div>
+<div class="line"><span class="lineno">  858</span>        <span class="comment">// A writer is inside this slot right now; nothing here is a record.</span></div>
+<div class="line"><span class="lineno">  859</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  860</span>      }</div>
+<div class="line"><span class="lineno">  861</span>      <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">out</a> = <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>[<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">idx</a>];</div>
+<div class="line"><span class="lineno">  862</span>      <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::atomic_thread_fence</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_acquire</a>);</div>
+<div class="line"><span class="lineno">  863</span>      <span class="keywordflow">if</span>(<a class="code hl_variable" href="#a829a6757304bc57698a8d05b1b2e02d1">_seq</a>[<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">idx</a>].<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">load</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>) != <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">seq_before</a>)</div>
+<div class="line"><span class="lineno">  864</span>      {</div>
+<div class="line"><span class="lineno">  865</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  866</span>      }</div>
+<div class="line"><span class="lineno">  867</span>      <span class="keywordflow">return</span> (<a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_acquire</a>) - <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter_value</a>) &lt;= <a class="code hl_function" href="#a55eeb72dfc1ab4d2a0deefcb6f69b9d7">slots</a>();</div>
+<div class="line"><span class="lineno">  868</span>    }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a86c72b49deb0ed751a1c278725ed8601"><div class="ttname"><a href="#a86c72b49deb0ed751a1c278725ed8601">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::counter_to_idx</a></div><div class="ttdeci">size_type counter_to_idx(size_type counter) const noexcept</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:807</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -667,14 +884,25 @@ template&lt;class Policy, class LogLevelChecker&gt; </div>
 </div><div class="memdoc">
 
 <p>Swaps with another instance. </p>
-<div class="fragment"><div class="line"><span class="lineno">  805</span>    {</div>
-<div class="line"><span class="lineno">  806</span>      <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::swap</a>(<a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">o</a>.<a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>);</div>
-<div class="line"><span class="lineno">  807</span>      <span class="keyword">auto</span> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">t</a> = <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">o</a>.<a class="code hl_variable" href="#a9a4b70ff8aefaa5bf8bcafbdcac0d3a8">_instance_level</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>);</div>
-<div class="line"><span class="lineno">  808</span>      <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">o</a>.<a class="code hl_variable" href="#a9a4b70ff8aefaa5bf8bcafbdcac0d3a8">_instance_level</a>.store(<a class="code hl_variable" href="#a9a4b70ff8aefaa5bf8bcafbdcac0d3a8">_instance_level</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>), <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>);</div>
-<div class="line"><span class="lineno">  809</span>      <a class="code hl_variable" href="#a9a4b70ff8aefaa5bf8bcafbdcac0d3a8">_instance_level</a>.store(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">t</a>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>);</div>
-<div class="line"><span class="lineno">  810</span>      <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::swap</a>(<a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">o</a>.<a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>);</div>
-<div class="line"><span class="lineno">  811</span>      <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::swap</a>(<a class="code hl_variable" href="#a32314dab48032dbb4220f636e145bf54">_immediate</a>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">o</a>.<a class="code hl_variable" href="#a32314dab48032dbb4220f636e145bf54">_immediate</a>);</div>
-<div class="line"><span class="lineno">  812</span>    }</div>
+<div class="fragment"><div class="line"><span class="lineno">  892</span>    {</div>
+<div class="line"><span class="lineno">  893</span>      <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::swap</a>(<a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">o</a>.<a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>);</div>
+<div class="line"><span class="lineno">  894</span>      <span class="keyword">auto</span> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">t</a> = <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">o</a>.<a class="code hl_variable" href="#a9a4b70ff8aefaa5bf8bcafbdcac0d3a8">_instance_level</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>);</div>
+<div class="line"><span class="lineno">  895</span>      <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">o</a>.<a class="code hl_variable" href="#a9a4b70ff8aefaa5bf8bcafbdcac0d3a8">_instance_level</a>.store(<a class="code hl_variable" href="#a9a4b70ff8aefaa5bf8bcafbdcac0d3a8">_instance_level</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>), <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>);</div>
+<div class="line"><span class="lineno">  896</span>      <a class="code hl_variable" href="#a9a4b70ff8aefaa5bf8bcafbdcac0d3a8">_instance_level</a>.store(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">t</a>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>);</div>
+<div class="line"><span class="lineno">  897</span>      <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::swap</a>(<a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">o</a>.<a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>);</div>
+<div class="line"><span class="lineno">  898</span>      <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::swap</a>(<a class="code hl_variable" href="#ad39e346b49538ccbd286115fbf819f42">_cleared_at</a>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">o</a>.<a class="code hl_variable" href="#ad39e346b49538ccbd286115fbf819f42">_cleared_at</a>);</div>
+<div class="line"><span class="lineno">  899</span>      <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::swap</a>(<a class="code hl_variable" href="#a32314dab48032dbb4220f636e145bf54">_immediate</a>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">o</a>.<a class="code hl_variable" href="#a32314dab48032dbb4220f636e145bf54">_immediate</a>);</div>
+<div class="line"><span class="lineno">  900</span>      <span class="comment">// A vector of atomics cannot itself be swapped, and the sequence words</span></div>
+<div class="line"><span class="lineno">  901</span>      <span class="comment">// belong with the records they describe, so exchange them element-wise.</span></div>
+<div class="line"><span class="lineno">  902</span>      <span class="keyword">const</span> <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">n</a> = <a class="code hl_variable" href="#a829a6757304bc57698a8d05b1b2e02d1">_seq</a>.size() &lt; <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">o</a>.<a class="code hl_variable" href="#a829a6757304bc57698a8d05b1b2e02d1">_seq</a>.size() ? <a class="code hl_variable" href="#a829a6757304bc57698a8d05b1b2e02d1">_seq</a>.size() : <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">o</a>.<a class="code hl_variable" href="#a829a6757304bc57698a8d05b1b2e02d1">_seq</a>.size();</div>
+<div class="line"><span class="lineno">  903</span>      <span class="keywordflow">for</span>(<a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">i</a> = 0; <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">i</a> &lt; <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">n</a>; <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">i</a>++)</div>
+<div class="line"><span class="lineno">  904</span>      {</div>
+<div class="line"><span class="lineno">  905</span>        <span class="keyword">const</span> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">uint32_t</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">a</a> = <a class="code hl_variable" href="#a829a6757304bc57698a8d05b1b2e02d1">_seq</a>[<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">i</a>].load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>);</div>
+<div class="line"><span class="lineno">  906</span>        <span class="keyword">const</span> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">uint32_t</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">b</a> = <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">o</a>.<a class="code hl_variable" href="#a829a6757304bc57698a8d05b1b2e02d1">_seq</a>[<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">i</a>].load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>);</div>
+<div class="line"><span class="lineno">  907</span>        <a class="code hl_variable" href="#a829a6757304bc57698a8d05b1b2e02d1">_seq</a>[<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">i</a>].store(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">b</a>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>);</div>
+<div class="line"><span class="lineno">  908</span>        <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">o</a>.<a class="code hl_variable" href="#a829a6757304bc57698a8d05b1b2e02d1">_seq</a>[<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">i</a>].store(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">a</a>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>);</div>
+<div class="line"><span class="lineno">  909</span>      }</div>
+<div class="line"><span class="lineno">  910</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -704,8 +932,8 @@ template&lt;class Policy, class LogLevelChecker&gt; </div>
 </div><div class="memdoc">
 
 <p>THREADSAFE Returns the log level from the instance filtered by any <span class="tt">LogLevelChecker</span>. </p>
-<div class="fragment"><div class="line"><span class="lineno">  815</span>{ <span class="keywordflow">return</span> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">LogLevelChecker</a>()(<a class="code hl_function" href="#af71815a907b15707db863f14dd1dfaaa">instance_log_level</a>()); }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_af71815a907b15707db863f14dd1dfaaa"><div class="ttname"><a href="#af71815a907b15707db863f14dd1dfaaa">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::instance_log_level</a></div><div class="ttdeci">level instance_log_level() const noexcept</div><div class="ttdoc">THREADSAFE Returns the current per-instance log level.</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:817</div></div>
+<div class="fragment"><div class="line"><span class="lineno">  913</span>{ <span class="keywordflow">return</span> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">LogLevelChecker</a>()(<a class="code hl_function" href="#af71815a907b15707db863f14dd1dfaaa">instance_log_level</a>()); }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_af71815a907b15707db863f14dd1dfaaa"><div class="ttname"><a href="#af71815a907b15707db863f14dd1dfaaa">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::instance_log_level</a></div><div class="ttdeci">level instance_log_level() const noexcept</div><div class="ttdoc">THREADSAFE Returns the current per-instance log level.</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:915</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -735,7 +963,7 @@ template&lt;class Policy, class LogLevelChecker&gt; </div>
 </div><div class="memdoc">
 
 <p>THREADSAFE Returns the current per-instance log level. </p>
-<div class="fragment"><div class="line"><span class="lineno">  817</span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="#a9a4b70ff8aefaa5bf8bcafbdcac0d3a8">_instance_level</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>); }</div>
+<div class="fragment"><div class="line"><span class="lineno">  915</span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="#a9a4b70ff8aefaa5bf8bcafbdcac0d3a8">_instance_level</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -765,7 +993,7 @@ template&lt;class Policy, class LogLevelChecker&gt; </div>
 </div><div class="memdoc">
 
 <p>THREADSAFE Sets the current per-instance log level. </p>
-<div class="fragment"><div class="line"><span class="lineno">  819</span>{ <a class="code hl_variable" href="#a9a4b70ff8aefaa5bf8bcafbdcac0d3a8">_instance_level</a>.store(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">new_level</a>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>); }</div>
+<div class="fragment"><div class="line"><span class="lineno">  917</span>{ <a class="code hl_variable" href="#a9a4b70ff8aefaa5bf8bcafbdcac0d3a8">_instance_level</a>.store(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">new_level</a>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -795,7 +1023,7 @@ template&lt;class Policy, class LogLevelChecker&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns true if the log is empty. </p>
-<div class="fragment"><div class="line"><span class="lineno">  822</span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>) == 0; }</div>
+<div class="fragment"><div class="line"><span class="lineno">  920</span>{ <span class="keywordflow">return</span> <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a>() == 0; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -825,13 +1053,8 @@ template&lt;class Policy, class LogLevelChecker&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the number of items in the log. </p>
-<div class="fragment"><div class="line"><span class="lineno">  825</span>    {</div>
-<div class="line"><span class="lineno">  826</span>      <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">ret</a> = <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>);</div>
-<div class="line"><span class="lineno">  827</span>      <span class="keywordflow">if</span>(<a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>.size() &lt; <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">ret</a>)</div>
-<div class="line"><span class="lineno">  828</span>        <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">ret</a> = <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>.size();</div>
-<div class="line"><span class="lineno">  829</span>      <span class="keywordflow">return</span> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">ret</a>;</div>
-<div class="line"><span class="lineno">  830</span>    }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a373ef12ef5670c3f727574cd1656c2c5"><div class="ttname"><a href="#a373ef12ef5670c3f727574cd1656c2c5">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::size_type</a></div><div class="ttdeci">typename container_type::size_type size_type</div><div class="ttdoc">The size type.</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:585</div></div>
+<div class="fragment"><div class="line"><span class="lineno">  922</span>{ <span class="keywordflow">return</span> <a class="code hl_function" href="#a370c71ed1a8285dad943958a30764aeb">_live_size</a>(<a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_acquire</a>)); }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a370c71ed1a8285dad943958a30764aeb"><div class="ttname"><a href="#a370c71ed1a8285dad943958a30764aeb">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::_live_size</a></div><div class="ttdeci">size_type _live_size(size_type counter) const noexcept</div><div class="ttdoc">Number of records the ring holds, given the newest counter value: the ring window,...</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:810</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -861,7 +1084,7 @@ template&lt;class Policy, class LogLevelChecker&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the maximum number of items in the log. </p>
-<div class="fragment"><div class="line"><span class="lineno">  832</span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="#a57fa01affe10fb64e038e4dccd90164b">max_items</a> ? <a class="code hl_variable" href="#a57fa01affe10fb64e038e4dccd90164b">max_items</a> : <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>.size(); }</div>
+<div class="fragment"><div class="line"><span class="lineno">  924</span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="#a57fa01affe10fb64e038e4dccd90164b">max_items</a> ? <a class="code hl_variable" href="#a57fa01affe10fb64e038e4dccd90164b">max_items</a> : <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>.size(); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -891,7 +1114,7 @@ template&lt;class Policy, class LogLevelChecker&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns any <span class="tt">std::ostream</span> immediately printed to when a new log entry is added. </p>
-<div class="fragment"><div class="line"><span class="lineno">  834</span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="#a32314dab48032dbb4220f636e145bf54">_immediate</a>; }</div>
+<div class="fragment"><div class="line"><span class="lineno">  926</span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="#a32314dab48032dbb4220f636e145bf54">_immediate</a>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -921,7 +1144,7 @@ template&lt;class Policy, class LogLevelChecker&gt; </div>
 </div><div class="memdoc">
 
 <p>Set any <span class="tt">std::ostream</span> immediately printed to when a new log entry is added. </p>
-<div class="fragment"><div class="line"><span class="lineno">  836</span>{ <a class="code hl_variable" href="#a32314dab48032dbb4220f636e145bf54">_immediate</a> = <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">s</a>; }</div>
+<div class="fragment"><div class="line"><span class="lineno">  928</span>{ <a class="code hl_variable" href="#a32314dab48032dbb4220f636e145bf54">_immediate</a> = <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">s</a>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -951,13 +1174,152 @@ template&lt;class Policy, class LogLevelChecker&gt; </div>
 </div><div class="memdoc">
 
 <p>True if a unique id is still valid. </p>
-<div class="fragment"><div class="line"><span class="lineno">  849</span>    {</div>
-<div class="line"><span class="lineno">  850</span>      <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> = <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>);</div>
-<div class="line"><span class="lineno">  851</span>      <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a> = <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a>;</div>
-<div class="line"><span class="lineno">  852</span>      <span class="keywordflow">if</span>(<a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>.size() &lt; <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a>)</div>
-<div class="line"><span class="lineno">  853</span>        <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a> = <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>.size();</div>
-<div class="line"><span class="lineno">  854</span>      <span class="keywordflow">return</span> <span class="keywordtype">id</span>.value &lt; <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> &amp;&amp; <span class="keywordtype">id</span>.value &gt;= <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> - <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a>;</div>
-<div class="line"><span class="lineno">  855</span>    }</div>
+<div class="fragment"><div class="line"><span class="lineno">  941</span>    {</div>
+<div class="line"><span class="lineno">  942</span>      <span class="keyword">const</span> <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> = <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_acquire</a>);</div>
+<div class="line"><span class="lineno">  943</span>      <span class="keyword">const</span> <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">cleared</a> = <a class="code hl_variable" href="#ad39e346b49538ccbd286115fbf819f42">_cleared_at</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_acquire</a>);</div>
+<div class="line"><span class="lineno">  944</span>      <span class="keywordflow">return</span> <span class="keywordtype">id</span>.value &lt; <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> &amp;&amp; <span class="keywordtype">id</span>.value &gt;= <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">cleared</a> &amp;&amp; (<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> - <span class="keywordtype">id</span>.value) &lt;= <a class="code hl_function" href="#a55eeb72dfc1ab4d2a0deefcb6f69b9d7">slots</a>();</div>
+<div class="line"><span class="lineno">  945</span>    }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a8129c4cb9fc82d6208364be0fdf3a169" name="a8129c4cb9fc82d6208364be0fdf3a169"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8129c4cb9fc82d6208364be0fdf3a169">&#9670;&#160;</a></span>snapshot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Policy, class LogLevelChecker&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a152004c4abf16b1975bbef52db06490e">value_type</a> <a class="el" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log</a>&lt; Policy, LogLevelChecker &gt;::snapshot </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a></td>          <td class="paramname"><span class="paramname"><em>pos</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a tear-free copy of the record <span class="tt">pos</span> items from the newest, or a default constructed record if the ring does not hold that many. <span class="tt">pos</span> counts from the newest exactly as <span class="tt">operator[](size_type)</span> does. The accessors which hand back a reference into the ring (<span class="tt">front()</span>, <span class="tt">back()</span>, <span class="tt">operator[]</span>, <span class="tt">at()</span> and the iterators) are racy by construction: a writer which wraps the ring can rewrite the very slot a reader is looking at, and no ordering prevents that. This copies the record out and discards the copy if the writer got to the slot first, so what it returns is always one whole record. </p>
+<div class="fragment"><div class="line"><span class="lineno">  956</span>    {</div>
+<div class="line"><span class="lineno">  957</span>      <a class="code hl_typedef" href="#a152004c4abf16b1975bbef52db06490e">value_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">ret</a>;</div>
+<div class="line"><span class="lineno">  958</span>      <span class="comment">// The ring holds at most `held` records, so a request from beyond that can</span></div>
+<div class="line"><span class="lineno">  959</span>      <span class="comment">// never be satisfied. Asking _try_snapshot_counter for it used to loop</span></div>
+<div class="line"><span class="lineno">  960</span>      <span class="comment">// forever: the counter-based liveness test rejects exactly pos &gt;= held, so</span></div>
+<div class="line"><span class="lineno">  961</span>      <span class="comment">// snapshot(size()) - and snapshot(size()-1) once the ring had wrapped -</span></div>
+<div class="line"><span class="lineno">  962</span>      <span class="comment">// spun with no escape, in a const noexcept accessor documented as</span></div>
+<div class="line"><span class="lineno">  963</span>      <span class="comment">// returning a default constructed record in that case. The attempt bound</span></div>
+<div class="line"><span class="lineno">  964</span>      <span class="comment">// covers the other end: a writer that keeps overwriting the requested slot</span></div>
+<div class="line"><span class="lineno">  965</span>      <span class="comment">// must make the reader give up, not livelock.</span></div>
+<div class="line"><span class="lineno">  966</span>      <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">attempt</a> = 0; <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">attempt</a> &lt; <a class="code hl_variable" href="#a5a0c91218dc0effdcf9fa432bbdb8f43">SNAPSHOT_ATTEMPTS</a>; <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">attempt</a>++)</div>
+<div class="line"><span class="lineno">  967</span>      {</div>
+<div class="line"><span class="lineno">  968</span>        <span class="keyword">const</span> <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counted</a> = <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_acquire</a>);</div>
+<div class="line"><span class="lineno">  969</span>        <span class="keywordflow">if</span>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">pos</a> &gt;= <a class="code hl_function" href="#a370c71ed1a8285dad943958a30764aeb">_live_size</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counted</a>))</div>
+<div class="line"><span class="lineno">  970</span>        {</div>
+<div class="line"><span class="lineno">  971</span>          <span class="keywordflow">return</span> <a class="code hl_typedef" href="#a152004c4abf16b1975bbef52db06490e">value_type</a>();</div>
+<div class="line"><span class="lineno">  972</span>        }</div>
+<div class="line"><span class="lineno">  973</span>        <span class="keywordflow">if</span>(<a class="code hl_function" href="#ab81e7049c2e5976f1dca4c4784126e50">_try_snapshot_counter</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counted</a> - 1 - <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">pos</a>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">ret</a>))</div>
+<div class="line"><span class="lineno">  974</span>        {</div>
+<div class="line"><span class="lineno">  975</span>          <span class="keywordflow">return</span> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">ret</a>;</div>
+<div class="line"><span class="lineno">  976</span>        }</div>
+<div class="line"><span class="lineno">  977</span>        <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::this_thread::yield</a>();</div>
+<div class="line"><span class="lineno">  978</span>      }</div>
+<div class="line"><span class="lineno">  979</span>      <span class="keywordflow">return</span> <a class="code hl_typedef" href="#a152004c4abf16b1975bbef52db06490e">value_type</a>();</div>
+<div class="line"><span class="lineno">  980</span>    }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a152004c4abf16b1975bbef52db06490e"><div class="ttname"><a href="#a152004c4abf16b1975bbef52db06490e">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::value_type</a></div><div class="ttdeci">typename container_type::value_type value_type</div><div class="ttdoc">The log record type.</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:585</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a5a0c91218dc0effdcf9fa432bbdb8f43"><div class="ttname"><a href="#a5a0c91218dc0effdcf9fa432bbdb8f43">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::SNAPSHOT_ATTEMPTS</a></div><div class="ttdeci">static constexpr size_t SNAPSHOT_ATTEMPTS</div><div class="ttdoc">How many times the snapshot accessors retry a slot before giving up and returning a default record.</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:805</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_ab81e7049c2e5976f1dca4c4784126e50"><div class="ttname"><a href="#ab81e7049c2e5976f1dca4c4784126e50">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::_try_snapshot_counter</a></div><div class="ttdeci">bool _try_snapshot_counter(size_type counter_value, value_type &amp;out) const noexcept</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:841</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="afe2ac89bc20cd25d5d02d412555b4447" name="afe2ac89bc20cd25d5d02d412555b4447"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe2ac89bc20cd25d5d02d412555b4447">&#9670;&#160;</a></span>try_snapshot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Policy, class LogLevelChecker&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log</a>&lt; Policy, LogLevelChecker &gt;::try_snapshot </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a></td>          <td class="paramname"><span class="paramname"><em>pos</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a152004c4abf16b1975bbef52db06490e">value_type</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>out</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Copies the record <span class="tt">pos</span> items from the newest into <span class="tt">out</span>, returning false if the ring does not hold that many records or if the writer overwrote the slot while it was being copied (in which case <span class="tt">out</span> is left unspecified). Unlike <span class="tt">snapshot()</span>, this never retries. </p>
+<div class="fragment"><div class="line"><span class="lineno">  986</span>    {</div>
+<div class="line"><span class="lineno">  987</span>      <span class="keyword">const</span> <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counted</a> = <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_acquire</a>);</div>
+<div class="line"><span class="lineno">  988</span>      <span class="keywordflow">return</span> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">pos</a> &lt; <a class="code hl_function" href="#a370c71ed1a8285dad943958a30764aeb">_live_size</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counted</a>) &amp;&amp; <a class="code hl_function" href="#ab81e7049c2e5976f1dca4c4784126e50">_try_snapshot_counter</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counted</a> - 1 - <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">pos</a>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">out</a>);</div>
+<div class="line"><span class="lineno">  989</span>    }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a2fb6a86fef1544eedf5b892a55d5bb9a" name="a2fb6a86fef1544eedf5b892a55d5bb9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fb6a86fef1544eedf5b892a55d5bb9a">&#9670;&#160;</a></span>snapshot_by_id()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Policy, class LogLevelChecker&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a152004c4abf16b1975bbef52db06490e">value_type</a> <a class="el" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log</a>&lt; Policy, LogLevelChecker &gt;::snapshot_by_id </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_1_1unique__id.html">unique_id</a></td>          <td class="paramname"><span class="paramname"><em>id</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a tear-free copy of the record with the given unique id, or a default constructed record if the ring no longer holds it. </p>
+<div class="fragment"><div class="line"><span class="lineno">  994</span>    {</div>
+<div class="line"><span class="lineno">  995</span>      <a class="code hl_typedef" href="#a152004c4abf16b1975bbef52db06490e">value_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">ret</a>;</div>
+<div class="line"><span class="lineno">  996</span>      <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">attempt</a> = 0; <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">attempt</a> &lt; <a class="code hl_variable" href="#a5a0c91218dc0effdcf9fa432bbdb8f43">SNAPSHOT_ATTEMPTS</a>; <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">attempt</a>++)</div>
+<div class="line"><span class="lineno">  997</span>      {</div>
+<div class="line"><span class="lineno">  998</span>        <span class="keyword">const</span> <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counted</a> = <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_acquire</a>);</div>
+<div class="line"><span class="lineno">  999</span>        <span class="keywordflow">if</span>(<span class="keywordtype">id</span>.<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">value</a> &gt;= <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counted</a> || (<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counted</a> - <span class="keywordtype">id</span>.<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">value</a>) &gt; <a class="code hl_function" href="#a55eeb72dfc1ab4d2a0deefcb6f69b9d7">slots</a>() ||</div>
+<div class="line"><span class="lineno"> 1000</span>           <span class="keywordtype">id</span>.<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">value</a> &lt; <a class="code hl_variable" href="#ad39e346b49538ccbd286115fbf819f42">_cleared_at</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_acquire</a>))</div>
+<div class="line"><span class="lineno"> 1001</span>        {</div>
+<div class="line"><span class="lineno"> 1002</span>          <span class="keywordflow">return</span> <a class="code hl_typedef" href="#a152004c4abf16b1975bbef52db06490e">value_type</a>();</div>
+<div class="line"><span class="lineno"> 1003</span>        }</div>
+<div class="line"><span class="lineno"> 1004</span>        <span class="keywordflow">if</span>(<a class="code hl_function" href="#ab81e7049c2e5976f1dca4c4784126e50">_try_snapshot_counter</a>(<span class="keywordtype">id</span>.<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">value</a>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">ret</a>))</div>
+<div class="line"><span class="lineno"> 1005</span>        {</div>
+<div class="line"><span class="lineno"> 1006</span>          <span class="keywordflow">return</span> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">ret</a>;</div>
+<div class="line"><span class="lineno"> 1007</span>        }</div>
+<div class="line"><span class="lineno"> 1008</span>        <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::this_thread::yield</a>();</div>
+<div class="line"><span class="lineno"> 1009</span>      }</div>
+<div class="line"><span class="lineno"> 1010</span>      <span class="keywordflow">return</span> <a class="code hl_typedef" href="#a152004c4abf16b1975bbef52db06490e">value_type</a>();</div>
+<div class="line"><span class="lineno"> 1011</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -987,8 +1349,7 @@ template&lt;class Policy, class LogLevelChecker&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the front of the ringbuffer. Be careful of races with concurrent modifies. </p>
-<div class="fragment"><div class="line"><span class="lineno">  858</span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>[<a class="code hl_function" href="#a86c72b49deb0ed751a1c278725ed8601">counter_to_idx</a>(<a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>) - 1)]; }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a86c72b49deb0ed751a1c278725ed8601"><div class="ttname"><a href="#a86c72b49deb0ed751a1c278725ed8601">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::counter_to_idx</a></div><div class="ttdeci">size_type counter_to_idx(size_type counter) const noexcept</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:783</div></div>
+<div class="fragment"><div class="line"><span class="lineno"> 1013</span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>[<a class="code hl_function" href="#a86c72b49deb0ed751a1c278725ed8601">counter_to_idx</a>(<a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_acquire</a>) - 1)]; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1018,7 +1379,7 @@ template&lt;class Policy, class LogLevelChecker&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the front of the ringbuffer. Be careful of races with concurrent modifies. </p>
-<div class="fragment"><div class="line"><span class="lineno">  860</span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>[<a class="code hl_function" href="#a86c72b49deb0ed751a1c278725ed8601">counter_to_idx</a>(<a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>) - 1)]; }</div>
+<div class="fragment"><div class="line"><span class="lineno"> 1015</span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>[<a class="code hl_function" href="#a86c72b49deb0ed751a1c278725ed8601">counter_to_idx</a>(<a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_acquire</a>) - 1)]; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1048,7 +1409,7 @@ template&lt;class Policy, class LogLevelChecker&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns a reference to the specified element. Be careful of races with concurrent modifies. </p>
-<div class="fragment"><div class="line"><span class="lineno">  892</span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>[<a class="code hl_function" href="#a86c72b49deb0ed751a1c278725ed8601">counter_to_idx</a>(<a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>) - 1 - <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">pos</a>)]; }</div>
+<div class="fragment"><div class="line"><span class="lineno"> 1047</span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>[<a class="code hl_function" href="#a86c72b49deb0ed751a1c278725ed8601">counter_to_idx</a>(<a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_acquire</a>) - 1 - <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">pos</a>)]; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1078,7 +1439,7 @@ template&lt;class Policy, class LogLevelChecker&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns a reference to the specified element. </p>
-<div class="fragment"><div class="line"><span class="lineno">  894</span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>[<a class="code hl_function" href="#a86c72b49deb0ed751a1c278725ed8601">counter_to_idx</a>(<span class="keywordtype">id</span>.<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">value</a>)]; }</div>
+<div class="fragment"><div class="line"><span class="lineno"> 1049</span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>[<a class="code hl_function" href="#a86c72b49deb0ed751a1c278725ed8601">counter_to_idx</a>(<span class="keywordtype">id</span>.<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">value</a>)]; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1108,7 +1469,7 @@ template&lt;class Policy, class LogLevelChecker&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns a reference to the specified element. Be careful of races with concurrent modifies. </p>
-<div class="fragment"><div class="line"><span class="lineno">  896</span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>[<a class="code hl_function" href="#a86c72b49deb0ed751a1c278725ed8601">counter_to_idx</a>(<a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>) - 1 - <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">pos</a>)]; }</div>
+<div class="fragment"><div class="line"><span class="lineno"> 1051</span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>[<a class="code hl_function" href="#a86c72b49deb0ed751a1c278725ed8601">counter_to_idx</a>(<a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_acquire</a>) - 1 - <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">pos</a>)]; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1138,7 +1499,7 @@ template&lt;class Policy, class LogLevelChecker&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns a reference to the specified element. </p>
-<div class="fragment"><div class="line"><span class="lineno">  898</span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>[<a class="code hl_function" href="#a86c72b49deb0ed751a1c278725ed8601">counter_to_idx</a>(<span class="keywordtype">id</span>.<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">value</a>)]; }</div>
+<div class="fragment"><div class="line"><span class="lineno"> 1053</span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>[<a class="code hl_function" href="#a86c72b49deb0ed751a1c278725ed8601">counter_to_idx</a>(<span class="keywordtype">id</span>.<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">value</a>)]; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1168,13 +1529,11 @@ template&lt;class Policy, class LogLevelChecker&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the back of the ringbuffer. Be careful of races with concurrent modifies. </p>
-<div class="fragment"><div class="line"><span class="lineno">  901</span>    {</div>
-<div class="line"><span class="lineno">  902</span>      <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> = <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>);</div>
-<div class="line"><span class="lineno">  903</span>      <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a> = <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a>;</div>
-<div class="line"><span class="lineno">  904</span>      <span class="keywordflow">if</span>(<a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>.size() &lt; <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a>)</div>
-<div class="line"><span class="lineno">  905</span>        <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a> = <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>.size();</div>
-<div class="line"><span class="lineno">  906</span>      <span class="keywordflow">return</span> <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>[<a class="code hl_function" href="#a86c72b49deb0ed751a1c278725ed8601">counter_to_idx</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> - <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a>)];</div>
-<div class="line"><span class="lineno">  907</span>    }</div>
+<div class="fragment"><div class="line"><span class="lineno"> 1056</span>    {</div>
+<div class="line"><span class="lineno"> 1057</span>      <span class="keyword">const</span> <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> = <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_acquire</a>);</div>
+<div class="line"><span class="lineno"> 1058</span>      <span class="keyword">const</span> <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a> = <a class="code hl_function" href="#a370c71ed1a8285dad943958a30764aeb">_live_size</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a>);</div>
+<div class="line"><span class="lineno"> 1059</span>      <span class="keywordflow">return</span> <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>[<a class="code hl_function" href="#a86c72b49deb0ed751a1c278725ed8601">counter_to_idx</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> - <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a>)];</div>
+<div class="line"><span class="lineno"> 1060</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1204,13 +1563,11 @@ template&lt;class Policy, class LogLevelChecker&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the back of the ringbuffer. Be careful of races with concurrent modifies. </p>
-<div class="fragment"><div class="line"><span class="lineno">  910</span>    {</div>
-<div class="line"><span class="lineno">  911</span>      <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> = <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>);</div>
-<div class="line"><span class="lineno">  912</span>      <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a> = <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a>;</div>
-<div class="line"><span class="lineno">  913</span>      <span class="keywordflow">if</span>(<a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>.size() &lt; <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a>)</div>
-<div class="line"><span class="lineno">  914</span>        <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a> = <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>.size();</div>
-<div class="line"><span class="lineno">  915</span>      <span class="keywordflow">return</span> <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>[<a class="code hl_function" href="#a86c72b49deb0ed751a1c278725ed8601">counter_to_idx</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> - <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a>)];</div>
-<div class="line"><span class="lineno">  916</span>    }</div>
+<div class="fragment"><div class="line"><span class="lineno"> 1063</span>    {</div>
+<div class="line"><span class="lineno"> 1064</span>      <span class="keyword">const</span> <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> = <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_acquire</a>);</div>
+<div class="line"><span class="lineno"> 1065</span>      <span class="keyword">const</span> <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a> = <a class="code hl_function" href="#a370c71ed1a8285dad943958a30764aeb">_live_size</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a>);</div>
+<div class="line"><span class="lineno"> 1066</span>      <span class="keywordflow">return</span> <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>[<a class="code hl_function" href="#a86c72b49deb0ed751a1c278725ed8601">counter_to_idx</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> - <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a>)];</div>
+<div class="line"><span class="lineno"> 1067</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1240,14 +1597,12 @@ template&lt;class Policy, class LogLevelChecker&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the first item in the log. Be careful of races with concurrent modifies. </p>
-<div class="fragment"><div class="line"><span class="lineno">  920</span>    {</div>
-<div class="line"><span class="lineno">  921</span>      <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> = <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>);</div>
-<div class="line"><span class="lineno">  922</span>      <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a> = <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a>;</div>
-<div class="line"><span class="lineno">  923</span>      <span class="keywordflow">if</span>(<a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>.size() &lt; <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a>)</div>
-<div class="line"><span class="lineno">  924</span>        <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a> = <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>.size();</div>
-<div class="line"><span class="lineno">  925</span>      <span class="keywordflow">return</span> <a class="code hl_typedef" href="#a5aa66e3dbe9859cf376540ebf6f3a979">iterator</a>(<span class="keyword">this</span>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> - 1, <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a>);</div>
-<div class="line"><span class="lineno">  926</span>    }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a5aa66e3dbe9859cf376540ebf6f3a979"><div class="ttname"><a href="#a5aa66e3dbe9859cf376540ebf6f3a979">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::iterator</a></div><div class="ttdeci">iterator_&lt; ringbuffer_log, pointer, reference &gt; iterator</div><div class="ttdoc">The iterator type.</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:769</div></div>
+<div class="fragment"><div class="line"><span class="lineno"> 1071</span>    {</div>
+<div class="line"><span class="lineno"> 1072</span>      <span class="keyword">const</span> <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> = <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_acquire</a>);</div>
+<div class="line"><span class="lineno"> 1073</span>      <span class="keyword">const</span> <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a> = <a class="code hl_function" href="#a370c71ed1a8285dad943958a30764aeb">_live_size</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a>);</div>
+<div class="line"><span class="lineno"> 1074</span>      <span class="keywordflow">return</span> <a class="code hl_typedef" href="#a5aa66e3dbe9859cf376540ebf6f3a979">iterator</a>(<span class="keyword">this</span>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> - 1, <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a>);</div>
+<div class="line"><span class="lineno"> 1075</span>    }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a5aa66e3dbe9859cf376540ebf6f3a979"><div class="ttname"><a href="#a5aa66e3dbe9859cf376540ebf6f3a979">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::iterator</a></div><div class="ttdeci">iterator_&lt; ringbuffer_log, pointer, reference &gt; iterator</div><div class="ttdoc">The iterator type.</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:771</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1277,14 +1632,12 @@ template&lt;class Policy, class LogLevelChecker&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the first item in the log. Be careful of races with concurrent modifies. </p>
-<div class="fragment"><div class="line"><span class="lineno">  929</span>    {</div>
-<div class="line"><span class="lineno">  930</span>      <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> = <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>);</div>
-<div class="line"><span class="lineno">  931</span>      <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a> = <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a>;</div>
-<div class="line"><span class="lineno">  932</span>      <span class="keywordflow">if</span>(<a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>.size() &lt; <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a>)</div>
-<div class="line"><span class="lineno">  933</span>        <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a> = <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>.size();</div>
-<div class="line"><span class="lineno">  934</span>      <span class="keywordflow">return</span> <a class="code hl_typedef" href="#a602f9b6a7790c17e5e9f87b79b0b96bc">const_iterator</a>(<span class="keyword">this</span>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> - 1, <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a>);</div>
-<div class="line"><span class="lineno">  935</span>    }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a602f9b6a7790c17e5e9f87b79b0b96bc"><div class="ttname"><a href="#a602f9b6a7790c17e5e9f87b79b0b96bc">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::const_iterator</a></div><div class="ttdeci">iterator_&lt; const ringbuffer_log, const_pointer, const_reference &gt; const_iterator</div><div class="ttdoc">The const iterator type.</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:771</div></div>
+<div class="fragment"><div class="line"><span class="lineno"> 1078</span>    {</div>
+<div class="line"><span class="lineno"> 1079</span>      <span class="keyword">const</span> <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> = <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_acquire</a>);</div>
+<div class="line"><span class="lineno"> 1080</span>      <span class="keyword">const</span> <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a> = <a class="code hl_function" href="#a370c71ed1a8285dad943958a30764aeb">_live_size</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a>);</div>
+<div class="line"><span class="lineno"> 1081</span>      <span class="keywordflow">return</span> <a class="code hl_typedef" href="#a602f9b6a7790c17e5e9f87b79b0b96bc">const_iterator</a>(<span class="keyword">this</span>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> - 1, <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a>);</div>
+<div class="line"><span class="lineno"> 1082</span>    }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a602f9b6a7790c17e5e9f87b79b0b96bc"><div class="ttname"><a href="#a602f9b6a7790c17e5e9f87b79b0b96bc">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::const_iterator</a></div><div class="ttdeci">iterator_&lt; const ringbuffer_log, const_pointer, const_reference &gt; const_iterator</div><div class="ttdoc">The const iterator type.</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:773</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1314,13 +1667,11 @@ template&lt;class Policy, class LogLevelChecker&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the first item in the log. Be careful of races with concurrent modifies. </p>
-<div class="fragment"><div class="line"><span class="lineno">  938</span>    {</div>
-<div class="line"><span class="lineno">  939</span>      <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> = <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>);</div>
-<div class="line"><span class="lineno">  940</span>      <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a> = <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a>;</div>
-<div class="line"><span class="lineno">  941</span>      <span class="keywordflow">if</span>(<a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>.size() &lt; <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a>)</div>
-<div class="line"><span class="lineno">  942</span>        <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a> = <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>.size();</div>
-<div class="line"><span class="lineno">  943</span>      <span class="keywordflow">return</span> <a class="code hl_typedef" href="#a602f9b6a7790c17e5e9f87b79b0b96bc">const_iterator</a>(<span class="keyword">this</span>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> - 1, <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a>);</div>
-<div class="line"><span class="lineno">  944</span>    }</div>
+<div class="fragment"><div class="line"><span class="lineno"> 1085</span>    {</div>
+<div class="line"><span class="lineno"> 1086</span>      <span class="keyword">const</span> <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> = <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_acquire</a>);</div>
+<div class="line"><span class="lineno"> 1087</span>      <span class="keyword">const</span> <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a> = <a class="code hl_function" href="#a370c71ed1a8285dad943958a30764aeb">_live_size</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a>);</div>
+<div class="line"><span class="lineno"> 1088</span>      <span class="keywordflow">return</span> <a class="code hl_typedef" href="#a602f9b6a7790c17e5e9f87b79b0b96bc">const_iterator</a>(<span class="keyword">this</span>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> - 1, <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a>);</div>
+<div class="line"><span class="lineno"> 1089</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1350,13 +1701,11 @@ template&lt;class Policy, class LogLevelChecker&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the item after the last in the log. Be careful of races with concurrent modifies. </p>
-<div class="fragment"><div class="line"><span class="lineno">  947</span>    {</div>
-<div class="line"><span class="lineno">  948</span>      <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> = <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>);</div>
-<div class="line"><span class="lineno">  949</span>      <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a> = <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a>;</div>
-<div class="line"><span class="lineno">  950</span>      <span class="keywordflow">if</span>(<a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>.size() &lt; <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a>)</div>
-<div class="line"><span class="lineno">  951</span>        <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a> = <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>.size();</div>
-<div class="line"><span class="lineno">  952</span>      <span class="keywordflow">return</span> <a class="code hl_typedef" href="#a5aa66e3dbe9859cf376540ebf6f3a979">iterator</a>(<span class="keyword">this</span>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> - 1 - <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a>, 0);</div>
-<div class="line"><span class="lineno">  953</span>    }</div>
+<div class="fragment"><div class="line"><span class="lineno"> 1092</span>    {</div>
+<div class="line"><span class="lineno"> 1093</span>      <span class="keyword">const</span> <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> = <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_acquire</a>);</div>
+<div class="line"><span class="lineno"> 1094</span>      <span class="keyword">const</span> <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a> = <a class="code hl_function" href="#a370c71ed1a8285dad943958a30764aeb">_live_size</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a>);</div>
+<div class="line"><span class="lineno"> 1095</span>      <span class="keywordflow">return</span> <a class="code hl_typedef" href="#a5aa66e3dbe9859cf376540ebf6f3a979">iterator</a>(<span class="keyword">this</span>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> - 1 - <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a>, 0);</div>
+<div class="line"><span class="lineno"> 1096</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1386,13 +1735,11 @@ template&lt;class Policy, class LogLevelChecker&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the item after the last in the log. Be careful of races with concurrent modifies. </p>
-<div class="fragment"><div class="line"><span class="lineno">  956</span>    {</div>
-<div class="line"><span class="lineno">  957</span>      <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> = <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>);</div>
-<div class="line"><span class="lineno">  958</span>      <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a> = <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a>;</div>
-<div class="line"><span class="lineno">  959</span>      <span class="keywordflow">if</span>(<a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>.size() &lt; <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a>)</div>
-<div class="line"><span class="lineno">  960</span>        <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a> = <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>.size();</div>
-<div class="line"><span class="lineno">  961</span>      <span class="keywordflow">return</span> <a class="code hl_typedef" href="#a602f9b6a7790c17e5e9f87b79b0b96bc">const_iterator</a>(<span class="keyword">this</span>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> - 1 - <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a>, 0);</div>
-<div class="line"><span class="lineno">  962</span>    }</div>
+<div class="fragment"><div class="line"><span class="lineno"> 1099</span>    {</div>
+<div class="line"><span class="lineno"> 1100</span>      <span class="keyword">const</span> <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> = <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_acquire</a>);</div>
+<div class="line"><span class="lineno"> 1101</span>      <span class="keyword">const</span> <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a> = <a class="code hl_function" href="#a370c71ed1a8285dad943958a30764aeb">_live_size</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a>);</div>
+<div class="line"><span class="lineno"> 1102</span>      <span class="keywordflow">return</span> <a class="code hl_typedef" href="#a602f9b6a7790c17e5e9f87b79b0b96bc">const_iterator</a>(<span class="keyword">this</span>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> - 1 - <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a>, 0);</div>
+<div class="line"><span class="lineno"> 1103</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1422,13 +1769,11 @@ template&lt;class Policy, class LogLevelChecker&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns an iterator to the item after the last in the log. Be careful of races with concurrent modifies. </p>
-<div class="fragment"><div class="line"><span class="lineno">  965</span>    {</div>
-<div class="line"><span class="lineno">  966</span>      <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> = <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>);</div>
-<div class="line"><span class="lineno">  967</span>      <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a> = <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a>;</div>
-<div class="line"><span class="lineno">  968</span>      <span class="keywordflow">if</span>(<a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>.size() &lt; <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a>)</div>
-<div class="line"><span class="lineno">  969</span>        <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a> = <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>.size();</div>
-<div class="line"><span class="lineno">  970</span>      <span class="keywordflow">return</span> <a class="code hl_typedef" href="#a602f9b6a7790c17e5e9f87b79b0b96bc">const_iterator</a>(<span class="keyword">this</span>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> - 1 - <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a>, 0);</div>
-<div class="line"><span class="lineno">  971</span>    }</div>
+<div class="fragment"><div class="line"><span class="lineno"> 1106</span>    {</div>
+<div class="line"><span class="lineno"> 1107</span>      <span class="keyword">const</span> <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> = <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_acquire</a>);</div>
+<div class="line"><span class="lineno"> 1108</span>      <span class="keyword">const</span> <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a> = <a class="code hl_function" href="#a370c71ed1a8285dad943958a30764aeb">_live_size</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a>);</div>
+<div class="line"><span class="lineno"> 1109</span>      <span class="keywordflow">return</span> <a class="code hl_typedef" href="#a602f9b6a7790c17e5e9f87b79b0b96bc">const_iterator</a>(<span class="keyword">this</span>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">counter</a> - 1 - <a class="code hl_function" href="#a38a32efc2a44cea2c923d41930e9c5a7">size</a>, 0);</div>
+<div class="line"><span class="lineno"> 1110</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1458,11 +1803,26 @@ template&lt;class Policy, class LogLevelChecker&gt; </div>
 </div><div class="memdoc">
 
 <p>Clears the log. </p>
-<div class="fragment"><div class="line"><span class="lineno">  975</span>    {</div>
-<div class="line"><span class="lineno">  976</span>      <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.store(0, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_relaxed</a>);</div>
-<div class="line"><span class="lineno">  977</span>      <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::fill</a>(<a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>.begin(), <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>.end(), <a class="code hl_typedef" href="#a152004c4abf16b1975bbef52db06490e">value_type</a>());</div>
-<div class="line"><span class="lineno">  978</span>    }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a152004c4abf16b1975bbef52db06490e"><div class="ttname"><a href="#a152004c4abf16b1975bbef52db06490e">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::value_type</a></div><div class="ttdeci">typename container_type::value_type value_type</div><div class="ttdoc">The log record type.</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:583</div></div>
+<div class="fragment"><div class="line"><span class="lineno"> 1114</span>    {</div>
+<div class="line"><span class="lineno"> 1115</span>      <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">configurable_spinlock::lock_guard</a>&lt;<span class="keyword">decltype</span>(<a class="code hl_variable" href="#a11beffa149913127dfe2139e11a238cf">_lock</a>)&gt; <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">g</a>(<a class="code hl_variable" href="#a11beffa149913127dfe2139e11a238cf">_lock</a>);</div>
+<div class="line"><span class="lineno"> 1116</span>      <span class="comment">// Clearing rewrites every slot, so it takes the same dirty/clean marking a</span></div>
+<div class="line"><span class="lineno"> 1117</span>      <span class="comment">// writer does: without it a reader could accept a slot mid-clear as a</span></div>
+<div class="line"><span class="lineno"> 1118</span>      <span class="comment">// record, exactly as it could mid-write.</span></div>
+<div class="line"><span class="lineno"> 1119</span>      <span class="keywordflow">for</span>(<a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">i</a> = 0; <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">i</a> &lt; <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>.size(); <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">i</a>++)</div>
+<div class="line"><span class="lineno"> 1120</span>      {</div>
+<div class="line"><span class="lineno"> 1121</span>        <span class="keyword">const</span> <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">idx</a> = <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">i</a> % <a class="code hl_function" href="#a55eeb72dfc1ab4d2a0deefcb6f69b9d7">slots</a>();</div>
+<div class="line"><span class="lineno"> 1122</span>        <a class="code hl_function" href="#a074e7cec1a39c0a279a3129a176f1650">_seq_write_begin</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">idx</a>);</div>
+<div class="line"><span class="lineno"> 1123</span>        <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>[<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">i</a>] = <a class="code hl_typedef" href="#a152004c4abf16b1975bbef52db06490e">value_type</a>();</div>
+<div class="line"><span class="lineno"> 1124</span>        <a class="code hl_function" href="#a6e047996a2181bdfdb32ed9122547975">_seq_write_end</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">idx</a>);</div>
+<div class="line"><span class="lineno"> 1125</span>      }</div>
+<div class="line"><span class="lineno"> 1126</span>      <span class="comment">// Retire everything pushed so far rather than resetting the counter: a</span></div>
+<div class="line"><span class="lineno"> 1127</span>      <span class="comment">// reset made ids issued before the clear name whatever record now occupies</span></div>
+<div class="line"><span class="lineno"> 1128</span>      <span class="comment">// that slot, i.e. silently resolve to someone else&#39;s data.</span></div>
+<div class="line"><span class="lineno"> 1129</span>      <a class="code hl_variable" href="#ad39e346b49538ccbd286115fbf819f42">_cleared_at</a>.store(<a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_acquire</a>), <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_release</a>);</div>
+<div class="line"><span class="lineno"> 1130</span>    }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a074e7cec1a39c0a279a3129a176f1650"><div class="ttname"><a href="#a074e7cec1a39c0a279a3129a176f1650">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::_seq_write_begin</a></div><div class="ttdeci">void _seq_write_begin(size_type idx) noexcept</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:824</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a11beffa149913127dfe2139e11a238cf"><div class="ttname"><a href="#a11beffa149913127dfe2139e11a238cf">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::_lock</a></div><div class="ttdeci">configurable_spinlock::spinlock&lt; uint32_t &gt; _lock</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:786</div></div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_a6e047996a2181bdfdb32ed9122547975"><div class="ttname"><a href="#a6e047996a2181bdfdb32ed9122547975">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::_seq_write_end</a></div><div class="ttdeci">void _seq_write_end(size_type idx) noexcept</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:830</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1492,19 +1852,31 @@ template&lt;class Policy, class LogLevelChecker&gt; </div>
 </div><div class="memdoc">
 
 <p>THREADSAFE Logs a new item, returning its unique counter id. </p>
-<div class="fragment"><div class="line"><span class="lineno">  981</span>    {</div>
-<div class="line"><span class="lineno">  982</span>      <span class="keywordflow">if</span>(<span class="keyword">static_cast&lt;</span><a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">level</a><span class="keyword">&gt;</span>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">v</a>.level) &lt;= <a class="code hl_function" href="#abf0d8e7f930095ce2d764210043e581a">log_level</a>())</div>
-<div class="line"><span class="lineno">  983</span>      {</div>
-<div class="line"><span class="lineno">  984</span>        <span class="keywordflow">if</span>(<a class="code hl_variable" href="#a32314dab48032dbb4220f636e145bf54">_immediate</a>)</div>
-<div class="line"><span class="lineno">  985</span>          *<a class="code hl_variable" href="#a32314dab48032dbb4220f636e145bf54">_immediate</a> &lt;&lt; <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">v</a> &lt;&lt; <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::endl</a>;</div>
-<div class="line"><span class="lineno">  986</span>        <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">thisitem</a> = <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>++;</div>
-<div class="line"><span class="lineno">  987</span>        <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">v</a>.counter = <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">thisitem</a>;</div>
-<div class="line"><span class="lineno">  988</span>        <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>[<a class="code hl_function" href="#a86c72b49deb0ed751a1c278725ed8601">counter_to_idx</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">thisitem</a>)] = <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::move</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">v</a>);</div>
-<div class="line"><span class="lineno">  989</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">thisitem</a>;</div>
-<div class="line"><span class="lineno">  990</span>      }</div>
-<div class="line"><span class="lineno">  991</span>      <span class="keywordflow">return</span> (<a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a>) -1;</div>
-<div class="line"><span class="lineno">  992</span>    }</div>
-<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_abf0d8e7f930095ce2d764210043e581a"><div class="ttname"><a href="#abf0d8e7f930095ce2d764210043e581a">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::log_level</a></div><div class="ttdeci">level log_level() const noexcept</div><div class="ttdoc">THREADSAFE Returns the log level from the instance filtered by any LogLevelChecker.</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:815</div></div>
+<div class="fragment"><div class="line"><span class="lineno"> 1133</span>    {</div>
+<div class="line"><span class="lineno"> 1134</span>      <span class="keywordflow">if</span>(<span class="keyword">static_cast&lt;</span><a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">level</a><span class="keyword">&gt;</span>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">v</a>.level) &lt;= <a class="code hl_function" href="#abf0d8e7f930095ce2d764210043e581a">log_level</a>())</div>
+<div class="line"><span class="lineno"> 1135</span>      {</div>
+<div class="line"><span class="lineno"> 1136</span>        <span class="keywordflow">if</span>(<a class="code hl_variable" href="#a32314dab48032dbb4220f636e145bf54">_immediate</a>)</div>
+<div class="line"><span class="lineno"> 1137</span>          *<a class="code hl_variable" href="#a32314dab48032dbb4220f636e145bf54">_immediate</a> &lt;&lt; <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">v</a> &lt;&lt; <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::endl</a>;</div>
+<div class="line"><span class="lineno"> 1138</span>        <span class="comment">// Write the record BEFORE advancing the counter which publishes it, and</span></div>
+<div class="line"><span class="lineno"> 1139</span>        <span class="comment">// hold the writer lock across both: readers decide which slots are live</span></div>
+<div class="line"><span class="lineno"> 1140</span>        <span class="comment">// from the counter alone, so publishing first let them consume a</span></div>
+<div class="line"><span class="lineno"> 1141</span>        <span class="comment">// half-written record, or the previous wrap&#39;s record.</span></div>
+<div class="line"><span class="lineno"> 1142</span>        <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">configurable_spinlock::lock_guard</a>&lt;<span class="keyword">decltype</span>(<a class="code hl_variable" href="#a11beffa149913127dfe2139e11a238cf">_lock</a>)&gt; <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">g</a>(<a class="code hl_variable" href="#a11beffa149913127dfe2139e11a238cf">_lock</a>);</div>
+<div class="line"><span class="lineno"> 1143</span>        <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">thisitem</a> = <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_acquire</a>);</div>
+<div class="line"><span class="lineno"> 1144</span>        <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">v</a>.counter = <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">thisitem</a>;</div>
+<div class="line"><span class="lineno"> 1145</span>        <span class="keyword">const</span> <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">idx</a> = <a class="code hl_function" href="#a86c72b49deb0ed751a1c278725ed8601">counter_to_idx</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">thisitem</a>);</div>
+<div class="line"><span class="lineno"> 1146</span>        <span class="comment">// Publish the slot as dirty before it is touched and clean again after it</span></div>
+<div class="line"><span class="lineno"> 1147</span>        <span class="comment">// is whole, so a reader can tell a copy of a record from a copy of a</span></div>
+<div class="line"><span class="lineno"> 1148</span>        <span class="comment">// record being written. See _seq.</span></div>
+<div class="line"><span class="lineno"> 1149</span>        <a class="code hl_function" href="#a074e7cec1a39c0a279a3129a176f1650">_seq_write_begin</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">idx</a>);</div>
+<div class="line"><span class="lineno"> 1150</span>        <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>[<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">idx</a>] = <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::move</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">v</a>);</div>
+<div class="line"><span class="lineno"> 1151</span>        <a class="code hl_function" href="#a6e047996a2181bdfdb32ed9122547975">_seq_write_end</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">idx</a>);</div>
+<div class="line"><span class="lineno"> 1152</span>        <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.store(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">thisitem</a> + 1, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_release</a>);</div>
+<div class="line"><span class="lineno"> 1153</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">thisitem</a>;</div>
+<div class="line"><span class="lineno"> 1154</span>      }</div>
+<div class="line"><span class="lineno"> 1155</span>      <span class="keywordflow">return</span> (<a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a>) -1;</div>
+<div class="line"><span class="lineno"> 1156</span>    }</div>
+<div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log_html_abf0d8e7f930095ce2d764210043e581a"><div class="ttname"><a href="#abf0d8e7f930095ce2d764210043e581a">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log::log_level</a></div><div class="ttdeci">level log_level() const noexcept</div><div class="ttdoc">THREADSAFE Returns the log level from the instance filtered by any LogLevelChecker.</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:913</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1540,19 +1912,31 @@ template&lt;class... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>THREADSAFE Logs a new item, returning its unique counter id. </p>
-<div class="fragment"><div class="line"><span class="lineno">  995</span>    {</div>
-<div class="line"><span class="lineno">  996</span>      <span class="keywordflow">if</span>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">__level</a> &lt;= <a class="code hl_function" href="#abf0d8e7f930095ce2d764210043e581a">log_level</a>())</div>
-<div class="line"><span class="lineno">  997</span>      {</div>
-<div class="line"><span class="lineno">  998</span>        <a class="code hl_typedef" href="#a152004c4abf16b1975bbef52db06490e">value_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">v</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">__level</a>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::forward&lt;Args&gt;</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">args</a>)...);</div>
-<div class="line"><span class="lineno">  999</span>        <span class="keywordflow">if</span>(<a class="code hl_variable" href="#a32314dab48032dbb4220f636e145bf54">_immediate</a>)</div>
-<div class="line"><span class="lineno"> 1000</span>          *<a class="code hl_variable" href="#a32314dab48032dbb4220f636e145bf54">_immediate</a> &lt;&lt; <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">v</a> &lt;&lt; <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::endl</a>;</div>
-<div class="line"><span class="lineno"> 1001</span>        <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">thisitem</a> = <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>++;</div>
-<div class="line"><span class="lineno"> 1002</span>        <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">v</a>.counter = <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">thisitem</a>;</div>
-<div class="line"><span class="lineno"> 1003</span>        <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>[<a class="code hl_function" href="#a86c72b49deb0ed751a1c278725ed8601">counter_to_idx</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">thisitem</a>)] = <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::move</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">v</a>);</div>
-<div class="line"><span class="lineno"> 1004</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">thisitem</a>;</div>
-<div class="line"><span class="lineno"> 1005</span>      }</div>
-<div class="line"><span class="lineno"> 1006</span>      <span class="keywordflow">return</span> (<a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a>) -1;</div>
-<div class="line"><span class="lineno"> 1007</span>    }</div>
+<div class="fragment"><div class="line"><span class="lineno"> 1159</span>    {</div>
+<div class="line"><span class="lineno"> 1160</span>      <span class="keywordflow">if</span>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">__level</a> &lt;= <a class="code hl_function" href="#abf0d8e7f930095ce2d764210043e581a">log_level</a>())</div>
+<div class="line"><span class="lineno"> 1161</span>      {</div>
+<div class="line"><span class="lineno"> 1162</span>        <a class="code hl_typedef" href="#a152004c4abf16b1975bbef52db06490e">value_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">v</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">__level</a>, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::forward&lt;Args&gt;</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">args</a>)...);</div>
+<div class="line"><span class="lineno"> 1163</span>        <span class="keywordflow">if</span>(<a class="code hl_variable" href="#a32314dab48032dbb4220f636e145bf54">_immediate</a>)</div>
+<div class="line"><span class="lineno"> 1164</span>          *<a class="code hl_variable" href="#a32314dab48032dbb4220f636e145bf54">_immediate</a> &lt;&lt; <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">v</a> &lt;&lt; <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::endl</a>;</div>
+<div class="line"><span class="lineno"> 1165</span>        <span class="comment">// Write the record BEFORE advancing the counter which publishes it, and</span></div>
+<div class="line"><span class="lineno"> 1166</span>        <span class="comment">// hold the writer lock across both: readers decide which slots are live</span></div>
+<div class="line"><span class="lineno"> 1167</span>        <span class="comment">// from the counter alone, so publishing first let them consume a</span></div>
+<div class="line"><span class="lineno"> 1168</span>        <span class="comment">// half-written record, or the previous wrap&#39;s record.</span></div>
+<div class="line"><span class="lineno"> 1169</span>        <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">configurable_spinlock::lock_guard</a>&lt;<span class="keyword">decltype</span>(<a class="code hl_variable" href="#a11beffa149913127dfe2139e11a238cf">_lock</a>)&gt; <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">g</a>(<a class="code hl_variable" href="#a11beffa149913127dfe2139e11a238cf">_lock</a>);</div>
+<div class="line"><span class="lineno"> 1170</span>        <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">thisitem</a> = <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.load(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_acquire</a>);</div>
+<div class="line"><span class="lineno"> 1171</span>        <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">v</a>.counter = <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">thisitem</a>;</div>
+<div class="line"><span class="lineno"> 1172</span>        <span class="keyword">const</span> <a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">idx</a> = <a class="code hl_function" href="#a86c72b49deb0ed751a1c278725ed8601">counter_to_idx</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">thisitem</a>);</div>
+<div class="line"><span class="lineno"> 1173</span>        <span class="comment">// Publish the slot as dirty before it is touched and clean again after it</span></div>
+<div class="line"><span class="lineno"> 1174</span>        <span class="comment">// is whole, so a reader can tell a copy of a record from a copy of a</span></div>
+<div class="line"><span class="lineno"> 1175</span>        <span class="comment">// record being written. See _seq.</span></div>
+<div class="line"><span class="lineno"> 1176</span>        <a class="code hl_function" href="#a074e7cec1a39c0a279a3129a176f1650">_seq_write_begin</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">idx</a>);</div>
+<div class="line"><span class="lineno"> 1177</span>        <a class="code hl_variable" href="#a109378604092f3cfa64c2c796eeb4b6e">_store</a>[<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">idx</a>] = <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::move</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">v</a>);</div>
+<div class="line"><span class="lineno"> 1178</span>        <a class="code hl_function" href="#a6e047996a2181bdfdb32ed9122547975">_seq_write_end</a>(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">idx</a>);</div>
+<div class="line"><span class="lineno"> 1179</span>        <a class="code hl_variable" href="#a96acd9e8bef427b573d0fb362f1de70d">_counter</a>.store(<a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">thisitem</a> + 1, <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">std::memory_order_release</a>);</div>
+<div class="line"><span class="lineno"> 1180</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">thisitem</a>;</div>
+<div class="line"><span class="lineno"> 1181</span>      }</div>
+<div class="line"><span class="lineno"> 1182</span>      <span class="keywordflow">return</span> (<a class="code hl_typedef" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a>) -1;</div>
+<div class="line"><span class="lineno"> 1183</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1703,6 +2087,107 @@ template&lt;class Policy, class LogLevelChecker&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a11beffa149913127dfe2139e11a238cf" name="a11beffa149913127dfe2139e11a238cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11beffa149913127dfe2139e11a238cf">&#9670;&#160;</a></span>_lock</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Policy, class LogLevelChecker&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlock.html">configurable_spinlock::spinlock</a>&lt;uint32_t&gt; <a class="el" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log</a>&lt; Policy, LogLevelChecker &gt;::_lock</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Serialises writers, so that the counter can never publish a slot which a slower writer has not yet filled. </p>
+
+</div>
+</div>
+<a id="a829a6757304bc57698a8d05b1b2e02d1" name="a829a6757304bc57698a8d05b1b2e02d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a829a6757304bc57698a8d05b1b2e02d1">&#9670;&#160;</a></span>_seq</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Policy, class LogLevelChecker&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::atomic&lt;uint32_t&gt; &gt; <a class="el" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log</a>&lt; Policy, LogLevelChecker &gt;::_seq</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>One sequence word per slot: the standard seqlock protocol, and the reason the snapshot accessors can copy a record while a writer runs. The writer bumps the word to ODD before touching the slot and to the next EVEN value after, so a reader that sees an odd word, or a word that changed across its copy, knows the copy is not a record and discards it. Without this the copy was an ordinary read racing an ordinary write: only the counter was atomic, so "detect and discard" was value-based reasoning about a data race that the memory model does not sanction, however many stress runs failed to see it. </p>
+
+</div>
+</div>
+<a id="ad39e346b49538ccbd286115fbf819f42" name="ad39e346b49538ccbd286115fbf819f42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad39e346b49538ccbd286115fbf819f42">&#9670;&#160;</a></span>_cleared_at</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Policy, class LogLevelChecker&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::atomic&lt;<a class="el" href="#a373ef12ef5670c3f727574cd1656c2c5">size_type</a>&gt; <a class="el" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log</a>&lt; Policy, LogLevelChecker &gt;::_cleared_at</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>The counter value at which the log was last cleared. The counter keeps counting across a clear - deliberately: it is the identity of a record, and resetting it made every id issued before the clear valid again, naming a DIFFERENT live record. Records pushed before <span class="tt">_cleared_at</span> are simply not live any more, so an old id resolves to nothing instead of to someone else's data. </p>
+
+</div>
+</div>
+<a id="a5a0c91218dc0effdcf9fa432bbdb8f43" name="a5a0c91218dc0effdcf9fa432bbdb8f43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a0c91218dc0effdcf9fa432bbdb8f43">&#9670;&#160;</a></span>SNAPSHOT_ATTEMPTS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Policy, class LogLevelChecker&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t <a class="el" href="classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html">quickcpplib::_xxx::ringbuffer_log::ringbuffer_log</a>&lt; Policy, LogLevelChecker &gt;::SNAPSHOT_ATTEMPTS = 8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>How many times the snapshot accessors retry a slot before giving up and returning a default record. </p>
 
 </div>
 </div>

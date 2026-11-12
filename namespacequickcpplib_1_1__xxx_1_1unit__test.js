@@ -9,5 +9,6 @@ var namespacequickcpplib_1_1__xxx_1_1unit__test =
     [ "test_suites", "namespacequickcpplib_1_1__xxx_1_1unit__test.html#a10a728cbe04f7f6413fdc15d0028b7d9", null ],
     [ "current_test_suite", "namespacequickcpplib_1_1__xxx_1_1unit__test.html#aab2cee41a4bfbe85bed534a317e5d4ca", null ],
     [ "current_test_case", "namespacequickcpplib_1_1__xxx_1_1unit__test.html#adebff0e49347e90bd0d07793fc7addf4", null ],
+    [ "test_case_skipped", "namespacequickcpplib_1_1__xxx_1_1unit__test.html#a0c8d7fc27396517b24f2ab4061f68157", null ],
     [ "run", "namespacequickcpplib_1_1__xxx_1_1unit__test.html#a1376be7d93b74267e4f9a88368be0266", null ]
 ];

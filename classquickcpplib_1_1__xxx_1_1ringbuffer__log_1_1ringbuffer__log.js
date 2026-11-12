@@ -18,6 +18,11 @@ var classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log =
     [ "ringbuffer_log", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a2380728c8b4d39820b9590575ef3cad6", null ],
     [ "ringbuffer_log", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a11f438cc8ba64bac2adbb026f9488603", null ],
     [ "counter_to_idx", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a86c72b49deb0ed751a1c278725ed8601", null ],
+    [ "slots", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a55eeb72dfc1ab4d2a0deefcb6f69b9d7", null ],
+    [ "_live_size", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a370c71ed1a8285dad943958a30764aeb", null ],
+    [ "_seq_write_begin", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a074e7cec1a39c0a279a3129a176f1650", null ],
+    [ "_seq_write_end", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6e047996a2181bdfdb32ed9122547975", null ],
+    [ "_try_snapshot_counter", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ab81e7049c2e5976f1dca4c4784126e50", null ],
     [ "operator=", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#aa9947f55cbdfb6d760a21bde7b87594a", null ],
     [ "operator=", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a44493f6c181a311e37ed71cb362dd4a5", null ],
     [ "swap", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a7fe45bb1f1281ccaaec5f7bd8e2e7b8a", null ],
@@ -30,6 +35,9 @@ var classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log =
     [ "immediate", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ac8522472a69b06fc98be31cd64826945", null ],
     [ "immediate", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a2d01f7a04661f87eb53db843ce0b00fc", null ],
     [ "valid", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a261ba4ef1a4db5684280613f4555bfb9", null ],
+    [ "snapshot", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a8129c4cb9fc82d6208364be0fdf3a169", null ],
+    [ "try_snapshot", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#afe2ac89bc20cd25d5d02d412555b4447", null ],
+    [ "snapshot_by_id", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a2fb6a86fef1544eedf5b892a55d5bb9a", null ],
     [ "front", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a8160dff634177618d5b2209ab6654276", null ],
     [ "front", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a30b89a37197c46b5248641d91509fb4a", null ],
     [ "operator[]", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a50697973a13979d8c6798889a820ada3", null ],
@@ -51,5 +59,8 @@ var classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log =
     [ "_store", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a109378604092f3cfa64c2c796eeb4b6e", null ],
     [ "_instance_level", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a9a4b70ff8aefaa5bf8bcafbdcac0d3a8", null ],
     [ "_counter", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a96acd9e8bef427b573d0fb362f1de70d", null ],
-    [ "_immediate", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a32314dab48032dbb4220f636e145bf54", null ]
+    [ "_immediate", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a32314dab48032dbb4220f636e145bf54", null ],
+    [ "_lock", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a11beffa149913127dfe2139e11a238cf", null ],
+    [ "_seq", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a829a6757304bc57698a8d05b1b2e02d1", null ],
+    [ "_cleared_at", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ad39e346b49538ccbd286115fbf819f42", null ]
 ];

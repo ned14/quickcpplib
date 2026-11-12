@@ -111,6 +111,8 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:af0b63364c641f2748298dc5c0f363099" id="r_af0b63364c641f2748298dc5c0f363099"><td class="memItemLeft" align="right" valign="top">std::atomic&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af0b63364c641f2748298dc5c0f363099">fails</a></td></tr>
 <tr class="memitem:afddc2037c663c31efcc595db3981f351" id="r_afddc2037c663c31efcc595db3981f351"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afddc2037c663c31efcc595db3981f351">skipped</a></td></tr>
 <tr class="memitem:ae35149e2856793a5919fbc4b9855943e" id="r_ae35149e2856793a5919fbc4b9855943e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae35149e2856793a5919fbc4b9855943e">requirement_failed</a></td></tr>
+<tr class="memitem:af5218e6671744304a8d51aa3d66fa2e5" id="r_af5218e6671744304a8d51aa3d66fa2e5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af5218e6671744304a8d51aa3d66fa2e5">self_skipped</a></td></tr>
+<tr class="memitem:afdd38b7198ef2d975b07b6fd3d4ccd84" id="r_afdd38b7198ef2d975b07b6fd3d4ccd84"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afdd38b7198ef2d975b07b6fd3d4ccd84">skip_reason</a></td></tr>
 </table>
 <a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="abfe6e980f2b52928443f43eccdef086d" name="abfe6e980f2b52928443f43eccdef086d"></a>
@@ -144,16 +146,18 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  126</span>        : <a class="code hl_variable" href="#ae4e7951b6bfeeee43ea30280738f7878">name</a>(_name)</div>
-<div class="line"><span class="lineno">  127</span>        , <a class="code hl_variable" href="#a860798ae9e3aab25a3713cafa8384728">desc</a>(_desc)</div>
-<div class="line"><span class="lineno">  128</span>        , <a class="code hl_variable" href="#af28a06dff01ecb6f3b046cf82ece3c25">func</a>(_func)</div>
-<div class="line"><span class="lineno">  129</span>        , <a class="code hl_variable" href="#a7aca0d46de8150c7ee7b60ff648b88e0">duration</a>()</div>
-<div class="line"><span class="lineno">  130</span>        , <a class="code hl_variable" href="#af1dd0113b3bed1a2592766a4c45b3e86">passes</a>(0)</div>
-<div class="line"><span class="lineno">  131</span>        , <a class="code hl_variable" href="#af0b63364c641f2748298dc5c0f363099">fails</a>(0)</div>
-<div class="line"><span class="lineno">  132</span>        , <a class="code hl_variable" href="#afddc2037c663c31efcc595db3981f351">skipped</a>(<span class="keyword">false</span>)</div>
-<div class="line"><span class="lineno">  133</span>        , <a class="code hl_variable" href="#ae35149e2856793a5919fbc4b9855943e">requirement_failed</a>(<span class="keyword">false</span>)</div>
-<div class="line"><span class="lineno">  134</span>    {</div>
-<div class="line"><span class="lineno">  135</span>    }</div>
+<div class="fragment"><div class="line"><span class="lineno">  132</span>        : <a class="code hl_variable" href="#ae4e7951b6bfeeee43ea30280738f7878">name</a>(_name)</div>
+<div class="line"><span class="lineno">  133</span>        , <a class="code hl_variable" href="#a860798ae9e3aab25a3713cafa8384728">desc</a>(_desc)</div>
+<div class="line"><span class="lineno">  134</span>        , <a class="code hl_variable" href="#af28a06dff01ecb6f3b046cf82ece3c25">func</a>(_func)</div>
+<div class="line"><span class="lineno">  135</span>        , <a class="code hl_variable" href="#a7aca0d46de8150c7ee7b60ff648b88e0">duration</a>()</div>
+<div class="line"><span class="lineno">  136</span>        , <a class="code hl_variable" href="#af1dd0113b3bed1a2592766a4c45b3e86">passes</a>(0)</div>
+<div class="line"><span class="lineno">  137</span>        , <a class="code hl_variable" href="#af0b63364c641f2748298dc5c0f363099">fails</a>(0)</div>
+<div class="line"><span class="lineno">  138</span>        , <a class="code hl_variable" href="#afddc2037c663c31efcc595db3981f351">skipped</a>(<span class="keyword">false</span>)</div>
+<div class="line"><span class="lineno">  139</span>        , <a class="code hl_variable" href="#ae35149e2856793a5919fbc4b9855943e">requirement_failed</a>(<span class="keyword">false</span>)</div>
+<div class="line"><span class="lineno">  140</span>        , <a class="code hl_variable" href="#af5218e6671744304a8d51aa3d66fa2e5">self_skipped</a>(<span class="keyword">false</span>)</div>
+<div class="line"><span class="lineno">  141</span>        , <a class="code hl_variable" href="#afdd38b7198ef2d975b07b6fd3d4ccd84">skip_reason</a>(<span class="keyword">nullptr</span>)</div>
+<div class="line"><span class="lineno">  142</span>    {</div>
+<div class="line"><span class="lineno">  143</span>    }</div>
 <div class="ttc" id="astructquickcpplib_1_1__xxx_1_1unit__test_1_1test__case_html_a7aca0d46de8150c7ee7b60ff648b88e0"><div class="ttname"><a href="#a7aca0d46de8150c7ee7b60ff648b88e0">quickcpplib::_xxx::unit_test::test_case::duration</a></div><div class="ttdeci">std::chrono::steady_clock::duration duration</div><div class="ttdef"><b>Definition</b> unit_test.hpp:122</div></div>
 <div class="ttc" id="astructquickcpplib_1_1__xxx_1_1unit__test_1_1test__case_html_a860798ae9e3aab25a3713cafa8384728"><div class="ttname"><a href="#a860798ae9e3aab25a3713cafa8384728">quickcpplib::_xxx::unit_test::test_case::desc</a></div><div class="ttdeci">const char * desc</div><div class="ttdef"><b>Definition</b> unit_test.hpp:120</div></div>
 <div class="ttc" id="astructquickcpplib_1_1__xxx_1_1unit__test_1_1test__case_html_ae35149e2856793a5919fbc4b9855943e"><div class="ttname"><a href="#ae35149e2856793a5919fbc4b9855943e">quickcpplib::_xxx::unit_test::test_case::requirement_failed</a></div><div class="ttdeci">bool requirement_failed</div><div class="ttdef"><b>Definition</b> unit_test.hpp:124</div></div>
@@ -161,6 +165,8 @@ Public Attributes</h2></td></tr>
 <div class="ttc" id="astructquickcpplib_1_1__xxx_1_1unit__test_1_1test__case_html_af0b63364c641f2748298dc5c0f363099"><div class="ttname"><a href="#af0b63364c641f2748298dc5c0f363099">quickcpplib::_xxx::unit_test::test_case::fails</a></div><div class="ttdeci">std::atomic&lt; size_t &gt; fails</div><div class="ttdef"><b>Definition</b> unit_test.hpp:123</div></div>
 <div class="ttc" id="astructquickcpplib_1_1__xxx_1_1unit__test_1_1test__case_html_af1dd0113b3bed1a2592766a4c45b3e86"><div class="ttname"><a href="#af1dd0113b3bed1a2592766a4c45b3e86">quickcpplib::_xxx::unit_test::test_case::passes</a></div><div class="ttdeci">std::atomic&lt; size_t &gt; passes</div><div class="ttdef"><b>Definition</b> unit_test.hpp:123</div></div>
 <div class="ttc" id="astructquickcpplib_1_1__xxx_1_1unit__test_1_1test__case_html_af28a06dff01ecb6f3b046cf82ece3c25"><div class="ttname"><a href="#af28a06dff01ecb6f3b046cf82ece3c25">quickcpplib::_xxx::unit_test::test_case::func</a></div><div class="ttdeci">void(* func)()</div><div class="ttdef"><b>Definition</b> unit_test.hpp:121</div></div>
+<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1unit__test_1_1test__case_html_af5218e6671744304a8d51aa3d66fa2e5"><div class="ttname"><a href="#af5218e6671744304a8d51aa3d66fa2e5">quickcpplib::_xxx::unit_test::test_case::self_skipped</a></div><div class="ttdeci">bool self_skipped</div><div class="ttdef"><b>Definition</b> unit_test.hpp:129</div></div>
+<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1unit__test_1_1test__case_html_afdd38b7198ef2d975b07b6fd3d4ccd84"><div class="ttname"><a href="#afdd38b7198ef2d975b07b6fd3d4ccd84">quickcpplib::_xxx::unit_test::test_case::skip_reason</a></div><div class="ttdeci">const char * skip_reason</div><div class="ttdef"><b>Definition</b> unit_test.hpp:130</div></div>
 <div class="ttc" id="astructquickcpplib_1_1__xxx_1_1unit__test_1_1test__case_html_afddc2037c663c31efcc595db3981f351"><div class="ttname"><a href="#afddc2037c663c31efcc595db3981f351">quickcpplib::_xxx::unit_test::test_case::skipped</a></div><div class="ttdeci">bool skipped</div><div class="ttdef"><b>Definition</b> unit_test.hpp:124</div></div>
 </div><!-- fragment -->
 </div>
@@ -187,16 +193,18 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  137</span>        : <a class="code hl_variable" href="#ae4e7951b6bfeeee43ea30280738f7878">name</a>(o.name)</div>
-<div class="line"><span class="lineno">  138</span>        , <a class="code hl_variable" href="#a860798ae9e3aab25a3713cafa8384728">desc</a>(o.desc)</div>
-<div class="line"><span class="lineno">  139</span>        , <a class="code hl_variable" href="#af28a06dff01ecb6f3b046cf82ece3c25">func</a>(o.func)</div>
-<div class="line"><span class="lineno">  140</span>        , <a class="code hl_variable" href="#a7aca0d46de8150c7ee7b60ff648b88e0">duration</a>(<span class="keyword">static_cast&lt;</span>std::chrono::steady_clock::duration &amp;&amp;<span class="keyword">&gt;</span>(o.duration))</div>
-<div class="line"><span class="lineno">  141</span>        , <a class="code hl_variable" href="#af1dd0113b3bed1a2592766a4c45b3e86">passes</a>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(o.passes))</div>
-<div class="line"><span class="lineno">  142</span>        , <a class="code hl_variable" href="#af0b63364c641f2748298dc5c0f363099">fails</a>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(o.fails))</div>
-<div class="line"><span class="lineno">  143</span>        , <a class="code hl_variable" href="#afddc2037c663c31efcc595db3981f351">skipped</a>(o.skipped)</div>
-<div class="line"><span class="lineno">  144</span>        , <a class="code hl_variable" href="#ae35149e2856793a5919fbc4b9855943e">requirement_failed</a>(o.requirement_failed)</div>
-<div class="line"><span class="lineno">  145</span>    {</div>
-<div class="line"><span class="lineno">  146</span>    }</div>
+<div class="fragment"><div class="line"><span class="lineno">  145</span>        : <a class="code hl_variable" href="#ae4e7951b6bfeeee43ea30280738f7878">name</a>(o.name)</div>
+<div class="line"><span class="lineno">  146</span>        , <a class="code hl_variable" href="#a860798ae9e3aab25a3713cafa8384728">desc</a>(o.desc)</div>
+<div class="line"><span class="lineno">  147</span>        , <a class="code hl_variable" href="#af28a06dff01ecb6f3b046cf82ece3c25">func</a>(o.func)</div>
+<div class="line"><span class="lineno">  148</span>        , <a class="code hl_variable" href="#a7aca0d46de8150c7ee7b60ff648b88e0">duration</a>(<span class="keyword">static_cast&lt;</span>std::chrono::steady_clock::duration &amp;&amp;<span class="keyword">&gt;</span>(o.duration))</div>
+<div class="line"><span class="lineno">  149</span>        , <a class="code hl_variable" href="#af1dd0113b3bed1a2592766a4c45b3e86">passes</a>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(o.passes))</div>
+<div class="line"><span class="lineno">  150</span>        , <a class="code hl_variable" href="#af0b63364c641f2748298dc5c0f363099">fails</a>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(o.fails))</div>
+<div class="line"><span class="lineno">  151</span>        , <a class="code hl_variable" href="#afddc2037c663c31efcc595db3981f351">skipped</a>(o.skipped)</div>
+<div class="line"><span class="lineno">  152</span>        , <a class="code hl_variable" href="#ae35149e2856793a5919fbc4b9855943e">requirement_failed</a>(o.requirement_failed)</div>
+<div class="line"><span class="lineno">  153</span>        , <a class="code hl_variable" href="#af5218e6671744304a8d51aa3d66fa2e5">self_skipped</a>(o.self_skipped)</div>
+<div class="line"><span class="lineno">  154</span>        , <a class="code hl_variable" href="#afdd38b7198ef2d975b07b6fd3d4ccd84">skip_reason</a>(o.skip_reason)</div>
+<div class="line"><span class="lineno">  155</span>    {</div>
+<div class="line"><span class="lineno">  156</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -223,12 +231,12 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  148</span>    {</div>
-<div class="line"><span class="lineno">  149</span>      this-&gt;<a class="code hl_function" href="#abfe6e980f2b52928443f43eccdef086d">~test_case</a>();</div>
-<div class="line"><span class="lineno">  150</span>      <span class="keyword">new</span>(<span class="keyword">this</span>) <a class="code hl_function" href="#abfe6e980f2b52928443f43eccdef086d">test_case</a>(std::move(o));</div>
-<div class="line"><span class="lineno">  151</span>      <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">  152</span>    }</div>
-<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1unit__test_1_1test__case_html_abfe6e980f2b52928443f43eccdef086d"><div class="ttname"><a href="#abfe6e980f2b52928443f43eccdef086d">quickcpplib::_xxx::unit_test::test_case::test_case</a></div><div class="ttdeci">constexpr test_case(const char *_name, const char *_desc, void(*_func)())</div><div class="ttdef"><b>Definition</b> unit_test.hpp:125</div></div>
+<div class="fragment"><div class="line"><span class="lineno">  158</span>    {</div>
+<div class="line"><span class="lineno">  159</span>      this-&gt;<a class="code hl_function" href="#abfe6e980f2b52928443f43eccdef086d">~test_case</a>();</div>
+<div class="line"><span class="lineno">  160</span>      <span class="keyword">new</span>(<span class="keyword">this</span>) <a class="code hl_function" href="#abfe6e980f2b52928443f43eccdef086d">test_case</a>(std::move(o));</div>
+<div class="line"><span class="lineno">  161</span>      <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><span class="lineno">  162</span>    }</div>
+<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1unit__test_1_1test__case_html_abfe6e980f2b52928443f43eccdef086d"><div class="ttname"><a href="#abfe6e980f2b52928443f43eccdef086d">quickcpplib::_xxx::unit_test::test_case::test_case</a></div><div class="ttdeci">constexpr test_case(const char *_name, const char *_desc, void(*_func)())</div><div class="ttdef"><b>Definition</b> unit_test.hpp:131</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -339,6 +347,34 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">bool quickcpplib::_xxx::unit_test::test_case::requirement_failed</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af5218e6671744304a8d51aa3d66fa2e5" name="af5218e6671744304a8d51aa3d66fa2e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5218e6671744304a8d51aa3d66fa2e5">&#9670;&#160;</a></span>self_skipped</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool quickcpplib::_xxx::unit_test::test_case::self_skipped</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afdd38b7198ef2d975b07b6fd3d4ccd84" name="afdd38b7198ef2d975b07b6fd3d4ccd84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdd38b7198ef2d975b07b6fd3d4ccd84">&#9670;&#160;</a></span>skip_reason</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* quickcpplib::_xxx::unit_test::test_case::skip_reason</td>
         </tr>
       </table>
 </div><div class="memdoc">

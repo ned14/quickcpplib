@@ -8,6 +8,7 @@ var group__unittesting =
     [ "QUICKCPPLIB_BOOST_UNIT_REQUIRE_FAIL", "group__unittesting.html#ga3d85dfd84e37f3e5e713012b2895c259", null ],
     [ "QUICKCPPLIB_BOOST_UNIT_REQUIRE_PASS", "group__unittesting.html#ga09bddaa8cb903c35a9a8b3d4ed375e12", null ],
     [ "BOOST_TEST_MESSAGE", "group__unittesting.html#ga60873ef79fdc1899330329b742f4ec00", null ],
+    [ "BOOST_TEST_CASE_SKIPPED", "group__unittesting.html#gab3fac3f6c4fcb3e5e10841b98045d3ce", null ],
     [ "BOOST_WARN_MESSAGE", "group__unittesting.html#ga5fd0213ca76c458bc808251711e93cff", null ],
     [ "BOOST_FAIL", "group__unittesting.html#gadbb244c7b75defd4bfa7c28ead512b0c", null ],
     [ "BOOST_CHECK_MESSAGE", "group__unittesting.html#ga2b9f01d6c86780e4b8e81703b0ee90b7", null ],

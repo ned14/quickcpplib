@@ -12,6 +12,7 @@ var unit__test_8hpp =
     [ "QUICKCPPLIB_BOOST_UNIT_REQUIRE_FAIL", "group__unittesting.html#ga3d85dfd84e37f3e5e713012b2895c259", null ],
     [ "QUICKCPPLIB_BOOST_UNIT_REQUIRE_PASS", "group__unittesting.html#ga09bddaa8cb903c35a9a8b3d4ed375e12", null ],
     [ "BOOST_TEST_MESSAGE", "group__unittesting.html#ga60873ef79fdc1899330329b742f4ec00", null ],
+    [ "BOOST_TEST_CASE_SKIPPED", "group__unittesting.html#gab3fac3f6c4fcb3e5e10841b98045d3ce", null ],
     [ "BOOST_WARN_MESSAGE", "group__unittesting.html#ga5fd0213ca76c458bc808251711e93cff", null ],
     [ "BOOST_FAIL", "group__unittesting.html#gadbb244c7b75defd4bfa7c28ead512b0c", null ],
     [ "BOOST_CHECK_MESSAGE", "group__unittesting.html#ga2b9f01d6c86780e4b8e81703b0ee90b7", null ],
@@ -38,6 +39,7 @@ var unit__test_8hpp =
     [ "quickcpplib::_xxx::unit_test::test_suites", "namespacequickcpplib_1_1__xxx_1_1unit__test.html#a10a728cbe04f7f6413fdc15d0028b7d9", null ],
     [ "quickcpplib::_xxx::unit_test::current_test_suite", "namespacequickcpplib_1_1__xxx_1_1unit__test.html#aab2cee41a4bfbe85bed534a317e5d4ca", null ],
     [ "quickcpplib::_xxx::unit_test::current_test_case", "namespacequickcpplib_1_1__xxx_1_1unit__test.html#adebff0e49347e90bd0d07793fc7addf4", null ],
+    [ "quickcpplib::_xxx::unit_test::test_case_skipped", "namespacequickcpplib_1_1__xxx_1_1unit__test.html#a0c8d7fc27396517b24f2ab4061f68157", null ],
     [ "quickcpplib::_xxx::unit_test::run", "namespacequickcpplib_1_1__xxx_1_1unit__test.html#a1376be7d93b74267e4f9a88368be0266", null ],
     [ "main", "group__unittesting.html#ga8eb486cd9992c108ade6a78384fb7f6a", null ]
 ];

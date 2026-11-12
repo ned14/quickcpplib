@@ -13,10 +13,12 @@ var searchData=
   ['span_10',['span',['../classquickcpplib_1_1__xxx_1_1span_1_1span.html',1,'quickcpplib::_xxx::span']]],
   ['span_3c_20uint8_5ft_20_3e_11',['span&lt; uint8_t &gt;',['../classquickcpplib_1_1__xxx_1_1span_1_1span.html',1,'quickcpplib::_xxx::span']]],
   ['spinlock_12',['spinlock',['../classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlock.html',1,'quickcpplib::_xxx::configurable_spinlock']]],
-  ['spinlockbase_13',['spinlockbase',['../structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase.html',1,'quickcpplib::_xxx::configurable_spinlock']]],
-  ['spinlockbase_3c_20lockable_5fptr_3c_20t_20_3e_20_3e_14',['spinlockbase&lt; lockable_ptr&lt; T &gt; &gt;',['../structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4.html',1,'quickcpplib::_xxx::configurable_spinlock']]],
-  ['spins_5fto_5floop_15',['spins_to_loop',['../structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop.html',1,'quickcpplib::_xxx::configurable_spinlock']]],
-  ['spins_5fto_5fsleep_16',['spins_to_sleep',['../structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep.html',1,'quickcpplib::_xxx::configurable_spinlock']]],
-  ['spins_5fto_5fyield_17',['spins_to_yield',['../structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield.html',1,'quickcpplib::_xxx::configurable_spinlock']]],
-  ['standin_5ft_18',['standin_t',['../structquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callabffcad6204c45aba400a73981952055b6.html',1,'quickcpplib::_xxx::function_ptr::function_ptr&lt; R(Args...), callable_storage_bytes &gt;::_function_ptr_storage_moveable']]]
+  ['spinlock_3c_20uint32_5ft_20_3e_13',['spinlock&lt; uint32_t &gt;',['../classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlock.html',1,'quickcpplib::_xxx::configurable_spinlock']]],
+  ['spinlockbase_14',['spinlockbase',['../structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase.html',1,'quickcpplib::_xxx::configurable_spinlock']]],
+  ['spinlockbase_3c_20lockable_5fptr_3c_20t_20_3e_20_3e_15',['spinlockbase&lt; lockable_ptr&lt; T &gt; &gt;',['../structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4.html',1,'quickcpplib::_xxx::configurable_spinlock']]],
+  ['spinlockbase_3c_20uint32_5ft_20_3e_16',['spinlockbase&lt; uint32_t &gt;',['../structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase.html',1,'quickcpplib::_xxx::configurable_spinlock']]],
+  ['spins_5fto_5floop_17',['spins_to_loop',['../structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop.html',1,'quickcpplib::_xxx::configurable_spinlock']]],
+  ['spins_5fto_5fsleep_18',['spins_to_sleep',['../structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep.html',1,'quickcpplib::_xxx::configurable_spinlock']]],
+  ['spins_5fto_5fyield_19',['spins_to_yield',['../structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield.html',1,'quickcpplib::_xxx::configurable_spinlock']]],
+  ['standin_5ft_20',['standin_t',['../structquickcpplib_1_1__xxx_1_1function__ptr_1_1function__ptr_3_01_r_07_args_8_8_8_08_00_01callabffcad6204c45aba400a73981952055b6.html',1,'quickcpplib::_xxx::function_ptr::function_ptr&lt; R(Args...), callable_storage_bytes &gt;::_function_ptr_storage_moveable']]]
 ];

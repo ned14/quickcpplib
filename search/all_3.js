@@ -42,11 +42,12 @@ var searchData=
   ['boost_5frequire_39',['BOOST_REQUIRE',['../group__unittesting.html#ga1a8b1a7e5170bcfa28d418ac6a03e005',1,'unit_test.hpp']]],
   ['boost_5frequire_5fno_5fthrow_40',['BOOST_REQUIRE_NO_THROW',['../group__unittesting.html#gac3b1b9183dc53d2ab06cfaf8a693d5a5',1,'unit_test.hpp']]],
   ['boost_5frequire_5fthrows_41',['BOOST_REQUIRE_THROWS',['../group__unittesting.html#ga03620dcf2152ef408113872c9f6c50f1',1,'unit_test.hpp']]],
-  ['boost_5ftest_5fmessage_42',['BOOST_TEST_MESSAGE',['../group__unittesting.html#ga60873ef79fdc1899330329b742f4ec00',1,'unit_test.hpp']]],
-  ['boost_5fwarn_5fmessage_43',['BOOST_WARN_MESSAGE',['../group__unittesting.html#ga5fd0213ca76c458bc808251711e93cff',1,'unit_test.hpp']]],
-  ['broken_5fpipe_44',['broken_pipe',['../namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a2f0338eed54503152be1d31c93c9c2f1',1,'quickcpplib::_xxx::signal_guard']]],
-  ['buf_45',['buf',['../structraised__signal__info.html#a3f4a09df4b30a037bdbc9862714feb6b',1,'raised_signal_info']]],
-  ['byte_2ehpp_46',['byte.hpp',['../byte_8hpp.html',1,'']]],
-  ['byte_5farray_5freference_47',['byte_array_reference',['../namespacequickcpplib_1_1__xxx_1_1detach__cast.html#aad5550f1d311cec56698a8e67e57a567',1,'quickcpplib::_xxx::detach_cast']]],
-  ['byte_5farray_5fwrapper_48',['byte_array_wrapper',['../namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1detail.html#a259f3b7282c845c368bb4eea90a6084f',1,'quickcpplib::_xxx::in_place_attach_detach::detail']]]
+  ['boost_5ftest_5fcase_5fskipped_42',['BOOST_TEST_CASE_SKIPPED',['../group__unittesting.html#gab3fac3f6c4fcb3e5e10841b98045d3ce',1,'unit_test.hpp']]],
+  ['boost_5ftest_5fmessage_43',['BOOST_TEST_MESSAGE',['../group__unittesting.html#ga60873ef79fdc1899330329b742f4ec00',1,'unit_test.hpp']]],
+  ['boost_5fwarn_5fmessage_44',['BOOST_WARN_MESSAGE',['../group__unittesting.html#ga5fd0213ca76c458bc808251711e93cff',1,'unit_test.hpp']]],
+  ['broken_5fpipe_45',['broken_pipe',['../namespacequickcpplib_1_1__xxx_1_1signal__guard.html#a31407e66b668f46e52933017eadcf790a2f0338eed54503152be1d31c93c9c2f1',1,'quickcpplib::_xxx::signal_guard']]],
+  ['buf_46',['buf',['../structraised__signal__info.html#a3f4a09df4b30a037bdbc9862714feb6b',1,'raised_signal_info']]],
+  ['byte_2ehpp_47',['byte.hpp',['../byte_8hpp.html',1,'']]],
+  ['byte_5farray_5freference_48',['byte_array_reference',['../namespacequickcpplib_1_1__xxx_1_1detach__cast.html#aad5550f1d311cec56698a8e67e57a567',1,'quickcpplib::_xxx::detach_cast']]],
+  ['byte_5farray_5fwrapper_49',['byte_array_wrapper',['../namespacequickcpplib_1_1__xxx_1_1in__place__attach__detach_1_1detail.html#a259f3b7282c845c368bb4eea90a6084f',1,'quickcpplib::_xxx::in_place_attach_detach::detail']]]
 ];
