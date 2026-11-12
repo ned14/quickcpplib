@@ -46,7 +46,6 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include "packed_backtrace.hpp"
 #include "scope.hpp"
-#include "spinlock.hpp"
 
 #include <array>
 #include <atomic>
@@ -562,6 +561,32 @@ namespace ringbuffer_log
   the most recently logged item. Use the reversed iterators if you don't
   want this.
 
+  Logging is wait-free and never locks: a writer allocates its record id with
+  one atomic fetch_add on the counter, marks its slot with the per slot seqlock
+  word, writes the record and marks the slot clean again. Nothing waits on
+  anything else, so a writer cannot be delayed by a slow or descheduled peer.
+
+  A record is *published* in the sense that matters to a reader when its slot
+  holds it, not when its id was allocated: two writers can be mid-flight at once,
+  and one may finish before the other, so an id below the counter is not a
+  promise that the record is there yet. Readers therefore validate what they
+  copy - the seqlock word must be even at both ends of the copy, and the copy
+  must carry the id which was asked for - and give up after a bounded number of
+  attempts, returning a default constructed record. This is what makes the
+  tear-free accessors safe without a lock: a slot holding a previous wrap's
+  record, or an id whose writer has not finished, fails the id check rather than
+  being returned as data.
+
+  One precondition follows from the same reasoning, and it is the only one: no
+  more than `slots()` writers may be inside a push at the same time, because two
+  writers whose ids differ by exactly the ring size share a slot and would
+  interleave their seqlock updates. Threads which log into their own log (the
+  usual arrangement) satisfy it trivially; a shared log needs fewer concurrent
+  writers than it has entries, which for the default 256 entry debug ring is
+  almost always true. `clear()` additionally assumes no writer is inside a push:
+  it rewrites every slot, and a writer interleaving with that is a different
+  question from the one seqlocks answer.
+
   For simple_ringbuffer_log_policy, typical item logging times are:
   - without backtrace: 1.2 microseconds.
   - with backtrace (windows): up to 33 microseconds.
@@ -781,9 +806,6 @@ namespace ringbuffer_log
     std::atomic<level> _instance_level;
     std::atomic<size_type> _counter;
     std::ostream *_immediate;
-    //! Serialises writers, so that the counter can never publish a slot which a
-    //! slower writer has not yet filled.
-    configurable_spinlock::spinlock<uint32_t> _lock;
     /*! One sequence word per slot: the standard seqlock protocol, and the reason
     the snapshot accessors can copy a record while a writer runs. The writer
     bumps the word to ODD before touching the slot and to the next EVEN value
@@ -792,6 +814,16 @@ namespace ringbuffer_log
     was an ordinary read racing an ordinary write: only the counter was atomic,
     so "detect and discard" was value-based reasoning about a data race that the
     memory model does not sanction, however many stress runs failed to see it.
+
+    This is also why nothing serialises writers. Two writers allocate different
+    ids from the counter's fetch_add, so ids cannot be lost or duplicated; what
+    they can do is finish in a different order from their ids, so the counter is
+    not a completed-record watermark. A reader detects that by comparing the id
+    the copied record carries against the one it asked for (see
+    _try_snapshot_counter), which is a read of the same record the seqlock has
+    already fenced - so the honest ordering question is answered per record
+    rather than by making writers take turns. See the class documentation for the
+    one precondition which follows: at most slots() writers inside a push.
     */
     std::vector<std::atomic<uint32_t>> _seq;
     /*! The counter value at which the log was last cleared. The counter keeps
@@ -841,11 +873,16 @@ namespace ringbuffer_log
     bool _try_snapshot_counter(size_type counter_value, value_type &out) const noexcept
     {
       const size_type before = _counter.load(std::memory_order_acquire);
-      // Record `c` is still in its slot until the writer reaches `c + slots()`:
-      // that write is the one which recycles the slot, and it has not happened
-      // while counter <= c + slots(). The old test rejected `>= slots()`, so the
-      // OLDEST record still held was refused - the off-by-one which made
-      // snapshot(size()-1) unsatisfiable once the ring had wrapped.
+      // What `before` can tell us here is only whether `c` is a plausible id at
+      // all: it is the high water mark of id *allocation*, so a wrapped slot may
+      // hold a newer record - or one still being written - while `c` is long
+      // recycled. Deciding "is this record `c`" from the counter alone cannot be
+      // done, which is why the copy is validated by the id it carries instead of
+      // by how far behind the counter it is; this test only keeps the common
+      // "that id never existed / it is ancient" cases from touching memory.
+      // Note the `<= slots()` below is deliberately permissive: tightening it
+      // would reject the oldest record the ring still holds, which is what an
+      // earlier version of this test did.
       if(counter_value >= before || (before - counter_value) > slots() ||
          counter_value < _cleared_at.load(std::memory_order_acquire))
       {
@@ -864,6 +901,19 @@ namespace ringbuffer_log
       {
         return false;
       }
+      /* The seqlock proves the copy is one whole write of this slot; it does not
+      prove the write was the record which was asked for. Writers publish in their
+      own order, so this slot can hold the previous wrap's record (id `c -
+      slots()`) or an older one while `c`'s writer is still inside it, and before
+      the id was checked the copy was returned as if it were `c`. The record
+      carries its own id, so ask it: a mismatched copy is not a torn copy, it is
+      simply not the record which was requested. */
+      if(out.counter != counter_value)
+      {
+        return false;
+      }
+      // The id check above is the authority; the counter re-read is kept because
+      // it is free and rejects a slot which was recycled while the copy was made.
       return (_counter.load(std::memory_order_acquire) - counter_value) <= slots();
     }
 
@@ -1110,9 +1160,18 @@ namespace ringbuffer_log
     }
 
     //! Clears the log
+    /*! Rewrites every slot and retires every id issued so far.
+
+    Takes no lock and cannot take one without reintroducing the serialisation the
+    class documentation rules out, so it assumes no writer is inside a push: a
+    writer interleaving with the loop below shares a slot with it and the two
+    would interleave their seqlock updates. Clearing a log concurrently with
+    logging into it is a teardown/reset operation, not a logging operation; the
+    per-slot marking is still worth doing, because it stops a reader accepting a
+    slot mid-clear as a record, which is a different race and one this can close.
+    */
     void clear() noexcept
     {
-      configurable_spinlock::lock_guard<decltype(_lock)> g(_lock);
       // Clearing rewrites every slot, so it takes the same dirty/clean marking a
       // writer does: without it a reader could accept a slot mid-clear as a
       // record, exactly as it could mid-write.
@@ -1135,12 +1194,13 @@ namespace ringbuffer_log
       {
         if(_immediate)
           *_immediate << v << std::endl;
-        // Write the record BEFORE advancing the counter which publishes it, and
-        // hold the writer lock across both: readers decide which slots are live
-        // from the counter alone, so publishing first let them consume a
-        // half-written record, or the previous wrap's record.
-        configurable_spinlock::lock_guard<decltype(_lock)> g(_lock);
-        size_type thisitem = _counter.load(std::memory_order_acquire);
+        // One atomic read-modify-write allocates the record's id, so concurrent
+        // writers never take the same one and nothing has to serialise them; the
+        // counter is *not* a completed-record watermark, because this writer may
+        // finish after a writer with a larger id. A reader sorts that out per
+        // record, with the seqlock plus the id the record carries - see the class
+        // documentation and _try_snapshot_counter.
+        size_type thisitem = _counter.fetch_add(1, std::memory_order_acq_rel);
         v.counter = thisitem;
         const size_type idx = counter_to_idx(thisitem);
         // Publish the slot as dirty before it is touched and clean again after it
@@ -1149,7 +1209,6 @@ namespace ringbuffer_log
         _seq_write_begin(idx);
         _store[idx] = std::move(v);
         _seq_write_end(idx);
-        _counter.store(thisitem + 1, std::memory_order_release);
         return thisitem;
       }
       return (size_type) -1;
@@ -1162,21 +1221,14 @@ namespace ringbuffer_log
         value_type v(__level, std::forward<Args>(args)...);
         if(_immediate)
           *_immediate << v << std::endl;
-        // Write the record BEFORE advancing the counter which publishes it, and
-        // hold the writer lock across both: readers decide which slots are live
-        // from the counter alone, so publishing first let them consume a
-        // half-written record, or the previous wrap's record.
-        configurable_spinlock::lock_guard<decltype(_lock)> g(_lock);
-        size_type thisitem = _counter.load(std::memory_order_acquire);
+        // As push_back: the id comes from one fetch_add, the slot is marked with
+        // the seqlock, and no writer waits for another.
+        size_type thisitem = _counter.fetch_add(1, std::memory_order_acq_rel);
         v.counter = thisitem;
         const size_type idx = counter_to_idx(thisitem);
-        // Publish the slot as dirty before it is touched and clean again after it
-        // is whole, so a reader can tell a copy of a record from a copy of a
-        // record being written. See _seq.
         _seq_write_begin(idx);
         _store[idx] = std::move(v);
         _seq_write_end(idx);
-        _counter.store(thisitem + 1, std::memory_order_release);
         return thisitem;
       }
       return (size_type) -1;

@@ -159,4 +159,106 @@ BOOST_AUTO_TEST_CASE(ringbuffer_log / snapshot / hands back whole records,
   BOOST_CHECK(log_.snapshot(0).counter != 0);
 }
 
+// Kept here rather than with the other includes so that the line number the first
+// case hardcodes for test_function stays what it says it is.
+#include <algorithm>
+#include <atomic>
+#include <cstdio>
+#include <thread>
+#include <vector>
+
+// A ring small enough that concurrent writers wrap it while readers run, but far
+// larger than the number of writers (the precondition the class documents).
+struct small_policy
+{
+  using value_type = simple_ringbuffer_log_policy_detail::value_type;
+  static constexpr size_t max_items = 64;
+  using container_type = std::array<value_type, max_items>;
+};
+
+/* Concurrency: the writer path must not lock, and a reader must never be handed a
+different record than the one it asked for. The second half is a regression test -
+before the id check in _try_snapshot_counter, a slot recycled by a newer record was
+returned as if it were the older id, which a lock could not prevent: the ring
+overwrites by design.
+*/
+BOOST_AUTO_TEST_CASE(ringbuffer_log / concurrent / no torn or wrong records, "Tests that concurrent writers and readers agree")
+{
+  static constexpr unsigned threads = 4, per_thread = 2000;
+  ringbuffer_log<small_policy> log(level::all);
+  std::atomic<bool> stop{false};
+  std::atomic<unsigned> bad{0};
+  std::vector<std::vector<size_t>> ids(threads);
+  std::vector<std::thread> readers;
+  for(unsigned r = 0; r < 2; r++)
+  {
+    readers.emplace_back([&] {
+      size_t next = 0;
+      while(!stop.load(std::memory_order_relaxed))
+      {
+        // Every id the log claims to hold must resolve to a record carrying that id.
+        if(log.size() > 2 && next++ % 8 == 0)
+        {
+          const auto v = log.snapshot(next % log.size());
+          if(v.message[0] != 0 && v.counter == (size_t) -1)
+          {
+            bad++;
+          }
+        }
+        const auto v = log.snapshot(0);
+        if(v.message[0] != 0)
+        {
+          char want[64];
+          std::snprintf(want, sizeof(want), "t%u:%u", v.code32[0], v.code32[1]);
+          if(strcmp(v.message, want) != 0)
+          {
+            bad++;  // a copy which is not one write: message and codes disagree
+          }
+        }
+      }
+    });
+  }
+  std::vector<std::thread> writers;
+  for(unsigned t = 0; t < threads; t++)
+  {
+    writers.emplace_back([&, t] {
+      char msg[64];
+      for(unsigned n = 0; n < per_thread; n++)
+      {
+        std::snprintf(msg, sizeof(msg), "t%u:%u", t, n);
+        ids[t].push_back(log.emplace_back(level::info, msg, t, n, __func__, __LINE__));
+      }
+    });
+  }
+  for(auto &w : writers)
+  {
+    w.join();
+  }
+  stop = true;
+  for(auto &r : readers)
+  {
+    r.join();
+  }
+  BOOST_CHECK(bad == 0);
+  std::vector<size_t> all;
+  for(auto &v : ids)
+  {
+    all.insert(all.end(), v.begin(), v.end());
+  }
+  std::sort(all.begin(), all.end());
+  BOOST_CHECK(all.size() == size_t(threads) * per_thread);
+  BOOST_CHECK(std::unique(all.begin(), all.end()) == all.end());  // no id issued twice
+  // Every record still in the ring resolves to the id asked for, and to its own contents
+  for(auto it = all.end() - 32; it != all.end(); ++it)
+  {
+    const auto v = log.snapshot_by_id(ringbuffer_log<small_policy>::unique_id(*it));
+    BOOST_CHECK(v.counter == *it);
+    BOOST_CHECK(v.message[0] != 0);
+    char want[64];
+    std::snprintf(want, sizeof(want), "t%u:%u", v.code32[0], v.code32[1]);
+    BOOST_CHECK(!strcmp(v.message, want));
+  }
+}
+
+
 BOOST_AUTO_TEST_SUITE_END()
