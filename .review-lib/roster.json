@@ -22,18 +22,19 @@
     {
       "id": "build-cmake",
       "area": "CMake tooling, CI and dependency resolution",
-      "files": "cmakelib/** cmake/** CMakeLists.txt CTestConfig.cmake .ci.cmake .docs.cmake .github/** .gitmodules .quickcpplib",
+      "files": "cmakelib/** cmake/** CMakeLists.txt CTestConfig.cmake .ci.cmake .docs.cmake .github/** .gitmodules .quickcpplib .ci/**",
       "lens": "build-system logic: dependency resolution and bootstrap (sibling vs clone vs fetch), silent misconfiguration, an option that is documented but ignored, CI coverage versus the claims in the docs, and anything that would make a green build not actually build what is claimed",
       "own": [
-        "cmakelib/**",
-        "cmake/**",
-        "CMakeLists.txt",
-        "CTestConfig.cmake",
         ".ci.cmake",
+        ".ci/**",
         ".docs.cmake",
         ".github/**",
         ".gitmodules",
-        ".quickcpplib"
+        ".quickcpplib",
+        "CMakeLists.txt",
+        "CTestConfig.cmake",
+        "cmake/**",
+        "cmakelib/**"
       ]
     },
     {
