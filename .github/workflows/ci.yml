@@ -394,6 +394,11 @@ jobs:
       shell: bash
       run: |
         set -o pipefail
+        # `tee` opens its output before cmake has created the -B directory, so
+        # without this line the pipeline fails on its very first command with
+        # "tee: build-install/configure.log: No such file or directory" and
+        # `pipefail` turns that into a step failure with no log written at all.
+        mkdir -p build-install
         cmake -G Ninja -S . -B build-install -DCMAKE_BUILD_TYPE=Release \
               -DQUICKCPPLIB_ENABLE_DOXYGEN_DOCS_BUILD_SUPPORT=OFF \
               -DCMAKE_INSTALL_PREFIX="$PWD/prefix" 2>&1 | tee build-install/configure.log
@@ -415,6 +420,8 @@ jobs:
       shell: bash
       run: |
         set -o pipefail
+        # Same tee-before-cmake race as the install step above.
+        mkdir -p build-consumer
         cmake -G Ninja -S .ci/install-consumer -B build-consumer -DCMAKE_BUILD_TYPE=Release \
               -DCMAKE_PREFIX_PATH="$PWD/prefix" 2>&1 | tee build-consumer/configure.log
         cmake --build build-consumer 2>&1 | tee build-consumer/build.log
