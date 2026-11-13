@@ -24,11 +24,21 @@ Distributed under the Boost Software License, Version 1.0.
 #include "../include/quickcpplib/boost/test/unit_test.hpp"
 #include "../include/quickcpplib/ringbuffer_log.hpp"
 
+#include <algorithm>
+#include <atomic>
+#include <cstdio>
+#include <thread>
+#include <vector>
+
 BOOST_AUTO_TEST_SUITE(ringbuffer_log)
 
 using namespace QUICKCPPLIB_NAMESPACE::ringbuffer_log;
 
 static simple_ringbuffer_log<> simple(level::all);
+// The line test_function logs its non-backtrace record from, so the case below can
+// check the message's source location without hardcoding a line number which any
+// edit above it would falsify.
+static int test_function_logged_at = 0;
 
 extern "C" void test_function(bool backtrace)
 {
@@ -38,6 +48,7 @@ extern "C" void test_function(bool backtrace)
   }
   else
   {
+    test_function_logged_at = __LINE__ + 1;
     QUICKCPPLIB_RINGBUFFERLOG_ITEM_FUNCTION(simple, level::fatal, "test message", 1, 2);
   }
 }
@@ -60,7 +71,9 @@ BOOST_AUTO_TEST_CASE(ringbuffer_log / simple / works, "Tests that the simple_rin
     BOOST_CHECK(!strcmp(v.message, "test message"));
     BOOST_CHECK(v.code32[0] == 1);
     BOOST_CHECK(v.code32[1] == 2);
-    BOOST_CHECK(!strcmp(v.function, "test_function:41"));
+    char want_source[64];
+    std::snprintf(want_source, sizeof(want_source), "test_function:%d", test_function_logged_at);
+    BOOST_CHECK(!strcmp(v.function, want_source));
   }
 
   test_function(true);
@@ -158,14 +171,6 @@ BOOST_AUTO_TEST_CASE(ringbuffer_log / snapshot / hands back whole records,
   BOOST_CHECK(log_.snapshot_by_id(simple_ringbuffer_log<>::unique_id(a)).message[0] == 0);
   BOOST_CHECK(log_.snapshot(0).counter != 0);
 }
-
-// Kept here rather than with the other includes so that the line number the first
-// case hardcodes for test_function stays what it says it is.
-#include <algorithm>
-#include <atomic>
-#include <cstdio>
-#include <thread>
-#include <vector>
 
 // A ring small enough that concurrent writers wrap it while readers run, but far
 // larger than the number of writers (the precondition the class documents).
