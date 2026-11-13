@@ -760,17 +760,28 @@ function(ensure_git_subrepo path url)
       RESULT_VARIABLE retcode
     )
     if(retcode OR NOT EXISTS "${path}")
-      # Try pulling repo directly from github
-      get_filename_component(path "${path}" DIRECTORY)
+      # The direct clone is the last resort, and it must not destroy anything on
+      # its way in. The old code stripped TWO path components off `path`, which
+      # turned .../include/quickcpplib/span-lite into .../include, deleted that
+      # whole directory with REMOVE_RECURSE - every core header of this library -
+      # and then cloned into it, so span-lite landed at include/span-lite instead
+      # of include/quickcpplib/span-lite. Since nothing re-checked ${path}
+      # afterwards, the only case that reaches this branch, the submodule being
+      # absent, was exactly the one that lost the library's headers.
+      get_filename_component(parent "${path}" DIRECTORY)
+      get_filename_component(leaf "${path}" NAME)
       file(REMOVE_RECURSE "${path}")
-      get_filename_component(path "${path}" DIRECTORY)
+      file(MAKE_DIRECTORY "${parent}")
       message(WARNING "WARNING: git submodule update failed with code ${retcode}, trying a direct git clone ...")
-      execute_process(COMMAND "${GIT_EXECUTABLE}" clone --recurse-submodules --depth 1 --jobs 8 --shallow-submodules ${url} ${ARGN}
-        WORKING_DIRECTORY "${path}"
+      execute_process(COMMAND "${GIT_EXECUTABLE}" clone --recurse-submodules --depth 1 --jobs 8 --shallow-submodules ${url} ${leaf} ${ARGN}
+        WORKING_DIRECTORY "${parent}"
         RESULT_VARIABLE retcode
       )
       if(retcode)
         message(FATAL_ERROR "FATAL: git clone failed with code ${retcode}")
+      endif()
+      if(NOT EXISTS "${path}")
+        message(FATAL_ERROR "FATAL: after cloning ${url}, ${path} still does not exist")
       endif()
     endif()
   endif()

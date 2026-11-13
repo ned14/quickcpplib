@@ -28,18 +28,24 @@ else()
     # We don't have wildcard file copy in cmake < 3.5, so choose a shell copy command
     if(WIN32)
       set(shell_copy_command (robocopy "doc\\html.old" "doc\\html" ".git*" /np /nfl /ndl /njh /njs) || set ERRORLEVEL=0)
-      set(shell_check_warnings_file_size for %%R in (doxygen_warnings.log) do if not %%~zR==0 (type doxygen_warnings.log & echo. & echo FATAL ERROR: Failing due to doxygen warnings & exit /b 1))
     else()
       set(shell_copy_command cp "doc/html.old/.git*" "doc/html/")
-      set(shell_check_warnings_file_size if test -s doxygen_warnings.log $<SEMICOLON> then cat doxygen_warnings.log $<SEMICOLON> echo $<SEMICOLON> echo FATAL ERROR: Failing due to doxygen warnings $<SEMICOLON> echo $<SEMICOLON> exit 1 $<SEMICOLON> fi)
     endif()
+    # The doxygen warning gate is a cmake -P script rather than a shell snippet,
+    # because a snippet held in a CMake list is split into one element per word
+    # and COMMAND would then exec the program `if`; the $<SEMICOLON> spelling
+    # that keeps it in one element loses its quoting when Ninja writes the
+    # command line, so the `;` breaks the outer shell instead. A script has
+    # neither problem and needs no per-platform branch: see
+    # CheckDoxygenWarnings.cmake for the whole story.
+    set(doxygen_warnings_script "${CMAKE_CURRENT_LIST_DIR}/CheckDoxygenWarnings.cmake")
     add_custom_target(${tgt}
       COMMAND ${CMAKE_COMMAND} -E rename "doc/html" "doc/html.old"
       COMMAND ${CMAKE_COMMAND} -E make_directory "doc/html"
       COMMAND ${shell_copy_command}
       COMMAND ${CMAKE_COMMAND} -E remove_directory "doc/html.old"
       COMMAND ${DOXYGEN_EXECUTABLE}
-      COMMAND ${shell_check_warnings_file_size}
+      COMMAND ${CMAKE_COMMAND} "-DWARNINGS_FILE=${CMAKE_CURRENT_SOURCE_DIR}/doxygen_warnings.log" -P "${doxygen_warnings_script}"
       COMMAND ${CMAKE_COMMAND} -E chdir "doc" "${GIT_EXECUTABLE}" add -A .
       COMMAND ${CMAKE_COMMAND} -E chdir "doc/html" "${GIT_EXECUTABLE}" add -A .
       DEPENDS ${example_bins} ${${PROJECT_NAME}_DOXYGEN_DEPENDS}

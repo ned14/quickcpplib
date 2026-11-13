@@ -2694,3 +2694,30 @@ proposed repair; each finding's full citation/repro is in the run artefact
 - **[P2] (open) withgcc.sh creates an unignored build/ directory inside the source tree** — `test/withgcc.sh:10`
 
 <!-- r11:H9 priority-ranked-merge-end -->
+
+<!-- inbound-from-github begin -->
+
+## Inbound from GitHub — triaged 2026-11-08
+
+Not review findings: the open issue and open pull request in `ned14/quickcpplib` as at 2026-11-08,
+triaged so that the tree's open work is tracked in one place. Kept outside the H9 merge block above
+so that a re-merge cannot clobber it.
+
+### Defects
+
+- **#65 (bug, 2026-11-05) the previous PR broke special-build test registration on single-config
+  generators** — `cmakelib/QuickCppLibMakeStandardTests.cmake:107-111` passes an empty
+  `CONFIGURATIONS` when `CMAKE_CONFIGURATION_TYPES` is unset (Ninja, Makefiles), so the special
+  (noexcept/HL/SL/DL) variants are registered without configurations and CTest reports them wrongly
+  or not at all. Verified still present in the tree. This is the same class as the review's "no lane
+  asserts that any test actually ran" findings: the CI can be green over variants which never ran.
+  Action: pass no `CONFIGURATIONS` argument at all on single-config generators rather than an empty
+  one, and assert in a lane that the special variants were registered.
+
+### Platform support
+
+- **#35 (PR, 2024-06) add `/alternatename:main` for ARM64EC** — the ARM64EC name decoration differs
+  from x64 and ARM64, so the test entry point stub does not bind. Action: land if Windows ARM64EC is
+  wanted; it touches only the test executable linker flags.
+
+<!-- inbound-from-github end -->

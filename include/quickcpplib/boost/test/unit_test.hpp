@@ -122,6 +122,12 @@ namespace unit_test
     std::chrono::steady_clock::duration duration;
     std::atomic<size_t> passes, fails;
     bool skipped, requirement_failed;
+    // `skipped` is also set for a case a name filter excluded; `self_skipped`
+    // means the case itself reported that it cannot run here, which is a
+    // different thing and must not be confused with "the suite was empty" or
+    // "a filter matched nothing".
+    bool self_skipped;
+    const char *skip_reason;
     constexpr test_case(const char *_name, const char *_desc, void (*_func)())
         : name(_name)
         , desc(_desc)
@@ -131,6 +137,8 @@ namespace unit_test
         , fails(0)
         , skipped(false)
         , requirement_failed(false)
+        , self_skipped(false)
+        , skip_reason(nullptr)
     {
     }
     test_case(test_case &&o) noexcept
@@ -142,6 +150,8 @@ namespace unit_test
         , fails(static_cast<size_t>(o.fails))
         , skipped(o.skipped)
         , requirement_failed(o.requirement_failed)
+        , self_skipped(o.self_skipped)
+        , skip_reason(o.skip_reason)
     {
     }
     test_case &operator=(test_case &&o) noexcept
@@ -176,6 +186,24 @@ namespace unit_test
                                        nullptr);
     static test_case *v = &default_test_case;
     return v;
+  }
+  //! Marks the running test case as SKIPPED, giving the reason.
+  /*! A case that cannot run in this configuration must say so through here.
+  Returning quietly instead reports PASSED, because the runner counts a case as
+  passed whenever it did not fail and was not excluded by a name filter - which is
+  how several cases in this tree came to report green having asserted nothing,
+  with no `<skipped/>` in the JUnit output either.
+  */
+  extern inline void test_case_skipped(const char *reason)
+  {
+    test_case *tc = current_test_case();
+    if(tc != nullptr)
+    {
+      tc->skipped = true;
+      tc->self_skipped = true;
+      tc->skip_reason = reason;
+      std::cout << yellow << "SKIPPED: " << (reason != nullptr ? reason : "no reason given") << normal << std::endl;
+    }
   }
   extern inline int run(int argc, const char *const argv[])
   {
@@ -325,7 +353,7 @@ namespace unit_test
 <testsuites>
 )";
     }
-    size_t totalpassed = 0, totalfailed = 0, totalskipped = 0;
+    size_t totalpassed = 0, totalfailed = 0, totalskipped = 0, totalselfskipped = 0;
     double totaltime = 0;
     for(const auto &j : test_suites())
     {
@@ -339,6 +367,8 @@ namespace unit_test
           ++failed;
         else
           ++passed;
+        if(i.self_skipped)
+          ++totalselfskipped;
         time += std::chrono::duration_cast<std::chrono::duration<double>>(i.duration).count();
       }
       if(!output_xml.empty())
@@ -351,7 +381,38 @@ namespace unit_test
           oh << "    <testcase classname=\"\" name=\"" << i.name << "\" time=\""
              << std::chrono::duration_cast<std::chrono::duration<double>>(i.duration).count() << "\">";
           if(i.skipped)
-            oh << "<skipped/>";
+          {
+            // The reason is carried into the report, so a skipped case is
+            // visibly a case that did not run rather than one that passed.
+            oh << "<skipped";
+            if(i.self_skipped && i.skip_reason != nullptr)
+            {
+              oh << " message=\"";
+              for(const char *p = i.skip_reason; *p != 0; ++p)
+              {
+                switch(*p)
+                {
+                case '&':
+                  oh << "&amp;";
+                  break;
+                case '<':
+                  oh << "&lt;";
+                  break;
+                case '>':
+                  oh << "&gt;";
+                  break;
+                case '"':
+                  oh << "&quot;";
+                  break;
+                default:
+                  oh << *p;
+                  break;
+                }
+              }
+              oh << "\"";
+            }
+            oh << "/>";
+          }
           else if(i.fails)
             oh << "<failure/>";
           oh << "</testcase>\n";
@@ -374,16 +435,17 @@ namespace unit_test
     // A run that executed NOTHING must not report success. An empty suite, a
     // test-name regex that matches nothing, or a duplicate binary whose cases
     // were compiled away all used to print "0 passed 0 failed" and exit 0 - a
-    // green test that tested nothing (reviewer P0 r1:T-9 / r3:T1). Note that a
-    // SKIPPED case still counts as a case, so deliberately skipped
-    // configurations are unaffected.
-    if(totalpassed + totalfailed == 0)
+    // green test that tested nothing (reviewer P0 r1:T-9 / r3:T1). A case that
+    // skipped ITSELF is different from a case a filter excluded: the binary did
+    // run it and it said so, so an all-skipped platform build is not this
+    // failure - otherwise fixing the vacuous cases in signal_guard.cpp would
+    // turn every such platform red for reporting the truth.
+    if(totalpassed + totalfailed == 0 && totalselfskipped == 0)
     {
-      // Nothing PASSED and nothing FAILED: either the suite is empty or a name
-      // filter excluded every case (they show up as skipped). Both used to exit
-      // 0 with a "0 passed 0 failed" summary. A case that deliberately reports
-      // itself as skipped but still runs counts as passed, so the
-      // no-exceptions duplicates of the outcome test suite are unaffected.
+      // Nothing PASSED, nothing FAILED and nothing reported itself skipped:
+      // either the suite is empty or a name filter excluded every case (those
+      // show up as skipped). Both used to exit 0 with a "0 passed 0 failed"
+      // summary.
       std::cerr << red << "FAILURE: no test case ran (" << totalskipped
                 << " skipped) - empty suite, or a name filter that matched nothing" << normal << std::endl;
       return true;
@@ -461,6 +523,12 @@ QUICKCPPLIB_NAMESPACE_END
 #endif
 
 #define BOOST_TEST_MESSAGE(msg) std::cout << "INFO: " << msg << std::endl
+//! Marks the running test case as SKIPPED, giving the reason.
+/*! Use this rather than a bare `return;` when a case cannot run in this
+configuration (a platform, a sanitiser, an environment): the runner counts a
+quiet return as PASSED, so the case would report green having asserted nothing
+and JUnit would carry no `<skipped/>` for it. */
+#define BOOST_TEST_CASE_SKIPPED(reason) QUICKCPPLIB_NAMESPACE::unit_test::test_case_skipped(reason)
 #define BOOST_WARN_MESSAGE(pred, msg)                                                                                  \
   if(!(pred))                                                                                                          \
   std::cerr << QUICKCPPLIB_NAMESPACE::unit_test::yellow << "WARNING: " << msg                                          \
