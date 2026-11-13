@@ -66,14 +66,12 @@ var hierarchy =
       [ "quickcpplib::_xxx::configurable_spinlock::null_spin_policy::policy< parenttype >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1null__spin__policy_1_1policy.html", null ],
       [ "quickcpplib::_xxx::configurable_spinlock::spins_to_loop< spins, use_pause >::policy< parenttype >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop_1_1policy.html", null ],
       [ "quickcpplib::_xxx::configurable_spinlock::spins_to_sleep::policy< parenttype >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html", [
-        [ "quickcpplib::_xxx::configurable_spinlock::spinlock< uint32_t >", "classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlock.html", null ],
         [ "quickcpplib::_xxx::configurable_spinlock::shared_spinlock< T, spinpolicy2, spinpolicy3, spinpolicy4 >", "classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1shared__spinlock.html", null ],
         [ "quickcpplib::_xxx::configurable_spinlock::spinlock< T, spinpolicy2, spinpolicy3, spinpolicy4 >", "classquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlock.html", null ]
       ] ],
       [ "quickcpplib::_xxx::configurable_spinlock::spins_to_yield< spins >::policy< parenttype >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield_1_1policy.html", [
         [ "quickcpplib::_xxx::configurable_spinlock::spins_to_sleep::policy< spins_to_yield< 250 >::policy< spins_to_loop< 125 >::policy< shared_spinlockbase< uintptr_t > > > >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html", null ],
-        [ "quickcpplib::_xxx::configurable_spinlock::spins_to_sleep::policy< spins_to_yield< 250 >::policy< spins_to_loop< 125 >::policy< spinlockbase< T > > > >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html", null ],
-        [ "quickcpplib::_xxx::configurable_spinlock::spins_to_sleep::policy< spins_to_yield< 250 >::policy< spins_to_loop< 125 >::policy< spinlockbase< uint32_t > > > >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html", null ]
+        [ "quickcpplib::_xxx::configurable_spinlock::spins_to_sleep::policy< spins_to_yield< 250 >::policy< spins_to_loop< 125 >::policy< spinlockbase< T > > > >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html", null ]
       ] ]
     ] ],
     [ "quickcpplib::_xxx::algorithm::hash::passthru_hash&lt; T &gt;", "structquickcpplib_1_1__xxx_1_1algorithm_1_1hash_1_1passthru__hash.html", null ],
@@ -114,11 +112,6 @@ var hierarchy =
       ] ]
     ] ],
     [ "quickcpplib::_xxx::configurable_spinlock::spinlockbase&lt; lockable_ptr&lt; T &gt; &gt;", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase_3_01lockable__ptr_3_01_t_01_4_01_4.html", null ],
-    [ "quickcpplib::_xxx::configurable_spinlock::spinlockbase&lt; uint32_t &gt;", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spinlockbase.html", [
-      [ "quickcpplib::_xxx::configurable_spinlock::spins_to_loop< spins, use_pause >::policy< spinlockbase< uint32_t > >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop_1_1policy.html", [
-        [ "quickcpplib::_xxx::configurable_spinlock::spins_to_yield< spins >::policy< spins_to_loop< 125 >::policy< spinlockbase< uint32_t > > >", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield_1_1policy.html", null ]
-      ] ]
-    ] ],
     [ "quickcpplib::_xxx::configurable_spinlock::spins_to_loop&lt; spins, use_pause &gt;", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__loop.html", null ],
     [ "quickcpplib::_xxx::configurable_spinlock::spins_to_sleep", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep.html", null ],
     [ "quickcpplib::_xxx::configurable_spinlock::spins_to_yield&lt; spins &gt;", "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield.html", null ],

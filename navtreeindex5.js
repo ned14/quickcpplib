@@ -1,7 +1,5 @@
 var NAVTREEINDEX5 =
 {
-"functions_func_e.html":[4,3,1,5],
-"functions_func_f.html":[4,3,1,6],
 "functions_func_g.html":[4,3,1,7],
 "functions_func_h.html":[4,3,1,8],
 "functions_func_i.html":[4,3,1,9],
@@ -249,5 +247,7 @@ var NAVTREEINDEX5 =
 "namespacequickcpplib_1_1__xxx_1_1bit__cast.html":[3,0,0,0,2],
 "namespacequickcpplib_1_1__xxx_1_1bit__cast.html#a7a492f725b1ec8fed648005939873e0e":[3,0,0,0,2,3],
 "namespacequickcpplib_1_1__xxx_1_1bit__cast.html#a8e04a2fa1390130c6e65475269c1c454":[3,0,0,0,2,4],
-"namespacequickcpplib_1_1__xxx_1_1bit__cast.html#ab36ed06eda7ed96f27c6db65bfcdec34":[3,0,0,0,2,2]
+"namespacequickcpplib_1_1__xxx_1_1bit__cast.html#ab36ed06eda7ed96f27c6db65bfcdec34":[3,0,0,0,2,2],
+"namespacequickcpplib_1_1__xxx_1_1bit__cast_1_1detail.html":[3,0,0,0,2,1],
+"namespacequickcpplib_1_1__xxx_1_1bit__cast_1_1detail.html#a04fcf1d5d8ea868ed517db927e37779f":[3,0,0,0,2,1,3]
 };

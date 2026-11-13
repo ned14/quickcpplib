@@ -150,221 +150,221 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Location generator for simple_ringbuffer_log_policy's value_type. </p>
-<div class="fragment"><div class="line"><span class="lineno">  241</span>    {</div>
-<div class="line"><span class="lineno">  242</span>      std::string ret;</div>
-<div class="line"><span class="lineno">  243</span>      <span class="keywordflow">if</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a0788a27f9786fd6f34dc8ecfeb7b9de7">using_backtrace</a>)</div>
-<div class="line"><span class="lineno">  244</span>      {</div>
-<div class="line"><span class="lineno">  245</span>        <span class="keywordtype">void</span> *<a class="code hl_function" href="execinfo__win64_8h.html#af8f00baaffaa60f09468f2b214a0c522">backtrace</a>[16];</div>
-<div class="line"><span class="lineno">  246</span>        memset(<a class="code hl_function" href="execinfo__win64_8h.html#af8f00baaffaa60f09468f2b214a0c522">backtrace</a>, 0, <span class="keyword">sizeof</span>(<a class="code hl_function" href="execinfo__win64_8h.html#af8f00baaffaa60f09468f2b214a0c522">backtrace</a>));</div>
-<div class="line"><span class="lineno">  247</span>        <span class="keywordtype">size_t</span> <a class="code hl_variable" href="execinfo__win64_8h.html#a74d180764c748819f56703822acc12c4">len</a> = 0;</div>
-<div class="line"><span class="lineno">  248</span>        {</div>
-<div class="line"><span class="lineno">  249</span>          <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace.html">packed_backtrace::packed_backtrace&lt;&gt;</a> pb(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a7d9eb0e307a6fc20dd2e0569ea7b2df7">backtrace</a>);</div>
-<div class="line"><span class="lineno">  250</span>          <span class="keywordflow">for</span>(<span class="keyword">auto</span> *i : pb)</div>
-<div class="line"><span class="lineno">  251</span>          {</div>
-<div class="line"><span class="lineno">  252</span>            <a class="code hl_function" href="execinfo__win64_8h.html#af8f00baaffaa60f09468f2b214a0c522">backtrace</a>[<a class="code hl_variable" href="execinfo__win64_8h.html#a74d180764c748819f56703822acc12c4">len</a>] = i;</div>
-<div class="line"><span class="lineno">  253</span>            <a class="code hl_variable" href="execinfo__win64_8h.html#a74d180764c748819f56703822acc12c4">len</a>++;</div>
-<div class="line"><span class="lineno">  254</span>            <span class="keywordflow">if</span>(<a class="code hl_variable" href="execinfo__win64_8h.html#a74d180764c748819f56703822acc12c4">len</a> == <span class="keyword">sizeof</span>(<a class="code hl_function" href="execinfo__win64_8h.html#af8f00baaffaa60f09468f2b214a0c522">backtrace</a>) / <span class="keyword">sizeof</span>(<a class="code hl_function" href="execinfo__win64_8h.html#af8f00baaffaa60f09468f2b214a0c522">backtrace</a>[0]))</div>
-<div class="line"><span class="lineno">  255</span>              <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  256</span>          }</div>
-<div class="line"><span class="lineno">  257</span>        }</div>
-<div class="line"><span class="lineno">  258</span><span class="preprocessor">#ifndef _WIN32</span></div>
-<div class="line"><span class="lineno">  259</span>        <span class="keywordtype">bool</span> done = <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  260</span>        <span class="comment">// Try llvm-symbolizer for nicer backtraces</span></div>
-<div class="line"><span class="lineno">  261</span>        <span class="keywordtype">int</span> temp[2];</div>
-<div class="line"><span class="lineno">  262</span>        <span class="keyword">struct </span>_h</div>
-<div class="line"><span class="lineno">  263</span>        {</div>
-<div class="line"><span class="lineno">  264</span>          <span class="keywordtype">int</span> fd;</div>
-<div class="line"><span class="lineno">  265</span>        } childreadh, childwriteh, readh, writeh;</div>
-<div class="line"><span class="lineno">  266</span>        <span class="keywordflow">if</span>(-1 != ::pipe(temp))</div>
-<div class="line"><span class="lineno">  267</span>        {</div>
-<div class="line"><span class="lineno">  268</span>          <span class="keyword">using namespace </span>scope;</div>
-<div class="line"><span class="lineno">  269</span>          childreadh.fd = temp[0];</div>
-<div class="line"><span class="lineno">  270</span>          readh.fd = temp[1];</div>
-<div class="line"><span class="lineno">  271</span>          <span class="keywordflow">if</span>(-1 != ::pipe(temp))</div>
-<div class="line"><span class="lineno">  272</span>          {</div>
-<div class="line"><span class="lineno">  273</span>            writeh.fd = temp[0];</div>
-<div class="line"><span class="lineno">  274</span>            childwriteh.fd = temp[1];</div>
-<div class="line"><span class="lineno">  275</span>            <span class="keyword">auto</span> unmypipes = make_scope_exit([&amp;]() <span class="keyword">noexcept</span> {</div>
-<div class="line"><span class="lineno">  276</span>              (void) ::close(readh.fd);</div>
-<div class="line"><span class="lineno">  277</span>              (void) ::close(writeh.fd);</div>
-<div class="line"><span class="lineno">  278</span>            });</div>
-<div class="line"><span class="lineno">  279</span>            <span class="keyword">auto</span> unhispipes = make_scope_exit([&amp;]() <span class="keyword">noexcept</span> {</div>
-<div class="line"><span class="lineno">  280</span>              (void) ::close(childreadh.fd);</div>
-<div class="line"><span class="lineno">  281</span>              (void) ::close(childwriteh.fd);</div>
-<div class="line"><span class="lineno">  282</span>            });</div>
-<div class="line"><span class="lineno">  283</span>            (void) ::fcntl(readh.fd, F_SETFD, FD_CLOEXEC);</div>
-<div class="line"><span class="lineno">  284</span>            (void) ::fcntl(writeh.fd, F_SETFD, FD_CLOEXEC);</div>
-<div class="line"><span class="lineno">  285</span> </div>
-<div class="line"><span class="lineno">  286</span>            posix_spawn_file_actions_t child_fd_actions;</div>
-<div class="line"><span class="lineno">  287</span>            <span class="keywordflow">if</span>(!::posix_spawn_file_actions_init(&amp;child_fd_actions))</div>
-<div class="line"><span class="lineno">  288</span>            {</div>
-<div class="line"><span class="lineno">  289</span>              <span class="keyword">auto</span> unactions = <a class="code hl_function" href="namespacequickcpplib_1_1__xxx_1_1scope.html#a84b686813671fdcbc693b1846ec6e30c">make_scope_exit</a>([&amp;]() <span class="keyword">noexcept</span> { ::posix_spawn_file_actions_destroy(&amp;child_fd_actions); });</div>
-<div class="line"><span class="lineno">  290</span>              <span class="keywordflow">if</span>(!::posix_spawn_file_actions_adddup2(&amp;child_fd_actions, childreadh.fd, STDIN_FILENO))</div>
-<div class="line"><span class="lineno">  291</span>              {</div>
-<div class="line"><span class="lineno">  292</span>                <span class="keywordflow">if</span>(!::posix_spawn_file_actions_addclose(&amp;child_fd_actions, childreadh.fd))</div>
-<div class="line"><span class="lineno">  293</span>                {</div>
-<div class="line"><span class="lineno">  294</span>                  <span class="keywordflow">if</span>(!::posix_spawn_file_actions_adddup2(&amp;child_fd_actions, childwriteh.fd, STDOUT_FILENO))</div>
-<div class="line"><span class="lineno">  295</span>                  {</div>
-<div class="line"><span class="lineno">  296</span>                    <span class="keywordflow">if</span>(!::posix_spawn_file_actions_addclose(&amp;child_fd_actions, childwriteh.fd))</div>
-<div class="line"><span class="lineno">  297</span>                    {</div>
-<div class="line"><span class="lineno">  298</span>                      pid_t pid;</div>
-<div class="line"><span class="lineno">  299</span>                      std::vector&lt;const char *&gt; argptrs(2);</div>
-<div class="line"><span class="lineno">  300</span>                      argptrs[0] = <span class="stringliteral">&quot;llvm-symbolizer&quot;</span>;</div>
-<div class="line"><span class="lineno">  301</span>                      <span class="keywordflow">if</span>(!::posix_spawnp(&amp;pid, <span class="stringliteral">&quot;llvm-symbolizer&quot;</span>, &amp;child_fd_actions, <span class="keyword">nullptr</span>, (<span class="keywordtype">char</span> **) argptrs.data(), environ))</div>
-<div class="line"><span class="lineno">  302</span>                      {</div>
-<div class="line"><span class="lineno">  303</span>                        (void) ::close(childreadh.fd);</div>
-<div class="line"><span class="lineno">  304</span>                        (void) ::close(childwriteh.fd);</div>
-<div class="line"><span class="lineno">  305</span>                        std::string addrs;</div>
-<div class="line"><span class="lineno">  306</span>                        addrs.reserve(1024);</div>
-<div class="line"><span class="lineno">  307</span>                        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> n = 0; n &lt; <a class="code hl_variable" href="execinfo__win64_8h.html#a74d180764c748819f56703822acc12c4">len</a>; n++)</div>
-<div class="line"><span class="lineno">  308</span>                        {</div>
-<div class="line"><span class="lineno">  309</span>                          Dl_info <a class="code hl_enumvalue" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">info</a>;</div>
-<div class="line"><span class="lineno">  310</span>                          memset(&amp;<a class="code hl_enumvalue" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">info</a>, 0, <span class="keyword">sizeof</span>(<a class="code hl_enumvalue" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">info</a>));</div>
-<div class="line"><span class="lineno">  311</span>                          ::dladdr(<a class="code hl_function" href="execinfo__win64_8h.html#af8f00baaffaa60f09468f2b214a0c522">backtrace</a>[n], &amp;<a class="code hl_enumvalue" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">info</a>);</div>
-<div class="line"><span class="lineno">  312</span>                          <span class="keywordflow">if</span>(<a class="code hl_enumvalue" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">info</a>.dli_fname == <span class="keyword">nullptr</span>)</div>
-<div class="line"><span class="lineno">  313</span>                          {</div>
-<div class="line"><span class="lineno">  314</span>                            <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  315</span>                          }</div>
-<div class="line"><span class="lineno">  316</span>                          <span class="comment">// std::cerr &lt;&lt; bt[n] &lt;&lt; &quot; dli_fname = &quot; &lt;&lt; info.dli_fname &lt;&lt; &quot; dli_fbase = &quot; &lt;&lt; info.dli_fbase</span></div>
-<div class="line"><span class="lineno">  317</span>                          <span class="comment">//          &lt;&lt; std::endl;</span></div>
-<div class="line"><span class="lineno">  318</span>                          addrs.append(<a class="code hl_enumvalue" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">info</a>.dli_fname);</div>
-<div class="line"><span class="lineno">  319</span>                          addrs.append(<span class="stringliteral">&quot; 0x&quot;</span>);</div>
-<div class="line"><span class="lineno">  320</span>                          <span class="keyword">const</span> <span class="keywordtype">bool</span> has_slash = (strrchr(<a class="code hl_enumvalue" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">info</a>.dli_fname, <span class="charliteral">&#39;/&#39;</span>) != <span class="keyword">nullptr</span>);</div>
-<div class="line"><span class="lineno">  321</span>                          <span class="keyword">const</span> <span class="keywordtype">bool</span> is_dll = (strstr(<a class="code hl_enumvalue" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">info</a>.dli_fname, <span class="stringliteral">&quot;.so&quot;</span>) != <span class="keyword">nullptr</span>);</div>
-<div class="line"><span class="lineno">  322</span>                          <span class="keywordflow">if</span>(has_slash)</div>
-<div class="line"><span class="lineno">  323</span>                          {</div>
-<div class="line"><span class="lineno">  324</span>                            ssize_t diff;</div>
-<div class="line"><span class="lineno">  325</span>                            <span class="keywordflow">if</span>(is_dll)</div>
-<div class="line"><span class="lineno">  326</span>                            {</div>
-<div class="line"><span class="lineno">  327</span>                              diff = (<span class="keywordtype">char</span> *) <a class="code hl_function" href="execinfo__win64_8h.html#af8f00baaffaa60f09468f2b214a0c522">backtrace</a>[n] - (<span class="keywordtype">char</span> *) <a class="code hl_enumvalue" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">info</a>.dli_fbase;</div>
-<div class="line"><span class="lineno">  328</span>                            }</div>
-<div class="line"><span class="lineno">  329</span>                            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  330</span>                            {</div>
-<div class="line"><span class="lineno">  331</span>                              diff = (ssize_t) <a class="code hl_function" href="execinfo__win64_8h.html#af8f00baaffaa60f09468f2b214a0c522">backtrace</a>[n];</div>
-<div class="line"><span class="lineno">  332</span>                            }</div>
-<div class="line"><span class="lineno">  333</span>                            <span class="keywordtype">char</span> buffer[32];</div>
-<div class="line"><span class="lineno">  334</span>                            snprintf(buffer, 32, <span class="stringliteral">&quot;%zx&quot;</span>, diff);</div>
-<div class="line"><span class="lineno">  335</span>                            buffer[31] = 0;</div>
-<div class="line"><span class="lineno">  336</span>                            addrs.append(buffer);</div>
-<div class="line"><span class="lineno">  337</span>                          }</div>
-<div class="line"><span class="lineno">  338</span>                          <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  339</span>                          {</div>
-<div class="line"><span class="lineno">  340</span>                            <span class="keywordtype">char</span> buffer[32];</div>
-<div class="line"><span class="lineno">  341</span>                            snprintf(buffer, 32, <span class="stringliteral">&quot;%zx&quot;</span>, (uintptr_t) <a class="code hl_function" href="execinfo__win64_8h.html#af8f00baaffaa60f09468f2b214a0c522">backtrace</a>[n]);</div>
-<div class="line"><span class="lineno">  342</span>                            buffer[31] = 0;</div>
-<div class="line"><span class="lineno">  343</span>                            addrs.append(buffer);</div>
-<div class="line"><span class="lineno">  344</span>                          }</div>
-<div class="line"><span class="lineno">  345</span>                          addrs.push_back(<span class="charliteral">&#39;\n&#39;</span>);</div>
-<div class="line"><span class="lineno">  346</span>                        }</div>
-<div class="line"><span class="lineno">  347</span>                        <span class="comment">// std::cerr &lt;&lt; &quot;\n\n---\n&quot; &lt;&lt; addrs &lt;&lt; &quot;---\n\n&quot; &lt;&lt; std::endl;</span></div>
-<div class="line"><span class="lineno">  348</span>                        <span class="comment">// Suppress SIGPIPE</span></div>
-<div class="line"><span class="lineno">  349</span>                        sigset_t toblock, oldset;</div>
-<div class="line"><span class="lineno">  350</span>                        sigemptyset(&amp;toblock);</div>
-<div class="line"><span class="lineno">  351</span>                        sigaddset(&amp;toblock, SIGPIPE);</div>
-<div class="line"><span class="lineno">  352</span>                        pthread_sigmask(SIG_BLOCK, &amp;toblock, &amp;oldset);</div>
-<div class="line"><span class="lineno">  353</span>                        <span class="keyword">auto</span> unsigmask = <a class="code hl_function" href="namespacequickcpplib_1_1__xxx_1_1scope.html#a84b686813671fdcbc693b1846ec6e30c">make_scope_exit</a>([&amp;toblock, &amp;oldset]() <span class="keyword">noexcept</span> {</div>
-<div class="line"><span class="lineno">  354</span><span class="preprocessor">#ifdef __APPLE__</span></div>
-<div class="line"><span class="lineno">  355</span>                          pthread_kill(pthread_self(), SIGPIPE);</div>
-<div class="line"><span class="lineno">  356</span>                          <span class="keywordtype">int</span> cleared = 0;</div>
-<div class="line"><span class="lineno">  357</span>                          sigwait(&amp;toblock, &amp;cleared);</div>
-<div class="line"><span class="lineno">  358</span><span class="preprocessor">#else</span></div>
-<div class="line"><span class="lineno">  359</span>                          <span class="keyword">struct </span>timespec ts = {0, 0};</div>
-<div class="line"><span class="lineno">  360</span>                          sigtimedwait(&amp;toblock, 0, &amp;ts);</div>
-<div class="line"><span class="lineno">  361</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  362</span>                          pthread_sigmask(SIG_SETMASK, &amp;oldset, <span class="keyword">nullptr</span>);</div>
-<div class="line"><span class="lineno">  363</span>                        });</div>
-<div class="line"><span class="lineno">  364</span>                        (void) unsigmask;</div>
-<div class="line"><span class="lineno">  365</span>                        ssize_t written = ::write(readh.fd, addrs.data(), addrs.size());</div>
-<div class="line"><span class="lineno">  366</span>                        (void) ::close(readh.fd);</div>
-<div class="line"><span class="lineno">  367</span>                        addrs.clear();</div>
-<div class="line"><span class="lineno">  368</span>                        <span class="keywordflow">if</span>(written != -1)</div>
-<div class="line"><span class="lineno">  369</span>                        {</div>
-<div class="line"><span class="lineno">  370</span>                          <span class="keywordtype">char</span> buffer[1024];</div>
-<div class="line"><span class="lineno">  371</span>                          <span class="keywordflow">for</span>(;;)</div>
-<div class="line"><span class="lineno">  372</span>                          {</div>
-<div class="line"><span class="lineno">  373</span>                            <span class="keyword">auto</span> bytes = ::read(writeh.fd, buffer, <span class="keyword">sizeof</span>(buffer));</div>
-<div class="line"><span class="lineno">  374</span>                            <span class="keywordflow">if</span>(bytes &lt; 1)</div>
-<div class="line"><span class="lineno">  375</span>                              <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  376</span>                            addrs.append(buffer, bytes);</div>
-<div class="line"><span class="lineno">  377</span>                          }</div>
-<div class="line"><span class="lineno">  378</span>                          (void) ::close(writeh.fd);</div>
-<div class="line"><span class="lineno">  379</span>                          unmypipes.release();</div>
-<div class="line"><span class="lineno">  380</span>                          unhispipes.release();</div>
-<div class="line"><span class="lineno">  381</span>                        }</div>
-<div class="line"><span class="lineno">  382</span>                        <span class="comment">// std::cerr &lt;&lt; &quot;\n\n---\n&quot; &lt;&lt; addrs &lt;&lt; &quot;---\n\n&quot; &lt;&lt; std::endl;</span></div>
-<div class="line"><span class="lineno">  383</span>                        <span class="comment">// reap child</span></div>
-<div class="line"><span class="lineno">  384</span>                        siginfo_t <a class="code hl_enumvalue" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">info</a>;</div>
-<div class="line"><span class="lineno">  385</span>                        memset(&amp;<a class="code hl_enumvalue" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">info</a>, 0, <span class="keyword">sizeof</span>(<a class="code hl_enumvalue" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">info</a>));</div>
-<div class="line"><span class="lineno">  386</span>                        <span class="keywordtype">int</span> options = WEXITED | WSTOPPED;</div>
-<div class="line"><span class="lineno">  387</span>                        <span class="keywordflow">if</span>(-1 == ::waitid(P_PID, pid, &amp;<a class="code hl_enumvalue" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">info</a>, options))</div>
-<div class="line"><span class="lineno">  388</span>                          abort();</div>
-<div class="line"><span class="lineno">  389</span>                        <span class="keywordflow">if</span>(!addrs.empty())</div>
-<div class="line"><span class="lineno">  390</span>                        {</div>
-<div class="line"><span class="lineno">  391</span>                          <span class="comment">// We want the second line from every section separated by a double newline</span></div>
-<div class="line"><span class="lineno">  392</span>                          <span class="keywordtype">size_t</span> n = 0;</div>
-<div class="line"><span class="lineno">  393</span>                          <span class="keyword">auto</span> printitem = [&amp;](<span class="keywordtype">size_t</span> idx) {</div>
-<div class="line"><span class="lineno">  394</span>                            <span class="keywordflow">if</span>(n)</div>
-<div class="line"><span class="lineno">  395</span>                              ret.append(<span class="stringliteral">&quot;, &quot;</span>);</div>
-<div class="line"><span class="lineno">  396</span>                            <span class="keyword">auto</span> idx2 = addrs.find(10, idx), idx3 = addrs.find(10, idx2 + 1);</div>
-<div class="line"><span class="lineno">  397</span>                            ret.append(addrs.data() + idx2 + 1, idx3 - idx2 - 1);</div>
-<div class="line"><span class="lineno">  398</span>                            n++;</div>
-<div class="line"><span class="lineno">  399</span>                          };</div>
-<div class="line"><span class="lineno">  400</span>                          <span class="keywordtype">size_t</span> oldidx = 0;</div>
-<div class="line"><span class="lineno">  401</span>                          <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> idx = addrs.find(<span class="stringliteral">&quot;\n\n&quot;</span>); idx != std::string::npos; oldidx = idx + 2, idx = addrs.find(<span class="stringliteral">&quot;\n\n&quot;</span>, idx + 1))</div>
-<div class="line"><span class="lineno">  402</span>                          {</div>
-<div class="line"><span class="lineno">  403</span>                            printitem(oldidx);</div>
-<div class="line"><span class="lineno">  404</span>                          }</div>
-<div class="line"><span class="lineno">  405</span>                          done = <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  406</span>                        }</div>
-<div class="line"><span class="lineno">  407</span>                      }</div>
-<div class="line"><span class="lineno">  408</span>                    }</div>
-<div class="line"><span class="lineno">  409</span>                  }</div>
-<div class="line"><span class="lineno">  410</span>                }</div>
-<div class="line"><span class="lineno">  411</span>              }</div>
-<div class="line"><span class="lineno">  412</span>            }</div>
-<div class="line"><span class="lineno">  413</span>          }</div>
-<div class="line"><span class="lineno">  414</span>        }</div>
-<div class="line"><span class="lineno">  415</span>        <span class="keywordflow">if</span>(!done)</div>
-<div class="line"><span class="lineno">  416</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  417</span> </div>
-<div class="line"><span class="lineno">  418</span>        {</div>
-<div class="line"><span class="lineno">  419</span><span class="preprocessor">#if !QUICKCPPLIB_DISABLE_EXECINFO</span></div>
-<div class="line"><span class="lineno">  420</span>          <span class="keywordtype">char</span> **symbols = backtrace_symbols(<a class="code hl_function" href="execinfo__win64_8h.html#af8f00baaffaa60f09468f2b214a0c522">backtrace</a>, <a class="code hl_variable" href="execinfo__win64_8h.html#a74d180764c748819f56703822acc12c4">len</a>);</div>
-<div class="line"><span class="lineno">  421</span>          <span class="keywordflow">if</span>(!symbols)</div>
-<div class="line"><span class="lineno">  422</span>            ret.append(<span class="stringliteral">&quot;BACKTRACE FAILED!&quot;</span>);</div>
-<div class="line"><span class="lineno">  423</span>          <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  424</span>          {</div>
-<div class="line"><span class="lineno">  425</span>            <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> n = 0; n &lt; <a class="code hl_variable" href="execinfo__win64_8h.html#a74d180764c748819f56703822acc12c4">len</a>; n++)</div>
-<div class="line"><span class="lineno">  426</span>            {</div>
-<div class="line"><span class="lineno">  427</span>              <span class="keywordflow">if</span>(symbols[n])</div>
-<div class="line"><span class="lineno">  428</span>              {</div>
-<div class="line"><span class="lineno">  429</span>                <span class="keywordflow">if</span>(n)</div>
-<div class="line"><span class="lineno">  430</span>                  ret.append(<span class="stringliteral">&quot;, &quot;</span>);</div>
-<div class="line"><span class="lineno">  431</span>                ret.append(symbols[n]);</div>
-<div class="line"><span class="lineno">  432</span>              }</div>
-<div class="line"><span class="lineno">  433</span>            }</div>
-<div class="line"><span class="lineno">  434</span>            free(symbols);</div>
-<div class="line"><span class="lineno">  435</span>          }</div>
-<div class="line"><span class="lineno">  436</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  437</span>        }</div>
-<div class="line"><span class="lineno">  438</span>      }</div>
-<div class="line"><span class="lineno">  439</span>      <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  440</span>      {</div>
-<div class="line"><span class="lineno">  441</span>        <span class="keywordtype">char</span> temp[256];</div>
-<div class="line"><span class="lineno">  442</span>        memcpy(temp, v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a164ef3bd3ceac150211bf8fc2727a9e2">function</a>, <span class="keyword">sizeof</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a164ef3bd3ceac150211bf8fc2727a9e2">function</a>));</div>
-<div class="line"><span class="lineno">  443</span>        temp[<span class="keyword">sizeof</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a164ef3bd3ceac150211bf8fc2727a9e2">function</a>)] = 0;</div>
-<div class="line"><span class="lineno">  444</span>        ret.append(temp);</div>
-<div class="line"><span class="lineno">  445</span>      }</div>
-<div class="line"><span class="lineno">  446</span>      <span class="keywordflow">return</span> ret;</div>
-<div class="line"><span class="lineno">  447</span>    }</div>
+<div class="fragment"><div class="line"><span class="lineno">  240</span>    {</div>
+<div class="line"><span class="lineno">  241</span>      std::string ret;</div>
+<div class="line"><span class="lineno">  242</span>      <span class="keywordflow">if</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a0788a27f9786fd6f34dc8ecfeb7b9de7">using_backtrace</a>)</div>
+<div class="line"><span class="lineno">  243</span>      {</div>
+<div class="line"><span class="lineno">  244</span>        <span class="keywordtype">void</span> *<a class="code hl_function" href="execinfo__win64_8h.html#af8f00baaffaa60f09468f2b214a0c522">backtrace</a>[16];</div>
+<div class="line"><span class="lineno">  245</span>        memset(<a class="code hl_function" href="execinfo__win64_8h.html#af8f00baaffaa60f09468f2b214a0c522">backtrace</a>, 0, <span class="keyword">sizeof</span>(<a class="code hl_function" href="execinfo__win64_8h.html#af8f00baaffaa60f09468f2b214a0c522">backtrace</a>));</div>
+<div class="line"><span class="lineno">  246</span>        <span class="keywordtype">size_t</span> <a class="code hl_variable" href="execinfo__win64_8h.html#a74d180764c748819f56703822acc12c4">len</a> = 0;</div>
+<div class="line"><span class="lineno">  247</span>        {</div>
+<div class="line"><span class="lineno">  248</span>          <a class="code hl_class" href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace.html">packed_backtrace::packed_backtrace&lt;&gt;</a> pb(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a7d9eb0e307a6fc20dd2e0569ea7b2df7">backtrace</a>);</div>
+<div class="line"><span class="lineno">  249</span>          <span class="keywordflow">for</span>(<span class="keyword">auto</span> *i : pb)</div>
+<div class="line"><span class="lineno">  250</span>          {</div>
+<div class="line"><span class="lineno">  251</span>            <a class="code hl_function" href="execinfo__win64_8h.html#af8f00baaffaa60f09468f2b214a0c522">backtrace</a>[<a class="code hl_variable" href="execinfo__win64_8h.html#a74d180764c748819f56703822acc12c4">len</a>] = i;</div>
+<div class="line"><span class="lineno">  252</span>            <a class="code hl_variable" href="execinfo__win64_8h.html#a74d180764c748819f56703822acc12c4">len</a>++;</div>
+<div class="line"><span class="lineno">  253</span>            <span class="keywordflow">if</span>(<a class="code hl_variable" href="execinfo__win64_8h.html#a74d180764c748819f56703822acc12c4">len</a> == <span class="keyword">sizeof</span>(<a class="code hl_function" href="execinfo__win64_8h.html#af8f00baaffaa60f09468f2b214a0c522">backtrace</a>) / <span class="keyword">sizeof</span>(<a class="code hl_function" href="execinfo__win64_8h.html#af8f00baaffaa60f09468f2b214a0c522">backtrace</a>[0]))</div>
+<div class="line"><span class="lineno">  254</span>              <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  255</span>          }</div>
+<div class="line"><span class="lineno">  256</span>        }</div>
+<div class="line"><span class="lineno">  257</span><span class="preprocessor">#ifndef _WIN32</span></div>
+<div class="line"><span class="lineno">  258</span>        <span class="keywordtype">bool</span> done = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  259</span>        <span class="comment">// Try llvm-symbolizer for nicer backtraces</span></div>
+<div class="line"><span class="lineno">  260</span>        <span class="keywordtype">int</span> temp[2];</div>
+<div class="line"><span class="lineno">  261</span>        <span class="keyword">struct </span>_h</div>
+<div class="line"><span class="lineno">  262</span>        {</div>
+<div class="line"><span class="lineno">  263</span>          <span class="keywordtype">int</span> fd;</div>
+<div class="line"><span class="lineno">  264</span>        } childreadh, childwriteh, readh, writeh;</div>
+<div class="line"><span class="lineno">  265</span>        <span class="keywordflow">if</span>(-1 != ::pipe(temp))</div>
+<div class="line"><span class="lineno">  266</span>        {</div>
+<div class="line"><span class="lineno">  267</span>          <span class="keyword">using namespace </span>scope;</div>
+<div class="line"><span class="lineno">  268</span>          childreadh.fd = temp[0];</div>
+<div class="line"><span class="lineno">  269</span>          readh.fd = temp[1];</div>
+<div class="line"><span class="lineno">  270</span>          <span class="keywordflow">if</span>(-1 != ::pipe(temp))</div>
+<div class="line"><span class="lineno">  271</span>          {</div>
+<div class="line"><span class="lineno">  272</span>            writeh.fd = temp[0];</div>
+<div class="line"><span class="lineno">  273</span>            childwriteh.fd = temp[1];</div>
+<div class="line"><span class="lineno">  274</span>            <span class="keyword">auto</span> unmypipes = make_scope_exit([&amp;]() <span class="keyword">noexcept</span> {</div>
+<div class="line"><span class="lineno">  275</span>              (void) ::close(readh.fd);</div>
+<div class="line"><span class="lineno">  276</span>              (void) ::close(writeh.fd);</div>
+<div class="line"><span class="lineno">  277</span>            });</div>
+<div class="line"><span class="lineno">  278</span>            <span class="keyword">auto</span> unhispipes = make_scope_exit([&amp;]() <span class="keyword">noexcept</span> {</div>
+<div class="line"><span class="lineno">  279</span>              (void) ::close(childreadh.fd);</div>
+<div class="line"><span class="lineno">  280</span>              (void) ::close(childwriteh.fd);</div>
+<div class="line"><span class="lineno">  281</span>            });</div>
+<div class="line"><span class="lineno">  282</span>            (void) ::fcntl(readh.fd, F_SETFD, FD_CLOEXEC);</div>
+<div class="line"><span class="lineno">  283</span>            (void) ::fcntl(writeh.fd, F_SETFD, FD_CLOEXEC);</div>
+<div class="line"><span class="lineno">  284</span> </div>
+<div class="line"><span class="lineno">  285</span>            posix_spawn_file_actions_t child_fd_actions;</div>
+<div class="line"><span class="lineno">  286</span>            <span class="keywordflow">if</span>(!::posix_spawn_file_actions_init(&amp;child_fd_actions))</div>
+<div class="line"><span class="lineno">  287</span>            {</div>
+<div class="line"><span class="lineno">  288</span>              <span class="keyword">auto</span> unactions = <a class="code hl_function" href="namespacequickcpplib_1_1__xxx_1_1scope.html#a84b686813671fdcbc693b1846ec6e30c">make_scope_exit</a>([&amp;]() <span class="keyword">noexcept</span> { ::posix_spawn_file_actions_destroy(&amp;child_fd_actions); });</div>
+<div class="line"><span class="lineno">  289</span>              <span class="keywordflow">if</span>(!::posix_spawn_file_actions_adddup2(&amp;child_fd_actions, childreadh.fd, STDIN_FILENO))</div>
+<div class="line"><span class="lineno">  290</span>              {</div>
+<div class="line"><span class="lineno">  291</span>                <span class="keywordflow">if</span>(!::posix_spawn_file_actions_addclose(&amp;child_fd_actions, childreadh.fd))</div>
+<div class="line"><span class="lineno">  292</span>                {</div>
+<div class="line"><span class="lineno">  293</span>                  <span class="keywordflow">if</span>(!::posix_spawn_file_actions_adddup2(&amp;child_fd_actions, childwriteh.fd, STDOUT_FILENO))</div>
+<div class="line"><span class="lineno">  294</span>                  {</div>
+<div class="line"><span class="lineno">  295</span>                    <span class="keywordflow">if</span>(!::posix_spawn_file_actions_addclose(&amp;child_fd_actions, childwriteh.fd))</div>
+<div class="line"><span class="lineno">  296</span>                    {</div>
+<div class="line"><span class="lineno">  297</span>                      pid_t pid;</div>
+<div class="line"><span class="lineno">  298</span>                      std::vector&lt;const char *&gt; argptrs(2);</div>
+<div class="line"><span class="lineno">  299</span>                      argptrs[0] = <span class="stringliteral">&quot;llvm-symbolizer&quot;</span>;</div>
+<div class="line"><span class="lineno">  300</span>                      <span class="keywordflow">if</span>(!::posix_spawnp(&amp;pid, <span class="stringliteral">&quot;llvm-symbolizer&quot;</span>, &amp;child_fd_actions, <span class="keyword">nullptr</span>, (<span class="keywordtype">char</span> **) argptrs.data(), environ))</div>
+<div class="line"><span class="lineno">  301</span>                      {</div>
+<div class="line"><span class="lineno">  302</span>                        (void) ::close(childreadh.fd);</div>
+<div class="line"><span class="lineno">  303</span>                        (void) ::close(childwriteh.fd);</div>
+<div class="line"><span class="lineno">  304</span>                        std::string addrs;</div>
+<div class="line"><span class="lineno">  305</span>                        addrs.reserve(1024);</div>
+<div class="line"><span class="lineno">  306</span>                        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> n = 0; n &lt; <a class="code hl_variable" href="execinfo__win64_8h.html#a74d180764c748819f56703822acc12c4">len</a>; n++)</div>
+<div class="line"><span class="lineno">  307</span>                        {</div>
+<div class="line"><span class="lineno">  308</span>                          Dl_info <a class="code hl_enumvalue" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">info</a>;</div>
+<div class="line"><span class="lineno">  309</span>                          memset(&amp;<a class="code hl_enumvalue" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">info</a>, 0, <span class="keyword">sizeof</span>(<a class="code hl_enumvalue" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">info</a>));</div>
+<div class="line"><span class="lineno">  310</span>                          ::dladdr(<a class="code hl_function" href="execinfo__win64_8h.html#af8f00baaffaa60f09468f2b214a0c522">backtrace</a>[n], &amp;<a class="code hl_enumvalue" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">info</a>);</div>
+<div class="line"><span class="lineno">  311</span>                          <span class="keywordflow">if</span>(<a class="code hl_enumvalue" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">info</a>.dli_fname == <span class="keyword">nullptr</span>)</div>
+<div class="line"><span class="lineno">  312</span>                          {</div>
+<div class="line"><span class="lineno">  313</span>                            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  314</span>                          }</div>
+<div class="line"><span class="lineno">  315</span>                          <span class="comment">// std::cerr &lt;&lt; bt[n] &lt;&lt; &quot; dli_fname = &quot; &lt;&lt; info.dli_fname &lt;&lt; &quot; dli_fbase = &quot; &lt;&lt; info.dli_fbase</span></div>
+<div class="line"><span class="lineno">  316</span>                          <span class="comment">//          &lt;&lt; std::endl;</span></div>
+<div class="line"><span class="lineno">  317</span>                          addrs.append(<a class="code hl_enumvalue" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">info</a>.dli_fname);</div>
+<div class="line"><span class="lineno">  318</span>                          addrs.append(<span class="stringliteral">&quot; 0x&quot;</span>);</div>
+<div class="line"><span class="lineno">  319</span>                          <span class="keyword">const</span> <span class="keywordtype">bool</span> has_slash = (strrchr(<a class="code hl_enumvalue" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">info</a>.dli_fname, <span class="charliteral">&#39;/&#39;</span>) != <span class="keyword">nullptr</span>);</div>
+<div class="line"><span class="lineno">  320</span>                          <span class="keyword">const</span> <span class="keywordtype">bool</span> is_dll = (strstr(<a class="code hl_enumvalue" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">info</a>.dli_fname, <span class="stringliteral">&quot;.so&quot;</span>) != <span class="keyword">nullptr</span>);</div>
+<div class="line"><span class="lineno">  321</span>                          <span class="keywordflow">if</span>(has_slash)</div>
+<div class="line"><span class="lineno">  322</span>                          {</div>
+<div class="line"><span class="lineno">  323</span>                            ssize_t diff;</div>
+<div class="line"><span class="lineno">  324</span>                            <span class="keywordflow">if</span>(is_dll)</div>
+<div class="line"><span class="lineno">  325</span>                            {</div>
+<div class="line"><span class="lineno">  326</span>                              diff = (<span class="keywordtype">char</span> *) <a class="code hl_function" href="execinfo__win64_8h.html#af8f00baaffaa60f09468f2b214a0c522">backtrace</a>[n] - (<span class="keywordtype">char</span> *) <a class="code hl_enumvalue" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">info</a>.dli_fbase;</div>
+<div class="line"><span class="lineno">  327</span>                            }</div>
+<div class="line"><span class="lineno">  328</span>                            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  329</span>                            {</div>
+<div class="line"><span class="lineno">  330</span>                              diff = (ssize_t) <a class="code hl_function" href="execinfo__win64_8h.html#af8f00baaffaa60f09468f2b214a0c522">backtrace</a>[n];</div>
+<div class="line"><span class="lineno">  331</span>                            }</div>
+<div class="line"><span class="lineno">  332</span>                            <span class="keywordtype">char</span> buffer[32];</div>
+<div class="line"><span class="lineno">  333</span>                            snprintf(buffer, 32, <span class="stringliteral">&quot;%zx&quot;</span>, diff);</div>
+<div class="line"><span class="lineno">  334</span>                            buffer[31] = 0;</div>
+<div class="line"><span class="lineno">  335</span>                            addrs.append(buffer);</div>
+<div class="line"><span class="lineno">  336</span>                          }</div>
+<div class="line"><span class="lineno">  337</span>                          <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  338</span>                          {</div>
+<div class="line"><span class="lineno">  339</span>                            <span class="keywordtype">char</span> buffer[32];</div>
+<div class="line"><span class="lineno">  340</span>                            snprintf(buffer, 32, <span class="stringliteral">&quot;%zx&quot;</span>, (uintptr_t) <a class="code hl_function" href="execinfo__win64_8h.html#af8f00baaffaa60f09468f2b214a0c522">backtrace</a>[n]);</div>
+<div class="line"><span class="lineno">  341</span>                            buffer[31] = 0;</div>
+<div class="line"><span class="lineno">  342</span>                            addrs.append(buffer);</div>
+<div class="line"><span class="lineno">  343</span>                          }</div>
+<div class="line"><span class="lineno">  344</span>                          addrs.push_back(<span class="charliteral">&#39;\n&#39;</span>);</div>
+<div class="line"><span class="lineno">  345</span>                        }</div>
+<div class="line"><span class="lineno">  346</span>                        <span class="comment">// std::cerr &lt;&lt; &quot;\n\n---\n&quot; &lt;&lt; addrs &lt;&lt; &quot;---\n\n&quot; &lt;&lt; std::endl;</span></div>
+<div class="line"><span class="lineno">  347</span>                        <span class="comment">// Suppress SIGPIPE</span></div>
+<div class="line"><span class="lineno">  348</span>                        sigset_t toblock, oldset;</div>
+<div class="line"><span class="lineno">  349</span>                        sigemptyset(&amp;toblock);</div>
+<div class="line"><span class="lineno">  350</span>                        sigaddset(&amp;toblock, SIGPIPE);</div>
+<div class="line"><span class="lineno">  351</span>                        pthread_sigmask(SIG_BLOCK, &amp;toblock, &amp;oldset);</div>
+<div class="line"><span class="lineno">  352</span>                        <span class="keyword">auto</span> unsigmask = <a class="code hl_function" href="namespacequickcpplib_1_1__xxx_1_1scope.html#a84b686813671fdcbc693b1846ec6e30c">make_scope_exit</a>([&amp;toblock, &amp;oldset]() <span class="keyword">noexcept</span> {</div>
+<div class="line"><span class="lineno">  353</span><span class="preprocessor">#ifdef __APPLE__</span></div>
+<div class="line"><span class="lineno">  354</span>                          pthread_kill(pthread_self(), SIGPIPE);</div>
+<div class="line"><span class="lineno">  355</span>                          <span class="keywordtype">int</span> cleared = 0;</div>
+<div class="line"><span class="lineno">  356</span>                          sigwait(&amp;toblock, &amp;cleared);</div>
+<div class="line"><span class="lineno">  357</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">  358</span>                          <span class="keyword">struct </span>timespec ts = {0, 0};</div>
+<div class="line"><span class="lineno">  359</span>                          sigtimedwait(&amp;toblock, 0, &amp;ts);</div>
+<div class="line"><span class="lineno">  360</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  361</span>                          pthread_sigmask(SIG_SETMASK, &amp;oldset, <span class="keyword">nullptr</span>);</div>
+<div class="line"><span class="lineno">  362</span>                        });</div>
+<div class="line"><span class="lineno">  363</span>                        (void) unsigmask;</div>
+<div class="line"><span class="lineno">  364</span>                        ssize_t written = ::write(readh.fd, addrs.data(), addrs.size());</div>
+<div class="line"><span class="lineno">  365</span>                        (void) ::close(readh.fd);</div>
+<div class="line"><span class="lineno">  366</span>                        addrs.clear();</div>
+<div class="line"><span class="lineno">  367</span>                        <span class="keywordflow">if</span>(written != -1)</div>
+<div class="line"><span class="lineno">  368</span>                        {</div>
+<div class="line"><span class="lineno">  369</span>                          <span class="keywordtype">char</span> buffer[1024];</div>
+<div class="line"><span class="lineno">  370</span>                          <span class="keywordflow">for</span>(;;)</div>
+<div class="line"><span class="lineno">  371</span>                          {</div>
+<div class="line"><span class="lineno">  372</span>                            <span class="keyword">auto</span> bytes = ::read(writeh.fd, buffer, <span class="keyword">sizeof</span>(buffer));</div>
+<div class="line"><span class="lineno">  373</span>                            <span class="keywordflow">if</span>(bytes &lt; 1)</div>
+<div class="line"><span class="lineno">  374</span>                              <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  375</span>                            addrs.append(buffer, bytes);</div>
+<div class="line"><span class="lineno">  376</span>                          }</div>
+<div class="line"><span class="lineno">  377</span>                          (void) ::close(writeh.fd);</div>
+<div class="line"><span class="lineno">  378</span>                          unmypipes.release();</div>
+<div class="line"><span class="lineno">  379</span>                          unhispipes.release();</div>
+<div class="line"><span class="lineno">  380</span>                        }</div>
+<div class="line"><span class="lineno">  381</span>                        <span class="comment">// std::cerr &lt;&lt; &quot;\n\n---\n&quot; &lt;&lt; addrs &lt;&lt; &quot;---\n\n&quot; &lt;&lt; std::endl;</span></div>
+<div class="line"><span class="lineno">  382</span>                        <span class="comment">// reap child</span></div>
+<div class="line"><span class="lineno">  383</span>                        siginfo_t <a class="code hl_enumvalue" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">info</a>;</div>
+<div class="line"><span class="lineno">  384</span>                        memset(&amp;<a class="code hl_enumvalue" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">info</a>, 0, <span class="keyword">sizeof</span>(<a class="code hl_enumvalue" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">info</a>));</div>
+<div class="line"><span class="lineno">  385</span>                        <span class="keywordtype">int</span> options = WEXITED | WSTOPPED;</div>
+<div class="line"><span class="lineno">  386</span>                        <span class="keywordflow">if</span>(-1 == ::waitid(P_PID, pid, &amp;<a class="code hl_enumvalue" href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">info</a>, options))</div>
+<div class="line"><span class="lineno">  387</span>                          abort();</div>
+<div class="line"><span class="lineno">  388</span>                        <span class="keywordflow">if</span>(!addrs.empty())</div>
+<div class="line"><span class="lineno">  389</span>                        {</div>
+<div class="line"><span class="lineno">  390</span>                          <span class="comment">// We want the second line from every section separated by a double newline</span></div>
+<div class="line"><span class="lineno">  391</span>                          <span class="keywordtype">size_t</span> n = 0;</div>
+<div class="line"><span class="lineno">  392</span>                          <span class="keyword">auto</span> printitem = [&amp;](<span class="keywordtype">size_t</span> idx) {</div>
+<div class="line"><span class="lineno">  393</span>                            <span class="keywordflow">if</span>(n)</div>
+<div class="line"><span class="lineno">  394</span>                              ret.append(<span class="stringliteral">&quot;, &quot;</span>);</div>
+<div class="line"><span class="lineno">  395</span>                            <span class="keyword">auto</span> idx2 = addrs.find(10, idx), idx3 = addrs.find(10, idx2 + 1);</div>
+<div class="line"><span class="lineno">  396</span>                            ret.append(addrs.data() + idx2 + 1, idx3 - idx2 - 1);</div>
+<div class="line"><span class="lineno">  397</span>                            n++;</div>
+<div class="line"><span class="lineno">  398</span>                          };</div>
+<div class="line"><span class="lineno">  399</span>                          <span class="keywordtype">size_t</span> oldidx = 0;</div>
+<div class="line"><span class="lineno">  400</span>                          <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> idx = addrs.find(<span class="stringliteral">&quot;\n\n&quot;</span>); idx != std::string::npos; oldidx = idx + 2, idx = addrs.find(<span class="stringliteral">&quot;\n\n&quot;</span>, idx + 1))</div>
+<div class="line"><span class="lineno">  401</span>                          {</div>
+<div class="line"><span class="lineno">  402</span>                            printitem(oldidx);</div>
+<div class="line"><span class="lineno">  403</span>                          }</div>
+<div class="line"><span class="lineno">  404</span>                          done = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  405</span>                        }</div>
+<div class="line"><span class="lineno">  406</span>                      }</div>
+<div class="line"><span class="lineno">  407</span>                    }</div>
+<div class="line"><span class="lineno">  408</span>                  }</div>
+<div class="line"><span class="lineno">  409</span>                }</div>
+<div class="line"><span class="lineno">  410</span>              }</div>
+<div class="line"><span class="lineno">  411</span>            }</div>
+<div class="line"><span class="lineno">  412</span>          }</div>
+<div class="line"><span class="lineno">  413</span>        }</div>
+<div class="line"><span class="lineno">  414</span>        <span class="keywordflow">if</span>(!done)</div>
+<div class="line"><span class="lineno">  415</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  416</span> </div>
+<div class="line"><span class="lineno">  417</span>        {</div>
+<div class="line"><span class="lineno">  418</span><span class="preprocessor">#if !QUICKCPPLIB_DISABLE_EXECINFO</span></div>
+<div class="line"><span class="lineno">  419</span>          <span class="keywordtype">char</span> **symbols = backtrace_symbols(<a class="code hl_function" href="execinfo__win64_8h.html#af8f00baaffaa60f09468f2b214a0c522">backtrace</a>, <a class="code hl_variable" href="execinfo__win64_8h.html#a74d180764c748819f56703822acc12c4">len</a>);</div>
+<div class="line"><span class="lineno">  420</span>          <span class="keywordflow">if</span>(!symbols)</div>
+<div class="line"><span class="lineno">  421</span>            ret.append(<span class="stringliteral">&quot;BACKTRACE FAILED!&quot;</span>);</div>
+<div class="line"><span class="lineno">  422</span>          <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  423</span>          {</div>
+<div class="line"><span class="lineno">  424</span>            <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> n = 0; n &lt; <a class="code hl_variable" href="execinfo__win64_8h.html#a74d180764c748819f56703822acc12c4">len</a>; n++)</div>
+<div class="line"><span class="lineno">  425</span>            {</div>
+<div class="line"><span class="lineno">  426</span>              <span class="keywordflow">if</span>(symbols[n])</div>
+<div class="line"><span class="lineno">  427</span>              {</div>
+<div class="line"><span class="lineno">  428</span>                <span class="keywordflow">if</span>(n)</div>
+<div class="line"><span class="lineno">  429</span>                  ret.append(<span class="stringliteral">&quot;, &quot;</span>);</div>
+<div class="line"><span class="lineno">  430</span>                ret.append(symbols[n]);</div>
+<div class="line"><span class="lineno">  431</span>              }</div>
+<div class="line"><span class="lineno">  432</span>            }</div>
+<div class="line"><span class="lineno">  433</span>            free(symbols);</div>
+<div class="line"><span class="lineno">  434</span>          }</div>
+<div class="line"><span class="lineno">  435</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  436</span>        }</div>
+<div class="line"><span class="lineno">  437</span>      }</div>
+<div class="line"><span class="lineno">  438</span>      <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  439</span>      {</div>
+<div class="line"><span class="lineno">  440</span>        <span class="keywordtype">char</span> temp[256];</div>
+<div class="line"><span class="lineno">  441</span>        memcpy(temp, v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a164ef3bd3ceac150211bf8fc2727a9e2">function</a>, <span class="keyword">sizeof</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a164ef3bd3ceac150211bf8fc2727a9e2">function</a>));</div>
+<div class="line"><span class="lineno">  442</span>        temp[<span class="keyword">sizeof</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a164ef3bd3ceac150211bf8fc2727a9e2">function</a>)] = 0;</div>
+<div class="line"><span class="lineno">  443</span>        ret.append(temp);</div>
+<div class="line"><span class="lineno">  444</span>      }</div>
+<div class="line"><span class="lineno">  445</span>      <span class="keywordflow">return</span> ret;</div>
+<div class="line"><span class="lineno">  446</span>    }</div>
 <div class="ttc" id="aclassquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace_html"><div class="ttname"><a href="classquickcpplib_1_1__xxx_1_1packed__backtrace_1_1packed__backtrace.html">quickcpplib::_xxx::packed_backtrace::packed_backtrace</a></div><div class="ttdoc">A space packed stack backtrace letting you store twice or more stack frames in the same space.</div><div class="ttdef"><b>Definition</b> packed_backtrace.hpp:550</div></div>
 <div class="ttc" id="aexecinfo__win64_8h_html_a74d180764c748819f56703822acc12c4"><div class="ttname"><a href="execinfo__win64_8h.html#a74d180764c748819f56703822acc12c4">len</a></div><div class="ttdeci">EXECINFO_DECL _Check_return_ _In_ size_t len</div><div class="ttdef"><b>Definition</b> execinfo_win64.h:55</div></div>
 <div class="ttc" id="aexecinfo__win64_8h_html_af8f00baaffaa60f09468f2b214a0c522"><div class="ttname"><a href="execinfo__win64_8h.html#af8f00baaffaa60f09468f2b214a0c522">backtrace</a></div><div class="ttdeci">EXECINFO_DECL _Check_return_ size_t backtrace(_Out_writes_(len) void **bt, _In_ size_t len)</div><div class="ttdoc">Fill the array of void * at bt with up to len entries, returning entries filled.</div></div>
-<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1ringbuffer__log_html_add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">quickcpplib::_xxx::ringbuffer_log::level::info</a></div><div class="ttdeci">@ info</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:94</div></div>
+<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1ringbuffer__log_html_add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1ringbuffer__log.html#add4cc747a8c90cbfd538b0f07dfdd1e2acaf9b6b99962bf5c2264824231d7a40c">quickcpplib::_xxx::ringbuffer_log::level::info</a></div><div class="ttdeci">@ info</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:93</div></div>
 <div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1scope_html_a84b686813671fdcbc693b1846ec6e30c"><div class="ttname"><a href="namespacequickcpplib_1_1__xxx_1_1scope.html#a84b686813671fdcbc693b1846ec6e30c">quickcpplib::_xxx::scope::make_scope_exit</a></div><div class="ttdeci">constexpr auto make_scope_exit(T &amp;&amp;v)</div><div class="ttdef"><b>Definition</b> scope.hpp:153</div></div>
-<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type_html_a0788a27f9786fd6f34dc8ecfeb7b9de7"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a0788a27f9786fd6f34dc8ecfeb7b9de7">quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type::using_backtrace</a></div><div class="ttdeci">uint8_t using_backtrace</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:130</div></div>
-<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type_html_a164ef3bd3ceac150211bf8fc2727a9e2"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a164ef3bd3ceac150211bf8fc2727a9e2">quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type::function</a></div><div class="ttdeci">char function[40]</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:126</div></div>
-<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type_html_a7d9eb0e307a6fc20dd2e0569ea7b2df7"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a7d9eb0e307a6fc20dd2e0569ea7b2df7">quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type::backtrace</a></div><div class="ttdeci">char backtrace[40]</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:125</div></div>
+<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type_html_a0788a27f9786fd6f34dc8ecfeb7b9de7"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a0788a27f9786fd6f34dc8ecfeb7b9de7">quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type::using_backtrace</a></div><div class="ttdeci">uint8_t using_backtrace</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:129</div></div>
+<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type_html_a164ef3bd3ceac150211bf8fc2727a9e2"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a164ef3bd3ceac150211bf8fc2727a9e2">quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type::function</a></div><div class="ttdeci">char function[40]</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:125</div></div>
+<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type_html_a7d9eb0e307a6fc20dd2e0569ea7b2df7"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a7d9eb0e307a6fc20dd2e0569ea7b2df7">quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type::backtrace</a></div><div class="ttdeci">char backtrace[40]</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:124</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -396,53 +396,53 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>std::ostream writer for simple_ringbuffer_log_policy's value_type </p>
-<div class="fragment"><div class="line"><span class="lineno">  450</span>    {</div>
-<div class="line"><span class="lineno">  451</span>      s &lt;&lt; <span class="stringliteral">&quot;+&quot;</span> &lt;&lt; std::setfill(<span class="charliteral">&#39;0&#39;</span>) &lt;&lt; std::setw(16) &lt;&lt; v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a85b165061dfdab2b1e46cdb23d65fc32">timestamp</a> &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; std::setfill(<span class="charliteral">&#39; &#39;</span>) &lt;&lt; std::setw(1);</div>
-<div class="line"><span class="lineno">  452</span>      <span class="keywordflow">switch</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a3bf0a4687f916e254f15a013f9b43ca4">level</a>)</div>
-<div class="line"><span class="lineno">  453</span>      {</div>
-<div class="line"><span class="lineno">  454</span>      <span class="keywordflow">case</span> 0:</div>
-<div class="line"><span class="lineno">  455</span>        s &lt;&lt; <span class="stringliteral">&quot;none:  &quot;</span>;</div>
-<div class="line"><span class="lineno">  456</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  457</span>      <span class="keywordflow">case</span> 1:</div>
-<div class="line"><span class="lineno">  458</span>        s &lt;&lt; <span class="stringliteral">&quot;fatal: &quot;</span>;</div>
-<div class="line"><span class="lineno">  459</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  460</span>      <span class="keywordflow">case</span> 2:</div>
-<div class="line"><span class="lineno">  461</span>        s &lt;&lt; <span class="stringliteral">&quot;error: &quot;</span>;</div>
-<div class="line"><span class="lineno">  462</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  463</span>      <span class="keywordflow">case</span> 3:</div>
-<div class="line"><span class="lineno">  464</span>        s &lt;&lt; <span class="stringliteral">&quot;warn:  &quot;</span>;</div>
-<div class="line"><span class="lineno">  465</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  466</span>      <span class="keywordflow">case</span> 4:</div>
-<div class="line"><span class="lineno">  467</span>        s &lt;&lt; <span class="stringliteral">&quot;info:  &quot;</span>;</div>
-<div class="line"><span class="lineno">  468</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  469</span>      <span class="keywordflow">case</span> 5:</div>
-<div class="line"><span class="lineno">  470</span>        s &lt;&lt; <span class="stringliteral">&quot;debug: &quot;</span>;</div>
-<div class="line"><span class="lineno">  471</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  472</span>      <span class="keywordflow">case</span> 6:</div>
-<div class="line"><span class="lineno">  473</span>        s &lt;&lt; <span class="stringliteral">&quot;all:   &quot;</span>;</div>
-<div class="line"><span class="lineno">  474</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  475</span>      <span class="keywordflow">default</span>:</div>
-<div class="line"><span class="lineno">  476</span>        s &lt;&lt; <span class="stringliteral">&quot;unknown: &quot;</span>;</div>
-<div class="line"><span class="lineno">  477</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  478</span>      }</div>
-<div class="line"><span class="lineno">  479</span>      <span class="keywordflow">if</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a12bcd937c3c94031b8f3d9e163c5bda7">using_code64</a>)</div>
-<div class="line"><span class="lineno">  480</span>        s &lt;&lt; <span class="stringliteral">&quot;{ &quot;</span> &lt;&lt; v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a3d9bee4048237e5e167175fe5f5786bf">code64</a> &lt;&lt; <span class="stringliteral">&quot; } &quot;</span>;</div>
-<div class="line"><span class="lineno">  481</span>      <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  482</span>        s &lt;&lt; <span class="stringliteral">&quot;{ &quot;</span> &lt;&lt; v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a4fd67f4f9693c421afdc933be3dd8053">code32</a>[0] &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a4fd67f4f9693c421afdc933be3dd8053">code32</a>[1] &lt;&lt; <span class="stringliteral">&quot; } &quot;</span>;</div>
-<div class="line"><span class="lineno">  483</span>      <span class="keywordtype">char</span> temp[256];</div>
-<div class="line"><span class="lineno">  484</span>      memcpy(temp, v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#ac7938e6d36391b6b1651c2c89d7b1bb1">message</a>, <span class="keyword">sizeof</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#ac7938e6d36391b6b1651c2c89d7b1bb1">message</a>));</div>
-<div class="line"><span class="lineno">  485</span>      temp[<span class="keyword">sizeof</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#ac7938e6d36391b6b1651c2c89d7b1bb1">message</a>)] = 0;</div>
-<div class="line"><span class="lineno">  486</span>      s &lt;&lt; temp &lt;&lt; <span class="stringliteral">&quot; @ &quot;</span>;</div>
-<div class="line"><span class="lineno">  487</span>      s &lt;&lt; <a class="code hl_function" href="#a89497c0c3ff363d6c01c6c31e0a9f7e4">location</a>(v);</div>
-<div class="line"><span class="lineno">  488</span>      <span class="keywordflow">return</span> s &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><span class="lineno">  489</span>    }</div>
-<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_html_a89497c0c3ff363d6c01c6c31e0a9f7e4"><div class="ttname"><a href="#a89497c0c3ff363d6c01c6c31e0a9f7e4">quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::location</a></div><div class="ttdeci">std::string location(const value_type &amp;v)</div><div class="ttdoc">Location generator for simple_ringbuffer_log_policy&#39;s value_type.</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:240</div></div>
-<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type_html_a12bcd937c3c94031b8f3d9e163c5bda7"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a12bcd937c3c94031b8f3d9e163c5bda7">quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type::using_code64</a></div><div class="ttdeci">uint8_t using_code64</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:129</div></div>
-<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type_html_a3bf0a4687f916e254f15a013f9b43ca4"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a3bf0a4687f916e254f15a013f9b43ca4">quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type::level</a></div><div class="ttdeci">uint8_t level</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:128</div></div>
-<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type_html_a3d9bee4048237e5e167175fe5f5786bf"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a3d9bee4048237e5e167175fe5f5786bf">quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type::code64</a></div><div class="ttdeci">uint64_t code64</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:121</div></div>
-<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type_html_a4fd67f4f9693c421afdc933be3dd8053"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a4fd67f4f9693c421afdc933be3dd8053">quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type::code32</a></div><div class="ttdeci">uint32_t code32[2]</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:120</div></div>
-<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type_html_a85b165061dfdab2b1e46cdb23d65fc32"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a85b165061dfdab2b1e46cdb23d65fc32">quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type::timestamp</a></div><div class="ttdeci">uint64_t timestamp</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:117</div></div>
-<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type_html_ac7938e6d36391b6b1651c2c89d7b1bb1"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#ac7938e6d36391b6b1651c2c89d7b1bb1">quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type::message</a></div><div class="ttdeci">char message[191]</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:131</div></div>
+<div class="fragment"><div class="line"><span class="lineno">  449</span>    {</div>
+<div class="line"><span class="lineno">  450</span>      s &lt;&lt; <span class="stringliteral">&quot;+&quot;</span> &lt;&lt; std::setfill(<span class="charliteral">&#39;0&#39;</span>) &lt;&lt; std::setw(16) &lt;&lt; v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a85b165061dfdab2b1e46cdb23d65fc32">timestamp</a> &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; std::setfill(<span class="charliteral">&#39; &#39;</span>) &lt;&lt; std::setw(1);</div>
+<div class="line"><span class="lineno">  451</span>      <span class="keywordflow">switch</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a3bf0a4687f916e254f15a013f9b43ca4">level</a>)</div>
+<div class="line"><span class="lineno">  452</span>      {</div>
+<div class="line"><span class="lineno">  453</span>      <span class="keywordflow">case</span> 0:</div>
+<div class="line"><span class="lineno">  454</span>        s &lt;&lt; <span class="stringliteral">&quot;none:  &quot;</span>;</div>
+<div class="line"><span class="lineno">  455</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  456</span>      <span class="keywordflow">case</span> 1:</div>
+<div class="line"><span class="lineno">  457</span>        s &lt;&lt; <span class="stringliteral">&quot;fatal: &quot;</span>;</div>
+<div class="line"><span class="lineno">  458</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  459</span>      <span class="keywordflow">case</span> 2:</div>
+<div class="line"><span class="lineno">  460</span>        s &lt;&lt; <span class="stringliteral">&quot;error: &quot;</span>;</div>
+<div class="line"><span class="lineno">  461</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  462</span>      <span class="keywordflow">case</span> 3:</div>
+<div class="line"><span class="lineno">  463</span>        s &lt;&lt; <span class="stringliteral">&quot;warn:  &quot;</span>;</div>
+<div class="line"><span class="lineno">  464</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  465</span>      <span class="keywordflow">case</span> 4:</div>
+<div class="line"><span class="lineno">  466</span>        s &lt;&lt; <span class="stringliteral">&quot;info:  &quot;</span>;</div>
+<div class="line"><span class="lineno">  467</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  468</span>      <span class="keywordflow">case</span> 5:</div>
+<div class="line"><span class="lineno">  469</span>        s &lt;&lt; <span class="stringliteral">&quot;debug: &quot;</span>;</div>
+<div class="line"><span class="lineno">  470</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  471</span>      <span class="keywordflow">case</span> 6:</div>
+<div class="line"><span class="lineno">  472</span>        s &lt;&lt; <span class="stringliteral">&quot;all:   &quot;</span>;</div>
+<div class="line"><span class="lineno">  473</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  474</span>      <span class="keywordflow">default</span>:</div>
+<div class="line"><span class="lineno">  475</span>        s &lt;&lt; <span class="stringliteral">&quot;unknown: &quot;</span>;</div>
+<div class="line"><span class="lineno">  476</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  477</span>      }</div>
+<div class="line"><span class="lineno">  478</span>      <span class="keywordflow">if</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a12bcd937c3c94031b8f3d9e163c5bda7">using_code64</a>)</div>
+<div class="line"><span class="lineno">  479</span>        s &lt;&lt; <span class="stringliteral">&quot;{ &quot;</span> &lt;&lt; v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a3d9bee4048237e5e167175fe5f5786bf">code64</a> &lt;&lt; <span class="stringliteral">&quot; } &quot;</span>;</div>
+<div class="line"><span class="lineno">  480</span>      <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  481</span>        s &lt;&lt; <span class="stringliteral">&quot;{ &quot;</span> &lt;&lt; v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a4fd67f4f9693c421afdc933be3dd8053">code32</a>[0] &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a4fd67f4f9693c421afdc933be3dd8053">code32</a>[1] &lt;&lt; <span class="stringliteral">&quot; } &quot;</span>;</div>
+<div class="line"><span class="lineno">  482</span>      <span class="keywordtype">char</span> temp[256];</div>
+<div class="line"><span class="lineno">  483</span>      memcpy(temp, v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#ac7938e6d36391b6b1651c2c89d7b1bb1">message</a>, <span class="keyword">sizeof</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#ac7938e6d36391b6b1651c2c89d7b1bb1">message</a>));</div>
+<div class="line"><span class="lineno">  484</span>      temp[<span class="keyword">sizeof</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#ac7938e6d36391b6b1651c2c89d7b1bb1">message</a>)] = 0;</div>
+<div class="line"><span class="lineno">  485</span>      s &lt;&lt; temp &lt;&lt; <span class="stringliteral">&quot; @ &quot;</span>;</div>
+<div class="line"><span class="lineno">  486</span>      s &lt;&lt; <a class="code hl_function" href="#a89497c0c3ff363d6c01c6c31e0a9f7e4">location</a>(v);</div>
+<div class="line"><span class="lineno">  487</span>      <span class="keywordflow">return</span> s &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><span class="lineno">  488</span>    }</div>
+<div class="ttc" id="anamespacequickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_html_a89497c0c3ff363d6c01c6c31e0a9f7e4"><div class="ttname"><a href="#a89497c0c3ff363d6c01c6c31e0a9f7e4">quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::location</a></div><div class="ttdeci">std::string location(const value_type &amp;v)</div><div class="ttdoc">Location generator for simple_ringbuffer_log_policy&#39;s value_type.</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:239</div></div>
+<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type_html_a12bcd937c3c94031b8f3d9e163c5bda7"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a12bcd937c3c94031b8f3d9e163c5bda7">quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type::using_code64</a></div><div class="ttdeci">uint8_t using_code64</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:128</div></div>
+<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type_html_a3bf0a4687f916e254f15a013f9b43ca4"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a3bf0a4687f916e254f15a013f9b43ca4">quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type::level</a></div><div class="ttdeci">uint8_t level</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:127</div></div>
+<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type_html_a3d9bee4048237e5e167175fe5f5786bf"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a3d9bee4048237e5e167175fe5f5786bf">quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type::code64</a></div><div class="ttdeci">uint64_t code64</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:120</div></div>
+<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type_html_a4fd67f4f9693c421afdc933be3dd8053"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a4fd67f4f9693c421afdc933be3dd8053">quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type::code32</a></div><div class="ttdeci">uint32_t code32[2]</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:119</div></div>
+<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type_html_a85b165061dfdab2b1e46cdb23d65fc32"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a85b165061dfdab2b1e46cdb23d65fc32">quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type::timestamp</a></div><div class="ttdeci">uint64_t timestamp</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:116</div></div>
+<div class="ttc" id="astructquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type_html_ac7938e6d36391b6b1651c2c89d7b1bb1"><div class="ttname"><a href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#ac7938e6d36391b6b1651c2c89d7b1bb1">quickcpplib::_xxx::ringbuffer_log::simple_ringbuffer_log_policy_detail::value_type::message</a></div><div class="ttdeci">char message[191]</div><div class="ttdef"><b>Definition</b> ringbuffer_log.hpp:130</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -474,46 +474,46 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>CSV std::ostream writer for simple_ringbuffer_log_policy's value_type. </p>
-<div class="fragment"><div class="line"><span class="lineno">  492</span>    {</div>
-<div class="line"><span class="lineno">  493</span>      <span class="comment">// timestamp,level,using_code64,using_backtrace,code0,code1,message,backtrace</span></div>
-<div class="line"><span class="lineno">  494</span>      s &lt;&lt; v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a85b165061dfdab2b1e46cdb23d65fc32">timestamp</a> &lt;&lt; <span class="stringliteral">&quot;,&quot;</span> &lt;&lt; (unsigned) v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a3bf0a4687f916e254f15a013f9b43ca4">level</a> &lt;&lt; <span class="stringliteral">&quot;,&quot;</span> &lt;&lt; (<span class="keywordtype">unsigned</span>) v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a12bcd937c3c94031b8f3d9e163c5bda7">using_code64</a> &lt;&lt; <span class="stringliteral">&quot;,&quot;</span> &lt;&lt; (unsigned) v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a0788a27f9786fd6f34dc8ecfeb7b9de7">using_backtrace</a> &lt;&lt; <span class="stringliteral">&quot;,&quot;</span>;</div>
-<div class="line"><span class="lineno">  495</span>      <span class="keywordflow">if</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a12bcd937c3c94031b8f3d9e163c5bda7">using_code64</a>)</div>
-<div class="line"><span class="lineno">  496</span>        s &lt;&lt; v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a3d9bee4048237e5e167175fe5f5786bf">code64</a> &lt;&lt; <span class="stringliteral">&quot;,0,\&quot;&quot;</span>;</div>
-<div class="line"><span class="lineno">  497</span>      <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  498</span>        s &lt;&lt; v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a4fd67f4f9693c421afdc933be3dd8053">code32</a>[0] &lt;&lt; <span class="stringliteral">&quot;,&quot;</span> &lt;&lt; v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a4fd67f4f9693c421afdc933be3dd8053">code32</a>[1] &lt;&lt; <span class="stringliteral">&quot;,\&quot;&quot;</span>;</div>
-<div class="line"><span class="lineno">  499</span>      <span class="keywordtype">char</span> temp[256];</div>
-<div class="line"><span class="lineno">  500</span>      memcpy(temp, v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#ac7938e6d36391b6b1651c2c89d7b1bb1">message</a>, <span class="keyword">sizeof</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#ac7938e6d36391b6b1651c2c89d7b1bb1">message</a>));</div>
-<div class="line"><span class="lineno">  501</span>      temp[<span class="keyword">sizeof</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#ac7938e6d36391b6b1651c2c89d7b1bb1">message</a>)] = 0;</div>
-<div class="line"><span class="lineno">  502</span>      s &lt;&lt; temp &lt;&lt; <span class="stringliteral">&quot;\&quot;,\&quot;&quot;</span>;</div>
-<div class="line"><span class="lineno">  503</span>      <span class="keywordflow">if</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a0788a27f9786fd6f34dc8ecfeb7b9de7">using_backtrace</a>)</div>
-<div class="line"><span class="lineno">  504</span>      {</div>
-<div class="line"><span class="lineno">  505</span><span class="preprocessor">#if !QUICKCPPLIB_DISABLE_EXECINFO</span></div>
-<div class="line"><span class="lineno">  506</span>        <span class="keywordtype">char</span> **symbols = backtrace_symbols((<span class="keywordtype">void</span> **) v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a7d9eb0e307a6fc20dd2e0569ea7b2df7">backtrace</a>, <span class="keyword">sizeof</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a7d9eb0e307a6fc20dd2e0569ea7b2df7">backtrace</a>) / <span class="keyword">sizeof</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a7d9eb0e307a6fc20dd2e0569ea7b2df7">backtrace</a>[0]));</div>
-<div class="line"><span class="lineno">  507</span>        <span class="keywordflow">if</span>(!symbols)</div>
-<div class="line"><span class="lineno">  508</span>          s &lt;&lt; <span class="stringliteral">&quot;BACKTRACE FAILED!&quot;</span>;</div>
-<div class="line"><span class="lineno">  509</span>        <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  510</span>        {</div>
-<div class="line"><span class="lineno">  511</span>          <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> n = 0; n &lt; <span class="keyword">sizeof</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a7d9eb0e307a6fc20dd2e0569ea7b2df7">backtrace</a>) / <span class="keyword">sizeof</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a7d9eb0e307a6fc20dd2e0569ea7b2df7">backtrace</a>[0]); n++)</div>
-<div class="line"><span class="lineno">  512</span>          {</div>
-<div class="line"><span class="lineno">  513</span>            <span class="keywordflow">if</span>(symbols[n])</div>
-<div class="line"><span class="lineno">  514</span>            {</div>
-<div class="line"><span class="lineno">  515</span>              <span class="keywordflow">if</span>(n)</div>
-<div class="line"><span class="lineno">  516</span>                s &lt;&lt; <span class="stringliteral">&quot;;&quot;</span>;</div>
-<div class="line"><span class="lineno">  517</span>              s &lt;&lt; symbols[n];</div>
-<div class="line"><span class="lineno">  518</span>            }</div>
-<div class="line"><span class="lineno">  519</span>          }</div>
-<div class="line"><span class="lineno">  520</span>          free(symbols);</div>
-<div class="line"><span class="lineno">  521</span>        }</div>
-<div class="line"><span class="lineno">  522</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  523</span>      }</div>
-<div class="line"><span class="lineno">  524</span>      <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  525</span>      {</div>
-<div class="line"><span class="lineno">  526</span>        memcpy(temp, v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a164ef3bd3ceac150211bf8fc2727a9e2">function</a>, <span class="keyword">sizeof</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a164ef3bd3ceac150211bf8fc2727a9e2">function</a>));</div>
-<div class="line"><span class="lineno">  527</span>        temp[<span class="keyword">sizeof</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a164ef3bd3ceac150211bf8fc2727a9e2">function</a>)] = 0;</div>
-<div class="line"><span class="lineno">  528</span>        s &lt;&lt; temp;</div>
-<div class="line"><span class="lineno">  529</span>      }</div>
-<div class="line"><span class="lineno">  530</span>      <span class="keywordflow">return</span> s &lt;&lt; <span class="stringliteral">&quot;\&quot;\n&quot;</span>;</div>
-<div class="line"><span class="lineno">  531</span>    }</div>
+<div class="fragment"><div class="line"><span class="lineno">  491</span>    {</div>
+<div class="line"><span class="lineno">  492</span>      <span class="comment">// timestamp,level,using_code64,using_backtrace,code0,code1,message,backtrace</span></div>
+<div class="line"><span class="lineno">  493</span>      s &lt;&lt; v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a85b165061dfdab2b1e46cdb23d65fc32">timestamp</a> &lt;&lt; <span class="stringliteral">&quot;,&quot;</span> &lt;&lt; (unsigned) v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a3bf0a4687f916e254f15a013f9b43ca4">level</a> &lt;&lt; <span class="stringliteral">&quot;,&quot;</span> &lt;&lt; (<span class="keywordtype">unsigned</span>) v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a12bcd937c3c94031b8f3d9e163c5bda7">using_code64</a> &lt;&lt; <span class="stringliteral">&quot;,&quot;</span> &lt;&lt; (unsigned) v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a0788a27f9786fd6f34dc8ecfeb7b9de7">using_backtrace</a> &lt;&lt; <span class="stringliteral">&quot;,&quot;</span>;</div>
+<div class="line"><span class="lineno">  494</span>      <span class="keywordflow">if</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a12bcd937c3c94031b8f3d9e163c5bda7">using_code64</a>)</div>
+<div class="line"><span class="lineno">  495</span>        s &lt;&lt; v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a3d9bee4048237e5e167175fe5f5786bf">code64</a> &lt;&lt; <span class="stringliteral">&quot;,0,\&quot;&quot;</span>;</div>
+<div class="line"><span class="lineno">  496</span>      <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  497</span>        s &lt;&lt; v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a4fd67f4f9693c421afdc933be3dd8053">code32</a>[0] &lt;&lt; <span class="stringliteral">&quot;,&quot;</span> &lt;&lt; v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a4fd67f4f9693c421afdc933be3dd8053">code32</a>[1] &lt;&lt; <span class="stringliteral">&quot;,\&quot;&quot;</span>;</div>
+<div class="line"><span class="lineno">  498</span>      <span class="keywordtype">char</span> temp[256];</div>
+<div class="line"><span class="lineno">  499</span>      memcpy(temp, v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#ac7938e6d36391b6b1651c2c89d7b1bb1">message</a>, <span class="keyword">sizeof</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#ac7938e6d36391b6b1651c2c89d7b1bb1">message</a>));</div>
+<div class="line"><span class="lineno">  500</span>      temp[<span class="keyword">sizeof</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#ac7938e6d36391b6b1651c2c89d7b1bb1">message</a>)] = 0;</div>
+<div class="line"><span class="lineno">  501</span>      s &lt;&lt; temp &lt;&lt; <span class="stringliteral">&quot;\&quot;,\&quot;&quot;</span>;</div>
+<div class="line"><span class="lineno">  502</span>      <span class="keywordflow">if</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a0788a27f9786fd6f34dc8ecfeb7b9de7">using_backtrace</a>)</div>
+<div class="line"><span class="lineno">  503</span>      {</div>
+<div class="line"><span class="lineno">  504</span><span class="preprocessor">#if !QUICKCPPLIB_DISABLE_EXECINFO</span></div>
+<div class="line"><span class="lineno">  505</span>        <span class="keywordtype">char</span> **symbols = backtrace_symbols((<span class="keywordtype">void</span> **) v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a7d9eb0e307a6fc20dd2e0569ea7b2df7">backtrace</a>, <span class="keyword">sizeof</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a7d9eb0e307a6fc20dd2e0569ea7b2df7">backtrace</a>) / <span class="keyword">sizeof</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a7d9eb0e307a6fc20dd2e0569ea7b2df7">backtrace</a>[0]));</div>
+<div class="line"><span class="lineno">  506</span>        <span class="keywordflow">if</span>(!symbols)</div>
+<div class="line"><span class="lineno">  507</span>          s &lt;&lt; <span class="stringliteral">&quot;BACKTRACE FAILED!&quot;</span>;</div>
+<div class="line"><span class="lineno">  508</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  509</span>        {</div>
+<div class="line"><span class="lineno">  510</span>          <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> n = 0; n &lt; <span class="keyword">sizeof</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a7d9eb0e307a6fc20dd2e0569ea7b2df7">backtrace</a>) / <span class="keyword">sizeof</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a7d9eb0e307a6fc20dd2e0569ea7b2df7">backtrace</a>[0]); n++)</div>
+<div class="line"><span class="lineno">  511</span>          {</div>
+<div class="line"><span class="lineno">  512</span>            <span class="keywordflow">if</span>(symbols[n])</div>
+<div class="line"><span class="lineno">  513</span>            {</div>
+<div class="line"><span class="lineno">  514</span>              <span class="keywordflow">if</span>(n)</div>
+<div class="line"><span class="lineno">  515</span>                s &lt;&lt; <span class="stringliteral">&quot;;&quot;</span>;</div>
+<div class="line"><span class="lineno">  516</span>              s &lt;&lt; symbols[n];</div>
+<div class="line"><span class="lineno">  517</span>            }</div>
+<div class="line"><span class="lineno">  518</span>          }</div>
+<div class="line"><span class="lineno">  519</span>          free(symbols);</div>
+<div class="line"><span class="lineno">  520</span>        }</div>
+<div class="line"><span class="lineno">  521</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  522</span>      }</div>
+<div class="line"><span class="lineno">  523</span>      <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  524</span>      {</div>
+<div class="line"><span class="lineno">  525</span>        memcpy(temp, v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a164ef3bd3ceac150211bf8fc2727a9e2">function</a>, <span class="keyword">sizeof</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a164ef3bd3ceac150211bf8fc2727a9e2">function</a>));</div>
+<div class="line"><span class="lineno">  526</span>        temp[<span class="keyword">sizeof</span>(v.<a class="code hl_variable" href="structquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1simple__ringbuffer__log__policy__detail_1_1value__type.html#a164ef3bd3ceac150211bf8fc2727a9e2">function</a>)] = 0;</div>
+<div class="line"><span class="lineno">  527</span>        s &lt;&lt; temp;</div>
+<div class="line"><span class="lineno">  528</span>      }</div>
+<div class="line"><span class="lineno">  529</span>      <span class="keywordflow">return</span> s &lt;&lt; <span class="stringliteral">&quot;\&quot;\n&quot;</span>;</div>
+<div class="line"><span class="lineno">  530</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>

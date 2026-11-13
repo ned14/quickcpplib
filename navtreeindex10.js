@@ -1,7 +1,5 @@
 var NAVTREEINDEX10 =
 {
-"unionquickcpplib_1_1__xxx_1_1integers128_1_1uint128.html#aff96b5d7e8913302c769496cd8d22c8b":[4,0,0,0,13,0,12],
-"unionraised__signal__info__value.html":[4,0,2],
 "unionraised__signal__info__value.html#a24caa617f61a28b2091da67208e5b426":[4,0,2,0],
 "unionraised__signal__info__value.html#a48e3f11d8581c29665ff5caaf8a3ece3":[4,0,2,3],
 "unionraised__signal__info__value.html#a872a9c766f75454624db12e2d82947bc":[4,0,2,2],

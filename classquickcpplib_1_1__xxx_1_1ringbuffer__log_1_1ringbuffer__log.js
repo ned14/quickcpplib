@@ -60,7 +60,6 @@ var classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log =
     [ "_instance_level", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a9a4b70ff8aefaa5bf8bcafbdcac0d3a8", null ],
     [ "_counter", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a96acd9e8bef427b573d0fb362f1de70d", null ],
     [ "_immediate", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a32314dab48032dbb4220f636e145bf54", null ],
-    [ "_lock", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a11beffa149913127dfe2139e11a238cf", null ],
     [ "_seq", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a829a6757304bc57698a8d05b1b2e02d1", null ],
     [ "_cleared_at", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ad39e346b49538ccbd286115fbf819f42", null ]
 ];

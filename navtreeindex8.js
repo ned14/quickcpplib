@@ -1,7 +1,5 @@
 var NAVTREEINDEX8 =
 {
-"structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy.html#aeed094c6d8abae7bccdf3a67bf0126d8":[4,0,0,0,14,4,2,3],
-"structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html":[3,0,0,0,22,5,3,0],
 "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html":[4,0,0,0,14,4,2,0],
 "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html#a10ec5ea472540d19154fa06589ea295b":[3,0,0,0,22,5,3,0,5],
 "structquickcpplib_1_1__xxx_1_1algorithm_1_1open__hash__index_1_1linear__memory__policy_1_1value__type.html#a10ec5ea472540d19154fa06589ea295b":[4,0,0,0,14,4,2,0,5],
@@ -249,5 +247,7 @@ var NAVTREEINDEX8 =
 "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html#a6271daaa7603b2c46bad58423866733e":[4,0,0,0,11,8,0,2],
 "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html#a9ecdfcfeacd55cc1baf2cbc210344c85":[3,0,0,0,17,9,0,0],
 "structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html#a9ecdfcfeacd55cc1baf2cbc210344c85":[4,0,0,0,11,8,0,0],
-"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html#af1be6151dbf2c02aed9252b4c35971d2":[3,0,0,0,17,9,0,1]
+"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html#af1be6151dbf2c02aed9252b4c35971d2":[3,0,0,0,17,9,0,1],
+"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__sleep_1_1policy.html#af1be6151dbf2c02aed9252b4c35971d2":[4,0,0,0,11,8,0,1],
+"structquickcpplib_1_1__xxx_1_1configurable__spinlock_1_1spins__to__yield.html":[3,0,0,0,17,8]
 };

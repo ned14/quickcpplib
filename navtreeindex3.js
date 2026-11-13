@@ -160,8 +160,6 @@ var NAVTREEINDEX3 =
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a074e7cec1a39c0a279a3129a176f1650":[4,0,0,0,8,2,20],
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a109378604092f3cfa64c2c796eeb4b6e":[3,0,0,0,13,2,56],
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a109378604092f3cfa64c2c796eeb4b6e":[4,0,0,0,8,2,56],
-"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a11beffa149913127dfe2139e11a238cf":[3,0,0,0,13,2,60],
-"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a11beffa149913127dfe2139e11a238cf":[4,0,0,0,8,2,60],
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a11f438cc8ba64bac2adbb026f9488603":[3,0,0,0,13,2,16],
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a11f438cc8ba64bac2adbb026f9488603":[4,0,0,0,8,2,16],
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a152004c4abf16b1975bbef52db06490e":[3,0,0,0,13,2,3],
@@ -230,8 +228,8 @@ var NAVTREEINDEX3 =
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a8129c4cb9fc82d6208364be0fdf3a169":[4,0,0,0,8,2,35],
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a8160dff634177618d5b2209ab6654276":[3,0,0,0,13,2,38],
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a8160dff634177618d5b2209ab6654276":[4,0,0,0,8,2,38],
-"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a829a6757304bc57698a8d05b1b2e02d1":[3,0,0,0,13,2,61],
-"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a829a6757304bc57698a8d05b1b2e02d1":[4,0,0,0,8,2,61],
+"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a829a6757304bc57698a8d05b1b2e02d1":[3,0,0,0,13,2,60],
+"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a829a6757304bc57698a8d05b1b2e02d1":[4,0,0,0,8,2,60],
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a86c72b49deb0ed751a1c278725ed8601":[3,0,0,0,13,2,17],
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a86c72b49deb0ed751a1c278725ed8601":[4,0,0,0,8,2,17],
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a8e5726483e1265ca7d6e31f473249db1":[3,0,0,0,13,2,13],
@@ -249,5 +247,7 @@ var NAVTREEINDEX3 =
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ab81ba6553334d05f46308d0eacae40ef":[3,0,0,0,13,2,47],
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ab81ba6553334d05f46308d0eacae40ef":[4,0,0,0,8,2,47],
 "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ab81e7049c2e5976f1dca4c4784126e50":[3,0,0,0,13,2,22],
-"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ab81e7049c2e5976f1dca4c4784126e50":[4,0,0,0,8,2,22]
+"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ab81e7049c2e5976f1dca4c4784126e50":[4,0,0,0,8,2,22],
+"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#abaf13392e03d5d8177f0b42b4953e3cd":[3,0,0,0,13,2,5],
+"classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#abaf13392e03d5d8177f0b42b4953e3cd":[4,0,0,0,8,2,5]
 };
