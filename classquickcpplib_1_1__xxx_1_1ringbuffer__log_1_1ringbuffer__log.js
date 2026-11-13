@@ -17,12 +17,6 @@ var classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log =
     [ "ringbuffer_log", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a26da24282f4a16c887b274b485de0dc5", null ],
     [ "ringbuffer_log", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a2380728c8b4d39820b9590575ef3cad6", null ],
     [ "ringbuffer_log", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a11f438cc8ba64bac2adbb026f9488603", null ],
-    [ "counter_to_idx", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a86c72b49deb0ed751a1c278725ed8601", null ],
-    [ "slots", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a55eeb72dfc1ab4d2a0deefcb6f69b9d7", null ],
-    [ "_live_size", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a370c71ed1a8285dad943958a30764aeb", null ],
-    [ "_seq_write_begin", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a074e7cec1a39c0a279a3129a176f1650", null ],
-    [ "_seq_write_end", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a6e047996a2181bdfdb32ed9122547975", null ],
-    [ "_try_snapshot_counter", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ab81e7049c2e5976f1dca4c4784126e50", null ],
     [ "operator=", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#aa9947f55cbdfb6d760a21bde7b87594a", null ],
     [ "operator=", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a44493f6c181a311e37ed71cb362dd4a5", null ],
     [ "swap", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a7fe45bb1f1281ccaaec5f7bd8e2e7b8a", null ],
@@ -55,11 +49,5 @@ var classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log =
     [ "clear", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#af1fdddcc2c902b725c2d7611d7a1d5ce", null ],
     [ "push_back", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a9023ce95fcf98b47ad31859394daa710", null ],
     [ "emplace_back", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a30f0bddcbecb03cc56b99c907a3f1d53", null ],
-    [ "iterator_", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a292d4c3b165ecb5a32c9ec02fa2f8604", null ],
-    [ "_store", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a109378604092f3cfa64c2c796eeb4b6e", null ],
-    [ "_instance_level", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a9a4b70ff8aefaa5bf8bcafbdcac0d3a8", null ],
-    [ "_counter", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a96acd9e8bef427b573d0fb362f1de70d", null ],
-    [ "_immediate", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a32314dab48032dbb4220f636e145bf54", null ],
-    [ "_seq", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a829a6757304bc57698a8d05b1b2e02d1", null ],
-    [ "_cleared_at", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#ad39e346b49538ccbd286115fbf819f42", null ]
+    [ "iterator_", "classquickcpplib_1_1__xxx_1_1ringbuffer__log_1_1ringbuffer__log.html#a292d4c3b165ecb5a32c9ec02fa2f8604", null ]
 ];
