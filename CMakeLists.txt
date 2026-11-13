@@ -9,6 +9,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmakelib
 include(QuickCppLibRequireOutOfSourceBuild)
 include(QuickCppLibUtils)
 include(QuickCppLibPolicies)
+# NOTE: the path ensure_git_subrepo() takes is one INSIDE the subrepo which must
+# exist once it is populated - every caller in every repo passes <repo>/include -
+# so the clone target is that path's parent directory, not the path itself.
 ensure_git_subrepo("${CMAKE_CURRENT_SOURCE_DIR}/include/quickcpplib/span-lite/include" "https://github.com/martinmoene/span-lite.git")
 
 # Sets the usual PROJECT_NAME etc

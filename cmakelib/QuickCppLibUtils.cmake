@@ -760,19 +760,28 @@ function(ensure_git_subrepo path url)
       RESULT_VARIABLE retcode
     )
     if(retcode OR NOT EXISTS "${path}")
-      # The direct clone is the last resort, and it must not destroy anything on
-      # its way in. The old code stripped TWO path components off `path`, which
-      # turned .../include/quickcpplib/span-lite into .../include, deleted that
-      # whole directory with REMOVE_RECURSE - every core header of this library -
-      # and then cloned into it, so span-lite landed at include/span-lite instead
-      # of include/quickcpplib/span-lite. Since nothing re-checked ${path}
-      # afterwards, the only case that reaches this branch, the submodule being
-      # absent, was exactly the one that lost the library's headers.
-      get_filename_component(parent "${path}" DIRECTORY)
-      get_filename_component(leaf "${path}" NAME)
-      file(REMOVE_RECURSE "${path}")
-      file(MAKE_DIRECTORY "${parent}")
+      # `path` names a path INSIDE the subrepo which exists only once the subrepo
+      # is populated - every caller passes <repo>/include - so the repo root is
+      # its parent. The previous version of this branch stripped TWO components,
+      # which put the repo one level too deep for every caller (span-lite landed
+      # at .../span-lite/include/{nonstd,...}, so span.hpp:98's
+      # "span-lite/include/nonstd/span.hpp" had nothing behind it, and the only
+      # tree that reaches this branch - no .git, so git submodule update cannot
+      # populate anything - was the one that broke). The version before that also
+      # REMOVE_RECURSEd the stripped directory, which for a repo-root-shaped path
+      # would have been every core header of this library. Strip exactly one
+      # component, and only ever delete the repo directory itself, and only when
+      # it is empty.
+      get_filename_component(repo "${path}" DIRECTORY)
+      get_filename_component(parent "${repo}" DIRECTORY)
+      get_filename_component(leaf "${repo}" NAME)
       message(WARNING "WARNING: git submodule update failed with code ${retcode}, trying a direct git clone ...")
+      file(GLOB _repo_content "${repo}/*" "${repo}/.[!.]*")
+      if(_repo_content)
+        message(FATAL_ERROR "FATAL: ${repo} is not empty, so refusing to clone ${url} over it")
+      endif()
+      file(REMOVE_RECURSE "${repo}")
+      file(MAKE_DIRECTORY "${parent}")
       execute_process(COMMAND "${GIT_EXECUTABLE}" clone --recurse-submodules --depth 1 --jobs 8 --shallow-submodules ${url} ${leaf} ${ARGN}
         WORKING_DIRECTORY "${parent}"
         RESULT_VARIABLE retcode
